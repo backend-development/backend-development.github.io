@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Backend Development - a textbook
+</title>
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />
+
+  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
+
+  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+</head>
+<body class="guide">
+  <div>
+    <a href="http://github.com/bjelline/backend-development-textbook/"><img style="position: fixed; top: 0; right: 0; border: 0;" src="images/forkme.png" alt="Fork me on GitHub"></a>
+  </div>
+  <div id="topNav">
+    <div class="wrapper">
+      <strong class="more-info-label">Learn more at the sources: </strong>
+      <ul class="more-info-links s-hidden">
+        <li class="more-info"><a href="http://rubyonrails.org/">Ruby on Rails</a></li>
+        <li class="more-info"><a href="http://guides.rubyonrails.org/">Rails Guides</a></li>
+        <li class="more-info"><a href="http://railsforzombies.org/">Rails for Zombies</a></li>
+        <li class="more-info"><a href="http://railscasts.com/">Railscasts</a></li>
+      </ul>
+    </div>
+  </div>
+  <div id="header">
+    <div class="wrapper clearfix">
+      <h1><a href="index.html" title="Return to home page">Backend<span>
+            Development</span></a></h1>
+      <ul class="nav">
+        <li><a class="nav-item" href="index.html">Home</a></li>
+        <li class="guides-index guides-index-large">
+          <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
+          <div id="guides" class="clearfix" style="display: none;">
+            <hr />
+              <dl class="L">
+                <dt>Ruby on Rails</dt>
+                <dd><a href="rails_with_scaffold.html">Rails with Scaffold</a></dd>
+                <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
+                <dd><a href="rails_database_and_model.html">Rails Database and Model</a></dd>
+                <dd><a href="rails_view_and_controller.html">Rails View and Controller</a></dd>
+                <dd><a href="authentication_from_scratch.html">Authentication from Scratch</a></dd>
+                <dd><a href="authentication_with_devise.html">Authentication with Devise</a></dd>
+                <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
+                <dd><a href="testing_and_refactoring.html">Testing and Refactoring</a></dd>
+                <dd><a href="deploying_rails.html">Deploying Rails with Capistrano</a></dd>
+              </dl>
+              <dl class="R">
+                <dd><a href="rails_advanced_models.html">Advanced Rails Models</a></dd>
+              </dl>
+          </div>
+        </li>
+        <li><a class="nav-item" href="https://github.com/bjelline/backend-development-textbook/">Contribute</a></li>
+      </ul>
+      </div>
+    </div>
+  </div>
+  <hr class="hide" />
+
+  <div id="feature">
+    <div class="wrapper">
+      <div id="subCol">
+  <dl>
+    <dd class="work-in-progress">This whole book is currently a work in progress. While still useful, it may contain incomplete information and even errors. You can help by reviewing the document and posting your comments and corrections.</dd>
+  </dl>
+</div>
+
+<h2>About this Book</h2>
+
+<p><strong>please use <a http://web-engineering.github.com">web-engineering</a>
+  for now. the rails stuff will move over here eventually</strong></p>
+
+  <p>This is a textbook for the second year of a computer
+  science or "media informatics" degree program.  It builds
+  on <a href="http://web-development.github.com">Web Development</a> 
+  (which is only available in german).</p>
+
+  <p>This book is not a self-contained work: There are great
+  resources for learning about git and about rails on the internet 
+  - this book tries to use
+  these resources, and bind them together into a coherent study plan.</p>
+
+  <p>It was written and published by Brigitte Jellinek
+  in the hope that it will be useful to lecturers and students
+  in educational institutions as well as to self-directed learners on the internet.
+  </p>
+
+    </div>
+  </div>
+
+  <div id="container">
+    <div class="wrapper">
+      <div id="mainCol">
+        
+
+  <h3>Why Backend Development</h3>
+
+  <p>Is there really a need for "Backend Developemnt" as a separate subject?  </p>
+
+  <p>I would argue that web development has reached a level of
+  complexity where it makes sense to study it's different aspectects in depth, in
+  their own right.</p>
+
+      </div>
+    </div>
+  </div>
+  <hr class="hide" />
+  <div id="footer">
+    <div class="wrapper">
+      <p class="copyright">published under <a
+        href="http://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative
+        commons by-nc-sa</a> in 2012-2013 by <a href="http://brigitte-jellinek.at">Brigitte Jellinek</a>.
+      </p><p>If you want to contribute: <a href="https://github.com/bjelline/backend-development-textbook/fork_select">fork the source on github</a>
+      </p>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="javascripts/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/responsive-tables.js"></script>
+  <script type="text/javascript" src="javascripts/guides.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shCore.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>
+  <script type="text/javascript">
+    SyntaxHighlighter.all()
+    $(guidesIndex.bind);
+  </script>
+  </body>
+</html>
