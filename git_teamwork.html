@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Web Engineering Textbook: Git Teamwork</title>
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />
+
+  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
+
+  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+</head>
+<body class="guide">
+  <div>
+    <a href="http://github.com/backend-development/backend-development-textbook/"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 10;" src="images/forkme.png" alt="Fork me on GitHub"></a>
+  </div>
+  <div id="topNav">
+    <div class="wrapper">
+      <strong class="more-info-label">Learn more at the sources: </strong>
+      <ul class="more-info-links s-hidden">
+        <li class="more-info"><a href="http://git-scm.com/documentation">Git Documentation</a></li>
+        <li class="more-info"><a href="http://try.github.com/">Try Git</a></li>
+        <li class="more-info"><a href="http://rubyonrails.org/">Ruby on Rails</a></li>
+        <li class="more-info"><a href="http://guides.rubyonrails.org/">Rails Guides</a></li>
+        <li class="more-info"><a href="http://railsforzombies.org/">Rails for Zombies</a></li>
+        <li class="more-info"><a href="http://railscasts.com/">Railscasts</a></li>
+      </ul>
+    </div>
+  </div>
+  <div id="header">
+    <div class="wrapper clearfix">
+      <h1><a href="index.html" title="Return to home page">Backend<span> Development</span></a></h1>
+      <ul class="nav">
+        <li><a class="nav-item" href="index.html">Home</a></li>
+        <li class="guides-index guides-index-large">
+          <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
+          <div id="guides" class="clearfix" style="display: none;">
+            <hr />
+              <dl class="L">
+                <dt>Ruby on Rails 1</dt>
+                <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
+                <dd><a href="rails_database_and_model.html">Rails Database and Models</a></dd>
+                <dd><a href="rails_view_and_controller.html">Rails View and Controller</a></dd>
+                <dd><a href="authentication_from_scratch.html">Authentication from Scratch</a></dd>
+                <dd><a href="authentication_with_devise.html">Authentication with Devise</a></dd>
+                <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
+                <dd><a href="testing_and_refactoring.html">Testing and Refactoring</a></dd>
+                <dd><a href="deploying_rails.html">Deploying Rails with Capistrano</a></dd>
+                <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
+                <dt>Ruby on Rails 2</dt>
+                <dd><a href="rails_advanced_models.html">Advanced Rails Models</a></dd>
+                <dd><a href="testing_with_rspec.html">Testing with RSpec</a></dd>
+                <dd><a href="advanced_testing.html">Advanced testing</a></dd>
+                <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
+                <dd><a href="security.html">Security</a></dd>
+              </dl>
+              <dl class="R">
+                <dt>Git</dt>
+                <dd><a href="git_basics.html">Git Basics</a></dd>
+                <dd><a href="git_branching.html">Branching and Merging</a></dd>
+                <dd><a href="git_teamwork.html">Teamwork</a></dd>
+                <dt>Software Process</dt>
+                <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
+              </dl>
+          </div>
+        </li>
+        <li><a class="nav-item" href="https://github.com/backend-development/backend-development-textbook/">Contribute</a></li>
+      </ul>
+      </div>
+    </div>
+  </div>
+  <hr class="hide" />
+
+  <div id="feature">
+    <div class="wrapper">
+                <div id="subCol">
+            <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
+            <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body>
+<ol class="chapters">
+<li>
+<a href="#pair-programming">Pair Programming</a>
+
+<ul>
+<li><a href="#why-pair-questionmark">why pair?</a></li>
+</ul>
+</li>
+<li>
+<a href="#pair-programming-und-git">Pair Programming und git</a>
+
+<ul>
+<li><a href="#git-config">git config</a></li>
+<li><a href="#git-config-file">git config file</a></li>
+<li><a href="#set-the-config">set the config</a></li>
+</ul>
+</li>
+</ol>
+</body></html>
+
+            <dl>
+               <dd class="work-in-progress">This whole book is currently a work in progress. While still useful, it may contain incomplete information and even errors. You can help by reviewing them and posting your comments and corrections.</dd>
+            </dl>
+          </div>
+
+      <h2>Git Teamwork</h2><p>In this guide you will learn about a special form of teamwork
+in programming: pair programming.</p><p>After reading this guide, you will:</p>
+<ul>
+<li>Know why you should try pair programming</li>
+<li>have a good starting point for your first try at pairing</li>
+<li>be able to use git while pairing</li>
+</ul>
+
+    </div>
+  </div>
+
+  <div id="container">
+    <div class="wrapper">
+      <div id="mainCol">
+        <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body>
+<h3 id="pair-programming">1 Pair Programming</h3>
+<ul>
+<li>two developers, one computer</li>
+<li>a lot of talking. talk first!</li>
+<li>"driver" is typing</li>
+<li>"navigator" watches, thinks ahead, spots errors, keeps the big picture in mind</li>
+<li>take turns, switch around roles, after 20 minutes</li>
+</ul>
+<h4 id="why-pair-questionmark">1.1 why pair?</h4>
+<ul>
+<li>pairs are more productive than single developers (see Williams(2000))</li>
+<li>better quality of life through contact with other humans</li>
+<li>learn from each other</li>
+<li>part of agile methodologies, used today in industry</li>
+</ul>
+<h3 id="pair-programming-und-git">2 Pair Programming und git</h3>
+<p>We want the log to show who worked as a pair</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+$ git log
+commit 38d4f10fe2fb3f4d13e12d75e70bc0a085f0753f
+Author: Brigitte Jellinek + Mr. Hyde &lt;xhyde.lba@fh-salzburg.ac.at&gt;
+Date:   Fri Sep 14 10:52:41 2012 +0200
+
+</pre>
+</div>
+<p>This semester we will use:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+firstname lastname driver + firstname lastname navigator
+e-mail address of the navigator
+
+</pre>
+</div>
+<h4 id="git-config">2.1 git config</h4>
+<p>see git config --help</p>
+<ul>
+<li>three Levels:</li>
+<li>for a single repository ./.git/config</li>
+<li>for one user ~/.gitconfig </li>
+<li>--global</li>
+<li>for the whole system /etc/gitconfig </li>
+<li>--system</li>
+</ul>
+<h4 id="git-config-file">2.2 git config file</h4>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+[user]
+    name = Brigitte Jellinek + Mr. Hyde
+    email = xhyde.lba@fh-salzburg.ac.at
+
+[core]
+    repositoryformatversion = 0
+    filemode = true
+    bare = false
+    logallrefupdates = true
+    ignorecase = true
+
+[remote "origin"]
+    url = ssh://repos.mediacube.at/opt/git/webpm/r1
+    fetch = +refs/heads/*:refs/remotes/origin/*
+
+</pre>
+</div>
+<h4 id="set-the-config">2.3 set the config</h4>
+<p>just in the current repository, just for now.</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+git config --replace-all user.name "firstname lastname + firstname lastname"
+git config --replace-all user.email "navigator@gmail.com"
+
+</pre>
+</div>
+<p>go do it!</p>
+</body></html>
+
+      </div>
+    </div>
+  </div>
+
+  <hr class="hide" />
+  <div id="footer">
+    <div class="wrapper">
+      <p class="copyright">published under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2015 by <a href="http://brigitte-jellinek.at">Brigitte Jellinek</a>.
+      </p><p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
+        and edit <a href="https://github.com/backend-development/backend-development-textbook/blob/master/source/git_teamwork.md">git_teamwork.md</a>
+      </p>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="javascripts/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/responsive-tables.js"></script>
+  <script type="text/javascript" src="javascripts/guides.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shCore.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>
+  <script type="text/javascript">
+    SyntaxHighlighter.all()
+    $(guidesIndex.bind);
+  </script>
+  </body>
+</html>

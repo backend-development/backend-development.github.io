@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Web Engineering Textbook: Authentication from Scratch</title>
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />
+
+  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
+
+  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+</head>
+<body class="guide">
+  <div>
+    <a href="http://github.com/backend-development/backend-development-textbook/"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 10;" src="images/forkme.png" alt="Fork me on GitHub"></a>
+  </div>
+  <div id="topNav">
+    <div class="wrapper">
+      <strong class="more-info-label">Learn more at the sources: </strong>
+      <ul class="more-info-links s-hidden">
+        <li class="more-info"><a href="http://git-scm.com/documentation">Git Documentation</a></li>
+        <li class="more-info"><a href="http://try.github.com/">Try Git</a></li>
+        <li class="more-info"><a href="http://rubyonrails.org/">Ruby on Rails</a></li>
+        <li class="more-info"><a href="http://guides.rubyonrails.org/">Rails Guides</a></li>
+        <li class="more-info"><a href="http://railsforzombies.org/">Rails for Zombies</a></li>
+        <li class="more-info"><a href="http://railscasts.com/">Railscasts</a></li>
+      </ul>
+    </div>
+  </div>
+  <div id="header">
+    <div class="wrapper clearfix">
+      <h1><a href="index.html" title="Return to home page">Backend<span> Development</span></a></h1>
+      <ul class="nav">
+        <li><a class="nav-item" href="index.html">Home</a></li>
+        <li class="guides-index guides-index-large">
+          <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
+          <div id="guides" class="clearfix" style="display: none;">
+            <hr />
+              <dl class="L">
+                <dt>Ruby on Rails 1</dt>
+                <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
+                <dd><a href="rails_database_and_model.html">Rails Database and Models</a></dd>
+                <dd><a href="rails_view_and_controller.html">Rails View and Controller</a></dd>
+                <dd><a href="authentication_from_scratch.html">Authentication from Scratch</a></dd>
+                <dd><a href="authentication_with_devise.html">Authentication with Devise</a></dd>
+                <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
+                <dd><a href="testing_and_refactoring.html">Testing and Refactoring</a></dd>
+                <dd><a href="deploying_rails.html">Deploying Rails with Capistrano</a></dd>
+                <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
+                <dt>Ruby on Rails 2</dt>
+                <dd><a href="rails_advanced_models.html">Advanced Rails Models</a></dd>
+                <dd><a href="testing_with_rspec.html">Testing with RSpec</a></dd>
+                <dd><a href="advanced_testing.html">Advanced testing</a></dd>
+                <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
+                <dd><a href="security.html">Security</a></dd>
+              </dl>
+              <dl class="R">
+                <dt>Git</dt>
+                <dd><a href="git_basics.html">Git Basics</a></dd>
+                <dd><a href="git_branching.html">Branching and Merging</a></dd>
+                <dd><a href="git_teamwork.html">Teamwork</a></dd>
+                <dt>Software Process</dt>
+                <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
+              </dl>
+          </div>
+        </li>
+        <li><a class="nav-item" href="https://github.com/backend-development/backend-development-textbook/">Contribute</a></li>
+      </ul>
+      </div>
+    </div>
+  </div>
+  <hr class="hide" />
+
+  <div id="feature">
+    <div class="wrapper">
+                <div id="subCol">
+            <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
+            <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body>
+<ol class="chapters">
+<li><a href="#sessions-in-rails">Sessions in Rails </a></li>
+<li>
+<a href="#models-are-more-than-a-simple-database-mapping">Models are more than a simple Database Mapping</a>
+
+<ul>
+<li><a href="#virtual-attribute-getter-and-setter">Virtual Attribute: Getter and Setter</a></li>
+</ul>
+</li>
+<li>
+<a href="#login-from-scratch">Login from Scratch</a>
+
+<ul>
+<li><a href="#user-model-for-authentication">user-model for authentication</a></li>
+</ul>
+</li>
+</ol>
+</body></html>
+
+            <dl>
+               <dd class="work-in-progress">This whole book is currently a work in progress. While still useful, it may contain incomplete information and even errors. You can help by reviewing them and posting your comments and corrections.</dd>
+            </dl>
+          </div>
+
+      <h2>Authentication from Scratch</h2><p>This guide is about Logins and Logouts.</p><p>After reading this guide you will</p>
+<ul>
+<li>understand how cookies, sessions, logins are connected</li>
+<li>be able to write a model is more than just the mapping of a database table</li>
+<li>be able to build simple authentication into your rails app</li>
+</ul>
+
+    </div>
+  </div>
+
+  <div id="container">
+    <div class="wrapper">
+      <div id="mainCol">
+        <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body>
+<h3 id="sessions-in-rails">1 Sessions in Rails </h3>
+<p>HTTP is a <strong>statless</strong> protocol. This means that the web server
+does not need to remember anything about the client from one
+request to the next.  </p>
+<p>Building a Login for your web app means getting around the
+statlessness, creating a way for the web app to remember: oh, this is user
+Susan, I already know her, she may look at this stuff.</p>
+<p>Cookies are a way to achive statefulness in HTTP. A cookie
+is an abitrary piece of information that the server sends to the
+client, and that the client will echo back with every request.</p>
+<p>Web frameworks use cookies to offer so called <strong>sessions</strong> to the
+developer: a session is a key-value store that is associated with
+the cookie, and thus with one specific user.</p>
+<p>Ruby on Rails by default sets a cookie named after the application.
+In the following screenshot you can see the cookie set by the <code>kanban</code>
+application (as displayed by firebug):</p>
+<p><img src="images/rails-cookie.png" alt="cookie set by rails,  as displayed by firebug"></p>
+<p>In Ruby on Rails you find a Hash <code>session</code> that is accessible from
+both controllers and views.</p>
+<p>See <a href="http://guides.rubyonrails.org/action_controller_overview.html#session">Rails Guide: Controller</a>
+for more details.</p>
+<h3 id="models-are-more-than-a-simple-database-mapping">2 Models are more than a simple Database Mapping</h3>
+<p>When building your first rails app with the scaffolds generator
+or the model generator you immediately see how tightly the
+rails model is connected to the database table.</p>
+<p>But there is more to the model than just that.  The model 
+is a ruby class. You can use it to add the so called "business logic"
+to your model:  for a model representing a book in the library
+this would be methods for checking out and handing in the book, .... for
+every model this will be different.</p>
+<p>In many cases you want the object from your model class 
+to have a different set of attributes than the underlying database has.
+For example in a user-model you want to be able to set the password,
+and to check if it is correct, but you do not want to read out the password.
+The methods might look like this:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+def password=
+end
+
+def check_password( p )
+end
+
+</pre>
+</div>
+<p>When you look into the database, the password should be salted and encrypted.</p>
+<p>To achieve this disconnect we will look into virtual attributes </p>
+<h4 id="virtual-attribute-getter-and-setter">2.1 Virtual Attribute: Getter and Setter</h4>
+<p>In the following example the attribute <code>fullname</code>
+is computed from two other attributes, and does not really
+exist in the database:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+attr_accessible :firstname, :lastname, :fullname
+
+def fullname
+  "#{firstname} #{lastname}"
+end
+
+</pre>
+</div>
+<p>To set the attribute 
+is computed from two other attributes, does not really
+exist in the database.</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+def fullname=(name)
+  split = name.split(' ', 2)
+  self.firstname = split.first
+  self.lastname = split.last
+end
+
+</pre>
+</div>
+<p>See <a href="http://railscasts.com/episodes/16-virtual-attributes?view=asciicast">Railscast no.16</a> for
+more details.</p>
+<h3 id="login-from-scratch">3 Login from Scratch</h3>
+<p>We now have all the bits and pieces to build a
+Login.  </p>
+<p>There is a rails convention for authentication systems:
+the current user should be accessible via a helper method <code>current_user</code>.</p>
+<h4 id="user-model-for-authentication">3.1 user-model for authentication</h4>
+<ul>
+<li>Class User offers access login, email, firstname, lastname, password, password_confirmation</li>
+<li>Class User writes to Database:  firstname, lastname, email, login, crypted_password, salt</li>
+</ul>
+<p><img src="images/railscast-auth-from-scratch.jpg" alt="Railscasts"></p>
+<p>There are two Railscasts on this subject:</p>
+<ul>
+<li>
+<a href="http://railscasts.com/episodes/250-authentication-from-scratch?view=asciicast">Railscast no.250</a>,</li>
+<li>revised as <a href="http://railscasts.com/episodes/385-authorization-from-scratch-part-1?view=asciicast">Railscast no.385</a> + <a href="http://railscasts.com/episodes/386-authorization-from-scratch-part-2?view=asciicast">Railscast no.386</a>
+</li>
+</ul>
+</body></html>
+
+      </div>
+    </div>
+  </div>
+
+  <hr class="hide" />
+  <div id="footer">
+    <div class="wrapper">
+      <p class="copyright">published under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2015 by <a href="http://brigitte-jellinek.at">Brigitte Jellinek</a>.
+      </p><p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
+        and edit <a href="https://github.com/backend-development/backend-development-textbook/blob/master/source/authentication_from_scratch.md">authentication_from_scratch.md</a>
+      </p>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="javascripts/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/responsive-tables.js"></script>
+  <script type="text/javascript" src="javascripts/guides.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shCore.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>
+  <script type="text/javascript">
+    SyntaxHighlighter.all()
+    $(guidesIndex.bind);
+  </script>
+  </body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Web Engineering Textbook: The Asset Pipeline</title>
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />
+
+  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
+
+  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+</head>
+<body class="guide">
+  <div>
+    <a href="http://github.com/backend-development/backend-development-textbook/"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 10;" src="images/forkme.png" alt="Fork me on GitHub"></a>
+  </div>
+  <div id="topNav">
+    <div class="wrapper">
+      <strong class="more-info-label">Learn more at the sources: </strong>
+      <ul class="more-info-links s-hidden">
+        <li class="more-info"><a href="http://git-scm.com/documentation">Git Documentation</a></li>
+        <li class="more-info"><a href="http://try.github.com/">Try Git</a></li>
+        <li class="more-info"><a href="http://rubyonrails.org/">Ruby on Rails</a></li>
+        <li class="more-info"><a href="http://guides.rubyonrails.org/">Rails Guides</a></li>
+        <li class="more-info"><a href="http://railsforzombies.org/">Rails for Zombies</a></li>
+        <li class="more-info"><a href="http://railscasts.com/">Railscasts</a></li>
+      </ul>
+    </div>
+  </div>
+  <div id="header">
+    <div class="wrapper clearfix">
+      <h1><a href="index.html" title="Return to home page">Backend<span> Development</span></a></h1>
+      <ul class="nav">
+        <li><a class="nav-item" href="index.html">Home</a></li>
+        <li class="guides-index guides-index-large">
+          <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
+          <div id="guides" class="clearfix" style="display: none;">
+            <hr />
+              <dl class="L">
+                <dt>Ruby on Rails 1</dt>
+                <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
+                <dd><a href="rails_database_and_model.html">Rails Database and Models</a></dd>
+                <dd><a href="rails_view_and_controller.html">Rails View and Controller</a></dd>
+                <dd><a href="authentication_from_scratch.html">Authentication from Scratch</a></dd>
+                <dd><a href="authentication_with_devise.html">Authentication with Devise</a></dd>
+                <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
+                <dd><a href="testing_and_refactoring.html">Testing and Refactoring</a></dd>
+                <dd><a href="deploying_rails.html">Deploying Rails with Capistrano</a></dd>
+                <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
+                <dt>Ruby on Rails 2</dt>
+                <dd><a href="rails_advanced_models.html">Advanced Rails Models</a></dd>
+                <dd><a href="testing_with_rspec.html">Testing with RSpec</a></dd>
+                <dd><a href="advanced_testing.html">Advanced testing</a></dd>
+                <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
+                <dd><a href="security.html">Security</a></dd>
+              </dl>
+              <dl class="R">
+                <dt>Git</dt>
+                <dd><a href="git_basics.html">Git Basics</a></dd>
+                <dd><a href="git_branching.html">Branching and Merging</a></dd>
+                <dd><a href="git_teamwork.html">Teamwork</a></dd>
+                <dt>Software Process</dt>
+                <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
+              </dl>
+          </div>
+        </li>
+        <li><a class="nav-item" href="https://github.com/backend-development/backend-development-textbook/">Contribute</a></li>
+      </ul>
+      </div>
+    </div>
+  </div>
+  <hr class="hide" />
+
+  <div id="feature">
+    <div class="wrapper">
+                <div id="subCol">
+            <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
+            <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body>
+<ol class="chapters">
+<li>
+<a href="#compile-to-the-web">Compile to the Web</a>
+
+<ul>
+<li><a href="#compile-to-the-web-compiling-to-css">compiling to css</a></li>
+<li><a href="#compiling-to-javascript">compiling to javascript</a></li>
+<li><a href="#compile-to-the-web-compiling-to-css">compiling to css</a></li>
+<li><a href="#no-and-no">no { } and no ;</a></li>
+<li><a href="#nesting">nesting</a></li>
+<li><a href="#variables-and-computation">variables and computation</a></li>
+<li><a href="#mixins-for-reusing-css-code">mixins for reusing css-code</a></li>
+<li><a href="#automatically-create-sass-from-css-after-every-change">automatically create sass from css after every change</a></li>
+<li><a href="#sass-comes-with-a-reverse-compiler">sass comes with a reverse compiler</a></li>
+</ul>
+</li>
+<li>
+<a href="#web-performance">Web Performance</a>
+
+<ul>
+<li><a href="#pre-modern-area">pre-modern area</a></li>
+<li><a href="#modern-area">modern area</a></li>
+<li><a href="#web-performance-rules">Rules...</a></li>
+<li><a href="#web-performance-rules">...Rules...</a></li>
+<li><a href="#rails-can-help">rails can help</a></li>
+</ul>
+</li>
+<li>
+<a href="#rails-environments">Rails Environments</a>
+
+<ul>
+<li><a href="#three-pre-defined-environments">Three pre-defined Environments</a></li>
+<li><a href="#how-to-configure">How to Configure</a></li>
+<li><a href="#how-to-use-different-environment">How to use different environment</a></li>
+<li><a href="#asset-pipeline-since-rails-3">Asset Pipeline (since Rails 3)</a></li>
+<li><a href="#all-git-repositories-are-created-equal-in-dignity-and-rights">all git repositories are created equal in dignity and rights</a></li>
+<li><a href="#example-app-rezepte">example app 'rezepte'</a></li>
+<li><a href="#remember-bang">remember!</a></li>
+</ul>
+</li>
+<li><a href="#the-asset-pipeline">The Asset Pipeline</a></li>
+</ol>
+</body></html>
+
+            <dl>
+               <dd class="work-in-progress">This whole book is currently a work in progress. While still useful, it may contain incomplete information and even errors. You can help by reviewing them and posting your comments and corrections.</dd>
+            </dl>
+          </div>
+
+      <h2>The Asset Pipeline</h2><p>bla bla bla</p><p>By referring to this guide, you will be able to:</p>
+<ul>
+<li>keep your assets in the right place</li>
+<li>have all your assets compiled and minified for production</li>
+</ul>
+
+    </div>
+  </div>
+
+  <div id="container">
+    <div class="wrapper">
+      <div id="mainCol">
+        <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body>
+<h3 id="compile-to-the-web">1 Compile to the Web</h3>
+<h4 id="compile-to-the-web-compiling-to-css">1.1 compiling to css</h4>
+<h4 id="compiling-to-javascript">1.2 compiling to javascript</h4>
+<h4 id="compile-to-the-web-compiling-to-css">1.3 compiling to css</h4>
+<ul>
+<li>
+<a href="http://sass-lang.com/">sass</a> - default in ruby</li>
+<li><a href="http://lesscss.org/">less</a></li>
+<li><a href="http://learnboost.github.com/stylus/">stylus</a></li>
+</ul>
+<h4 id="no-and-no">1.4 no { } and no ;</h4>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+h1
+  color: black
+  background-color: yellow
+
+p
+  text-align: justify
+
+</pre>
+</div>
+<h4 id="nesting">1.5 nesting</h4>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+h1 strong
+  color: red
+
+nav
+  a:link, a:visited, a:active
+    text-decoration: none
+  a:link
+    color: blue
+  a:visited
+    color: white
+
+</pre>
+</div>
+<h4 id="variables-and-computation">1.6 variables and computation</h4>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+$blue: #3bbfce
+$x: 16px
+
+.content-navigation
+  border-color: $blue
+  color: darken($blue, 9%)
+
+.border
+  padding: $x / 2
+  margin: $x / 2
+  border-color: $blue
+
+</pre>
+</div>
+<h4 id="mixins-for-reusing-css-code">1.7 mixins for reusing css-code</h4>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+@mixin left($dist)
+  float: left
+  margin-left: $dist
+
+#data
+  @include left(10px)
+
+</pre>
+</div>
+<h4 id="automatically-create-sass-from-css-after-every-change">1.8 automatically create sass from css after every change</h4>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+### for one file in the current directory
+sass --watch style.scss:style.css
+
+### for a whole directory of files
+sass --watch stylesheets/sass:stylesheets/compiled
+
+</pre>
+</div>
+<h4 id="sass-comes-with-a-reverse-compiler">1.9 sass comes with a reverse compiler</h4>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+sass-convert --from css --to sass style.css &gt; style.sass
+
+</pre>
+</div>
+<h3 id="web-performance">2 Web Performance</h3>
+<h4 id="pre-modern-area">2.1 pre-modern area</h4>
+<ul>
+<li>performance of the backend</li>
+<li>myths about performance: image slicing</li>
+</ul>
+<h4 id="modern-area">2.2 modern area</h4>
+<ul>
+<li>work of the "exceptional performance" group at yahoo: yslow</li>
+<li>Souders(2007): High Performance Web Sites</li>
+<li>"front end view" of performance</li>
+</ul>
+<h4 id="web-performance-rules">2.3 Rules...</h4>
+<ul>
+<li>  Less HTTP Requests</li>
+<li>  Use a Content Delivery Network</li>
+<li>  Avoid empty src or href</li>
+<li>  Add an Expires or a Cache-Control Header</li>
+<li>  Gzip Components</li>
+<li>  Put StyleSheets at the Top</li>
+<li>  Put Scripts at the Bottom</li>
+<li>  Avoid CSS Expressions...</li>
+</ul>
+<h4 id="web-performance-rules">2.4 ...Rules...</h4>
+<ul>
+<li>  Make JavaScript and CSS External</li>
+<li>  Reduce DNS Lookups</li>
+<li>  Minify JavaScript and CSS</li>
+<li>  Avoid Redirects</li>
+<li>  Remove Duplicate Scripts</li>
+<li>  ...</li>
+</ul>
+<h4 id="rails-can-help">2.5 rails can help</h4>
+<ul>
+<li>Minify JavaScript and CSS</li>
+<li>Create CSS Sprites</li>
+<li>Set Expires Header for static assets</li>
+</ul>
+<h3 id="rails-environments">3 Rails Environments</h3>
+<h4 id="three-pre-defined-environments">3.1 Three pre-defined Environments</h4>
+<ul>
+<li>development - optimized for debugging</li>
+<li>testing</li>
+<li>production - optimized for speed, stability</li>
+</ul>
+<h4 id="how-to-configure">3.2 How to Configure</h4>
+<ul>
+<li>config/environments/development.rb</li>
+<li>config/environments/production.rb</li>
+</ul>
+<h4 id="how-to-use-different-environment">3.3 How to use different environment</h4>
+<ul>
+<li>webrick server: <code>rails server -e production</code>
+</li>
+<li>Rake tasks: add <code>RAILS_ENV="production"</code> at the end of the command.</li>
+<li>Rails console: <code>rails console production</code>
+</li>
+</ul>
+<h4 id="asset-pipeline-since-rails-3">3.4 Asset Pipeline (since Rails 3)</h4>
+<ul>
+<li>  source in <code>app/assets/*</code>
+</li>
+<li>  <code>rake assets:precompile</code>
+</li>
+<li>  assets in <code>public/assets/*</code>
+</li>
+<li>  can be served by web server, without going through the rails stack</li>
+<li>  <code>public/assets/manifest.yml</code>
+</li>
+<li>files look like this: <code>application-107e9bb2ab22174acce34bbbbe8f6d7f.css</code>
+</li>
+<li>expires header is set far into the future</li>
+<li>change in file --&gt; new file name</li>
+</ul>
+<h4 id="all-git-repositories-are-created-equal-in-dignity-and-rights">3.5 all git repositories are created equal in dignity and rights</h4>
+<ul>
+<li>we've been using a centralized model, pushing to a remote on repos.mediacube.at</li>
+<li>today we need two working copies, but we can't push to the <code>origin</code>
+</li>
+<li>clone a local git repository:</li>
+<li><code>git clone /path/to/the/repository new_directory_name</code></li>
+<li>origin will point back to old repository</li>
+<li>push and pull as usual!</li>
+</ul>
+<h4 id="example-app-rezepte">3.6 example app 'rezepte'</h4>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+cd /my/work
+git clone ssh://repos.mediacube.at/opt/git/web_2012/example/rezepte.git/ rezepte_development
+git clone /my/work/rezepte_development rezepte_production
+
+</pre>
+</div>
+<h4 id="remember-bang">3.7 remember!</h4>
+<p>every significant step in development should be a commit!</p>
+<h3 id="the-asset-pipeline">4 The Asset Pipeline</h3>
+<p><img src="images/asset-pipeline.svg" alt="Asset Pipeline"></p>
+</body></html>
+
+      </div>
+    </div>
+  </div>
+
+  <hr class="hide" />
+  <div id="footer">
+    <div class="wrapper">
+      <p class="copyright">published under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2015 by <a href="http://brigitte-jellinek.at">Brigitte Jellinek</a>.
+      </p><p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
+        and edit <a href="https://github.com/backend-development/backend-development-textbook/blob/master/source/asset_pipeline.md">asset_pipeline.md</a>
+      </p>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="javascripts/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/responsive-tables.js"></script>
+  <script type="text/javascript" src="javascripts/guides.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shCore.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>
+  <script type="text/javascript">
+    SyntaxHighlighter.all()
+    $(guidesIndex.bind);
+  </script>
+  </body>
+</html>

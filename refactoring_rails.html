@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Web Engineering Textbook: Refactoring Rails</title>
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />
+
+  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
+
+  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+</head>
+<body class="guide">
+  <div>
+    <a href="http://github.com/backend-development/backend-development-textbook/"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 10;" src="images/forkme.png" alt="Fork me on GitHub"></a>
+  </div>
+  <div id="topNav">
+    <div class="wrapper">
+      <strong class="more-info-label">Learn more at the sources: </strong>
+      <ul class="more-info-links s-hidden">
+        <li class="more-info"><a href="http://git-scm.com/documentation">Git Documentation</a></li>
+        <li class="more-info"><a href="http://try.github.com/">Try Git</a></li>
+        <li class="more-info"><a href="http://rubyonrails.org/">Ruby on Rails</a></li>
+        <li class="more-info"><a href="http://guides.rubyonrails.org/">Rails Guides</a></li>
+        <li class="more-info"><a href="http://railsforzombies.org/">Rails for Zombies</a></li>
+        <li class="more-info"><a href="http://railscasts.com/">Railscasts</a></li>
+      </ul>
+    </div>
+  </div>
+  <div id="header">
+    <div class="wrapper clearfix">
+      <h1><a href="index.html" title="Return to home page">Backend<span> Development</span></a></h1>
+      <ul class="nav">
+        <li><a class="nav-item" href="index.html">Home</a></li>
+        <li class="guides-index guides-index-large">
+          <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
+          <div id="guides" class="clearfix" style="display: none;">
+            <hr />
+              <dl class="L">
+                <dt>Ruby on Rails 1</dt>
+                <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
+                <dd><a href="rails_database_and_model.html">Rails Database and Models</a></dd>
+                <dd><a href="rails_view_and_controller.html">Rails View and Controller</a></dd>
+                <dd><a href="authentication_from_scratch.html">Authentication from Scratch</a></dd>
+                <dd><a href="authentication_with_devise.html">Authentication with Devise</a></dd>
+                <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
+                <dd><a href="testing_and_refactoring.html">Testing and Refactoring</a></dd>
+                <dd><a href="deploying_rails.html">Deploying Rails with Capistrano</a></dd>
+                <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
+                <dt>Ruby on Rails 2</dt>
+                <dd><a href="rails_advanced_models.html">Advanced Rails Models</a></dd>
+                <dd><a href="testing_with_rspec.html">Testing with RSpec</a></dd>
+                <dd><a href="advanced_testing.html">Advanced testing</a></dd>
+                <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
+                <dd><a href="security.html">Security</a></dd>
+              </dl>
+              <dl class="R">
+                <dt>Git</dt>
+                <dd><a href="git_basics.html">Git Basics</a></dd>
+                <dd><a href="git_branching.html">Branching and Merging</a></dd>
+                <dd><a href="git_teamwork.html">Teamwork</a></dd>
+                <dt>Software Process</dt>
+                <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
+              </dl>
+          </div>
+        </li>
+        <li><a class="nav-item" href="https://github.com/backend-development/backend-development-textbook/">Contribute</a></li>
+      </ul>
+      </div>
+    </div>
+  </div>
+  <hr class="hide" />
+
+  <div id="feature">
+    <div class="wrapper">
+                <div id="subCol">
+            <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
+            <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body>
+<ol class="chapters">
+<li>
+<a href="#never-be-ashamed">Never be ashamed...</a>
+
+<ul>
+<li><a href="#tools-for-code-quality">Tools for Code Quality</a></li>
+</ul>
+</li>
+<li><a href="#tools">Tools</a></li>
+</ol>
+</body></html>
+
+            <dl>
+               <dd class="work-in-progress">This whole book is currently a work in progress. While still useful, it may contain incomplete information and even errors. You can help by reviewing them and posting your comments and corrections.</dd>
+            </dl>
+          </div>
+
+      <h2>Refactoring Rails</h2><p>This guide will show you how to refactor
+your code.  All the examples were taken from
+students projects. For all of them it was their
+first rails project, and they all ended up with
+a fully functional, finished project. The perfect
+starting place for some refactoring.</p><p>By referring to this guide, you will be able to:</p>
+<ul>
+<li>Understand how testing can help you during refactoring</li>
+<li>Get to know some tools that help you find problematic aspects of your code</li>
+<li>Learn general refactoring practice from concrete examples</li>
+</ul>
+
+    </div>
+  </div>
+
+  <div id="container">
+    <div class="wrapper">
+      <div id="mainCol">
+        <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body>
+<h3 id="never-be-ashamed">1 Never be ashamed...</h3>
+<p>of making you code better.  On the contrary: recognizing code smells
+in your old code means that you learnt something in the meantime.
+Only very inexperienced people think that the code they wrote yesterday is
+perfect.</p>
+<p>As we have <a href="/testing_and_refactoring.html">learned previously</a> refactoring is </p>
+<ul>
+<li>"restructuring an existing body of code</li>
+<li>altering its internal structure</li>
+<li>without changing its external behavior" <a href="http://en.wikipedia.org/wiki/Refactoring">wikipedia</a>
+</li>
+</ul>
+<p>We will use <strong>tests</strong> to ensure that we do not change the external behavior 
+of the code we are refactoring.</p>
+<h4 id="tools-for-code-quality">1.1 Tools for Code Quality</h4>
+<p>Recognizing code that is problematic and should be refactored
+is one of the main skills of a developer.  Often it is not a
+black and white situation: there might be several ways of writing
+a certain piece of code, each with it's own pros and cons.<br>
+A tool cannot help you make these decision.</p>
+<p>But there is a role for tools in this process: especially when
+faced with a lot of code there are tools that can help
+you find places you should look at.</p>
+<p>A <a href="http://en.wikipedia.org/wiki/Software_metric">code metric</a> is 
+a quantitive measure of the quality of a piece of code.</p>
+<p>The Gem <code>metric_fu</code> combines some metrics. Install it in your
+Gemfile, and add a task-file, <code>lib/tasks/metric_fu.rake</code>.
+Sadly, three of the metrics have not been adapted for Ruby 1.9 yet,
+so you have to disable them in <code>lib/tasks/metric_fu.rake</code>.</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+begin
+  require 'metric_fu'
+
+  MetricFu::Configuration.run do |config|
+    config.metrics -= [:reek, :flay, :flog]
+  end
+
+rescue LoadError
+end
+
+</pre>
+</div>
+<p>Run <code>rake metrics:all</code> and the results will be saved as html-files
+in <code>tmp/metric_fu/output/</code>. <strong>Saikuro</strong> is a good place to start: it
+measures  cyclomatic complexity, or how deep you nest your control structures.</p>
+<p>See <a href="http://railscasts.com/episodes/166-metric-fu?view=asciicast">Rails Cast no
+166</a> for a more
+detailed introduction to metric_fu.</p>
+<p>Another tool to help find spots where you can improve the quality of
+your code is <code>rails_best_practices</code>.  Install the gem, but don't put
+it in your <code>Gemfile</code>.  Just run <code>rails_best_practices -f html</code> in
+the main directory of your app.  The result will be written to 
+<code>./rails_best_practices_output.html</code>.</p>
+<h3 id="tools">2 Tools</h3>
+<p>Most IDEs now have some refactorings built in.</p>
+<ul>
+<li>
+<a href="https://github.com/facebook/codemod">codemod</a> a python script</li>
+</ul>
+</body></html>
+
+      </div>
+    </div>
+  </div>
+
+  <hr class="hide" />
+  <div id="footer">
+    <div class="wrapper">
+      <p class="copyright">published under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2015 by <a href="http://brigitte-jellinek.at">Brigitte Jellinek</a>.
+      </p><p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
+        and edit <a href="https://github.com/backend-development/backend-development-textbook/blob/master/source/refactoring_rails.md">refactoring_rails.md</a>
+      </p>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="javascripts/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/responsive-tables.js"></script>
+  <script type="text/javascript" src="javascripts/guides.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shCore.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>
+  <script type="text/javascript">
+    SyntaxHighlighter.all()
+    $(guidesIndex.bind);
+  </script>
+  </body>
+</html>

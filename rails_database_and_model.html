@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Web Engineering Textbook: Rails: Database and Models</title>
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />
+
+  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
+
+  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+</head>
+<body class="guide">
+  <div>
+    <a href="http://github.com/backend-development/backend-development-textbook/"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 10;" src="images/forkme.png" alt="Fork me on GitHub"></a>
+  </div>
+  <div id="topNav">
+    <div class="wrapper">
+      <strong class="more-info-label">Learn more at the sources: </strong>
+      <ul class="more-info-links s-hidden">
+        <li class="more-info"><a href="http://git-scm.com/documentation">Git Documentation</a></li>
+        <li class="more-info"><a href="http://try.github.com/">Try Git</a></li>
+        <li class="more-info"><a href="http://rubyonrails.org/">Ruby on Rails</a></li>
+        <li class="more-info"><a href="http://guides.rubyonrails.org/">Rails Guides</a></li>
+        <li class="more-info"><a href="http://railsforzombies.org/">Rails for Zombies</a></li>
+        <li class="more-info"><a href="http://railscasts.com/">Railscasts</a></li>
+      </ul>
+    </div>
+  </div>
+  <div id="header">
+    <div class="wrapper clearfix">
+      <h1><a href="index.html" title="Return to home page">Backend<span> Development</span></a></h1>
+      <ul class="nav">
+        <li><a class="nav-item" href="index.html">Home</a></li>
+        <li class="guides-index guides-index-large">
+          <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
+          <div id="guides" class="clearfix" style="display: none;">
+            <hr />
+              <dl class="L">
+                <dt>Ruby on Rails 1</dt>
+                <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
+                <dd><a href="rails_database_and_model.html">Rails Database and Models</a></dd>
+                <dd><a href="rails_view_and_controller.html">Rails View and Controller</a></dd>
+                <dd><a href="authentication_from_scratch.html">Authentication from Scratch</a></dd>
+                <dd><a href="authentication_with_devise.html">Authentication with Devise</a></dd>
+                <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
+                <dd><a href="testing_and_refactoring.html">Testing and Refactoring</a></dd>
+                <dd><a href="deploying_rails.html">Deploying Rails with Capistrano</a></dd>
+                <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
+                <dt>Ruby on Rails 2</dt>
+                <dd><a href="rails_advanced_models.html">Advanced Rails Models</a></dd>
+                <dd><a href="testing_with_rspec.html">Testing with RSpec</a></dd>
+                <dd><a href="advanced_testing.html">Advanced testing</a></dd>
+                <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
+                <dd><a href="security.html">Security</a></dd>
+              </dl>
+              <dl class="R">
+                <dt>Git</dt>
+                <dd><a href="git_basics.html">Git Basics</a></dd>
+                <dd><a href="git_branching.html">Branching and Merging</a></dd>
+                <dd><a href="git_teamwork.html">Teamwork</a></dd>
+                <dt>Software Process</dt>
+                <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
+              </dl>
+          </div>
+        </li>
+        <li><a class="nav-item" href="https://github.com/backend-development/backend-development-textbook/">Contribute</a></li>
+      </ul>
+      </div>
+    </div>
+  </div>
+  <hr class="hide" />
+
+  <div id="feature">
+    <div class="wrapper">
+                <div id="subCol">
+            <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
+            <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body>
+<ol class="chapters">
+<li><a href="#models-and-databases">Models and Databases</a></li>
+<li>
+<a href="#activerecord-basics">ActiveRecord Basics</a>
+
+<ul>
+<li><a href="#the-mapping">The Mapping</a></li>
+<li><a href="#how-to-build-a-model">How to build a model</a></li>
+<li><a href="#database-migrations">Database Migrations</a></li>
+<li><a href="#the-model-in-the-console">the model in the console</a></li>
+<li><a href="#activerecord-basics-learn-from-zombies">Learn from Zombies</a></li>
+</ul>
+</li>
+<li>
+<a href="#validations-and-associations">Validations and Associations</a>
+
+<ul>
+<li><a href="#validations">Validations</a></li>
+<li><a href="#1-n-associations">1:n Associations</a></li>
+<li><a href="#validations-and-associations-learn-from-zombies">Learn from Zombies</a></li>
+</ul>
+</li>
+<li>
+<a href="#on-documentation">On Documentation</a>
+
+<ul>
+<li><a href="#further-reading">Further reading</a></li>
+</ul>
+</li>
+</ol>
+</body></html>
+
+            <dl>
+               <dd class="work-in-progress">This whole book is currently a work in progress. While still useful, it may contain incomplete information and even errors. You can help by reviewing them and posting your comments and corrections.</dd>
+            </dl>
+          </div>
+
+      <h2>Rails: Database and Models</h2><p>Models are the basic Classes of a Rails Project.  The
+data is actually stored in a relational database.</p><p>After working through this guide you should</p>
+<ul>
+<li>Understand how ActiveRecord works</li>
+<li>Understand what Database Migrations are</li>
+<li>Be able to create models with associations to other models</li>
+<li>Be able to write validations to check data before it is saved in a model</li>
+</ul>
+<p>This chapter relies on two episodes of <a href="http://railsforzombies.org">Rails for Zombies</a>, 
+a wonderful free online course by codeschool.com.</p>
+    </div>
+  </div>
+
+  <div id="container">
+    <div class="wrapper">
+      <div id="mainCol">
+        <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body>
+<h3 id="models-and-databases">1 Models and Databases</h3>
+<p>In a modern programming language like rails we represent 
+things in the real world with objects. For example if you are
+building a web application for project management, you will
+have objects of classes Project, and WorkPackage, and User.</p>
+<p>To save these objects permanently (often called "persistance") 
+we use a relational Database,
+in most cases Postgres or MySQL/MariaDB.</p>
+<p>Here we hit on an old problem in computer science: storing
+objects into a relational database does not work all that well.
+This problem is called the 
+<a href="http://en.wikipedia.org/wiki/Object-relational_impedance_mismatch">Object-relational impedance mismatch</a>
+and has been discussed since the early 1980ies.</p>
+<p>Today there exist several Design Patterns and Libraries for solving this.
+The solution is called an Object Relational Mapper or ORM.</p>
+<p>Two Patterns used in Rails for this problem are ActiveRecord and ObjectMapper, both first
+described by Fowler in his 2003 book <a href="http://martinfowler.com/books/eaa.html">Patterns of Enterprise Application Architecture</a>.
+ActiveRecord is the default solution used in Rails, we will look into it in detail here.</p>
+<h3 id="activerecord-basics">2 ActiveRecord Basics</h3>
+<p>Rails implements the Active Record pattern in a class called <code>ActiveRecord</code>.
+All the models in a rails project inherit from <code>ActiveRecord</code>.</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Thing &lt; ActiveRecord::Base
+end
+
+</pre>
+</div>
+<h4 id="the-mapping">2.1 The Mapping</h4>
+<p>A quick overview of how Objects and Database relate when using
+ActiveRecord in Rails:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+Database                           Ruby on Rails
+---------------------------        --------------------------
+table courses                      class Course 
+  in the Database                    in file app/models/course.rb
+one row in the table               one object of the class Course
+an attibute in the table           a property of the object
+SELECT * FROM courses WHERE id=7   Course.find(7)
+
+</pre>
+</div>
+<p>Rails has several conventions regarding ActiveRecord and the database:</p>
+<ul>
+<li>The Model Class is written in first-letter-uppercase, and uses a singular noun: <code>Course</code>
+</li>
+<li>The table in the database is written in lowercase, and uses the plural of this noun: <code>courses</code>
+</li>
+<li>The table contains an integer attribute <code>id</code> as its primary key</li>
+<li>All the attributes from the database table will show up as properties of the model in rails automatically</li>
+<li>If there's an 1:n relationship between two models, the table on the "one" side will contain a foreign key like so:
+
+<ul>
+<li>table <code>users</code>  and table <code>phones</code>  (one user has many phones)</li>
+<li>table <code>phones</code> contains <code>user_id</code> that references <code>users.id</code>
+</li>
+</ul>
+</li>
+<li>If there's a n:m relationship between two models, there will be a join table  like so:
+
+<ul>
+<li>table <code>users</code>  and table <code>projects</code>  (one user has many projects, one project has many users)</li>
+<li>table <code>projects_users</code> contains <code>user_id</code> and <code>projects_id</code> (and nothing else)</li>
+<li>there is no class in rails to represent the join table </li>
+</ul>
+</li>
+</ul>
+<p>If you stick to these conventions building the web app will be very easy.  You 
+can deviate from these conventions, but this takes some extra configuration and programming work.</p>
+<p>One scenarion where deviating from the conventions might make sense is when
+you build a rails app to replace an old php app. You can start with the models
+in rails configured to fit with your old database, and then refactor and migrate towards
+the rails conventions step by step.</p>
+<h4 id="how-to-build-a-model">2.2 How to build a model</h4>
+<p>To build the first model and its corresponding database table,
+you can use the scaffold generator.
+You need to work on the command line using the commands
+<code>rails</code> and <code>rake</code>.</p>
+<ul>
+<li>
+<code>rails generate scaffold tweet status:string zombie:string</code>
+
+<ul>
+<li>This will generate a Model <code>Tweet</code> and a migration to create table <code>tweets</code>
+</li>
+</ul>
+</li>
+<li>look at the migration that was generated in <code>db/migrate/*create_tweets.rb</code>
+</li>
+<li>you can edit the migration now - but not later!</li>
+<li>run the migration: <code>rake db:migrate</code>
+
+<ul>
+<li>this will run the appropriate <code>CREATE TABLE</code> statement in your database</li>
+</ul>
+</li>
+<li>look at the model generated in <code>app/models/tweet.rb</code>
+</li>
+<li>add validations, associations to the model</li>
+</ul>
+<h4 id="database-migrations">2.3 Database Migrations</h4>
+<p>During Development the database schema will change just as much as
+the code will change. Changes to both are interdependent: if I push out
+a code change to my fellow developers without the db schema changes,
+they will not be able to use the code.</p>
+<p>Rails offers "Database Migrations" to cope with this fact.</p>
+<p>A "Migration" is a (small) change in the database schema. The change is
+described in ruby and saved to a file in the folder <code>db/migrations</code>.
+The files are identified by a timestamp and a uniq name, for example:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+20131031100433_create_venues.rb  
+20131031100442_create_events.rb  
+20131031100501_add_venue_ref_to_events.rb
+
+</pre>
+</div>
+<p>The first two of these migrations were generated by the scaffold,
+the last one by <code>rails generate migration AddVenueRefToEvent</code>.</p>
+<p>The scaffold creates a migration for creating a table:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+class CreateEvents &lt; ActiveRecord::Migration
+  def change
+    create_table :events do |t|
+      t.string :title
+      t.text :description
+      t.datetime :start_time
+      t.datetime :stop_time
+      t.boolean :free
+
+      t.timestamps
+    end
+  end
+end
+
+</pre>
+</div>
+<p>Use <code>rake</code> to apply this migration to the existing database:</p>
+<ul>
+<li>
+<code>rake db:migrate</code>  # apply all open migrations</li>
+<li>
+<code>rake db:rollback</code> # roll back last migration</li>
+</ul>
+<p>A word of warning:  you never, ever need to change a migration after
+using and commiting it.  You only ever add new migrations!</p>
+<h4 id="the-model-in-the-console">2.4 the model in the console</h4>
+<p>You can use the rails console to work with
+the model interactively.  This is similar to the ruby console <code>irb</code>
+but with your rails app already loaded. 
+Any changes you make are really written
+to the development database!</p>
+<ul>
+<li><code>rails console</code></li>
+</ul>
+<h4 id="activerecord-basics-learn-from-zombies">2.5 Learn from Zombies</h4>
+<p>Now do <a href="http://railsforzombies.org/levels/1">Rails for Zombies Level #1</a> to learn
+the basics of ActiveRecord: create, read, update and delete models.</p>
+<p><img src="images/rails-for-zombies-1.jpg" alt="Rails for Zombies 1"></p>
+<p>To delve deeper into Active Record Queries read the Rails Guide: <a href="http://guides.rubyonrails.org/active_record_querying.html">Active Record Query Interface</a></p>
+<h3 id="validations-and-associations">3 Validations and Associations</h3>
+<h4 id="validations">3.1 Validations</h4>
+<p>Validations are rules you want to enforce on the data in your models.</p>
+<ul>
+<li>validations are declared on the model</li>
+<li>they are checked every time data is saved to the database</li>
+<li>if the data does not conform to the validation, it is not saved, and the errors are available through the object</li>
+</ul>
+<p>An example on the rails console: I try to create a new tweet and save it,
+but it can't be saved because a validation is in place:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+&gt; t = Tweet.new
+=&gt; #&lt;Tweet id: nil, status: nil, zombie: nil&gt;
+&gt; t.save
+=&gt; false
+&gt; t.errors
+=&gt; {:status=&gt;["can't be blank"]}
+&gt; t.errors[:status]
+=&gt; "can't be blank"
+
+</pre>
+</div>
+<h4 id="1-n-associations">3.2 1:n Associations</h4>
+<p>If you have used relational databases before you are probably familiar
+with the different types of associations between database tables.  But even
+if you have not, the first association is easy to understand:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+One Zombie has many Tweets          One Tweet belongs to one Zombie
+
+Zombie Ash  ----------------------- Tweet 'arg'
+            \---------------------- Tweet 'aarrrrrgggh'
+            \---------------------- Tweet 'aaaarrrrrrrrrgggh'
+
+Zombie Sue ------------------------ Tweet 'gagaga'
+
+</pre>
+</div>
+<p>How is this represented in database?</p>
+<p>In the table <code>tweets</code> there is a column <code>zombie_id</code> which references <code>zombies.id</code>.
+This column in <code>tweets</code> is called a "foreign key".</p>
+<p>You can add this column using a migration <code>add_column    :tweets, :zombie_id, :integer</code></p>
+<p>How is this represented in the model?</p>
+<ul>
+<li>1:n associations are declared in the model with <code>belongs_to</code> and <code>has_many</code>
+</li>
+<li>both directions are now available in the objects:
+
+<ul>
+<li><code>t = Tweet.find(7); z = t.zombie</code></li>
+<li><code>z = Zombie.find(1); z.tweets.each{ |t|  puts t.status }</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="validations-and-associations-learn-from-zombies">3.3 Learn from Zombies</h4>
+<p>Now do <a href="http://railsforzombies.org/levels/2">Rails for Zombies Level #2</a>.</p>
+<p><img src="images/rails-for-zombies-2.jpg" alt="Rails for Zombies 2"></p>
+<p>To learn more about validations and associations read the Rails Guides:</p>
+<ul>
+<li><a href="http://guides.rubyonrails.org/active_record_validations_callbacks.html">Active Record Validations and Callbacks</a></li>
+<li><a href="http://guides.rubyonrails.org/association_basics.html">Active Record Associations</a></li>
+</ul>
+<h3 id="on-documentation">4 On Documentation</h3>
+<p>You should have the ruby and rails documentation available
+on your computer at all times.  A handy tool for this on mac os x is
+<a href="http://kapeli.com/dash">Dash</a>.  This is what a Rails Guide looks like in Dash:</p>
+<p><img src="images/dash-rails-guide.png" alt="Dash"></p>
+<h4 id="further-reading">4.1 Further reading</h4>
+<ul>
+<li>The Rails Guides give a good introduction to a subject area:</li>
+<li>Rails Guide: <a href="http://guides.rubyonrails.org/active_record_querying.html">Active Record Query Interface</a>
+</li>
+<li>Rails Guide: <a href="http://guides.rubyonrails.org/active_record_validations_callbacks.html">Active Record Validations and Callbacks</a>
+</li>
+<li>Rails Guide: <a href="http://guides.rubyonrails.org/association_basics.html">Active Record Associations</a>
+</li>
+<li>Use the API Dock to look up the details:</li>
+<li>Rails @ API Dock: <a href="http://apidock.com/rails/ActiveResource/Base/find/class">find()</a>
+</li>
+<li>Rails @ API Dock: <a href="http://apidock.com/rails/v2.0.3/ActiveRecord/Validations/ClassMethods/validates_presence_of">ActiveRecord Validations</a>
+</li>
+<li>Rails @ API Dock: <a href="http://apidock.com/rails/v3.2.8/ActiveRecord/Associations/ClassMethods">ActiveRecord Associations</a>
+</li>
+</ul>
+</body></html>
+
+      </div>
+    </div>
+  </div>
+
+  <hr class="hide" />
+  <div id="footer">
+    <div class="wrapper">
+      <p class="copyright">published under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2015 by <a href="http://brigitte-jellinek.at">Brigitte Jellinek</a>.
+      </p><p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
+        and edit <a href="https://github.com/backend-development/backend-development-textbook/blob/master/source/rails_database_and_model.md">rails_database_and_model.md</a>
+      </p>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="javascripts/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/responsive-tables.js"></script>
+  <script type="text/javascript" src="javascripts/guides.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shCore.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>
+  <script type="text/javascript">
+    SyntaxHighlighter.all()
+    $(guidesIndex.bind);
+  </script>
+  </body>
+</html>

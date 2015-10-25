@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Web Engineering Textbook: Rails Views and Controller</title>
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />
+
+  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
+
+  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+</head>
+<body class="guide">
+  <div>
+    <a href="http://github.com/backend-development/backend-development-textbook/"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 10;" src="images/forkme.png" alt="Fork me on GitHub"></a>
+  </div>
+  <div id="topNav">
+    <div class="wrapper">
+      <strong class="more-info-label">Learn more at the sources: </strong>
+      <ul class="more-info-links s-hidden">
+        <li class="more-info"><a href="http://git-scm.com/documentation">Git Documentation</a></li>
+        <li class="more-info"><a href="http://try.github.com/">Try Git</a></li>
+        <li class="more-info"><a href="http://rubyonrails.org/">Ruby on Rails</a></li>
+        <li class="more-info"><a href="http://guides.rubyonrails.org/">Rails Guides</a></li>
+        <li class="more-info"><a href="http://railsforzombies.org/">Rails for Zombies</a></li>
+        <li class="more-info"><a href="http://railscasts.com/">Railscasts</a></li>
+      </ul>
+    </div>
+  </div>
+  <div id="header">
+    <div class="wrapper clearfix">
+      <h1><a href="index.html" title="Return to home page">Backend<span> Development</span></a></h1>
+      <ul class="nav">
+        <li><a class="nav-item" href="index.html">Home</a></li>
+        <li class="guides-index guides-index-large">
+          <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
+          <div id="guides" class="clearfix" style="display: none;">
+            <hr />
+              <dl class="L">
+                <dt>Ruby on Rails 1</dt>
+                <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
+                <dd><a href="rails_database_and_model.html">Rails Database and Models</a></dd>
+                <dd><a href="rails_view_and_controller.html">Rails View and Controller</a></dd>
+                <dd><a href="authentication_from_scratch.html">Authentication from Scratch</a></dd>
+                <dd><a href="authentication_with_devise.html">Authentication with Devise</a></dd>
+                <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
+                <dd><a href="testing_and_refactoring.html">Testing and Refactoring</a></dd>
+                <dd><a href="deploying_rails.html">Deploying Rails with Capistrano</a></dd>
+                <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
+                <dt>Ruby on Rails 2</dt>
+                <dd><a href="rails_advanced_models.html">Advanced Rails Models</a></dd>
+                <dd><a href="testing_with_rspec.html">Testing with RSpec</a></dd>
+                <dd><a href="advanced_testing.html">Advanced testing</a></dd>
+                <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
+                <dd><a href="security.html">Security</a></dd>
+              </dl>
+              <dl class="R">
+                <dt>Git</dt>
+                <dd><a href="git_basics.html">Git Basics</a></dd>
+                <dd><a href="git_branching.html">Branching and Merging</a></dd>
+                <dd><a href="git_teamwork.html">Teamwork</a></dd>
+                <dt>Software Process</dt>
+                <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
+              </dl>
+          </div>
+        </li>
+        <li><a class="nav-item" href="https://github.com/backend-development/backend-development-textbook/">Contribute</a></li>
+      </ul>
+      </div>
+    </div>
+  </div>
+  <hr class="hide" />
+
+  <div id="feature">
+    <div class="wrapper">
+                <div id="subCol">
+            <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
+            <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body>
+<ol class="chapters">
+<li>
+<a href="#the-view">The View</a>
+
+<ul>
+<li><a href="#layouts-and-views">layouts and views</a></li>
+<li><a href="#rails-views">rails views</a></li>
+<li><a href="#static-content">static content</a></li>
+<li><a href="#links">links</a></li>
+<li><a href="#now-do-rails-for-zombies-episode-no3">Now do 'Rails for Zombies' Episode no3</a></li>
+</ul>
+</li>
+<li>
+<a href="#the-controller">The Controller</a>
+
+<ul>
+<li><a href="#restful-resources">restful resources</a></li>
+<li><a href="#now-do-rails-for-zombies-episode-no-4">Now do 'Rails for Zombies' Episode no 4</a></li>
+</ul>
+</li>
+<li>
+<a href="#nested-resources">Nested Resources</a>
+
+<ul>
+<li><a href="#model">model:</a></li>
+<li><a href="#routes-file">routes file:</a></li>
+<li><a href="#routes-constructed-by-nested-resources">Routes constructed by nested resources</a></li>
+<li><a href="#changes">Changes</a></li>
+</ul>
+</li>
+<li><a href="#form-helpers">Form Helpers</a></li>
+<li><a href="#further-reading">Further reading</a></li>
+</ol>
+</body></html>
+
+            <dl>
+               <dd class="work-in-progress">This whole book is currently a work in progress. While still useful, it may contain incomplete information and even errors. You can help by reviewing them and posting your comments and corrections.</dd>
+            </dl>
+          </div>
+
+      <h2>Rails Views and Controller</h2><p>The Rails View is concerened with displaying (HTML and JSON) output. The
+controller is concerned with handling incoming requests,
+and using the model and views to generate a result.</p><p>After reading this guide you should</p>
+<ul>
+<li>understand the role of view, controller and routing in rails</li>
+<li>know which routes and actions are implied by rails resources</li>
+</ul>
+<p>and be able to </p>
+<ul>
+<li>adapt the views and controllers generated by the scaffold generator</li>
+<li>build a form for editing a model</li>
+<li>use nested resources</li>
+</ul>
+
+    </div>
+  </div>
+
+  <div id="container">
+    <div class="wrapper">
+      <div id="mainCol">
+        <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body>
+<h3 id="the-view">1 The View</h3>
+<p>The View in the Model-View-Controller pattern
+is responsible for generating output that will be
+displayed the user in various ways.</p>
+<p>In Ruby on Rails <strong>Embedded Ruby</strong> (ERB) is normally used
+as the templating languages to define the views.  If you have
+used templates in other languages or have used PHP embedded in HTML
+than you will recognize the similarities.</p>
+<p>Both Web Designers and Web Developers might want to edit
+the files concerning the view. (This is one of the points where
+using git to relove merge conflicts comes in handy!).</p>
+<h4 id="layouts-and-views">1.1 layouts and views</h4>
+<p><img src="images/layout_view.svg" alt="Layouts and Views"></p>
+<p><img src="images/layout_view_partial.svg" alt="Layouts, Views and Partials"></p>
+<h4 id="rails-views">1.2 rails views</h4>
+<ul>
+<li>are stored in <code>app/views/&lt;name of controller&gt;/*.html.erb</code>
+</li>
+<li>template format <code>.erb</code> is html with embedded ruby:</li>
+<li>
+<code>&lt;% ruby code here %&gt;</code> just evaluates the code</li>
+<li>
+<code>&lt;%= ruby code here %&gt;</code> evaluates the code and includes result</li>
+<li>main template (for header, footer) in <code>app/views/layouts/application.html.erb</code>
+</li>
+<li>
+<code>yield</code>s to include single view</li>
+</ul>
+<h4 id="static-content">1.3 static content</h4>
+<ul>
+<li>anything placed in <code>public</code>
+</li>
+<li>is directly accessible in the web space, without going through rails!</li>
+</ul>
+<h4 id="links">1.4 links</h4>
+<ul>
+<li>never write links to your own app "by hand"!</li>
+<li>use helper methods to get the right URLs</li>
+<li>
+<code>link_to 'link text here', object</code> links to show action of the object</li>
+<li>use <code>rake routes</code> to find out the names of urls/paths</li>
+</ul>
+<h4 id="now-do-rails-for-zombies-episode-no3">1.5 Now do 'Rails for Zombies' Episode no3</h4>
+<p><img src="images/rails-for-zombies-3.jpg" alt="Rails for Zombies Episode 3"></p>
+<h3 id="the-controller">2 The Controller</h3>
+<p>The controller is the central part of MVC. One Controller gets
+called for every HTTP request. The controller than uses the model(s)
+to load and manipulate the right data, and finally displays the resulting
+page by rendering a view.</p>
+<h4 id="restful-resources">2.1 restful resources</h4>
+<p>a rails convention about which http methods and urls
+you should use, and which controllers and methods you should use.</p>
+<p>in <code>config/routes.rb</code>  </p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+resources :zombies
+
+</pre>
+</div>
+<p><img src="images/rest.png" alt="scaffold"></p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+GET    /zombies          zombies_controller def index
+POST   /zombies          zombies_controller def create
+GET    /zombies/new      zombies_controller def new
+GET    /zombies/:id/edit zombies_controller def edit
+GET    /zombies/:id      zombies_controller def show
+PUT    /zombies/:id      zombies_controller def update
+DELETE /zombies/:id      zombies_controller def destroy
+
+</pre>
+</div>
+<h4 id="now-do-rails-for-zombies-episode-no-4">2.2 Now do 'Rails for Zombies' Episode no 4</h4>
+<p><img src="images/rails-for-zombies-4.jpg" alt="Rails for Zombies Episode 4"></p>
+<h3 id="nested-resources">3 Nested Resources</h3>
+<ul>
+<li>one model belongs to another, and is dependent</li>
+<li><code>has_many :cards, :dependent =&gt; :destroy</code></li>
+<li>makes sense to nest urls:</li>
+<li>/boards/3/cards  - all the cards in board 3</li>
+</ul>
+<h4 id="model">3.1 model:</h4>
+<ul>
+<li><code>has_many :cards, :dependent =&gt; :destroy</code></li>
+</ul>
+<h4 id="routes-file">3.2 routes file:</h4>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+resources :boards do
+  resources :cards
+end
+
+</pre>
+</div>
+<h4 id="routes-constructed-by-nested-resources">3.3 Routes constructed by nested resources</h4>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+GET    /boards                          
+POST   /boards                          
+GET    /boards/new                      
+GET    /boards/:id/edit                 
+GET    /boards/:id                      
+PUT    /boards/:id                      
+DELETE /boards/:id                      
+GET    /boards/:board_id/cards          
+POST   /boards/:board_id/cards          
+GET    /boards/:board_id/cards/new      
+GET    /boards/:board_id/cards/:id/edit 
+GET    /boards/:board_id/cards/:id      
+PUT    /boards/:board_id/cards/:id      
+DELETE /boards/:board_id/cards/:id      
+
+</pre>
+</div>
+<h4 id="changes">3.4 Changes</h4>
+<p>If you switch to nested resources you need to change
+a lot of links:  Instead of <code>cards_path</code> you will need <code>boards_cards_path(board)</code>.</p>
+<p>Another change is needed in the form for editing or creating a card:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+&lt;%= form_for  [ @board, @card ]  do |f| %&gt;
+
+</pre>
+</div>
+<h3 id="form-helpers">4 Form Helpers</h3>
+<p>When you write a Rails App, you never write <code>form</code>- or <code>input</code>-Tags by hand.
+You always use form helpers to contruct the HTML for you.  You gain a lot of
+functionality by using the helpers, but you also need to understand how they work.</p>
+<h3 id="further-reading">5 Further reading</h3>
+<ul>
+<li>Rails Guide: <a href="http://guides.rubyonrails.org/layouts_and_rendering.html">Layouts and Rendering in Rails</a>
+</li>
+<li>Rails Guide: <a href="http://guides.rubyonrails.org/action_controller_overview.html">Action Controller Overview</a>
+</li>
+<li>Rails Guide: <a href="http://guides.rubyonrails.org/routing.html">Rails Routing from the Outside In</a>
+</li>
+<li><a href="http://apidock.com/rails/v3.2.8/ActionView/Helpers/UrlHelper/link_to">link_to</a></li>
+<li><a href="http://apidock.com/rails/AbstractController/Callbacks/ClassMethods/before_filter">before_filter</a></li>
+<li><a href="http://apidock.com/rails/ActionDispatch/Routing/Mapper/Resources/resources">resources</a></li>
+</ul>
+</body></html>
+
+      </div>
+    </div>
+  </div>
+
+  <hr class="hide" />
+  <div id="footer">
+    <div class="wrapper">
+      <p class="copyright">published under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2015 by <a href="http://brigitte-jellinek.at">Brigitte Jellinek</a>.
+      </p><p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
+        and edit <a href="https://github.com/backend-development/backend-development-textbook/blob/master/source/rails_view_and_controller.md">rails_view_and_controller.md</a>
+      </p>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="javascripts/jquery.min.js"></script>
+  <script type="text/javascript" src="javascripts/responsive-tables.js"></script>
+  <script type="text/javascript" src="javascripts/guides.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shCore.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
+  <script type="text/javascript" src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>
+  <script type="text/javascript">
+    SyntaxHighlighter.all()
+    $(guidesIndex.bind);
+  </script>
+  </body>
+</html>
