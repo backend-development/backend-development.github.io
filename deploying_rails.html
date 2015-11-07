@@ -46,8 +46,7 @@
                 <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
                 <dd><a href="rails_database_and_model.html">Rails Database and Models</a></dd>
                 <dd><a href="rails_view_and_controller.html">Rails View and Controller</a></dd>
-                <dd><a href="authentication_from_scratch.html">Authentication from Scratch</a></dd>
-                <dd><a href="authentication_with_devise.html">Authentication with Devise</a></dd>
+                <dd><a href="authentication_from_scratch.html">Authentication</a></dd>
                 <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
                 <dd><a href="testing_and_refactoring.html">Testing and Refactoring</a></dd>
                 <dd><a href="deploying_rails.html">Deploying Rails with Capistrano</a></dd>
@@ -110,17 +109,13 @@
 <li><a href="#configuration-in-config-deploy-rb">configuration in <code>config/deploy.rb</code></a></li>
 <li><a href="#example-task-in-capfile">example task in Capfile</a></li>
 <li><a href="#run-a-capistrano-task">run a capistrano task</a></li>
-<li><a href="#deploying-with-capistrano-capistrano-folders">capistrano folders</a></li>
-<li><a href="#deploying-with-capistrano-capistrano-folders">capistrano folders</a></li>
+<li><a href="#capistrano-folders">capistrano folders</a></li>
 <li><a href="#my-first-deploy">my first deploy</a></li>
 </ul>
 </li>
 </ol>
 </body></html>
 
-            <dl>
-               <dd class="work-in-progress">This whole book is currently a work in progress. While still useful, it may contain incomplete information and even errors. You can help by reviewing them and posting your comments and corrections.</dd>
-            </dl>
           </div>
 
       <h2>Deploying Rails</h2><p>Your &quot;Minimal Viable Product&quot; is finished, now you
@@ -306,10 +301,9 @@ $ cap display_free_disk_space
 
 </pre>
 </div>
-<h4 id="deploying-with-capistrano-capistrano-folders">4.7 capistrano folders</h4>
+<h4 id="capistrano-folders">4.7 capistrano folders</h4>
 <p>read the logfile, try to find out how capistrano lays out
 the folders</p>
-<h4 id="deploying-with-capistrano-capistrano-folders">4.8 capistrano folders</h4>
 <ul>
 <li>current --&gt; links to a release</li>
 <li>release
@@ -334,7 +328,7 @@ the folders</p>
 </ul>
 </li>
 </ul>
-<h4 id="my-first-deploy">4.9 my first deploy</h4>
+<h4 id="my-first-deploy">4.8 my first deploy</h4>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ cap deploy:setup

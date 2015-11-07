@@ -46,8 +46,7 @@
                 <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
                 <dd><a href="rails_database_and_model.html">Rails Database and Models</a></dd>
                 <dd><a href="rails_view_and_controller.html">Rails View and Controller</a></dd>
-                <dd><a href="authentication_from_scratch.html">Authentication from Scratch</a></dd>
-                <dd><a href="authentication_with_devise.html">Authentication with Devise</a></dd>
+                <dd><a href="authentication_from_scratch.html">Authentication</a></dd>
                 <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
                 <dd><a href="testing_and_refactoring.html">Testing and Refactoring</a></dd>
                 <dd><a href="deploying_rails.html">Deploying Rails with Capistrano</a></dd>
@@ -87,9 +86,7 @@
 <a href="#compile-to-the-web">Compile to the Web</a>
 
 <ul>
-<li><a href="#compile-to-the-web-compiling-to-css">compiling to css</a></li>
-<li><a href="#compiling-to-javascript">compiling to javascript</a></li>
-<li><a href="#compile-to-the-web-compiling-to-css">compiling to css</a></li>
+<li><a href="#compiling-to-css">compiling to css</a></li>
 <li><a href="#no-and-no">no { } and no ;</a></li>
 <li><a href="#nesting">nesting</a></li>
 <li><a href="#variables-and-computation">variables and computation</a></li>
@@ -104,8 +101,8 @@
 <ul>
 <li><a href="#pre-modern-area">pre-modern area</a></li>
 <li><a href="#modern-area">modern area</a></li>
-<li><a href="#web-performance-rules">Rules...</a></li>
-<li><a href="#web-performance-rules">...Rules...</a></li>
+<li><a href="#rules">Rules...</a></li>
+<li><a href="#more-rules">...more Rules...</a></li>
 <li><a href="#rails-can-help">rails can help</a></li>
 </ul>
 </li>
@@ -126,9 +123,6 @@
 </ol>
 </body></html>
 
-            <dl>
-               <dd class="work-in-progress">This whole book is currently a work in progress. While still useful, it may contain incomplete information and even errors. You can help by reviewing them and posting your comments and corrections.</dd>
-            </dl>
           </div>
 
       <h2>The Asset Pipeline</h2><p>bla bla bla</p><p>By referring to this guide, you will be able to:</p>
@@ -146,16 +140,18 @@
         <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body>
 <h3 id="compile-to-the-web">1 Compile to the Web</h3>
-<h4 id="compile-to-the-web-compiling-to-css">1.1 compiling to css</h4>
-<h4 id="compiling-to-javascript">1.2 compiling to javascript</h4>
-<h4 id="compile-to-the-web-compiling-to-css">1.3 compiling to css</h4>
+<ul>
+<li>compiling to css</li>
+<li>compiling to javascript</li>
+</ul>
+<h4 id="compiling-to-css">1.1 compiling to css</h4>
 <ul>
 <li>
 <a href="http://sass-lang.com/">sass</a> - default in ruby</li>
 <li><a href="http://lesscss.org/">less</a></li>
 <li><a href="http://learnboost.github.com/stylus/">stylus</a></li>
 </ul>
-<h4 id="no-and-no">1.4 no { } and no ;</h4>
+<h4 id="no-and-no">1.2 no { } and no ;</h4>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 h1
@@ -167,7 +163,7 @@ p
 
 </pre>
 </div>
-<h4 id="nesting">1.5 nesting</h4>
+<h4 id="nesting">1.3 nesting</h4>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 h1 strong
@@ -183,7 +179,7 @@ nav
 
 </pre>
 </div>
-<h4 id="variables-and-computation">1.6 variables and computation</h4>
+<h4 id="variables-and-computation">1.4 variables and computation</h4>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $blue: #3bbfce
@@ -200,7 +196,7 @@ $x: 16px
 
 </pre>
 </div>
-<h4 id="mixins-for-reusing-css-code">1.7 mixins for reusing css-code</h4>
+<h4 id="mixins-for-reusing-css-code">1.5 mixins for reusing css-code</h4>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 @mixin left($dist)
@@ -212,7 +208,7 @@ $x: 16px
 
 </pre>
 </div>
-<h4 id="automatically-create-sass-from-css-after-every-change">1.8 automatically create sass from css after every change</h4>
+<h4 id="automatically-create-sass-from-css-after-every-change">1.6 automatically create sass from css after every change</h4>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 ### for one file in the current directory
@@ -223,7 +219,7 @@ sass --watch stylesheets/sass:stylesheets/compiled
 
 </pre>
 </div>
-<h4 id="sass-comes-with-a-reverse-compiler">1.9 sass comes with a reverse compiler</h4>
+<h4 id="sass-comes-with-a-reverse-compiler">1.7 sass comes with a reverse compiler</h4>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 sass-convert --from css --to sass style.css &gt; style.sass
@@ -242,7 +238,7 @@ sass-convert --from css --to sass style.css &gt; style.sass
 <li>Souders(2007): High Performance Web Sites</li>
 <li>"front end view" of performance</li>
 </ul>
-<h4 id="web-performance-rules">2.3 Rules...</h4>
+<h4 id="rules">2.3 Rules...</h4>
 <ul>
 <li>  Less HTTP Requests</li>
 <li>  Use a Content Delivery Network</li>
@@ -253,7 +249,7 @@ sass-convert --from css --to sass style.css &gt; style.sass
 <li>  Put Scripts at the Bottom</li>
 <li>  Avoid CSS Expressions...</li>
 </ul>
-<h4 id="web-performance-rules">2.4 ...Rules...</h4>
+<h4 id="more-rules">2.4 ...more Rules...</h4>
 <ul>
 <li>  Make JavaScript and CSS External</li>
 <li>  Reduce DNS Lookups</li>

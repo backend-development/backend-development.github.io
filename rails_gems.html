@@ -46,8 +46,7 @@
                 <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
                 <dd><a href="rails_database_and_model.html">Rails Database and Models</a></dd>
                 <dd><a href="rails_view_and_controller.html">Rails View and Controller</a></dd>
-                <dd><a href="authentication_from_scratch.html">Authentication from Scratch</a></dd>
-                <dd><a href="authentication_with_devise.html">Authentication with Devise</a></dd>
+                <dd><a href="authentication_from_scratch.html">Authentication</a></dd>
                 <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
                 <dd><a href="testing_and_refactoring.html">Testing and Refactoring</a></dd>
                 <dd><a href="deploying_rails.html">Deploying Rails with Capistrano</a></dd>
@@ -83,7 +82,20 @@
             <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body>
 <ol class="chapters">
+<li>
+<a href="#gems-and-bundler">Gems and Bundler</a>
+
+<ul>
+<li><a href="#gem">gem</a></li>
+<li><a href="#the-problem">the problem</a></li>
+<li><a href="#the-solution">the solution</a></li>
+<li><a href="#defining-versions">defining versions</a></li>
+<li><a href="#gemfile-lock">Gemfile.lock</a></li>
+<li><a href="#gems-and-rails">gems and rails</a></li>
+</ul>
+</li>
 <li><a href="#installing">Installing</a></li>
+<li><a href="#installing-gems-with-c-code">Installing gems with C code</a></li>
 <li>
 <a href="#some-gems">Some Gems</a>
 
@@ -104,22 +116,23 @@
 <li><a href="#understanding-your-code-better">Understanding your Code better</a></li>
 </ul>
 </li>
-<li><a href="#finding-more-gems">Finding more Gems</a></li>
+<li><a href="#ressources">Ressources</a></li>
 </ol>
 </body></html>
 
-            <dl>
-               <dd class="work-in-progress">This whole book is currently a work in progress. While still useful, it may contain incomplete information and even errors. You can help by reviewing them and posting your comments and corrections.</dd>
-            </dl>
           </div>
 
       <h2>Some Gems for Rails </h2><p>This guide lists a few valuable gems for
 your first Rails Project.</p><p>After reading this guide you will</p>
 <ul>
-<li>know how to install and use a gem</li>
-<li>know some gems</li>
-<li>know where to find more gems</li>
+<li>understand how gems are installed</li>
+<li>understand how bundler handles dependencies</li>
+<li>be able to configure the gems you use</li>
+<li>be able to deliberately chose version numbers for your gems</li>
 </ul>
+
+<dd class="work-in-progress"><p>This chapter is still a work in progress. </p>
+<p>You can help by reviewing the documents and posting your comments and corrections.</p></dd>
 
     </div>
   </div>
@@ -129,7 +142,67 @@ your first Rails Project.</p><p>After reading this guide you will</p>
       <div id="mainCol">
         <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body>
-<h3 id="installing">1 Installing</h3>
+<h3 id="gems-and-bundler">1 Gems and Bundler</h3>
+<h4 id="gem">1.1 gem</h4>
+<ul>
+<li>rubygems is the package manager for ruby</li>
+<li>a gem has a name  (e.g. rake) and a version (e.g. 0.9.2.2)</li>
+<li><a href="http://docs.rubygems.org/read/chapter/24">what is a gem</a></li>
+<li>find 100.000 gems at <a href="http://rubygems.org/">rubygems.org</a>
+</li>
+</ul>
+<h4 id="the-problem">1.2 the problem</h4>
+<p><img src="images/bundler-small.png" alt="bundler"></p>
+<ul>
+<li>you write an app</li>
+<li>using 100 gems</li>
+<li>then deploy it to a server</li>
+<li>where all theses gems are present in slightly different versions</li>
+</ul>
+<h4 id="the-solution">1.3 the solution</h4>
+<ul>
+<li>
+<code>Gemfile</code> : define which gems + versions you want</li>
+<li>run <code>bundle install</code>
+</li>
+<li>picks out compatible versions of gems, includes dependencies, writes <code>Gemfile.lock</code>
+</li>
+<li>versions are now locked!</li>
+<li>deploy, run <code>bundle install</code> on the production server</li>
+<li>exact same versions are now installed</li>
+</ul>
+<h4 id="defining-versions">1.4 defining versions</h4>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+gem "devise"
+gem "rails", "4.0.0.beta"
+gem "rack",  "&gt;=1.0"
+gem "thin",  "~&gt;1.1"
+gem "nokogiri", :git =&gt; "git://github.com/tenderlove/nokogiri.git"
+
+</pre>
+</div>
+<h4 id="gemfile-lock">1.5 Gemfile.lock</h4>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+devise (2.1.0)
+  bcrypt-ruby (~&gt; 3.0)
+  orm_adapter (~&gt; 0.0.7)
+  railties (~&gt; 3.1)
+  warden (~&gt; 1.1.1)
+
+</pre>
+</div>
+<h4 id="gems-and-rails">1.6 gems and rails</h4>
+<ul>
+<li>configuration for a gem: <code>config/initializers/devise.rb</code>
+</li>
+<li>gem may install generators: <code>rails generate</code>
+</li>
+<li>gem may install rake tasks: <code>rake -T</code>
+</li>
+</ul>
+<h3 id="installing">2 Installing</h3>
 <p>Gems are ruby packages, they are the prefered unit of code reuse in ruby.
 You can install them using the command line tool <code>gem</code>:</p>
 <div class="code_container">
@@ -148,6 +221,7 @@ bundle install
 </div>
 <p>Bundler will resolve version conflicts between the gems for you and 
 install and use a set of gems that will work well with each other.</p>
+<h3 id="installing-gems-with-c-code">3 Installing gems with C code</h3>
 <p>A word of warning: some gems are not written exclusively in ruby,
 they may contain C code and use C libraries. From the <a href="http://guides.rubygems.org/gems-with-extensions/">RubyGems Guides</a>:</p>
 <blockquote>
@@ -171,21 +245,21 @@ you can be sure that it can also be installed by bundler.</p>
 <p>You might not have permission to install system wide packages and gems 
 on the production machine. If you can't sudo,
 you need to ask the system administrator to do it for you.</p>
-<h3 id="some-gems">2 Some Gems</h3>
+<h3 id="some-gems">4 Some Gems</h3>
 <p>This list is based on <a href="http://www.dwellable.com/blog/Rails-Rumble-Gem-Teardown">Dwellables statistics on the Rails Rumble 2013</a> and
 <a href="http://www.codebeerstartups.com/2013/04/must-have-gems-for-development-machine-in-ruby-on-rails">coodbeerstartups "Must Have Gems for Development Machine in Ruby on Rails "</a>.</p>
-<h4 id="mixins-for-css">2.1 Mixins for CSS</h4>
+<h4 id="mixins-for-css">4.1 Mixins for CSS</h4>
 <p>You don't want to waste your time writing vendor-prefixes for css3 features.
 Use a mixin library instead:</p>
 <p><img src="images/gem-bourbon.png" alt="bourbon screenshot">
 <a href="http://bourbon.io/">http://bourbon.io/</a></p>
-<h4 id="css-grid">2.2 CSS Grid</h4>
+<h4 id="css-grid">4.2 CSS Grid</h4>
 <p>Bootstrap is used by a lot of projects. See <a href="http://railsapps.github.io/twitter-bootstrap-rails.html">Kehoe(2013)</a> for help
 with choosing the right bootstrap gem.</p>
 <p>But there is a more sophisticated alternative to bootstrap: <strong>Neat</strong> uses a <em>semantic</em> grid system:</p>
 <p><img src="images/gem-neat.png" alt="neat screenshot">
 <a href="http://neat.bourbon.io/">http://neat.bourbon.io/</a></p>
-<h4 id="file-upload">2.3 File Upload</h4>
+<h4 id="file-upload">4.3 File Upload</h4>
 <p>Uploading Pictures and displaying them is a common task with two good solutions:</p>
 <ul>
 <li>gem <a href="https://github.com/carrierwaveuploader/carrierwave">carrierwave</a> or</li>
@@ -201,25 +275,25 @@ with choosing the right bootstrap gem.</p>
 <li>command line tool <a href="http://www.imagemagick.org/script/convert.php">convert</a> to convert to different formats and</li>
 <li>command line tool <a href="http://www.imagemagick.org/script/mogrify.php">mogrify</a> to  resize, blur, crop, draw on, flip, join, ... an image and overwrite it.</li>
 </ul>
-<h4 id="authentication">2.4 Authentication</h4>
+<h4 id="authentication">4.4 Authentication</h4>
 <ul>
 <li>gem <a href="https://github.com/plataformatec/devise">devise</a> for login,</li>
 <li>gem <a href="https://github.com/intridea/omniauth">omniauth</a> to integrate authentication methods.</li>
 <li>gem <a href="https://github.com/ryanb/cancan">cancan</a> if you need roles and permissions <a href="http://railscasts.com/episodes/192-authorization-with-cancan?view=asciicast">sceencast</a>.</li>
 </ul>
-<h4 id="permalinks">2.5 Permalinks</h4>
+<h4 id="permalinks">4.5 Permalinks</h4>
 <p>You don't want the database keys to be visible in your URLs?  Use Friendly IDs instead:</p>
 <ul>
 <li>gem <a href="https://github.com/norman/friendly_id">friendlyid</a>
 </li>
 </ul>
-<h4 id="parsing-xml-and-html">2.6 Parsing xml and html</h4>
+<h4 id="parsing-xml-and-html">4.6 Parsing xml and html</h4>
 <ul>
 <li>gem <a href="http://nokogiri.org/">nokogiri</a>
 </li>
 </ul>
 <p>(this is also used by capybara)</p>
-<h4 id="parsing-markdown">2.7 Parsing Markdown</h4>
+<h4 id="parsing-markdown">4.7 Parsing Markdown</h4>
 <p>Letting users enter HTML is a dangerous idea - it's really hard to
 avoid the security problems.  An alternative is to let them enter
 a simpler markup language, like <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a>.
@@ -228,7 +302,7 @@ You store the markdown in your database, and convert it to HTML when displayed u
 <li>gem <a href="https://github.com/vmg/redcarpet">redcarpet</a> - see <a href="http://railscasts.com/episodes/272-markdown-with-redcarpet?view=asciicast">Railscast #272</a>
 </li>
 </ul>
-<h4 id="activity-stream">2.8 Activity Stream</h4>
+<h4 id="activity-stream">4.8 Activity Stream</h4>
 <p>If you want to give users an overview of what happened recently
 you can use an activity stream, similar to what you see in facebook.</p>
 <p><img src="images/gem-activity.png" alt="activity stream example"></p>
@@ -236,22 +310,22 @@ you can use an activity stream, similar to what you see in facebook.</p>
 <li>gem <a href="https://github.com/pokonski/public_activity">public_activity</a>
 </li>
 </ul>
-<h4 id="admin-backend">2.9 Admin Backend</h4>
+<h4 id="admin-backend">4.9 Admin Backend</h4>
 <p>Create a Backend for manipulating data with a few lines of code:</p>
 <p><img src="images/gem-active-admin.png" alt="ActiveAdmin Screenshot"></p>
 <ul>
 <li>gem <a href="http://activeadmin.info/">activeadmin</a>
 </li>
 </ul>
-<h4 id="sending-mail">2.10 Sending Mail</h4>
+<h4 id="sending-mail">4.10 Sending Mail</h4>
 <p>To send mail from Rails use <a href="http://guides.rubyonrails.org/action_mailer_basics.html">ActionMailer</a>.</p>
 <p>To see the generated mails in your web browser <em>instead</em> of sending them, use the gem <a href="https://github.com/ryanb/letter_opener">letter_opener</a></p>
-<h4 id="http-requests">2.11 HTTP Requests</h4>
+<h4 id="http-requests">4.11 HTTP Requests</h4>
 <p>This might be handy for downloading from Webpages or APIs</p>
 <ul>
 <li>gem <a href="https://github.com/taf2/curb">curb</a>  - the http library curl for ruby</li>
 </ul>
-<h4 id="using-apis">2.12 Using APIs</h4>
+<h4 id="using-apis">4.12 Using APIs</h4>
 <ul>
 <li>gem <a href="https://github.com/octokit/octokit.rb">octokit</a> - for github</li>
 <li>gem <a href="https://github.com/sferik/twitter">twitter</a>
@@ -263,13 +337,13 @@ you can use an activity stream, similar to what you see in facebook.</p>
 <li>gem <a href="https://github.com/apneadiving/Google-Maps-for-Rails">gmaps4rails</a>
 </li>
 </ul>
-<h4 id="testing">2.13 Testing</h4>
+<h4 id="testing">4.13 Testing</h4>
 <ul>
 <li>gem <a href="https://github.com/thoughtbot/factory_girl">factory_girl</a> for creating test data.</li>
 <li>gem <a href="https://github.com/jnicklas/capybara">capybara</a> as the "browser" for acceptance tests, with</li>
 <li>gem <a href="https://github.com/jonleighton/poltergeist">poltergeist</a> for testing client side javascript.</li>
 </ul>
-<h4 id="understanding-your-code-better">2.14 Understanding your Code better</h4>
+<h4 id="understanding-your-code-better">4.14 Understanding your Code better</h4>
 <p><img src="images/gem-better_errors.png" alt="better_errors screenshot"></p>
 <ul>
 <li><p>gem <a href="https://github.com/charliesome/better_errors">better_errors</a></p></li>
@@ -279,8 +353,10 @@ you can use an activity stream, similar to what you see in facebook.</p>
 <li><p>gem <a href="https://github.com/seattlerb/flay">flay</a> - finds structural similarities in your code, so you can refactor</p></li>
 <li><p>gem <a href="https://github.com/railsbp/rails_best_practices">rails_best_practices</a></p></li>
 </ul>
-<h3 id="finding-more-gems">3 Finding more Gems</h3>
+<h3 id="ressources">5 Ressources</h3>
 <ul>
+<li><a href="https://rubygems.org/">Ruby Gems</a></li>
+<li><a href="http://bundler.io/">Bundler</a></li>
 <li>the <a href="https://www.ruby-toolbox.com/">Ruby Toolbox</a> is organized in categories that help you find alternative solutions</li>
 </ul>
 </body></html>
