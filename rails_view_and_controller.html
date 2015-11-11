@@ -369,8 +369,8 @@ params Hash and only pick out it's sub-entries <code>uid</code>, <code>name</cod
 # PATCH /users/1.json
 def update
   @user = User.find(params[:id])
-  good_user_params = params.require(:user).permit(:uid, :name, :email, :homepage)
-  @user.update(good_user_params)
+  good_params = params.require(:user).permit(:uid, :name, :email, :homepage)
+  @user.update(good_params)
   redirect_to @user, notice: 'User updated.'
 end
 
@@ -385,8 +385,8 @@ the edit-view from before:</p>
 # PATCH /users/1.json
 def update
   @user = User.find(params[:id])
-  good_user_params = params.require(:user).permit(:uid, :name, :email, :homepage)
-  if @user.update(good_user_params)
+  good_params = params.require(:user).permit(:uid, :name, :email, :homepage)
+  if @user.update(good_params)
     redirect_to @user, notice: 'User was successfully updated.'
   else
     render :edit 
@@ -480,7 +480,7 @@ Another change is needed in the form for editing or creating a card:
 <li>Rails Guide: <a href="http://guides.rubyonrails.org/routing.html">Rails Routing from the Outside In</a>
 </li>
 <li><a href="http://apidock.com/rails/v3.2.8/ActionView/Helpers/UrlHelper/link_to">link_to</a></li>
-<li><a href="http://apidock.com/rails/AbstractController/Callbacks/ClassMethods/before_filter">before_filter</a></li>
+<li><a href="http://guides.rubyonrails.org/form_helpers.html#select-boxes-for-dealing-with-models">before_action</a></li>
 <li><a href="http://apidock.com/rails/ActionDispatch/Routing/Mapper/Resources/resources">resources</a></li>
 <li>Alternative to ERB: <a href="http://haml.info/tutorial.html">HAML</a>  similar to SASS</li>
 </ul>
