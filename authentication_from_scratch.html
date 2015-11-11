@@ -326,10 +326,13 @@ exist (any more) we just return nil as the current_user.</p>
 <p>app/app/controllers/application_controller.rb:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-  def current_user
-    @current_user ||= User.where(id: session[:user_id]).first if session[:user_id]
+def current_user
+  @current_user = nil
+  if session[:user_id]
+    @current_user ||= User.where(id: session[:user_id]).first 
   end
-  helper_method :current_user
+end
+helper_method :current_user
 
 </pre>
 </div>
@@ -339,13 +342,13 @@ to display different things for logged in users and non logged in visitors:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 &lt;!-- app/views/layouts/application.html.erb --&gt;
-  &lt;% if current_user %&gt; 
-    Logged in as &lt;%= current_user.name %&gt; 
-    &lt;%= link_to "log out", logout_path %&gt;
-  &lt;% else %&gt;
-    &lt;%= link_to "log in", login_path %&gt;
-    | &lt;%= link_to "register", new_user_path %&gt;
-  &lt;% end %&gt;
+&lt;% if current_user %&gt; 
+  Logged in as &lt;%= current_user.name %&gt; 
+  &lt;%= link_to "log out", logout_path %&gt;
+&lt;% else %&gt;
+  &lt;%= link_to "log in", login_path %&gt;
+  | &lt;%= link_to "register", new_user_path %&gt;
+&lt;% end %&gt;
 
 </pre>
 </div>
@@ -424,8 +427,8 @@ that the browser is redirected to your app again, to <code>/auth/:provider/callb
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # config/routes.rb:
-  match '/auth/:provider/callback', :to =&gt; 'sessions#create',  via: [:get, :post]
-  match '/auth/failure',            :to =&gt; 'sessions#failure', via: [:get, :post]
+match '/auth/:provider/callback', to: 'sessions#create',  via: [:get, :post]
+match '/auth/failure',            to: 'sessions#failure', via: [:get, :post]
 
 </pre>
 </div>
@@ -434,9 +437,9 @@ from the environment variable.  As a first step you could just print it out,
 to see what data is provided:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-  def create
-    render :text =&gt; "&lt;pre&gt;" + env["omniauth.auth"].to_yaml and return
-  end
+def create
+  render :text =&gt; "&lt;pre&gt;" + env["omniauth.auth"].to_yaml and return
+end
 
 </pre>
 </div>
@@ -446,16 +449,16 @@ or they are logging in for the first time.</p>
 <p>This can get quite involved, so we hide it away inside the user model:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-  def create
-    user = User.find_or_create_with_omniauth( request.env['omniauth.auth'] )
+def create
+  user = User.find_or_create_with_omniauth( request.env['omniauth.auth'] )
 
-    if user 
-      session[:user_id] = user.id
-      redirect_to root_path, notice: 'Logged in'
-    else
-      redirect_to login_path, alert: 'Log in failed'
-    end
+  if user 
+    session[:user_id] = user.id
+    redirect_to root_path, notice: 'Logged in'
+  else
+    redirect_to login_path, alert: 'Log in failed'
   end
+end
 
 </pre>
 </div>
@@ -463,27 +466,31 @@ or they are logging in for the first time.</p>
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # app/model/user.rb
 
-  def self.find_or_create_with_omniauth(auth)
-    # look for an existing authorisation 
-    # provider + uid uniquely identify a user
-    a = Authentication.find_or_create_by( provider: auth['provider'], uid: auth['uid'] )
-    # save other info you want to remember:
-    a.update( secret: auth["credentials"]["secret"],  token: auth["credentials"]["token"]  )
-    a.save!
+def self.find_or_create_with_omniauth(auth)
+  # look for an existing authorisation 
+  # provider + uid uniquely identify a user
+  a = Authentication.find_or_create_by( 
+         provider: auth['provider'], 
+         uid:      auth['uid'] 
+  )
+  # save other info you want to remember:
+  a.update( secret: auth["credentials"]["secret"],  
+            token:  auth["credentials"]["token"]  )
+  a.save!
 
-    if a.user.nil? 
-      # all new user
-      u = create! do |user|
-        user.uid      = auth["uid"]
-        user.name     = auth["info"]["name"]
-      end
-
-      a.user = u
-      a.save!
+  if a.user.nil? 
+    # all new user
+    u = create! do |user|
+      user.uid      = auth["uid"]
+      user.name     = auth["info"]["name"]
     end
 
-    return a.user
-  end # def self.find_or_create_with_omniauth(auth)
+    a.user = u
+    a.save!
+  end
+
+  return a.user
+end # def self.find_or_create_with_omniauth(auth)
 
 </pre>
 </div>
