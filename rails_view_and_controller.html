@@ -86,10 +86,9 @@
 <a href="#the-view">The View</a>
 
 <ul>
-<li><a href="#layouts-and-views">layouts and views</a></li>
-<li><a href="#rails-views">rails views</a></li>
-<li><a href="#static-content">static content</a></li>
-<li><a href="#links">links</a></li>
+<li><a href="#layouts-and-views">Layouts and Views</a></li>
+<li><a href="#views-with-erb">Views with ERB</a></li>
+<li><a href="#links">Links</a></li>
 <li><a href="#now-do-rails-for-zombies-episode-no3">Now do 'Rails for Zombies' Episode no3</a></li>
 </ul>
 </li>
@@ -97,22 +96,21 @@
 <a href="#the-controller">The Controller</a>
 
 <ul>
-<li><a href="#restful-resources">restful resources</a></li>
+<li><a href="#restful-resources">Restful Resources</a></li>
 <li><a href="#now-do-rails-for-zombies-episode-no-4">Now do 'Rails for Zombies' Episode no 4</a></li>
 </ul>
 </li>
 <li>
-<a href="#nested-resources">Nested Resources</a>
+<a href="#form-helpers">Form Helpers</a>
 
 <ul>
-<li><a href="#model">model:</a></li>
-<li><a href="#routes-file">routes file:</a></li>
-<li><a href="#routes-constructed-by-nested-resources">Routes constructed by nested resources</a></li>
-<li><a href="#changes">Changes</a></li>
+<li><a href="#creating-the-form-tag">Creating the Form Tag</a></li>
+<li><a href="#creating-input-elements">Creating Input Elements</a></li>
+<li><a href="#sending-the-data">Sending the Data</a></li>
+<li><a href="#processing-the-data">Processing the Data</a></li>
+<li><a href="#handling-and-displaying-errors">Handling and Displaying Errors</a></li>
 </ul>
 </li>
-<li><a href="#form-helpers">Form Helpers</a></li>
-<li><a href="#further-reading">Further reading</a></li>
 </ol>
 </body></html>
 
@@ -150,82 +148,287 @@ used templates in other languages or have used PHP embedded in HTML
 than you will recognize the similarities.</p>
 <p>Both Web Designers and Web Developers might want to edit
 the files concerning the view. (This is one of the points where
-using git to relove merge conflicts comes in handy!).</p>
-<h4 id="layouts-and-views">1.1 layouts and views</h4>
+using git to resolve merge conflicts comes in handy!).</p>
+<h4 id="layouts-and-views">1.1 Layouts and Views</h4>
+<p>The view file (e.g. <code>app/views/thing/show.html.erb</code> will only
+contain the HTML that is specific for this view.  There is
+another file <code>app/views/layouts/application.html.erb</code> that contains
+the surrounding stuff that stays the same for every webpage: head, main
+navigation, footer.</p>
 <p><img src="images/layout_view.svg" alt="Layouts and Views"></p>
+<p>If you find other parts of your code that you want to reuse
+in severl views you can extract it into a "partial".  An example
+is the <code>_form.html.erb</code> partial created by the scaffold: it is
+used both by the <code>new.html.erb</code> and the <code>edit.html.erb</code> view.</p>
 <p><img src="images/layout_view_partial.svg" alt="Layouts, Views and Partials"></p>
-<h4 id="rails-views">1.2 rails views</h4>
+<h4 id="views-with-erb">1.2 Views with ERB</h4>
+<p>When it comes to templating systems there are two competing
+schools of thought: on the one side there are minimal
+templating systems that only offer the inclusion of variable values
+and maybe iteration.  On the other hand are full programming
+languages embedded in HTML.</p>
+<p>ERB is an example of the latter: the full power of ruby is
+available inside the template:</p>
 <ul>
-<li>are stored in <code>app/views/&lt;name of controller&gt;/*.html.erb</code>
-</li>
-<li>template format <code>.erb</code> is html with embedded ruby:</li>
+<li>Instance Variables of the controller are available in the view</li>
 <li>
 <code>&lt;% ruby code here %&gt;</code> just evaluates the code</li>
 <li>
-<code>&lt;%= ruby code here %&gt;</code> evaluates the code and includes result</li>
-<li>main template (for header, footer) in <code>app/views/layouts/application.html.erb</code>
-</li>
-<li>
-<code>yield</code>s to include single view</li>
+<code>&lt;%= ruby code here %&gt;</code> evaluates the code and includes the result</li>
 </ul>
-<h4 id="static-content">1.3 static content</h4>
+<p>You can use all the usual ruby contructs for iteration, conditions, blocks.
+Here's an example of a loop:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+&lt;ul&gt;
+&lt;% @groups.each do |group| %&gt;
+  &lt;li&gt;&lt;%= link_to group.name, group %&gt;&lt;/li&gt;
+&lt;% end %&gt;
+&lt;/ul&gt;
+
+</pre>
+</div>
+<h4 id="links">1.3 Links</h4>
+<p>Never write links to your own app "by hand"! Use helper methods to get the right URLs.
+Use <code>rake routes</code> on the command line do find out which URLs exist:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+$ rake routes
+          Prefix Verb     URI Pattern                        Controller#Action
+  add_user_group PUT      /groups/:id/add_user(.:format)     groups#add_user
+  del_user_group PUT      /groups/:id/del_user(.:format)     groups#del_user
+          groups GET      /groups(.:format)                  groups#index
+                 POST     /groups(.:format)                  groups#create
+       new_group GET      /groups/new(.:format)              groups#new
+      edit_group GET      /groups/:id/edit(.:format)         groups#edit
+           group GET      /groups/:id(.:format)              groups#show
+                 PATCH    /groups/:id(.:format)              groups#update
+                 PUT      /groups/:id(.:format)              groups#update
+                 DELETE   /groups/:id(.:format)              groups#destroy
+
+</pre>
+</div>
+<p>Use the "prefix" and <code>_path</code> or <code>_url</code> to get the path or full URL of the
+action.</p>
 <ul>
-<li>anything placed in <code>public</code>
-</li>
-<li>is directly accessible in the web space, without going through rails!</li>
-</ul>
-<h4 id="links">1.4 links</h4>
-<ul>
-<li>never write links to your own app "by hand"!</li>
-<li>use helper methods to get the right URLs</li>
 <li>
-<code>link_to 'link text here', object</code> links to show action of the object</li>
-<li>use <code>rake routes</code> to find out the names of urls/paths</li>
+<code>link_to "Add a User", add_user_group_path</code> links to the groups#add_user action</li>
+<li>
+<code>link_to "Show the Object", object</code> links to show action of the object</li>
 </ul>
-<h4 id="now-do-rails-for-zombies-episode-no3">1.5 Now do 'Rails for Zombies' Episode no3</h4>
+<h4 id="now-do-rails-for-zombies-episode-no3">1.4 Now do 'Rails for Zombies' Episode no3</h4>
 <p><img src="images/rails-for-zombies-3.jpg" alt="Rails for Zombies Episode 3"></p>
 <h3 id="the-controller">2 The Controller</h3>
-<p>The controller is the central part of MVC. One Controller gets
-called for every HTTP request. The controller than uses the model(s)
-to load and manipulate the right data, and finally displays the resulting
-page by rendering a view.</p>
-<h4 id="restful-resources">2.1 restful resources</h4>
-<p>a rails convention about which http methods and urls
-you should use, and which controllers and methods you should use.</p>
-<p>in <code>config/routes.rb</code>  </p>
+<p>The controller is the central part of MVC. An incoming HTTP request 
+is routet to exactly one Controller Action that will respond to the Request.
+The controller than uses the model(s) to load and manipulate the right data, 
+and finally displays the resulting page by rendering a view.</p>
+<h4 id="restful-resources">2.1 Restful Resources</h4>
+<p>Rails uses <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> as
+a convention about which actions should be available.  For example
+if you specify in <code>config/routes.rb</code>  </p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :zombies
 
 </pre>
 </div>
-<p><img src="images/rest.png" alt="scaffold"></p>
+<p>This will generate the following mappings (visibile through <code>rake routes</code>):</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-GET    /zombies          zombies_controller def index
-POST   /zombies          zombies_controller def create
-GET    /zombies/new      zombies_controller def new
-GET    /zombies/:id/edit zombies_controller def edit
-GET    /zombies/:id      zombies_controller def show
-PUT    /zombies/:id      zombies_controller def update
-DELETE /zombies/:id      zombies_controller def destroy
+HTTP
+Method URI Pattern       Controller          Action
+GET    /zombies          zombies_controller  def index
+POST   /zombies          zombies_controller  def create
+GET    /zombies/new      zombies_controller  def new
+GET    /zombies/:id/edit zombies_controller  def edit
+GET    /zombies/:id      zombies_controller  def show
+PATCH  /zombies/:id      zombies_controller  def update
+DELETE /zombies/:id      zombies_controller  def destroy
 
 </pre>
 </div>
+<p>You have already used the scaffold generator which also
+adds the necessary views.  This way we end up with full CRUD (create, read, update, delete)
+capability for zombies:</p>
+<p><img src="images/rest.png" alt="scaffold"></p>
+<p>Do adapt the views to better fit your users needs, but at the same
+time try to keep the underlying routes the same!</p>
 <h4 id="now-do-rails-for-zombies-episode-no-4">2.2 Now do 'Rails for Zombies' Episode no 4</h4>
 <p><img src="images/rails-for-zombies-4.jpg" alt="Rails for Zombies Episode 4"></p>
-<h3 id="nested-resources">3 Nested Resources</h3>
+<h3 id="form-helpers">3 Form Helpers</h3>
+<p>When you write a Rails App, you never write <code>form</code>- or <code>input</code>-Tags by hand.
+You always use form helpers to contruct the HTML for you.  You gain a lot of
+functionality by using the helpers, but you also need to understand how they work.</p>
+<h4 id="creating-the-form-tag">3.1 Creating the Form Tag</h4>
+<p>Let's look at a very simple edit-form for a Resource called user:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+&lt;%= form_for(@user) do |f| %&gt;
+    Uid:      &lt;%= f.text_field :uid %&gt;  &lt;br&gt;
+    Name:     &lt;%= f.text_field :name %&gt; &lt;br&gt;
+    E-Mail:   &lt;%= f.email_field :email %&gt; &lt;br&gt;
+    Homepage: &lt;%= f.url_field :homepage %&gt; &lt;br&gt;
+    &lt;%= f.submit %&gt;
+&lt;% end %&gt;
+
+</pre>
+</div>
+<p>The form helber <code>form_for</code>  will create the form-tag
+and set the action and method according to the REST conventions.
+For example if the <code>@user</code> variable contains a user object with id 16, 
+the resulting form tag will look like this:</p>
+<div class="code_container">
+<pre class="brush: xml; gutter: false; toolbar: false">
+&lt;form class="edit_user" id="edit_user_16" action="/users/16" accept-charset="UTF-8" method="post"&gt;
+  &lt;input type="hidden" name="_method" value="patch" /&gt;
+...
+&lt;/form&gt;
+
+</pre>
+</div>
+<p>The conventions say we should use the PATCH method for updating an existing
+resource, but this is not available in current html forms. Rails get's around
+this by using a hidden field and some javascript to actually send the HTTP
+request with the correct method.</p>
+<h4 id="creating-input-elements">3.2 Creating Input Elements</h4>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+&lt;%= form_for(@user) do |f| %&gt;
+    Uid:      &lt;%= f.text_field :uid %&gt;  &lt;br&gt;
+    Name:     &lt;%= f.text_field :name %&gt; &lt;br&gt;
+    E-Mail:   &lt;%= f.email_field :email %&gt; &lt;br&gt;
+    Homepage: &lt;%= f.url_field :homepage %&gt; &lt;br&gt;
+    &lt;%= f.submit %&gt;
+&lt;% end %&gt;
+
+</pre>
+</div>
+<p>The <code>text_field</code>, <code>email_field</code>, <code>url_field</code> helpers create input
+fields that are related to the attributes of the user-object.
+The fields are set up correctly for both displaying the current value
+of the attribute and for editing and overwriting it when the form is 
+sent in.  For example <code>&lt;%= f.text_field :name %&gt;</code> might  be displayed as</p>
+<div class="code_container">
+<pre class="brush: xml; gutter: false; toolbar: false">
+&lt;input type="text" value="Brigitte Jellinek" name="user[name]" id="user_name" /&gt;
+
+</pre>
+</div>
+<h4 id="sending-the-data">3.3 Sending the Data</h4>
+<p>When you press the submit-Data, the date from the form is sent via a HTTP request.
+In the development-log file on the server you can see the request coming in and being
+routed to the right action:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+Started PATCH "/users/16" for ::1 at 2015-11-11 12:47:15 +0100
+Processing by UsersController#update as HTML
+  Parameters: { "user"=&gt;{"uid"=&gt;"4206851", "name"=&gt;"Brigitte Jellinek", "email"=&gt;"", ... }, "id"=&gt;"16"}
+
+</pre>
+</div>
+<p>Actually the Parameter came in through two separate channels: the data for the
+user came through the body of the HTTP request, the <code>id</code> came in as part of the URL.
+Observe the URI Pattern in the output of <code>rake routes</code>:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+          Prefix Verb     URI Pattern                        Controller#Action
+           users GET      /users(.:format)                   users#index
+                 POST     /users(.:format)                   users#create
+        new_user GET      /users/new(.:format)               users#new
+       edit_user GET      /users/:id/edit(.:format)          users#edit
+            user GET      /users/:id(.:format)               users#show
+                 PATCH    /users/:id(.:format)               users#update
+
+</pre>
+</div>
+<p>Because the pattern is <code>/users/:id</code> a request to <code>/users/16</code> will also
+set the id to 16.</p>
+<h4 id="processing-the-data">3.4 Processing the Data</h4>
+<p>The parameters from the HTTP request can be used
+directly in the controller via the <code>params</code> Hash:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+# PATCH /users/1
+# PATCH /users/1.json
+def update
+  @user = User.find(params[:id])
+  ...
+end
+
+</pre>
+</div>
+<p>For mass-assignments (update, create) rails offers an easy
+way to filter out only the parameters you really want to be changed / created,
+and ignore all others. The following code will look for a key <code>user</code> in the
+params Hash and only pick out it's sub-entries <code>uid</code>, <code>name</code>, <code>email</code> and <code>homepage</code>:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+# PATCH /users/1
+# PATCH /users/1.json
+def update
+  @user = User.find(params[:id])
+  good_user_params = params.require(:user).permit(:uid, :name, :email, :homepage)
+  @user.update(good_user_params)
+  redirect_to @user, notice: 'User updated.'
+end
+
+</pre>
+</div>
+<p>We should also handle errors.  If the update does not succeed, <code>update</code> returns <code>false</code>
+and the <code>errors</code> attribute is set on the user-object.  In this case we just re-display
+the edit-view from before:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+# PATCH /users/1
+# PATCH /users/1.json
+def update
+  @user = User.find(params[:id])
+  good_user_params = params.require(:user).permit(:uid, :name, :email, :homepage)
+  if @user.update(good_user_params)
+    redirect_to @user, notice: 'User was successfully updated.'
+  else
+    render :edit 
+  end
+end
+
+</pre>
+</div>
+<h4 id="handling-and-displaying-errors">3.5 Handling and Displaying Errors</h4>
+<p>When displaying the form we always display errors that are
+available throught the <code>errors</code> attribute of the user object:</p>
+<p>&lt;%= form_for(@user) do |f| %&gt;
+  &lt;% if @user.errors.any? %&gt;
+    </p>
+<div id="error_explanation">
+      <h2>&lt;%= pluralize(@user.errors.count, "error") %&gt; prohibited this user from being saved:</h2>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+  &lt;ul&gt;
+  &lt;% @user.errors.full_messages.each do |message| %&gt;
+    &lt;li&gt;&lt;%= message %&gt;&lt;/li&gt;
+  &lt;% end %&gt;
+  &lt;/ul&gt;
+&lt;/div&gt;
+
+</pre>
+</div>
+<p>  &lt;% end %&gt;
+  ...
+&lt;% end %&gt;
+```</p>
+<h3>Nested Resources</h3>
 <ul>
 <li>one model belongs to another, and is dependent</li>
 <li><code>has_many :cards, :dependent =&gt; :destroy</code></li>
 <li>makes sense to nest urls:</li>
 <li>/boards/3/cards  - all the cards in board 3</li>
 </ul>
-<h4 id="model">3.1 model:</h4>
+<h4>model:</h4>
 <ul>
 <li><code>has_many :cards, :dependent =&gt; :destroy</code></li>
 </ul>
-<h4 id="routes-file">3.2 routes file:</h4>
+<h4>routes file:</h4>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :boards do
@@ -234,7 +437,7 @@ end
 
 </pre>
 </div>
-<h4 id="routes-constructed-by-nested-resources">3.3 Routes constructed by nested resources</h4>
+<h4>Routes constructed by nested resources</h4>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 GET    /boards                          
@@ -254,7 +457,7 @@ DELETE /boards/:board_id/cards/:id
 
 </pre>
 </div>
-<h4 id="changes">3.4 Changes</h4>
+<h4>Changes</h4>
 <p>If you switch to nested resources you need to change
 a lot of links:  Instead of <code>cards_path</code> you will need <code>boards_cards_path(board)</code>.</p>
 <p>Another change is needed in the form for editing or creating a card:</p>
@@ -264,11 +467,7 @@ a lot of links:  Instead of <code>cards_path</code> you will need <code>boards_c
 
 </pre>
 </div>
-<h3 id="form-helpers">4 Form Helpers</h3>
-<p>When you write a Rails App, you never write <code>form</code>- or <code>input</code>-Tags by hand.
-You always use form helpers to contruct the HTML for you.  You gain a lot of
-functionality by using the helpers, but you also need to understand how they work.</p>
-<h3 id="further-reading">5 Further reading</h3>
+<h3>Further reading</h3>
 <ul>
 <li>Rails Guide: <a href="http://guides.rubyonrails.org/layouts_and_rendering.html">Layouts and Rendering in Rails</a>
 </li>
@@ -280,6 +479,7 @@ functionality by using the helpers, but you also need to understand how they wor
 <li><a href="http://apidock.com/rails/AbstractController/Callbacks/ClassMethods/before_filter">before_filter</a></li>
 <li><a href="http://apidock.com/rails/ActionDispatch/Routing/Mapper/Resources/resources">resources</a></li>
 </ul>
+</div>
 </body></html>
 
       </div>
