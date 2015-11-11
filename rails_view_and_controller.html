@@ -111,6 +111,7 @@
 <li><a href="#handling-and-displaying-errors">Handling and Displaying Errors</a></li>
 </ul>
 </li>
+<li><a href="#further-reading">Further reading</a></li>
 </ol>
 </body></html>
 
@@ -194,17 +195,17 @@ Use <code>rake routes</code> on the command line do find out which URLs exist:</
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ rake routes
-          Prefix Verb     URI Pattern                        Controller#Action
-  add_user_group PUT      /groups/:id/add_user(.:format)     groups#add_user
-  del_user_group PUT      /groups/:id/del_user(.:format)     groups#del_user
-          groups GET      /groups(.:format)                  groups#index
-                 POST     /groups(.:format)                  groups#create
-       new_group GET      /groups/new(.:format)              groups#new
-      edit_group GET      /groups/:id/edit(.:format)         groups#edit
-           group GET      /groups/:id(.:format)              groups#show
-                 PATCH    /groups/:id(.:format)              groups#update
-                 PUT      /groups/:id(.:format)              groups#update
-                 DELETE   /groups/:id(.:format)              groups#destroy
+          Prefix Verb     URI Pattern
+  add_user_group PUT      /groups/:id/add_user(.:format)
+  del_user_group PUT      /groups/:id/del_user(.:format)
+          groups GET      /groups(.:format)
+                 POST     /groups(.:format)
+       new_group GET      /groups/new(.:format)
+      edit_group GET      /groups/:id/edit(.:format)
+           group GET      /groups/:id(.:format)
+                 PATCH    /groups/:id(.:format)
+                 PUT      /groups/:id(.:format)
+                 DELETE   /groups/:id(.:format)
 
 </pre>
 </div>
@@ -397,49 +398,51 @@ end
 <h4 id="handling-and-displaying-errors">3.5 Handling and Displaying Errors</h4>
 <p>When displaying the form we always display errors that are
 available throught the <code>errors</code> attribute of the user object:</p>
-<p>&lt;%= form_for(@user) do |f| %&gt;
-  &lt;% if @user.errors.any? %&gt;
-    </p>
-<div id="error_explanation">
-      <h2>&lt;%= pluralize(@user.errors.count, "error") %&gt; prohibited this user from being saved:</h2>
 <div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-  &lt;ul&gt;
-  &lt;% @user.errors.full_messages.each do |message| %&gt;
-    &lt;li&gt;&lt;%= message %&gt;&lt;/li&gt;
+<pre class="brush: ruby; gutter: false; toolbar: false">
+&lt;%= form_for(@user) do |f| %&gt;
+  &lt;% if @user.errors.any? %&gt;
+    &lt;div id="error_explanation"&gt;
+      &lt;h2&gt;&lt;%= pluralize(@user.errors.count, "error") %&gt; prohibited this user from being saved:&lt;/h2&gt;
+
+      &lt;ul&gt;
+      &lt;% @user.errors.full_messages.each do |message| %&gt;
+        &lt;li&gt;&lt;%= message %&gt;&lt;/li&gt;
+      &lt;% end %&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
   &lt;% end %&gt;
-  &lt;/ul&gt;
-&lt;/div&gt;
+  ...
+&lt;% end %&gt;
 
 </pre>
 </div>
-<p>  &lt;% end %&gt;
-  ...
-&lt;% end %&gt;
-```</p>
-<h3>Nested Resources</h3>
-<ul>
-<li>one model belongs to another, and is dependent</li>
-<li><code>has_many :cards, :dependent =&gt; :destroy</code></li>
-<li>makes sense to nest urls:</li>
-<li>/boards/3/cards  - all the cards in board 3</li>
-</ul>
-<h4>model:</h4>
-<ul>
-<li><code>has_many :cards, :dependent =&gt; :destroy</code></li>
-</ul>
-<h4>routes file:</h4>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
+
+<!--
+
+Nested Resources
+-------
+
+* one model belongs to another, and is dependent
+* `has_many :cards, :dependent => :destroy`
+* makes sense to nest urls:
+* /boards/3/cards  - all the cards in board 3
+
+### model:
+
+* `has_many :cards, :dependent => :destroy`
+
+### routes file:
+
+``` ruby
 resources :boards do
   resources :cards
 end
+```
 
-</pre>
-</div>
-<h4>Routes constructed by nested resources</h4>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
+### Routes constructed by nested resources
+
+``` sh
 GET    /boards                          
 POST   /boards                          
 GET    /boards/new                      
@@ -454,20 +457,21 @@ GET    /boards/:board_id/cards/:id/edit
 GET    /boards/:board_id/cards/:id      
 PUT    /boards/:board_id/cards/:id      
 DELETE /boards/:board_id/cards/:id      
+```
 
-</pre>
-</div>
-<h4>Changes</h4>
-<p>If you switch to nested resources you need to change
-a lot of links:  Instead of <code>cards_path</code> you will need <code>boards_cards_path(board)</code>.</p>
-<p>Another change is needed in the form for editing or creating a card:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-&lt;%= form_for  [ @board, @card ]  do |f| %&gt;
+### Changes
 
-</pre>
-</div>
-<h3>Further reading</h3>
+If you switch to nested resources you need to change
+a lot of links:  Instead of `cards_path` you will need `boards_cards_path(board)`.
+
+Another change is needed in the form for editing or creating a card:
+
+``` ruby
+<%= form_for  [ @board, @card ]  do |f| %>
+```
+
+-->
+<h3 id="further-reading">4 Further reading</h3>
 <ul>
 <li>Rails Guide: <a href="http://guides.rubyonrails.org/layouts_and_rendering.html">Layouts and Rendering in Rails</a>
 </li>
@@ -478,8 +482,8 @@ a lot of links:  Instead of <code>cards_path</code> you will need <code>boards_c
 <li><a href="http://apidock.com/rails/v3.2.8/ActionView/Helpers/UrlHelper/link_to">link_to</a></li>
 <li><a href="http://apidock.com/rails/AbstractController/Callbacks/ClassMethods/before_filter">before_filter</a></li>
 <li><a href="http://apidock.com/rails/ActionDispatch/Routing/Mapper/Resources/resources">resources</a></li>
+<li>Alternative to ERB: <a href="http://haml.info/tutorial.html">HAML</a>  similar to SASS</li>
 </ul>
-</div>
 </body></html>
 
       </div>
