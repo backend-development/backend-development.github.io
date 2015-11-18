@@ -95,6 +95,7 @@
 <li><a href="#login-from-scratch">Login from Scratch</a></li>
 <li><a href="#login-using-twitter-facebook-github">Login using twitter, facebook, github, ...</a></li>
 <li><a href="#confirmation-e-mail-password-reminder">Confirmation E-Mail, Password Reminder, ...</a></li>
+<li><a href="#further-reading">Further Reading</a></li>
 </ol>
 </body></html>
 
@@ -363,7 +364,35 @@ is quite impressive.  Think carefully about what services your users
 are using, and which services might be useful to your app: could
 you use Dropbox to authenticate, and also to deliver data directly
 to your users dropbox? Would it make sense to use facebook or twitter and also
-send out messages that way?</p>
+send out messages that way?  </p>
+<p>You will have to register your app with the authentication
+provider, eg. at <a href="https://developers.facebook.com/apps/">https://developers.facebook.com/apps/</a> 
+or <a href="https://apps.twitter.com/">https://apps.twitter.com/</a>.
+For every provider you get two pieces of information: a key and a secret.
+These you add to the configuration of omniauth:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+# config/initializers/omniauth.rb:
+
+Rails.application.config.middleware.use OmniAuth::Builder do
+  provider :twitter, 'TWITTER_KEY', 'TWITTER_SECRET'
+end
+
+</pre>
+</div>
+<p>If you plan on publishing your source code (e.g. because you use github for free ;-)
+you might want to set these values in a way that is NOT saved to the repository.
+You could use environment variables for that:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+# config/initializers/omniauth.rb:
+
+Rails.application.config.middleware.use OmniAuth::Builder do
+  provider :twitter, ENV['TWITTER_KEY'], ENV['TWITTER_SECRET']
+end
+
+</pre>
+</div>
 <p>For authentication you need to save at least the provider and the uid in your database
 somewhere.  But you can get more information out of the authentication:
 name, e-mail, and the token and secret needed to actually use the service.</p>
@@ -512,6 +541,15 @@ the gem <code>devise</code> offers a lot of features. It makes your logins ...</
 <p>Devise can also be combined with omniauth:</p>
 <ul>
 <li>Omniauthable: adds OmniAuth support.</li>
+</ul>
+<h3 id="further-reading">7 Further Reading</h3>
+<ul>
+<li>OmniAuth <a href="https://github.com/intridea/omniauth/wiki">wiki</a>
+</li>
+<li>Devise <a href="https://github.com/plataformatec/devise">github page</a>
+</li>
+<li>Rails Security Guide on <a href="http://guides.rubyonrails.org/security.html#user-management">User Management</a>
+</li>
 </ul>
 </body></html>
 
