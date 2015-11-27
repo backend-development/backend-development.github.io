@@ -85,6 +85,7 @@
 <ol class="chapters">
 <li><a href="#an-introduction-to-ajax">An Introduction to Ajax</a></li>
 <li><a href="#unobtrusive-javascript">Unobtrusive JavaScript</a></li>
+<li><a href="#using-es6-in-rails">Using ES6 in Rails</a></li>
 <li>
 <a href="#turbolinks">Turbolinks</a>
 
@@ -251,10 +252,47 @@ they use <code>data-confirm</code> to unobstrusively add a confirmation dialog.<
 <p>The Rails team strongly encourages you to write your JavaScript in this style, 
 and you can expect that many libraries will also
 follow this pattern.</p>
-<h3 id="turbolinks">3 Turbolinks</h3>
+<h3 id="using-es6-in-rails">3 Using ES6 in Rails</h3>
+<p>Rails comes with CoffeeScript as a default. It is transpiled to JavaScript
+by the asset pipeline. To disable this just comment out the gem in the Gemfile
+and remove any *.coffee files the scaffold might have created from <code>/app/assets/javascript</code></p>
+<p>To use Ecmascript 6 instead add the following to the Gemfile:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+gem 'sprockets'
+gem 'sprockets-es6', require: 'sprockets/es6'
+
+</pre>
+</div>
+<p>Now any file <code>/app/assets/javascript/hello_world.js.es6</code> will be
+transpiled to <code>/app/assets/javascript/hello_world.js</code> first, and
+later be minified and combined by the asset pipeline.</p>
+<p>For example:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+class HelloWorld {  
+  constructor(name) {
+    this.name = name;
+  }
+
+  sayHello() {
+    alert("Hello " + this.name);
+  }
+}
+
+</pre>
+</div>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+&lt;button data-hello="world"&gt;Hello World&lt;/button&gt;
+
+</pre>
+</div>
+<p>Can now can write the ES6 / JavaScript to call this unobstrusively!</p>
+<h3 id="turbolinks">4 Turbolinks</h3>
 <p>Rails ships with the <a href="https://github.com/rails/turbolinks">Turbolinks gem</a>.
 This gem uses Ajax to speed up page rendering in most applications.</p>
-<h4 id="how-turbolinks-works">3.1 How Turbolinks Works</h4>
+<h4 id="how-turbolinks-works">4.1 How Turbolinks Works</h4>
 <p>Turbolinks attaches a click handler to all <code>&lt;a&gt;</code> on the page. If your browser
 supports
 <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Manipulating_the_browser_history#The_pushState%28%29_method">PushState</a>,
@@ -274,7 +312,7 @@ attribute to the tag:</p>
 
 </pre>
 </div>
-<h4 id="page-change-events">3.2 Page Change Events</h4>
+<h4 id="page-change-events">4.2 Page Change Events</h4>
 <p>When writing JavaScript, you'll often want to do some sort of processing upon
 page load. With jQuery, you'd write something like this:</p>
 <div class="code_container">
@@ -299,7 +337,7 @@ $(document).on("page:change", function(){
 <p>For more details, including other events you can bind to, check out <a href="https://github.com/rails/turbolinks/blob/master/README.md">the
 Turbolinks
 README</a>.</p>
-<h3 id="built-in-helpers">4 Built-in Helpers </h3>
+<h3 id="built-in-helpers">5 Built-in Helpers </h3>
 <p>Rails provides a bunch of view helper methods written in Ruby to assist you
 in generating HTML. Sometimes, you want to add a little Ajax to those elements,
 and Rails has got your back in those cases.</p>
@@ -309,7 +347,7 @@ parts: the JavaScript half and the Ruby half.</p>
 provides the JavaScript half, and the regular Ruby view helpers add appropriate
 tags to your DOM. The JavaScript in rails.js then listens for these
 attributes, and attaches appropriate handlers.</p>
-<h4 id="form-for">4.1 form_for</h4>
+<h4 id="form-for">5.1 form_for</h4>
 <p><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/FormHelper.html#method-i-form_for"><code>form_for</code></a>
 is a helper that assists with writing forms. <code>form_for</code> takes a <code>:remote</code>
 option. It works like this:</p>
@@ -337,7 +375,7 @@ You probably want to do something upon a successful submission. To do that,
 bind to the <code>ajax:success</code> event. On failure, use <code>ajax:error</code>. Check it out:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-  $(document).on("page:change",
+  $(document).on("page:change", function(){
     $("#new_article").on("ajax:success", function(e, data, status, xhr) {
       $("#new_article").append(xhr.responseText);
     }).on("ajax:error", function(e, xhr, status, error) {
@@ -349,7 +387,7 @@ bind to the <code>ajax:success</code> event. On failure, use <code>ajax:error</c
 </div>
 <p>Obviously, you'll want to be a bit more sophisticated than that, but it's a
 start. You can see more about the events <a href="https://github.com/rails/jquery-ujs/wiki/ajax">in the jquery-ujs wiki</a>.</p>
-<h4 id="form-tag">4.2 form_tag</h4>
+<h4 id="form-tag">5.2 form_tag</h4>
 <p><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/FormTagHelper.html#method-i-form_tag"><code>form_tag</code></a>
 is very similar to <code>form_for</code>. It has a <code>:remote</code> option that you can use like
 this:</p>
@@ -372,7 +410,7 @@ this:</p>
 </div>
 <p>Everything else is the same as <code>form_for</code>. See its documentation for full
 details.</p>
-<h4 id="link-to">4.3 link_to</h4>
+<h4 id="link-to">5.3 link_to</h4>
 <p><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to"><code>link_to</code></a>
 is a helper that assists with generating links. It has a <code>:remote</code> option you
 can use like this:</p>
@@ -407,7 +445,7 @@ $("a[data-remote]").on("ajax:success", function(e, data, status, xhr) {
 
 </pre>
 </div>
-<h4 id="button-to">4.4 button_to</h4>
+<h4 id="button-to">5.4 button_to</h4>
 <p><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-button_to"><code>button_to</code></a> is a helper that helps you create buttons. It has a <code>:remote</code> option that you can call like this:</p>
 <div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
@@ -425,11 +463,11 @@ $("a[data-remote]").on("ajax:success", function(e, data, status, xhr) {
 </pre>
 </div>
 <p>Since it's just a <code>&lt;form&gt;</code>, all of the information on <code>form_for</code> also applies.</p>
-<h3 id="server-side-concerns">5 Server-Side Concerns</h3>
+<h3 id="server-side-concerns">6 Server-Side Concerns</h3>
 <p>Ajax isn't just client-side, you also need to do some work on the server
 side to support it. Often, people like their Ajax requests to return JSON
 rather than HTML. Let's discuss what it takes to make that happen.</p>
-<h4 id="a-simple-example">5.1 A Simple Example</h4>
+<h4 id="a-simple-example">6.1 A Simple Example</h4>
 <p>Imagine you have a series of users that you would like to display and provide a
 form on that same page to create a new user. The index action of your
 controller looks like this:</p>
@@ -508,7 +546,7 @@ $("&lt;%= escape_javascript(render @user) %&gt;").appendTo("#users");
 
 </pre>
 </div>
-<h3 id="other-resources">6 Other Resources</h3>
+<h3 id="other-resources">7 Other Resources</h3>
 <p>Here are some helpful links to help you learn even more:</p>
 <ul>
 <li><a href="https://github.com/rails/jquery-ujs/wiki">jquery-ujs wiki</a></li>
