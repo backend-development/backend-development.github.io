@@ -108,7 +108,8 @@
 <a href="#server-side-concerns">Server-Side Concerns</a>
 
 <ul>
-<li><a href="#a-simple-example">A Simple Example</a></li>
+<li><a href="#the-recipe-ingredients-example">The Recipe / Ingredients Example</a></li>
+<li><a href="#another-example">Another Example</a></li>
 </ul>
 </li>
 <li><a href="#other-resources">Other Resources</a></li>
@@ -467,7 +468,74 @@ $("a[data-remote]").on("ajax:success", function(e, data, status, xhr) {
 <p>Ajax isn't just client-side, you also need to do some work on the server
 side to support it. Often, people like their Ajax requests to return JSON
 rather than HTML. Let's discuss what it takes to make that happen.</p>
-<h4 id="a-simple-example">6.1 A Simple Example</h4>
+<h4 id="the-recipe-ingredients-example">6.1 The Recipe / Ingredients Example</h4>
+<p>On the List of Ingredients page we want the 'edit' links to 
+load an inline form for editing the ingredient.
+As a first step we change the <code>link_to</code> to <code>remote</code>:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+link_to 'Edit', edit_ingredient_path(ingredient), remote: true
+
+</pre>
+</div>
+<p>Now clicking the link fails silently.  In the log file you can
+see that the edit-view is rendered normally.  But we need
+a different behaviour in case this view is called from JavaScript.
+We also want to keep the normal behaviour as it is.</p>
+<p>In a rails controller you can use <code>resond_to</code> to handle
+different expected results:  in our case the browser once 
+expects HTML as the result when doing a normal GET Request,
+while the Rails <code>link_to :remote</code> link expects javascript
+as a result:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+respond_to do |format|
+  format.html { render :new }
+  format.js   { render 'new.js.erb' }
+end
+
+</pre>
+</div>
+<p>The link still fails silently. We can handle
+the AJAX error like so:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+$(".edit_ingredient").on("ajax:error", function(e, xhr, status, error) {
+  $(this).parent().append("&lt;b&gt;AJAX ERROR " + status + ": " + error + "&lt;/b&gt;");
+});
+
+</pre>
+</div>
+<p>Now we implement the <code>new.js.erb</code> view.  The Javascript
+created here is sent back to the client and executed
+there.  Try it out with a simple alert:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+alert("this was sent back from the server, for ingredient  &lt;%= @ingredient.id %&gt;");
+
+</pre>
+</div>
+<p>If this works we can start building the 
+behaviour we actually want:  We want to replace
+the existing display of the ingredient with the
+edit form.</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+console.log("now running for &lt;%= @ingredient.id %&gt;");
+$("#ingredient_&lt;%= @ingredient.id %&gt;").find('span').html("edit form here");
+
+</pre>
+</div>
+<p>For the creation of the form we can use the existing form partial:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+console.log("now running for &lt;%= @ingredient.id %&gt;");
+$("#ingredient_&lt;%= @ingredient.id %&gt;").find('span').html(&lt;%= escape_javascript(render 'form') %&gt;);
+
+</pre>
+</div>
+<p>...TBC...</p>
+<h4 id="another-example">6.2 Another Example</h4>
 <p>Imagine you have a series of users that you would like to display and provide a
 form on that same page to create a new user. The index action of your
 controller looks like this:</p>
