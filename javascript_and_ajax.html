@@ -469,9 +469,12 @@ $("a[data-remote]").on("ajax:success", function(e, data, status, xhr) {
 side to support it. Often, people like their Ajax requests to return JSON
 rather than HTML. Let's discuss what it takes to make that happen.</p>
 <h4 id="the-recipe-ingredients-example">6.1 The Recipe / Ingredients Example</h4>
+<p>You can clone the source code for the example from
+<a href="https://github.com/backend-development/rails-example-recipes-js">github</a></p>
 <p>On the List of Ingredients page we want the 'edit' links to 
-load an inline form for editing the ingredient.
-As a first step we change the <code>link_to</code> to <code>remote</code>:</p>
+load an inline form for editing the ingredient.</p>
+<p><img src="images/inline_form_2.png" alt=""></p>
+<p>As a first step we change the <code>link_to</code> to <code>remote</code>:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 link_to 'Edit', edit_ingredient_path(ingredient), remote: true
@@ -522,19 +525,21 @@ edit form.</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 console.log("now running for &lt;%= @ingredient.id %&gt;");
-$("#ingredient_&lt;%= @ingredient.id %&gt;").find('span').html("edit form here");
+$("#ingredient_&lt;%= @ingredient.id %&gt;").find('span').html('edit form here');
 
 </pre>
 </div>
-<p>For the creation of the form we can use the existing form partial:</p>
+<p>For the creation of the form we can use the existing form partial
+in place of the string. We need to escape the resulting code
+in the proper way for using it in javascript:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-console.log("now running for &lt;%= @ingredient.id %&gt;");
-$("#ingredient_&lt;%= @ingredient.id %&gt;").find('span').html(&lt;%= escape_javascript(render 'form') %&gt;);
+....html('&lt;%= escape_javascript(render 'form') %&gt;');
 
 </pre>
 </div>
-<p>...TBC...</p>
+<p>As a more advanced exercise you could also make the "update" button of the form 
+work with AJAX.</p>
 <h4 id="another-example">6.2 Another Example</h4>
 <p>Imagine you have a series of users that you would like to display and provide a
 form on that same page to create a new user. The index action of your
@@ -617,9 +622,11 @@ $("&lt;%= escape_javascript(render @user) %&gt;").appendTo("#users");
 <h3 id="other-resources">7 Other Resources</h3>
 <p>Here are some helpful links to help you learn even more:</p>
 <ul>
+<li>
+<a href="http://guides.rubyonrails.org/working_with_javascript_in_rails.html">Original Rails Guide Working with JavaScript</a>.</li>
 <li><a href="https://github.com/rails/jquery-ujs/wiki">jquery-ujs wiki</a></li>
-<li><a href="https://github.com/rails/jquery-ujs/wiki/External-articles">jquery-ujs list of external articles</a></li>
-<li><a href="http://www.alfajango.com/blog/rails-3-remote-links-and-forms/">Rails 3 Remote Links and Forms: A Definitive Guide</a></li>
+<li><a href="https://github.com/rails/jquery-ujs/wiki/ajax">Events created by Rails AJAX</a></li>
+<li><a href="http://www.kwanso.com/blog/using-ecmascript-6-with-rails-4-2-projects/">Using ES6 in Rails article</a></li>
 <li><a href="http://railscasts.com/episodes/205-unobtrusive-javascript">Railscasts: Unobtrusive JavaScript</a></li>
 <li><a href="http://railscasts.com/episodes/390-turbolinks">Railscasts: Turbolinks</a></li>
 </ul>
