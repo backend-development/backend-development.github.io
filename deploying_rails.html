@@ -109,6 +109,7 @@
 <li><a href="#how-to-install">how to install</a></li>
 <li><a href="#configuration-in-config-deploy-rb">configuration in <code>config/deploy.rb</code></a></li>
 <li><a href="#example-task-in-capfile">example task in Capfile</a></li>
+<li><a href="#prepare-capistranoe">prepare capistranoe</a></li>
 <li><a href="#run-a-capistrano-task">run a capistrano task</a></li>
 <li><a href="#capistrano-folders">capistrano folders</a></li>
 <li><a href="#my-first-deploy">my first deploy</a></li>
@@ -268,10 +269,14 @@ $ sudo gem install capistrano
 Fetching: capistrano-2.13.5.gem (100%)
 Successfully installed capistrano-2.13.5
 1 gem installed
-$ capify .
-[add] writing './Capfile'
-[add] writing './config/deploy.rb'
-[done] capified!
+$ $ cap install
+mkdir -p config/deploy
+create config/deploy.rb
+create config/deploy/staging.rb
+create config/deploy/production.rb
+mkdir -p lib/capistrano/tasks
+create Capfile
+Capified
 
 </pre>
 </div>
@@ -282,14 +287,25 @@ $ capify .
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 task :display_free_disk_space do
-run "df -h"
+  run "df -h"
 end
 
 </pre>
 </div>
-<h4 id="run-a-capistrano-task">4.6 run a capistrano task</h4>
+<h4 id="prepare-capistranoe">4.6 prepare capistranoe</h4>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
+$ cap production git:check
+$ scp config/database.yml deployuser@server:/var/www/.../shared/config
+$ scp config/secrets.yml deployuser@server:/var/www/.../shared/config
+$ cap production deploy
+
+</pre>
+</div>
+<h4 id="run-a-capistrano-task">4.7 run a capistrano task</h4>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+$ cap production deploy
 $ cap display_free_disk_space
 * 2012-11-29 05:34:45 executing 'display_free_disk_space'
 * executing "df -h"
@@ -302,7 +318,7 @@ $ cap display_free_disk_space
 
 </pre>
 </div>
-<h4 id="capistrano-folders">4.7 capistrano folders</h4>
+<h4 id="capistrano-folders">4.8 capistrano folders</h4>
 <p>read the logfile, try to find out how capistrano lays out
 the folders</p>
 <ul>
@@ -329,7 +345,7 @@ the folders</p>
 </ul>
 </li>
 </ul>
-<h4 id="my-first-deploy">4.8 my first deploy</h4>
+<h4 id="my-first-deploy">4.9 my first deploy</h4>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ cap deploy:setup

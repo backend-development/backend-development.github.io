@@ -262,6 +262,13 @@ not match the password.</p>
 
 </pre>
 </div>
+<p>and the session controller to handle this routes:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+rails g controller sessions new create destroy
+
+</pre>
+</div>
 <p>Now you can direct your browser to <a href="http://localhost:3000/login">http://localhost:3000/login</a>
 Next you need to set up the view for the login form there: </p>
 <div class="code_container">
