@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Web Engineering Textbook: Ruby </title>
+  <title>Web Engineering Textbook: Ruby</title>
   <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
@@ -92,7 +92,7 @@
 </ul>
 </li>
 <li>
-<a href="#ruby-basics">Ruby Basics </a>
+<a href="#ruby-basics">Ruby Basics</a>
 
 <ul>
 <li><a href="#some-code-conventions">Some code conventions</a></li>
@@ -121,7 +121,7 @@
 </ul>
 </li>
 <li>
-<a href="#blocks">Blocks </a>
+<a href="#blocks">Blocks</a>
 
 <ul>
 <li><a href="#my-function-takes-a-block-of-code">My Function takes a Block of Code</a></li>
@@ -140,7 +140,7 @@
 
           </div>
 
-      <h2>Ruby </h2><p>This guide will focus on ruby - the language - alone.</p><p>After finishing this guide you will</p>
+      <h2>Ruby</h2><p>This guide will focus on ruby - the language - alone.</p><p>After finishing this guide you will</p>
 <ul>
 <li>have an overview of rubys type system</li>
 <li>be able to use list processing functions in ruby</li>
@@ -182,7 +182,7 @@ It was created by David Heinemeier Hansson ('DHH') starting in 2005.</p>
 is often used in startups, where speed of delivery is very important.
 Rails moves fast, new versions with major improvement appear about every 18
 months.  The rails community values speed of development, DRY code, testing,
-version control, ... when you learn rails you also pick up a whole culture 
+version control, ... when you learn rails you also pick up a whole culture
 surrounding it.</p>
 <h4 id="why-ruby-questionmark-why-rails-questionmark">1.2 Why Ruby? Why Rails ?</h4>
 <p>Why should you use Ruby and Rails over other programming languages
@@ -195,11 +195,11 @@ and frameworks?  </p>
 <p>All these answers are equally valid.</p>
 <p>Also, there are cool t-shirts:</p>
 <p><img src="images/ruby-and-rails-t-shirts.png" alt="Ruby and Rails T-Shirts"></p>
-<h3 id="ruby-basics">2 Ruby Basics </h3>
+<h3 id="ruby-basics">2 Ruby Basics</h3>
 <p>For a hands-on introdcution to ruby got to <a href="http://tryruby.org">try ruby</a>.
 Then come back and read on:</p>
 <h4 id="some-code-conventions">2.1 Some code conventions</h4>
-<p>Try to stick to <a href="https://github.com/styleguide/ruby">githubs style for ruby</a>. </p>
+<p>Try to stick to <a href="https://github.com/styleguide/ruby">github's style for ruby</a>. </p>
 <p>When you chose names for your objects, classes and methods
 you should stick to the following conventions to avoid
 confusing other ruby developers:</p>
@@ -210,10 +210,10 @@ the_variable = SomeClass.new
              # classes in capital CamelCase
 
              # method names are written in snake_case
-a = b.sugar  # a method the returns something 
-b.sweet?     # a method that returns true or false 
+a = b.sugar  # a method the returns something
+b.sweet?     # a method that returns true or false
              # ends in a question mark
-b.sugar!     # a method that changes its object 
+b.sugar!     # a method that changes its object
              # ends in an exclamation mark
 
 </pre>
@@ -225,7 +225,7 @@ Leave them off unless your code get's confusing:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 puts("less code")
-puts "less code" 
+puts "less code"
 
 </pre>
 </div>
@@ -257,7 +257,7 @@ This is a so called "Here-Document"
 it can contain many lines of text
 and ends with the identifier EOM (that i chose!)
 but only if it's alone on a line all by itself:
-EOM 
+EOM
 
 </pre>
 </div>
@@ -267,8 +267,8 @@ be confusing for programmers used to other languages with
 more complex rules for truthyness:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-if 0 
-  puts '0 is true!' 
+if 0
+  puts '0 is true!'
 end
 if "false"
   puts '"false" (the string) is not false'       
@@ -285,7 +285,7 @@ appending the condition to the statement,
 like so:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-puts '0 is true!' if 0 
+puts '0 is true!' if 0
 puts '"false" is not false' if "false"
 
 </pre>
@@ -295,7 +295,7 @@ you understand english.  (yes, that's an english
 sentence using the same syntax).</p>
 <h4 id="boolean-operators">2.5 Boolean Operators</h4>
 <p>When ruby evaluates a boolean operator,
-it does as little work as possible.  It 
+it does as little work as possible.  It
 stops evaluation as soon as the result is clear:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -429,7 +429,7 @@ hashes in Wikipedia:</p>
 <p>(If you don't know what "in constant time" means above, you
 should learn more about the analysis of algorithms. e.g. by
 taking a algorithms and data strcture course as offered in the second
-semester of most computer science programs.  Or by working through the 
+semester of most computer science programs.  Or by working through the
 <a href="http://www.brpreiss.com/books/opus8/">the book by Bruno R. Preiss</a>).</p>
 <h4 id="implicit-form">3.1 Implicit Form</h4>
 <p>A Hash can be created by using its "implicit form":</p>
@@ -462,7 +462,7 @@ def apply_the_style( h )
 end
 
 apply_the_style(font_size: 10, font_family: "Arial")
-apply_the_style font_size: 10, font_family: "Arial" 
+apply_the_style font_size: 10, font_family: "Arial"
 
 </pre>
 </div>
@@ -476,7 +476,7 @@ from one command to the next:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 # many httpd processes are running. as which user(s) ?
-# 
+#
 $ ps aux | grep httpd | cut -c1-8 | sort | uniq
 
 </pre>
@@ -559,7 +559,7 @@ the Block on several lines, ending with <code>end</code></p>
 </div>
 <p>Some other methods for Enumerables that take a Block:</p>
 <ul>
-<li>map {|x| new value computed from x} </li>
+<li>map {|x| new value computed from x}</li>
 <li>select {|x| should x be selected? }</li>
 <li>reduce(:+)</li>
 <li>reduce{|memo, item| compute new value for memo}</li>
@@ -571,7 +571,7 @@ code considerably.</p>
 <li><a href="http://ruby-doc.org/core-2.1.0/Enumerable.html">Enumerable</a></li>
 <li><a href="http://ruby-doc.org/core-2.1.0/Array.html">Array</a></li>
 </ul>
-<h3 id="blocks">5 Blocks </h3>
+<h3 id="blocks">5 Blocks</h3>
 <p>Blocks of code are not just used in Enumerables, they are
 a basic building block of ruby.  You can write functions
 that take a Block as an argument:</p>
@@ -622,14 +622,14 @@ installed on your development machine so you can look up stuff instantly.</p>
 <li>
 <a href="http://tryruby.org">try ruby</a> - interactive online course</li>
 <li>
-<a href="http://www.codeschool.com/courses/ruby-bits">Ruby Bits</a> - interactive online course, with 8bit game graphics </li>
+<a href="http://www.codeschool.com/courses/ruby-bits">Ruby Bits</a> - interactive online course, with 8bit game graphics</li>
 <li><a href="http://rubylearning.com/satishtalim/tutorial.html">learningruby.com tutorial</a></li>
 </ul>
 <h4 id="books">6.2 Books</h4>
 <ul>
 <li>Flanagan, Matsumoto(2008): <a href="http://www.amazon.com/Ruby-Programming-Language-David-Flanagan/dp/0596516177">The Ruby Programming Language</a>. O'Reilly. ISBN 0596516177.</li>
-<li>Thomas(2013): <a href="http://www.amazon.com/Programming-Ruby-1-9-2-0-Programmers/dp/1937785491/">Programming Ruby 1.9 + 2.0</a>. Pragmatic Porgrammers. ISBN 1937785491 </li>
-<li>Olsen (2011): <a href="http://www.amazon.com/Eloquent-Ruby-Addison-Wesley-Professional/dp/0321584104/">Eloquent Ruby</a>. Addison-Wesley. ISBN 0321584104 </li>
+<li>Thomas(2013): <a href="http://www.amazon.com/Programming-Ruby-1-9-2-0-Programmers/dp/1937785491/">Programming Ruby 1.9 + 2.0</a>. Pragmatic Porgrammers. ISBN 1937785491</li>
+<li>Olsen (2011): <a href="http://www.amazon.com/Eloquent-Ruby-Addison-Wesley-Professional/dp/0321584104/">Eloquent Ruby</a>. Addison-Wesley. ISBN 0321584104</li>
 <li>Tate(2010): <a href="http://www.amazon.com/Seven-Languages-Weeks-Programming-Programmers/dp/193435659X/">Seven Languages in Seven Weeks: A Pragmatic Guide to Learning Programming Languages</a>. Pragmatic Programmers.  ISBN 193435659X</li>
 </ul>
 </body></html>
