@@ -128,10 +128,8 @@ your first Rails Project.</p><p>After reading this guide you will</p>
 <li>understand how bundler handles dependencies</li>
 <li>be able to configure the gems you use</li>
 <li>be able to deliberately chose version numbers for your gems</li>
+<li>know a few intresting gems for your next rails project</li>
 </ul>
-
-<dd class="work-in-progress"><p>This chapter is still a work in progress. </p>
-<p>You can help by reviewing the documents and posting your comments and corrections.</p></dd>
 
     </div>
   </div>
@@ -163,13 +161,27 @@ Done installing documentation for rails_best_practices after 2 seconds
 
 </pre>
 </div>
-<p>But sometimes you have to do other installations first. On
-your development machine you can always do this, e.g:</p>
+<p>But sometimes you have to do other installations first. 
+On your development machine this might look like this:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 # install node on a mac
 &gt; brew install nodejs
 &gt; gem install uglifier
+
+</pre>
+</div>
+<p>Sometimes you need to set include paths when compiling the c-part of the gem, e.g.:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+&gt; gem install eventmachine 
+... error messages ...
+In file included from binder.cpp:20:
+./project.h:116:10: fatal error: 'openssl/ssl.h' file not found
+#include &lt;openssl/ssl.h&gt;
+         ^
+&gt; brew install openssl
+&gt; gem install eventmachine -- --with-cppflags=-I/usr/local/opt/openssl/include
 
 </pre>
 </div>
@@ -187,9 +199,12 @@ $production&gt; gem install paperclip
 </div>
 <p>Now that you have installed the gem once by hand
 you can be sure that it can also be reinstalled by bundler.</p>
-<p>See also:
-* <a href="http://docs.rubygems.org/read/chapter/24">what is a gem</a>
-* find 100.000 gems at <a href="http://rubygems.org/">rubygems.org</a></p>
+<p>See also:</p>
+<ul>
+<li><a href="http://docs.rubygems.org/read/chapter/24">what is a gem</a></li>
+<li>find 100.000 gems at <a href="http://rubygems.org/">rubygems.org</a>
+</li>
+</ul>
 <h4 id="dependency-hell">1.2 dependency hell</h4>
 <p>For a rails project you will be using a lot of gems. This will lead
 to two problems:</p>
