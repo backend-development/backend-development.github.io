@@ -98,9 +98,7 @@
 <a href="#some-gems">Some Gems</a>
 
 <ul>
-<li><a href="#bootstrap-for-rails">Bootstrap for rails</a></li>
-<li><a href="#mixins-for-css">Mixins for CSS</a></li>
-<li><a href="#css-grid">CSS Grid</a></li>
+<li><a href="#frontend-stuff-for-rails">Frontend Stuff for rails</a></li>
 <li><a href="#file-upload">File Upload</a></li>
 <li><a href="#authentication">Authentication</a></li>
 <li><a href="#permalinks">Permalinks</a></li>
@@ -264,21 +262,23 @@ of available generators.</p>
 <h3 id="some-gems">2 Some Gems</h3>
 <p>This list is based on <a href="http://www.dwellable.com/blog/Rails-Rumble-Gem-Teardown">Dwellables statistics on the Rails Rumble 2013</a> and
 <a href="http://www.codebeerstartups.com/2013/04/must-have-gems-for-development-machine-in-ruby-on-rails">coodbeerstartups "Must Have Gems for Development Machine in Ruby on Rails "</a>.</p>
-<h4 id="bootstrap-for-rails">2.1 Bootstrap for rails</h4>
-<p>*<a href="https://github.com/twbs/bootstrap-sass">Bootstrap SASS</a> - don't just use bootstrap, configure it with SASS
-*<a href="https://github.com/bootstrap-ruby/rails-bootstrap-forms">bootstrap_forms</a> - form helper to generate form tags and input fields that work well with bootstrap</p>
-<h4 id="mixins-for-css">2.2 Mixins for CSS</h4>
-<p>You don't want to waste your time writing vendor-prefixes for css3 features.
-Use a mixin library instead:</p>
-<p><img src="images/gem-bourbon.png" alt="bourbon screenshot">
-<a href="http://bourbon.io/">http://bourbon.io/</a></p>
-<h4 id="css-grid">2.3 CSS Grid</h4>
-<p>Bootstrap is used by a lot of projects. See <a href="http://railsapps.github.io/twitter-bootstrap-rails.html">Kehoe(2013)</a> for help
-with choosing the right bootstrap gem.</p>
-<p>But there is a more sophisticated alternative to bootstrap: <strong>Neat</strong> uses a <em>semantic</em> grid system:</p>
-<p><img src="images/gem-neat.png" alt="neat screenshot">
-<a href="http://neat.bourbon.io/">http://neat.bourbon.io/</a></p>
-<h4 id="file-upload">2.4 File Upload</h4>
+<h4 id="frontend-stuff-for-rails">2.1 Frontend Stuff for rails</h4>
+<p>Use rails-assets.org to get javascript libraries.
+It is a proxy to Bower, so any library that is available
+through Bower is available to rails.</p>
+<p>In your gemfile:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+source 'https://rails-assets.org' do
+  gem 'rails-assets-bootstrap-sass'
+  gem 'rails-assets-angular'
+  gem 'rails-assets-leaflet'
+end
+
+</pre>
+</div>
+<p>Search for libraries at <a href="https://rails-assets.org">https://rails-assets.org</a></p>
+<h4 id="file-upload">2.2 File Upload</h4>
 <p>Uploading Pictures and displaying them is a common task with two good solutions:</p>
 <ul>
 <li>gem <a href="https://github.com/carrierwaveuploader/carrierwave">carrierwave</a> or</li>
@@ -294,25 +294,25 @@ with choosing the right bootstrap gem.</p>
 <li>command line tool <a href="http://www.imagemagick.org/script/convert.php">convert</a> to convert to different formats and</li>
 <li>command line tool <a href="http://www.imagemagick.org/script/mogrify.php">mogrify</a> to  resize, blur, crop, draw on, flip, join, ... an image and overwrite it.</li>
 </ul>
-<h4 id="authentication">2.5 Authentication</h4>
+<h4 id="authentication">2.3 Authentication</h4>
 <ul>
 <li>gem <a href="https://github.com/plataformatec/devise">devise</a> for login,</li>
 <li>gem <a href="https://github.com/intridea/omniauth">omniauth</a> to integrate authentication methods.</li>
 <li>gem <a href="https://github.com/elabs/pundit">pundit</a> if you need roles and permissions </li>
 </ul>
-<h4 id="permalinks">2.6 Permalinks</h4>
+<h4 id="permalinks">2.4 Permalinks</h4>
 <p>You don't want the database keys to be visible in your URLs?  Use Friendly IDs instead:</p>
 <ul>
 <li>gem <a href="https://github.com/norman/friendly_id">friendlyid</a>
 </li>
 </ul>
-<h4 id="parsing-xml-and-html">2.7 Parsing xml and html</h4>
+<h4 id="parsing-xml-and-html">2.5 Parsing xml and html</h4>
 <ul>
 <li>gem <a href="http://nokogiri.org/">nokogiri</a>
 </li>
 </ul>
 <p>(this is also used by capybara)</p>
-<h4 id="parsing-markdown">2.8 Parsing Markdown</h4>
+<h4 id="parsing-markdown">2.6 Parsing Markdown</h4>
 <p>Letting users enter HTML is a dangerous idea - it's really hard to
 avoid the security problems.  An alternative is to let them enter
 a simpler markup language, like <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a>.
@@ -321,7 +321,7 @@ You store the markdown in your database, and convert it to HTML when displayed u
 <li>gem <a href="https://github.com/vmg/redcarpet">redcarpet</a> - see <a href="http://railscasts.com/episodes/272-markdown-with-redcarpet?view=asciicast">Railscast #272</a>
 </li>
 </ul>
-<h4 id="activity-stream">2.9 Activity Stream</h4>
+<h4 id="activity-stream">2.7 Activity Stream</h4>
 <p>If you want to give users an overview of what happened recently
 you can use an activity stream, similar to what you see in facebook.</p>
 <p><img src="images/gem-activity.png" alt="activity stream example"></p>
@@ -329,22 +329,22 @@ you can use an activity stream, similar to what you see in facebook.</p>
 <li>gem <a href="https://github.com/pokonski/public_activity">public_activity</a>
 </li>
 </ul>
-<h4 id="admin-backend">2.10 Admin Backend</h4>
+<h4 id="admin-backend">2.8 Admin Backend</h4>
 <p>Create a Backend for manipulating data with a few lines of code:</p>
 <p><img src="images/gem-active-admin.png" alt="ActiveAdmin Screenshot"></p>
 <ul>
 <li>gem <a href="http://activeadmin.info/">activeadmin</a>
 </li>
 </ul>
-<h4 id="sending-mail">2.11 Sending Mail</h4>
+<h4 id="sending-mail">2.9 Sending Mail</h4>
 <p>To send mail from Rails use <a href="http://guides.rubyonrails.org/action_mailer_basics.html">ActionMailer</a>.</p>
 <p>To see the generated mails in your web browser <em>instead</em> of sending them, use the gem <a href="https://github.com/ryanb/letter_opener">letter_opener</a></p>
-<h4 id="http-requests">2.12 HTTP Requests</h4>
+<h4 id="http-requests">2.10 HTTP Requests</h4>
 <p>This might be handy for downloading from Webpages or APIs</p>
 <ul>
 <li>gem <a href="https://github.com/taf2/curb">curb</a>  - the http library curl for ruby</li>
 </ul>
-<h4 id="using-apis">2.13 Using APIs</h4>
+<h4 id="using-apis">2.11 Using APIs</h4>
 <ul>
 <li>gem <a href="https://github.com/octokit/octokit.rb">octokit</a> - for github</li>
 <li>gem <a href="https://github.com/sferik/twitter">twitter</a>
@@ -356,13 +356,13 @@ you can use an activity stream, similar to what you see in facebook.</p>
 <li>gem <a href="https://github.com/apneadiving/Google-Maps-for-Rails">gmaps4rails</a>
 </li>
 </ul>
-<h4 id="testing">2.14 Testing</h4>
+<h4 id="testing">2.12 Testing</h4>
 <ul>
 <li>gem <a href="https://github.com/thoughtbot/factory_girl">factory_girl</a> for creating test data.</li>
 <li>gem <a href="https://github.com/jnicklas/capybara">capybara</a> as the "browser" for acceptance tests, with</li>
 <li>gem <a href="https://github.com/jonleighton/poltergeist">poltergeist</a> for testing client side javascript.</li>
 </ul>
-<h4 id="understanding-your-code-better">2.15 Understanding your Code better</h4>
+<h4 id="understanding-your-code-better">2.13 Understanding your Code better</h4>
 <p><img src="images/gem-better_errors.png" alt="better_errors screenshot"></p>
 <ul>
 <li><p>gem <a href="https://github.com/charliesome/better_errors">better_errors</a></p></li>
