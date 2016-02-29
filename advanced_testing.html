@@ -147,7 +147,7 @@ By referring to this guide, you will be able to:</p>
 <p>Rspec is the second testing framework that is commonly used
 with ruby on rails projects.  According to <a href="https://www.ruby-toolbox.com/categories/testing_frameworks">ruby-toolbox.com</a> 
 it is used more often than the (built in) Minitest.</p>
-<p>Rspec replaces minitest in all aspces rails, including in scaffolds.</p>
+<p>Rspec replaces minitest in all aspects of rails, including in scaffolds.</p>
 <p>The first things you hav to know to get started:</p>
 <ul>
 <li>tests are found in <code>spec/*</code> (not <code>test/*</code>)</li>
@@ -190,10 +190,11 @@ Failures:
 <p>It is a convention to actually use the Class under test as
 the argument of <code>describe</code>.</p>
 <p>Inside the test you can use ruby and rails. Instead of minitest's assertions
-you formulate expectations with "should":</p>
+you formulate expectations with "should" (outdated) or "expect" (current):</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 game.score.should == 0
+expect(game.score).to eq(0)
 
 </pre>
 </div>
