@@ -104,6 +104,8 @@
 <li><a href="#permalinks">Permalinks</a></li>
 <li><a href="#parsing-xml-and-html">Parsing xml and html</a></li>
 <li><a href="#parsing-markdown">Parsing Markdown</a></li>
+<li><a href="#pagination">Pagination</a></li>
+<li><a href="#search">search</a></li>
 <li><a href="#activity-stream">Activity Stream</a></li>
 <li><a href="#admin-backend">Admin Backend</a></li>
 <li><a href="#sending-mail">Sending Mail</a></li>
@@ -321,7 +323,22 @@ You store the markdown in your database, and convert it to HTML when displayed u
 <li>gem <a href="https://github.com/vmg/redcarpet">redcarpet</a> - see <a href="http://railscasts.com/episodes/272-markdown-with-redcarpet?view=asciicast">Railscast #272</a>
 </li>
 </ul>
-<h4 id="activity-stream">2.7 Activity Stream</h4>
+<h4 id="pagination">2.7 Pagination</h4>
+<p>Do you need to displaying a lot of items?  Use a pagination gem
+to go through them page by page:</p>
+<ul>
+<li>gem <a href="https://github.com/amatsuda/kaminari">kaminari</a>, <a href="http://railscasts.com/episodes/254-pagination-with-kaminari?view=asciicast">asciicast bout it</a>
+</li>
+<li>other gems in <a href="https://www.ruby-toolbox.com/categories/pagination">category pagination</a> of the ruby toolbox</li>
+</ul>
+<h4 id="search">2.8 search</h4>
+<p>You need to search in more than just one attribute of your
+model?  use a search gem:</p>
+<ul>
+<li>gem <a href="https://github.com/Casecommons/pg_search">pg_search</a> uses postgresql's fulltext search</li>
+<li>other gems in <a href="https://www.ruby-toolbox.com/categories/rails_search">category rails_search</a> of the ruby toolbox</li>
+</ul>
+<h4 id="activity-stream">2.9 Activity Stream</h4>
 <p>If you want to give users an overview of what happened recently
 you can use an activity stream, similar to what you see in facebook.</p>
 <p><img src="images/gem-activity.png" alt="activity stream example"></p>
@@ -329,22 +346,22 @@ you can use an activity stream, similar to what you see in facebook.</p>
 <li>gem <a href="https://github.com/pokonski/public_activity">public_activity</a>
 </li>
 </ul>
-<h4 id="admin-backend">2.8 Admin Backend</h4>
+<h4 id="admin-backend">2.10 Admin Backend</h4>
 <p>Create a Backend for manipulating data with a few lines of code:</p>
 <p><img src="images/gem-active-admin.png" alt="ActiveAdmin Screenshot"></p>
 <ul>
 <li>gem <a href="http://activeadmin.info/">activeadmin</a>
 </li>
 </ul>
-<h4 id="sending-mail">2.9 Sending Mail</h4>
+<h4 id="sending-mail">2.11 Sending Mail</h4>
 <p>To send mail from Rails use <a href="http://guides.rubyonrails.org/action_mailer_basics.html">ActionMailer</a>.</p>
 <p>To see the generated mails in your web browser <em>instead</em> of sending them, use the gem <a href="https://github.com/ryanb/letter_opener">letter_opener</a></p>
-<h4 id="http-requests">2.10 HTTP Requests</h4>
+<h4 id="http-requests">2.12 HTTP Requests</h4>
 <p>This might be handy for downloading from Webpages or APIs</p>
 <ul>
 <li>gem <a href="https://github.com/taf2/curb">curb</a>  - the http library curl for ruby</li>
 </ul>
-<h4 id="using-apis">2.11 Using APIs</h4>
+<h4 id="using-apis">2.13 Using APIs</h4>
 <ul>
 <li>gem <a href="https://github.com/octokit/octokit.rb">octokit</a> - for github</li>
 <li>gem <a href="https://github.com/sferik/twitter">twitter</a>
@@ -356,13 +373,13 @@ you can use an activity stream, similar to what you see in facebook.</p>
 <li>gem <a href="https://github.com/apneadiving/Google-Maps-for-Rails">gmaps4rails</a>
 </li>
 </ul>
-<h4 id="testing">2.12 Testing</h4>
+<h4 id="testing">2.14 Testing</h4>
 <ul>
 <li>gem <a href="https://github.com/thoughtbot/factory_girl">factory_girl</a> for creating test data.</li>
 <li>gem <a href="https://github.com/jnicklas/capybara">capybara</a> as the "browser" for acceptance tests, with</li>
 <li>gem <a href="https://github.com/jonleighton/poltergeist">poltergeist</a> for testing client side javascript.</li>
 </ul>
-<h4 id="understanding-your-code-better">2.13 Understanding your Code better</h4>
+<h4 id="understanding-your-code-better">2.15 Understanding your Code better</h4>
 <p><img src="images/gem-better_errors.png" alt="better_errors screenshot"></p>
 <ul>
 <li><p>gem <a href="https://github.com/charliesome/better_errors">better_errors</a></p></li>
