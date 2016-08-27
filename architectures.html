@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Web Engineering Textbook: Testing with RSpec</title>
+  <title>Web Engineering Textbook: Architectures</title>
   <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
@@ -42,7 +42,7 @@
           <div id="guides" class="clearfix" style="display: none;">
             <hr />
               <dl class="L">
-                <dt>Ruby on Rails 1</dt>
+                <dt>Ruby on Rails</dt>
                 <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
                 <dd><a href="rails_database_and_model.html">Database and Models</a></dd>
                 <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
@@ -50,22 +50,17 @@
                 <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
                 <dd><a href="javascript_and_ajax.html">Javascript and AJAX</a></dd>
                 <dd><a href="testing.html">Getting started with Testing</a></dd>
+                <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
                 <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
-                <dt>Ruby on Rails 2</dt>
-                <dd><a href="rails_advanced_models.html">Advanced Rails Models</a></dd>
-                <dd><a href="testing_with_rspec.html">Testing with RSpec</a></dd>
-                <dd><a href="advanced_testing.html">Advanced testing</a></dd>
-                <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
+                <dt>Overarching Concerns</dt>
                 <dd><a href="security.html">Security</a></dd>
-                <dd><a href="deploying_rails.html">Deploying Rails with Capistrano</a></dd>
+                <dd><a href="caching.html">Caching</a></dd>
+                <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
+                <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
               </dl>
               <dl class="R">
-                <dt>Git</dt>
-                <dd><a href="git_basics.html">Git Basics</a></dd>
-                <dd><a href="git_branching.html">Branching and Merging</a></dd>
-                <dd><a href="git_teamwork.html">Teamwork</a></dd>
-                <dt>Software Process</dt>
-                <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
+                <dt>Nodes.js</dt>
+                <dd><a href="node_basics.html">Node Basics</a></dd>
               </dl>
           </div>
         </li>
@@ -83,19 +78,18 @@
             <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body>
 <ol class="chapters">
-<li><a href="#a-word-of-warning">A word of warning</a></li>
-<li><a href="#behaviour-driven-development-bdd">Behaviour Driven Development (BDD)</a></li>
+<li><a href="#examples">Examples</a></li>
 </ol>
 </body></html>
 
           </div>
 
-      <h2>Testing with RSpec</h2><p>This guide will give you an introduction
-to rspec, an alternative testing syntax for ruby on rails.
-By referring to this guide, you will be able to:</p>
+      <h2>Architectures</h2><p>With the proliferation of frontend frameworks
+you get to choose between many possible architectures 
+for your web app.</p><p>After working through this guide you should</p>
 <ul>
-<li>Write rspec tests for your models</li>
-<li>Write rspec + capybara acceptance tests</li>
+<li>have an overview of possible architecures</li>
+<li>be able to chose an architectures</li>
 </ul>
 
     </div>
@@ -106,28 +100,30 @@ By referring to this guide, you will be able to:</p>
       <div id="mainCol">
         <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body>
-<h3 id="a-word-of-warning">1 A word of warning</h3>
-<p>There was a change in the organization of tests into
-folder from rspec 1 to rspec 2.  So you might find
-what is at first glance conflicting information on the web.</p>
-<p>We will be using rspec 2 and capybara.  Find the installation
-instructions on <a href="https://github.com/rspec/rspec-rails">rspecs homepage</a>.</p>
-<h3 id="behaviour-driven-development-bdd">2 Behaviour Driven Development (BDD)</h3>
-<p>BDD is a "top down" approach: you start out with a feature
-that has actual value to the end user. to start building
-this feature you</p>
+<h3 id="examples">1 Examples</h3>
+<p>Here are some possible architectures.  In all of these
+scenarios Ruby on Rails  can be replaced by another web frameworks -
+be it Laravel in PHP or something based on node.js or....</p>
 <ul>
-<li>first write an acceptance test for the whole feature</li>
-<li>this test will fail, because you haven't written any code to fulfill it yet</li>
-<li>then you think about how you would implement this feature, which smaller units of you code will have to do what</li>
-<li>for each unit:
-** you write the unit test
-** this test will fail,  because you haven't written any code to fulfill it yet
-** then you implement what is necessary to fulfill the test, until it passes
-** if the feature still fails, you go back to working on the next unit</li>
-<li>finally the feature passes</li>
+<li>Rails app is backend only, javascript is used sparingly, for "decoration" purposes only.</li>
+<li>One Rails "backend page" is the host to several "frontend pages"
+
+<ul>
+<li>the data is sent to the frontend
+
+<ul>
+<li>when the html is first generated, e.g. through data attributes</li>
+<li>through separate ajax requests.  the html can be cached for all users, personalization only occurse through the ajax data</li>
 </ul>
-<p>and you're done.</p>
+</li>
+<li>every frontend page can also be rendered on the backend if needed (e.g. react)</li>
+</ul>
+</li>
+<li>The frontend app is  a "one page app", rails supplies the REST API that contains the business logic and anything 
+there are also many options withouth rails:</li>
+<li>the frontend app is a "one page app", the backend is mostly stupid (firebase, couchdb) except for authenticaiton and permissions</li>
+<li>frontend and backend are generated by the same frameworks, e.g. meteor</li>
+</ul>
 </body></html>
 
       </div>
@@ -137,9 +133,9 @@ this feature you</p>
   <hr class="hide" />
   <div id="footer">
     <div class="wrapper">
-      <p class="copyright">published under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2015 by <a href="http://brigitte-jellinek.at">Brigitte Jellinek</a>.
+      <p class="copyright">published under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2016 by <a href="http://brigitte-jellinek.at">Brigitte Jellinek</a>.
       </p><p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
-        and edit <a href="https://github.com/backend-development/backend-development-textbook/blob/master/source/testing_with_rspec.md">testing_with_rspec.md</a>
+        and edit <a href="https://github.com/backend-development/backend-development-textbook/blob/master/source/architectures.md">architectures.md</a>
       </p>
     </div>
   </div>

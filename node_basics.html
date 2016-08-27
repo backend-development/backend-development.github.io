@@ -4,8 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Web Engineering - a textbook
-</title>
+  <title>Web Engineering Textbook: Node.js Basics</title>
   <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
@@ -74,22 +73,25 @@
 
   <div id="feature">
     <div class="wrapper">
-      
-        <h2>About this Book</h2>
-  <p>This is a textbook for the second year of a computer
-  science or "media informatics" degree program.  It builds
-  on <a href="http://web-development.github.com">Web Development</a>
-  (which is only available in german).</p>
+                <div id="subCol">
+            <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
+            <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body>
+<ol class="chapters">
+<li><a href="#getting-started">Getting Started</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ol>
+</body></html>
 
-  <p>This book is not a self-contained work: There are great
-  resources for learning about the tools and technologies of web engineering
-  - this book tries to use
-  these resources, and bind them together into a coherent study plan.</p>
+          </div>
 
-  <p>It was written and published by Brigitte Jellinek
-  in the hope that it will be useful to lecturers and students
-  in educational institutions as well as to self-directed learners on the internet.
-  </p>
+      <h2>Node.js Basics</h2><p>Node.js is just a javascript interpreter
+with a very small library added.  With node
+you build your web server from scratch.</p><p>After working through this guide you should</p>
+<ul>
+<li>know how to install libraries for node.js with npm</li>
+<li>be able to write a simple web server</li>
+</ul>
 
     </div>
   </div>
@@ -97,61 +99,17 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        
-
-
-
-<h3>Why Rails on the Backend?</h3>
-
-<p>There are many frameworks in other languages that
-could also be used instead of Rails. If you have learned
-Django or Symphony or any number of other frameworks you did nothing wrong.</p>
-
-<p>We decided on Ruby on Rails in 2008 because the framework seemed well rounded
-and modern then, and have not been disappointed. Rails has not stopped innovating
-and improving.</p>
-
-<p>We can wholeheartetly recommend it both for learning and for building production
-ready software with it.</p>
-
-
-  <h3>Ruby on Rails</h3>
-  <dl>
-      <dt><a href="ruby_commandline.html">Ruby Commandline</a></dt><dd>
-        <p>The essential ruby you need to know to understand rails</p>
-</dd>      <dt><a href="rails_database_and_model.html">Database and Models</a></dt><dd>
-        <p>How does Rails use the database? How are models and database tables related?</p>
-</dd>      <dt><a href="rails_view_and_controller.html">Routing, View and Controller</a></dt><dd>
-        <p>How Rails gets from a HTTP Request to a finishd HTML document</p>
-</dd>      <dt><a href="authentication_from_scratch.html">Authentication</a></dt><dd>
-        <p>Logging   in with Passwords or with another service like github, twitter, facebook</p>
-</dd>      <dt><a href="asset_pipeline.html">Asset Pipeline</a></dt><dd>
-        <p>How CSS, Javascript, Images are prepared for publishing</p>
-</dd>      <dt><a href="javascript_and_ajax.html">Javascript and AJAX</a></dt><dd>
-        <p>Rails style remote forms and links</p>
-</dd>      <dt><a href="testing.html">Getting started with Testing</a></dt><dd>
-        <p>Write your first unit tests and integration tests for Rails</p>
-</dd>      <dt><a href="refactoring_rails.html">Refactoring Rails</a></dt><dd>
-        <p>How to improve your code in a systematic way.</p>
-</dd>      <dt><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dt><dd>
-        <p>How bundler helps with dependencies, and some gems you might need for your first Rails project</p>
-</dd>  </dl>
-  <h3>Overarching Concerns</h3>
-  <dl>
-      <dt><a href="security.html">Security</a></dt><dd>
-        <p>How a backend framework helps with web security</p>
-</dd>      <dt><a href="caching.html">Caching</a></dt><dd>
-        <p>Speed up your web app through caching</p>
-</dd>      <dt><a href="advanced_testing.html">Advanced Testing</a></dt><dd>
-        <p>More testing with test doubles and a headless browser</p>
-</dd>      <dt><a href="internationalization.html">Internationalization (I18n)</a></dt><dd>
-        <p>How to prepare you app for many languages, many countries</p>
-</dd>  </dl>
-  <h3>Nodes.js</h3>
-  <dl>
-      <dt><a href="node_basics.html">Node Basics</a></dt><dd>
-        <p>Program your first web server in node</p>
-</dd>  </dl>
+        <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><body>
+<h3 id="getting-started">1 Getting Started</h3>
+<p>Node.js is the google javascript interpreter v8 plus
+a few libraries for asnycronous programming added.
+...</p>
+<h3 id="see-also">2 See Also</h3>
+<ul>
+<li><a href="https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/">Node Guide: HTTP</a></li>
+</ul>
+</body></html>
 
       </div>
     </div>
@@ -162,6 +120,7 @@ ready software with it.</p>
     <div class="wrapper">
       <p class="copyright">published under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2016 by <a href="http://brigitte-jellinek.at">Brigitte Jellinek</a>.
       </p><p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
+        and edit <a href="https://github.com/backend-development/backend-development-textbook/blob/master/source/node_basics.md">node_basics.md</a>
       </p>
     </div>
   </div>

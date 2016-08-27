@@ -42,7 +42,7 @@
           <div id="guides" class="clearfix" style="display: none;">
             <hr />
               <dl class="L">
-                <dt>Ruby on Rails 1</dt>
+                <dt>Ruby on Rails</dt>
                 <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
                 <dd><a href="rails_database_and_model.html">Database and Models</a></dd>
                 <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
@@ -50,22 +50,17 @@
                 <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
                 <dd><a href="javascript_and_ajax.html">Javascript and AJAX</a></dd>
                 <dd><a href="testing.html">Getting started with Testing</a></dd>
+                <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
                 <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
-                <dt>Ruby on Rails 2</dt>
-                <dd><a href="rails_advanced_models.html">Advanced Rails Models</a></dd>
-                <dd><a href="testing_with_rspec.html">Testing with RSpec</a></dd>
-                <dd><a href="advanced_testing.html">Advanced testing</a></dd>
-                <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
+                <dt>Overarching Concerns</dt>
                 <dd><a href="security.html">Security</a></dd>
-                <dd><a href="deploying_rails.html">Deploying Rails with Capistrano</a></dd>
+                <dd><a href="caching.html">Caching</a></dd>
+                <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
+                <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
               </dl>
               <dl class="R">
-                <dt>Git</dt>
-                <dd><a href="git_basics.html">Git Basics</a></dd>
-                <dd><a href="git_branching.html">Branching and Merging</a></dd>
-                <dd><a href="git_teamwork.html">Teamwork</a></dd>
-                <dt>Software Process</dt>
-                <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
+                <dt>Nodes.js</dt>
+                <dd><a href="node_basics.html">Node Basics</a></dd>
               </dl>
           </div>
         </li>
@@ -99,6 +94,7 @@
 
 <ul>
 <li><a href="#frontend-stuff-for-rails">Frontend Stuff for rails</a></li>
+<li><a href="#graphing-graphics-webgl">Graphing, Graphics, WebGL</a></li>
 <li><a href="#file-upload">File Upload</a></li>
 <li><a href="#authentication">Authentication</a></li>
 <li><a href="#permalinks">Permalinks</a></li>
@@ -111,6 +107,7 @@
 <li><a href="#sending-mail">Sending Mail</a></li>
 <li><a href="#http-requests">HTTP Requests</a></li>
 <li><a href="#using-apis">Using APIs</a></li>
+<li><a href="#geocoding">Geocoding</a></li>
 <li><a href="#testing">Testing</a></li>
 <li><a href="#understanding-your-code-better">Understanding your Code better</a></li>
 </ul>
@@ -279,8 +276,22 @@ end
 
 </pre>
 </div>
-<p>Search for libraries at <a href="https://rails-assets.org">https://rails-assets.org</a></p>
-<h4 id="file-upload">2.2 File Upload</h4>
+
+<ul>
+<li>gem <a href="">autoprefixer-rails</a> - Parse CSS and add vendor prefixes to CSS rules using values from the Can I Use website.
+Search for libraries at <a href="https://rails-assets.org">https://rails-assets.org</a>
+</li>
+</ul>
+<h4 id="graphing-graphics-webgl">2.2 Graphing, Graphics, WebGL</h4>
+<ul>
+<li>gem <a href="https://github.com/ankane/chartkick">chartkick</a> chartcick javascript library, creates svg graphs</li>
+<li>gem <a href="https://github.com/DmitryBaranovskiy/raphael">raphael</a> for the raphael javascript library, creates svg graphs and images</li>
+<li>gem <a href="https://github.com/dbackowski/novus-nvd3-rails">novus-nvd3-rails</a> A reusable chart library for d3.js</li>
+<li>gem <a href="https://github.com/topfunky/gruff">gruff</a> create PNG graphs (e.g. for reuse in non-html documents)</li>
+<li>gem <a href="https://github.com/rmagick/rmagick">rmagick</a> Ruby bindings for <a href="https://rmagick.github.io/">ImageMagick</a> image manipulation library</li>
+<li>gem <a href="https://github.com/whomwah/rqrcode">rqrcode</a> create QR codes</li>
+</ul>
+<h4 id="file-upload">2.3 File Upload</h4>
 <p>Uploading Pictures and displaying them is a common task with two good solutions:</p>
 <ul>
 <li>gem <a href="https://github.com/carrierwaveuploader/carrierwave">carrierwave</a> or</li>
@@ -296,25 +307,25 @@ end
 <li>command line tool <a href="http://www.imagemagick.org/script/convert.php">convert</a> to convert to different formats and</li>
 <li>command line tool <a href="http://www.imagemagick.org/script/mogrify.php">mogrify</a> to  resize, blur, crop, draw on, flip, join, ... an image and overwrite it.</li>
 </ul>
-<h4 id="authentication">2.3 Authentication</h4>
+<h4 id="authentication">2.4 Authentication</h4>
 <ul>
 <li>gem <a href="https://github.com/plataformatec/devise">devise</a> for login,</li>
 <li>gem <a href="https://github.com/intridea/omniauth">omniauth</a> to integrate authentication methods.</li>
 <li>gem <a href="https://github.com/elabs/pundit">pundit</a> if you need roles and permissions </li>
 </ul>
-<h4 id="permalinks">2.4 Permalinks</h4>
+<h4 id="permalinks">2.5 Permalinks</h4>
 <p>You don't want the database keys to be visible in your URLs?  Use Friendly IDs instead:</p>
 <ul>
 <li>gem <a href="https://github.com/norman/friendly_id">friendlyid</a>
 </li>
 </ul>
-<h4 id="parsing-xml-and-html">2.5 Parsing xml and html</h4>
+<h4 id="parsing-xml-and-html">2.6 Parsing xml and html</h4>
 <ul>
 <li>gem <a href="http://nokogiri.org/">nokogiri</a>
 </li>
 </ul>
 <p>(this is also used by capybara)</p>
-<h4 id="parsing-markdown">2.6 Parsing Markdown</h4>
+<h4 id="parsing-markdown">2.7 Parsing Markdown</h4>
 <p>Letting users enter HTML is a dangerous idea - it's really hard to
 avoid the security problems.  An alternative is to let them enter
 a simpler markup language, like <a href="http://en.wikipedia.org/wiki/Markdown">Markdown</a>.
@@ -323,7 +334,7 @@ You store the markdown in your database, and convert it to HTML when displayed u
 <li>gem <a href="https://github.com/vmg/redcarpet">redcarpet</a> - see <a href="http://railscasts.com/episodes/272-markdown-with-redcarpet?view=asciicast">Railscast #272</a>
 </li>
 </ul>
-<h4 id="pagination">2.7 Pagination</h4>
+<h4 id="pagination">2.8 Pagination</h4>
 <p>Do you need to displaying a lot of items?  Use a pagination gem
 to go through them page by page:</p>
 <ul>
@@ -331,14 +342,14 @@ to go through them page by page:</p>
 </li>
 <li>other gems in <a href="https://www.ruby-toolbox.com/categories/pagination">category pagination</a> of the ruby toolbox</li>
 </ul>
-<h4 id="search">2.8 search</h4>
+<h4 id="search">2.9 search</h4>
 <p>You need to search in more than just one attribute of your
 model?  use a search gem:</p>
 <ul>
 <li>gem <a href="https://github.com/Casecommons/pg_search">pg_search</a> uses postgresql's fulltext search</li>
 <li>other gems in <a href="https://www.ruby-toolbox.com/categories/rails_search">category rails_search</a> of the ruby toolbox</li>
 </ul>
-<h4 id="activity-stream">2.9 Activity Stream</h4>
+<h4 id="activity-stream">2.10 Activity Stream</h4>
 <p>If you want to give users an overview of what happened recently
 you can use an activity stream, similar to what you see in facebook.</p>
 <p><img src="images/gem-activity.png" alt="activity stream example"></p>
@@ -346,22 +357,22 @@ you can use an activity stream, similar to what you see in facebook.</p>
 <li>gem <a href="https://github.com/pokonski/public_activity">public_activity</a>
 </li>
 </ul>
-<h4 id="admin-backend">2.10 Admin Backend</h4>
+<h4 id="admin-backend">2.11 Admin Backend</h4>
 <p>Create a Backend for manipulating data with a few lines of code:</p>
 <p><img src="images/gem-active-admin.png" alt="ActiveAdmin Screenshot"></p>
 <ul>
 <li>gem <a href="http://activeadmin.info/">activeadmin</a>
 </li>
 </ul>
-<h4 id="sending-mail">2.11 Sending Mail</h4>
+<h4 id="sending-mail">2.12 Sending Mail</h4>
 <p>To send mail from Rails use <a href="http://guides.rubyonrails.org/action_mailer_basics.html">ActionMailer</a>.</p>
 <p>To see the generated mails in your web browser <em>instead</em> of sending them, use the gem <a href="https://github.com/ryanb/letter_opener">letter_opener</a></p>
-<h4 id="http-requests">2.12 HTTP Requests</h4>
+<h4 id="http-requests">2.13 HTTP Requests</h4>
 <p>This might be handy for downloading from Webpages or APIs</p>
 <ul>
 <li>gem <a href="https://github.com/taf2/curb">curb</a>  - the http library curl for ruby</li>
 </ul>
-<h4 id="using-apis">2.13 Using APIs</h4>
+<h4 id="using-apis">2.14 Using APIs</h4>
 <ul>
 <li>gem <a href="https://github.com/octokit/octokit.rb">octokit</a> - for github</li>
 <li>gem <a href="https://github.com/sferik/twitter">twitter</a>
@@ -373,21 +384,32 @@ you can use an activity stream, similar to what you see in facebook.</p>
 <li>gem <a href="https://github.com/apneadiving/Google-Maps-for-Rails">gmaps4rails</a>
 </li>
 </ul>
-<h4 id="testing">2.14 Testing</h4>
+<h4 id="geocoding">2.15 Geocoding</h4>
+<p>sometimes you want to convert longitude/latitude coordinates
+to street addresses, or the reverse</p>
+<ul>
+<li>gem <a href="https://github.com/alexreisner/geocoder">geocoder</a>
+</li>
+</ul>
+<h4 id="testing">2.16 Testing</h4>
 <ul>
 <li>gem <a href="https://github.com/thoughtbot/factory_girl">factory_girl</a> for creating test data.</li>
 <li>gem <a href="https://github.com/jnicklas/capybara">capybara</a> as the "browser" for acceptance tests, with</li>
 <li>gem <a href="https://github.com/jonleighton/poltergeist">poltergeist</a> for testing client side javascript.</li>
 </ul>
-<h4 id="understanding-your-code-better">2.15 Understanding your Code better</h4>
+<h4 id="understanding-your-code-better">2.17 Understanding your Code better</h4>
 <p><img src="images/gem-better_errors.png" alt="better_errors screenshot"></p>
 <ul>
-<li><p>gem <a href="https://github.com/charliesome/better_errors">better_errors</a></p></li>
-<li><p>gem <a href="https://github.com/dejan/rails_panel/tree/master/meta_request">meta_request</a> - supporting gem for <a href="https://github.com/dejan/rails_panel">Rails Panel, a Google Chrome extension for Rails development</a></p></li>
-<li><p>gem <a href="https://github.com/ctran/annotate_models">annotate</a> - inserts the db schema as comments in your model.rb file</p></li>
-<li><p>gem <a href="https://github.com/flyerhzm/bullet">bullet</a> - helps you improve your usage of activerecord queries</p></li>
-<li><p>gem <a href="https://github.com/seattlerb/flay">flay</a> - finds structural similarities in your code, so you can refactor</p></li>
-<li><p>gem <a href="https://github.com/railsbp/rails_best_practices">rails_best_practices</a></p></li>
+<li>gem <a href="https://github.com/charliesome/better_errors">better_errors</a>
+</li>
+<li>gem <a href="https://github.com/dejan/rails_panel/tree/master/meta_request">meta_request</a> - supporting gem for <a href="https://github.com/dejan/rails_panel">Rails Panel, a Google Chrome extension for Rails development</a>
+</li>
+<li>gem <a href="https://github.com/ctran/annotate_models">annotate</a> - inserts the db schema as comments in your model.rb file</li>
+<li>gem <a href="http://railroady.prestonlee.com/">railroady</a> - UML diagram generation for Rails projects, capable of analyzing existing models and controllers</li>
+<li>gem <a href="https://github.com/flyerhzm/bullet">bullet</a> - helps you improve your usage of activerecord queries</li>
+<li>gem <a href="">metric_fu</a> - many code metrics for your rails project</li>
+<li>gem <a href="https://github.com/railsbp/rails_best_practices">rails_best_practices</a>
+</li>
 </ul>
 <h3 id="ressources">3 Ressources</h3>
 <ul>
@@ -406,7 +428,7 @@ you can use an activity stream, similar to what you see in facebook.</p>
   <hr class="hide" />
   <div id="footer">
     <div class="wrapper">
-      <p class="copyright">published under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2015 by <a href="http://brigitte-jellinek.at">Brigitte Jellinek</a>.
+      <p class="copyright">published under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2016 by <a href="http://brigitte-jellinek.at">Brigitte Jellinek</a>.
       </p><p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
         and edit <a href="https://github.com/backend-development/backend-development-textbook/blob/master/source/rails_gems.md">rails_gems.md</a>
       </p>
