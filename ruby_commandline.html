@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Web Engineering Textbook: Ruby</title>
+  <title>Backend Development Textbook: Ruby</title>
   <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
@@ -190,8 +190,20 @@ and frameworks?  </p>
 <p>Also, there are cool t-shirts:</p>
 <p><img src="images/ruby-and-rails-t-shirts.png" alt="Ruby and Rails T-Shirts"></p>
 <h3 id="ruby-basics">2 Ruby Basics</h3>
-<p>For a hands-on introdcution to ruby got to <a href="http://tryruby.org">try ruby</a>.
-Then come back and read on:</p>
+<p>To get to know ruby you don't need to write
+whole programes.  You can start out with <strong>interactive ruby - irb</strong>.
+When you start irb you get a command line to type in ruby code. When
+you press enter the code is evaluted immediatly and you get the result.
+Use the commands <code>exit</code> or <code>quit</code> or the key combination CONTROL-D to get out.</p>
+<p>In this guide we will show code run in irb by marking the prompt as <code>&gt;&gt;</code> and
+the result as <code>=&gt;</code>, for example:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+&gt;&gt; 2 + 2
+=&gt; 4
+
+</pre>
+</div>
 <h4 id="some-code-conventions">2.1 Some code conventions</h4>
 <p>Try to stick to <a href="https://github.com/styleguide/ruby">github's style for ruby</a>. </p>
 <p>When you chose names for your objects, classes and methods
@@ -213,7 +225,7 @@ b.sugar!     # a method that changes its object
 </pre>
 </div>
 <p>In the last to examples the punctuation marks are really
-part of the method name!</p>
+part of the method names!</p>
 <p>The parantheses around the arguments of a method are optional.
 Leave them off unless your code get's confusing:</p>
 <div class="code_container">
@@ -224,7 +236,7 @@ puts "less code"
 </pre>
 </div>
 <h2>Data Types</h2>
-<p>All of rubys basic data types are Classes.</p>
+<p>All of rubys basic data types are Classes.  </p>
 <ul>
 <li>Numeric, Integer, Fixnum, Bignum, Float <code># are converted automatically to each other</code>
 </li>
@@ -240,6 +252,21 @@ puts "less code"
 <li>Object</li>
 <li>Regex</li>
 </ul>
+<p>Ruby is strict about data types, there is no automatic conversion except
+between numeric types.</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+&gt;&gt; "a string" + "another"
+=&gt; "a stringanother"
+
+&gt;&gt; "a string" + 2
+TypeError: no implicit conversion of Fixnum into String
+
+&gt;&gt; 42 + 3.141
+=&gt; 45.141
+
+</pre>
+</div>
 <h4 id="strings">2.2 Strings</h4>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -340,7 +367,7 @@ there can be several strings that have the same content, but are different objec
 </pre>
 </div>
 <p>Use symbols where you would enums in a database or another language,
-or if you need distnict constants, when there value is not important.</p>
+or if you need distinct constants, when the value is not important.</p>
 <h4 id="methods">2.7 Methods</h4>
 <p>Methods in ruby return the last expression - even
 if no explicit <code>return</code> statement is given.</p>
@@ -359,7 +386,7 @@ f(1,42)  # returns "x"
 The first one looks like JSON:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-a = ["this", "that", "something"]
+&gt;&gt; a = ["this", "that", "something"]
 =&gt; ["this", "that", "something"]
 
 </pre>
@@ -384,7 +411,7 @@ use a Range and convert it to an Array:</p>
 </div>
 <h3 id="hashes">3 Hashes</h3>
 <p>A Hash is a datastructure similar to an array. An array uses integers as keys
-while a Hash uses any. Mostly strings and symbols are used:</p>
+while a Hash allows any type as the keys. Mostly strings and symbols are used:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 h = Hash.new
@@ -416,7 +443,7 @@ at first. But it offers the following intresting features:</p>
 </ul>
 <p>Most scripting languages offer Hashes as a basic data type,
 most compiled languages as a library.  Read more about
-hashes in Wikipedia:</p>
+Hashes in Wikipedia:</p>
 <ul>
 <li><a href="http://en.wikipedia.org/wiki/Hash_table">Hashtables in Wikipedia</a></li>
 </ul>
@@ -433,7 +460,7 @@ roomnumber = { "Jane Doe" =&gt; 10, "Jim Doe" =&gt; 6 }
 
 </pre>
 </div>
-<p>Since Ruby 1.9.3 hashes allow an alternate syntax when the keys are symbols. Instead of</p>
+<p>Since Ruby 1.9.3 Hashes allow an alternate syntax when the keys are symbols. Instead of</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 style = { :font_size =&gt; 10, :font_family =&gt; "Arial" }
@@ -447,8 +474,8 @@ style = { font_size: 10, font_family: "Arial" }
 
 </pre>
 </div>
-<p>This style of hash is often used as an argument for a method,
-that way we get named arguments:</p>
+<p>This style of hash is often used as an argument for a method.
+Calling the method then reads like named arguments:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def apply_the_style( h )
@@ -527,10 +554,10 @@ The method <code>map</code> applys the Block to each piece of data, and
 returns an Enumerable of the new data:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-&gt;&gt; (1..10).map{ |x| x*2 }
+&gt;&gt; (1..10).map{ |x| 2*x }
 =&gt; [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
-&gt;&gt; (1..10).map{ |x| x*2 }.reverse
+&gt;&gt; (1..10).map{ |x| 2*x }.reverse
 =&gt; [20, 18, 16, 14, 12, 10, 8, 6, 4, 2]
 
 </pre>
@@ -553,10 +580,16 @@ the Block on several lines, ending with <code>end</code></p>
 </div>
 <p>Some other methods for Enumerables that take a Block:</p>
 <ul>
-<li>map {|x| new value computed from x}</li>
-<li>select {|x| should x be selected? }</li>
-<li>reduce(:+)</li>
-<li>reduce{|memo, item| compute new value for memo}</li>
+<li>
+<code>map {|x|</code> new value computed from x <code>}</code>
+</li>
+<li>
+<code>select {|x|</code> should x be selected? <code>}</code>
+</li>
+<li><code>reduce(:+)</code></li>
+<li>
+<code>reduce{|memo, item|</code> compute new value for memo, using current item <code>}</code>
+</li>
 </ul>
 <p>These methods should help you avoid loops and thus simplify
 code considerably.</p>
@@ -570,7 +603,9 @@ code considerably.</p>
 a basic building block of ruby.  You can write functions
 that take a Block as an argument:</p>
 <h4 id="my-function-takes-a-block-of-code">5.1 My Function takes a Block of Code</h4>
-<p>as its last argument</p>
+<p>Any function you write can take an addictional block
+of code as its last argument.  The block is only
+called if and when you call <code>yield</code> inside the function:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def my_function_with_block_arg
@@ -599,9 +634,9 @@ end
 </pre>
 </div>
 <h3 id="summary">6 Summary</h3>
-<p>You now know about the basic data types, about enumerables and about block -<br>
+<p>You now know about the basic data types, about enumerables and about blocks -<br>
 features that distinguish ruby from other scripting languages. This should
-be a good enough basis to digg deeper into rails next.  </p>
+be a good enough basis to start with rails.  </p>
 <p>But do take every
 oppertunity you got to learn more about ruby itself: if you are unsure about
 a line of code, look it up in the ruby documentation and use the
