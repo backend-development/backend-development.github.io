@@ -148,7 +148,7 @@ described by Fowler in his 2003 book <a href="http://martinfowler.com/books/eaa.
 ActiveRecord is the default solution used in Rails, we will look into it in detail here.</p>
 <h3 id="activerecord-basics">2 ActiveRecord Basics</h3>
 <p>Rails implements the Active Record pattern in a class called <code>ActiveRecord</code>.
-All the models in a rails project inherit from <code>ActiveRecord</code>.</p>
+All the '''models''' in a rails project inherit from <code>ActiveRecord</code>.</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Thing &lt; ActiveRecord::Base
@@ -198,15 +198,16 @@ SELECT * FROM courses WHERE id=7   Course.find(7)
 </ul>
 <p>If you stick to these conventions building the web app will be very easy.  You 
 can deviate from these conventions, but this takes some extra configuration and programming work.</p>
-<p>One scenarion where deviating from the conventions might make sense is when
-you build a rails app to replace an old php app. You can start with the models
+<p>Here is one scenario where deviating from the conventions might make sense:
+You are building a rails app to replace an old php app, but you want to
+keep using the same database. You can start with the models
 in rails configured to fit with your old database, and then refactor and migrate towards
 the rails conventions step by step.</p>
 <h4 id="how-to-build-a-model">2.2 How to build a model</h4>
 <p>To build the first model and its corresponding database table,
 you can use the scaffold generator.
 You need to work on the command line using the commands
-<code>rails</code> and <code>rake</code>.</p>
+<code>rails</code>.  (bwfore rails 5 some of this was handled by <code>rake</code>)</p>
 <ul>
 <li>
 <code>rails generate scaffold tweet status:string zombie:string</code>
@@ -219,7 +220,7 @@ You need to work on the command line using the commands
 <li>look at the migration that was generated in <code>db/migrate/*create_tweets.rb</code>
 </li>
 <li>you can edit the migration now - but not later!</li>
-<li>run the migration: <code>rake db:migrate</code>
+<li>run the migration: <code>rails db:migrate</code>
 
 <ul>
 <li>this will run the appropriate <code>CREATE TABLE</code> statement in your database</li>
@@ -267,12 +268,12 @@ end
 
 </pre>
 </div>
-<p>Use <code>rake</code> to apply this migration to the existing database:</p>
+<p>Use <code>rails</code> to apply this migration to the existing database:</p>
 <ul>
 <li>
-<code>rake db:migrate</code>  # apply all open migrations</li>
+<code>rails db:migrate</code>  # apply all open migrations</li>
 <li>
-<code>rake db:rollback</code> # roll back last migration</li>
+<code>rails db:rollback</code> # roll back last migration</li>
 </ul>
 <p>A word of warning:  you never, ever need to change a migration after
 using and commiting it.  You only ever add new migrations!</p>

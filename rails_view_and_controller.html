@@ -112,7 +112,7 @@
 
           </div>
 
-      <h2>Rails Views and Controller</h2><p>The Rails View is concerened with displaying (HTML and JSON) output. The
+      <h2>Rails Views and Controller</h2><p>The Rails View is concerned with displaying (HTML and JSON) output. The
 controller is concerned with handling incoming requests,
 and using the model and views to generate a result.</p><p>After reading this guide you should</p>
 <ul>
@@ -139,9 +139,9 @@ and using the model and views to generate a result.</p><p>After reading this gui
 is responsible for generating output that will be
 displayed the user in various ways.</p>
 <p>In Ruby on Rails <strong>Embedded Ruby</strong> (ERB) is normally used
-as the templating languages to define the views.  If you have
-used templates in other languages or have used PHP embedded in HTML
-than you will recognize the similarities.</p>
+as the templating languages to define the views.  This will
+be familiar to you if you have
+used templates in other languages or have used PHP embedded in HTML.</p>
 <p>Both Web Designers and Web Developers might want to edit
 the files concerning the view. (This is one of the points where
 using git to resolve merge conflicts comes in handy!).</p>
@@ -149,21 +149,21 @@ using git to resolve merge conflicts comes in handy!).</p>
 <p>The view file (e.g. <code>app/views/thing/show.html.erb</code> will only
 contain the HTML that is specific for this view.  There is
 another file <code>app/views/layouts/application.html.erb</code> that contains
-the surrounding stuff that stays the same for every webpage: head, main
+the surrounding stuff that stays the same for every page in the app: head, main
 navigation, footer.</p>
 <p><img src="images/layout_view.svg" alt="Layouts and Views"></p>
 <p>If you find other parts of your code that you want to reuse
-in severl views you can extract it into a "partial".  An example
+in several views you can extract it into a "partial".  An example
 is the <code>_form.html.erb</code> partial created by the scaffold: it is
 used both by the <code>new.html.erb</code> and the <code>edit.html.erb</code> view.</p>
 <p><img src="images/layout_view_partial.svg" alt="Layouts, Views and Partials"></p>
 <h4 id="views-with-erb">1.2 Views with ERB</h4>
 <p>When it comes to templating systems there are two competing
-schools of thought: on the one side there are minimal
+schools of thought: on the one side there are minimal "logic-less"
 templating systems that only offer the inclusion of variable values
 and maybe iteration.  On the other hand are full programming
 languages embedded in HTML.</p>
-<p>ERB is an example of the latter: the full power of ruby is
+<p>ERB is an example of the latter: the full power of Ruby is
 available inside the template:</p>
 <ul>
 <li>Instance Variables of the controller are available in the view</li>
@@ -204,7 +204,7 @@ $ rake routes
 
 </pre>
 </div>
-<p>Use the "prefix" and <code>_path</code> or <code>_url</code> to get the path or full URL of the
+<p>Use the "prefix" from <code>rake routes</code> and <code>_path</code> or <code>_url</code> to get the path or full URL of the
 action.</p>
 <ul>
 <li>
@@ -216,12 +216,12 @@ action.</p>
 <p><img src="images/rails-for-zombies-3.jpg" alt="Rails for Zombies Episode 3"></p>
 <h3 id="the-controller">2 The Controller</h3>
 <p>The controller is the central part of MVC. An incoming HTTP request 
-is routet to exactly one Controller Action that will respond to the Request.
-The controller than uses the model(s) to load and manipulate the right data, 
+is routed to exactly one controller action that will respond to the request.
+The controller then uses the model(s) to load and manipulate the right data, 
 and finally displays the resulting page by rendering a view.</p>
 <h4 id="restful-resources">2.1 Restful Resources</h4>
 <p>Rails uses <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> as
-a convention about which actions should be available.  For example
+a convention for which actions should be available.  For example
 if you specify in <code>config/routes.rb</code>  </p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -248,8 +248,8 @@ DELETE /zombies/:id      zombies_controller  def destroy
 adds the necessary views.  This way we end up with full CRUD (create, read, update, delete)
 capability for zombies:</p>
 <p><img src="images/rest.png" alt="scaffold"></p>
-<p>Do adapt the views to better fit your users needs, but at the same
-time try to keep the underlying routes the same!</p>
+<p>Do adapt the views to better fit your users needs, but 
+try to keep the underlying routes the same!</p>
 <h4 id="now-do-rails-for-zombies-episode-no-4">2.2 Now do 'Rails for Zombies' Episode no 4</h4>
 <p><img src="images/rails-for-zombies-4.jpg" alt="Rails for Zombies Episode 4"></p>
 <h3 id="form-helpers">3 Form Helpers</h3>
@@ -270,7 +270,7 @@ functionality by using the helpers, but you also need to understand how they wor
 
 </pre>
 </div>
-<p>The form helber <code>form_for</code>  will create the form-tag
+<p>The form helper <code>form_for</code>  will create the form-tag
 and set the action and method according to the REST conventions.
 For example if the <code>@user</code> variable contains a user object with id 16, 
 the resulting form tag will look like this:</p>
@@ -284,7 +284,7 @@ the resulting form tag will look like this:</p>
 </pre>
 </div>
 <p>The conventions say we should use the PATCH method for updating an existing
-resource, but this is not available in current html forms. Rails get's around
+resource, but this is not available in current html forms. Rails gets around
 this by using a hidden field and some javascript to actually send the HTTP
 request with the correct method.</p>
 <h4 id="creating-input-elements">3.2 Creating Input Elements</h4>
@@ -312,7 +312,7 @@ sent in.  For example <code>&lt;%= f.text_field :name %&gt;</code> might  be dis
 </pre>
 </div>
 <h4 id="sending-the-data">3.3 Sending the Data</h4>
-<p>When you press the submit-Data, the date from the form is sent via a HTTP request.
+<p>When you press the submit-button, the data from the form is sent via a HTTP request.
 In the development-log file on the server you can see the request coming in and being
 routed to the right action:</p>
 <div class="code_container">
@@ -357,7 +357,7 @@ end
 <p>For mass-assignments (update, create) rails offers an easy
 way to filter out only the parameters you really want to be changed / created,
 and ignore all others. The following code will look for a key <code>user</code> in the
-params Hash and only pick out it's sub-entries <code>uid</code>, <code>name</code>, <code>email</code> and <code>homepage</code>:</p>
+params Hash and only pick out its sub-entries <code>uid</code>, <code>name</code>, <code>email</code> and <code>homepage</code>:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 # PATCH /users/1
