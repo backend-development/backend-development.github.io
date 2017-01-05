@@ -309,7 +309,7 @@ Search for libraries at <a href="https://rails-assets.org">https://rails-assets.
 <ul>
 <li>gem <a href="https://github.com/plataformatec/devise">devise</a> for login,</li>
 <li>gem <a href="https://github.com/intridea/omniauth">omniauth</a> to integrate authentication methods.</li>
-<li>gem <a href="https://github.com/elabs/pundit">pundit</a> if you need roles and permissions </li>
+<li>gem <a href="https://github.com/CanCanCommunity/cancancan">cancancan</a> if you need roles and permissions </li>
 </ul>
 <h4 id="permalinks">2.5 Permalinks</h4>
 <p>You don't want the database keys to be visible in your URLs?  Use Friendly IDs instead:</p>
@@ -336,7 +336,7 @@ You store the markdown in your database, and convert it to HTML when displayed u
 <p>Do you need to displaying a lot of items?  Use a pagination gem
 to go through them page by page:</p>
 <ul>
-<li>gem <a href="https://github.com/amatsuda/kaminari">kaminari</a>, <a href="http://railscasts.com/episodes/254-pagination-with-kaminari?view=asciicast">asciicast bout it</a>
+<li>gem <a href="https://github.com/amatsuda/kaminari">kaminari</a>, <a href="http://railscasts.com/episodes/254-pagination-with-kaminari?view=asciicast">asciicast about it</a>
 </li>
 <li>other gems in <a href="https://www.ruby-toolbox.com/categories/pagination">category pagination</a> of the ruby toolbox</li>
 </ul>
@@ -344,8 +344,10 @@ to go through them page by page:</p>
 <p>You need to search in more than just one attribute of your
 model?  use a search gem:</p>
 <ul>
+<li>gem <a href="https://github.com/activerecord-hackery/ransack">ransack</a> for building search fields</li>
 <li>gem <a href="https://github.com/Casecommons/pg_search">pg_search</a> uses postgresql's fulltext search</li>
-<li>other gems in <a href="https://www.ruby-toolbox.com/categories/rails_search">category rails_search</a> of the ruby toolbox</li>
+<li>gem <a href="https://github.com/ankane/searchkick">searchkick</a> uses elasticsearch with many more options for fulltext search, e.g. for misspellings </li>
+<li>other gems in <a href="https://www.ruby-toolbox.com/categories/rails_search">category rails_search</a> of the ruby toolbox </li>
 </ul>
 <h4 id="activity-stream">2.10 Activity Stream</h4>
 <p>If you want to give users an overview of what happened recently
@@ -393,7 +395,7 @@ to street addresses, or the reverse</p>
 <ul>
 <li>gem <a href="https://github.com/thoughtbot/factory_girl">factory_girl</a> for creating test data.</li>
 <li>gem <a href="https://github.com/jnicklas/capybara">capybara</a> as the "browser" for acceptance tests, with</li>
-<li>gem <a href="https://github.com/jonleighton/poltergeist">poltergeist</a> for testing client side javascript.</li>
+<li>gem <a href="https://github.com/thoughtbot/capybara-webkit">capybara-webkit</a> for testing client side javascript.</li>
 </ul>
 <h4 id="understanding-your-code-better">2.17 Understanding your Code better</h4>
 <p><img src="images/gem-better_errors.png" alt="better_errors screenshot"></p>
@@ -408,6 +410,10 @@ to street addresses, or the reverse</p>
 <li>gem <a href="">metric_fu</a> - many code metrics for your rails project</li>
 <li>gem <a href="https://github.com/railsbp/rails_best_practices">rails_best_practices</a>
 </li>
+<li>gem <a href="https://github.com/bbatsov/rubocop">rubocop</a> - static code analyzer</li>
+<li>gem <a href="https://github.com/schneems/derailed_benchmarks">derailed_benchmarks</a>
+</li>
+<li>gem <a href="https://github.com/presidentbeef/brakeman">brakeman</a> - checks for security vulnerabilities</li>
 </ul>
 <h3 id="ressources">3 Ressources</h3>
 <ul>
