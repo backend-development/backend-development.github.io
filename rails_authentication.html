@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Backend Development Textbook: Authentication from Scratch</title>
+  <title>Backend Development Textbook: Rails Authentication</title>
   <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
@@ -86,7 +86,6 @@
 <li><a href="#session-in-backend-development">Session in Backend Development</a></li>
 </ul>
 </li>
-<li><a href="#virtual-attributes">Virtual Attributes </a></li>
 <li>
 <a href="#password-storage">Password Storage</a>
 
@@ -104,14 +103,14 @@
 
           </div>
 
-      <h2>Authentication from Scratch</h2><p>This guide is about Logins and Logouts.</p><p>After reading this guide you will</p>
+      <h2>Rails Authentication</h2><p>This guide is about Logins and Logouts for your Rails app.</p><p>After reading this guide you will</p>
 <ul>
 <li>understand how cookies, sessions, logins are connected</li>
 <li>be able to build a rails app with simple login and logout</li>
-<li>be able to use other authentication providers</li>
 <li>be able to offer password reminders to your users</li>
+<li>be able to use other authentication providers</li>
 </ul>
-<div class="repo"><p>You can study the <a href="https://github.com/backend-development/rails-example-kanban-login">code</a> and try out <a href="https://kanban-1.herokuapp.com/">the demos</a> for the authentication examples described here.</p></div>
+<div class="repo"><p>You can study the <a href="https://github.com/backend-development/rails-example-kanban-board-login">code</a> and try out <a href="https://kanban-1.herokuapp.com/">the demos</a> for the authentication examples described here.</p></div>
     </div>
   </div>
 
@@ -168,55 +167,25 @@ In the above screenshot you can see the cookie set by the <code>wichteln</code>
 application as displayed by firebug storage inspector, below the same cookie
 in chrome developer tools.</p>
 <p><img src="images/cookie-in-chrome.png" alt="cookie set by rails,  as displayed by chrome"></p>
-<p>If you copy over this cookie to another browser, you are getting access to
-the session in that new browser!</p>
+<p>The cookie is set with the <code>HttpOnly</code> option, which means it cannot be
+change by JavaScript in the browser.  But it is still vunerable to a
+replay attack: by using <code>curl</code> on the command line we can send a stolen
+cookie with the HTTP request and will be 'logged in' for that request:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+curl -v --cookie "_kanban_session=bWdwc...d4c; path=/; HttpOnly" https://kanban-2.herokuapp.com/
+...
+&lt;span&gt;Logged in as mariam &lt;a href="/logout"&gt;logout&lt;/a&gt;
+
+</pre>
+</div>
 <p>When programming the backend In Ruby on Rails you 
 find a Hash <code>session</code> that is accessible from
 both controllers and views.</p>
 <p>See <a href="http://guides.rubyonrails.org/action_controller_overview.html#session">Rails Guide: Controller</a>
 for more details.</p>
-<h3 id="virtual-attributes">2 Virtual Attributes </h3>
-<p>When building your first rails app with the scaffolds generator
-or the model generator you immediately see how tightly the
-rails model is connected to the database table.</p>
-<p>But there is more to the model than just that.  The model 
-is a ruby class. You can use it to add the so called "business logic"
-to your model:  for a model representing a book in the library
-this would be methods for checking out and handing in the book, .... for
-every model this will be different.</p>
-<p>In many cases you want the object from your model class 
-to have a different set of attributes than the underlying database has.
-To achieve this disconnect we will look into virtual attributes </p>
-<p>In the following example the attribute <code>fullname</code>
-is computed from two other attributes, and does not really
-exist in the database:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-attr_accessible :firstname, :lastname, :fullname
-
-def fullname
-  "#{firstname} #{lastname}"
-end
-
-</pre>
-</div>
-<p>To set the attribute 
-is computed from two other attributes, does not really
-exist in the database.</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-def fullname=(name)
-  split = name.split(' ', 2)
-  self.firstname = split.first
-  self.lastname = split.last
-end
-
-</pre>
-</div>
-<p>See <a href="http://railscasts.com/episodes/16-virtual-attributes?view=asciicast">Railscast no.16</a> for
-more details on virtual attributes.</p>
-<h3 id="password-storage">3 Password Storage</h3>
-<h4 id="has-secure-password">3.1 has secure password</h4>
+<h3 id="password-storage">2 Password Storage</h3>
+<h4 id="has-secure-password">2.1 has secure password</h4>
 <p>Rails comes with the following automatism for handling passwords,
 which go a long way to following the <a href="https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet">OWASP recommendations</a>.</p>
 <p>It assumes that you have an attribute "password_digest"
@@ -249,7 +218,7 @@ user = User.find(username: "USERNAME").authenticate("THE PASSWORD")
 <p>The authenticate method will encrypt the password again, and compare
 it to the password_digest in the database.  It will return nil if
 the password does not match.</p>
-<h4 id="validates-confirmation-of-password">3.2 validates confirmation of password</h4>
+<h4 id="validates-confirmation-of-password">2.2 validates confirmation of password</h4>
 <p>It is good UX practice to have users supply their
 password twice, to make it less likely that typoes go through.
 Rails also helps you with this:  You can add <code>validates_confirmation_of :password</code>
@@ -274,7 +243,7 @@ User.create({username: "mariam",
 </div>
 <p>This use of create will not actually succeed, because the password_confirmation does
 not match the password.</p>
-<h3 id="login-from-scratch">4 Login from Scratch</h3>
+<h3 id="login-from-scratch">3 Login from Scratch</h3>
 <p>We now have all the bits and pieces to build a Login.  </p>
 <p>There are some rails convention around this:</p>
 <ul>
@@ -392,7 +361,7 @@ to display different things for logged in users and non logged in visitors:</p>
 
 </pre>
 </div>
-<h3 id="login-using-twitter-facebook-github">5 Login using twitter, facebook, github, ...</h3>
+<h3 id="login-using-twitter-facebook-github">4 Login using twitter, facebook, github, ...</h3>
 <p>In many scenarios it might be more convenient for your users
 to not have to register on your site, but to use another service
 to authenticate.  That way they don't have to remember another password.
@@ -564,7 +533,7 @@ end # def self.find_or_create_with_omniauth(auth)
 </div>
 <p>The method <code>find_or_create_by</code> handles both cases in one: either it
 finds an existing authentication or it creates a new one.</p>
-<h3 id="confirmation-e-mail-password-reminder">6 Confirmation E-Mail, Password Reminder, ...</h3>
+<h3 id="confirmation-e-mail-password-reminder">5 Confirmation E-Mail, Password Reminder, ...</h3>
 <p>If you want to stick with registering users in your own app
 the gem <code>devise</code> offers a lot of features. It makes your logins ...</p>
 <ul>
@@ -581,7 +550,7 @@ the gem <code>devise</code> offers a lot of features. It makes your logins ...</
 <ul>
 <li>Omniauthable: adds OmniAuth support.</li>
 </ul>
-<h3 id="further-reading">7 Further Reading</h3>
+<h3 id="further-reading">6 Further Reading</h3>
 <ul>
 <li>OmniAuth <a href="https://github.com/intridea/omniauth/wiki">wiki</a>
 </li>
