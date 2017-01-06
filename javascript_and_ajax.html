@@ -78,15 +78,15 @@
             <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body>
 <ol class="chapters">
-<li><a href="#an-introduction-to-ajax">An Introduction to Ajax</a></li>
 <li><a href="#unobtrusive-javascript">Unobtrusive JavaScript</a></li>
 <li><a href="#using-es6-in-rails">Using ES6 in Rails</a></li>
+<li><a href="#an-introduction-to-ajax">An Introduction to Ajax</a></li>
 <li>
-<a href="#turbolinks">Turbolinks</a>
+<a href="#server-side-concerns">Server-Side Concerns</a>
 
 <ul>
-<li><a href="#how-turbolinks-works">How Turbolinks Works</a></li>
-<li><a href="#page-change-events">Page Change Events</a></li>
+<li><a href="#the-recipe-ingredients-example">The Recipe / Ingredients Example</a></li>
+<li><a href="#another-example">Another Example</a></li>
 </ul>
 </li>
 <li>
@@ -100,11 +100,11 @@
 </ul>
 </li>
 <li>
-<a href="#server-side-concerns">Server-Side Concerns</a>
+<a href="#turbolinks">Turbolinks</a>
 
 <ul>
-<li><a href="#the-recipe-ingredients-example">The Recipe / Ingredients Example</a></li>
-<li><a href="#another-example">Another Example</a></li>
+<li><a href="#how-turbolinks-works">How Turbolinks Works</a></li>
+<li><a href="#page-change-events">Page Change Events</a></li>
 </ul>
 </li>
 <li><a href="#other-resources">Other Resources</a></li>
@@ -117,11 +117,12 @@
 it will enable you to create rich and dynamic Ajax applications with
 ease!</p><p>After reading this guide, you will know:</p>
 <ul>
-<li>The basics of Ajax.</li>
-<li>Unobtrusive JavaScript.</li>
-<li>How Rails&#39; built-in helpers assist you.</li>
-<li>How to handle Ajax on the server side.</li>
-<li>The Turbolinks gem.</li>
+<li>unobtrusive JavaScript,</li>
+<li>how to use ES6 in your Rails app,</li>
+<li>the basics of Ajax,</li>
+<li>how Rails handles Ajax,</li>
+<li>how built-in helpers assist you,</li>
+<li>the Turbolinks gem.</li>
 </ul>
 <p>This guide is based on the original
 <a href="http://guides.rubyonrails.org/working_with_javascript_in_rails.html">Rails Guide Working with JavaScript</a>.
@@ -135,94 +136,31 @@ refers to an <a href="https://github.com/backend-development/rails-example-recip
       <div id="mainCol">
         <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body>
-<h3 id="an-introduction-to-ajax">1 An Introduction to Ajax</h3>
-<p>In order to understand Ajax, you must first understand what a web browser does
-normally.</p>
-<p>When you type <code>http://localhost:3000</code> into your browser's address bar and hit
-'Go,' the browser (your 'client') makes a request to the server. It parses the
-response, then fetches all associated assets, like JavaScript files,
-stylesheets and images. It then assembles the page. If you click a link, it
-does the same process: fetch the page, fetch the assets, put it all together,
-show you the results. This is called the 'request response cycle.'</p>
-<p>JavaScript can also make requests to the server, and parse the response. It
-also has the ability to update information on the page. Combining these two
-powers, a JavaScript writer can make a web page that can update just parts of
-itself, without needing to get the full page data from the server. This is a
-powerful technique that we call Ajax.</p>
-<p>Rails provides quite a bit of built-in support for building web pages with this
-technique. You rarely have to write this code yourself. The rest of this guide
-will show you how Rails can help you write websites in this way, but it's
-all built on top of this fairly simple technique.</p>
-<h3 id="unobtrusive-javascript">2 Unobtrusive JavaScript</h3>
+<h3 id="unobtrusive-javascript">1 Unobtrusive JavaScript</h3>
 <p>Rails uses a technique called "Unobtrusive JavaScript" to handle attaching
-JavaScript to the DOM. This is generally considered to be a best-practice
-within the frontend community, but you may occasionally read tutorials that
-demonstrate other ways.</p>
-<p>Here's the simplest way to write JavaScript. You may see it referred to as
-'inline JavaScript':</p>
+JavaScript to the DOM.  The goal is to separate javascript from html as
+much as possible. So instead of writing inline JavaScript:</p>
 <div class="code_container">
 <pre class="brush: xml; gutter: false; toolbar: false">
 &lt;a href="#" onclick="this.style.backgroundColor='#990000'"&gt;Paint it red&lt;/a&gt;
 
 </pre>
 </div>
-<p>When clicked, the link background will become red. Here's the problem: what
-happens when we have lots of JavaScript we want to execute on a click?</p>
-<div class="code_container">
-<pre class="brush: xml; gutter: false; toolbar: false">
-&lt;a href="#" onclick="this.style.backgroundColor='#009900';this.style.color='#FFFFFF';"&gt;Paint it green&lt;/a&gt;
-
-</pre>
-</div>
-<p>Awkward, right? We could pull the function definition out of the click handler,
-and turn it into JavaScript:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-  function paintIt (element, backgroundColor, textColor) {
-    element.style.backgroundColor = backgroundColor;
-    if (textColor != null) {
-      return element.style.color = textColor;
-    }
-  }
-
-</pre>
-</div>
-<p>And then on our page:</p>
-<div class="code_container">
-<pre class="brush: xml; gutter: false; toolbar: false">
-&lt;a href="#" onclick="paintIt(this, '#990000')"&gt;Paint it red&lt;/a&gt;
-
-</pre>
-</div>
-<p>That's a little bit better, but what about multiple links that have the same
-effect?</p>
-<div class="code_container">
-<pre class="brush: xml; gutter: false; toolbar: false">
-&lt;a href="#" onclick="paintIt(this, '#990000')"&gt;Paint it red&lt;/a&gt;
-&lt;a href="#" onclick="paintIt(this, '#009900', '#FFFFFF')"&gt;Paint it green&lt;/a&gt;
-&lt;a href="#" onclick="paintIt(this, '#000099', '#FFFFFF')"&gt;Paint it blue&lt;/a&gt;
-
-</pre>
-</div>
+<p>We extract the code into a JavaScript funktion, and only attach the event
+handler to the a-tag after the page has loaded. To encourage reuse of JavaScript
+funktions we try to add all the data needed in html data-attributes:</p>
 <p>Not very DRY, eh? We can fix this by using events instead. We'll add a <code>data-*</code>
 attribute to our link, and then bind a handler to the click event of every link
 that has that attribute:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-  function paintIt(element, backgroundColor, textColor) {
-    element.style.backgroundColor = backgroundColor;
-    if (textColor != null) {
-      return element.style.color = textColor;
-    }
-  };
-
-  $(document).on("page:change",
+  $(function(){
     $("a[data-background-color]").click(function(e) {
-      var backgroundColor, textColor;
       e.preventDefault();
-      backgroundColor = $(this).data("background-color");
-      textColor = $(this).data("text-color");
-      paintIt(this, backgroundColor, textColor);
+      var backgroundColor = $(this).data("background-color") || this.style.backgroundColor;
+      var textColor       = $(this).data("text-color")       || this.style.color; 
+      this.style.backgroundColor = backgroundColor;
+      this.style.color = textColor;
     });
   });
 
@@ -236,103 +174,200 @@ that has that attribute:</p>
 
 </pre>
 </div>
-<p>We call this 'unobtrusive' JavaScript because we're no longer mixing our
-JavaScript into our HTML. We've properly separated our concerns, making future
-change easy. We can easily add behavior to any link by adding the data
-attribute. We can run all of our JavaScript through a minimizer and
-concatenator. We can serve our entire JavaScript bundle on every page, which
-means that it'll get downloaded on the first page load and then be cached on
-every page after that. Lots of little benefits really add up.</p>
+<p>This is called 'unobtrusive' JavaScript because we're no longer mixing 
+JavaScript into the HTML. We've properly separated our concerns, making future
+change easy. </p>
 <p>Take a look at the standard "destroy" links created by the scaffold:
 they use <code>data-confirm</code> to unobstrusively add a confirmation dialog.</p>
 <p>The Rails team strongly encourages you to write your JavaScript in this style, 
 and you can expect that many libraries will also
 follow this pattern.</p>
-<h3 id="using-es6-in-rails">3 Using ES6 in Rails</h3>
-<p>Rails comes with CoffeeScript as a default. It is transpiled to JavaScript
-by the asset pipeline. To disable this just comment out the gem in the Gemfile
+<h3 id="using-es6-in-rails">2 Using ES6 in Rails</h3>
+<p>Rails comes with CoffeeScript by default. It is transpiled to JavaScript
+by the asset pipeline. CoffeeScript gives you a simpler, more ruby-like syntax,
+including arrow functions and a secure for in loop. This was very valuable
+three or five years ago.  But in 2017 ES6 also gives you arrow functions
+and a for of loop, so you might not need CoffeeScript after all.</p>
+<p>To disable CoffeeScript just comment out the gem in the Gemfile
 and remove any *.coffee files the scaffold might have created from <code>/app/assets/javascript</code></p>
-<p>To use Ecmascript 6 instead add the following to the Gemfile:</p>
+<p>To use ES6 instead follow the instructions for 
+the <a href="https://github.com/TannerRogalsky/sprockets-es6">sprockets-es6 gem</a>.
+With this gem
+any file in <code>/app/assets/javascript/</code> with extension <code>.js.es6</code> will be
+transpiled to JavaScript first, and later be minified and combined by the asset pipeline.
+You do not need to write modules or import them, because all the JavaScript
+code will be combined into one file.</p>
+<h3 id="an-introduction-to-ajax">3 An Introduction to Ajax</h3>
+<p>In order to understand Ajax, you must first understand what a web browser does
+normally.</p>
+<p>When you type <code>http://localhost:3000</code> into your browser's address bar and hit
+'Go,' the browser (your 'client') makes a request to the server. It parses the
+response, then fetches all associated assets, like JavaScript files,
+stylesheets and images. It then assembles the page. If you click a link, it
+does the same process: fetch the page, fetch the assets, put it all together,
+show you the results. This is called the 'request response cycle.'</p>
+<p>JavaScript can also make requests to the server, and parse the response. It
+also has the ability to update information on the page. Combining these two
+powers, you can write JavaScript that updates just parts of a webpage,
+without needing to get the full page from the server. This is a
+powerful technique called <a href="https://en.wikipedia.org/wiki/Ajax_(programming)">Ajax</a>.</p>
+<p>Rails provides quite a bit of built-in support for building web pages with this
+technique. </p>
+<h3 id="server-side-concerns">4 Server-Side Concerns</h3>
+<p>Ajax isn't just client-side, you also need to do some work on the server
+side to support it. Often, people like their Ajax requests to return JSON
+rather than HTML. Let's discuss what it takes to make that happen.</p>
+<h4 id="the-recipe-ingredients-example">4.1 The Recipe / Ingredients Example</h4>
+<p>You can clone the source code for the example from
+<a href="https://github.com/backend-development/rails-example-recipes-js">github</a></p>
+<p>On the List of Ingredients page we want the 'edit' links to 
+load an inline form for editing the ingredient.</p>
+<p><img src="images/inline_form_2.png" alt=""></p>
+<p>As a first step we change the <code>link_to</code> to <code>remote</code>:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-gem 'sprockets'
-gem 'sprockets-es6', require: 'sprockets/es6'
+link_to 'Edit', edit_ingredient_path(ingredient), remote: true
 
 </pre>
 </div>
-<p>Now any file <code>/app/assets/javascript/hello_world.js.es6</code> will be
-transpiled to <code>/app/assets/javascript/hello_world.js</code> first, and
-later be minified and combined by the asset pipeline.</p>
-<p>For example:</p>
+<p>Now clicking the link fails silently.  In the log file you can
+see that the edit-view is rendered normally.  But we need
+a different behaviour in case this view is called from JavaScript.
+We also want to keep the normal behaviour as it is.</p>
+<p>In a rails controller you can use <code>resond_to</code> to handle
+different expected results:  in our case the browser once 
+expects HTML as the result when doing a normal GET Request,
+while the Rails <code>link_to :remote</code> link expects javascript
+as a result:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-class HelloWorld {  
-  constructor(name) {
-    this.name = name;
-  }
-
-  sayHello() {
-    alert("Hello " + this.name);
-  }
-}
+respond_to do |format|
+  format.html { render :new }
+  format.js   { render 'new.js.erb' }
+end
 
 </pre>
 </div>
+<p>The link still fails silently. We can handle
+the AJAX error like so:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-&lt;button data-hello="world"&gt;Hello World&lt;/button&gt;
-
-</pre>
-</div>
-<p>Can now can write the ES6 / JavaScript to call this unobstrusively!</p>
-<h3 id="turbolinks">4 Turbolinks</h3>
-<p>Rails ships with the <a href="https://github.com/rails/turbolinks">Turbolinks gem</a>.
-This gem uses Ajax to speed up page rendering in most applications.</p>
-<h4 id="how-turbolinks-works">4.1 How Turbolinks Works</h4>
-<p>Turbolinks attaches a click handler to all <code>&lt;a&gt;</code> on the page. If your browser
-supports
-<a href="https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Manipulating_the_browser_history#The_pushState%28%29_method">PushState</a>,
-Turbolinks will make an Ajax request for the page, parse the response, and
-replace the entire <code>&lt;body&gt;</code> of the page with the <code>&lt;body&gt;</code> of the response. It
-will then use PushState to change the URL to the correct one, preserving
-refresh semantics and giving you pretty URLs.</p>
-<p>Turbolinks are enabeld by default in new rails applications.</p>
-<p>For older applications add Turbolinks to the Gemfile,
-and put <code>//= require turbolinks</code> in your JavasScript manifest
-<code>app/assets/javascripts/application.js</code>.</p>
-<p>If you want to disable Turbolinks for certain links, add a <code>data-no-turbolink</code>
-attribute to the tag:</p>
-<div class="code_container">
-<pre class="brush: xml; gutter: false; toolbar: false">
-&lt;a href="..." data-no-turbolink&gt;No turbolinks here&lt;/a&gt;.
-
-</pre>
-</div>
-<h4 id="page-change-events">4.2 Page Change Events</h4>
-<p>When writing JavaScript, you'll often want to do some sort of processing upon
-page load. With jQuery, you'd write something like this:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-$(document).ready(function(){
-  alert("page has loaded!");
+$(".edit_ingredient").on("ajax:error", function(e, xhr, status, error) {
+  $(this).parent().append("&lt;b&gt;AJAX ERROR " + status + ": " + error + "&lt;/b&gt;");
 });
 
 </pre>
 </div>
-<p>However, because Turbolinks overrides the normal page loading process, the
-event that this relies on will not be fired. If you have code that looks like
-this, you must change your code to do this instead:</p>
+<p>Now we implement the <code>new.js.erb</code> view.  The Javascript
+created here is sent back to the client and executed
+there.  Try it out with a simple alert:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$(document).on("page:change", function(){
-  alert("page has loaded!");
-});
+alert("this was sent back from the server, for ingredient  &lt;%= @ingredient.id %&gt;");
 
 </pre>
 </div>
-<p>For more details, including other events you can bind to, check out <a href="https://github.com/rails/turbolinks/blob/master/README.md">the
-Turbolinks
-README</a>.</p>
+<p>If this works we can start building the 
+behaviour we actually want:  We want to replace
+the existing display of the ingredient with the
+edit form.</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+console.log("now running for &lt;%= @ingredient.id %&gt;");
+$("#ingredient_&lt;%= @ingredient.id %&gt;").find('span').html('edit form here');
+
+</pre>
+</div>
+<p>For the creation of the form we can use the existing form partial
+in place of the string. We need to escape the resulting code
+in the proper way for using it in javascript:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+....html('&lt;%= escape_javascript(render 'form') %&gt;');
+
+</pre>
+</div>
+<p>As a more advanced exercise you could also make the "update" button of the form 
+work with AJAX.</p>
+<h4 id="another-example">4.2 Another Example</h4>
+<p>Imagine you have a series of users that you would like to display and provide a
+form on that same page to create a new user. The index action of your
+controller looks like this:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class UsersController &lt; ApplicationController
+  def index
+    @users = User.all
+    @user = User.new
+  end
+  # ...
+
+</pre>
+</div>
+<p>The index view (<code>app/views/users/index.html.erb</code>) contains:</p>
+<div class="code_container">
+<pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
+&lt;b&gt;Users&lt;/b&gt;
+
+&lt;ul id="users"&gt;
+&lt;%= render @users %&gt;
+&lt;/ul&gt;
+
+&lt;br&gt;
+
+&lt;%= form_for(@user, remote: true) do |f| %&gt;
+  &lt;%= f.label :name %&gt;&lt;br&gt;
+  &lt;%= f.text_field :name %&gt;
+  &lt;%= f.submit %&gt;
+&lt;% end %&gt;
+
+</pre>
+</div>
+<p>The <code>app/views/users/_user.html.erb</code> partial contains the following:</p>
+<div class="code_container">
+<pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
+&lt;li&gt;&lt;%= user.name %&gt;&lt;/li&gt;
+
+</pre>
+</div>
+<p>The top portion of the index page displays the users. The bottom portion
+provides a form to create a new user.</p>
+<p>The bottom form will call the <code>create</code> action on the <code>UsersController</code>. Because
+the form's remote option is set to true, the request will be posted to the
+<code>UsersController</code> as an Ajax request, looking for JavaScript. In order to
+serve that request, the <code>create</code> action of your controller would look like
+this:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+  # app/controllers/users_controller.rb
+  # ......
+  def create
+    @user = User.new(params[:user])
+
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.js   {}
+        format.json { render json: @user, status: :created, location: @user }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+</pre>
+</div>
+<p>Notice the format.js in the <code>respond_to</code> block; that allows the controller to
+respond to your Ajax request. You then have a corresponding
+<code>app/views/users/create.js.erb</code> view file that generates the actual JavaScript
+code that will be sent and executed on the client side.</p>
+<div class="code_container">
+<pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
+$("&lt;%= escape_javascript(render @user) %&gt;").appendTo("#users");
+
+</pre>
+</div>
 <h3 id="built-in-helpers">5 Built-in Helpers </h3>
 <p>Rails provides a bunch of view helper methods written in Ruby to assist you
 in generating HTML. Sometimes, you want to add a little Ajax to those elements,
@@ -459,161 +494,54 @@ $("a[data-remote]").on("ajax:success", function(e, data, status, xhr) {
 </pre>
 </div>
 <p>Since it's just a <code>&lt;form&gt;</code>, all of the information on <code>form_for</code> also applies.</p>
-<h3 id="server-side-concerns">6 Server-Side Concerns</h3>
-<p>Ajax isn't just client-side, you also need to do some work on the server
-side to support it. Often, people like their Ajax requests to return JSON
-rather than HTML. Let's discuss what it takes to make that happen.</p>
-<h4 id="the-recipe-ingredients-example">6.1 The Recipe / Ingredients Example</h4>
-<p>You can clone the source code for the example from
-<a href="https://github.com/backend-development/rails-example-recipes-js">github</a></p>
-<p>On the List of Ingredients page we want the 'edit' links to 
-load an inline form for editing the ingredient.</p>
-<p><img src="images/inline_form_2.png" alt=""></p>
-<p>As a first step we change the <code>link_to</code> to <code>remote</code>:</p>
+<h3 id="turbolinks">6 Turbolinks</h3>
+<p>Rails ships with the <a href="https://github.com/rails/turbolinks">Turbolinks gem</a>.
+This gem uses Ajax to speed up page rendering in most applications.</p>
+<h4 id="how-turbolinks-works">6.1 How Turbolinks Works</h4>
+<p>Turbolinks attaches a click handler to all <code>&lt;a&gt;</code> on the page. If your browser
+supports
+<a href="https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Manipulating_the_browser_history#The_pushState%28%29_method">PushState</a>,
+Turbolinks will make an Ajax request for the page, parse the response, and
+replace the entire <code>&lt;body&gt;</code> of the page with the <code>&lt;body&gt;</code> of the response. It
+will then use PushState to change the URL to the correct one, preserving
+refresh semantics and giving you pretty URLs.</p>
+<p>Turbolinks are enabeld by default in new rails applications.</p>
+<p>For older applications add Turbolinks to the Gemfile,
+and put <code>//= require turbolinks</code> in your JavasScript manifest
+<code>app/assets/javascripts/application.js</code>.</p>
+<p>If you want to disable Turbolinks for certain links, add a <code>data-no-turbolink</code>
+attribute to the tag:</p>
 <div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-link_to 'Edit', edit_ingredient_path(ingredient), remote: true
+<pre class="brush: xml; gutter: false; toolbar: false">
+&lt;a href="..." data-no-turbolink&gt;No turbolinks here&lt;/a&gt;.
 
 </pre>
 </div>
-<p>Now clicking the link fails silently.  In the log file you can
-see that the edit-view is rendered normally.  But we need
-a different behaviour in case this view is called from JavaScript.
-We also want to keep the normal behaviour as it is.</p>
-<p>In a rails controller you can use <code>resond_to</code> to handle
-different expected results:  in our case the browser once 
-expects HTML as the result when doing a normal GET Request,
-while the Rails <code>link_to :remote</code> link expects javascript
-as a result:</p>
+<h4 id="page-change-events">6.2 Page Change Events</h4>
+<p>When writing JavaScript, you'll often want to do some sort of processing upon
+page load. With jQuery, you'd write something like this:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-respond_to do |format|
-  format.html { render :new }
-  format.js   { render 'new.js.erb' }
-end
-
-</pre>
-</div>
-<p>The link still fails silently. We can handle
-the AJAX error like so:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-$(".edit_ingredient").on("ajax:error", function(e, xhr, status, error) {
-  $(this).parent().append("&lt;b&gt;AJAX ERROR " + status + ": " + error + "&lt;/b&gt;");
+$(document).ready(function(){
+  alert("page has loaded!");
 });
 
 </pre>
 </div>
-<p>Now we implement the <code>new.js.erb</code> view.  The Javascript
-created here is sent back to the client and executed
-there.  Try it out with a simple alert:</p>
+<p>However, because Turbolinks overrides the normal page loading process, the
+event that this relies on will not be fired. If you have code that looks like
+this, you must change your code to do this instead:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-alert("this was sent back from the server, for ingredient  &lt;%= @ingredient.id %&gt;");
+$(document).on("page:change", function(){
+  alert("page has loaded!");
+});
 
 </pre>
 </div>
-<p>If this works we can start building the 
-behaviour we actually want:  We want to replace
-the existing display of the ingredient with the
-edit form.</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-console.log("now running for &lt;%= @ingredient.id %&gt;");
-$("#ingredient_&lt;%= @ingredient.id %&gt;").find('span').html('edit form here');
-
-</pre>
-</div>
-<p>For the creation of the form we can use the existing form partial
-in place of the string. We need to escape the resulting code
-in the proper way for using it in javascript:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-....html('&lt;%= escape_javascript(render 'form') %&gt;');
-
-</pre>
-</div>
-<p>As a more advanced exercise you could also make the "update" button of the form 
-work with AJAX.</p>
-<h4 id="another-example">6.2 Another Example</h4>
-<p>Imagine you have a series of users that you would like to display and provide a
-form on that same page to create a new user. The index action of your
-controller looks like this:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-class UsersController &lt; ApplicationController
-  def index
-    @users = User.all
-    @user = User.new
-  end
-  # ...
-
-</pre>
-</div>
-<p>The index view (<code>app/views/users/index.html.erb</code>) contains:</p>
-<div class="code_container">
-<pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
-&lt;b&gt;Users&lt;/b&gt;
-
-&lt;ul id="users"&gt;
-&lt;%= render @users %&gt;
-&lt;/ul&gt;
-
-&lt;br&gt;
-
-&lt;%= form_for(@user, remote: true) do |f| %&gt;
-  &lt;%= f.label :name %&gt;&lt;br&gt;
-  &lt;%= f.text_field :name %&gt;
-  &lt;%= f.submit %&gt;
-&lt;% end %&gt;
-
-</pre>
-</div>
-<p>The <code>app/views/users/_user.html.erb</code> partial contains the following:</p>
-<div class="code_container">
-<pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
-&lt;li&gt;&lt;%= user.name %&gt;&lt;/li&gt;
-
-</pre>
-</div>
-<p>The top portion of the index page displays the users. The bottom portion
-provides a form to create a new user.</p>
-<p>The bottom form will call the <code>create</code> action on the <code>UsersController</code>. Because
-the form's remote option is set to true, the request will be posted to the
-<code>UsersController</code> as an Ajax request, looking for JavaScript. In order to
-serve that request, the <code>create</code> action of your controller would look like
-this:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-  # app/controllers/users_controller.rb
-  # ......
-  def create
-    @user = User.new(params[:user])
-
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.js   {}
-        format.json { render json: @user, status: :created, location: @user }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-</pre>
-</div>
-<p>Notice the format.js in the <code>respond_to</code> block; that allows the controller to
-respond to your Ajax request. You then have a corresponding
-<code>app/views/users/create.js.erb</code> view file that generates the actual JavaScript
-code that will be sent and executed on the client side.</p>
-<div class="code_container">
-<pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
-$("&lt;%= escape_javascript(render @user) %&gt;").appendTo("#users");
-
-</pre>
-</div>
+<p>For more details, including other events you can bind to, check out <a href="https://github.com/rails/turbolinks/blob/master/README.md">the
+Turbolinks
+README</a>.</p>
 <h3 id="other-resources">7 Other Resources</h3>
 <p>Here are some helpful links to help you learn even more:</p>
 <ul>
