@@ -128,45 +128,45 @@ clients will basically return the same result.</p>
 want certain pages to only be available to some users.  We want
 to offer shopping carts or wizards that let a user complete
 a complex action through several small steps, that carry over state.</p>
+<p><img src="images/session-cart.jpg" srcset='images/session-cart.jpg 1x, images/session-cart@2x.jpg 2x' alt="cookie set by rails,  as displayed by firebug"></p>
 <p>In an old style GUI application running on windows or mac it
 is clear that that only one user is using the app at a time. We
 can use variables in main memory to store information pertaining
 to that user, and they will carry over through many interactions
 (opening a new window of our app, clicking a button, selecting
-something from a menu).</p>
+something from a menu). </p>
 <p>In a web app this true for the front end of the app, in a very
 restricted sense: If you set a variable in javascript it will only 
 be available for this one user in this one webbrowser.<br>
-But if the user leaves your app
-by typing in a new URL, or following a link or just reloading the
-page this information will be lost.</p>
+But if the user leaves your app by typing in a new URL, 
+or following a link or just reloading the page this information will be lost.</p>
 <p>In the backend we need some way to identify that a certain
 request comes from a certain user, and to "reattach" the state
 to this request.  There are several ways to do this:</p>
-<p>; HTTP Basic Authentication according to <a href="https://tools.ietf.org/html/rfc1945#section-11">rfc 1945, section 11</a>
-: The browser sends (hashed) username and password to the server with each request. The HTTP Headers <code>WWW-Authenticate</code> and <code>Authorization</code> are used.
-; HTTP Cookies according to <a href="https://tools.ietf.org/html/rfc6265">rfc 6265</a>
-: A cookie is an abitrary piece of information that the server sends to the client, and that the client will echo back with every request. The HTTP Header <code>Cookie</code> is used.
-; Using a JSON-Token according to <a href="https://jwt.io/">jwt.io</a> / <a href="https://tools.ietf.org/html/rfc7519">rfc 7519</a>
-: in the URL, HTTP-Header or as POST data </p>
+<ol>
+<li>
+<strong>HTTP Basic Authentication</strong> according to <a href="https://tools.ietf.org/html/rfc1945#section-11">rfc 1945, section 11</a>: The browser sends (hashed) username and password to the server with each request. The HTTP Headers <code>Authorization: Basic ...</code> and <code>WWW-Authenticate: Basic ...</code> are used. The client sends the info automatically for every subsequent request to the server.</li>
+<li>
+<strong>HTTP Cookies</strong> according to <a href="https://tools.ietf.org/html/rfc6265">rfc 6265</a>. The HTTP Header <code>Cookie</code> is used. The server sets the cookie, the client returns the cookie automatically for every subsequent request to the server.</li>
+<li>
+<strong>JSON-Token</strong> according to <a href="https://jwt.io/">jwt.io</a> / <a href="https://tools.ietf.org/html/rfc7519">rfc 7519</a> use a can be used directly in HTTP with  <code>Authorization: Bearer ...</code> and <code>WWW-Authenticate: Bearer ...</code> or in an URL or as POST data </li>
+</ol>
 <h4 id="security">1.1 Security</h4>
 <p>If you use any of these methods over HTTP, unencrypted,
 then an attacker might be able to steal the authentication information.
 So always use HTTPS!</p>
-<p>Both HTTP Basic Authentication and Cookies are sent automatically
+<p>Both Authenticate-Headers and Cookies are sent automatically
 by the browser each time you access the web app.  This can be used
 exploited by <a href="https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)">Cross Site Request Forgery attacks</a>.</p>
 <h4 id="session-in-backend-development">1.2 Session in Backend Development</h4>
-<p><img src="images/cookie-in-ff-inspector.png" alt="cookie set by rails,  as displayed by firebug"></p>
 <p>Web frameworks use any of the methods described above
 to offer so called <strong>sessions</strong> to the
 developer: a session is a key-value store that is associated with
 the requests of one specific user.</p>
 <p>Ruby on Rails by default sets a cookie named after the application.
-In the above screenshot you can see the cookie set by the <code>wichteln</code>
-application as displayed by firebug storage inspector, below the same cookie
-in chrome developer tools.</p>
-<p><img src="images/cookie-in-chrome.png" alt="cookie set by rails,  as displayed by chrome"></p>
+In the screenshot below you can see the cookie set by the <code>wichteln</code>
+application as displayed by firebug storage inspector.</p>
+<p><img src="images/cookie-in-ff-inspector.png" srcset='images/cookie-in-ff-inspector.png 1x, images/cookie-in-ff-inspector@2x.png 2x' alt="cookie set by rails,  as displayed by firebug"></p>
 <p>The cookie is set with the <code>HttpOnly</code> option, which means it cannot be
 change by JavaScript in the browser.  But it is still vunerable to a
 replay attack: by using <code>curl</code> on the command line we can send a stolen

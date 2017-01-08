@@ -211,7 +211,7 @@ technique. </p>
 <p>Let's have a look at the list of ingredients, and how an ingredient
 can be edited with the normal CRUD operations created by the scaffold.
 There are four HTTP requests and three full page loads in this process:</p>
-<p><img src="images/rails-js-1.jpg" alt=""></p>
+<p><img src="images/rails-js-1.jpg" srcset='images/rails-js-1.jpg 1x, images/rails-js-1@2x.jpg 2x' alt=""></p>
 <p>We want to replace this with a version that uses Rails typical AJAX. When
 the 'edit' link is clicked the server returns JavaScript that places
 the form into the existing page.
@@ -221,7 +221,7 @@ the existing list.</p>
 <p>This still needs four HTTP requests, but a lot less data is transferred
 and - more importantly - there is no new full  HTML page for the browser
 to parse and display.  The URLs stay almost the same: </p>
-<p><img src="images/rails-js-2.jpg" alt=""></p>
+<p><img src="images/rails-js-2.jpg" srcset='images/rails-js-2.jpg 1x, images/rails-js-2@2x.jpg 2x' alt=""></p>
 <p>As a first step we change the <code>link_to</code> to <code>remote</code>:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
