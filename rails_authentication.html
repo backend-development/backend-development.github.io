@@ -79,7 +79,7 @@
 <html><body>
 <ol class="chapters">
 <li>
-<a href="#stateless-http-and-sessions">Stateless HTTP and Sessions</a>
+<a href="#http-and-sessions">HTTP and Sessions</a>
 
 <ul>
 <li><a href="#security">Security</a></li>
@@ -94,9 +94,17 @@
 <li><a href="#validates-confirmation-of-password">validates confirmation of password</a></li>
 </ul>
 </li>
-<li><a href="#login-from-scratch">Login from Scratch</a></li>
-<li><a href="#login-using-twitter-facebook-github">Login using twitter, facebook, github, ...</a></li>
-<li><a href="#confirmation-e-mail-password-reminder">Confirmation E-Mail, Password Reminder, ...</a></li>
+<li><a href="#basic-login">Basic Login</a></li>
+<li><a href="#devise">Devise</a></li>
+<li>
+<a href="#omniauth">Omniauth</a>
+
+<ul>
+<li><a href="#providers">Providers</a></li>
+<li><a href="#models">Models</a></li>
+<li><a href="#login-and-logout">Login and Logout</a></li>
+</ul>
+</li>
 <li><a href="#further-reading">Further Reading</a></li>
 </ol>
 </body></html>
@@ -119,7 +127,7 @@
       <div id="mainCol">
         <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body>
-<h3 id="stateless-http-and-sessions">1 Stateless HTTP and Sessions</h3>
+<h3 id="http-and-sessions">1 HTTP and Sessions</h3>
 <p>HTTP is a <strong>stateless</strong> protocol. This means that the protocol
 does not require the web server to remember anything from one
 request to the next.  So calling the same URL from different
@@ -164,11 +172,12 @@ to offer so called <strong>sessions</strong> to the
 developer: a session is a key-value store that is associated with
 the requests of one specific user.</p>
 <p>Ruby on Rails by default sets a cookie named after the application.
-In the screenshot below you can see the cookie set by the <code>wichteln</code>
-application as displayed by firebug storage inspector.</p>
-<p><img src="images/cookie-in-ff-inspector.png" srcset='images/cookie-in-ff-inspector.png 1x, images/cookie-in-ff-inspector@2x.png 2x' alt="cookie set by rails,  as displayed by firebug"></p>
+In the screenshot below you can see the cookie set by the <code>kanban</code>
+application as displayed by firefox develoepr tools in the
+tab Storage.</p>
+<p><img src="images/cookie-in-ff-inspector.png" srcset='images/cookie-in-ff-inspector.png 1x, images/cookie-in-ff-inspector@2x.png 2x' alt="cookie set by rails, as displayed by firefox develoepr tools "></p>
 <p>The cookie is set with the <code>HttpOnly</code> option, which means it cannot be
-change by JavaScript in the browser.  But it is still vunerable to a
+changed by JavaScript in the browser.  But it is still vunerable to a
 replay attack: by using <code>curl</code> on the command line we can send a stolen
 cookie with the HTTP request and will be 'logged in' for that request:</p>
 <div class="code_container">
@@ -179,19 +188,26 @@ curl -v --cookie "_kanban_session=bWdwc...d4c; path=/; HttpOnly" https://kanban-
 
 </pre>
 </div>
-<p>When programming the backend In Ruby on Rails you 
-find a Hash <code>session</code> that is accessible from
-both controllers and views.</p>
+<p>This makes it all the more important that the cookie not be stolen!
+Remember to always use https if your app authenticates users at
+any point.</p>
+<p>The Rails framework automatically sets and reads this cookie,
+and offers a Hash <code>session</code> that is accessible from
+both controllers and views.   By default the keys and values you store
+in the session hash are serialized, encrypted with a secret key and 
+sent as the value of the session cookie.</p>
 <p>See <a href="http://guides.rubyonrails.org/action_controller_overview.html#session">Rails Guide: Controller</a>
 for more details.</p>
 <h3 id="password-storage">2 Password Storage</h3>
-<h4 id="has-secure-password">2.1 has secure password</h4>
-<p>Rails comes with the following automatism for handling passwords,
+<p>When storing passwords in a web app there are a lot of things you
+can do wrong: store the password as plain text, for example.</p>
+<p>Rails comes with built in functions for handling passwords,
 which go a long way to following the <a href="https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet">OWASP recommendations</a>.</p>
 <p>It assumes that you have an attribute "password_digest"
-in your database (and no attribute "password").</p>
-<p>You can use it like this: Add the gem 'bcrypt' to the Gemfile, and
-<code>has_secure_password</code> to your user model:</p>
+in your model (and no attribute "password"), and that you
+have added 'bcrypt' to the Gemfile.</p>
+<h4 id="has-secure-password">2.1 has secure password</h4>
+<p>Add <code>has_secure_password</code> to your user model:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class User &lt; ActiveRecord::Base
@@ -220,7 +236,7 @@ it to the password_digest in the database.  It will return nil if
 the password does not match.</p>
 <h4 id="validates-confirmation-of-password">2.2 validates confirmation of password</h4>
 <p>It is good UX practice to have users supply their
-password twice, to make it less likely that typoes go through.
+password twice, to make it less likely that typos go through.
 Rails also helps you with this:  You can add <code>validates_confirmation_of :password</code>
 to the user model:</p>
 <div class="code_container">
@@ -243,7 +259,7 @@ User.create({username: "mariam",
 </div>
 <p>This use of create will not actually succeed, because the password_confirmation does
 not match the password.</p>
-<h3 id="login-from-scratch">3 Login from Scratch</h3>
+<h3 id="basic-login">3 Basic Login</h3>
 <p>We now have all the bits and pieces to build a Login.  </p>
 <p>There are some rails convention around this:</p>
 <ul>
@@ -361,7 +377,31 @@ to display different things for logged in users and non logged in visitors:</p>
 
 </pre>
 </div>
-<h3 id="login-using-twitter-facebook-github">4 Login using twitter, facebook, github, ...</h3>
+<h3 id="devise">4 Devise</h3>
+<p>If your app deals with more then just one or two users
+that you set up "by hand", the gem devise can help you a lot.
+It can makes your logins ...</p>
+<ul>
+<li>Confirmable: sends emails with confirmation instructions and verifies whether an account is already confirmed during sign in.</li>
+<li>Recoverable: resets the user password and sends reset instructions.</li>
+<li>Registerable: handles signing up users through a registration process, also allowing them to edit and destroy their account.</li>
+<li>Rememberable: manages generating and clearing a token for remembering the user from a saved cookie.</li>
+<li>Trackable: tracks sign in count, timestamps and IP address.</li>
+<li>Timeoutable: expires sessions that have not been active in a specified period of time.</li>
+<li>Validatable: provides validations of email and password. It's optional and can be customized, so you're able to define your own validations.</li>
+<li>Lockable: locks an account after a specified number of failed sign-in attempts. Can unlock via email or after a specified time period.</li>
+</ul>
+<p>See the <a href="http://devise.plataformatec.com.br/#getting-started">devise documentation</a> on how to set it up.</p>
+<p>When set up correctly devise gives you helper methods to use in your controllers and views:</p>
+<ul>
+<li>
+<code>current_user</code> </li>
+<li>
+<code>user_signed_in?</code> # to check if a user is signed in (in views and controllers)</li>
+<li>
+<code>before_action :authenticate_user!</code> # to make a controller only accessible to authenticated users</li>
+</ul>
+<h3 id="omniauth">5 Omniauth</h3>
 <p>In many scenarios it might be more convenient for your users
 to not have to register on your site, but to use another service
 to authenticate.  That way they don't have to remember another password.
@@ -373,13 +413,25 @@ are using, and which services might be useful to your app: could
 you use Dropbox to authenticate, and also to deliver data directly
 to your users dropbox? Would it make sense to use facebook or twitter and also
 send out messages that way?  </p>
-<p>You will have to register your app with the authentication
-provider, eg. at <a href="https://developers.facebook.com/apps/">https://developers.facebook.com/apps/</a> 
-or <a href="https://apps.twitter.com/">https://apps.twitter.com/</a>.
-For every provider you get two pieces of information: a key and a secret.
-These you add to the configuration of omniauth:</p>
+<h4 id="providers">5.1 Providers</h4>
+<p>You will need the Gem <code>omniauth</code> and 
+additional gems for each provider.  For example if you
+want to use both github and stackoverflow for your web app geared
+towards developers, you would need three gems:</p>
 <div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
+<pre class="brush: plain; gutter: false; toolbar: false">
+gem 'omniauth'
+gem 'omniauth-github'
+gem 'omniauth-stackoverflow'
+
+
+You will have to register your app with the authentication
+provider, eg. at [https://developers.facebook.com/apps/](https://developers.facebook.com/apps/) 
+or [https://apps.twitter.com/](https://apps.twitter.com/).
+For every provider you get two pieces of information: a key and a secret.
+These you add to the configuration of omniauth:
+
+``` ruby
 # config/initializers/omniauth.rb:
 
 Rails.application.config.middleware.use OmniAuth::Builder do
@@ -401,6 +453,24 @@ end
 
 </pre>
 </div>
+<p>Then you can set the environment variables locally on the command line:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+TWITTER_KEY=abc
+TWITTER_SECRET=123
+
+</pre>
+</div>
+<p>If you deploy to heroku, use the heroku command line interface to set
+the variables there:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+heroku config:set TWITTER_KEY=abc
+heroku config:set TWITTER_SECRET=123
+
+</pre>
+</div>
+<h4 id="models">5.2 Models</h4>
 <p>For authentication you need to save at least the provider and the uid in your database
 somewhere.  But you can get more information out of the authentication:
 name, e-mail, and the token and secret needed to actually use the service.</p>
@@ -441,9 +511,11 @@ end
 
 </pre>
 </div>
+<h4 id="login-and-logout">5.3 Login and Logout</h4>
 <p>Omniauth is a "Rack Middleware". That means it is somewhat independant
 of the rails app you are building.  It has access to the HTTP request, will
-analyze that, and pass on data to your rails app through the environment variable <code>omniauth.auth</code>.</p>
+analyze that, and pass on data to your rails app through the 
+environment variable <code>omniauth.auth</code>.</p>
 <p>To log in you send the user to <code>/auth/:provider</code> (e.g. <code>/auth/facebook</code>).</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -533,19 +605,6 @@ end # def self.find_or_create_with_omniauth(auth)
 </div>
 <p>The method <code>find_or_create_by</code> handles both cases in one: either it
 finds an existing authentication or it creates a new one.</p>
-<h3 id="confirmation-e-mail-password-reminder">5 Confirmation E-Mail, Password Reminder, ...</h3>
-<p>If you want to stick with registering users in your own app
-the gem <code>devise</code> offers a lot of features. It makes your logins ...</p>
-<ul>
-<li>Confirmable: sends emails with confirmation instructions and verifies whether an account is already confirmed during sign in.</li>
-<li>Recoverable: resets the user password and sends reset instructions.</li>
-<li>Registerable: handles signing up users through a registration process, also allowing them to edit and destroy their account.</li>
-<li>Rememberable: manages generating and clearing a token for remembering the user from a saved cookie.</li>
-<li>Trackable: tracks sign in count, timestamps and IP address.</li>
-<li>Timeoutable: expires sessions that have not been active in a specified period of time.</li>
-<li>Validatable: provides validations of email and password. It's optional and can be customized, so you're able to define your own validations.</li>
-<li>Lockable: locks an account after a specified number of failed sign-in attempts. Can unlock via email or after a specified time period.</li>
-</ul>
 <p>Devise can also be combined with omniauth:</p>
 <ul>
 <li>Omniauthable: adds OmniAuth support.</li>
