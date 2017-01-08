@@ -424,14 +424,15 @@ gem 'omniauth'
 gem 'omniauth-github'
 gem 'omniauth-stackoverflow'
 
-
-You will have to register your app with the authentication
-provider, eg. at [https://developers.facebook.com/apps/](https://developers.facebook.com/apps/) 
-or [https://apps.twitter.com/](https://apps.twitter.com/).
+</pre>
+</div>
+<p>You will have to register your app with the authentication
+provider, eg. at <a href="https://developers.facebook.com/apps/">https://developers.facebook.com/apps/</a> 
+or <a href="https://apps.twitter.com/">https://apps.twitter.com/</a>.
 For every provider you get two pieces of information: a key and a secret.
-These you add to the configuration of omniauth:
-
-``` ruby
+These you add to the configuration of omniauth:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
 # config/initializers/omniauth.rb:
 
 Rails.application.config.middleware.use OmniAuth::Builder do
