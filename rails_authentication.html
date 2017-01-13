@@ -352,7 +352,6 @@ exist (any more) we just return nil as the current_user.</p>
 <pre class="brush: ruby; gutter: false; toolbar: false">
 &lt;!-- app/app/controllers/application_controller.rb --&gt;
 def current_user
-  @current_user = nil
   if session[:user_id]
     @current_user ||= User.where(id: session[:user_id]).first 
   end
