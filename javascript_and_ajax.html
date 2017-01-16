@@ -241,7 +241,7 @@ you can see that:</p>
 <p><img src="images/rails-js-log.png" alt=""> </p>
 <p>Rails is already prepared to respond to both requests
 that expect HTML and those that expect JavaScript.
-In fact we only have to create a view <code>new.js.erb</code>
+In fact we only have to create a view <code>edit.js.erb</code>
 and Rails will render that.</p>
 <p>Try it out with a simple alert:</p>
 <div class="code_container">
@@ -344,8 +344,11 @@ end
 
 </pre>
 </div>
-<p>Now we have to handle both cases: saving <code>@ingredient</code> caused errors or went through
-successfully.  There is a length validation on the ingredient name,
+<p>This will render the view update.js.erb.</p>
+<p>Now we have to make this view handle both cases: 
+saving <code>@ingredient</code> caused errors or went through
+successfully.  </p>
+<p>There is a length validation on the ingredient name,
 so typing in just one letter should cause an error. Try it out with this code:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
