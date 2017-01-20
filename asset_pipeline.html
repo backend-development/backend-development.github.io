@@ -97,6 +97,7 @@
 <li><a href="#fingerprinting-for-better-expiery">Fingerprinting for better Expiery</a></li>
 </ul>
 </li>
+<li><a href="#live-reloading">Live Reloading</a></li>
 <li><a href="#further-reading">Further Reading</a></li>
 </ol>
 </body></html>
@@ -314,7 +315,48 @@ to infinite, every browser can save the file forever and never try to reload it.
 If the contents of the file change, a new file with a new fingerprint in the name will 
 be generated, and the HTML-page will link to that file.</p>
 <p>This way we avoid one the the <a href="https://twitter.com/codinghorror/status/506010907021828096">two hard problems in computer science</a>: cache invalidation. </p>
-<h3 id="further-reading">3 Further Reading</h3>
+<h3 id="live-reloading">3 Live Reloading</h3>
+<p>When you are working on the frontend of your app, fiddling
+aroud in views and stylsheets it may be helpful to immediatly
+see the changes you make reflected in the browser.</p>
+<p>To achive this in Rails you can use the <code>guard</code> gem:</p>
+<p>Add three gems to your Gemfile:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+group :development do
+  gem 'guard'
+  gem 'guard-livereload', '~&gt; 2.5', require: false
+  gem 'rack-livereload'
+end
+
+</pre>
+</div>
+<p>We are using two separate components here:</p>
+<ul>
+<li>
+<code>guard-livereload</code> does the actual file-watching, and runs a separate webserver on port 35729 that sends out messages when a file changed</li>
+<li>
+<code>rack-livereload</code> adds some javascript to every webpage produced. This javascript will connect to port 35729, listen for messages and reload the page when a message arrives</li>
+</ul>
+<p>To configure gurad run:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+bundle exec guard init livereload
+
+</pre>
+</div>
+<p>This will create a <code>Guardfile</code> in your main directory.</p>
+<p>Now you can start <code>bundle exec guard</code> in a separate terminal window.</p>
+<p>To configure <code>rack-livereload</code> add the following to <code>config/application.rb</code> inside the Application class:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+config.middleware.insert_after Rack::Head, Rack::LiveReload
+
+</pre>
+</div>
+<p>Now stop and start your webserver, reload your app in the browser, and change
+a stylesheet or view to see it in action.</p>
+<h3 id="further-reading">4 Further Reading</h3>
 <ul>
 <li>Souders(2007): High Performance Web Sites. O'Reilly. ISBN-13: 978-0596529307.</li>
 <li>Souders(2009): Even Faster Web Sites. O'Reilly. ISBN-13: 978-0596522308.</li>
