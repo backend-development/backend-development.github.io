@@ -317,10 +317,9 @@ be generated, and the HTML-page will link to that file.</p>
 <p>This way we avoid one the the <a href="https://twitter.com/codinghorror/status/506010907021828096">two hard problems in computer science</a>: cache invalidation. </p>
 <h3 id="live-reloading">3 Live Reloading</h3>
 <p>When you are working on the frontend of your app, fiddling
-aroud in views and stylsheets it may be helpful to immediatly
+around in views and stylsheets, it may be helpful to immediatly
 see the changes you make reflected in the browser.</p>
-<p>To achive this in Rails you can use the <code>guard</code> gem:</p>
-<p>Add three gems to your Gemfile:</p>
+<p>To achive this in Rails you can use <code>guard</code>.  Add three gems to your Gemfile:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 group :development do
@@ -334,11 +333,11 @@ end
 <p>We are using two separate components here:</p>
 <ul>
 <li>
-<code>guard-livereload</code> does the actual file-watching, and runs a separate webserver on port 35729 that sends out messages when a file changed</li>
+<code>guard-livereload</code> does the actual file-watching, and runs a separate webserver on port 35729 that sends out messages when a file changes,</li>
 <li>
-<code>rack-livereload</code> adds some javascript to every webpage produced. This javascript will connect to port 35729, listen for messages and reload the page when a message arrives</li>
+<code>rack-livereload</code> adds some javascript to every webpage in your app. This javascript will connect to port 35729, listen for messages and reload the page when a message arrives.</li>
 </ul>
-<p>To configure gurad run:</p>
+<p>To configure guard run:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 bundle exec guard init livereload
