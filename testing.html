@@ -669,15 +669,21 @@ are stored in the folder <code>test/integration/</code></p>
 <p>We will use the gem <code>capybara</code> and additionally the headless browser <code>webkit</code>
 to write our integration tests.  This way we can test with javascript enabled
 or disabled in our simulated browser.</p>
-<h2>Gemfile</h2>
-<p>group :development, :test do
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+# Gemfile
+group :development, :test do
   gem 'minitest-rails-capybara'
   gem 'capybara-webkit'
-end</p>
-<h2>test_helper.rb</h2>
-<p>require "minitest/rails/capybara"
+  gem 'transactional_capybara'
+end
+
+# test_helper.rb
+require "minitest/rails/capybara"
 Capybara.javascript_driver = :webkit
-```</p>
+
+</pre>
+</div>
 <p>The integration tests written with capybara are also called feature
 tests (and stored in the 'test/features' directory).
 Minitest and Capybara provide a generator to create a test skeleton for you.</p>
