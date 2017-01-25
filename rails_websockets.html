@@ -81,7 +81,17 @@
 <ol class="chapters">
 <li><a href="#websockets">Websockets</a></li>
 <li><a href="#publish-subscribe">Publish-Subscribe</a></li>
-<li><a href="#example-app">Example App</a></li>
+<li>
+<a href="#example-app">Example App</a>
+
+<ul>
+<li><a href="#client-connects-and-subscribes">Client connects and subscribes</a></li>
+<li><a href="#server-accepts">Server accepts</a></li>
+<li><a href="#client-sends-data">Client sends data</a></li>
+<li><a href="#server-recives-data">Server recives data</a></li>
+<li><a href="#client-recieves-data">Client recieves data</a></li>
+</ul>
+</li>
 <li><a href="#deployment">Deployment</a></li>
 </ol>
 </body></html>
@@ -95,7 +105,7 @@ With Actioncable you can use websockets for publish-subscribe communication.</p>
 <li>Incorporate &quot;Server Push&quot; funktionality in your app</li>
 <li>Build a chat app in your webapp</li>
 </ul>
-<div class="repo"><p>You can study the <a href="https://github.com/backend-development/rails-example-stepstones">code</a> and try out <a href="https://stepstones.herokuapp.com/">the demos</a> for the example app described here.</p></div>
+<div class="repo"><p>You can study the <a href="https://github.com/backend-development/rails-websockets">code</a> and try out <a href="https://stepstones.herokuapp.com/">the demos</a> for the example app described here.</p></div>
     </div>
   </div>
 
@@ -106,8 +116,263 @@ With Actioncable you can use websockets for publish-subscribe communication.</p>
 <html><body>
 <p>TBD</p>
 <h3 id="websockets">1 Websockets</h3>
+<p>Websockets are built on top of HTTP and HTTPS:</p>
+<ul>
+<li>they reuse the default ports 80 and 445</li>
+<li>they start out as a normal HTTP request</li>
+<li>they reuse cookies</li>
+</ul>
+<p>but after the initial request, a websocket turns into
+a permanent connection between the server and the client.</p>
+<p>Both the client and the server can send messages across
+the websocket at any time.  Both the client and the
+server should be able to handle incoming messages at any time.</p>
 <h3 id="publish-subscribe">2 Publish-Subscribe</h3>
+<p>In Rails we have to distinguish two concepts:</p>
+<ul>
+<li>The websocket <strong>connection</strong> deals with authenticating a user - see <code>app/channels/application_cable/connection.rb</code>
+</li>
+<li>A <strong>channel</strong> </li>
+<li>A <strong>stream</strong> inside a channel</li>
+</ul>
 <h3 id="example-app">3 Example App</h3>
+<p>In our example app several users are working on "adventures" which
+consist of several "steps".  All the users should be able to chat
+with teach other in one big chatroom.
+All the users <em>in one adventure</em> should see each other progress through the steps.</p>
+<p>We will build the app starting from the client side:</p>
+<h4 id="client-connects-and-subscribes">3.1 Client connects and subscribes</h4>
+<p>The javascript concerning websockets is stored in the
+file <code>app/assets/javascripts/cabel.js</code> which was created
+by rails. It should look like this:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+//= require action_cable
+//= require_self
+//= require_tree ./channels
+
+(function() {
+  this.App || (this.App = {});
+
+  App.cable = ActionCable.createConsumer();
+}).call(this);
+
+</pre>
+</div>
+<p>and which in turn includes the folder <code>app/assets/javascripts/channels</code>
+where we will store our own javascript.  </p>
+<p>To connect each user to the chat channel, we add a new file
+<code>app/assets/javascripts/channels/chat.js</code>:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+App.chatChannel = App.cable.subscriptions.create({
+  channel: 'ChatChannel',
+  room: 'main'
+}
+
+</pre>
+</div>
+<p>This tries to subscribe to a channel on the server via websocket
+If you open your app in the browser now, you should
+see an error in the developer tools console:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+WebSocket connection to 'ws://localhost:3000/cable' failed: Error during WebSocket handshake: Unexpected response code: 500
+
+</pre>
+</div>
+<p>So the client is trying to connect, but it does not work yet.</p>
+<h4 id="server-accepts">3.2 Server accepts</h4>
+<p>The server side code is stored in the folder <code>app/channels</code>. We first
+take a look at <code>app/channels/application_cable/connection.rb</code>, which was
+created by rails:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+module ApplicationCable
+  class Connection &lt; ActionCable::Connection::Base
+  end
+end
+
+</pre>
+</div>
+<p>Remember that the server side code concerning websocket is not
+called by a controller.  So even if we already built authentication
+into our app, and added code for <code>current_user</code> to <code>application_controller.rb</code>,
+the <code>current_user</code> will not be available here in the ApplicationCable.</p>
+<p>But we do have access to cookies in Actioncable:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+module ApplicationCable
+  class Connection &lt; ActionCable::Connection::Base
+    identified_by :current_user    # creates a instance variable
+
+    def connect
+      Rails.logger.warn("this is the info I read from the cookie:")
+      Rails.logger.warn(cookies.encrypted[Rails.application.config.session_options[:key]])
+      self.current_user = User.find(3)
+    end
+
+    def disconnect
+      # Any cleanup work needed when the cable connection is cut.
+    end    
+  end
+end
+
+</pre>
+</div>
+<p>After adding this code the browser should be able to connect to
+the websocket.  In Firefox with the extension <strong>Websocket Monitor</strong> you
+can see the messages sent across the websocket in a separate tab:</p>
+<p><img src="images/ws_firefox.png" srcset='images/ws_firefox.png 1x, images/ws_firefox@2x.png 2x' alt="Websocket in Firefox with Extension Websocket Monitor"></p>
+<p>You can see that there is more going on than just the subscription
+that we initiated from the client side.</p>
+<p>On the server side you will see the connection in the log file:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+Started GET "/cable" for ::1 at 2017-01-25 17:45:09 +0100
+Started GET "/cable/" [WebSocket] for ::1 at 2017-01-25 17:45:09 +0100
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: keep-alive, Upgrade, HTTP_UPGRADE: websocket)
+this is the info I read from the cookie:
+{"session_id"=&gt;"b8ee74d5afe32d5", "_csrf_token"=&gt;"9mBRsEoGnRnkkW6", "user_id"=&gt;"3"}
+
+</pre>
+</div>
+<p>We successfully decoded the session data from the encrypted cookie, you can see 
+that the <code>user_id</code> is 3 in this case. We can use this to set the <code>current_user</code> correctly:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+module ApplicationCable
+  class Connection &lt; ActionCable::Connection::Base
+    identified_by :current_user    # creates a instance variable
+
+    def connect
+      session_from_cookie = cookies.encrypted[Rails.application.config.session_options[:key]]
+      user_id = session_from_cookie['user_id']
+      reject_unauthorized_connection if user_id.nil?
+      self.current_user = User.find(user_id)
+      Rails.logger.warn("connection for user #{current_user}")
+      reject_unauthorized_connection if current_user.nil?
+    end
+
+    def disconnect
+      # Any cleanup work needed when the cable connection is cut.
+    end    
+  end
+end
+
+</pre>
+</div>
+<p>After this a user that has logged in to the rails app is
+automatically also logged in to the websocket, as you
+can see in the log file:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+Started GET "/cable" for ::1 at 2017-01-25 17:54:51 +0100
+Started GET "/cable/" [WebSocket] for ::1 at 2017-01-25 17:54:51 +0100
+Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: keep-alive, Upgrade, HTTP_UPGRADE: websocket)
+  User Load (0.3ms)  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2  [["id", 3], ["LIMIT", 1]]
+connection for user Brigitte Jellinek
+Registered connection (Z2lkOi8vc3RlcHN0b25lcy9Vc2VyLzM)
+ChatChannel is transmitting the subscription confirmation
+ChatChannel is streaming from chat_main
+
+</pre>
+</div>
+<h4 id="client-sends-data">3.3 Client sends data</h4>
+<p>To implement the chat we can use the already existing HTML in application.html.erb:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+&lt;section id="chat" class="holder"&gt;
+  &lt;div id="output"&gt;
+    &lt;p&gt;Chat...&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div id="input"&gt;
+    &lt;span&gt;&lt;%= current_user %&gt;: &lt;/span&gt;
+    &lt;input name="chat" type="text"&gt;
+    &lt;input type="button" value="send"&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+
+</pre>
+</div>
+<p>If a user types something into the chat-input field and
+presses enter or the send button, we want the text to
+be sent across the websocket:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+$(function() {
+  function send_chat() {
+    var text = $('#input input[name=chat]').val();
+    $('#input input[name=chat]').val('');
+    App.chatChannel.send({ body: text });
+  }
+
+  $('#input input[name=chat]').on('keypress',function (e) {
+    if (e.which == 13 || e.keyCode == 13) {
+      send_chat();  
+    }
+  });
+
+  $('#input input[type=button]').on('click', send_chat);
+});
+
+</pre>
+</div>
+<p>If you type in 'Hello' and send it, you can see the message
+being sent in the websocket tab of firefox developer tools:</p>
+<p><img src="images/ws_firefox_send.png" srcset='images/ws_firefox_send.png 1x, images/ws_firefox_send@2x.png 2x' alt="chat message being sent to the server"></p>
+<h4 id="server-recives-data">3.4 Server recives data</h4>
+<p>Right now the server does not know how to handle the incoming data,
+in the log file you will read:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+Unable to process ChatChannel#receive({"body"=&gt;"hello"})
+
+</pre>
+</div>
+<p>We implement <code>receive</code> in <code>app/channels/chat_channel.rb</code>:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+class ChatChannel &lt; ApplicationCable::Channel
+  # Called when the consumer has successfully
+  # become a subscriber of this channel.
+  def subscribed
+    stream_from "chat_#{params[:room]}"
+  end
+
+  def receive(data)
+    data["user"] = current_user.full_name
+    data["time"] = Time.now.strftime('%H:%M')
+    ActionCable.server.broadcast("chat_#{params[:room]}", data)
+  end
+end
+
+</pre>
+</div>
+<p>Here we take the data coming in from the client
+and add some more: the name of the current user and
+the current time on the server.</p>
+<p>The <code>broadcast</code> method will send the new data to 
+all users subscribed to the chat-channel, even
+the user who originally sent it.</p>
+<h4 id="client-recieves-data">3.5 Client recieves data</h4>
+<p>In `<code>app/assets/javascripts/channels/chat.js</code>, where
+we made the subscription, we add a function to handle
+the received data:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+App.chatChannel = App.cable.subscriptions.create({
+  channel: 'ChatChannel',
+  room: 'main'}, 
+  {
+    received: function(data) {
+      $("#output").append('&lt;p&gt;' + data['user'] + ': ' + data['body'] + '&lt;/p&gt;');
+    }
+  }
+);
+
+</pre>
+</div>
 <h3 id="deployment">4 Deployment</h3>
 </body></html>
 
