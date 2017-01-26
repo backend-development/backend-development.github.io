@@ -504,13 +504,13 @@ event that this relies on will not be fired. If you have code that looks like
 this, you must change it to:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$(document).on("page:change", function(){
+$(document).on("turbolinks:load", function(){
   alert("page has loaded!");
 });
 
 </pre>
 </div>
-<p>For more details, including other events you can bind to, check out <a href="https://github.com/rails/turbolinks/blob/master/README.md">the
+<p>For more details, including other events you can bind to, check out <a href="https://github.com/turbolinks/turbolinks/blob/master/README.md">the
 Turbolinks
 README</a>.</p>
 <h3 id="other-resources">5 Other Resources</h3>
