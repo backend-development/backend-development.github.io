@@ -346,7 +346,7 @@ bundle exec guard init livereload
 </div>
 <p>This will create a <code>Guardfile</code> in your main directory.</p>
 <p>Now you can start <code>bundle exec guard</code> in a separate terminal window.</p>
-<p>To configure <code>rack-livereload</code> add the following to <code>config/application.rb</code> inside the Application class:</p>
+<p>To configure <code>rack-livereload</code> add the following to <code>config/environments/development.rb</code>:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 config.middleware.insert_after Rack::Head, Rack::LiveReload

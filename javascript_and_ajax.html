@@ -488,6 +488,17 @@ attribute to the tag:</p>
 
 </pre>
 </div>
+<p>If you want to keep an element when the page changes, add the <code>data-turbolinks-permanent</code> attribute,
+for example in the layout:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+&lt;%= yield %&gt;
+&lt;div class="media-player" data-turbolinks-permanent id="music-player"&gt;
+   [audio player should not be reloaded, audio can contiue to play]
+&lt;/div&gt;
+
+</pre>
+</div>
 <h4 id="page-change-events">4.2 Page Change Events</h4>
 <p>When writing JavaScript, you'll often want to do some sort of processing upon
 page load. With jQuery, you'd write something like this:</p>
