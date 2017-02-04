@@ -114,8 +114,8 @@
 websockets offer a permanent connection between client and server.
 With Actioncable you can use websockets for publish-subscribe communication.</p><p>By referring to this guide, you will be able to:</p>
 <ul>
-<li>Incorporate &quot;Server Push&quot; funktionality in your app</li>
 <li>Build a chat app in your webapp</li>
+<li>Incorporate &quot;server push&quot; functionality in your app</li>
 </ul>
 <div class="repo"><p>You can study the <a href="https://github.com/backend-development/rails_websockets">code</a> and try out <a href="https://stepstones.herokuapp.com/">the demo</a> for the example app described here.</p></div>
     </div>
@@ -140,16 +140,57 @@ a permanent connection between the server and the client.</p>
 the websocket at any time.  Both the client and the
 server should be able to handle incoming messages at any time.</p>
 <h3 id="publish-subscribe">2 Publish-Subscribe</h3>
-<p>In Rails we have to distinguish two concepts:</p>
+<p>In Rails we have to distinguish three concepts:</p>
 <ul>
-<li>The websocket <strong>connection</strong> deals with authenticating a user - see <code>app/channels/application_cable/connection.rb</code>
+<li>The websocket <strong>connection</strong> deals with authenticating a user 
+
+<ul>
+<li>see <code>app/channels/application_cable/connection.rb</code>
 </li>
-<li>A <strong>channel</strong> </li>
-<li>A <strong>stream</strong> inside a channel</li>
+<li>see <code>app/assets/javascripts/cabel.js</code>
+</li>
+</ul>
+</li>
+<li>A <strong>channel</strong> 
+
+<ul>
+<li>see <code>app/channels/*_channel.rb</code>
+</li>
+<li>see <code>app/assets/javascripts/channels/*.js</code>
+</li>
+</ul>
+</li>
+<li>A <strong>stream</strong> inside a channel
+
+<ul>
+<li>inside each channel streams are identified by a string</li>
+</ul>
+</li>
+</ul>
+<p>In our example app we will be using:</p>
+<ul>
+<li>a ChatChannel with one stream, 
+
+<ul>
+<li>the stream is identified by <code>room: main</code>
+</li>
+</ul>
+</li>
+<li>an AdventureChannel with one stream per adventure, for example
+
+<ul>
+<li>a stream identified by <code>url_path: /adventures/1</code>
+</li>
+<li>a stream identified by <code>url_path: /adventures/2</code>
+</li>
+<li>a stream identified by <code>url_path: /adventures/3</code>
+</li>
+</ul>
+</li>
 </ul>
 <h3 id="chat-example">3 Chat Example</h3>
 <p>In our example app several users should be able to chat with each other,
-no matter on which page they are currently.</p>
+no matter which page of the app they are currently viewing.</p>
 <p><img src="images/chat-screenshot-annotated.png" srcset='images/chat-screenshot-annotated.png 1x, images/chat-screenshot-annotated@2x.png 2x' alt="Screenshot of the Chat Area on the Homepage"></p>
 <p>We will build the app starting from the client side:</p>
 <h4 id="client-connects-and-subscribes">3.1 Client connects and subscribes</h4>
