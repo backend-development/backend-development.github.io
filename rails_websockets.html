@@ -82,17 +82,29 @@
 <li><a href="#websockets">Websockets</a></li>
 <li><a href="#publish-subscribe">Publish-Subscribe</a></li>
 <li>
-<a href="#example-app">Example App</a>
+<a href="#chat-example">Chat Example</a>
 
 <ul>
 <li><a href="#client-connects-and-subscribes">Client connects and subscribes</a></li>
-<li><a href="#server-accepts">Server accepts</a></li>
+<li><a href="#server-accepts-and-authentication">Server accepts and Authentication</a></li>
 <li><a href="#client-sends-data">Client sends data</a></li>
-<li><a href="#server-recives-data">Server recives data</a></li>
-<li><a href="#client-recieves-data">Client recieves data</a></li>
+<li><a href="#server-receives-data">Server receives data</a></li>
+<li><a href="#chat-example-client-recieves-data">Client recieves data</a></li>
+</ul>
+</li>
+<li>
+<a href="#progress-example">Progress Example</a>
+
+<ul>
+<li><a href="#client-subscribes">Client subscribes</a></li>
+<li><a href="#server-accepts">Server accepts</a></li>
+<li><a href="#progress-example-client-recieves-data">Client recieves data</a></li>
+<li><a href="#server-sends-data-if-status-changes">Server sends data if status changes</a></li>
+<li><a href="#client-recieves-data-partial-as-html">Client recieves data: partial as html</a></li>
 </ul>
 </li>
 <li><a href="#deployment">Deployment</a></li>
+<li><a href="#further-reading">Further Reading</a></li>
 </ol>
 </body></html>
 
@@ -135,11 +147,10 @@ server should be able to handle incoming messages at any time.</p>
 <li>A <strong>channel</strong> </li>
 <li>A <strong>stream</strong> inside a channel</li>
 </ul>
-<h3 id="example-app">3 Example App</h3>
-<p>In our example app several users are working on "adventures" which
-consist of several "steps".  All the users should be able to chat
-with teach other in one big chatroom.
-All the users <em>in one adventure</em> should see each other progress through the steps.</p>
+<h3 id="chat-example">3 Chat Example</h3>
+<p>In our example app several users should be able to chat with each other,
+no matter on which page they are currently.</p>
+<p><img src="images/chat-screenshot-annotated.png" srcset='images/chat-screenshot-annotated.png 1x, images/chat-screenshot-annotated@2x.png 2x' alt="Screenshot of the Chat Area on the Homepage"></p>
 <p>We will build the app starting from the client side:</p>
 <h4 id="client-connects-and-subscribes">3.1 Client connects and subscribes</h4>
 <p>The javascript concerning websockets is stored in the
@@ -172,7 +183,23 @@ App.chatChannel = App.cable.subscriptions.create({
 
 </pre>
 </div>
-<p>This tries to subscribe to a channel on the server via websocket
+<p>This Javascript code also depends on one meta-tag being set in the webpage:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+&lt;meta name="action-cable-url" content="/cable" /&gt;
+
+</pre>
+</div>
+<p>Do not write this by hand, use the rails helper in the
+file <code>app/views/layouts/application.html.erb</code>:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+&lt;%= action_cable_meta_tag %&gt;
+
+</pre>
+</div>
+<p>Now the client tries to connect to the websocket at URL <code>/cable</code>
+and then subscribe to the chat channel.
 If you open your app in the browser now, you should
 see an error in the developer tools console:</p>
 <div class="code_container">
@@ -182,7 +209,7 @@ WebSocket connection to 'ws://localhost:3000/cable' failed: Error during WebSock
 </pre>
 </div>
 <p>So the client is trying to connect, but it does not work yet.</p>
-<h4 id="server-accepts">3.2 Server accepts</h4>
+<h4 id="server-accepts-and-authentication">3.2 Server accepts and Authentication</h4>
 <p>The server side code is stored in the folder <code>app/channels</code>. We first
 take a look at <code>app/channels/application_cable/connection.rb</code>, which was
 created by rails:</p>
@@ -262,8 +289,8 @@ end
 
 </pre>
 </div>
-<p>After this a user that has logged in to the rails app is
-automatically also logged in to the websocket, as you
+<p>After this, a user that has logged in to the rails app
+is automatically also logged in to the websocket, as you
 can see in the log file:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -278,11 +305,12 @@ ChatChannel is streaming from chat_main
 
 </pre>
 </div>
+<p>Now the server is ready to receive data from this client and send data to this client.</p>
 <h4 id="client-sends-data">3.3 Client sends data</h4>
 <p>To implement the chat we can use the already existing HTML in application.html.erb:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-&lt;section id="chat" class="holder"&gt;
+&lt;section id="chat" class="holder" style="display:none;"&gt;
   &lt;div id="output"&gt;
     &lt;p&gt;Chat...&lt;/p&gt;
   &lt;/div&gt;
@@ -292,6 +320,24 @@ ChatChannel is streaming from chat_main
     &lt;input type="button" value="send"&gt;
   &lt;/div&gt;
 &lt;/section&gt;
+
+</pre>
+</div>
+<p>We just have to make it visible as soon as we have a websocket connection.
+We change  <code>app/assets/javascripts/channels/chat.js</code>, adding a second
+argument to subscriptions.create: an object that holds a <code>connected</code>-function:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+// create(channelName, mixin)
+App.chatChannel = App.cable.subscriptions.create({
+  channel: 'ChatChannel',
+  room: 'main'}, 
+  {
+    connected: function() {
+      $('#chat').show();
+    }
+  }
+);
 
 </pre>
 </div>
@@ -321,7 +367,7 @@ $(function() {
 <p>If you type in 'Hello' and send it, you can see the message
 being sent in the websocket tab of firefox developer tools:</p>
 <p><img src="images/ws_firefox_send.png" srcset='images/ws_firefox_send.png 1x, images/ws_firefox_send@2x.png 2x' alt="chat message being sent to the server"></p>
-<h4 id="server-recives-data">3.4 Server recives data</h4>
+<h4 id="server-receives-data">3.4 Server receives data</h4>
 <p>Right now the server does not know how to handle the incoming data,
 in the log file you will read:</p>
 <div class="code_container">
@@ -355,7 +401,7 @@ the current time on the server.</p>
 <p>The <code>broadcast</code> method will send the new data to 
 all users subscribed to the chat-channel, even
 the user who originally sent it.</p>
-<h4 id="client-recieves-data">3.5 Client recieves data</h4>
+<h4 id="chat-example-client-recieves-data">3.5 Client recieves data</h4>
 <p>In `<code>app/assets/javascripts/channels/chat.js</code>, where
 we made the subscription, we add a function to handle
 the received data:</p>
@@ -366,14 +412,210 @@ App.chatChannel = App.cable.subscriptions.create({
   room: 'main'}, 
   {
     received: function(data) {
-      $("#output").append('&lt;p&gt;' + data['user'] + ': ' + data['body'] + '&lt;/p&gt;');
+      $("#output").append(
+        '&lt;p&gt;' + data['user'] + ': ' + data['body'] + '&lt;/p&gt;'
+      );
     }
   }
 );
 
 </pre>
 </div>
-<h3 id="deployment">4 Deployment</h3>
+<h3 id="progress-example">4 Progress Example</h3>
+<p>For the second example the communication structure is a bit more complex:
+All the users <em>in one adventure</em> should see each other progress through the steps.</p>
+<p><img src="images/adventures-screenshot-annotated.png" srcset='images/adventures-screenshot-annotated.png 1x, images/adventures-screenshot-annotated@2x.png 2x' alt="Screenshot of the Adventure Page"></p>
+<p>The page displays the adventure and the three steps it consists of.</p>
+<p>The currently logged in user is 'Brigitte Jellinek'. Her progress is described
+at the top of the page (purple box) as "You are currently working on step 2.".
+A blue cursor just above step 2 also indicates this.</p>
+<p>At every step we can see the status of all users. For example at the 2nd step,
+in the green box, we can see the status of four users. We can see
+that Alyssa P. Hacker is blocked.</p>
+<p>Inside the yellow box we find the interface the current user can use to change
+their status at step 2.</p>
+<p>We will use websockets to communicate changes to all users.  So if Alyssa changes
+her status from blocked to finished, the server will send websocket messages to
+all the other users currently viewing the page, and their display will change
+accordingly.</p>
+<p>Contrast this to a classic web app built with HTTP requests, where you would
+need to reload the page to get the new status. </p>
+<h4 id="client-subscribes">4.1 Client subscribes</h4>
+<p>There is no need to change anything in <code>app/assets/javascripts/cabel.js</code>. We 
+add another file to the channels folder <code>app/assets/javascripts/channels/adventure.js</code>:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+App.cable.subscriptions.create({ channel: "AdventureChannel" })
+
+</pre>
+</div>
+<p>In <code>channels/chat.js</code> we also set a room when creating the subscription,
+and we used the same room for all users. This time we want to treat users
+who are working on different adventures differently.</p>
+<p>One simple way of doing this is to supply the URL of the current page
+as a parameter when creating the subscription:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+App.adventureChannel = App.cable.subscriptions.create({
+  channel: "AdventureChannel",  
+  url_path: document.location.pathname
+});
+
+</pre>
+</div>
+<p>The path is communicated via websocket:</p>
+<p><img src="images/subscribe_adventure.png" srcset='images/subscribe_adventure.png 1x, images/subscribe_adventure@2x.png 2x' alt="Websocket in Firefox with Extension Websocket Monitor"></p>
+<h4 id="server-accepts">4.2 Server accepts</h4>
+<p>On the server side we create a new file <code>app/channels/adventure_channel.rb</code>:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class AdventureChannel &lt; ApplicationCable::Channel
+
+  def subscribed
+    stream_from '/adventures/4'   # TODO: read param url_path
+  end
+
+end
+
+</pre>
+</div>
+<p>We only want to send out messages to users who are viewing on
+of the adventure-pages, not to people who are on the homepage or anywhere
+else.</p>
+<p>So we analyze the <code>url_path</code> parameter we recive from the client,
+and only <code>stream_from</code> if the path fits:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+def subscribed
+  if params[:url_path] =~ %r{^/adventures/\d+$}
+    stream_from params[:url_path]
+  end
+end
+
+</pre>
+</div>
+<h4 id="progress-example-client-recieves-data">4.3 Client recieves data</h4>
+<p>To help with debugging the channel while we are building it,
+we will copy over any data recived by the client to the chat window:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+App.adventureChannel = App.cable.subscriptions.create({
+  channel: "AdventureChannel",  
+  url_path: document.location.pathname
+},
+{ 
+  received: function(data) {
+    $("#output").append('&lt;p&gt;' + data.description + '&lt;/p&gt;');
+  }
+});
+
+</pre>
+</div>
+<h4 id="server-sends-data-if-status-changes">4.4 Server sends data if status changes</h4>
+<p>Every time a user changes their status we want the server
+to send out messages.  The model where the status is stored
+is <code>Step</code>. ActiveRecord supplies hooks for <a href="http://guides.rubyonrails.org/active_record_callbacks.html#transaction-callbacks">callbacks</a> we can use here:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+class Step &lt; ApplicationRecord
+
+  delegate :url_helpers, to: 'Rails.application.routes' 
+
+  after_create_commit :notify_adventure_channel
+  after_update_commit :notify_adventure_channel
+
+  def notify_adventure_channel
+    ActionCable.server.broadcast(
+      url_helpers.adventure_path(stepstone.adventure),
+      description: describe_new_state
+    )
+  end
+
+</pre>
+</div>
+<p>The <code>ActionCable.server.broadcast</code> methods takes one string argument
+for identifying the stream to broadcast on. We used the
+path to the adventure page, for example <code>"/adventure/3"</code>. Here
+we use a helper to contruct this string, we could also have
+done it directly with <code>"/adventure/#{stepstone.adventure_id}"</code>.</p>
+<p>With these pieces in place a change in status should already
+appear in the chat window.</p>
+<h4 id="client-recieves-data-partial-as-html">4.5 Client recieves data: partial as html</h4>
+<p>The display of all the users status involves a lot of html and
+additional resources.</p>
+<p><img src="images/adventures-screenshot-show-status.png" srcset='images/adventures-screenshot-show-status.png 1x, images/adventures-screenshot-show-status@2x.png 2x' alt="partial show_status"></p>
+<p>There is already a separate partial to handle this, it is 
+called in the <code>adventures/show.html.erb</code> view repeatedly:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+&lt;% @stepstones.each_with_index do |stepstone, i| %&gt;
+  &lt;div id="step_&lt;%= i %&gt;"&gt;
+    &lt;h2&gt;
+      &lt;span class="number"&gt;&lt;%= (i + 1).ordinalize %&gt;.&lt;/span&gt; Step   
+    &lt;/h2&gt;
+    ...
+    &lt;article&gt;
+      ....
+      &lt;div id="step_&lt;%= i %&gt;_show_status" class="step_show_status"&gt;
+        &lt;%= render 'stepstones/show_status', stepstone: stepstone, i: i %&gt;
+      &lt;/div&gt;
+    &lt;/article&gt;
+  &lt;/div&gt;
+&lt;% end %&gt;
+
+</pre>
+</div>
+<p>We can reuse the <code>stepstones/show_status</code> partial on the server side,
+when we send the message to the websocket.  And we can reuse the
+<code>div</code> with id <code>step_3</code> on the client side, when we incorpoarte the
+recieved html into the page. </p>
+<p>We will add two new keys to the message, which now looks like this:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+{
+  "description": "Alyssa P. Hacker is now blocked at the 2nd step.", 
+  "selector": "#step_1_show_status", 
+  "html" : "&lt;div class=\"user blocked\"&gt;&lt;span&gt;&lt;img...&gt; ....&lt;/div&gt;\n"
+}
+
+</pre>
+</div>
+<p>On the server we add another key/value pair to message:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+  def notify_adventure_channel
+    ActionCable.server.broadcast(
+      url_helpers.adventure_path(stepstone.adventure),
+      description: describe_new_state,
+      selector: "#step_#{i}_show_status",
+      html:
+        ApplicationController.renderer.render(
+          partial: 'stepstones/show_status',
+          locals: { stepstone: stepstone, i: i }
+        )
+    )
+  end
+
+</pre>
+</div>
+<p>on the client we just use jQuery to replace the html inside
+the div:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+received: function(data) {
+  $(data.selector).html(data.html);
+  $("#output").append('&lt;p&gt;' + data.description + '&lt;/p&gt;');
+}
+
+</pre>
+</div>
+<p>Now the status-display with all the users should work!</p>
+<h3 id="deployment">5 Deployment</h3>
+<h3 id="further-reading">6 Further Reading</h3>
+<ul>
+<li>
+<a href="https://blog.ably.io/rails-5-actioncable-the-good-and-bad-parts-1b56c3b31404#.nhzs3q1qd">O'Riordan(2016) Rails ActionCable — The good and bad parts</a> - a good overview of the uses and limitation of ActionCable</li>
+</ul>
 </body></html>
 
       </div>
