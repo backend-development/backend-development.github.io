@@ -138,8 +138,8 @@ and to distiguishe such APIs from SOAP APIs.</p>
 <p><a href="https://www.infoq.com/articles/rest-introduction">Tilkov(2007)</a> gives a brief introduction to REST.  The main points are:</p>
 <ol>
 <li>Give every resource a  unique URL</li>
-<li>“Hypermedia as the engine of application state” (HATEOAS) - use URLs to reference </li>
-<li>Use HTTP Methods (and Status Codes) as intended. See <a href="https://httpstatuses.com/422">Status codes</a>
+<li>“Hypermedia as the engine of application state” (HATEOAS) - use URLs to reference other resources (not just ids)</li>
+<li>Use HTTP Methods (and Status Codes) as intended. See <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">Methods</a> and <a href="https://httpstatuses.com/422">Status codes</a>
 </li>
 <li>One resource can have multiple representations, for example HTML, JSON and XML</li>
 <li>Communicate statelessly - if possible!</li>
@@ -400,6 +400,15 @@ gem 'active_model_serializers'
 
 </pre>
 </div>
+<p>this gem needs an initizalizer <code>config/initializers/json_api.rb</code></p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+require 'active_model_serializers/register_jsonapi_renderer'
+
+ActiveModelSerializers.config.adapter = :json_api
+
+</pre>
+</div>
 <h4 id="jsonapi-for-the-sample-app">5.1 JSONAPI for the sample app</h4>
 <p>The "Frontend 2" in the example app expects the json to be formed
 according to the json api specification.</p>
@@ -497,6 +506,9 @@ end
 <li><a href="http://edgeguides.rubyonrails.org/action_controller_overview.html#rendering-xml-and-json-data">Rails Guide: Rendering JSON in Action Controller Overview</a></li>
 <li><a href="http://edgeguides.rubyonrails.org/api_app.html">Rails Guide: Using Rails for API-only Applications</a></li>
 <li><a href="https://github.com/vasilakisfil/rails5_api_tutorial">Vasilakis(2017): Rails 5 API Tutorial</a></li>
+<li>
+<a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">Methods HTTP/1.0</a> </li>
+<li><a href="https://httpstatuses.com/422">Status codes</a></li>
 </ul>
 </body></html>
 
