@@ -81,7 +81,17 @@
 <html><body>
 <ol class="chapters">
 <li><a href="#what-is-an-api">What is an API</a></li>
-<li><a href="#rest">REST</a></li>
+<li>
+<a href="#rest">REST</a>
+
+<ul>
+<li><a href="#urls">URLS</a></li>
+<li><a href="#hateoas">HATEOAS</a></li>
+<li><a href="#http-methods-and-status-codes">HTTP Methods and Status Codes</a></li>
+<li><a href="#multiple-representations">Multiple Representations</a></li>
+<li><a href="#statelessness">Statelessness</a></li>
+</ul>
+</li>
 <li><a href="#json-api">JSON API</a></li>
 <li>
 <a href="#rendering-json">Rendering JSON</a>
@@ -139,17 +149,34 @@ and to distiguishe such APIs from SOAP APIs.</p>
 <ol>
 <li>Give every resource a  unique URL</li>
 <li>“Hypermedia as the engine of application state” (HATEOAS) - use URLs to reference other resources (not just ids)</li>
-<li>Use HTTP Methods (and Status Codes) as intended. See <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">Methods</a> and <a href="https://httpstatuses.com/422">Status codes</a>
-</li>
+<li>Use HTTP Methods (and Status Codes) as intended. </li>
 <li>One resource can have multiple representations, for example HTML, JSON and XML</li>
 <li>Communicate statelessly - if possible!</li>
 </ol>
-<h3 id="json-api">3 JSON API</h3>
-<p>When an API returns JSON data this could take many forms.
-The <a href="http://jsonapi.org/">json:api specification</a> is a well thought out
-convention for this.  </p>
-<p>It is especially good with the HATEOS aspect of Rest:</p>
-<p><strong>Hypermedia As The Engine Of Application State</strong> (HATEOAS), is a constraint of the REST application architecture that states that a client interacts with a network application entirely through hypermedia, and needs no prior knowledge of URLs.</p>
+<h4 id="urls">2.1 URLS</h4>
+<p>Please not that REST does not demand a certain form of URL.
+While URLs with no parameters are often used:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+https://example.com/users/
+https://example.com/users/1/
+https://example.com/users/2/
+https://example.com/users/3/
+
+</pre>
+</div>
+<p>it is just as restful to use parameters:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+https://example.com/users.php
+https://example.com/users.php?id=1
+https://example.com/users.php?id=2
+https://example.com/users.php?id=3
+
+</pre>
+</div>
+<h4 id="hateoas">2.2 HATEOAS</h4>
+<p>“Hypermedia as the engine of application state”  means that a client interacts with a network application entirely through hypermedia, and needs no prior knowledge of URLs.</p>
 <p>If an API returns the following JSON:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -179,6 +206,106 @@ For example because the developer read the docs.</p>
 
 </pre>
 </div>
+<h4 id="http-methods-and-status-codes">2.3 HTTP Methods and Status Codes</h4>
+<p>The are two important distinctions</p>
+<ul>
+<li>the GET and HEAD methods should take no other action than retrieval. These methods ought to be considered <strong>safe</strong>.</li>
+<li>The methods GET, HEAD, PUT and DELETE are idempotent: repeating the request will not change the end result (aside from error or expiration issues)</li>
+</ul>
+<p>The definition of the <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">Methods</a> in HTTP1.0 is just a short read, and worth its while!</p>
+<p>References for status codes:</p>
+<ul>
+<li><a href="https://httpstatuses.com/422">Status codes</a></li>
+<li><a href="https://http.cat/">Status cats</a></li>
+</ul>
+<h4 id="multiple-representations">2.4 Multiple Representations</h4>
+<p>The same resource can be available in different formats.
+There are two common ways of requesting different formats:</p>
+<p>With the HTTP Header <code>Accept</code>:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+GET /mini/person/83 HTTP/1.1
+Host: ich.multimediatechnology.at 
+Accept: application/xml
+
+</pre>
+</div>
+<p>Or by adding an "extension" as part of the URL:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+http://ich.multimediatechnology.at/mini/person/83.html
+http://ich.multimediatechnology.at/mini/person/83.xml
+http://ich.multimediatechnology.at/mini/person/83.json
+
+</pre>
+</div>
+<p>The three different versions of person number 83 might look
+like this: the HTML web page:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+&lt;h1&gt;Details zu einer Person&lt;/h1&gt;
+&lt;p&gt;&lt;img src="http://ich.multimediatechnology.at/mini/profil/edvard_1_2.jpg" /&gt;
+Herr Edvard Paul Beisteiner hat insgesamt 4 Werke in dieser Datenbank.
+Er hat den Usernamen fhs14287.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href='http://ich.multimediatechnology.at/mini/werk/24'&gt;The Thin Red Line&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href='http://ich.multimediatechnology.at/mini/werk/50'&gt;Der böse Wolf&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href='http://ich.multimediatechnology.at/mini/werk/83'&gt;nimm zwei, schatz&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href='http://ich.multimediatechnology.at/mini/werk/303'&gt;the neighbour.&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+</pre>
+</div>
+<p>For an API the same resource might be represented as XML:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+&lt;person&gt;
+  &lt;image ref='http://ich.multimediatechnology.at/mini/profil/edvard_1_2.jpg' /&gt;
+  &lt;vorname&gt;Edvard&lt;/vorname&gt;
+  &lt;nachname&gt;Beisteiner&lt;/nachname&gt;
+  &lt;username&gt;fhs14287&lt;/username&gt;
+  &lt;werke&gt;
+    &lt;werk ref='http://ich.multimediatechnology.at/mini/werk/24'&gt;The Thin Red Line&lt;/werk&gt;
+    &lt;werk ref='http://ich.multimediatechnology.at/mini/werk/50'&gt;Der böse Wolf&lt;/werk&gt;
+    &lt;werk ref='http://ich.multimediatechnology.at/mini/werk/83'&gt;nimm zwei, schatz&lt;/werk&gt;
+    &lt;werk ref='http://ich.multimediatechnology.at/mini/werk/303'&gt;the neighbour.&lt;/werk&gt;
+  &lt;/werke&gt;
+&lt;/person&gt;
+
+
+</pre>
+</div>
+<p>or as JSON:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+{"image":"http://ich.multimediatechnology.at/mini/profil/edvard_1_2.jpg",
+ "vorname":"Eduard",
+ "nachname":"Beisteiner",
+ "werk":[
+    {"titel":"The Thin Red Line",
+     "url":"http://ich.multimediatechnology.at/mini/werk/24"},
+    {"titel":"Der böse Wolf",
+     "url":"http://ich.multimediatechnology.at/mini/werk/50"},
+    {"titel":"nimm zwei, schatz",
+     "url":"http://ich.multimediatechnology.at/mini/werk/83"},
+    {"titel":"the neighbour.",
+     "url":"http://ich.multimediatechnology.at/mini/werk/303"}]}
+
+
+</pre>
+</div>
+<h4 id="statelessness">2.5 Statelessness</h4>
+<p> Tilkov wirtes: "REST mandates that state be either turned into resource state, or kept on the client. In other words, a server should not have to retain some sort of communication state for any of the clients it communicates with beyond a single request."</p>
+<p> This is important for performance and scalability and performance.<br>
+ Statelessness makes caching easy.  And in a scenario with serveral
+ servers behind a load balancer, not having state on the server means
+ the application will work if the requests bei one client are routest
+ to different servers.</p>
+<h3 id="json-api">3 JSON API</h3>
+<p>When an API returns JSON data this could take many forms.
+The <a href="http://jsonapi.org/">json:api specification</a> is a well thought out
+convention for this.  </p>
+<p>It is especially good with the HATEOS aspect of REST.</p>
 <p>The json:api specification adhers to this principle.</p>
 <h3 id="rendering-json">4 Rendering JSON</h3>
 <p>Rails is equipped to not just create HTML as output, but to easily
