@@ -84,6 +84,7 @@
 <li><a href="#rest">REST</a></li>
 <li><a href="#json-api">JSON API</a></li>
 <li><a href="#rendering-json">Rendering JSON</a></li>
+<li><a href="#stand-alone-api">Stand Alone API</a></li>
 <li><a href="#see-also">See Also</a></li>
 </ol>
 </body></html>
@@ -115,8 +116,124 @@ he desribed this architecture as "Representational State Transfer".</p>
 <p>A REST API allows to access and manipulate textual representations of Web resources using a uniform and predefined set of stateless operations. </p>
 <p>"Web resources" were first defined on the World Wide Web as documents or files identified by their URLs, but today they have a much more generic and abstract definition encompassing every thing or entity that can be identified, named, addressed or handled, in any way whatsoever, on the Web.</p>
 <h3 id="json-api">3 JSON API</h3>
+<p>When an API returns JSON data this could take many forms.
+The <a href="http://jsonapi.org/">json:api specification</a> is a well thought out
+convention for this.  </p>
 <h3 id="rendering-json">4 Rendering JSON</h3>
-<h3 id="see-also">5 See Also</h3>
+<p>Rails is equipped to not just create HTML as output, but to easily
+offer other representations as well.  </p>
+<p>When you look at <code>rails routes</code> you can see that the routes created by
+<code>resource :user</code> could contain an optional <code>format</code>:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+                 Prefix Verb   URI Pattern                           Controller#Action
+                   root GET    /                                     static_pages#home
+                  users GET    /users(.:format)                      users#index
+                   user GET    /users/:id(.:format)                  users#show
+
+</pre>
+</div>
+<p>Only HTML is implemented by default. But we could use this feature
+to have other formats:</p>
+<ul>
+<li>
+<code>/users</code> </li>
+<li>
+<code>/users.json</code> </li>
+<li>
+<code>/users.xml</code> </li>
+<li>
+<code>/users/1</code> </li>
+<li>
+<code>/users/1.json</code> </li>
+<li>
+<code>/users/1.xml</code> </li>
+</ul>
+<p>When you try out accessing <code>/users/1.json</code> you get a response:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+406 Not Acceptable
+Content-Length: 39
+Content-Type: application/json; charset=utf-8
+
+{"status":406,"error":"Not Acceptable"}
+
+</pre>
+</div>
+<p>This error message is meant for a
+client expecting JSON data.  It uses both the HTTP status code
+and the JSON to indigate an error.</p>
+<p>We could create views using erb in <code>app/views/users/show.json.erb</code>:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+{
+  "id": &lt;%= @user.id %&gt;,
+  "name": "&lt;%= @user.name %&gt;",
+  "email": "&lt;%= @user.email %&gt;"
+}
+
+</pre>
+</div>
+<p>and <code>app/views/users/index.json.erb</code>:
+<code>
+[
+&lt;% 
+  @users.each_with_index do |user| %&gt;
+  {
+    "id": &lt;%= user.id %&gt;,
+    "name": "&lt;%= user.name %&gt;",
+    "email": "&lt;%= user.email %&gt;"
+  },
+&lt;% end %&gt;
+]
+</code></p>
+<p>But wait, there's a problem: there is a comma after each object,
+but there should be no comma after the last.</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+[
+&lt;% 
+  max = @users.length - 1
+  @users.each_with_index do |user,i| %&gt;
+  {
+    "id": &lt;%= user.id %&gt;,
+    "name": "&lt;%= user.name %&gt;",
+    "email": "&lt;%= user.email %&gt;"
+  }
+  &lt;%= if i &lt; max then ',' end %&gt;
+&lt;% end %&gt;
+]
+
+</pre>
+</div>
+<p>Formatting JSON would get quite repetitive if we need
+to create views for several resources. 
+Rails 5 comes with the gem <code>jbuilder</code> which helps you
+create JSON. </p>
+<p>in <code>app/views/users/show.json.jbuilder</code>:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+json.id @user.id
+json.name @user.name
+json.email @user.email
+
+</pre>
+</div>
+<p>or, shorter:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+json.extract! @user, :id, :name, :email
+
+</pre>
+</div>
+<p>in <code>app/views/users/index.json.jbuilder</code>:
+<code>
+json.array! @users do |user|
+  json.extract! user, :id, :name, :email
+end
+</code></p>
+<h3 id="stand-alone-api">5 Stand Alone API</h3>
+<h3 id="see-also">6 See Also</h3>
 <ul>
 <li><a href="http://edgeguides.rubyonrails.org/action_controller_overview.html#rendering-xml-and-json-data">Rails Guide: Rendering JSON in Action Controller Overview</a></li>
 <li><a href="http://edgeguides.rubyonrails.org/api_app.html">Rails Guide: Using Rails for API-only Applications</a></li>
