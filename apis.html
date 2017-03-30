@@ -83,7 +83,16 @@
 <li><a href="#what-is-an-api">What is an API</a></li>
 <li><a href="#rest">REST</a></li>
 <li><a href="#json-api">JSON API</a></li>
-<li><a href="#rendering-json">Rendering JSON</a></li>
+<li>
+<a href="#rendering-json">Rendering JSON</a>
+
+<ul>
+<li><a href="#api-for-the-sample-app">API for the sample app</a></li>
+<li><a href="#creating-json-with-erb">creating JSON with erb</a></li>
+<li><a href="#creating-json-with-jbuilder">creating JSON with jbuilder</a></li>
+<li><a href="#authentication">authentication</a></li>
+</ul>
+</li>
 <li><a href="#stand-alone-api">Stand Alone API</a></li>
 <li><a href="#see-also">See Also</a></li>
 </ol>
@@ -195,6 +204,40 @@ Content-Type: application/json; charset=utf-8
 <p>This error message is meant for a
 client expecting JSON data.  It uses both the HTTP status code
 and the JSON to indicate the error.</p>
+<h4 id="api-for-the-sample-app">4.1 API for the sample app</h4>
+<p>The "Frontend 1" in the example app expects a very simple JSON structure:</p>
+<p>To display one user, it loads from <code>/user/1.json</code> and expects
+a single JSON object with three attributes:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+{
+   "id":1,
+   "name":"Example User",
+   "email":"example@railstutorial.org"
+}
+
+</pre>
+</div>
+<p>To display the table of users, it loads from <code>/users.json</code> and
+expects a JSON array of objects like above:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+[
+  {
+    "id":2,
+    "name":"Precious Heaney",
+    "email":"example-1@railstutorial.org"
+  },
+  {
+    "id":3,
+    "name":"Warren Considine Sr.",
+    "email":"example-2@railstutorial.org"
+  }
+]
+
+</pre>
+</div>
+<h4 id="creating-json-with-erb">4.2 creating JSON with erb</h4>
 <p>We could create views using erb in <code>app/views/users/show.json.erb</code>:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -241,6 +284,7 @@ but there should be no comma after the last.</p>
 
 </pre>
 </div>
+<h4 id="creating-json-with-jbuilder">4.3 creating JSON with jbuilder</h4>
 <p>Formatting JSON would get quite repetitive if we need to create views for several resources.
 We have not even touched on the problem of escaping: what happens
 if a users name contains a quote?  For example <kbd>Jack "the Ripper"</kbd>.
@@ -275,6 +319,7 @@ end
 
 </pre>
 </div>
+<h4 id="authentication">4.4 authentication</h4>
 <p>All the authentication and access control we built into the
 rails app before is still applicable to the JSON views.</p>
 <p>In fact the scaffold generator always adds handling JSON responses
