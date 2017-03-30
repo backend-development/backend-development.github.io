@@ -119,6 +119,38 @@ he desribed this architecture as "Representational State Transfer".</p>
 <p>When an API returns JSON data this could take many forms.
 The <a href="http://jsonapi.org/">json:api specification</a> is a well thought out
 convention for this.  </p>
+<p>It is especially good with the HATEOS aspect of Rest:</p>
+<p><strong>Hypermedia As The Engine Of Application State</strong> (HATEOAS), is a constraint of the REST application architecture that states that a client interacts with a network application entirely through hypermedia, and needs no prior knowledge of URLs.</p>
+<p>If an API returns the following JSON:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+{
+    "id": "1",
+    "name": "Example User",
+    "email": "example@railstutorial.org"
+    "profile_pics": [ 2, 5 ]
+}
+
+</pre>
+</div>
+<p>Then the Client needs to know how to get profile_pics from the API.
+For example because the developer read the docs.</p>
+<p>HATEOAS demands that the full URL is used to refer to other resources:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+{
+    "id": "1",
+    "name": "Example User",
+    "email": "example@railstutorial.org"
+    "profile_pics": [ 
+       "https://sample.com/api/profile/pictures/2", 
+       "https://sample.com/api/profile/pictures/5"
+    ]
+}
+
+</pre>
+</div>
+<p>The json:api specification adhers to this principle.</p>
 <h3 id="rendering-json">4 Rendering JSON</h3>
 <p>Rails is equipped to not just create HTML as output, but to easily
 offer other representations as well.  </p>
@@ -162,7 +194,7 @@ Content-Type: application/json; charset=utf-8
 </div>
 <p>This error message is meant for a
 client expecting JSON data.  It uses both the HTTP status code
-and the JSON to indigate an error.</p>
+and the JSON to indicate the error.</p>
 <p>We could create views using erb in <code>app/views/users/show.json.erb</code>:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -174,8 +206,9 @@ and the JSON to indigate an error.</p>
 
 </pre>
 </div>
-<p>and <code>app/views/users/index.json.erb</code>:
-<code>
+<p>and <code>app/views/users/index.json.erb</code>:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
 [
 &lt;% 
   @users.each_with_index do |user| %&gt;
@@ -186,7 +219,9 @@ and the JSON to indigate an error.</p>
   },
 &lt;% end %&gt;
 ]
-</code></p>
+
+</pre>
+</div>
 <p>But wait, there's a problem: there is a comma after each object,
 but there should be no comma after the last.</p>
 <div class="code_container">
@@ -206,11 +241,15 @@ but there should be no comma after the last.</p>
 
 </pre>
 </div>
-<p>Formatting JSON would get quite repetitive if we need
-to create views for several resources. 
-Rails 5 comes with the gem <code>jbuilder</code> which helps you
-create JSON. </p>
-<p>in <code>app/views/users/show.json.jbuilder</code>:</p>
+<p>Formatting JSON would get quite repetitive if we need to create views for several resources.
+We have not even touched on the problem of escaping: what happens
+if a users name contains a quote?  For example <kbd>Jack "the Ripper"</kbd>.
+That would break our current view.</p>
+<p>Rails 5 comes with the gem <code>jbuilder</code> which helps you create JSON, and
+which handles all the escaping and formatting correctly.</p>
+<p>We need to name the view <code>app/views/users/show.json.jbuilder</code>, 
+and then can use the the following code to extract three properties
+from the user object:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 json.id @user.id
@@ -219,19 +258,64 @@ json.email @user.email
 
 </pre>
 </div>
-<p>or, shorter:</p>
+<p>There is also a shorthand for this: </p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 json.extract! @user, :id, :name, :email
 
 </pre>
 </div>
-<p>in <code>app/views/users/index.json.jbuilder</code>:
-<code>
+<p>For the index view we want to create a JSON array. 
+In <code>app/views/users/index.json.jbuilder</code> we write:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
 json.array! @users do |user|
   json.extract! user, :id, :name, :email
 end
-</code></p>
+
+</pre>
+</div>
+<p>All the authentication and access control we built into the
+rails app before is still applicable to the JSON views.</p>
+<p>In fact the scaffold generator always adds handling JSON responses
+to the create, update and destroy actions of a controller.</p>
+<p>For handling just HTML only this code would be needed:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+  # POST /users
+  def create
+    @user = User.new(user_params)
+    if @user.save
+      redirect_to @user, notice: 'User was successfully created.' 
+    else
+      render :new 
+    end
+    end
+  end
+
+</pre>
+</div>
+<p>But the scaffold generator also adds <code>resond_to</code> and <code>format</code> commands,
+to handle json differently from html:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+  # POST /users
+  # POST /users.json
+  def create
+    @user = User.new(user_params)
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.json { render :show, status: :created, location: @user }
+      else
+        format.html { render :new }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+</pre>
+</div>
 <h3 id="stand-alone-api">5 Stand Alone API</h3>
 <h3 id="see-also">6 See Also</h3>
 <ul>
