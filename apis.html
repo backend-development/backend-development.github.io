@@ -93,8 +93,14 @@
 <li><a href="#authentication">authentication</a></li>
 </ul>
 </li>
-<li><a href="#stand-alone-api">Stand Alone API</a></li>
-<li><a href="#see-also">See Also</a></li>
+<li>
+<a href="#stand-alone-api">Stand Alone API</a>
+
+<ul>
+<li><a href="#jsonapi-for-the-sample-app">JSONAPI for the sample app</a></li>
+<li><a href="#creating-json-with-active-model-serializers">creating JSON with active_model_serializers</a></li>
+</ul>
+</li>
 </ol>
 </body></html>
 
@@ -362,14 +368,127 @@ to handle json differently from html:</p>
 </pre>
 </div>
 <h3 id="stand-alone-api">5 Stand Alone API</h3>
-<h3 id="see-also">6 See Also</h3>
-<ul>
-<li><a href="http://edgeguides.rubyonrails.org/action_controller_overview.html#rendering-xml-and-json-data">Rails Guide: Rendering JSON in Action Controller Overview</a></li>
-<li><a href="http://edgeguides.rubyonrails.org/api_app.html">Rails Guide: Using Rails for API-only Applications</a></li>
-<li>
-<a href="http://www.ics.uci.edu/%7Efielding/pubs/dissertation/top.htm">Fielding, Roy(2000): Architectural Styles and the Design of Network-based Software Architectures</a>. Dissertation. University of California/Irvine, USA.</li>
-<li><a href="https://www.infoq.com/articles/rest-introduction">Tilkov(2007): A Brief Introduction to REST</a></li>
-</ul>
+<p>To create a stand alone API we define new, separate routes under <code>/api/v1</code>.</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+namespace :api do
+  namespace :v1 do
+    resources :users, only: [:index, :create, :show, :update, :destroy]
+  end
+end
+
+</pre>
+</div>
+<p>we will be using the <code>active_model_serializers</code> gem for creating jsonapi:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+gem 'active_model_serializers'
+
+</pre>
+</div>
+<h4 id="jsonapi-for-the-sample-app">5.1 JSONAPI for the sample app</h4>
+<p>The "Frontend 2" in the example app expects the json to be formed
+according to the json api specification.</p>
+<p><code>/api/v1/user/1</code> will return data about one resource:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+{
+
+    "data": {
+        "id": "1",
+        "type": "users",
+        "attributes": {
+            "name": "Example User",
+            "email": "example@railstutorial.org"
+        }
+    }
+
+}
+
+</pre>
+</div>
+<p><code>/api/v1/users/</code> returns an array, but the top level JSON structure
+is an object with on attribute <code>data</code>:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+{
+
+    "data": [
+        {
+            "id": "2",
+            "type": "users",
+            "attributes": {
+                "name": "Precious Heaney",
+                "email": "example-1@railstutorial.org"
+            },
+        },
+        ...
+    ]
+}
+
+</pre>
+</div>
+<h4 id="creating-json-with-active-model-serializers">5.2 creating JSON with active_model_serializers</h4>
+<p>After we defined the routes, we next need to create a controller.
+As we are setting up a new hierarchy of controllers that will only
+concerned with the API, it makes sense to inhert from <code>ActionController::API</code>, 
+not from <code>ActionController::Base</code>.</p>
+<p>All the "normal" controllers first inhert from <code>ApplicationController</code>. We
+will build a similar structure for the api controllers, the will inhert from
+<code>Api::V1::BaseController</code>:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+# app/controllers/api/v1/base_controller.rb
+
+class Api::V1::BaseController &lt; ActionController::API
+end
+
+</pre>
+</div>
+<p>The users controller is the one that's actually called by the route:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+# app/controllers/api/v1/users_controller.rb
+
+class Api::V1::UsersController &lt; Api::V1::BaseController
+  def show
+    user = User.find(params[:id])
+
+    render jsonapi: user, serializer: Api::V1::UserSerializer
+  end
+end
+
+</pre>
+</div>
+<p>The controller loads the right model, and then calls a <strong>serializer</strong> to
+do the actual rendering of the json data.</p>
+<p>The serializer needs to be defined in a separate file:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+# app/serializers/api/v1/user_serializer.rb
+
+class Api::V1::UserSerializer &lt; ActiveModel::Serializer
+  attributes(:name, :email)
+end
+
+
+
+### Relationships in json api
+
+### Token Authentication 
+
+
+See Also
+--------
+
+
+* [Rails Guide: Rendering JSON in Action Controller Overview](http://edgeguides.rubyonrails.org/action_controller_overview.html#rendering-xml-and-json-data)
+* [Rails Guide: Using Rails for API-only Applications](http://edgeguides.rubyonrails.org/api_app.html)
+* [Fielding, Roy(2000): Architectural Styles and the Design of Network-based Software Architectures](http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm). Dissertation. University of California/Irvine, USA.
+* [Tilkov(2007): A Brief Introduction to REST](https://www.infoq.com/articles/rest-introduction)
+
+</pre>
+</div>
 </body></html>
 
       </div>
