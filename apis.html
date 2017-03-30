@@ -99,8 +99,11 @@
 <ul>
 <li><a href="#jsonapi-for-the-sample-app">JSONAPI for the sample app</a></li>
 <li><a href="#creating-json-with-active-model-serializers">creating JSON with active_model_serializers</a></li>
+<li><a href="#relationships-in-json-api">Relationships in json api</a></li>
+<li><a href="#token-authentication">Token Authentication</a></li>
 </ul>
 </li>
+<li><a href="#see-also">See Also</a></li>
 </ol>
 </body></html>
 
@@ -127,9 +130,20 @@
 <h3 id="rest">2 REST</h3>
 <p>The acronym REST was coined by Roy Fielding in his dissertation. When describing
 the architecture of the web, and what made it so successfull on a technical level,
-he desribed this architecture as "Representational State Transfer".</p>
-<p>A REST API allows to access and manipulate textual representations of Web resources using a uniform and predefined set of stateless operations. </p>
+he desribed this architecture as "Representational State Transfer" (REST).</p>
+<p>This Acronym was later picked up to describe a certain style of API,
+and to distiguishe such APIs from SOAP APIs.</p>
+<p>A REST API allows to access and manipulate textual representations of Web resources using HTTP Methods and stateless operations. </p>
 <p>"Web resources" were first defined on the World Wide Web as documents or files identified by their URLs, but today they have a much more generic and abstract definition encompassing every thing or entity that can be identified, named, addressed or handled, in any way whatsoever, on the Web.</p>
+<p><a href="https://www.infoq.com/articles/rest-introduction">Tilkov(2007)</a> gives a brief introduction to REST.  The main points are:</p>
+<ol>
+<li>Give every resource a  unique URL</li>
+<li>“Hypermedia as the engine of application state” (HATEOAS) - use URLs to reference </li>
+<li>Use HTTP Methods (and Status Codes) as intended. See <a href="https://httpstatuses.com/422">Status codes</a>
+</li>
+<li>One resource can have multiple representations, for example HTML, JSON and XML</li>
+<li>Communicate statelessly - if possible!</li>
+</ol>
 <h3 id="json-api">3 JSON API</h3>
 <p>When an API returns JSON data this could take many forms.
 The <a href="http://jsonapi.org/">json:api specification</a> is a well thought out
@@ -471,24 +485,19 @@ class Api::V1::UserSerializer &lt; ActiveModel::Serializer
   attributes(:name, :email)
 end
 
-
-
-### Relationships in json api
-
-### Token Authentication 
-
-
-See Also
---------
-
-
-* [Rails Guide: Rendering JSON in Action Controller Overview](http://edgeguides.rubyonrails.org/action_controller_overview.html#rendering-xml-and-json-data)
-* [Rails Guide: Using Rails for API-only Applications](http://edgeguides.rubyonrails.org/api_app.html)
-* [Fielding, Roy(2000): Architectural Styles and the Design of Network-based Software Architectures](http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm). Dissertation. University of California/Irvine, USA.
-* [Tilkov(2007): A Brief Introduction to REST](https://www.infoq.com/articles/rest-introduction)
-
 </pre>
 </div>
+<h4 id="relationships-in-json-api">5.3 Relationships in json api</h4>
+<h4 id="token-authentication">5.4 Token Authentication</h4>
+<h3 id="see-also">6 See Also</h3>
+<ul>
+<li>
+<a href="http://www.ics.uci.edu/%7Efielding/pubs/dissertation/top.htm">Fielding, Roy(2000): Architectural Styles and the Design of Network-based Software Architectures</a>. Dissertation. University of California/Irvine, USA.</li>
+<li><a href="https://www.infoq.com/articles/rest-introduction">Tilkov(2007): A Brief Introduction to REST</a></li>
+<li><a href="http://edgeguides.rubyonrails.org/action_controller_overview.html#rendering-xml-and-json-data">Rails Guide: Rendering JSON in Action Controller Overview</a></li>
+<li><a href="http://edgeguides.rubyonrails.org/api_app.html">Rails Guide: Using Rails for API-only Applications</a></li>
+<li><a href="https://github.com/vasilakisfil/rails5_api_tutorial">Vasilakis(2017): Rails 5 API Tutorial</a></li>
+</ul>
 </body></html>
 
       </div>
