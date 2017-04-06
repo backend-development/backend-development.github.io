@@ -135,6 +135,13 @@
         <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body>
 <h3 id="what-is-an-api">1 What is an API</h3>
+<p>API stands for "Application Programming Interface". It is a set of clearly defined methods 
+of communication with a software component. So the objects and methods exposed by a library
+form an API, for example the </p>
+<p>In Web development the acronym API is most
+commonly used when the software component in question runs on a different server on the
+Internet and is accessed via the network.  </p>
+<p>This Guide is concerned with APIs that you build and run using Ruby on Rails.</p>
 <h3 id="rest">2 REST</h3>
 <p>The acronym REST was coined by Roy Fielding in his dissertation. When describing
 the architecture of the web, and what made it so successfull on a technical level,
@@ -238,7 +245,7 @@ There are two common ways of requesting different formats:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 GET /mini/person/83 HTTP/1.1
-Host: ich.multimediatechnology.at 
+Host: example.com 
 Accept: application/xml
 
 </pre>
@@ -246,9 +253,9 @@ Accept: application/xml
 <p>Or by adding an "extension" as part of the URL:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-http://ich.multimediatechnology.at/mini/person/83.html
-http://ich.multimediatechnology.at/mini/person/83.xml
-http://ich.multimediatechnology.at/mini/person/83.json
+http://example.com/mini/person/83.html
+http://example.com/mini/person/83.xml
+http://example.com/mini/person/83.json
 
 </pre>
 </div>
@@ -257,14 +264,14 @@ like this: the HTML web page:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;h1&gt;Details zu einer Person&lt;/h1&gt;
-&lt;p&gt;&lt;img src="http://ich.multimediatechnology.at/mini/profil/edvard_1_2.jpg" /&gt;
+&lt;p&gt;&lt;img src="http://example.com/mini/profil/edvard_1_2.jpg" /&gt;
 Herr Edvard Paul Beisteiner hat insgesamt 4 Werke in dieser Datenbank.
 Er hat den Usernamen fhs14287.&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href='http://ich.multimediatechnology.at/mini/werk/24'&gt;The Thin Red Line&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href='http://ich.multimediatechnology.at/mini/werk/50'&gt;Der böse Wolf&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href='http://ich.multimediatechnology.at/mini/werk/83'&gt;nimm zwei, schatz&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href='http://ich.multimediatechnology.at/mini/werk/303'&gt;the neighbour.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href='http://example.com/mini/werk/24'&gt;The Thin Red Line&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href='http://example.com/mini/werk/50'&gt;Der böse Wolf&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href='http://example.com/mini/werk/83'&gt;nimm zwei, schatz&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href='http://example.com/mini/werk/303'&gt;the neighbour.&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </pre>
@@ -273,15 +280,15 @@ Er hat den Usernamen fhs14287.&lt;/p&gt;
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;person&gt;
-  &lt;image ref='http://ich.multimediatechnology.at/mini/profil/edvard_1_2.jpg' /&gt;
+  &lt;image ref='http://example.com/mini/profil/edvard_1_2.jpg' /&gt;
   &lt;vorname&gt;Edvard&lt;/vorname&gt;
   &lt;nachname&gt;Beisteiner&lt;/nachname&gt;
   &lt;username&gt;fhs14287&lt;/username&gt;
   &lt;werke&gt;
-    &lt;werk ref='http://ich.multimediatechnology.at/mini/werk/24'&gt;The Thin Red Line&lt;/werk&gt;
-    &lt;werk ref='http://ich.multimediatechnology.at/mini/werk/50'&gt;Der böse Wolf&lt;/werk&gt;
-    &lt;werk ref='http://ich.multimediatechnology.at/mini/werk/83'&gt;nimm zwei, schatz&lt;/werk&gt;
-    &lt;werk ref='http://ich.multimediatechnology.at/mini/werk/303'&gt;the neighbour.&lt;/werk&gt;
+    &lt;werk ref='http://example.com/mini/werk/24'&gt;The Thin Red Line&lt;/werk&gt;
+    &lt;werk ref='http://example.com/mini/werk/50'&gt;Der böse Wolf&lt;/werk&gt;
+    &lt;werk ref='http://example.com/mini/werk/83'&gt;nimm zwei, schatz&lt;/werk&gt;
+    &lt;werk ref='http://example.com/mini/werk/303'&gt;the neighbour.&lt;/werk&gt;
   &lt;/werke&gt;
 &lt;/person&gt;
 
@@ -291,18 +298,18 @@ Er hat den Usernamen fhs14287.&lt;/p&gt;
 <p>or as JSON:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-{"image":"http://ich.multimediatechnology.at/mini/profil/edvard_1_2.jpg",
+{"image":"http://example.com/mini/profil/edvard_1_2.jpg",
  "vorname":"Eduard",
  "nachname":"Beisteiner",
  "werk":[
     {"titel":"The Thin Red Line",
-     "url":"http://ich.multimediatechnology.at/mini/werk/24"},
+     "url":"http://example.com/mini/werk/24"},
     {"titel":"Der böse Wolf",
-     "url":"http://ich.multimediatechnology.at/mini/werk/50"},
+     "url":"http://example.com/mini/werk/50"},
     {"titel":"nimm zwei, schatz",
-     "url":"http://ich.multimediatechnology.at/mini/werk/83"},
+     "url":"http://example.com/mini/werk/83"},
     {"titel":"the neighbour.",
-     "url":"http://ich.multimediatechnology.at/mini/werk/303"}]}
+     "url":"http://example.com/mini/werk/303"}]}
 
 
 </pre>
