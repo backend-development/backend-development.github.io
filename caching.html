@@ -81,9 +81,23 @@
 <html><body>
 <ol class="chapters">
 <li><a href="#performance">Performance</a></li>
-<li><a href="#measuring-performance">Measuring Performance</a></li>
-<li><a href="#what-is-caching">What is Caching</a></li>
-<li><a href="#asset-pipeline">Asset Pipeline</a></li>
+<li>
+<a href="#measuring-performance">Measuring Performance</a>
+
+<ul>
+<li><a href="#web-developer-tools-in-your-browser">Web Developer Tools in your Browser</a></li>
+<li><a href="#webpagetest">Webpagetest</a></li>
+<li><a href="#google-pagespeed-insights">Google PageSpeed Insights</a></li>
+<li><a href="#rack-mini-profiler">rack-mini-profiler</a></li>
+</ul>
+</li>
+<li>
+<a href="#example-app">Example App</a>
+
+<ul>
+<li><a href="#caching-the-project-show-view">caching the project show view</a></li>
+</ul>
+</li>
 <li><a href="#see-also">See Also</a></li>
 </ol>
 </body></html>
@@ -94,12 +108,12 @@
         <h2>Caching</h2><p>What is even better than having a really fast web
 server, framework, programming language that creates
 your web page?  Not having to create and load the page at all
-becaus it&#39;s already there in your browser cache.</p><p>After working through this guide you will:</p>
+becaus it&#39;s already there in a cache.</p><p>After working through this guide you will:</p>
 <ul>
 <li>be aware of many levels of caches that influence your web app</li>
 <li>be able to configure rails for caching</li>
 </ul>
-
+<div class="repo"><p>You can study <a href="https://shrouded-dawn-29154.herokuapp.com/">the demo</a> for the example described here.</p></div>
       </div>
     </div>
   </div>
@@ -121,6 +135,8 @@ in the right order:</p>
 <li>Find out where the bottleneck is. Do this by measuring, using appropriate tools.</li>
 <li>If you found the right place, only then you can start to "optimize"</li>
 </ol>
+<p>See Sudara(2016): <a href="http://blog.scoutapp.com/articles/2016/05/09/rails-performance-and-the-root-of-all-evil">Rails Performance and the root of all evil</a> for a more in depth
+discussion.</p>
 <p>Let's look at the first step: what is a "performance problem" in Web Development?
 We are concerned with delivering a whole webpage to the end user. From the end users
 perspective there really is only one value to measure: I clicked on something, how long
@@ -131,10 +147,83 @@ tools were developed, workflows were changes, frameworks were adapted to take pe
 into account. Today we can use all this knowledge and obtain results easily.  The necessary
 tools are all there, we just have to use them properly.</p>
 <h3 id="measuring-performance">2 Measuring Performance</h3>
-<h3 id="what-is-caching">3 What is Caching</h3>
-<h3 id="asset-pipeline">4 Asset Pipeline</h3>
-<p>When using Apache + Passenger:</p>
-<h3 id="see-also">5 See Also</h3>
+<p>Let's start with a very general rule of thumb for performance:</p>
+<p>We want the whole web page to load within a second.  We expect to
+need about half of that (500ms) for loading extra assets like
+javascript files, css, images.  We will set aside another 200ms for
+shipping data across the network, which leaves us with 300ms time to
+render out the first HTML document from our Rails App.</p>
+<h4 id="web-developer-tools-in-your-browser">2.1 Web Developer Tools in your Browser</h4>
+<p>Modern Browsers all come with extensive developer tools, which let you
+analyze your webpage right in the browser.</p>
+<p>An important tool is the network view:</p>
+<p><img src="images/network-view-firefox.png" alt="network view firefox"></p>
+<p>You can focus in on the loading of the html document itself,
+and look at the timings:</p>
+<p><img src="images/network-timings.png" srcset='images/network-timings.png 1x, images/network-timings@2x.png 2x' alt="network view firefox: timings"></p>
+<p>Here the time "waiting" for the first byte is high.
+This is a performance problem in the Rails App itself. Here
+caching might help.</p>
+<h4 id="webpagetest">2.2 Webpagetest</h4>
+<p>Web Page Test is an open source project that you can run on your own servers.
+Our you can use the online version to analyze your projects:</p>
+<p><img src="images/webpagetest.png" srcset='images/webpagetest.png 1x, images/webpagetest@2x.png 2x' alt="https://www.webpagetest.org/"></p>
+<p><a href="https://www.webpagetest.org/">https://www.webpagetest.org/</a></p>
+<p>If the time to "first byte" is high, you have a problem when generating
+the first HTML document, right in the Rails app.  Here caching might help.</p>
+<h4 id="google-pagespeed-insights">2.3 Google PageSpeed Insights</h4>
+<p>Google also offers a performance analysis tool, with
+a separate analysis for mobile and desktop:</p>
+<p><img src="images/pagespeed.png" srcset='images/pagespeed.png 1x, images/pagespeed@2x.png 2x' alt="https://developers.google.com/speed/pagespeed/insights/"></p>
+<p><a href="https://developers.google.com/speed/pagespeed/insights/">https://developers.google.com/speed/pagespeed/insights/</a></p>
+<h4 id="rack-mini-profiler">2.4 rack-mini-profiler</h4>
+<p>This gem helps you analyze where your Rails App spends time.</p>
+<p><img src="images/rack-mini-profiler.png" srcset='images/rack-mini-profiler.png 1x, images/rack-mini-profiler@2x.png 2x' alt="https://github.com/MiniProfiler/rack-mini-profiler"></p>
+<p><a href="https://github.com/MiniProfiler/rack-mini-profiler">https://github.com/MiniProfiler/rack-mini-profiler</a></p>
+<p>See <a href="http://railscasts.com/episodes/368-miniprofiler?view=asciicast">RailsCast #368</a> for a good introduction.</p>
+<p>The Mini Profiler only measures the server side: the time spent in the rails app to generate
+the webpage.  So we need to compare the numbers Mini Profiler gives us to the
+300ms threshold defined above.</p>
+<h3 id="example-app">3 Example App</h3>
+<p>We will use a portfolio site as an example app.  All the screenshots
+above already show this example app.  We will focus on the projects show action.</p>
+<p>If you look at the miniprofiler above, a first glance rendering
+the view takes too long: 450ms is spent there.
+118ms are spent in rendering one <code>_collaborator</code> partial.  So this seems a promising
+place to start optimizing.</p>
+<p>Caching is deactivated by default in the development environment. 
+You have to activate it if you want to try this out in development:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+#config/environments/development.rb
+
+[...]
+config.action_controller.perform_caching = true
+[...]
+
+</pre>
+</div>
+<p>You have to decide on a cache store, for example in-memory:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+   require 'active_support/core_ext/numeric/bytes'
+   config.cache_store = :memory_store, { size: 64.megabytes }
+
+</pre>
+</div>
+<h4 id="caching-the-project-show-view">3.1 caching the project show view</h4>
+<p>add this around the project view:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+&lt;% cache @project do %&gt;
+&lt;% end %&gt;
+
+</pre>
+</div>
+<p>The result is stunning:</p>
+<p><img src="images/rack-mini-profiler-faster.png" srcset='images/rack-mini-profiler-faster.png 1x, images/rack-mini-profiler-faster@2x.png 2x' alt="https://github.com/MiniProfiler/rack-mini-profiler"></p>
+<p>tbc...</p>
+<h3 id="see-also">4 See Also</h3>
 <ul>
 <li><a href="http://guides.rubyonrails.org/caching_with_rails.html">Rails Guide: Caching</a></li>
 </ul>
