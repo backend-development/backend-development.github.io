@@ -109,8 +109,6 @@
 <ul>
 <li><a href="#jsonapi-for-the-sample-app">JSONAPI for the sample app</a></li>
 <li><a href="#creating-json-with-active-model-serializers">creating JSON with active_model_serializers</a></li>
-<li><a href="#relationships-in-json-api">Relationships in json api</a></li>
-<li><a href="#token-authentication">Token Authentication</a></li>
 </ul>
 </li>
 <li><a href="#see-also">See Also</a></li>
@@ -142,7 +140,7 @@
 the architecture of the web, and what made it so successfull on a technical level,
 he desribed this architecture as "Representational State Transfer" (REST).</p>
 <p>This Acronym was later picked up to describe a certain style of API,
-and to distiguishe such APIs from SOAP APIs.</p>
+and to distiguish such APIs from SOAP APIs.</p>
 <p>A REST API allows to access and manipulate textual representations of Web resources using HTTP Methods and stateless operations. </p>
 <p>"Web resources" were first defined on the World Wide Web as documents or files identified by their URLs, but today they have a much more generic and abstract definition encompassing every thing or entity that can be identified, named, addressed or handled, in any way whatsoever, on the Web.</p>
 <p><a href="https://www.infoq.com/articles/rest-introduction">Tilkov(2007)</a> gives a brief introduction to REST.  The main points are:</p>
@@ -154,7 +152,8 @@ and to distiguishe such APIs from SOAP APIs.</p>
 <li>Communicate statelessly - if possible!</li>
 </ol>
 <h4 id="urls">2.1 URLS</h4>
-<p>Please not that REST does not demand a certain form of URL.
+<p>Give every resource a  unique URL.
+Please note that REST does not demand a certain form of URL.
 While URLs with no parameters are often used:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -175,6 +174,15 @@ https://example.com/users.php?id=3
 
 </pre>
 </div>
+<p>In REST, the URLs correspond to resources, which are represented by nouns.
+This is a difference to SOAP, there there is typically just one endpoint:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+https://example.com/soap/router/
+
+</pre>
+</div>
+<p>Through this endpoint you can access methods like <code>getUserData()</code> or <code>deleteUser()</code>. </p>
 <h4 id="hateoas">2.2 HATEOAS</h4>
 <p>“Hypermedia as the engine of application state”  means that a client interacts with a network application entirely through hypermedia, and needs no prior knowledge of URLs.</p>
 <p>If an API returns the following JSON:</p>
@@ -207,7 +215,8 @@ For example because the developer read the docs.</p>
 </pre>
 </div>
 <h4 id="http-methods-and-status-codes">2.3 HTTP Methods and Status Codes</h4>
-<p>The are two important distinctions</p>
+<p>Use HTTP Methods (and Status Codes) as intended.  </p>
+<p>Regarding the HTTP Methods there are two important distinctions:</p>
 <ul>
 <li>the GET and HEAD methods should take no other action than retrieval. These methods ought to be considered <strong>safe</strong>.</li>
 <li>The methods GET, HEAD, PUT and DELETE are idempotent: repeating the request will not change the end result (aside from error or expiration issues)</li>
@@ -218,6 +227,10 @@ For example because the developer read the docs.</p>
 <li><a href="https://httpstatuses.com/422">Status codes</a></li>
 <li><a href="https://http.cat/">Status cats</a></li>
 </ul>
+<p>When buidling a REST API, the HTTP Protocol already defines a lot
+about that API. There is no need to come up with a way to delete
+a resource, or to indicate failure. HTTP already offers the DELETE method
+and status codes that indicate errors.</p>
 <h4 id="multiple-representations">2.4 Multiple Representations</h4>
 <p>The same resource can be available in different formats.
 There are two common ways of requesting different formats:</p>
@@ -623,8 +636,8 @@ end
 
 </pre>
 </div>
-<h4 id="relationships-in-json-api">5.3 Relationships in json api</h4>
-<h4 id="token-authentication">5.4 Token Authentication</h4>
+<h2>Documenting an API</h2>
+<p>See Halliday(2016): <a href="https://blog.codeship.com/producing-documentation-for-your-rails-api/">Producing Documentation for Your Rails API</a> for a discussion of automatic methods of documentation generation.</p>
 <h3 id="see-also">6 See Also</h3>
 <ul>
 <li>
