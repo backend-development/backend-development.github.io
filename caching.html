@@ -739,8 +739,8 @@ triggers the underlying sql requests.  In a materialized view the
 data is copied over to the view once. This needs more memory, but gives
 faster access.</p>
 <h4 id="final-thoughts">5.5 final thoughts</h4>
-<p>If we add the relationship from projects to collaborators to degree_programs
-to the Project and Collaborator model, we can also include degree_programs in our
+<p>If we add a relationship from projects to degree_program (actually: three <code>has_many through:</code> steps to get from projects to collaborators,
+and from collaborators to users, and from users to degree_programs), we can also include degree_programs in our
 includes statement when loading the project:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
