@@ -80,7 +80,6 @@
             <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body>
 <ol class="chapters">
-<li><a href="#example-app">Example App</a></li>
 <li><a href="#don-t-display-confidential-data">Don't display confidential data</a></li>
 <li><a href="#see-also">See Also</a></li>
 </ol>
@@ -99,10 +98,10 @@ help the framework is giving you</p><p>By referring to this guide, you will be a
 </ul>
 <div class="todo"><p></p></div>
 <ul>
-<li>check out</li>
 <li>rewrite example test for minitest</li>
 </ul>
-
+<div class="repo"><p>You can fork the <a href="https://github.com/web-engineering/rails-example-security">code of the example app</a>. his app is full of security holes. While reading this guide you should
+work on the app and fix those holes one by one.</p></div>
       </div>
     </div>
   </div>
@@ -112,12 +111,7 @@ help the framework is giving you</p><p>By referring to this guide, you will be a
       <div id="mainCol">
         <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body>
-<h3 id="example-app">1 Example App</h3>
-<p>This guide comes with an example app, you can find the source on github:
-<a href="https://github.com/web-engineering/rails-example-security">rails-example-security</a>.
-This app is full of security holes. While reading this guide you should
-work on the app and fix those holes one by one.</p>
-<h3 id="don-t-display-confidential-data">2 Don't display confidential data</h3>
+<h3 id="don-t-display-confidential-data">1 Don't display confidential data</h3>
 <p>Rails offers a lot of security features.  But all those clever features
 cannot save you from yourself.  In the example app all the passwords
 are displayed on "/users". No framework can prevent that!</p>
@@ -150,7 +144,7 @@ end
 <p><img src="images/security-password-test-fails.png" alt=""></p>
 <p>Now we change the view to not display the passwords any more. We can
 run the test to make sure we succeeded.</p>
-<h3 id="see-also">3 See Also</h3>
+<h3 id="see-also">2 See Also</h3>
 <ul>
 <li><a href="http://guides.rubyonrails.org/security.html">Rails Guide: Security</a></li>
 <li>Tool: <a href="https://github.com/flavorjones/loofah">loofah</a>
