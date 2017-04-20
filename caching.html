@@ -439,10 +439,10 @@ The next time the same page was rendered the edition cache was reused.</p>
 <h4 id="the-limits-of-fragment-caching">4.5 The limits of fragment caching</h4>
 <p>Caching is really helpful for pages that are accessed a lot.
 In our example app this might be true for the homepage and
-maybe the editions.   But there are hundres of projects in the portfolio.
-Each individual project page will only get very view hits.
+maybe the editions.   But there are hundreds of projects in the portfolio.
+Each individual project page will only get very few hits.
 Which means that chances are high that the page will not
-already be in the cache.</p>
+already be in the cache when it is requested.</p>
 <p>So caching cannot be the solution to all performance problems.
 We need to take a closer look at the first render of a page
 to find where we are wasting time.
@@ -750,6 +750,10 @@ includes statement when loading the project:</p>
 </div>
 <p>This way we end up with only very few sql queries, and a big performance improvement:</p>
 <p><img src="images/before-after.png" srcset='images/before-after.png 1x, images/before-after@2x.png 2x' alt="final state of the app"></p>
+<p>ActiveRecord was a big help when writing this app. But it cannot find
+the best solution for every situation. As a developer you have to keep
+an eye on your ORM, and check now and again if the SQL queries that the
+ORM creates make sense and are efficient.</p>
 <h3 id="see-also">6 See Also</h3>
 <ul>
 <li><a href="http://guides.rubyonrails.org/caching_with_rails.html">Rails Guide: Caching</a></li>
