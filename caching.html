@@ -366,7 +366,7 @@ is rendered through a collection:</p>
 
 </pre>
 </div>
-<p>Now instead of fetching each pratial from the cache one by one
+<p>Now instead of fetching each partial from the cache one by one
 rails will do a multi-fetch, which is faster.  But our example app is written
 in Rails 4, so this does not work yet.</p>
 <p>See <a href="http://blog.bigbinary.com/2016/03/09/rails-5-makes-partial-redering-from-cache-substantially-faster.html">Deshmane(2016)</a></p>
@@ -390,7 +390,7 @@ view also:</p>
 <p>This change will again speed up the display of the page:</p>
 <p><img src="images/russian.png" srcset='images/russian.png 1x, images/russian@2x.png 2x' alt="russian doll caching"></p>
 <p>But now we have  problem:  if we change one of the projects
-inside this edition, the cache for the pratial would be recreated.
+inside this edition, the cache for the partial would be recreated.
 But this never gets triggered, because the cache for the
 whole edition is still valid:</p>
 <div class="code_container">
@@ -433,7 +433,7 @@ Write fragment views/editions/16-20160202125058000000000/projects/1622-201412161
 </ul>
 <p>In this example the title of one of the projects was changed:
 You can see in rack-mini-profiler that only one of the
-pratials was recreated, all the other partials were loaded from cache.
+partials was recreated, all the other partials were loaded from cache.
 The next time the same page was rendered the edition cache was reused.</p>
 <p><img src="images/russian-change.png" srcset='images/russian-change.png 1x, images/russian-change@2x.png 2x' alt="russian doll caching at work: changes when a project changes"></p>
 <h4 id="the-limits-of-fragment-caching">4.5 The limits of fragment caching</h4>
