@@ -103,13 +103,14 @@
 </ul>
 </li>
 <li>
-<a href="#activerecord-optimisation-examples">ActiveRecord Optimisation Examples</a>
+<a href="#activerecord-examples">ActiveRecord Examples</a>
 
 <ul>
 <li><a href="#ignore-this">Ignore this</a></li>
 <li><a href="#querycache">QueryCache</a></li>
 <li><a href="#n-1-queries">n+1 queries</a></li>
 <li><a href="#view">view</a></li>
+<li><a href="#final-thoughts">final thoughts</a></li>
 </ul>
 </li>
 <li><a href="#see-also">See Also</a></li>
@@ -448,7 +449,7 @@ config.action_controller.perform_caching = false
 
 </pre>
 </div>
-<h3 id="activerecord-optimisation-examples">4 ActiveRecord Optimisation Examples</h3>
+<h3 id="activerecord-examples">4 ActiveRecord Examples</h3>
 <p>Accessing the database takes a long time - compared to all
 the computation that is done in ruby code itself.  So looking
 at the Database, and the ORM we use to access the database, might
@@ -597,6 +598,7 @@ helper method in the rails console:</p>
 </pre>
 </div>
 <p>Here information from three database tables is combined.</p>
+<h5 id="createing-a-database-view">4.4.1 createing a database view</h5>
 <p>In the database console we can build a simple select statement with two
 joins to get the same information:</p>
 <div class="code_container">
@@ -642,6 +644,7 @@ mysql&gt; SELECT * from degree_programs WHERE user_id=901 ;
 
 </pre>
 </div>
+<h5 id="model-and-relationships-for-the-view">4.4.2 model and relationships for the view</h5>
 <p>In Rails we can define a model for this view:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -687,6 +690,7 @@ class User &lt; ActiveRecord::Base
 </div>
 <p>This reduces the number of SQL statements to one per collaborator partial:</p>
 <p><img src="images/view.png" srcset='images/view.png 1x, images/view@2x.png 2x' alt="view"></p>
+<h5 id="create-view-in-production">4.4.3 create view in production</h5>
 <p>To deploy the view to production, you need to create it with a migration:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -707,6 +711,26 @@ end
 
 </pre>
 </div>
+<h5 id="uses-and-limitations-of-view">4.4.4 uses and limitations of view</h5>
+<p>In this case the view might be a first step towards refactoring
+the database.  We just have too many tables in the database that
+are not really needed.</p>
+<p>We can rewrite the rails app step by step to use only the new view,
+and not the database tables it is supposed to replace. after we
+have changed all the rails code, we can drop the view, and create
+a table with the same data instead.  Then we can drop the original tables
+and are finished with the database refactoring.</p>
+<p>In other cases you might use a view permanently: If you need both
+the underlying, more complex data, and the simplified data in the view.
+Reports with aggregated data, top 10 lists, queries that use
+complex database expressions, or tables with a reduced set
+of attributes would be good examples for using a view.</p>
+<p>For data that is accessed a lot, but changes very seldom, you can
+us a <strong>materialized view</strong>.  In a normal view each access to the view
+triggers the underlying sql requests.  In a materialized view the
+data is copied over to the view once. This needs more memory, but gives
+faster access.</p>
+<h4 id="final-thoughts">4.5 final thoughts</h4>
 <p>If we add the relationship from projects to collaborators to degree_programs
 to the Project and Collaborator model, we can also include degree_programs in our
 includes statement when loading the project:</p>
@@ -724,6 +748,8 @@ includes statement when loading the project:</p>
 <li><a href="http://guides.rubyonrails.org/active_record_querying.html#eager-loading-associations">Rails Guide: Active Record Query Interface. N+1 problems</a></li>
 <li><a href="https://github.com/flyerhzm/bullet#readme">bullet gem for finding n+1 problems</a></li>
 <li><a href="https://content.pivotal.io/blog/using-database-views-for-performance-wins-in-rails">Using database views for performance wins in Rails</a></li>
+<li><a href="http://www.fromdual.ch/mysql-materialized-views">materialized views in mysql</a></li>
+<li><a href="https://www.postgresql.org/docs/9.3/static/rules-materializedviews.html">materialized view in postgres</a></li>
 </ul>
 </body></html>
 
