@@ -84,6 +84,7 @@
 <html><body>
 <ol class="chapters">
 <li><a href="#websockets">Websockets</a></li>
+<li><a href="#warning-leaving-the-restful-area">Warning: Leaving the restful area</a></li>
 <li><a href="#socket-io">Socket.io</a></li>
 <li><a href="#overview">Overview</a></li>
 <li><a href="#client">Client</a></li>
@@ -144,7 +145,13 @@ Sec-WebSocket-Protocol: chat
 <p>Both the client and the server can send messages across
 the websocket at any time.  Both the client and the
 server should be able to handle incoming messages at any time.</p>
-<h3 id="socket-io">2 Socket.io</h3>
+<h3 id="warning-leaving-the-restful-area">2 Warning: Leaving the restful area</h3>
+<p>Up to now we have been building RESTful APIs and classical
+web applications that try to be as RESTful as possible.
+Using websockets you are building a completely different
+type of distributed system.</p>
+<p>See <a href="https://stackoverflow.com/questions/29925955/what-are-the-pitfalls-of-using-websockets-in-place-of-restful-http#answer-29933428">jfriend00(2015) answer on stackoverflow</a> for an in depth comparison.</p>
+<h3 id="socket-io">3 Socket.io</h3>
 <p>socket.io
 Library for both server and client side JS code
 Needs express as a basis</p>
@@ -156,7 +163,7 @@ Needs express as a basis</p>
 
 </pre>
 </div>
-<h3 id="overview">3 Overview</h3>
+<h3 id="overview">4 Overview</h3>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 const app = require('express')();
@@ -178,7 +185,7 @@ exports = module.exports = app;
 
 </pre>
 </div>
-<h3 id="client">4 Client</h3>
+<h3 id="client">5 Client</h3>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;ul id="messages"&gt;&lt;/ul&gt;
@@ -213,7 +220,7 @@ exports = module.exports = app;
 
 </pre>
 </div>
-<h3 id="server">5 Server</h3>
+<h3 id="server">6 Server</h3>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 io.on('connection', function(socket){
@@ -231,7 +238,7 @@ io.on('connection', function(socket){
 
 </pre>
 </div>
-<h3 id="testing-the-server">6 Testing the Server</h3>
+<h3 id="testing-the-server">7 Testing the Server</h3>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 describe("Auction Server",function(){
@@ -253,7 +260,7 @@ describe("Auction Server",function(){
 
 </pre>
 </div>
-<h3 id="see-also">7 See Also</h3>
+<h3 id="see-also">8 See Also</h3>
 <ul>
 <li><a href="https://tools.ietf.org/html/rfc6455">RFC 6455</a></li>
 </ul>
