@@ -100,6 +100,12 @@
 <li><a href="#boolean-values">Boolean Values</a></li>
 <li><a href="#shorthand-version-of-conditions">Shorthand version of Conditions</a></li>
 <li><a href="#boolean-operators">Boolean Operators</a></li>
+</ul>
+</li>
+<li>
+<a href="#the-save-navigation-operator">the save navigation Operator</a>
+
+<ul>
 <li><a href="#symbols">Symbols</a></li>
 <li><a href="#methods">Methods</a></li>
 <li><a href="#arrays">Arrays</a></li>
@@ -246,6 +252,7 @@ puts "less code"
 <h2>Data Types</h2>
 <p>All of rubys basic data types are Classes.  </p>
 <ul>
+<li>nil</li>
 <li>Numeric, Integer, Fixnum, Bignum, Float <code># are converted automatically to each other</code>
 </li>
 <li>Ranges</li>
@@ -272,6 +279,21 @@ TypeError: no implicit conversion of Fixnum into String
 
 &gt;&gt; 42 + 3.141
 =&gt; 45.141
+
+</pre>
+</div>
+<p>Everything is an Object, even Integers and Strings.
+They have methods and properties, like other objects:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+&gt;&gt; nil.class
+=&gt; NilClass
+
+&gt;&gt; 2.class
+=&gt; Fixnum
+
+&gt;&gt; "some text".length
+=&gt; 9
 
 </pre>
 </div>
@@ -346,7 +368,28 @@ a = input_value || default_value
 
 </pre>
 </div>
-<h4 id="symbols">2.6 Symbols</h4>
+<h3 id="the-save-navigation-operator">3 the save navigation Operator</h3>
+<p>Imagine you have an Object a, that has a property b containing
+another object, and b has a property c.  You can access c through <code>a.b.c</code></p>
+<p>But if a is <code>nil</code> then you will get an error:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+&gt; a.b.c
+NoMethodError: undefined method `b' for nil:NilClass
+
+</pre>
+</div>
+<p>The Operator <code>&amp;.</code> avoids this error:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+&gt; a&amp;.b&amp;.c
+nil
+
+</pre>
+</div>
+<p>The Operator was introduced in Ruby 2.3.0 is is called
+"save navigation operator" or sometimes "lonely operator".</p>
+<h4 id="symbols">3.1 Symbols</h4>
 <p>A Symbol looks - at first glance - similar to a string: you can
 invent it at any time (no 'declaration') and give it any name:</p>
 <div class="code_container">
@@ -376,7 +419,7 @@ there can be several strings that have the same content, but are different objec
 </div>
 <p>Use symbols where you would enums in a database or another language,
 or if you need distinct constants, when the value is not important.</p>
-<h4 id="methods">2.7 Methods</h4>
+<h4 id="methods">3.2 Methods</h4>
 <p>Methods in ruby return the last expression - even
 if no explicit <code>return</code> statement is given.</p>
 <div class="code_container">
@@ -389,7 +432,7 @@ f(1,42)  # returns "x"
 
 </pre>
 </div>
-<h4 id="arrays">2.8 Arrays</h4>
+<h4 id="arrays">3.3 Arrays</h4>
 <p>There are several ways of writing literal arrays in ruby.
 The first one looks like JSON:</p>
 <div class="code_container">
@@ -417,7 +460,7 @@ use a Range and convert it to an Array:</p>
 
 </pre>
 </div>
-<h3 id="hashes">3 Hashes</h3>
+<h3 id="hashes">4 Hashes</h3>
 <p>A Hash is a datastructure similar to an array. An array uses integers as keys
 while a Hash allows any type as the keys. Mostly strings and symbols are used:</p>
 <div class="code_container">
@@ -460,7 +503,7 @@ should learn more about the analysis of algorithms. e.g. by
 taking a algorithms and data strcture course as offered in the second
 semester of most computer science programs.  Or by working through the
 <a href="http://www.brpreiss.com/books/opus8/">the book by Bruno R. Preiss</a>).</p>
-<h4 id="implicit-form">3.1 Implicit Form</h4>
+<h4 id="implicit-form">4.1 Implicit Form</h4>
 <p>A Hash can be created by using its "implicit form":</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -495,11 +538,11 @@ apply_the_style font_size: 10, font_family: "Arial"
 
 </pre>
 </div>
-<h3 id="enumerables-and-piping-data">4 Enumerables and Piping Data</h3>
+<h3 id="enumerables-and-piping-data">5 Enumerables and Piping Data</h3>
 <p>When working with a list of values ruby
 helps you think about data on a new, more abstract level
 with Enumerables:</p>
-<h4 id="piping-data">4.1 "Piping Data"</h4>
+<h4 id="piping-data">5.1 "Piping Data"</h4>
 <p>From the UNIX shell you may now the concepts of piping data
 from one command to the next:</p>
 <div class="code_container">
@@ -527,7 +570,7 @@ $ ps aux | grep httpd | cut -c1-8 | sort | uniq | less
 
 </pre>
 </div>
-<h4 id="piping-data-in-ruby">4.2 Piping Data in Ruby</h4>
+<h4 id="piping-data-in-ruby">5.2 Piping Data in Ruby</h4>
 <p>When piping data in ruby you can start with
 an Array</p>
 <div class="code_container">
@@ -606,11 +649,11 @@ code considerably.</p>
 <li><a href="http://ruby-doc.org/core-2.1.0/Enumerable.html">Enumerable</a></li>
 <li><a href="http://ruby-doc.org/core-2.1.0/Array.html">Array</a></li>
 </ul>
-<h3 id="blocks">5 Blocks</h3>
+<h3 id="blocks">6 Blocks</h3>
 <p>Blocks of code are not just used in Enumerables, they are
 a basic building block of ruby.  You can write functions
 that take a Block as an argument:</p>
-<h4 id="my-function-takes-a-block-of-code">5.1 My Function takes a Block of Code</h4>
+<h4 id="my-function-takes-a-block-of-code">6.1 My Function takes a Block of Code</h4>
 <p>Any function you write can take an addictional block
 of code as its last argument.  The block is only
 called if and when you call <code>yield</code> inside the function:</p>
@@ -641,7 +684,7 @@ end
 
 </pre>
 </div>
-<h3 id="summary">6 Summary</h3>
+<h3 id="summary">7 Summary</h3>
 <p>You now know about the basic data types, about enumerables and about blocks -<br>
 features that distinguish ruby from other scripting languages. This should
 be a good enough basis to start with rails.  </p>
@@ -654,7 +697,7 @@ installed on your development machine so you can look up stuff instantly.</p>
 <ul>
 <li>Mac Tool <a href="http://kapeli.com/dash">Dash</a> for keeping offline copies of documentation</li>
 </ul>
-<h4 id="online-resources">6.1 Online Resources</h4>
+<h4 id="online-resources">7.1 Online Resources</h4>
 <ul>
 <li>
 <a href="http://tryruby.org">try ruby</a> - interactive online course</li>
@@ -662,7 +705,7 @@ installed on your development machine so you can look up stuff instantly.</p>
 <a href="http://www.codeschool.com/courses/ruby-bits">Ruby Bits</a> - interactive online course, with 8bit game graphics</li>
 <li><a href="http://rubylearning.com/satishtalim/tutorial.html">learningruby.com tutorial</a></li>
 </ul>
-<h4 id="books">6.2 Books</h4>
+<h4 id="books">7.2 Books</h4>
 <ul>
 <li>Flanagan, Matsumoto(2008): <a href="http://www.amazon.com/Ruby-Programming-Language-David-Flanagan/dp/0596516177">The Ruby Programming Language</a>. O'Reilly. ISBN 0596516177.</li>
 <li>Thomas(2013): <a href="http://www.amazon.com/Programming-Ruby-1-9-2-0-Programmers/dp/1937785491/">Programming Ruby 1.9 + 2.0</a>. Pragmatic Porgrammers. ISBN 1937785491</li>
