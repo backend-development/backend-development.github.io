@@ -266,6 +266,34 @@ User.create({username: "mariam",
 </div>
 <p>This use of create will not actually succeed, because the password_confirmation does
 not match the password.</p>
+<p>This is the minimal user model we need:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class CreateUsers &lt; ActiveRecord::Migration[5.1]
+  def change
+    create_table :users do |t|
+      t.string :username
+      t.string :password_digest
+
+      t.timestamps
+    end
+  end
+end
+
+</pre>
+</div>
+<p>You can create the first user in the rails console
+or in  db/seed like so:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+User.create!(
+  username:'admin', 
+  password:'secret', 
+  password_confirmation: 'secret'
+)
+
+</pre>
+</div>
 <h3 id="basic-login">3 Basic Login</h3>
 <p>We now have all the bits and pieces to build a Login.  </p>
 <p>There are some rails convention around this:</p>
