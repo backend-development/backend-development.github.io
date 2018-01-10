@@ -77,7 +77,7 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2 id="preheader">Rails Authentication</h2>      
+      <h2 id="preheader">Rails Authentication</h2>
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
@@ -87,22 +87,33 @@
 <a href="#http-and-sessions">HTTP and Sessions</a>
 
 <ul>
+<li><a href="#how-to-add-state-to-the-backend">How to add state to the backend</a></li>
 <li><a href="#security">Security</a></li>
 <li><a href="#session-in-backend-development">Session in Backend Development</a></li>
 </ul>
 </li>
 <li>
-<a href="#password-storage">Password Storage</a>
+<a href="#authentication">Authentication</a>
 
 <ul>
+<li><a href="#password-storage">Password Storage</a></li>
 <li><a href="#has-secure-password">has secure password</a></li>
 <li><a href="#validates-confirmation-of-password">validates confirmation of password</a></li>
 </ul>
 </li>
-<li><a href="#basic-login">Basic Login</a></li>
-<li><a href="#devise">Devise</a></li>
 <li>
-<a href="#omniauth">Omniauth</a>
+<a href="#basic-login">Basic Login</a>
+
+<ul>
+<li><a href="#routes">Routes</a></li>
+<li><a href="#controller">Controller</a></li>
+<li><a href="#views">Views</a></li>
+<li><a href="#helpers">Helpers</a></li>
+</ul>
+</li>
+<li><a href="#better-login-ux">Better Login UX </a></li>
+<li>
+<a href="#other-auth-providers">Other Auth-Providers</a>
 
 <ul>
 <li><a href="#providers">Providers</a></li>
@@ -149,39 +160,47 @@ is clear that that only one user is using the app at a time. We
 can use variables in main memory to store information pertaining
 to that user, and they will carry over through many interactions
 (opening a new window of our app, clicking a button, selecting
-something from a menu). </p>
-<p>In a web app this true for the front end of the app, in a very
-restricted sense: If you set a variable in javascript it will only 
-be available for this one user in this one webbrowser.<br>
-But if the user leaves your app by typing in a new URL, 
+something from a menu).</p>
+<p>In a web app this is true for the front end of the app, but only in a very
+restricted sense: If you set a variable in javascript it will only
+be available for this one user in this one webbrowser.
+But if the user leaves your app by typing in a new URL,
 or following a link or just reloading the page this information will be lost.</p>
 <p>In the backend we need some way to identify that a certain
-request comes from a certain user, and to "reattach" the state
-to this request.  There are several ways to do this:</p>
+request comes from a certain user, and to carry over the state
+from one HTTP request to the next.  </p>
+<h4 id="how-to-add-state-to-the-backend">1.1 How to add state to the backend</h4>
+<p>There are several ways to do this:</p>
 <ol>
 <li>
 <strong>HTTP Basic Authentication</strong> according to <a href="https://tools.ietf.org/html/rfc1945#section-11">rfc 1945, section 11</a>: The browser sends (hashed) username and password to the server with each request. The HTTP Headers <code>Authorization: Basic ...</code> and <code>WWW-Authenticate: Basic ...</code> are used. The client sends the info automatically for every subsequent request to the server.</li>
 <li>
 <strong>HTTP Cookies</strong> according to <a href="https://tools.ietf.org/html/rfc6265">rfc 6265</a>. The HTTP Header <code>Cookie</code> is used. The server sets the cookie, the client returns the cookie automatically for every subsequent request to the server.</li>
 <li>
-<strong>JSON-Token</strong> according to <a href="https://jwt.io/">jwt.io</a> / <a href="https://tools.ietf.org/html/rfc7519">rfc 7519</a> use a can be used directly in HTTP with  <code>Authorization: Bearer ...</code> and <code>WWW-Authenticate: Bearer ...</code> or in an URL or as POST data </li>
+<strong>JSON-Token</strong> according to <a href="https://jwt.io/">jwt.io</a> / <a href="https://tools.ietf.org/html/rfc7519">rfc 7519</a> use a can be used in three ways:
+
+<ul>
+<li>directly in HTTP with  <code>Authorization: Bearer ...</code> and <code>WWW-Authenticate: Bearer ...</code> * as a parameter in an URL</li>
+<li>as POST data</li>
+</ul>
+</li>
 </ol>
-<h4 id="security">1.1 Security</h4>
+<h4 id="security">1.2 Security</h4>
 <p>If you use any of these methods over HTTP, unencrypted,
 then an attacker might be able to steal the authentication information.
 So always use HTTPS!</p>
 <p>Both Authenticate-Headers and Cookies are sent automatically
 by the browser each time you access the web app.  This can be used
 exploited by <a href="https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)">Cross Site Request Forgery attacks</a>.</p>
-<h4 id="session-in-backend-development">1.2 Session in Backend Development</h4>
+<h4 id="session-in-backend-development">1.3 Session in Backend Development</h4>
 <p>Web frameworks use any of the methods described above
 to offer so called <strong>sessions</strong> to the
 developer: a session is a key-value store that is associated with
 the requests of one specific user.</p>
 <p>Ruby on Rails by default sets a cookie named after the application.
 In the screenshot below you can see the cookie set by the <code>kanban</code>
-application as displayed by firefox develoepr tools in the
-tab Storage.</p>
+application as displayed by firefox developer tools in the
+tab <strong>storage</strong>.</p>
 <p><img src="images/cookie-in-ff-inspector.png" srcset='images/cookie-in-ff-inspector.png 1x, images/cookie-in-ff-inspector@2x.png 2x' alt="cookie set by rails, as displayed by firefox develoepr tools "></p>
 <p>The cookie is set with the <code>HttpOnly</code> option, which means it cannot be
 changed by JavaScript in the browser.  But it is still vunerable to a
@@ -201,11 +220,41 @@ any point.</p>
 <p>The Rails framework automatically sets and reads this cookie,
 and offers a Hash <code>session</code> that is accessible from
 both controllers and views.   By default the keys and values you store
-in the session hash are serialized, encrypted with a secret key and 
+in the session hash are serialized, encrypted with a secret key and
 sent as the value of the session cookie.</p>
+<p>Even without a Login, you can use the session to track a user
+as they browse through the web app.  For example you could count
+now many requests they have already made:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+# in app/controllers/application_controllers.rb
+
+  before_action :count_requests
+
+  def count_requests
+    session[:counter] = 0 if session[:counter].nil?
+    session[:counter] += 1
+  end
+
+</pre>
+</div>
+<p>And show this number to the user</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+# in app/views/layouts/application.html.erb
+
+  you have made &lt;%= session[:counter] %&gt; requests
+  in session &lt;%= session.id %&gt;
+
+</pre>
+</div>
 <p>See <a href="http://guides.rubyonrails.org/action_controller_overview.html#session">Rails Guide: Controller</a>
 for more details.</p>
-<h3 id="password-storage">2 Password Storage</h3>
+<h3 id="authentication">2 Authentication</h3>
+<p>While the session let's you recognize the same user from one HTTP
+request to the next it does not - in itself - help to authenticate users.</p>
+<p>The most common way to achieve Authentication is through passwords.</p>
+<h4 id="password-storage">2.1 Password Storage</h4>
 <p>When storing passwords in a web app there are a lot of things you
 can do wrong: store the password as plain text, for example.</p>
 <p>Rails comes with built in functions for handling passwords,
@@ -213,7 +262,7 @@ which go a long way to following the <a href="https://www.owasp.org/index.php/Pa
 <p>It assumes that you have an attribute "password_digest"
 in your model (and no attribute "password"), and that you
 have added 'bcrypt' to the Gemfile.</p>
-<h4 id="has-secure-password">2.1 has secure password</h4>
+<h4 id="has-secure-password">2.2 has secure password</h4>
 <p>Add <code>has_secure_password</code> to your user model:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -241,7 +290,7 @@ user = User.find(username: "USERNAME").authenticate("THE PASSWORD")
 <p>The authenticate method will encrypt the password again, and compare
 it to the password_digest in the database.  It will return nil if
 the password does not match.</p>
-<h4 id="validates-confirmation-of-password">2.2 validates confirmation of password</h4>
+<h4 id="validates-confirmation-of-password">2.3 validates confirmation of password</h4>
 <p>It is good UX practice to have users supply their
 password twice, to make it less likely that typos go through.
 Rails also helps you with this:  You can add <code>validates_confirmation_of :password</code>
@@ -295,13 +344,14 @@ User.create!(
 </pre>
 </div>
 <h3 id="basic-login">3 Basic Login</h3>
-<p>We now have all the bits and pieces to build a Login.  </p>
-<p>There are some rails convention around this:</p>
+<p>We now have all the bits and pieces to build a Login with username (or e-mail adress) and password.</p>
+<p>There are some Rails convention around this:</p>
 <ul>
 <li>the current user should be accessible via a helper method <code>current_user</code>,</li>
 <li>login in and login out is seen as "creating a session" and "deleting a session" and handled by restful routes,</li>
 <li>there is a session controller and some views, but no model!</li>
 </ul>
+<h4 id="routes">3.1 Routes</h4>
 <p>Let's start by creating the routes:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -312,6 +362,7 @@ User.create!(
 
 </pre>
 </div>
+<h4 id="controller">3.2 Controller</h4>
 <p>and the session controller to handle this routes:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -319,8 +370,9 @@ rails g controller sessions new create destroy
 
 </pre>
 </div>
-<p>Now you can direct your browser to <a href="http://localhost:3000/login">http://localhost:3000/login</a>
-Next you need to set up the view for the login form there: </p>
+<p>Now you can direct your browser to <a href="http://localhost:3000/login">http://localhost:3000/login</a></p>
+<h4 id="views">3.3 Views</h4>
+<p>Next you need to set up the view for the login form there: </p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 &lt;!-- app/views/sessions/new.html.erb: --&gt;
@@ -330,6 +382,8 @@ Next you need to set up the view for the login form there: </p>
 &lt;%= form_tag login_path do |f| %&gt;
     Username: &lt;%= text_field_tag     :username %&gt; &lt;br&gt;
     Password: &lt;%= password_field_tag :password %&gt; &lt;br&gt;
+    Password Confirmation: &lt;%= password_field_tag :password_confirmation %&gt; &lt;br&gt;
+
     &lt;%= submit_tag 'Log In' %&gt;
 &lt;% end %&gt;
 
@@ -379,6 +433,7 @@ end
 
 </pre>
 </div>
+<h4 id="helpers">3.4 Helpers</h4>
 <p>The helper_method <code>current_user</code> we define in 
 the application controller.  If the user_id is not
 set in the session or if the user with this id does not
@@ -411,9 +466,9 @@ to display different things for logged in users and non logged in visitors:</p>
 
 </pre>
 </div>
-<h3 id="devise">4 Devise</h3>
+<h3 id="better-login-ux">4 Better Login UX </h3>
 <p>If your app deals with more then just one or two users
-that you set up "by hand", the gem devise can help you a lot.
+that you set up "by hand", the gem <code>devise</code> can help you a lot.
 It can makes your logins ...</p>
 <ul>
 <li>Confirmable: sends emails with confirmation instructions and verifies whether an account is already confirmed during sign in.</li>
@@ -435,7 +490,7 @@ It can makes your logins ...</p>
 <li>
 <code>before_action :authenticate_user!</code> # to make a controller only accessible to authenticated users</li>
 </ul>
-<h3 id="omniauth">5 Omniauth</h3>
+<h3 id="other-auth-providers">5 Other Auth-Providers</h3>
 <p>In many scenarios it might be more convenient for your users
 to not have to register on your site, but to use another service
 to authenticate.  That way they don't have to remember another password.
