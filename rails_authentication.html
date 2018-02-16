@@ -283,7 +283,7 @@ will be stored in the database.</p>
 <p>It will add the <code>authenticate</code> method to your User model:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-user = User.find(username: "USERNAME").authenticate("THE PASSWORD") 
+user = User.find_by(username: "USERNAME").authenticate("THE PASSWORD") 
 
 </pre>
 </div>
