@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>APIs in the Backend Development Textbook</title>
+  <title>Backend Development Textbook</title>
   <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
@@ -77,7 +77,7 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2 id="preheader">APIs</h2>
+      <h2 id="preheader">no heading</h2>
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
@@ -122,13 +122,7 @@
           </div>
 
       <div class="rest_header">
-        <h2>APIs</h2><p>After working through this guide you will:</p>
-<ul>
-<li>know about the thinking behind REST APIs and JSON API</li>
-<li>be able to configure your existing controllers to offer resources as JSON</li>
-<li>be able to set up an API for your rails app that is separate from existing controllers</li>
-</ul>
-<div class="repo"><p>You can study the <a href="https://github.com/backend-development/api_sample_app">code</a> and try out <a href="https://dry-cove-38472.herokuapp.com/">the demo</a> for the example described here.</p></div>
+        
       </div>
     </div>
   </div>
@@ -138,13 +132,22 @@
       <div id="mainCol">
         <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body>
+<h2>APIs</h2>
+<p>After working through this guide you will:</p>
+<ul>
+<li>know about the thinking behind REST APIs and JSON API</li>
+<li>be able to configure your existing controllers to offer resources as JSON</li>
+<li>be able to set up an API for your rails app that is separate from existing controllers</li>
+</ul>
+<div class="repo"><p>You can study the <a href="https://github.com/backend-development/api_sample_app">code</a> and try out <a href="https://dry-cove-38472.herokuapp.com/">the demo</a> for the example described here.</p></div>
+<hr>
 <h3 id="what-is-an-api">1 What is an API</h3>
-<p>API stands for "Application Programming Interface". It is a set of clearly defined methods 
+<p>API stands for "Application Programming Interface". It is a set of clearly defined methods
 of communication with a software component. So the objects and methods exposed by a library
-form an API.  </p>
+form an API.</p>
 <p>In Web development the acronym API is most
 commonly used when the software component in question runs on a different server on the
-Internet and is accessed via the network.  </p>
+Internet and is accessed via the network.</p>
 <p>This Guide is concerned with APIs that you build and run using Ruby on Rails.</p>
 <h3 id="rest">2 REST</h3>
 <p>The acronym REST was coined by Roy Fielding in his dissertation. When describing
@@ -152,18 +155,18 @@ the architecture of the web, and what made it so successfull on a technical leve
 he desribed this architecture as "Representational State Transfer" (REST).</p>
 <p>This Acronym was later picked up to describe a certain style of API,
 and to distiguish such APIs from SOAP APIs.</p>
-<p>A REST API allows to access and manipulate textual representations of Web resources using HTTP Methods and stateless operations. </p>
+<p>A REST API allows to access and manipulate textual representations of Web resources using HTTP Methods and stateless operations.</p>
 <p>"Web resources" were first defined on the World Wide Web as documents or files identified by their URLs, but today they have a much more generic and abstract definition encompassing every thing or entity that can be identified, named, addressed or handled, in any way whatsoever, on the Web.</p>
-<p><a href="https://www.infoq.com/articles/rest-introduction">Tilkov(2007)</a> gives a brief introduction to REST.  The main points are:</p>
+<p><a href="https://www.infoq.com/articles/rest-introduction">Tilkov(2007)</a> gives a brief introduction to REST. The main points are:</p>
 <ol>
-<li>Give every resource a  unique URL</li>
-<li>“Hypermedia as the engine of application state” (HATEOAS) - use URLs to reference other resources (not just ids)</li>
-<li>Use HTTP Methods (and Status Codes) as intended. </li>
-<li>One resource can have multiple representations, for example HTML, JSON and XML</li>
-<li>Communicate statelessly - if possible!</li>
+<li> Give every resource a unique URL</li>
+<li> “Hypermedia as the engine of application state” (HATEOAS) - use URLs to reference other resources (not just ids)</li>
+<li> Use HTTP Methods (and Status Codes) as intended.</li>
+<li> One resource can have multiple representations, for example HTML, JSON and XML</li>
+<li> Communicate statelessly - if possible!</li>
 </ol>
 <h4 id="urls">2.1 URLS</h4>
-<p>Give every resource a  unique URL.
+<p>Give every resource a unique URL.
 Please note that REST does not demand a certain form of URL.
 While URLs with no parameters are often used:</p>
 <div class="code_container">
@@ -193,9 +196,9 @@ https://example.com/soap/router/
 
 </pre>
 </div>
-<p>Through this endpoint you can access methods like <code>getUserData()</code> or <code>deleteUser()</code>. </p>
+<p>Through this endpoint you can access methods like <code>getUserData()</code> or <code>deleteUser()</code>.</p>
 <h4 id="hateoas">2.2 HATEOAS</h4>
-<p>“Hypermedia as the engine of application state”  means that a client interacts with a network application entirely through hypermedia, and needs no prior knowledge of URLs.</p>
+<p>“Hypermedia as the engine of application state” means that a client interacts with a network application entirely through hypermedia, and needs no prior knowledge of URLs.</p>
 <p>If an API returns the following JSON:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -217,8 +220,8 @@ For example because the developer read the docs.</p>
     "id": "1",
     "name": "Example User",
     "email": "example@railstutorial.org"
-    "profile_pics": [ 
-       "https://sample.com/api/profile/pictures/2", 
+    "profile_pics": [
+       "https://sample.com/api/profile/pictures/2",
        "https://sample.com/api/profile/pictures/5"
     ]
 }
@@ -226,7 +229,7 @@ For example because the developer read the docs.</p>
 </pre>
 </div>
 <h4 id="http-methods-and-status-codes">2.3 HTTP Methods and Status Codes</h4>
-<p>Use HTTP Methods (and Status Codes) as intended.  </p>
+<p>Use HTTP Methods (and Status Codes) as intended.</p>
 <p>Regarding the HTTP Methods there are two important distinctions:</p>
 <ul>
 <li>the GET and HEAD methods should take no other action than retrieval. These methods ought to be considered <strong>safe</strong>.</li>
@@ -249,7 +252,7 @@ There are two common ways of requesting different formats:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 GET /mini/person/83 HTTP/1.1
-Host: example.com 
+Host: example.com
 Accept: application/xml
 
 </pre>
@@ -296,7 +299,6 @@ Er hat den Usernamen fhs14287.&lt;/p&gt;
   &lt;/werke&gt;
 &lt;/person&gt;
 
-
 </pre>
 </div>
 <p>or as JSON:</p>
@@ -315,25 +317,24 @@ Er hat den Usernamen fhs14287.&lt;/p&gt;
     {"titel":"the neighbour.",
      "url":"http://example.com/mini/werk/303"}]}
 
-
 </pre>
 </div>
 <h4 id="statelessness">2.5 Statelessness</h4>
-<p> Tilkov wirtes: "REST mandates that state be either turned into resource state, or kept on the client. In other words, a server should not have to retain some sort of communication state for any of the clients it communicates with beyond a single request."</p>
-<p> This is important for performance and scalability and performance.<br>
- Statelessness makes caching easy.  And in a scenario with serveral
- servers behind a load balancer, not having state on the server means
- the application will work if the requests bei one client are routest
- to different servers.</p>
+<p>Tilkov wirtes: "REST mandates that state be either turned into resource state, or kept on the client. In other words, a server should not have to retain some sort of communication state for any of the clients it communicates with beyond a single request."</p>
+<p>This is important for performance and scalability and performance.<br>
+ Statelessness makes caching easy. And in a scenario with serveral
+servers behind a load balancer, not having state on the server means
+the application will work if the requests bei one client are routest
+to different servers.</p>
 <h3 id="json-api">3 JSON API</h3>
 <p>When an API returns JSON data this could take many forms.
 The <a href="http://jsonapi.org/">json:api specification</a> is a well thought out
-convention for this.  </p>
+convention for this.</p>
 <p>It is especially good with the HATEOS aspect of REST.</p>
 <p>The json:api specification adhers to this principle.</p>
 <h3 id="rendering-json">4 Rendering JSON</h3>
 <p>Rails is equipped to not just create HTML as output, but to easily
-offer other representations as well.  </p>
+offer other representations as well.</p>
 <p>When you look at <code>rails routes</code> you can see that the routes created by
 <code>resource :user</code> could contain an optional <code>format</code>:</p>
 <div class="code_container">
@@ -348,18 +349,12 @@ offer other representations as well.  </p>
 <p>Only HTML is implemented by default. But we could use this feature
 to have other formats:</p>
 <ul>
-<li>
-<code>/users</code> </li>
-<li>
-<code>/users.json</code> </li>
-<li>
-<code>/users.xml</code> </li>
-<li>
-<code>/users/1</code> </li>
-<li>
-<code>/users/1.json</code> </li>
-<li>
-<code>/users/1.xml</code> </li>
+<li><code>/users</code></li>
+<li><code>/users.json</code></li>
+<li><code>/users.xml</code></li>
+<li><code>/users/1</code></li>
+<li><code>/users/1.json</code></li>
+<li><code>/users/1.xml</code></li>
 </ul>
 <p>When you try out accessing <code>/users/1.json</code> you get a response:</p>
 <div class="code_container">
@@ -373,7 +368,7 @@ Content-Type: application/json; charset=utf-8
 </pre>
 </div>
 <p>This error message is meant for a
-client expecting JSON data.  It uses both the HTTP status code
+client expecting JSON data. It uses both the HTTP status code
 and the JSON to indicate the error.</p>
 <h4 id="api-for-the-sample-app">4.1 API for the sample app</h4>
 <p>The "Frontend 1" in the example app expects a very simple JSON structure:</p>
@@ -424,7 +419,7 @@ expects a JSON array of objects like above:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 [
-&lt;% 
+&lt;%
   @users.each_with_index do |user| %&gt;
   {
     "id": &lt;%= user.id %&gt;,
@@ -441,7 +436,7 @@ but there should be no comma after the last.</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 [
-&lt;% 
+&lt;%
   max = @users.length - 1
   @users.each_with_index do |user,i| %&gt;
   {
@@ -458,11 +453,11 @@ but there should be no comma after the last.</p>
 <h4 id="creating-json-with-jbuilder">4.3 creating JSON with jbuilder</h4>
 <p>Formatting JSON would get quite repetitive if we need to create views for several resources.
 We have not even touched on the problem of escaping: what happens
-if a users name contains a quote?  For example <kbd>Jack "the Ripper"</kbd>.
+if a users name contains a quote? For example <kbd>Jack "the Ripper"</kbd>.
 That would break our current view.</p>
 <p>Rails 5 comes with the gem <code>jbuilder</code> which helps you create JSON, and
 which handles all the escaping and formatting correctly.</p>
-<p>We need to name the view <code>app/views/users/show.json.jbuilder</code>, 
+<p>We need to name the view <code>app/views/users/show.json.jbuilder</code>,
 and then can use the the following code to extract three properties
 from the user object:</p>
 <div class="code_container">
@@ -473,14 +468,14 @@ json.email @user.email
 
 </pre>
 </div>
-<p>There is also a shorthand for this: </p>
+<p>There is also a shorthand for this:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 json.extract! @user, :id, :name, :email
 
 </pre>
 </div>
-<p>For the index view we want to create a JSON array. 
+<p>For the index view we want to create a JSON array.
 In <code>app/views/users/index.json.jbuilder</code> we write:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -502,9 +497,9 @@ to the create, update and destroy actions of a controller.</p>
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to @user, notice: 'User was successfully created.' 
+      redirect_to @user, notice: 'User was successfully created.'
     else
-      render :new 
+      render :new
     end
     end
   end
@@ -605,7 +600,7 @@ is an object with on attribute <code>data</code>:</p>
 <h4 id="creating-json-with-active-model-serializers">5.2 creating JSON with active_model_serializers</h4>
 <p>After we defined the routes, we next need to create a controller.
 As we are setting up a new hierarchy of controllers that will only
-concerned with the API, it makes sense to inhert from <code>ActionController::API</code>, 
+concerned with the API, it makes sense to inhert from <code>ActionController::API</code>,
 not from <code>ActionController::Base</code>.</p>
 <p>All the "normal" controllers first inhert from <code>ApplicationController</code>. We
 will build a similar structure for the api controllers, the will inhert from
@@ -658,9 +653,10 @@ end
 <li><a href="http://edgeguides.rubyonrails.org/action_controller_overview.html#rendering-xml-and-json-data">Rails Guide: Rendering JSON in Action Controller Overview</a></li>
 <li><a href="http://edgeguides.rubyonrails.org/api_app.html">Rails Guide: Using Rails for API-only Applications</a></li>
 <li><a href="https://github.com/vasilakisfil/rails5_api_tutorial">Vasilakis(2017): Rails 5 API Tutorial</a></li>
-<li>
-<a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">Methods HTTP/1.0</a> </li>
+<li><a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">Methods HTTP/1.0</a></li>
 <li><a href="https://httpstatuses.com/422">Status codes</a></li>
+<li>
+<a href="https://github.com/nsarno/knock">gem knock</a> for token based authentication for API only Rails apps</li>
 </ul>
 </body></html>
 
