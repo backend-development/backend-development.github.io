@@ -109,6 +109,7 @@
 <li><a href="#sending-the-data">Sending the Data</a></li>
 <li><a href="#processing-the-data">Processing the Data</a></li>
 <li><a href="#handling-and-displaying-errors">Handling and Displaying Errors</a></li>
+<li><a href="#using-view-helpers-in-the-console">Using View Helpers in the console</a></li>
 </ul>
 </li>
 <li><a href="#further-reading">Further reading</a></li>
@@ -323,6 +324,9 @@ sent in.  For example <code>&lt;%= f.text_field :name %&gt;</code> might  be dis
 
 </pre>
 </div>
+<p>To turn the validation you defined in the model
+into html5 <code>require</code> attributes on the form fields
+you can install the gem <code>html5_validators</code>.</p>
 <h4 id="sending-the-data">3.3 Sending the Data</h4>
 <p>When you press the submit-button, the data from the form is sent via a HTTP request.
 In the development-log file on the server you can see the request coming in and being
@@ -421,6 +425,20 @@ available throught the <code>errors</code> attribute of the user object:</p>
   &lt;% end %&gt;
   ...
 &lt;% end %&gt;
+
+</pre>
+</div>
+<h4 id="using-view-helpers-in-the-console">3.6 Using View Helpers in the console</h4>
+<p>You already know that
+the rails console is great for working with models.
+You can also use it to check path helpers, by preprending
+them with <code>app.</code>.</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+&gt; app.projects_path
+=&gt; "/projects"
+&gt; app.project_path(Project.first)
+=&gt; "/projects/2007-portfolio-system-multimediaart-at"
 
 </pre>
 </div>
