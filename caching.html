@@ -110,6 +110,7 @@
 <ul>
 <li><a href="#ignore-this">Ignore this</a></li>
 <li><a href="#querycache">QueryCache</a></li>
+<li><a href="#using-indexes-in-the-database">using indexes in the database</a></li>
 <li><a href="#n-1-queries">n+1 queries</a></li>
 <li><a href="#view">view</a></li>
 <li><a href="#final-thoughts">final thoughts</a></li>
@@ -487,7 +488,63 @@ user.reload
 
 </pre>
 </div>
-<h4 id="n-1-queries">5.3 n+1 queries</h4>
+<h4 id="using-indexes-in-the-database">5.3 using indexes in the database</h4>
+<p>When we query the database by <code>id</code> we will get a rapid response:
+the primary key is always accessed through an index.</p>
+<p>But in this app the main way of identifying a resource is
+through a "friendly url".  For example the project show action
+is not accessed through the conventional route</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+/projects/1679
+
+</pre>
+</div>
+<p>but through</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+/projects/2014-anton-eine-multimediale-inszenierung
+
+</pre>
+</div>
+<p>In the profiler we can see that this translates to the SQL query</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+SELECT * FROM projects WHERE slug='2014-anton-eine-multimediale-inszenierung' 
+
+</pre>
+</div>
+<p>There should be an index on columns <code>slug</code>!</p>
+<p>We can check if this is the case in the database console:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+mysql&gt; DESCRIBE SELECT * FROM projects WHERE slug='2014-anton-eine-multimediale-inszenierung'
+    -&gt; ;
++----+-------------+----------+------------+-------+------------------------+------------------------+---------+-------+------+----------+-------+
+| id | select_type | table    | partitions | type  | possible_keys          | key                    | key_len | ref   | rows | filtered | Extra |
++----+-------------+----------+------------+-------+------------------------+------------------------+---------+-------+------+----------+-------+
+|  1 | SIMPLE      | projects | NULL       | const | index_projects_on_slug | index_projects_on_slug | 768     | const |    1 |   100.00 | NULL  |
++----+-------------+----------+------------+-------+------------------------+------------------------+---------+-------+------+----------+-------+
+1 row in set, 1 warning (0,12 sec)
+
+</pre>
+</div>
+<p>Yes, there is an index that is used for this query.  Contrast this with the output
+of <code>DESCRIBE</code> when there is no index:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+
+mysql&gt; DESCRIBE SELECT * FROM projects WHERE publicationdate='2014-07-22';
++----+-------------+----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+| id | select_type | table    | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
++----+-------------+----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+|  1 | SIMPLE      | projects | NULL       | ALL  | NULL          | NULL | NULL    | NULL |  695 |    10.00 | Using where |
++----+-------------+----------+------------+------+---------------+------+---------+------+------+----------+-------------+
+1 row in set, 1 warning (0,12 sec)
+
+</pre>
+</div>
+<h4 id="n-1-queries">5.4 n+1 queries</h4>
 <p>When analysing the SQL queries a rails project generates
 you will often find this situation: you have a 1:n relationship,
 for example: a project has many users.  When displaying
@@ -553,7 +610,7 @@ If we include them all, we end up with a sizable reduction in SQL queries:</p>
 </pre>
 </div>
 <p><img src="images/sql-include-more.png" srcset='images/sql-include-more.png 1x, images/sql-include-more@2x.png 2x' alt="compare render times with many includes"></p>
-<h4 id="view">5.4 view</h4>
+<h4 id="view">5.5 view</h4>
 <p>We still have many more SQL queries that are created
 for the <code>collaborators/_show</code> partial. </p>
 <p>The collaborator partial shows information
@@ -582,7 +639,7 @@ helper method in the rails console:</p>
 </pre>
 </div>
 <p>Here information from three database tables is combined.</p>
-<h5 id="createing-a-database-view">5.4.1 createing a database view</h5>
+<h5 id="createing-a-database-view">5.5.1 createing a database view</h5>
 <p>In the database console we can build a simple select statement with two
 joins to get the same information:</p>
 <div class="code_container">
@@ -628,7 +685,7 @@ mysql&gt; SELECT * from degree_programs WHERE user_id=901 ;
 
 </pre>
 </div>
-<h5 id="model-and-relationships-for-the-view">5.4.2 model and relationships for the view</h5>
+<h5 id="model-and-relationships-for-the-view">5.5.2 model and relationships for the view</h5>
 <p>In Rails we can define a model for this view:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -674,7 +731,7 @@ class User &lt; ActiveRecord::Base
 </div>
 <p>This reduces the number of SQL statements to one per collaborator partial:</p>
 <p><img src="images/view.png" srcset='images/view.png 1x, images/view@2x.png 2x' alt="view"></p>
-<h5 id="create-view-in-production">5.4.3 create view in production</h5>
+<h5 id="create-view-in-production">5.5.3 create view in production</h5>
 <p>To deploy the view to production, you need to create it with a migration:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -695,7 +752,7 @@ end
 
 </pre>
 </div>
-<h5 id="uses-and-limitations-of-view">5.4.4 uses and limitations of view</h5>
+<h5 id="uses-and-limitations-of-view">5.5.4 uses and limitations of view</h5>
 <p>In this case the view might be a first step towards refactoring
 the database.  We just have too many tables in the database that
 are not really needed.</p>
@@ -714,7 +771,7 @@ us a <strong>materialized view</strong>.  In a normal view each access to the vi
 triggers the underlying sql requests.  In a materialized view the
 data is copied over to the view once. This needs more memory, but gives
 faster access.</p>
-<h4 id="final-thoughts">5.5 final thoughts</h4>
+<h4 id="final-thoughts">5.6 final thoughts</h4>
 <p>If we add a relationship from projects to degree_program (actually: three <code>has_many through:</code> steps to get from projects to collaborators,
 and from collaborators to users, and from users to degree_programs), we can also include degree_programs in our
 includes statement when loading the project:</p>
