@@ -83,14 +83,16 @@
             <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body>
 <ol class="chapters">
+<li><a href="#what-is-caching">What is Caching</a></li>
 <li>
-<a href="#performance">Performance</a>
+<a href="#measuring-performance">Measuring Performance</a>
 
 <ul>
 <li><a href="#rack-mini-profiler">rack-mini-profiler</a></li>
+<li><a href="#example-app">Example App</a></li>
 </ul>
 </li>
-<li><a href="#caching-in-the-asset-pipeline">Caching in the Asset Pipeline</a></li>
+<li><a href="#http-caching">HTTP Caching</a></li>
 <li>
 <a href="#fragment-caching">Fragment Caching</a>
 
@@ -123,17 +125,18 @@
         <h2>Caching</h2><p>What is even better than having a really fast web
 server, framework, programming language that creates
 your web page?  Not having to create and load the page at all
-because it&#39;s already there in a cache.</p><p>After working through this guide you will:</p>
+because it&#39;s already there in a cache.</p><p>After working through this guide:</p>
 <ul>
-<li>know that many different caches influence your web app:
+<li>you will know that many different caches influence your web app:
 
 <ul>
-<li>HTTP caching (you know that already from the asset pipeline)</li>
+<li>HTTP caching</li>
 <li>Fragment caching</li>
 <li>ActiveRecord QueryCache</li>
+<li>Caches inside the Database</li>
 </ul></li>
-<li>be able to configure rails for caching</li>
-<li>be able to measure if a change you made improved the performance of your rails app</li>
+<li>you will be able to configure rails for caching</li>
+<li>you will be able to measure if a change you made improved the performance of your rails app</li>
 </ul>
 <p>DEMO: You can study <a href="https://rails-caching-demo.herokuapp.com/">the demo</a> for the example described here
 - if it&#39;s currently online.</p>
@@ -146,11 +149,28 @@ because it&#39;s already there in a cache.</p><p>After working through this guid
       <div id="mainCol">
         <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body>
-<h3 id="performance">1 Performance</h3>
-<p>As we already discussed in <a href="/asset_pipeline.html">the chapter on the asset pipeline</a>
+<h3 id="what-is-caching">1 What is Caching</h3>
+<p>In computing we are faced with vastly different access speeds for different media:</p>
+<ul>
+<li>reading a megabyte of data from another host on the internet might take seconds </li>
+<li>loading the smae data from a local ssd takes only 200 µs </li>
+<li>reading the data from main memory takes 9 µs.</li>
+</ul>
+<p>Given these numbers it makes sense to keep a local copy of data that
+we  might use again soon.  Better to read it from ssd or memory the second
+time we need it!</p>
+<p>In general english usage a cache is <a href="https://en.oxforddictionaries.com/definition/cache">stuff hidden in a secret place</a>.  But in computing
+a cache is "auxiliary memory from which high-speed retrieval is possible".</p>
+<p>When you load a webpage into your browser there are many level
+of caches influencing this process.  We will look at some of the caches
+that we can influence as web developers.</p>
+<h3 id="measuring-performance">2 Measuring Performance</h3>
+<p>As we already discussed in <a href="asset_pipeline.html">the chapter on the asset pipeline</a>
 it is important to measure the performance of your app before you try to optimize anyhing.</p>
 <p>In this chapter we will learn about new tools for measuring what happens on the server.</p>
-<h4 id="rack-mini-profiler">1.1 rack-mini-profiler</h4>
+<p>Let's start with a very general rule of thumb for performance:</p>
+<p>We want the whole web page to load within a second. We expect to need about half of that (500ms) for loading extra assets like javascript files, css, images. We will set aside another 200ms for shipping data across the network, which leaves us with 300ms time to render out the first HTML document from our Rails App.</p>
+<h4 id="rack-mini-profiler">2.1 rack-mini-profiler</h4>
 <p>This gem helps you analyze where your Rails App spends time.</p>
 <p><img src="images/rack-mini-profiler.png" srcset='images/rack-mini-profiler.png 1x, images/rack-mini-profiler@2x.png 2x' alt="https://github.com/MiniProfiler/rack-mini-profiler"></p>
 <p><a href="https://github.com/MiniProfiler/rack-mini-profiler">https://github.com/MiniProfiler/rack-mini-profiler</a></p>
@@ -158,15 +178,17 @@ it is important to measure the performance of your app before you try to optimiz
 <p>The Mini Profiler only measures the server side: the time spent in the rails app to generate
 the webpage.  So we need to compare the numbers Mini Profiler gives us to the
 300ms threshold defined above.</p>
-<h3 id="caching-in-the-asset-pipeline">2 Caching in the Asset Pipeline</h3>
-<p>See the chapter about the <a href="https://backend-development.github.io/asset_pipeline.html">Asset Pipeline</a> 
-for HTTP caching.</p>
-<h3 id="fragment-caching">3 Fragment Caching</h3>
+<h4 id="example-app">2.2 Example App</h4>
 <p>We will use a portfolio site as an example app.  All the screenshots
-above already show this example app.   You can study <a href="https://shrouded-dawn-29154.herokuapp.com/">the demo</a> 
+above already show this example app.   You can study <a href="https://rails-caching-demo.herokuapp.com/">the demo</a> 
 on heroku, there all the caching is already implemented. </p>
-<h4 id="configure-caching">3.1 Configure Caching</h4>
-<p>Caching is deactivated by default in the development environment. 
+<h3 id="http-caching">3 HTTP Caching</h3>
+<p>The web browser will cache content if sent the right HTTP Headers.
+The Asset Pipeline handles that for images, css and javascript by default.
+See <a href="asset_pipeline.html">the chapter on the asset pipeline</a>.</p>
+<h3 id="fragment-caching">4 Fragment Caching</h3>
+<h4 id="configure-caching">4.1 Configure Caching</h4>
+<p>Fragment Caching is deactivated by default in the development environment. 
 You have to activate it if you want to try this out in development:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -199,7 +221,7 @@ it is helpful to use the file_store in development:</p>
 
 </pre>
 </div>
-<h4 id="caching-a-view">3.2 Caching a View</h4>
+<h4 id="caching-a-view">4.2 Caching a View</h4>
 <p>If you look at the miniprofiler above, a first glance rendering
 the project show view takes too long: 450ms.  We could dig
 into the details, but let's try a simple approach first: cache
@@ -215,7 +237,7 @@ the whole view.</p>
 </div>
 <p>The result is stunning: from 450ms down to 45ms:</p>
 <p><img src="images/rack-mini-profiler-faster.png" srcset='images/rack-mini-profiler-faster.png 1x, images/rack-mini-profiler-faster@2x.png 2x' alt="https://github.com/MiniProfiler/rack-mini-profiler"></p>
-<h5 id="how-caching-works">3.2.1 How caching works</h5>
+<h5 id="how-caching-works">4.2.1 How caching works</h5>
 <p>So what happens here?  When the view is rendered for the first time
 for a project, it will be rendered normally (and still take around 450ms).
 In the log file you will see a message like this:</p>
@@ -241,7 +263,7 @@ Read fragment views/projects/1679-20140722193808000000000/0db0955317bafa37cc34ff
 </pre>
 </div>
 <p>Here the cache is read out.  </p>
-<h5 id="peeking-into-the-cache">3.2.2 Peeking into the cache</h5>
+<h5 id="peeking-into-the-cache">4.2.2 Peeking into the cache</h5>
 <p>You can also read from the cache in the rails console:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -263,7 +285,7 @@ tmp/file_store/5E6/091/views%2Fprojects%2F1679-20140722193808000000000%2F0db0955
 
 </pre>
 </div>
-<h5 id="changing-the-model">3.2.3 Changing the model</h5>
+<h5 id="changing-the-model">4.2.3 Changing the model</h5>
 <p>Now let's check if the cache is really invalidated when the underlying model
 changes.  Load the project "Origin" in your web browser: <a href="http://localhost:3000/projects/2015-origin">http://localhost:3000/projects/2015-origin</a></p>
 <p>In the rails console you can find the corresponding model, and change an attribute:</p>
@@ -277,7 +299,7 @@ project.save
 </div>
 <p>Now reload the browser to make sure that a new version of the page is rendered.
 Reload again to check if the new version is cached.</p>
-<h4 id="caching-a-partial">3.3 Caching a Partial</h4>
+<h4 id="caching-a-partial">4.3 Caching a Partial</h4>
 <p>If you look at the homepage of <a href="https://shrouded-dawn-29154.herokuapp.com/">the demo</a>
 you can see that the list of project under "Bachelorprojekte" is different every time
 you reload the page. There are 9 projects in all, but only 5 will be picked randomly
@@ -296,7 +318,7 @@ of the "activity stream" on the facebook hompage: it will look differently
 for each user, and each time the page is loaded.  But it consists of
 smaller fragments which can be cached: the individual status message, or event,
 or photo can be reused.</p>
-<h5 id="implementation">3.3.1 Implementation</h5>
+<h5 id="implementation">4.3.1 Implementation</h5>
 <p>When you add the code for caching to the <code>projects/_project</code> view
 make sure that you specify the correct object.  If not, you might up
 loading the same partial again and again:</p>
@@ -324,12 +346,12 @@ is rendered through a collection:</p>
 rails will do a multi-fetch, which is faster.  But our example app is written
 in Rails 4, so this does not work yet.</p>
 <p>See <a href="http://blog.bigbinary.com/2016/03/09/rails-5-makes-partial-redering-from-cache-substantially-faster.html">Deshmane(2016)</a></p>
-<h5 id="side-effects">3.3.2 Side Effects</h5>
+<h5 id="side-effects">4.3.2 Side Effects</h5>
 <p>An unexpected side effect of caching the partial can be seen in the
 <a href="https://shrouded-dawn-29154.herokuapp.com/editions/bachelorprojekte-web-2015">edition view</a>:
 this view also uses the <code>projects/_project</code> partial, so it too will 
 profit from the caching.</p>
-<h4 id="russian-doll-caching">3.4 Russian Doll Caching</h4>
+<h4 id="russian-doll-caching">4.4 Russian Doll Caching</h4>
 <p>In the previous step we implemented caching for the <code>projects/_project</code> partial,
 which is also used in the <code>editions/show</code> view.  Now let's add caching to this
 view also:</p>
@@ -390,7 +412,7 @@ You can see in rack-mini-profiler that only one of the
 partials was recreated, all the other partials were loaded from cache.
 The next time the same page was rendered the edition cache was reused.</p>
 <p><img src="images/russian-change.png" srcset='images/russian-change.png 1x, images/russian-change@2x.png 2x' alt="russian doll caching at work: changes when a project changes"></p>
-<h4 id="the-limits-of-fragment-caching">3.5 The limits of fragment caching</h4>
+<h4 id="the-limits-of-fragment-caching">4.5 The limits of fragment caching</h4>
 <p>Caching is really helpful for pages that are accessed a lot.
 In our example app this might be true for the homepage and
 maybe the editions.   But there are hundreds of projects in the portfolio.
@@ -411,18 +433,18 @@ config.action_controller.perform_caching = false
 
 </pre>
 </div>
-<h3 id="activerecord-and-db">4 ActiveRecord and DB</h3>
+<h3 id="activerecord-and-db">5 ActiveRecord and DB</h3>
 <p>Accessing the database takes a long time - compared to all
 the computation that is done in ruby code itself.  So looking
 at the Database, and the ORM we use to access the database, might
 make sense for performance optimisation.</p>
-<h4 id="ignore-this">4.1 Ignore this</h4>
+<h4 id="ignore-this">5.1 Ignore this</h4>
 <p>If you  find <code>SHOW FULL FIELDS</code> queries in your log file or in rack-mini-profiler,
 you can ignore them.  These
 queries are used by activerecord to find out which attributes an
 object has.  In production these will only occur when the first
 object of a type is loaded, so you can savely ignore them.</p>
-<h4 id="querycache">4.2 QueryCache</h4>
+<h4 id="querycache">5.2 QueryCache</h4>
 <p>If you look into the log file <code>logs/development.log</code> you will
 see all the SQL queries made to the database, and also some that
 are not really sent to the database.</p>
@@ -465,7 +487,7 @@ user.reload
 
 </pre>
 </div>
-<h4 id="n-1-queries">4.3 n+1 queries</h4>
+<h4 id="n-1-queries">5.3 n+1 queries</h4>
 <p>When analysing the SQL queries a rails project generates
 you will often find this situation: you have a 1:n relationship,
 for example: a project has many users.  When displaying
@@ -531,7 +553,7 @@ If we include them all, we end up with a sizable reduction in SQL queries:</p>
 </pre>
 </div>
 <p><img src="images/sql-include-more.png" srcset='images/sql-include-more.png 1x, images/sql-include-more@2x.png 2x' alt="compare render times with many includes"></p>
-<h4 id="view">4.4 view</h4>
+<h4 id="view">5.4 view</h4>
 <p>We still have many more SQL queries that are created
 for the <code>collaborators/_show</code> partial. </p>
 <p>The collaborator partial shows information
@@ -560,7 +582,7 @@ helper method in the rails console:</p>
 </pre>
 </div>
 <p>Here information from three database tables is combined.</p>
-<h5 id="createing-a-database-view">4.4.1 createing a database view</h5>
+<h5 id="createing-a-database-view">5.4.1 createing a database view</h5>
 <p>In the database console we can build a simple select statement with two
 joins to get the same information:</p>
 <div class="code_container">
@@ -606,7 +628,7 @@ mysql&gt; SELECT * from degree_programs WHERE user_id=901 ;
 
 </pre>
 </div>
-<h5 id="model-and-relationships-for-the-view">4.4.2 model and relationships for the view</h5>
+<h5 id="model-and-relationships-for-the-view">5.4.2 model and relationships for the view</h5>
 <p>In Rails we can define a model for this view:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -652,7 +674,7 @@ class User &lt; ActiveRecord::Base
 </div>
 <p>This reduces the number of SQL statements to one per collaborator partial:</p>
 <p><img src="images/view.png" srcset='images/view.png 1x, images/view@2x.png 2x' alt="view"></p>
-<h5 id="create-view-in-production">4.4.3 create view in production</h5>
+<h5 id="create-view-in-production">5.4.3 create view in production</h5>
 <p>To deploy the view to production, you need to create it with a migration:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -673,7 +695,7 @@ end
 
 </pre>
 </div>
-<h5 id="uses-and-limitations-of-view">4.4.4 uses and limitations of view</h5>
+<h5 id="uses-and-limitations-of-view">5.4.4 uses and limitations of view</h5>
 <p>In this case the view might be a first step towards refactoring
 the database.  We just have too many tables in the database that
 are not really needed.</p>
@@ -692,7 +714,7 @@ us a <strong>materialized view</strong>.  In a normal view each access to the vi
 triggers the underlying sql requests.  In a materialized view the
 data is copied over to the view once. This needs more memory, but gives
 faster access.</p>
-<h4 id="final-thoughts">4.5 final thoughts</h4>
+<h4 id="final-thoughts">5.5 final thoughts</h4>
 <p>If we add a relationship from projects to degree_program (actually: three <code>has_many through:</code> steps to get from projects to collaborators,
 and from collaborators to users, and from users to degree_programs), we can also include degree_programs in our
 includes statement when loading the project:</p>
@@ -708,7 +730,7 @@ includes statement when loading the project:</p>
 the best solution for every situation. As a developer you have to keep
 an eye on your ORM, and check now and again if the SQL queries that the
 ORM creates make sense and are efficient.</p>
-<h3 id="see-also">5 See Also</h3>
+<h3 id="see-also">6 See Also</h3>
 <ul>
 <li><a href="http://guides.rubyonrails.org/caching_with_rails.html">Rails Guide: Caching</a></li>
 <li><a href="http://guides.rubyonrails.org/active_record_querying.html#eager-loading-associations">Rails Guide: Active Record Query Interface. N+1 problems</a></li>
