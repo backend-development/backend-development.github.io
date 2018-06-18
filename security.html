@@ -114,14 +114,23 @@
 <ul>
 <li><a href="#remove-unused-routes">remove unused routes</a></li>
 <li><a href="#check-user-roles-and-premissions-in-every-controller">check user roles and premissions in every controller</a></li>
+<li><a href="#use-uuids-instead-of-bigint-as-id">use UUIDs instead of bigint as id</a></li>
 <li><a href="#set-cors-for-your-api">set CORS for your API</a></li>
 </ul>
 </li>
-<li><a href="#security-misconfiguration">Security Misconfiguration</a></li>
+<li>
+<a href="#security-misconfiguration">Security Misconfiguration</a>
+
+<ul>
+<li><a href="#use-environment-variables">Use Environment Variables</a></li>
+<li><a href="#handling-secrets-and-credentials">Handling Secrets and Credentials</a></li>
+</ul>
+</li>
 <li>
 <a href="#cross-site-scripting-xss">Cross-Site Scripting (XSS)</a>
 
 <ul>
+<li><a href="#use-a-content-security-policy-csp">Use a Content Security Policy (CSP)</a></li>
 <li><a href="#escape-for-the-correct-context">Escape for the correct context:</a></li>
 </ul>
 </li>
@@ -129,7 +138,6 @@
 <li><a href="#using-components-with-known-vulnerabilities">Using Components with Known Vulnerabilities</a></li>
 <li><a href="#insufficient-logging-monitoring">Insufficient Logging&amp;Monitoring</a></li>
 <li><a href="#cross-site-request-forgery-csrf">Cross Site Request Forgery (CSRF)</a></li>
-<li><a href="#todo">Todo</a></li>
 <li><a href="#see-also">See Also</a></li>
 </ol>
 </body></html>
@@ -345,7 +353,53 @@ authorize! :read, @project
 
 </pre>
 </div>
-<h4 id="set-cors-for-your-api">5.3 set CORS for your API</h4>
+<h4 id="use-uuids-instead-of-bigint-as-id">5.3 use UUIDs instead of bigint as id</h4>
+<p>If you need to have a resource that is available to anyone with the URL (think google docs, doodle),
+but do not want users to be able to enumerate all possible URLs:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+http://my-schedule.at/calendar/17
+http://my-schedule.at/calendar/18
+http://my-schedule.at/calendar/19 ...
+
+</pre>
+</div>
+<p>Instead of serial/autocincrement  use of UUID</p>
+<p>In postgresql you can use the extentions <strong>pgcrypto</strong> or <strong>uuid-ossp</strong></p>
+<div class="code_container">
+<pre class="brush: sql; gutter: false; toolbar: false">
+CREATE EXTENSION pgcrypto; 
+CREATE TABLE calendar( id UUID PRIMARY KEY DEFAULT gen_random_uuid(), name TEXT );
+
+INSERT INTO calendar (name) VALUES 
+('meeting on grdp'), 
+('security audit');
+
+SELECT * from calendar;
+0d60a85e-0b90-4482-a14c-108aea2557aa | meeting on grdp
+39240e9f-ae09-4e95-9fd0-a712035c8ad7 | security audit
+
+</pre>
+</div>
+<p>Rails can handle all this for you:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+# in config/application.rb
+config.generators do |g|
+  g.orm :active_record, primary_key_type: :uuid
+end
+
+</pre>
+</div>
+<p>now your urls will be harder to enumerate:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+http://my-schedule.at/calendar/0d60a85e-0b90-4482-a14c-108aea2557aa
+http://my-schedule.at/calendar/39240e9f-ae09-4e95-9fd0-a712035c8ad7 ...
+
+</pre>
+</div>
+<h4 id="set-cors-for-your-api">5.4 set CORS for your API</h4>
 <p>Browsers restrict cross-origin HTTP requests initiated by scripts. For example, <strong>XMLHttpRequest</strong> and the <strong>Fetch API</strong> follow the same-origin policy. This means that a web application using those APIs can only request HTTP resources from the same origin the application was loaded from, unless the response <strong>from the other origin</strong> includes the right CORS headers.</p>
 <p><img src="images/cors_principle.png" srcset='images/cors_principle.png 1x, images/cors_principle@2x.png 2x' alt="cors principle"></p>
 <p>If you want to make your API available to frontends on other origins you
@@ -393,11 +447,96 @@ end
 <li>upgrade ruby after <a href="https://www.ruby-lang.org/en/news/2018/03/28/unintentional-file-and-directory-creation-with-directory-traversal-cve-2018-6914/">security problems are fixed</a>
 </li>
 </ul>
+<h4 id="use-environment-variables">6.1 Use Environment Variables</h4>
+<p>The files <code>config/database.yml</code> and <code>config/secrets.yml</code> should not be added
+to the repository - unless you extract out all the secrets into environment
+variables (as a <a href="https://12factor.net/config">12 factor app</a>)</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+# in config/database.yml
+
+default: &amp;default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: &lt;%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %&gt;
+
+development:
+  &lt;&lt;: *default
+  database: myapp_development
+
+test:
+  &lt;&lt;: *default
+  database: myapp_test
+
+production:
+  &lt;&lt;: *default
+  database: myapp_production
+  username: myapp
+  password: &lt;%= ENV['MYAPP_DATABASE_PASSWORD'] %&gt;
+
+</pre>
+</div>
+<h4 id="handling-secrets-and-credentials">6.2 Handling Secrets and Credentials</h4>
+<p>Rails 5 generates a <code>config/credentials.yml.enc</code> to store third-party credentials
+within the repo. This is only viable because Rails encrypts the file with a master
+key that's generated into a version control ignored <code>config/master.key</code> — Rails
+will also look for that key in <code>ENV["RAILS_MASTER_KEY"]</code>. Rails also requires the
+key to boot in production, so the credentials can be read.</p>
+<p>To edit stored credentials use <code>bin/rails credentials:edit</code>.</p>
+<p>By default, this file contains the application's
+<code>secret_key_base</code>, but it could also be used to store other credentials such as
+access keys for external APIs.</p>
+<p>The credentials added to this file are accessible via <code>Rails.application.credentials</code>.
+For example, with the following decrypted <code>config/credentials.yml.enc</code>:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+secret_key_base: 3b7cd727ee24e8444053437c36cc66c3
+some_api_key: SOMEKEY
+
+</pre>
+</div>
+<p><code>Rails.application.credentials.some_api_key</code> returns <code>SOMEKEY</code> in any environment.</p>
+<p>If you want an exception to be raised when some key is blank, use the bang
+version:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+Rails.application.credentials.some_api_key! # =&gt; raises KeyError: :some_api_key is blank
+
+</pre>
+</div>
 <h3 id="cross-site-scripting-xss">7 Cross-Site Scripting (XSS)</h3>
 <blockquote>
 <p>XSS flaws occur whenever an application includes untrusted data in a new web page without proper validation or escaping, or updates an existing web page with user-supplied data using a browser API that can create HTML or JavaScript. XSS allows attackers to execute scripts in the victim's browser which can hijack user sessions, deface web sites, or redirect the user to malicious sites. <a href="https://www.owasp.org/index.php/Top_10-2017_A7-Cross-Site_Scripting_(XSS)">OWASP Wiki</a></p>
 </blockquote>
-<h4 id="escape-for-the-correct-context">7.1 Escape for the correct context:</h4>
+<h4 id="use-a-content-security-policy-csp">7.1 Use a Content Security Policy (CSP)</h4>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">MDN: CSP</a></p>
+<p>In Rails 5.2 you dan configure a
+<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy">Content Security Policy</a>
+for your application in an initializer. You can configure a global default policy and then
+override it on a per-resource basis.</p>
+<p>Example global policy:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+# config/initializers/content_security_policy.rb
+Rails.application.config.content_security_policy do |policy|
+  policy.default_src :self, 'https://code.jquery.com'
+  policy.font_src    :self, 'https://fonts.gstatic.com'
+  policy.img_src     '*'
+  policy.object_src  :none
+  policy.script_src  :self, 'https://code.jquery.com'
+  policy.style_src   :self, 'https://fonts.googleapis.com'
+
+  # Specify URI for violation reports
+  policy.report_uri "/csp-violation-report-endpoint"
+end
+
+</pre>
+</div>
+<p>To handle the violation reports you need to set up a model, controller and route
+<a href="https://bauland42.com/ruby-on-rails-content-security-policy-csp/#cspviolationreports">as described here</a>.</p>
+<h4 id="escape-for-the-correct-context">7.2 Escape for the correct context:</h4>
 <p>erb automatically escapes for HTML:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -436,665 +575,65 @@ it is easiest to use view helpers like <code>tag</code> and <code>content_tag</c
 <blockquote>
 <p>Insecure deserialization often leads to remote code execution. Even if deserialization flaws do not result in remote code execution, they can be used to perform attacks, including replay attacks, injection attacks, and privilege escalation attacks. <a href="https://www.owasp.org/index.php/Top_10-2017_A8-Insecure_Deserialization">OWASP Wiki</a></p>
 </blockquote>
+<p>Brakeman will warn about <a href="https://brakemanscanner.org/docs/warning_types/unsafe_deserialization/index.html">Unsafe Deserialization</a></p>
 <h3 id="using-components-with-known-vulnerabilities">9 Using Components with Known Vulnerabilities</h3>
 <blockquote>
 <p>Components, such as libraries, frameworks, and other software modules, run with the same privileges as the application. If a vulnerable component is exploited, such an attack can facilitate serious data loss or server takeover. Applications and APIs using components with known vulnerabilities may undermine application defenses and enable various attacks and impacts. <a href="https://www.owasp.org/index.php/Top_10-2017_A9-Using_Components_with_Known_Vulnerabilities">OWASP Wiki</a></p>
 </blockquote>
+<p>There are several tools that check for vulnerabilities in dependencies:</p>
+<ul>
+<li>
+<a href="https://github.com/rubysec/bundler-audit">bundle audit</a>  will read the  Gemfile.lock, looking for gem versions with vulnerabilities reported in the <a href="https://github.com/rubysec/ruby-advisory-db">Ruby Advisory Database</a>.</li>
+<li>
+<a href="https://snyk.io/">snyk</a> works for ruby and javascript (and more languages).</li>
+</ul>
+<p>When using script-tags to include javascript (e.g. jquery, bootstrap from a cdn)
+use Subresource Integrity checks to prevent <a href="https://security.stackexchange.com/questions/72652/javascript-injection-using-man-in-the-middle-attack?newreg=81c460e021c04123883661e86b95d14f#answer-72661">man in the middle attacks</a> using your javascript.</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+&lt;script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"&gt;&lt;/script&gt;
+
+</pre>
+</div>
+<p>(This example from jquery also includes the CORS attribte <code>crossorigin</code> set to <code>anonymous</code>.
+This way no user credentials will every be sent to <code>code.jquery.com</code>).</p>
+<ul>
+<li>Report: <a href="https://www.privateinternetaccess.com/blog/2016/12/comcast-still-uses-mitm-javascript-injection-serve-unwanted-ads-messages/">Comcast uses MITM javascript injection to serve unwanted ads and messages</a>
+</li>
+<li>MDN: <a href="https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity">Subresource Integrity - SRI</a>
+</li>
+</ul>
 <h3 id="insufficient-logging-monitoring">10 Insufficient Logging&amp;Monitoring</h3>
 <blockquote>
 <p>Insufficient logging and monitoring, coupled with missing or ineffective integration with incident response, allows attackers to further attack systems, maintain persistence, pivot to more systems, and tamper, extract, or destroy data. Most breach studies show time to detect a breach is over 200 days, typically detected by external parties rather than internal processes or monitoring. <a href="https://www.owasp.org/index.php/Top_10-2017_A10-Insufficient_Logging%26Monitoring">OWASP Wiki</a></p>
 </blockquote>
+<p>This is really outside the scope of the backend framework.  </p>
 <h3 id="cross-site-request-forgery-csrf">11 Cross Site Request Forgery (CSRF)</h3>
 <p>This security problem used to be No 8 on the list, but was no longer listed in the 2017.</p>
 <blockquote>
 <p>A CSRF attack forces a logged-on victim’s browser to send a forged HTTP request, including the victim’s session cookie and any other automatically included authentication information, to a vulnerable web application. This allows the attacker to force the victim’s browser to generate requests the vulnerable application thinks are legitimate requests from the victim. <a href="https://www.owasp.org/index.php/Top_10_2013-A8-Cross-Site_Request_Forgery_(CSRF)">OWASP Wiki</a></p>
 </blockquote>
-<h3 id="todo">12 Todo</h3>
-<h2>Security + Frameworks</h2>
-<ul>
-<li>Backend Development 2</li>
-<li>OWASP Top 10
-### Injection
-### Cross Site Scripting (XSS)</li>
-<li>Authentifizierung und Session-Management
-### Unsichere direkte Objektreferenzen
-### Cross-Site Request Forgery (CSRF)</li>
-<li>Sicherheitsrelevante Fehlkonfiguration</li>
-<li>Kryptografisch unsichere Speicherung</li>
-<li>Mangelhafter URL-Zugriffsschutz</li>
-<li>Unzureichende Absicherung der Transportschicht</li>
-<li>Ungeprüfte Um- und Weiterleitungen</li>
-<li>Injection</li>
-<li>Injections + Frameworks</li>
-<li>Rails + SQL Injection</li>
-<li>Warning von Brakeman:</li>
-<li><h2>possible SQL injection in food_controller.rb</h2></li>
-<li><p>whereTextGroceries = "groceries.category_id = "+params[:cat]</p></li>
-<li><p> </p></li>
-<li><p>@groceries = Supermarket</p></li>
-<li><p>  .select('supermarkets.*, supermarkets.name as pickup, supermarkets.id as supermarktLink')</p></li>
-<li><p>  .joins(:groceries)</p></li>
-<li><p>  .select('groceries.*, groceries.name as foodname')</p></li>
-<li><p>  .where(whereTextGroceries)</p></li>
-<li><p>Injection + Rails</p></li>
-<li><p>Project.where("name = '#{params[:name]}'")</p></li>
-<li><p><strong>' OR 1 --</strong></p></li>
-<li><p>SELECT * FROM projects WHERE name = '' OR 1 --'</p></li>
-<li><p><strong>') UNION SELECT id,login AS name,password AS description,1,1,1 FROM users –</strong></p></li>
-<li><p>SELECT * FROM projects WHERE (name = '') UNION</p></li>
-<li><p>  SELECT id,login AS name,password AS description,1,1,1 FROM users --'</p></li>
-<li><p>Injection + Rails</p></li>
-<li><p>Ruby on Rails has a built-in <strong>filter</strong> for special SQL characters, which will escape quotes, NULL character and line breaks. </p></li>
-<li><p>Using Model.find(id) or Model.find_by_some thing(something) automatically applies this countermeasure. </p></li>
-<li><p>Injection + Rails</p></li>
-<li><p>in SQL fragments, especially in conditions fragments, you can pass an array to sanitize tainted strings:</p></li>
-<li><p>Model.where("login = ? AND password = ?", entered_user_name, entered_password).first</p></li>
-<li><p>The sanitized versions of the variables in the second part of the array replace the question marks. </p></li>
-<li><p>Or you can pass a hash for the same result:</p></li>
-<li><p>Model.where(login: entered_user_name, password: entered_password).first</p></li>
-<li><p>Rails+PG: Prepared Statements</p></li>
-<li>
-<p>Prepared Statements are enabled by default on PostgreSQL. You can disable prepared statements by setting prepared_statements to false:
-</p>
-<p class="p18">Production:
-  adapter: postgresql
-  prepared_statements: false</p>
-</li>
-<li>
-<p>If enabled, Active Record will create up to 1000 prepared statements per database connection by default. To modify this behavior you can set statement_limit to a different value:
-</p>
-<p class="p18">Production:
-  adapter: postgresql
-  statement_limit: 200</p>
-</li>
-<li><p>The more prepared statements in use: the more memory your database will require. If your PostgreSQL database is hitting memory limits, try lowering statement_limit or disabling prepared statements.</p></li>
-<li><p>Injections + Frameworks</p></li>
-<li><p>Rails + SQL Injection</p></li>
-<li><p>PHP + SQL Injection</p></li>
-<li><p>Injection + PHP</p></li>
-<li>
-<p>Prepared Statements verwenden
-</p>
-<p class="p5">Falls die DB das nicht unterstützt:
-Escaping</p>
-</li>
-<li><p>Injections + Frameworks</p></li>
-<li><p>Rails + SQL Injection</p></li>
-<li><p>PHP + SQL Injection</p></li>
-<li><p>MongoDB Injection</p></li>
-<li>
-<p>MongoDB Injection
-</p>
-<p class="p19">SQL:
-SELECT * FROM books WHERE ISBN = isbn_number;</p>
-</li>
-</ul>
-<p>SELECT * FROM books WHERE
-   NOT(price = 1.99) AND price IS NOT NULL;</p>
-<p class="p20">JS Query in Mongodb:
-db.books.find( { ISBN: isbn_number } );</p>
-<p>db.books.find( { $and: [
-    { price: { $ne: 1.99 } },
-    { price: { $exists: true } }
-] } );
-</p>
-* Examples from 
-* <a href="http://blog.securelayer7.net/mongodb-security-injection-attacks-with-php/">http://blog.securelayer7.net/mongodb-security-injection-attacks-with-php/</a>
-<ul>
-<li>MongoDB Injection with PHP v1</li>
-<li>$collection = $db-&gt;users;</li>
-<li>$cursor = $collection-&gt;find( array("id" =&gt; 5) );</li>
-<li><p>Foreach ($cursor as $document) {...</p></li>
-<li><p>$collection-&gt;find( PHP Array )</p></li>
-<li>
-<p>Beware of automatic conversion of parameters into arrays
-</p>
-<p class="p25">$qry = array("id" =&gt; $_GET['u_id'])</p>
-</li>
-</ul>
-<p>array("id" =&gt; "5")
-array("id" =&gt; array( "u_id" =&gt; "5" ))</p>
-<p class="p5">Make sure you build your query for find
-with only strings, not unkown data structures!</p>
-* $id = ….. Make sure you only get one string
-* $qry = array("id" =&gt; $id)
+<p>First use GET and POST appropriately. Secondly, a security token in non-GET requests will protect your application from CSRF. Rails can handle this for you:</p>
+<p>To protect against all other forged requests, we introduce a <em>required security token</em> that our site knows but other sites don't know. We include the security token in requests and verify it on the server. This is a one-liner in your application controller, and is the default for newly created Rails applications:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+# in app/controller/application_controller.rb
 
+protect_from_forgery with: :exception
 
-
-* MongoDB Injection with PHP v1
-* $jsquery = "var data = db.users.findOne( {username: '$u_name', password: '$u_pass'}); return data;";
-* $data = $db-&gt;execute( $jsquery );
-
-
-
-
-
-* $db-&gt;execute( String with JS );
-* Whitelist – if you can
-<p class="p29">$u_name = preg_replace('/[^a-z0-9_]/i', '', $_GET['u_name']);
-…</p>
-* $jsquery = "var data = db.users.findOne( {username: '$u_name', password: '$u_pass'}); return data;";
-
-* Escape String Separator with Slash
-* …
-* $u_pass = addslashes($_GET['u_pass']);
-* $jsquery = "var data = db.users.findOne( {username: '$u_name', password: '$u_pass'}); return data;";
-
-
-
-
-
-* Mongodb + mongoose
-* Am JS Kongress 2016: Security Problem mit nicht gelöschtem Buffer, kann auf alte/fremde Daten zugreifen
-* Damas noch keine Lösung?
-* Avoiding Injection Flaws
-
-* Avoid the interpreter entirely, or
-* Use an interface that supports bind variables (e.g., prepared statements, or stored procedures),
-* Bind variables allow the interpreter to distinguish between code and data
-* Encode all user input before passing it to the interpreter
-* Always perform ‘white list’ input validation on all user supplied input
-* Always minimize database privileges to reduce the impact of a flaw
-
-* Cross-Site Scripting Illustrated
-* Cross-Site Scripting (XSS)
-* Occurs any time…
-* Raw data from attacker is sent to an innocent user’s browser
-* Raw data…
-* Stored in database
-* Reflected from web input (form field, hidden field, URL, etc…)
-* Sent directly into rich JavaScript client
-* Virtually every web application has this problem
-* Try this in your browser – javascript:alert(document.cookie)
-* Typical Impact
-* Steal user’s session, steal sensitive data, rewrite web page, redirect user to phishing or malware site
-* Most Severe: Install XSS proxy which allows attacker to observe and direct all user’s behavior on vulnerable site and force user to other sites
-* Cross Site Scripting + PHP
-* **PHP ohne Framework**
-* Richtig escapen mit htmlspecialchars, oder urlencode, oder json_encode, …
-* PHP Befehl strip_tags ist zu schwach, statt dessen HTML Purifier verwenden
-* Cross Site Scripting + ERB/Rails
-* **Rails ERB**
-<p class="p5">**&lt;%= @review.title %&gt;**
-automatisch für HTML escaped</p>
-<p class="p37">&lt;%= raw @user.formatted_profile %&gt;
-wird nicht escaped!</p>
-<p class="p37">Für Helper Methods, die sicherses html liefern: .html_save
-module UserHelper
-  # use like this:  &lt;%= camera_icon %&gt;
-  def camera_icon
-     '&lt;i class="fa fa-camera-retro"&gt;&lt;/i&gt;'.html_save
-  end</p>
-<p class="p38">HTML bauen, das  den input escaped, und den output als sicher markiert:
-  # use like this: &lt;%= block_profile(@user) %&gt;
-  def block_profile(user)
-     content_tag :div, user.profile
-  end
-end</p>
-* Cross Site Scripting + Handlebars
-* **Handlebars: Escaping**
-* **Handlebars: Helper**
-* Handlebars HTML-escapes values returned by a **{{expression}}**. 
-* If you don't want Handlebars to escape a value, use the "triple-stash", **{{{**. 
-* **&lt;div class="entry"&gt;**
-* **  &lt;h1&gt;{{title}}&lt;/h1&gt;**
-* **  &lt;div class="body"&gt;**
-* **    {{{body}}}**
-* **  &lt;/div&gt;**
-<p class="p18">**&lt;/div&gt;**
-</p>
-
-<ul>
-<li><strong>Handlebars.registerHelper('link', function(text, url) {</strong></li>
-<li><strong>  text = Handlebars.Utils.escapeExpression(text);</strong></li>
-<li>
-<strong>  url  = Handlebars.Utils.escapeExpression(url);</strong>
-*
-<p class="p39"><strong>  var result = '&lt;a href="' + url + '"&gt;'
-             + text + '&lt;/a&gt;';</strong></p>
-*</li>
-<li><strong>  return new Handlebars.SafeString(result);</strong></li>
-<li><p><strong>});</strong></p></li>
-<li><p>Cross Site Scripting + Angular</p></li>
-<li><p>Angular treats all values as untrusted by default</p></li>
-<li><p>Sanitizes and escapes untrusted values</p></li>
-<li><p>Sanitization = Inspection of an untrusted value, turning it into a value that’s safe to insert into the DOM</p></li>
-<li><p>Angular sanitizes untrusted values for HTML, styles, and URLs</p></li>
-<li><p>&lt;p&gt;{{htmlSnippet}}&lt;/p&gt;</p></li>
-<li><p>&lt;p&gt;&lt;a [href]="dangerousUrl"&gt;Click me&lt;/a&gt;&lt;/p&gt;</p></li>
-<li><p><strong>Never generate template source code by concatenating user input and templates!</strong></p></li>
-<li><p>Avoiding XSS Flaws</p></li>
-<li><p>Eliminate Flaw</p></li>
-<li><p>Don’t include user supplied input in the output page</p></li>
-<li><p>Defend Against the Flaw</p></li>
-<li><p>Primary Recommendation: Output encode all user supplied input</p></li>
-<li><p>Safe Escaping Schemes in Various HTML Execution Contexts</p></li>
-<li><p>Broken Authentication and Session Management</p></li>
-<li><p>HTTP is a “stateless” protocol</p></li>
-<li><p>Means credentials have to go with every request</p></li>
-<li><p>Should use SSL for everything requiring authentication</p></li>
-<li><p>Session management flaws</p></li>
-<li><p>SESSION ID used to track state since HTTP doesn’t</p></li>
-<li><p>and it is just as good as credentials to an attacker</p></li>
-<li><p>SESSION ID is typically exposed on the network, in browser, in logs, …</p></li>
-<li>
-<p>Beware the side-doors
-</p>
-<p class="p35">Change my password, remember my password, forgot my password,
-secret question, logout, email address, etc…</p>
-</li>
-<li><p>Typical Impact</p></li>
-<li><p>User accounts compromised or user sessions hijacked</p></li>
-<li><p>Authentication and Session Management</p></li>
-<li><p><strong>Rails</strong></p></li>
-<li><p><strong>PHP</strong></p></li>
-<li><p>devise</p></li>
-<li><p>Wordpress</p></li>
-<li><p>???</p></li>
-<li><p>Authentication and Session Management for Node.js </p></li>
-<li><p>$ npm install passport</p></li>
-<li><p>The strategy (or strategies) have to be configured before authenticating requests.</p></li>
-<li><p>There are also some packages for using Facebook or Twitter etc.</p></li>
-<li><p>Authentication and Session Management for Node.js </p></li>
-<li><p>You can use Express or Connect as middleware.</p></li>
-<li><p>Authentication and Session Management for Node.js </p></li>
-<li><p>To authenticate a request use passport.athenticate() and define which strategy to use.</p></li>
-<li><p>Authentication and Session Management for Node.js </p></li>
-<li><p>$ npm install passport-remember-me</p></li>
-<li><p>Add a new strategy for remember-me</p></li>
-<li><p>With a token.</p></li>
-<li><p>If the remember-me cookie is not managed</p></li>
-<li><p>carefully, it can cause severe security risks!</p></li>
-<li><p>COOKIES beschützen</p></li>
-<li><p>Achtung! Session_id ist genau so wertvoll wie das passwort!</p></li>
-<li><p>Session_id in der URL = schlechte idee</p></li>
-<li><p>Session_id im cookie = besser</p></li>
-<li><p>Dieses cookie braucht nicht in javascript lesbar sein</p></li>
-<li><p>HttpOnly</p></li>
-<li><p>Dieses cookie nur über HTTPS schicken:</p></li>
-<li><p><strong>secure</strong> (cookie to only be transmitted over secure protocol as https)</p></li>
-<li><p>Avoiding Broken Authentication and Session Management</p></li>
-<li><p>Verify your architecture</p></li>
-<li><p>Authentication should be simple, centralized, and standardized</p></li>
-<li><p>Use the standard session id provided by your container</p></li>
-<li><p>Be sure SSL protects both credentials and session id at all times</p></li>
-<li><p>Verify the implementation</p></li>
-<li><p>Forget automated analysis approaches</p></li>
-<li><p>Check your SSL certificate</p></li>
-<li><p>Examine all the authentication-related functions</p></li>
-<li><p>Verify that logoff actually destroys the session</p></li>
-<li><p>Use OWASP’s WebScarab to test the implementation</p></li>
-<li><p>Insecure Direct Object References</p></li>
-<li>
-<p>How do you protect access to your data?
-</p>
-<p class="p35">This is part of enforcing proper “Authorization”, along with
-A7 – Failure to Restrict URL Access</p>
-</li>
-<li><p>A common mistake …</p></li>
-<li><p>Only listing the ‘authorized’ objects for the current user, or</p></li>
-<li><p>Hiding the object references in hidden fields</p></li>
-<li><p><strong>… and then not enforcing these restrictions on the server side</strong></p></li>
-<li><p>This is called presentation layer access control, and doesn’t work</p></li>
-<li><p>Attacker simply tampers with parameter value</p></li>
-<li><p>Typical Impact</p></li>
-<li><p>Users are able to access unauthorized files or data</p></li>
-<li><p>Insecure Direct Object References Illustrated</p></li>
-<li><p>Attacker notices his acct parameter is 6065</p></li>
-<li><p>She modifies it to a nearby number</p></li>
-<li><p>    ?acct=6066</p></li>
-<li><p>Attacker views the victim’s account information</p></li>
-<li><p>Rails: cancancan</p></li>
-<li><p>In der View:</p></li>
-<li><p>&lt;% if can? :update, @article %&gt;</p></li>
-<li><p>  &lt;%= link_to "Edit", edit_article_path(@article) %&gt;</p></li>
-<li><p>&lt;% end %&gt;</p></li>
-<li><p>In the Controller:</p></li>
-<li><p>def show</p></li>
-<li><p>  @article = Article.find(params[:id])</p></li>
-<li><p>  authorize! :read, @article</p></li>
-<li><p>end</p></li>
-<li><p>Avoiding Insecure Direct Object References</p></li>
-<li><p>Eliminate the direct object reference</p></li>
-<li><p>Replace them with a temporary mapping value (e.g. 1, 2, 3)</p></li>
-<li><p>Validate the direct object reference</p></li>
-<li><p>Verify the parameter value is properly formatted</p></li>
-<li><p><strong>Verify the user is allowed to access the target object</strong></p></li>
-<li><p>Query constraints work great!</p></li>
-<li><p>Verify the requested mode of access is allowed to the target object (e.g., read, write, delete)</p></li>
-<li><p>Use UUID as Primary Key</p></li>
-<li><p>Instead of serial/autocincrement  use of UUID</p></li>
-<li><p><strong>Postgresql use an UUID</strong>:</p></li>
-<li><p>Within the database using the extension <strong>pgcrypto</strong> (or <strong>uuid-ossp</strong>)</p></li>
-<li><p>CREATE EXTENSION pgcrypto; </p></li>
-<li><p>CREATE TABLE snw.contacts( id UUID PRIMARY KEY DEFAULT <strong>gen_random_uuid()</strong>,name TEXT, email TEXT );</p></li>
-<li><p>INSERT INTO snw.contacts (name,email) VALUES </p></li>
-<li><p>('Dr Nic Williams','drnic'), </p></li>
-<li><p>('Brian Mattal','brian');</p></li>
-<li><p>SELECT:</p></li>
-<li><p>0d60a85e-0b90-4482-a14c-108aea2557aa | Dr Nic Williams | drnic </p></li>
-<li><p>39240e9f-ae09-4e95-9fd0-a712035c8ad7 | Brian Mattal    | brian</p></li>
-<li><p><strong>MySQL use an UUID:</strong></p></li>
-<li><p>uuid();   //Returns a 36 character varchar </p></li>
-<li>
-<p>Use UUID as Primary Key: Rails
-</p>
-<p class="p62"><strong>Using UUID in RAILS with a POSTGRESQL Database:</strong>**
-**</p>
-</li>
-<li><p><strong>Enable UUID‘s for Rails:</strong>
-*</p></li>
-<li><p>rails g migration enable_uuid_extension</p></li>
-<li><p><strong>In the generated migration enable ‘uuid-ossp‘ extension:</strong></p></li>
-</ul>
-
-<p class="p63">**class *EnableUuidExtension ***&lt; ***ActiveRecord***::***Migration***[5.0]
-  **def ***change
-    *enable_extension **'uuid-ossp'
-  end
-end**</p>
-<p>*
-* Use UUID as Primary Key: Rails
-* <strong>In config/application.rb:</strong></p>
-<p class="p6">config.generators **do **|*g*|
-  *g*.orm **:active_record**, **primary_key_type**: **:uuid
-end**</p>
-<p>*
-* This automatically adds id: :uuid to create_table in all future migrations!</p>
-<p class="p6">**class *CreateBooks ***&lt; ***ActiveRecord***::***Migration***[5.0]
-  **def ***change
-    create_table ***:books**, **id**: **:uuid do **|*t*|
-      *t*.*string ***:title
-      ***t*.timestamps
-    **end
-  end
-end**</p>
-
-<p class="p6">**
-select * from books:**</p>
-
-<ul>
-<li>23dc0413-f9b3-4679-bc1d-2fe2d1b09330 | Harry Potter | 2017-06-06 15:14:12.247507 | 2017-06-06 15:14:12.247507</li>
-<li>Cross Site Request Forgery (CSRF)</li>
-<li>Cross Site Request Forgery</li>
-<li>An attack where the victim’s browser is tricked into issuing a command to a vulnerable web application</li>
-<li>Vulnerability is caused by browsers automatically including user authentication data (session ID, IP address, Windows domain credentials, …) with each request</li>
-<li>Imagine…</li>
-<li>What if a hacker could steer your mouse and get you to click on links in your online banking application?</li>
-<li>What could they make you do?</li>
-<li>Typical Impact</li>
-<li>Initiate transactions (transfer funds, logout user, close account)</li>
-<li>Access sensitive data</li>
-<li><p>Change account details</p></li>
-<li><p>CSRF Illustrated</p></li>
-<li><p>"Harmlose" Links können POSTs sein</p></li>
-<li><p>&lt;a href="<a href="http://www.harmless.com/">http://www.harmless.com/</a>" onclick="</p></li>
-<li><p>  var f = document.createElement('form');</p></li>
-<li><p>  f.style.display = 'none';</p></li>
-<li><p>  this.parentNode.appendChild(f);</p></li>
-<li><p>  f.method = 'POST';</p></li>
-<li><p>  f.action = '<a href="http://www.example.com/account/destroy">http://www.example.com/account/destroy</a>';</p></li>
-<li><p>  f.submit();</p></li>
-<li><p>  return false;"&gt;To the harmless survey&lt;/a&gt;</p></li>
-<li><p>Javascript Same-Origin policy</p></li>
-<li><p>Wenn jedes Javascript HTTP Requests zu jedem Server senden könnte...</p></li>
-<li><p>Deswegen gibt es die "Same Origin Policy"</p></li>
-<li><p>Javascript von example.com</p></li>
-<li><p>Kann XHR zu example.com machen</p></li>
-</ul>
-
-<p class="p3">XSS +
-Javascript Same-Origin policy</p>
-
-<ul>
-<li>ACHTUNG!</li>
-<li>Javascript von example.com</li>
-<li><p>Kann XHR zu example.com machen</p></li>
-<li><p>Um so wichtiger ist es zu verhindern, dass attacker JS in meine seite example.com einfügen können!</p></li>
-<li><p>CSRF verhindern</p></li>
-<li><p><strong>Rails</strong></p></li>
-<li><p><strong>PHP</strong></p></li>
-<li><p><em>use GET and POST appropriately</em></p></li>
-<li><p><em>A security token in non-GET requests will protect your application from CSRF</em></p></li>
-<li><p>*Im application controller: *protect_from_forgery</p></li>
-<li><p>CSRF Token selbst bauen</p></li>
-<li><p>Wordpress</p></li>
-<li><p><strong>node.js?</strong></p></li>
-<li><p>Batteries not included!</p></li>
-<li><p>CSRF Token erzeugung als middleware</p></li>
-<li>
-<p>Einfügen in jeden Form, AJAX Request:
-</p>
-<p class="p64">form(action='/form',method='post')
-  input(type='hidden', name='_csrf', value=token)
-  label(for='color') Color:
-  input(type='text',name='color',size='50')
-  button(type='submit') Save</p>
-*</li>
-<li><p>NodeJS vs. CSRF</p></li>
-<li><p>Angular + Rails + CSRF</p></li>
-<li><p>CSRF Strategy:</p></li>
-<li><p>The application server sends a randomly generated authentication token in a cookie. The client code reads the cookie and adds a custom request header with the token in all subsequent requests. The server compares the received cookie value to the request header value and rejects the request if the values are missing or don't match.</p></li>
-<li><p>Angular's http has built-in support for the client-side half of this technique in its XSRFStrategy. The default CookieXSRFStrategy is turned on automatically. </p></li>
-<li><p>gem 'angular_rails_csrf' sets this automatically</p></li>
-<li><p>Maßnahme</p></li>
-<li><p>Varianten zum abspeichern/übertragen von CSRF-Token:</p></li>
-<li><p>Default: Session bound (req.session)</p></li>
-<li><p>Optional: Cookie bound (default name: _csrf)</p></li>
-<li><ul>
-<li>Cookie parser muss registriert werden</li>
-</ul></li>
-<li><p>References:</p></li>
-<li><p><a href="https://github.com/expressjs/csurf">https://github.com/expressjs/csurf</a></p></li>
-<li><p><a href="http://www.insiderattack.net/2016/02/developing-secure-nodejs-applications.html">http://www.insiderattack.net/2016/02/developing-secure-nodejs-applications.html</a></p></li>
-<li><p><a href="http://expressjs.com/de/advanced/best-practice-security.html">http://expressjs.com/de/advanced/best-practice-security.html</a></p></li>
-<li><p>Security Misconfiguration</p></li>
-<li><p>Web applications rely on a secure foundation</p></li>
-<li><p>Everywhere from the OS up through the App Server</p></li>
-<li><p>Don’t forget all the libraries you are using!!</p></li>
-<li><p>Is your source code a secret?</p></li>
-<li><p>Think of all the places your source code goes</p></li>
-<li><p><strong>Security should not require secret source code</strong></p></li>
-<li><p>CM must extend to all parts of the application</p></li>
-<li><p>All credentials should change in production</p></li>
-<li><p>Typical Impact</p></li>
-<li><p>Install backdoor through missing OS or server patch</p></li>
-<li><p>XSS flaw exploits due to missing application framework patches</p></li>
-<li><p>Unauthorized access to default accounts, application functionality or data, or unused but accessible functionality due to poor server configuration</p></li>
-<li><p>Security Misconfiguration Illustrated</p></li>
-<li><p>Security Misconfiguration</p></li>
-<li><p><strong>Rails</strong></p></li>
-<li>
-<p><strong>PHP</strong>
-</p>
-<p class="p5">database.yml
-nicht ins git!</p>
-</li>
-<li><p>secrets.yml</p></li>
-<li><p>So many secrets: datenbank passwörter, api keys,  ....</p></li>
-<li><p>Hardening php is hard!</p></li>
-<li><p>Security Misconfiguration</p></li>
-<li><p><strong>node</strong></p></li>
-<li><p>Snyc untersucht package.json auf bekannte security probleme</p></li>
-<li><p>MongoDB 2017</p></li>
-<li>
-<p>3.Jänner 2017: "An attacker going by the name of Harak1r1 is hijacking unprotected MongoDB databases, stealing and replacing their content, and asking for a Bitcoin ransom to return the data."
-</p>
-<p class="p64">{ "_id" : ObjectId("5859a0370b8e49f123fcc7da"),
- "mail" : "<a href="mailto:harak1r1@sigaint.org">harak1r1@sigaint.org</a>",
- "note" : "SEND 0.2 BTC TO THIS ADDRESS 13zaxGVjj9MNc2jyvDRhLyYpkCh323MsMq AND CONTACT THIS EMAIL WITH YOUR IP OF YOUR SERVER TO RECOVER YOUR DATABASE !" }</p>
-</li>
-<li><p>Avoiding Security Misconfiguration</p></li>
-<li><p>Verify your system’s configuration management</p></li>
-<li><p>Secure configuration “hardening” guideline</p></li>
-<li><p>Automation is REALLY USEFUL here</p></li>
-<li><p>Must cover entire platform and application</p></li>
-<li><p>Keep up with patches for ALL components</p></li>
-<li><p>This includes software libraries, not just OS and Server applications</p></li>
-<li><p>Analyze security effects of changes</p></li>
-<li><p>Can you “dump” the application configuration</p></li>
-<li><p>Build reporting into your process</p></li>
-<li><p>If you can’t verify it, it isn’t secure</p></li>
-<li><p>Verify the implementation</p></li>
-<li><p>Scanning finds generic configuration and missing patch problems</p></li>
-<li><p>Insecure Cryptographic Storage</p></li>
-<li><p>Storing sensitive data insecurely</p></li>
-<li><p>Failure to identify all sensitive data</p></li>
-<li><p>Failure to identify all the places that this sensitive data gets stored</p></li>
-<li><p>Databases, files, directories, log files, backups, etc.</p></li>
-<li><p>Failure to properly protect this data in every location</p></li>
-<li><p>Typical Impact</p></li>
-<li><p>Attackers access or modify confidential or private information</p></li>
-<li><p>e.g, credit cards, health care records, financial data (yours or your customers)</p></li>
-<li><p>Attackers extract secrets to use in additional attacks</p></li>
-<li><p>Company embarrassment, customer dissatisfaction, and loss of trust</p></li>
-<li><p>Expense of cleaning up the incident, such as forensics, sending apology letters, reissuing thousands of credit cards, providing identity theft insurance</p></li>
-<li><p>Business gets sued and/or fined</p></li>
-<li><p>Insecure Cryptographic Storage Illustrated</p></li>
-<li><p>Insecure Cryptographic Storage</p></li>
-<li><p><strong>Rails</strong></p></li>
-<li><p><strong>PHP</strong></p></li>
-<li><p>has_secure_password</p></li>
-<li>
-<p>Rails schreibt manche Parameter (z.B. die mit Namen „password“) nicht ins Logfile.
-</p>
-<p class="p70">config.filter_parameters &lt;&lt;
-      :password, :ccnumber</p>
-</li>
-<li><p>Avoiding Insecure Cryptographic Storage</p></li>
-<li><p>Verify your architecture</p></li>
-<li><p>Identify all sensitive data</p></li>
-<li><p>Identify all the places that data is stored</p></li>
-<li><p>Ensure threat model accounts for possible attacks</p></li>
-<li><p>Use encryption to counter the threats, don’t just ‘encrypt’ the data</p></li>
-<li><p>Protect with appropriate mechanisms</p></li>
-<li><p>File encryption, database encryption, data element encryption</p></li>
-<li><p>Use the mechanisms correctly</p></li>
-<li><p>Use standard strong algorithms</p></li>
-<li><p>Generate, distribute, and protect keys properly</p></li>
-<li><p>Be prepared for key change</p></li>
-<li><p>Verify the implementation</p></li>
-<li><p>A standard strong algorithm is used, and it’s the proper algorithm for this situation</p></li>
-<li><p>All keys, certificates, and passwords are properly stored and protected</p></li>
-<li><p>Safe key distribution and an effective plan for key change are in place </p></li>
-<li><p>Analyze encryption code for common flaws</p></li>
-<li><p>Failure to Restrict URL Access</p></li>
-<li>
-<p>How do you protect access to URLs (pages)?
-</p>
-<p class="p35">This is part of enforcing proper “authorization”, along with
-A4 – Insecure Direct Object References</p>
-</li>
-<li><p>A common mistake …</p></li>
-<li><p>Displaying only authorized links and menu choices</p></li>
-<li><p>This is called presentation layer access control, and doesn’t work</p></li>
-<li><p>Attacker simply forges direct access to ‘unauthorized’ pages</p></li>
-<li><p>Typical Impact</p></li>
-<li><p>Attackers invoke functions and services they’re not authorized for</p></li>
-<li><p>Access other user’s accounts and data</p></li>
-<li><p>Perform privileged actions</p></li>
-<li><p>Failure to Restrict URL Access Illustrated</p></li>
-<li><p>Attacker notices the URL indicates his role</p></li>
-<li><p>    /user/getAccounts</p></li>
-<li><p>He modifies it to another directory (role)</p></li>
-<li><p>    /admin/getAccounts, or</p></li>
-<li><p>    /manager/getAccounts</p></li>
-<li><p>Attacker views more accounts than just their own</p></li>
-<li><p>Rails: Restrict URL </p></li>
-<li><p><strong>before_action im Controller</strong></p></li>
-<li><p>Zugriffsrecht pro action festlegen</p></li>
-<li><p>Rails: Restrict URL </p></li>
-<li><p><strong>cancan</strong></p></li>
-<li><p>Zugriffsrechte an einer zentralen Stelle setzen</p></li>
-<li><p>class Ability</p></li>
-<li><p>Im Controller abfangen</p></li>
-<li><p>load_and_authorize_resource</p></li>
-<li><p>In der action abfangen</p></li>
-<li><p>authorize! :read, @article</p></li>
-<li><p>Im Template verwenden</p></li>
-<li><p>&lt;% if can? :update, @article %&gt;</p></li>
-<li><p>Rails: Restrict URL </p></li>
-<li><p>**Pundit mit **Policy-Classes</p></li>
-<li><p> class PostPolicy</p></li>
-<li><p>  attr_reader :user, :post</p></li>
-<li><p> </p></li>
-<li><p>  def initialize(user, post)</p></li>
-<li><p>    @user = user</p></li>
-<li><p>    @post = post</p></li>
-<li><p>  end</p></li>
-<li><p> </p></li>
-<li><p>  def update?</p></li>
-<li><p>    user.admin? or not post.published?</p></li>
-<li><p>  end</p></li>
-<li><p>end</p></li>
-<li><p>Avoiding URL Access Control Flaws</p></li>
-<li><p>For each URL, a site needs to do 3 things</p></li>
-<li><p>Restrict access to authenticated users (if not public)</p></li>
-<li><p>Enforce any user or role based permissions (if private)</p></li>
-<li><p>Completely disallow requests to unauthorized page types (e.g., config files, log files, source files, etc.)</p></li>
-<li><p>Verify your architecture</p></li>
-<li><p>Use a simple, positive model at every layer</p></li>
-<li><p>Be sure you actually have a mechanism at every layer</p></li>
-<li><p>Verify the implementation</p></li>
-<li><p>Forget automated analysis approaches</p></li>
-<li><p>Verify that each URL in your application is protected by either</p></li>
-<li><p>An external filter, like Java EE web.xml or a commercial product</p></li>
-<li><p>Or internal checks in YOUR code – Use ESAPI’s isAuthorizedForURL() method</p></li>
-<li><p>Verify the server configuration disallows requests to unauthorized file types</p></li>
-<li><p>Use WebScarab or your browser to forge unauthorized requests</p></li>
-<li><p>Insufficient Transport Layer Protection</p></li>
-<li><p>Transmitting sensitive data insecurely</p></li>
-<li><p>Failure to identify all sensitive data</p></li>
-<li><p>Failure to identify all the places that this sensitive data is sent</p></li>
-<li><p>On the web, to backend databases, to business partners, internal communications</p></li>
-<li><p>Failure to properly protect this data in every location</p></li>
-<li><p>Typical Impact</p></li>
-<li><p>Attackers access or modify confidential or private information</p></li>
-<li><p>e.g, credit cards, health care records, financial data (yours or your customers)</p></li>
-<li><p>Attackers extract secrets to use in additional attacks</p></li>
-<li><p>Company embarrassment, customer dissatisfaction, and loss of trust</p></li>
-<li><p>Expense of cleaning up the incident</p></li>
-<li><p>Business gets sued and/or fined</p></li>
-<li><p>Insufficient Transport Layer Protection Illustrated</p></li>
-<li><p>Avoiding Insufficient Transport Layer Protection</p></li>
-<li><p>Protect with appropriate mechanisms</p></li>
-<li><p>Use TLS on all connections with sensitive data</p></li>
-<li><p>Individually encrypt messages before transmission</p></li>
-<li><p>E.g., XML-Encryption</p></li>
-<li><p>Sign messages before transmission</p></li>
-<li><p>E.g., XML-Signature</p></li>
-<li><p>Use the mechanisms correctly</p></li>
-<li><p>Use standard strong algorithms (disable old SSL algorithms)</p></li>
-<li><p>Manage keys/certificates properly</p></li>
-<li><p>Verify SSL certificates before using them</p></li>
-<li><p>Use proven mechanisms when sufficient</p></li>
-<li><p>E.g., SSL vs. XML-Encryption</p></li>
-<li><p>Unvalidated Redirects and Forwards</p></li>
-<li><p>Web application redirects are very common</p></li>
-<li><p>And frequently include user supplied parameters in the destination URL</p></li>
-<li><p>If they aren’t validated, attacker can send victim to a site of their choice</p></li>
-<li><p>Forwards (aka Transfer in .NET) are common too</p></li>
-<li><p>They internally send the request to a new page in the same application</p></li>
-<li><p>Sometimes parameters define the target page</p></li>
-<li><p>If not validated, attacker may be able to use unvalidated forward to bypass authentication or authorization checks</p></li>
-<li><p>Typical Impact</p></li>
-<li><p>Redirect victim to phishing or malware site</p></li>
-<li><p>Attacker’s request is forwarded past security checks, allowing unauthorized function or data access</p></li>
-<li><p>Unvalidated Redirect Illustrated</p></li>
-<li><p>Avoiding Unvalidated Redirects and Forwards</p></li>
-<li><p>There are a number of options</p></li>
-<li><p>Avoid using redirects and forwards as much as you can</p></li>
-<li><p>If used, don’t involve user parameters in defining the target URL</p></li>
-<li><p>If you ‘must’ involve user parameters, then either</p></li>
-<li><p>Validate each parameter to ensure its valid and authorized for the current user, or</p></li>
-<li><p>(preferred) – Use server side mapping to translate choice provided to user with actual target page</p></li>
-<li><p>Defense in depth: For redirects, validate the target URL after it is calculated to make sure it goes to an authorized external site</p></li>
-<li><p>Some thoughts about protecting Forwards</p></li>
-<li><p>Ideally, you’d call the access controller to make sure the user is authorized before you perform the forward (with ESAPI, this is easy)</p></li>
-<li><p>With an external filter, like Siteminder, this is not very practical</p></li>
-<li><p>Next best is to make sure that users who can access the original page are ALL authorized to access the target page.</p></li>
-</ul>
-<h3 id="see-also">13 See Also</h3>
+</pre>
+</div>
+<p>This will automatically include a security token in all forms and Ajax requests generated by Rails. If the security token doesn't match what was expected, an exception will be thrown.</p>
+<div class="note"><p>By default, Rails includes an <a href="https://github.com/rails/rails/blob/master/actionview/app/assets/javascripts">unobtrusive scripting adapter</a>,
+which adds a header called <code>X-CSRF-Token</code> with the security token on every non-GET
+Ajax call. Without this header, non-GET Ajax requests won't be accepted by Rails.
+When using another library to make Ajax calls, it is necessary to add the security
+token as a default header for Ajax calls in your library.</p></div>
+<p>Note that <em>cross-site scripting (XSS) vulnerabilities bypass all CSRF protections</em>. XSS gives the attacker access to all elements on a page, so they can read the CSRF security token from a form or directly submit the form.</p>
+<h3 id="see-also">12 See Also</h3>
 <ul>
 <li><a href="http://guides.rubyonrails.org/security.html">Rails Guide: Security</a></li>
 <li>Tool: <a href="https://github.com/flavorjones/loofah">loofah</a>
