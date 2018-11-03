@@ -44,6 +44,7 @@
                 <dt>Ruby on Rails</dt>
                 <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
                 <dd><a href="rails_database_and_model.html">Database and Models</a></dd>
+                <dd><a href="rails_associations_and_validations.html">Associations and Validations</a></dd>
                 <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
                 <dd><a href="rails_authentication.html">Authentication</a></dd>
                 <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
@@ -107,6 +108,7 @@
 <li><a href="#parsing-markdown">Parsing Markdown</a></li>
 <li><a href="#pagination">Pagination</a></li>
 <li><a href="#filter">Filter</a></li>
+<li><a href="#ordered-lists">Ordered Lists</a></li>
 <li><a href="#search">Search</a></li>
 <li><a href="#activity-stream">Activity Stream</a></li>
 <li><a href="#admin-backend">Admin Backend</a></li>
@@ -356,7 +358,12 @@ to go through them page by page:</p>
 <ul>
 <li>gem <a href="https://github.com/procore/brita">brita</a> can be used in APIs and full rails apps</li>
 </ul>
-<h4 id="search">2.10 Search</h4>
+<h4 id="ordered-lists">2.10 Ordered Lists</h4>
+<ul>
+<li>gem <a href="https://github.com/swanandp/acts_as_list">acts_as_list</a>
+</li>
+</ul>
+<h4 id="search">2.11 Search</h4>
 <p>You need to search in more than just one attribute of your
 model?  use a search gem:</p>
 <ul>
@@ -365,7 +372,7 @@ model?  use a search gem:</p>
 <li>gem <a href="https://github.com/ankane/searchkick">searchkick</a> uses elasticsearch with many more options for fulltext search, e.g. for misspellings </li>
 <li>other gems in <a href="https://www.ruby-toolbox.com/categories/rails_search">category rails_search</a> of the ruby toolbox </li>
 </ul>
-<h4 id="activity-stream">2.11 Activity Stream</h4>
+<h4 id="activity-stream">2.12 Activity Stream</h4>
 <p>If you want to give users an overview of what happened recently
 you can use an activity stream, similar to what you see in facebook.</p>
 <p><img src="images/gem-activity.png" alt="activity stream example"></p>
@@ -373,22 +380,22 @@ you can use an activity stream, similar to what you see in facebook.</p>
 <li>gem <a href="https://github.com/pokonski/public_activity">public_activity</a>
 </li>
 </ul>
-<h4 id="admin-backend">2.12 Admin Backend</h4>
+<h4 id="admin-backend">2.13 Admin Backend</h4>
 <p>Create a Backend for manipulating data with a few lines of code:</p>
 <p><img src="images/gem-active-admin.png" alt="ActiveAdmin Screenshot"></p>
 <ul>
 <li>gem <a href="http://activeadmin.info/">activeadmin</a>
 </li>
 </ul>
-<h4 id="sending-mail">2.13 Sending Mail</h4>
+<h4 id="sending-mail">2.14 Sending Mail</h4>
 <p>To send mail from Rails use <a href="http://guides.rubyonrails.org/action_mailer_basics.html">ActionMailer</a>.</p>
 <p>To see the generated mails in your web browser <em>instead</em> of sending them, use the gem <a href="https://github.com/ryanb/letter_opener">letter_opener</a></p>
-<h4 id="http-requests">2.14 HTTP Requests</h4>
+<h4 id="http-requests">2.15 HTTP Requests</h4>
 <p>This might be handy for downloading from Webpages or APIs</p>
 <ul>
 <li>gem <a href="https://github.com/taf2/curb">curb</a>  - the http library curl for ruby</li>
 </ul>
-<h4 id="using-apis">2.15 Using APIs</h4>
+<h4 id="using-apis">2.16 Using APIs</h4>
 <ul>
 <li>gem <a href="https://github.com/octokit/octokit.rb">octokit</a> - for github</li>
 <li>gem <a href="https://github.com/sferik/twitter">twitter</a>
@@ -400,20 +407,20 @@ you can use an activity stream, similar to what you see in facebook.</p>
 <li>gem <a href="https://github.com/apneadiving/Google-Maps-for-Rails">gmaps4rails</a>
 </li>
 </ul>
-<h4 id="geocoding">2.16 Geocoding</h4>
+<h4 id="geocoding">2.17 Geocoding</h4>
 <p>sometimes you want to convert longitude/latitude coordinates
 to street addresses, or the reverse</p>
 <ul>
 <li>gem <a href="https://github.com/alexreisner/geocoder">geocoder</a>
 </li>
 </ul>
-<h4 id="testing">2.17 Testing</h4>
+<h4 id="testing">2.18 Testing</h4>
 <ul>
 <li>gem <a href="https://github.com/thoughtbot/factory_girl">factory_girl</a> for creating test data.</li>
 <li>gem <a href="https://github.com/jnicklas/capybara">capybara</a> as the "browser" for acceptance tests, with</li>
 <li>gem <a href="https://github.com/thoughtbot/capybara-webkit">capybara-webkit</a> for testing client side javascript.</li>
 </ul>
-<h4 id="understanding-your-code-better">2.18 Understanding your Code better</h4>
+<h4 id="understanding-your-code-better">2.19 Understanding your Code better</h4>
 <p><img src="images/gem-better_errors.png" alt="better_errors screenshot"></p>
 <ul>
 <li>gem <a href="https://github.com/charliesome/better_errors">better_errors</a>
@@ -435,6 +442,7 @@ to street addresses, or the reverse</p>
 <ul>
 <li><a href="https://rubygems.org/">Ruby Gems</a></li>
 <li><a href="http://bundler.io/">Bundler</a></li>
+<li><a href="https://github.com/markets/awesome-ruby">awesome-ruby</a></li>
 <li>the <a href="https://www.ruby-toolbox.com/">Ruby Toolbox</a> is organized in categories that help you find alternative solutions</li>
 <li>
 <a href="https://www.youtube.com/watch?v=4DqzaqeeMgY">How does Bundler work, anyway?</a> talk by Andre Arko at RubyConf 2015</li>

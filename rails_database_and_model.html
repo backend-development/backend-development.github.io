@@ -44,6 +44,7 @@
                 <dt>Ruby on Rails</dt>
                 <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
                 <dd><a href="rails_database_and_model.html">Database and Models</a></dd>
+                <dd><a href="rails_associations_and_validations.html">Associations and Validations</a></dd>
                 <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
                 <dd><a href="rails_authentication.html">Authentication</a></dd>
                 <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
@@ -89,19 +90,24 @@
 
 <ul>
 <li><a href="#the-mapping">The Mapping</a></li>
-<li><a href="#how-to-build-a-model">How to build a model</a></li>
-<li><a href="#database-migrations">Database Migrations</a></li>
-<li><a href="#the-model-in-the-console">the model in the console</a></li>
-<li><a href="#activerecord-basics-learn-from-zombies">Learn from Zombies</a></li>
 </ul>
 </li>
 <li>
-<a href="#validations-and-associations">Validations and Associations</a>
+<a href="#migrations">Migrations</a>
 
 <ul>
-<li><a href="#validations">Validations</a></li>
-<li><a href="#1-n-associations">1:n Associations</a></li>
-<li><a href="#validations-and-associations-learn-from-zombies">Learn from Zombies</a></li>
+<li><a href="#how-to-build-a-model">How to build a model</a></li>
+<li><a href="#database-migrations">Database Migrations</a></li>
+</ul>
+</li>
+<li>
+<a href="#model-crud">Model CRUD</a>
+
+<ul>
+<li><a href="#the-model-in-the-console">the model in the console</a></li>
+<li><a href="#finding-a-model">Finding a model</a></li>
+<li><a href="#accessing-the-properties">Accessing the properties</a></li>
+<li><a href="#crud-create-read-update-delete">CRUD = Create, Read, Update, Delete</a></li>
 </ul>
 </li>
 <li>
@@ -122,11 +128,9 @@ data is actually stored in a relational database.</p><p>After working through th
 <ul>
 <li>Understand how ActiveRecord works</li>
 <li>Understand what Database Migrations are</li>
-<li>Be able to create models with associations to other models</li>
-<li>Be able to write validations to check data before it is saved in a model</li>
 </ul>
-<p>This chapter relies on two episodes of <a href="http://railsforzombies.org">Rails for Zombies</a>, 
-a wonderful free online course by codeschool.com.</p>
+<div class="repo"><p>Fork the <a href="https://github.com/backend-development/basic_zombies">basic zombies</a> repository.</p></div><p>The examples are taken from &quot;Rails for Zombies&quot;, which used to be a free rails online course. 
+Sadly it is no longer available.</p>
       </div>
     </div>
   </div>
@@ -214,7 +218,8 @@ You are building a rails app to replace an old php app, but you want to
 keep using the same database. You can start with the models
 in rails configured to fit with your old database, and then refactor and migrate towards
 the rails conventions step by step.</p>
-<h4 id="how-to-build-a-model">2.2 How to build a model</h4>
+<h3 id="migrations">3 Migrations</h3>
+<h4 id="how-to-build-a-model">3.1 How to build a model</h4>
 <p>To build the first model and its corresponding database table,
 you can use the scaffold generator.
 You need to work on the command line using the command <code>rails</code>.<br>
@@ -241,9 +246,9 @@ You need to work on the command line using the command <code>rails</code>.<br>
 </li>
 <li>add validations, associations to the model</li>
 </ul>
-<h4 id="database-migrations">2.3 Database Migrations</h4>
+<h4 id="database-migrations">3.2 Database Migrations</h4>
 <p>During Development the database schema will change just as much as
-the code will change. Changes to both are interdependent: if I push out
+the code will change. And both changes belong together: if I push out
 a code change to my fellow developers without the db schema changes,
 they will not be able to use the code.</p>
 <p>Rails offers "Database Migrations" to cope with this fact.</p>
@@ -252,9 +257,9 @@ described in ruby and saved to a file in the folder <code>db/migrations</code>.
 The files are identified by a timestamp and a uniq name, for example:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-20131031100433_create_venues.rb  
-20131031100442_create_events.rb  
-20131031100501_add_venue_ref_to_events.rb
+20191031100433_create_venues.rb  
+20191031100442_create_events.rb  
+20191031100501_add_venue_ref_to_events.rb
 
 </pre>
 </div>
@@ -288,7 +293,8 @@ end
 </ul>
 <p>A word of warning:  you never, ever need to change a migration after
 using and commiting it.  You only ever add new migrations!</p>
-<h4 id="the-model-in-the-console">2.4 the model in the console</h4>
+<h3 id="model-crud">4 Model CRUD</h3>
+<h4 id="the-model-in-the-console">4.1 the model in the console</h4>
 <p>You can use the rails console to work with
 the model interactively.  This is similar to the ruby console <code>irb</code>
 but with your rails app already loaded. 
@@ -297,94 +303,94 @@ to the development database!</p>
 <ul>
 <li><code>rails console</code></li>
 </ul>
-<h4 id="activerecord-basics-learn-from-zombies">2.5 Learn from Zombies</h4>
-<p>Now do <a href="http://railsforzombies.org/levels/1">Rails for Zombies Level #1</a> to learn
-the basics of ActiveRecord: create, read, update and delete models.</p>
-<p><img src="images/rails-for-zombies-1.jpg" alt="Rails for Zombies 1"></p>
-<p>To delve deeper into Active Record Queries read the Rails Guide: <a href="http://guides.rubyonrails.org/active_record_querying.html">Active Record Query Interface</a></p>
-<h3 id="validations-and-associations">3 Validations and Associations</h3>
-<h4 id="validations">3.1 Validations</h4>
-<p>Validations are rules you want to enforce on the data in your models.</p>
-<ul>
-<li>validations are declared on the model</li>
-<li>they are checked every time data is saved to the database</li>
-<li>if the data does not conform to the validation, it is not saved, and the errors are available through the object</li>
-</ul>
-<p>An example on the rails console: I try to create a new tweet and save it,
-but it can't be saved because a validation is in place:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-&gt; t = Tweet.new
-=&gt; #&lt;Tweet id: nil, status: nil, zombie: nil&gt;
-&gt; t.save
-=&gt; false
-&gt; t.errors
-=&gt; {:status=&gt;["can't be blank"]}
-&gt; t.errors[:status]
-=&gt; "can't be blank"
-
-</pre>
-</div>
-<h4 id="1-n-associations">3.2 1:n Associations</h4>
-<p>If you have used relational databases before you are probably familiar
-with the different types of associations between database tables.  But even
-if you have not, the first association is easy to understand:</p>
+<h4 id="finding-a-model">4.2 Finding a model</h4>
+<p>The database table always has a primary key <code>id</code>.  You can use this
+key to find a specific record:</p>
+<p><img src="images/rails_console_find.png" srcset='images/rails_console_find.png 1x, images/rails_console_find@2x.png 2x' alt="using find in the rails console"></p>
+<p>When you type in <code>Tweet.find(1)</code> into the rails console, you get two answers:</p>
+<p>First (in color) it shows you the SQL query sent to the database. In this case 
+<code>SELECT  "tweets".* FROM "tweets" WHERE "tweets"."id" = ? LIMIT ?</code>.  You can see
+that prepared statements are used, and that a limit is always placed on the number
+of answers.</p>
+<p>After the Arrow (<code>=&gt;</code>) the rails console shows the return value of the command
+you typed in.  Here this is an object.  The console prints out the details of this
+object using the <code>inspect</code> method.</p>
+<p>From now on we will use this slightly shortended format to show rails console
+input and output:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-One Zombie has many Tweets          One Tweet belongs to one Zombie
-
-Zombie Ash  ----------------------- Tweet 'arg'
-            \---------------------- Tweet 'aarrrrrgggh'
-            \---------------------- Tweet 'aaaarrrrrrrrrgggh'
-
-Zombie Sue ------------------------ Tweet 'gagaga'
+irb&gt; Tweet.find(1)
+=&gt; #&lt;Tweet id: 1, status: "Where can I get a good bite to eat?", zombie: "Ash"&gt; 
 
 </pre>
 </div>
-<p>How is this represented in database?</p>
-<p>In the table <code>tweets</code> there is a column <code>zombie_id</code> which references <code>zombies.id</code>.
-This column in <code>tweets</code> is called a "foreign key".</p>
-<p>You can add this column using a migration <code>add_column    :tweets, :zombie_id, :integer</code></p>
-<p>How is this represented in the model?</p>
-<ul>
-<li>1:n associations are declared in the model with <code>belongs_to</code> and <code>has_many</code>
-</li>
-<li>both directions are now available in the objects:
+<p>(We will leave out the SQL, and some timestamps.)</p>
+<h4 id="accessing-the-properties">4.3 Accessing the properties</h4>
+<p>You can access the properties of the model object as if it were a hash
+or through method names:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+irb&gt; t = Tweet.find(3)
+=&gt;  #&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "Jim"&gt; 
+irb&gt; t.status
+=&gt; "I just ate some delicious brains."
+irb&gt; t[:status]
+=&gt; "I just ate some delicious brains."
+irb&gt; t.zombie
+=&gt; "Jim"
+irb&gt; t[:zombie]
+=&gt; "Jim"
 
-<ul>
-<li><code>t = Tweet.find(7); z = t.zombie</code></li>
-<li><code>z = Zombie.find(1); z.tweets.each{ |t|  puts t.status }</code></li>
-</ul>
-</li>
-</ul>
-<h4 id="validations-and-associations-learn-from-zombies">3.3 Learn from Zombies</h4>
-<p>Now do <a href="http://railsforzombies.org/levels/2">Rails for Zombies Level #2</a>.</p>
-<p><img src="images/rails-for-zombies-2.jpg" alt="Rails for Zombies 2"></p>
-<p>To learn more about validations and associations read the Rails Guides:</p>
-<ul>
-<li><a href="http://guides.rubyonrails.org/active_record_validations_callbacks.html">Active Record Validations and Callbacks</a></li>
-<li><a href="http://guides.rubyonrails.org/association_basics.html">Active Record Associations</a></li>
-</ul>
-<h3 id="on-documentation">4 On Documentation</h3>
+</pre>
+</div>
+<h4 id="crud-create-read-update-delete">4.4 CRUD = Create, Read, Update, Delete</h4>
+<p>Create</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+t = Tweet.new
+t.status = "I &lt;3 brains."
+t.save
+
+</pre>
+</div>
+<p>Read</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+Tweet.find(3)
+
+</pre>
+</div>
+<p>Update</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+t = Tweet.find(3)
+t.zombie = "EyeballChomper"
+t.save
+
+</pre>
+</div>
+<p>Delete</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+t = Tweet.find(3)
+t.destroy
+
+</pre>
+</div>
+<h3 id="on-documentation">5 On Documentation</h3>
 <p>You should have the ruby and rails documentation available
 on your computer at all times.  A handy tool for this on mac os x is
 <a href="http://kapeli.com/dash">Dash</a>.  This is what a Rails Guide looks like in Dash:</p>
 <p><img src="images/dash-rails-guide.png" alt="Dash"></p>
-<h4 id="further-reading">4.1 Further reading</h4>
+<h4 id="further-reading">5.1 Further reading</h4>
 <ul>
 <li>The Rails Guides give a good introduction to a subject area:</li>
 <li>Rails Guide: <a href="http://guides.rubyonrails.org/active_record_querying.html">Active Record Query Interface</a>
-</li>
-<li>Rails Guide: <a href="http://guides.rubyonrails.org/active_record_validations_callbacks.html">Active Record Validations and Callbacks</a>
 </li>
 <li>Rails Guide: <a href="http://guides.rubyonrails.org/association_basics.html">Active Record Associations</a>
 </li>
 <li>Use the API Dock to look up the details:</li>
 <li>Rails @ API Dock: <a href="http://apidock.com/rails/ActiveResource/Base/find/class">find()</a>
-</li>
-<li>Rails @ API Dock: <a href="http://apidock.com/rails/v2.0.3/ActiveRecord/Validations/ClassMethods/validates_presence_of">ActiveRecord Validations</a>
-</li>
-<li>Rails @ API Dock: <a href="http://apidock.com/rails/v3.2.8/ActiveRecord/Associations/ClassMethods">ActiveRecord Associations</a>
 </li>
 </ul>
 </body></html>

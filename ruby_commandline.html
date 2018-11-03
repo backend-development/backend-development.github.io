@@ -44,6 +44,7 @@
                 <dt>Ruby on Rails</dt>
                 <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
                 <dd><a href="rails_database_and_model.html">Database and Models</a></dd>
+                <dd><a href="rails_associations_and_validations.html">Associations and Validations</a></dd>
                 <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
                 <dd><a href="rails_authentication.html">Authentication</a></dd>
                 <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
@@ -103,7 +104,7 @@
 </ul>
 </li>
 <li>
-<a href="#the-save-navigation-operator">the save navigation Operator</a>
+<a href="#the-save-navigation-operator">The 'Save Navigation' Operator</a>
 
 <ul>
 <li><a href="#symbols">Symbols</a></li>
@@ -322,7 +323,7 @@ if 0
   puts '0 is true!'
 end
 if "false"
-  puts '"false" (the string) is not false'       
+  puts '"false" (the string) is true'       
 end
 
 </pre>
@@ -337,7 +338,7 @@ like so:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 puts '0 is true!' if 0
-puts '"false" is not false' if "false"
+puts '"false" (the string) is true' if "false"
 
 </pre>
 </div>
@@ -368,7 +369,7 @@ a = input_value || default_value
 
 </pre>
 </div>
-<h3 id="the-save-navigation-operator">3 the save navigation Operator</h3>
+<h3 id="the-save-navigation-operator">3 The 'Save Navigation' Operator</h3>
 <p>Imagine you have an Object a, that has a property b containing
 another object, and b has a property c.  You can access c through <code>a.b.c</code></p>
 <p>But if a is <code>nil</code> then you will get an error:</p>
@@ -543,7 +544,7 @@ apply_the_style font_size: 10, font_family: "Arial"
 helps you think about data on a new, more abstract level
 with Enumerables:</p>
 <h4 id="piping-data">5.1 "Piping Data"</h4>
-<p>From the UNIX shell you may now the concepts of piping data
+<p>From the UNIX shell you may know the concept of piping data
 from one command to the next:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -675,7 +676,8 @@ my_function_with_block_arg { puts "code in the block" }
 
 </pre>
 </div>
-<p>Alternate syntax for defining the Block when calling the function:</p>
+<p>There is an alternate syntax for calling the function: instead
+of the curly braces you can use <code>do</code> and  <code>end</code>:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 my_function_with_block_arg do
@@ -691,10 +693,10 @@ features that distinguish ruby from other scripting languages. </p>
 <p>If you want to get more pracitical with ruby, you can
 do the 
 <a href="https://github.com/backend-development/learn_ruby">Learn Ruby</a> test driven ruby exercises.</p>
-<p>This should be a good enough basis to start with rails.<br>
+<p>This should be a good enough basis to start with Rails.<br>
 But do take every
-oppertunity you got to learn more about ruby itself: if you are unsure about
-a line of code, look it up in the ruby documentation and use the
+oppertunity you get to learn more about Ruby itself: if you are unsure about
+a line of code, look it up in the Ruby documentation and use the
 opportunity to read a bit more than strictly necessary.</p>
 <p>Get an offline version of the documentation
 installed on your development machine so you can look up stuff instantly.</p>
