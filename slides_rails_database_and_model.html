@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=1024, user-scalable=no">
+
+  <title>Slides for Rails: Database and Models in the Backend Development Textbook</title>
+
+  <!-- Required stylesheet -->
+  <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
+
+  <!-- Extension CSS files go here. Remove or add as needed. -->
+  <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
+  <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
+  <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
+  <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
+  <!-- link rel="stylesheet" media="screen" href="stylesheets/deck.scale.css" -->
+
+  <!-- Style theme. More available in /themes/style/ or create your own. -->
+  <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
+
+  <!-- Transition theme. More available in /themes/transition/ or create your own. -->
+  <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
+
+  <!-- Basic black and white print styles -->
+  <link rel="stylesheet" media="print" href="stylesheets/print.css">
+
+  <!-- Required Modernizr file -->
+  <script src="javascripts/modernizr.custom.js"></script>
+</head>
+<body>
+    <div class="deck-container">
+        <div class='slide'>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-1'>▻</a>
+<h3 id="models-and-databases">1 Models and Databases</h3>
+<p>In a modern programming language like rails we represent 
+things in the real world with objects. For example if you are
+building a web application for project management, you will
+have objects of classes Project, and WorkPackage, and User.
+These classes also implement the "Business Logic": all the methods
+needed for handling projects are actually implemented in the Project class.</p>
+<p>To save these objects permanently (often called "persistance") 
+we use a relational database,
+in most cases Postgres or MySQL/MariaDB.  Only the data is stored in the database,
+not the behaviour (see "Business Logic" above).</p>
+<p>Here we hit on an old problem in computer science: storing
+objects into a relational database does not work all that well.
+This problem is called the 
+<a href="http://en.wikipedia.org/wiki/Object-relational_impedance_mismatch">Object-relational impedance mismatch</a>
+and has been discussed since the early 1980ies.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-2'>▻</a>
+<h4 id="orms">1.1 ORMs</h4>
+<p>Today there exist several Design Patterns and Libraries for solving this.
+The solution is called an Object Relational Mapper or ORM.</p>
+<p>Two Patterns used in Rails for this problem are ActiveRecord and ObjectMapper, both 
+described by Fowler in his 2003 book <a href="http://martinfowler.com/books/eaa.html">Patterns of Enterprise Application Architecture</a>.
+ActiveRecord is the default solution used in Rails, we will look into it in detail here.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-3'>▻</a>
+<h3 id="activerecord-basics">2 ActiveRecord Basics</h3>
+<p>Rails implements the Active Record pattern in a class called <code>ActiveRecord</code>.
+All the '''models''' in a rails project inherit from <code>ActiveRecord</code>.</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Thing &lt; ActiveRecord::Base
+end
+
+</pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-4'>▻</a>
+<h4 id="the-mapping">2.1 The Mapping</h4>
+<p>A quick overview of how Objects and Database relate when using
+ActiveRecord in Rails:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+Database                           Ruby on Rails
+---------------------------        --------------------------
+table courses                      class Course 
+  in the Database                    in file app/models/course.rb
+one row in the table               one object of the class Course
+an attibute in the table           a property of the object
+SELECT * FROM courses WHERE id=7   Course.find(7)
+
+</pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-5'>▻</a>
+<h4 id="conventions">2.2 Conventions</h4>
+<p>Rails has several conventions regarding ActiveRecord and the database:</p>
+<ul>
+<li>The Model Class is written in first-letter-uppercase, and uses a singular noun: <code>Course</code>
+</li>
+<li>The table in the database is written in lowercase, and uses the plural of this noun: <code>courses</code>
+</li>
+<li>The table contains an integer attribute <code>id</code> as its primary key</li>
+<li>All the attributes from the database table will show up as properties of the model in rails automatically</li>
+<li>If there's an 1:n relationship between two models, the table on the "one" side will contain a foreign key like so:
+
+<ul>
+<li>table <code>users</code>  and table <code>phones</code>  (one user has many phones)</li>
+<li>table <code>phones</code> contains <code>user_id</code> that references <code>users.id</code>
+</li>
+</ul>
+</li>
+<li>If there's a n:m relationship between two models, there will be a join table  like so:
+
+<ul>
+<li>table <code>users</code>  and table <code>projects</code>  (one user has many projects, one project has many users)</li>
+<li>table <code>projects_users</code> contains <code>user_id</code> and <code>project_id</code> (and nothing else)</li>
+<li>there is no class in rails to represent the join table </li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-6'>▻</a>
+<h4 id="not-following-conventions">2.3 Not following Conventions</h4>
+<p>If you stick to these conventions building the web app will be very easy.  You 
+can deviate from these conventions, but this takes some extra configuration and programming work.</p>
+<p>Here is one scenario where deviating from the conventions might make sense:
+You are building a rails app to replace an old php app, but you want to
+keep using the same database. You can start with the models
+in rails configured to fit with your old database, and then refactor and migrate towards
+the rails conventions step by step.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-7'>▻</a>
+<h3 id="database">3 Database</h3>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-8'>▻</a>
+<h4 id="how-to-build-a-model">3.1 How to build a model</h4>
+<p>To build the first model and its corresponding database table,
+you can use the scaffold generator.
+You need to work on the command line using the command <code>rails</code>.<br>
+(before rails 5 there was a second command <code>rake</code> but you don't need that any more.)</p>
+<ul>
+<li>
+<code>rails generate scaffold tweet status:string zombie:string</code>
+
+<ul>
+<li>This will generate a Model <code>Tweet</code> and a migration to create table <code>tweets</code>
+</li>
+</ul>
+</li>
+<li>look at the migration that was generated in <code>db/migrate/*create_tweets.rb</code>
+</li>
+<li>you can edit the migration now - but not later!</li>
+<li>run the migration: <code>rails db:migrate</code>
+
+<ul>
+<li>this will run the appropriate <code>CREATE TABLE</code> statement in your database</li>
+</ul>
+</li>
+<li>look at the model generated in <code>app/models/tweet.rb</code>
+</li>
+<li>add validations, associations to the model</li>
+</ul>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-9'>▻</a>
+<h4 id="database-migrations">3.2 Database Migrations</h4>
+<p>During Development the database schema will change just as much as
+the code will change. And both changes belong together: if I push out
+a code change to my fellow developers without the db schema changes,
+they will not be able to use the code.</p>
+<p>Rails offers "Database Migrations" to cope with this fact.</p>
+<p>A "Migration" is a (small) change in the database schema. The change is
+described in ruby and saved to a file in the folder <code>db/migrations</code>.
+The files are identified by a timestamp and a uniq name, for example:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+20191031100433_create_venues.rb  
+20191031100442_create_events.rb  
+20191031100501_add_venue_ref_to_events.rb
+
+</pre>
+</div>
+<p>The first two of these migrations were generated by the scaffold,
+the last one by <code>rails generate migration AddVenueRefToEvent</code>.</p>
+<p>The scaffold creates a migration for creating a table:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+class CreateEvents &lt; ActiveRecord::Migration
+  def change
+    create_table :events do |t|
+      t.string :title
+      t.text :description
+      t.datetime :start_time
+      t.datetime :stop_time
+      t.boolean :free
+
+      t.timestamps
+    end
+  end
+end
+
+</pre>
+</div>
+<p>Use <code>rails</code> to apply this migration to the existing database:</p>
+<ul>
+<li>
+<code>rails db:migrate</code>  # apply all open migrations</li>
+<li>
+<code>rails db:rollback</code> # roll back last migration</li>
+</ul>
+<p>A word of warning:  you never, ever need to change a migration after
+using and commiting it.  You only ever add new migrations!</p>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-10'>▻</a>
+<h3 id="model-crud">4 Model CRUD</h3>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-11'>▻</a>
+<h4 id="the-model-in-the-console">4.1 the model in the console</h4>
+<p>You can use the rails console to work with
+the model interactively.  This is similar to the ruby console <code>irb</code>
+but with your rails app already loaded. 
+Any changes you make are really written
+to the development database!</p>
+<ul>
+<li><code>rails console</code></li>
+</ul>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-12'>▻</a>
+<h4 id="finding-a-model">4.2 Finding a model</h4>
+<p>The database table always has a primary key <code>id</code>.  You can use this
+key to find a specific record:</p>
+<p><img src="images/rails_console_find.png" srcset='images/rails_console_find.png 1x, images/rails_console_find@2x.png 2x' alt="using find in the rails console"></p>
+<p>When you type in <code>Tweet.find(1)</code> into the rails console, you get two answers:</p>
+<p>First (in color) it shows you the SQL query sent to the database. In this case 
+<code>SELECT  "tweets".* FROM "tweets" WHERE "tweets"."id" = ? LIMIT ?</code>.  You can see
+that prepared statements are used, and that a limit is always placed on the number
+of answers.</p>
+<p>After the Arrow (<code>=&gt;</code>) the rails console shows the return value of the command
+you typed in.  Here this is an object.  The console prints out the details of this
+object using the <code>inspect</code> method.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-13'>▻</a>
+
+<p>From now on we will use this slightly shortended format to show rails console
+input and output:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+irb&gt; Tweet.find(1)
+=&gt; #&lt;Tweet id: 1, status: "Where can I get a good bite to eat?", zombie: "Ash"&gt; 
+
+</pre>
+</div>
+<p>(We will leave out the SQL, and some timestamps.)</p>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-14'>▻</a>
+<h4 id="accessing-the-properties">4.3 Accessing the properties</h4>
+<p>You can access the properties of the model object as if it were a hash
+or through method names:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+irb&gt; t = Tweet.find(3)
+=&gt;  #&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "Jim"&gt; 
+irb&gt; t.status
+=&gt; "I just ate some delicious brains."
+irb&gt; t[:status]
+=&gt; "I just ate some delicious brains."
+irb&gt; t.zombie
+=&gt; "Jim"
+irb&gt; t[:zombie]
+=&gt; "Jim"
+
+</pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-15'>▻</a>
+<h4 id="crud-create-read-update-delete">4.4 CRUD = Create, Read, Update, Delete</h4>
+<p>Create</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+t = Tweet.new
+t.status = "I &lt;3 brains."
+t.save
+
+</pre>
+</div>
+<p>Read</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+Tweet.find(3)
+
+</pre>
+</div>
+<p>Update</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+t = Tweet.find(3)
+t.zombie = "EyeballChomper"
+t.save
+
+</pre>
+</div>
+<p>Delete</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+t = Tweet.find(3)
+t.destroy
+
+</pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-16'>▻</a>
+<h3 id="on-documentation">5 On Documentation</h3>
+<p>You should have the ruby and rails documentation available
+on your computer at all times.  A handy tool for this on mac os x is
+<a href="http://kapeli.com/dash">Dash</a>.  This is what a Rails Guide looks like in Dash:</p>
+<p><img src="images/dash-rails-guide.png" alt="Dash"></p>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-17'>▻</a>
+<h4 id="further-reading">5.1 Further reading</h4>
+<ul>
+<li>The Rails Guides give a good introduction to a subject area:</li>
+<li>Rails Guide: <a href="http://guides.rubyonrails.org/active_record_querying.html">Active Record Query Interface</a>
+</li>
+<li>Rails Guide: <a href="http://guides.rubyonrails.org/association_basics.html">Active Record Associations</a>
+</li>
+<li>Use the API Dock to look up the details:</li>
+<li>Rails @ API Dock: <a href="http://apidock.com/rails/ActiveResource/Base/find/class">find()</a>
+</li>
+</ul>
+</div>
+    </div>
+
+    <!-- End slides. -->
+
+    <!-- Begin extension snippets. Add or remove as needed. -->
+
+    <!-- deck.navigation snippet -->
+    <div aria-role="navigation">
+      <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+      <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+    </div>
+
+    <!-- deck.status snippet -->
+    <p class="deck-status" aria-role="status">
+      <span class="deck-status-current"></span>
+      /
+      <span class="deck-status-total"></span>
+    </p>
+
+    <!-- deck.goto snippet -->
+    <form action="." method="get" class="goto-form">
+      <label for="goto-slide">Go to slide:</label>
+      <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+      <datalist id="goto-datalist"></datalist>
+      <input type="submit" value="Go">
+    </form>
+
+    <!-- End extension snippets. -->
+  </div>
+
+<!-- Required JS files. -->
+<script src="javascripts/jquery.min.js"></script>
+<script src="javascripts/deck.core.js"></script>
+
+<!-- Extension JS files. Add or remove as needed. -->
+<script src="javascripts/deck.menu.js"></script>
+<script src="javascripts/deck.goto.js"></script>
+<script src="javascripts/deck.status.js"></script>
+<script src="javascripts/deck.navigation.js"></script>
+<script src="javascripts/deck.escape.js"></script>
+<!-- script src="javascripts/deck.scale.js"></script -->
+
+<!-- Initialize the deck. You can put this in an external file if desired. -->
+<script>
+  $(function() {
+    $.deck('.slide');
+  });
+</script>
+</body>
+</html>
+

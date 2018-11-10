@@ -14,6 +14,12 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
 
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <style>
+
+    .slide img[src$=svg] {
+      width: 100%;
+    }
+  </style>
 </head>
 <body class="guide">
   <div>
@@ -102,10 +108,15 @@ your code.  </p><p>By referring to this guide, you will be able to:</p>
     </div>
   </div>
 
+
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="refactoring">1 Refactoring</h3>
+        <div class='slide'><a id='slide-1'></a>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-1' href='slides_refactoring_rails.html#slide-1'>▻</a>
+<h3 id="refactoring">1 Refactoring</h3>
 <p>Never be ashamed of making you code better.  On the contrary: recognizing code smells
 in your old code means that you learnt something in the meantime.
 Only very inexperienced people think that the code they wrote yesterday is
@@ -122,6 +133,9 @@ of the code we are refactoring.</p>
 <p>A <strong>code smell</strong> is a piece of bad code that we recognize.</p>
 <p>Read the Ruby version of Fowlers refactoring book to 
 learn both code smells and refactorings:</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-2' href='slides_refactoring_rails.html#slide-2'>▻</a>
 <h3 id="code-smells">2 Code Smells</h3>
 <p>This is the list of code smells from 
 Fields, Harvie, Fowler(2010): Refactoring, Ruby Edition. Addison-Wesley.
@@ -154,6 +168,9 @@ all these problems and more:</p>
 <li>Disjointed API</li>
 <li>Repetitive Boilerplate</li>
 </ul>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-3' href='slides_refactoring_rails.html#slide-3'>▻</a>
 <h3 id="tools-for-code-quality">3 Tools for Code Quality</h3>
 <p>Recognizing code that is problematic and should be refactored
 is one of the main skills of a developer.  Often it is not a
@@ -178,6 +195,9 @@ your code is <code>rails_best_practices</code>.  Install the gem, but don't put
 it in your <code>Gemfile</code>.  Just run <code>rails_best_practices -f html</code> in
 the main directory of your app.  The result will be written to 
 <code>./rails_best_practices_output.html</code>.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-4' href='slides_refactoring_rails.html#slide-4'>▻</a>
 <h3 id="futher-reading">4 Futher Reading</h3>
 <ul>
 <li>Fowler, Beck, Brant, Opdyke, Roberts(1999). Refactoring: improving the design of existing code. Addison Wesley. ISBN: 0-201-48567-2.</li>
@@ -185,7 +205,7 @@ the main directory of your app.  The result will be written to
 <li>
 <a href="https://github.com/facebook/codemod">codemod</a> a python script</li>
 </ul>
-
+</div>        
       </div>
     </div>
   </div>
@@ -211,6 +231,11 @@ the main directory of your app.  The result will be written to
   <script>
     SyntaxHighlighter.all()
     $(guidesIndex.bind);
+    $(document).ready(function(){
+      let hash = document.location.hash;
+      if(! hash) return;
+      document.getElementById(hash).scrollIntoView(true);
+    })
   </script>
   </body>
 </html>

@@ -14,6 +14,12 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
 
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <style>
+
+    .slide img[src$=svg] {
+      width: 100%;
+    }
+  </style>
 </head>
 <body class="guide">
   <div>
@@ -96,10 +102,15 @@
     </div>
   </div>
 
+
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h2>Building the Frontend with Webpack</h2>
+        <div class='slide'><a id='slide-1'></a>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-1' href='slides_rails_webpack_frontend.html#slide-1'>▻</a>
+<h2>Building the Frontend with Webpack</h2>
 <p>While the asset pipeline is rails' way of preparing
 files for the frontend, in recent years a completely
 different toolchain was developed in the frontend community.</p>
@@ -110,7 +121,13 @@ You will be able to:</p>
 <li>  Use React with Ruby on Rails</li>
 </ul>
 <div class="repo"><p>Fork the <a href="https://github.com/backend-development/xxx">example app 'xxx'</a> and try out what you learn here.</p></div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-2' href='slides_rails_webpack_frontend.html#slide-2'>▻</a>
 <hr>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-3' href='slides_rails_webpack_frontend.html#slide-3'>▻</a>
 <h3 id="frontend-pipelines">1 Frontend Pipelines</h3>
 <p>When the rails asset pipeline was published with rails 3.1 in 2011, node.js
 was only 2 years old. Version 1.0 of npm, the node package manager, was released at the
@@ -120,10 +137,19 @@ new tools: bower, grunt, gulp, yarn, webpacker.</p>
 <p>Since Rails 5.1 webpacker is an official part of Rails. It coexists with the asset pipeline.
 The primary purpose for webpack is app-like JavaScript. You can still use
 the asset pipeline for images, CSS, or even small JavaScript "sprinkles" to use in server generated html.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-4' href='slides_rails_webpack_frontend.html#slide-4'>▻</a>
 <h3 id="files">2 Files</h3>
 <p><img src="images/javascript-folder.png" srcset='images/javascript-folder.png 1x, images/javascript-folder@2x.png 2x' alt=""></p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-5' href='slides_rails_webpack_frontend.html#slide-5'>▻</a>
 <h3 id="to-be-continued">3 To be Continued</h3>
-<h3 id="further-reading">4 Further Reading</h3>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-6' href='slides_rails_webpack_frontend.html#slide-6'>▻</a>
+<h3 id="further-reading">4 Further Reading</h3></div>        
       </div>
     </div>
   </div>
@@ -149,6 +175,11 @@ the asset pipeline for images, CSS, or even small JavaScript "sprinkles" to use 
   <script>
     SyntaxHighlighter.all()
     $(guidesIndex.bind);
+    $(document).ready(function(){
+      let hash = document.location.hash;
+      if(! hash) return;
+      document.getElementById(hash).scrollIntoView(true);
+    })
   </script>
   </body>
 </html>

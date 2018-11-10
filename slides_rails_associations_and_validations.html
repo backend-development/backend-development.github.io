@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=1024, user-scalable=no">
+
+  <title>Slides for Rails: Associations and Validations in the Backend Development Textbook</title>
+
+  <!-- Required stylesheet -->
+  <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
+
+  <!-- Extension CSS files go here. Remove or add as needed. -->
+  <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
+  <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
+  <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
+  <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
+  <!-- link rel="stylesheet" media="screen" href="stylesheets/deck.scale.css" -->
+
+  <!-- Style theme. More available in /themes/style/ or create your own. -->
+  <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
+
+  <!-- Transition theme. More available in /themes/transition/ or create your own. -->
+  <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
+
+  <!-- Basic black and white print styles -->
+  <link rel="stylesheet" media="print" href="stylesheets/print.css">
+
+  <!-- Required Modernizr file -->
+  <script src="javascripts/modernizr.custom.js"></script>
+</head>
+<body>
+    <div class="deck-container">
+        <div class='slide'>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_associations_and_validations.html#slide-1'>▻</a>
+<h3 id="validations">1 Validations</h3>
+<p>Validations are rules you want to enforce on the data in your models.</p>
+<ul>
+<li>validations are declared on the model</li>
+<li>they are checked every time data is saved to the database</li>
+<li>if the data does not conform to the validation, it is not saved, and the errors are available through the object</li>
+</ul>
+<p>An example on the rails console: I try to create a new tweet and save it,
+but it can't be saved because a validation is in place:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+&gt; t = Tweet.new
+=&gt; #&lt;Tweet id: nil, status: nil, zombie: nil&gt;
+&gt; t.save
+=&gt; false
+&gt; t.errors
+=&gt; {:status=&gt;["can't be blank"]}
+&gt; t.errors[:status]
+=&gt; "can't be blank"
+
+</pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_associations_and_validations.html#slide-2'>▻</a>
+<h3 id="associations">2 Associations</h3>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_associations_and_validations.html#slide-3'>▻</a>
+<h4 id="1-n-associations">2.1 1:n Associations</h4>
+<p>If you have used relational databases before you are probably familiar
+with the different types of associations between database tables.  But even
+if you have not, the first association is easy to understand:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+One Zombie has many Tweets          One Tweet belongs to one Zombie
+
+Zombie Ash  ----------------------- Tweet 'arg'
+            \---------------------- Tweet 'aarrrrrgggh'
+            \---------------------- Tweet 'aaaarrrrrrrrrgggh'
+
+Zombie Sue ------------------------ Tweet 'gagaga'
+
+</pre>
+</div>
+<p>How is this represented in database?</p>
+<p>In the table <code>tweets</code> there is a column <code>zombie_id</code> which references <code>zombies.id</code>.
+This column in <code>tweets</code> is called a "foreign key".</p>
+<p>You can add this column using a migration <code>add_column    :tweets, :zombie_id, :integer</code></p>
+<p>How is this represented in the model?</p>
+<ul>
+<li>1:n associations are declared in the model with <code>belongs_to</code> and <code>has_many</code>
+</li>
+<li>both directions are now available in the objects:
+
+<ul>
+<li><code>t = Tweet.find(7); z = t.zombie</code></li>
+<li><code>z = Zombie.find(1); z.tweets.each{ |t|  puts t.status }</code></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_associations_and_validations.html#slide-4'>▻</a>
+<h4 id="further-reading">2.2 Further reading</h4>
+<ul>
+<li>The Rails Guides give a good introduction to a subject area:</li>
+<li>Rails Guide: <a href="http://guides.rubyonrails.org/active_record_validations_callbacks.html">Active Record Validations and Callbacks</a>
+</li>
+<li>Rails Guide: <a href="http://guides.rubyonrails.org/association_basics.html">Active Record Associations</a>
+</li>
+<li>Use the API Dock to look up the details:</li>
+<li>Rails @ API Dock: <a href="http://apidock.com/rails/ActiveResource/Base/find/class">find()</a>
+</li>
+<li>Rails @ API Dock: <a href="http://apidock.com/rails/v2.0.3/ActiveRecord/Validations/ClassMethods/validates_presence_of">ActiveRecord Validations</a>
+</li>
+<li>Rails @ API Dock: <a href="http://apidock.com/rails/v3.2.8/ActiveRecord/Associations/ClassMethods">ActiveRecord Associations</a>
+</li>
+</ul>
+</div>
+    </div>
+
+    <!-- End slides. -->
+
+    <!-- Begin extension snippets. Add or remove as needed. -->
+
+    <!-- deck.navigation snippet -->
+    <div aria-role="navigation">
+      <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+      <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+    </div>
+
+    <!-- deck.status snippet -->
+    <p class="deck-status" aria-role="status">
+      <span class="deck-status-current"></span>
+      /
+      <span class="deck-status-total"></span>
+    </p>
+
+    <!-- deck.goto snippet -->
+    <form action="." method="get" class="goto-form">
+      <label for="goto-slide">Go to slide:</label>
+      <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+      <datalist id="goto-datalist"></datalist>
+      <input type="submit" value="Go">
+    </form>
+
+    <!-- End extension snippets. -->
+  </div>
+
+<!-- Required JS files. -->
+<script src="javascripts/jquery.min.js"></script>
+<script src="javascripts/deck.core.js"></script>
+
+<!-- Extension JS files. Add or remove as needed. -->
+<script src="javascripts/deck.menu.js"></script>
+<script src="javascripts/deck.goto.js"></script>
+<script src="javascripts/deck.status.js"></script>
+<script src="javascripts/deck.navigation.js"></script>
+<script src="javascripts/deck.escape.js"></script>
+<!-- script src="javascripts/deck.scale.js"></script -->
+
+<!-- Initialize the deck. You can put this in an external file if desired. -->
+<script>
+  $(function() {
+    $.deck('.slide');
+  });
+</script>
+</body>
+</html>
+

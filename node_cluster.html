@@ -14,6 +14,12 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
 
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <style>
+
+    .slide img[src$=svg] {
+      width: 100%;
+    }
+  </style>
 </head>
 <body class="guide">
   <div>
@@ -104,10 +110,18 @@
     </div>
   </div>
 
+
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="node-and-the-command-line">1 Node and the Command Line</h3>
+        <div class='slide'><a id='slide-1'></a>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-1' href='slides_node_cluster.html#slide-1'>▻</a>
+<h3 id="node-and-the-command-line">1 Node and the Command Line</h3>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-2' href='slides_node_cluster.html#slide-2'>▻</a>
 <h3 id="arguments">2 Arguments</h3>
 <p>The array <code>process.argv</code> contains information about how the program
 was started:</p>
@@ -124,6 +138,9 @@ node fs.js file.txt
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-3' href='slides_node_cluster.html#slide-3'>▻</a>
 <h3 id="standard-input-and-standard-output-channels">3 Standard Input and Standard Output channels</h3>
 <p>are streams in node:</p>
 <div class="code_container">
@@ -140,7 +157,13 @@ node app.js &gt; out.txt 2&gt; err.txt
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-4' href='slides_node_cluster.html#slide-4'>▻</a>
 <h3 id="environment-variables">4 environment variables</h3>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-5' href='slides_node_cluster.html#slide-5'>▻</a>
 <h3 id="process-id">5 process id</h3>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -158,6 +181,9 @@ $ ps
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-6' href='slides_node_cluster.html#slide-6'>▻</a>
 <h3 id="sending-and-reacting-to-signals">6 Sending and reacting to signals</h3>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -197,6 +223,9 @@ kill –HUP 20877
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-7' href='slides_node_cluster.html#slide-7'>▻</a>
 <h3 id="scaling-node-with-cluster-js">7 Scaling Node with cluster.js</h3>
 <p>V8 has a default memory limit of ~1.5GB
 If your server has more memory
@@ -282,12 +311,15 @@ are the same as for PHP, Rails, etc:</p>
 <li>in a key value store like Memcached, Redis (faster, minimal features)</li>
 <li>by sending messages</li>
 </ul>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-8' href='slides_node_cluster.html#slide-8'>▻</a>
 <h3 id="see-also">8 See Also</h3>
 <ul>
 <li><a href="https://nodejs.org/api/cluster.html">cluster.js documentation</a></li>
 <li><a href="http://pm2.keymetrics.io/">pm2 - process manager for Node.js</a></li>
 </ul>
-
+</div>        
       </div>
     </div>
   </div>
@@ -313,6 +345,11 @@ are the same as for PHP, Rails, etc:</p>
   <script>
     SyntaxHighlighter.all()
     $(guidesIndex.bind);
+    $(document).ready(function(){
+      let hash = document.location.hash;
+      if(! hash) return;
+      document.getElementById(hash).scrollIntoView(true);
+    })
   </script>
   </body>
 </html>

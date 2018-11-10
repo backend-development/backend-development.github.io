@@ -14,6 +14,12 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
 
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <style>
+
+    .slide img[src$=svg] {
+      width: 100%;
+    }
+  </style>
 </head>
 <body class="guide">
   <div>
@@ -143,10 +149,15 @@ because it&#39;s already there in a cache.</p><p>After working through this guid
     </div>
   </div>
 
+
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="what-is-caching">1 What is Caching</h3>
+        <div class='slide'><a id='slide-1'></a>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-1' href='slides_caching.html#slide-1'>▻</a>
+<h3 id="what-is-caching">1 What is Caching</h3>
 <p>In computing we are faced with vastly different access speeds for different media:</p>
 <ul>
 <li>reading a megabyte of data from another host on the internet might take seconds </li>
@@ -161,12 +172,18 @@ a cache is "auxiliary memory from which high-speed retrieval is possible".</p>
 <p>When you load a webpage into your browser there are many level
 of caches influencing this process.  We will look at some of the caches
 that we can influence as web developers.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-2' href='slides_caching.html#slide-2'>▻</a>
 <h3 id="measuring-performance">2 Measuring Performance</h3>
 <p>As we already discussed in <a href="asset_pipeline.html">the chapter on the asset pipeline</a>
 it is important to measure the performance of your app before you try to optimize anyhing.</p>
 <p>In this chapter we will learn about new tools for measuring what happens on the server.</p>
 <p>Let's start with a very general rule of thumb for performance:</p>
 <p>We want the whole web page to load within a second. We expect to need about half of that (500ms) for loading extra assets like javascript files, css, images. We will set aside another 200ms for shipping data across the network, which leaves us with 300ms time to render out the first HTML document from our Rails App.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-3' href='slides_caching.html#slide-3'>▻</a>
 <h4 id="rack-mini-profiler">2.1 rack-mini-profiler</h4>
 <p>This gem helps you analyze where your Rails App spends time.</p>
 <p><img src="images/rack-mini-profiler.png" srcset='images/rack-mini-profiler.png 1x, images/rack-mini-profiler@2x.png 2x' alt="https://github.com/MiniProfiler/rack-mini-profiler"></p>
@@ -175,15 +192,27 @@ it is important to measure the performance of your app before you try to optimiz
 <p>The Mini Profiler only measures the server side: the time spent in the rails app to generate
 the webpage.  So we need to compare the numbers Mini Profiler gives us to the
 300ms threshold defined above.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-4' href='slides_caching.html#slide-4'>▻</a>
 <h4 id="example-app">2.2 Example App</h4>
 <p>We will use a portfolio site as an example app.  All the screenshots
 above already show this example app.   You can study <a href="https://rails-caching-demo.herokuapp.com/">the demo</a> 
 on heroku, there all the caching is already implemented. </p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-5' href='slides_caching.html#slide-5'>▻</a>
 <h3 id="http-caching">3 HTTP Caching</h3>
 <p>The web browser will cache content if sent the right HTTP Headers.
 The Asset Pipeline handles that for images, css and javascript by default.
 See <a href="asset_pipeline.html">the chapter on the asset pipeline</a>.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-6' href='slides_caching.html#slide-6'>▻</a>
 <h3 id="fragment-caching">4 Fragment Caching</h3>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-7' href='slides_caching.html#slide-7'>▻</a>
 <h4 id="configure-caching">4.1 Configure Caching</h4>
 <p>Fragment Caching is deactivated by default in the development environment. 
 You have to activate it if you want to try this out in development:</p>
@@ -218,6 +247,9 @@ it is helpful to use the file_store in development:</p>
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-8' href='slides_caching.html#slide-8'>▻</a>
 <h4 id="caching-a-view">4.2 Caching a View</h4>
 <p>If you look at the miniprofiler above, a first glance rendering
 the project show view takes too long: 450ms.  We could dig
@@ -296,6 +328,9 @@ project.save
 </div>
 <p>Now reload the browser to make sure that a new version of the page is rendered.
 Reload again to check if the new version is cached.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-9' href='slides_caching.html#slide-9'>▻</a>
 <h4 id="caching-a-partial">4.3 Caching a Partial</h4>
 <p>If you look at the homepage of <a href="https://shrouded-dawn-29154.herokuapp.com/">the demo</a>
 you can see that the list of project under "Bachelorprojekte" is different every time
@@ -348,6 +383,9 @@ in Rails 4, so this does not work yet.</p>
 <a href="https://shrouded-dawn-29154.herokuapp.com/editions/bachelorprojekte-web-2015">edition view</a>:
 this view also uses the <code>projects/_project</code> partial, so it too will 
 profit from the caching.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-10' href='slides_caching.html#slide-10'>▻</a>
 <h4 id="russian-doll-caching">4.4 Russian Doll Caching</h4>
 <p>In the previous step we implemented caching for the <code>projects/_project</code> partial,
 which is also used in the <code>editions/show</code> view.  Now let's add caching to this
@@ -409,6 +447,9 @@ You can see in rack-mini-profiler that only one of the
 partials was recreated, all the other partials were loaded from cache.
 The next time the same page was rendered the edition cache was reused.</p>
 <p><img src="images/russian-change.png" srcset='images/russian-change.png 1x, images/russian-change@2x.png 2x' alt="russian doll caching at work: changes when a project changes"></p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-11' href='slides_caching.html#slide-11'>▻</a>
 <h4 id="the-limits-of-fragment-caching">4.5 The limits of fragment caching</h4>
 <p>Caching is really helpful for pages that are accessed a lot.
 In our example app this might be true for the homepage and
@@ -430,17 +471,26 @@ config.action_controller.perform_caching = false
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-12' href='slides_caching.html#slide-12'>▻</a>
 <h3 id="activerecord-and-db">5 ActiveRecord and DB</h3>
 <p>Accessing the database takes a long time - compared to all
 the computation that is done in ruby code itself.  So looking
 at the Database, and the ORM we use to access the database, might
 make sense for performance optimisation.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-13' href='slides_caching.html#slide-13'>▻</a>
 <h4 id="ignore-this">5.1 Ignore this</h4>
 <p>If you  find <code>SHOW FULL FIELDS</code> queries in your log file or in rack-mini-profiler,
 you can ignore them.  These
 queries are used by activerecord to find out which attributes an
 object has.  In production these will only occur when the first
 object of a type is loaded, so you can savely ignore them.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-14' href='slides_caching.html#slide-14'>▻</a>
 <h4 id="querycache">5.2 QueryCache</h4>
 <p>If you look into the log file <code>logs/development.log</code> you will
 see all the SQL queries made to the database, and also some that
@@ -484,6 +534,9 @@ user.reload
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-15' href='slides_caching.html#slide-15'>▻</a>
 <h4 id="using-indexes-in-the-database">5.3 using indexes in the database</h4>
 <p>When we query the database by <code>id</code> we will get a rapid response:
 the primary key is always accessed through an index.</p>
@@ -540,6 +593,9 @@ mysql&gt; DESCRIBE SELECT * FROM projects WHERE publicationdate='2014-07-22';
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-16' href='slides_caching.html#slide-16'>▻</a>
 <h4 id="n-1-queries">5.4 n+1 queries</h4>
 <p>When analysing the SQL queries a rails project generates
 you will often find this situation: you have a 1:n relationship,
@@ -606,6 +662,9 @@ If we include them all, we end up with a sizable reduction in SQL queries:</p>
 </pre>
 </div>
 <p><img src="images/sql-include-more.png" srcset='images/sql-include-more.png 1x, images/sql-include-more@2x.png 2x' alt="compare render times with many includes"></p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-17' href='slides_caching.html#slide-17'>▻</a>
 <h4 id="view">5.5 view</h4>
 <p>We still have many more SQL queries that are created
 for the <code>collaborators/_show</code> partial. </p>
@@ -767,6 +826,9 @@ us a <strong>materialized view</strong>.  In a normal view each access to the vi
 triggers the underlying sql requests.  In a materialized view the
 data is copied over to the view once. This needs more memory, but gives
 faster access.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-18' href='slides_caching.html#slide-18'>▻</a>
 <h4 id="final-thoughts">5.6 final thoughts</h4>
 <p>If we add a relationship from projects to degree_program (actually: three <code>has_many through:</code> steps to get from projects to collaborators,
 and from collaborators to users, and from users to degree_programs), we can also include degree_programs in our
@@ -783,6 +845,9 @@ includes statement when loading the project:</p>
 the best solution for every situation. As a developer you have to keep
 an eye on your ORM, and check now and again if the SQL queries that the
 ORM creates make sense and are efficient.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-19' href='slides_caching.html#slide-19'>▻</a>
 <h3 id="see-also">6 See Also</h3>
 <ul>
 <li><a href="http://guides.rubyonrails.org/caching_with_rails.html">Rails Guide: Caching</a></li>
@@ -793,7 +858,7 @@ ORM creates make sense and are efficient.</p>
 <li><a href="http://www.fromdual.ch/mysql-materialized-views">materialized views in mysql</a></li>
 <li><a href="https://www.postgresql.org/docs/9.3/static/rules-materializedviews.html">materialized view in postgres</a></li>
 </ul>
-
+</div>        
       </div>
     </div>
   </div>
@@ -819,6 +884,11 @@ ORM creates make sense and are efficient.</p>
   <script>
     SyntaxHighlighter.all()
     $(guidesIndex.bind);
+    $(document).ready(function(){
+      let hash = document.location.hash;
+      if(! hash) return;
+      document.getElementById(hash).scrollIntoView(true);
+    })
   </script>
   </body>
 </html>

@@ -14,6 +14,12 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
 
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <style>
+
+    .slide img[src$=svg] {
+      width: 100%;
+    }
+  </style>
 </head>
 <body class="guide">
   <div>
@@ -108,10 +114,15 @@
     </div>
   </div>
 
+
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="http">1 HTTP</h3>
+        <div class='slide'><a id='slide-1'></a>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-1' href='slides_node_express.html#slide-1'>▻</a>
+<h3 id="http">1 HTTP</h3>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 const http = require('http');
@@ -129,6 +140,9 @@ server.listen(port, hostname, () =&gt; {
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-2' href='slides_node_express.html#slide-2'>▻</a>
 <h3 id="connect">2 Connect</h3>
 <p>Connect is a middleware framework for node
 Built on top of node’s Http Server</p>
@@ -163,6 +177,9 @@ var app = connect()
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-3' href='slides_node_express.html#slide-3'>▻</a>
 <h3 id="express">3 Express</h3>
 <ul>
 <li>Project Generator</li>
@@ -196,6 +213,9 @@ DEBUG=node-express:* npm start
 </pre>
 </div>
 <p>has your project up and running</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-4' href='slides_node_express.html#slide-4'>▻</a>
 <h4 id="views-with-jade">3.1 Views with JADE</h4>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -218,6 +238,9 @@ block content
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-5' href='slides_node_express.html#slide-5'>▻</a>
 <h4 id="working-with-data">3.2 Working with data</h4>
 <p>Pass data to the views</p>
 <div class="code_container">
@@ -260,11 +283,14 @@ p This Server started at #{clock}
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-6' href='slides_node_express.html#slide-6'>▻</a>
 <h3 id="see-also">4 See Also</h3>
 <ul>
 <li><a href="http://expressjs.com/en/resources/frameworks.html">frameworks recommended by express</a></li>
 </ul>
-
+</div>        
       </div>
     </div>
   </div>
@@ -290,6 +316,11 @@ p This Server started at #{clock}
   <script>
     SyntaxHighlighter.all()
     $(guidesIndex.bind);
+    $(document).ready(function(){
+      let hash = document.location.hash;
+      if(! hash) return;
+      document.getElementById(hash).scrollIntoView(true);
+    })
   </script>
   </body>
 </html>

@@ -14,6 +14,12 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
 
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <style>
+
+    .slide img[src$=svg] {
+      width: 100%;
+    }
+  </style>
 </head>
 <body class="guide">
   <div>
@@ -117,14 +123,25 @@
     </div>
   </div>
 
+
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="javascript-vs-ruby">1 JavaScript vs. Ruby</h3>
+        <div class='slide'><a id='slide-1'></a>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-1' href='slides_node_vs_rails.html#slide-1'>▻</a>
+<h3 id="javascript-vs-ruby">1 JavaScript vs. Ruby</h3>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-2' href='slides_node_vs_rails.html#slide-2'>▻</a>
 <h4 id="background">1.1 Background</h4>
 <p>Both JavaScript and Ruby are interpreted languages with more than 
 20 years of history. The both were influenced by object orientation 
 and functional programming.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-3' href='slides_node_vs_rails.html#slide-3'>▻</a>
 <h4 id="syntax">1.2 Syntax</h4>
 <p>JavaScript Syntax is inspired by the C family of languages: 
 curly braces and semicolons. But it adds it's own idiosyncrasies 
@@ -148,6 +165,9 @@ end
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-4' href='slides_node_vs_rails.html#slide-4'>▻</a>
 <h4 id="variables-and-types">1.3 Variables and Types</h4>
 <p>Both Interpreter will check if your variables were initialized before 
 you start using them. In both languages values are typed, 
@@ -183,6 +203,9 @@ js&gt; 3 + 5   // addition!
 </pre>
 </div>
 <p>The plus sign is both used for mathematics and for string concatenation in JavaScript.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-5' href='slides_node_vs_rails.html#slide-5'>▻</a>
 <h4 id="functions-vs-blocks">1.4 functions vs blocks</h4>
 <p>Both languages have their ways of organizing the code that is found rarely in other languages:
 In JavaScript you will uses <strong>anonymous functions</strong> a lot, for example for handling events as in the next example, but also in other contexts:</p>
@@ -219,7 +242,13 @@ a
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-6' href='slides_node_vs_rails.html#slide-6'>▻</a>
 <h3 id="node-vs-rails">2 Node vs Rails: </h3>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-7' href='slides_node_vs_rails.html#slide-7'>▻</a>
 <h4 id="apples-vs-oranges">2.1 apples vs. oranges</h4>
 <p>Comparing node to rails is not quite a fair comparison:</p>
 <p>Rails is a complete framework for a web backend, with ORM, Templates, 
@@ -230,6 +259,9 @@ and assemble all of these pieces to build you web app.</p>
 <p>It would be more appropriate to compare Rails to Sails (a complete node 
 backend framework) or to compare express (a minimal node backend) to Sinatra 
 (a minimal ruby backend).</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-8' href='slides_node_vs_rails.html#slide-8'>▻</a>
 <h4 id="processing-model-for-plain-http-rest">2.2 processing model for plain HTTP / REST</h4>
 <p>Ruby on Rails follows the classical model of backend languages 
 that goes back to the stateless nature of HTTP: As a developer 
@@ -260,6 +292,9 @@ requests. Your mental model needs a lot more complex:</p>
 </li>
 <li>I might want to react to signals to re-read configuration or initiate some clean up before shutdown</li>
 </ol>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-9' href='slides_node_vs_rails.html#slide-9'>▻</a>
 <h4 id="asyn-vs-sync">2.3 asyn vs sync</h4>
 <p>Node relies heavily on asynchronous processing. As a programmer 
 you have to write asynchronous code for common actions like:</p>
@@ -310,6 +345,9 @@ ThumbnailJob.perform_later current_user
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-10' href='slides_node_vs_rails.html#slide-10'>▻</a>
 <h3 id="summary">3 Summary</h3>
 <p>Ruby and JavaScript are similar programming languages.</p>
 <p>node.js and Rails represent two very different approaches for programming a web backend. 
@@ -320,7 +358,7 @@ and give you a simple programming model to work with.</p>
 JavaScript with jQuery in the frontend. For more advanced programmers 
 I would recommend getting to know node.js, and deciding between node.js 
 and Rails on a case by case basis.</p>
-<p>This text was first published as <a href="https://www.quora.com/Is-Ruby-on-Rails-easier-to-learn-than-Node">an answer on quora</a>.</p>
+<p>This text was first published as <a href="https://www.quora.com/Is-Ruby-on-Rails-easier-to-learn-than-Node">an answer on quora</a>.</p></div>        
       </div>
     </div>
   </div>
@@ -346,6 +384,11 @@ and Rails on a case by case basis.</p>
   <script>
     SyntaxHighlighter.all()
     $(guidesIndex.bind);
+    $(document).ready(function(){
+      let hash = document.location.hash;
+      if(! hash) return;
+      document.getElementById(hash).scrollIntoView(true);
+    })
   </script>
   </body>
 </html>

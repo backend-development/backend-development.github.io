@@ -14,6 +14,12 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
 
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <style>
+
+    .slide img[src$=svg] {
+      width: 100%;
+    }
+  </style>
 </head>
 <body class="guide">
   <div>
@@ -125,10 +131,15 @@ With Actioncable you can use websockets for publish-subscribe communication.</p>
     </div>
   </div>
 
+
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <p>TBD</p>
+        <div class='slide'><a id='slide-1'></a>
+<p>TBD</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-1' href='slides_rails_websockets.html#slide-1'>▻</a>
 <h3 id="websockets">1 Websockets</h3>
 <p>Websockets are built on top of HTTP and HTTPS:</p>
 <ul>
@@ -160,6 +171,9 @@ Sec-WebSocket-Protocol: chat
 <p>Both the client and the server can send messages across
 the websocket at any time.  Both the client and the
 server should be able to handle incoming messages at any time.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-2' href='slides_rails_websockets.html#slide-2'>▻</a>
 <h3 id="publish-subscribe">2 Publish-Subscribe</h3>
 <p>In Rails we have to distinguish three concepts:</p>
 <ul>
@@ -209,11 +223,17 @@ server should be able to handle incoming messages at any time.</p>
 </ul>
 </li>
 </ul>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-3' href='slides_rails_websockets.html#slide-3'>▻</a>
 <h3 id="chat-example">3 Chat Example</h3>
 <p>In our example app several users should be able to chat with each other,
 no matter which page of the app they are currently viewing.</p>
 <p><img src="images/chat-screenshot-annotated.png" srcset='images/chat-screenshot-annotated.png 1x, images/chat-screenshot-annotated@2x.png 2x' alt="Screenshot of the Chat Area on the Homepage"></p>
 <p>We will build the app starting from the client side:</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-4' href='slides_rails_websockets.html#slide-4'>▻</a>
 <h4 id="client-connects-and-subscribes">3.1 Client connects and subscribes</h4>
 <p>The javascript concerning websockets is stored in the
 file <code>app/assets/javascripts/cabel.js</code> which was created
@@ -271,6 +291,9 @@ WebSocket connection to 'ws://localhost:3000/cable' failed: Error during WebSock
 </pre>
 </div>
 <p>So the client is trying to connect, but it does not work yet.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-5' href='slides_rails_websockets.html#slide-5'>▻</a>
 <h4 id="server-accepts-and-authentication">3.2 Server accepts and Authentication</h4>
 <p>The server side code is stored in the folder <code>app/channels</code>. We first
 take a look at <code>app/channels/application_cable/connection.rb</code>, which was
@@ -368,6 +391,9 @@ ChatChannel is streaming from chat_main
 </pre>
 </div>
 <p>Now the server is ready to receive data from this client and send data to this client.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-6' href='slides_rails_websockets.html#slide-6'>▻</a>
 <h4 id="client-sends-data">3.3 Client sends data</h4>
 <p>To implement the chat we can use the already existing HTML in application.html.erb:</p>
 <div class="code_container">
@@ -429,6 +455,9 @@ $(function() {
 <p>If you type in 'Hello' and send it, you can see the message
 being sent in the websocket tab of firefox developer tools:</p>
 <p><img src="images/ws_firefox_send.png" srcset='images/ws_firefox_send.png 1x, images/ws_firefox_send@2x.png 2x' alt="chat message being sent to the server"></p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-7' href='slides_rails_websockets.html#slide-7'>▻</a>
 <h4 id="server-receives-data">3.4 Server receives data</h4>
 <p>Right now the server does not know how to handle the incoming data,
 in the log file you will read:</p>
@@ -463,6 +492,9 @@ the current time on the server.</p>
 <p>The <code>broadcast</code> method will send the new data to 
 all users subscribed to the chat-channel, even
 the user who originally sent it.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-8' href='slides_rails_websockets.html#slide-8'>▻</a>
 <h4 id="chat-example-client-recieves-data">3.5 Client recieves data</h4>
 <p>In `<code>app/assets/javascripts/channels/chat.js</code>, where
 we made the subscription, we add a function to handle
@@ -483,6 +515,9 @@ App.chatChannel = App.cable.subscriptions.create({
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-9' href='slides_rails_websockets.html#slide-9'>▻</a>
 <h3 id="progress-example">4 Progress Example</h3>
 <p>For the second example the communication structure is a bit more complex:
 All the users <em>in one adventure</em> should see each other progress through the steps.</p>
@@ -502,6 +537,9 @@ all the other users currently viewing the page, and their display will change
 accordingly.</p>
 <p>Contrast this to a classic web app built with HTTP requests, where you would
 need to reload the page to get the new status. </p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-10' href='slides_rails_websockets.html#slide-10'>▻</a>
 <h4 id="client-subscribes">4.1 Client subscribes</h4>
 <p>There is no need to change anything in <code>app/assets/javascripts/cabel.js</code>. We 
 add another file to the channels folder <code>app/assets/javascripts/channels/adventure.js</code>:</p>
@@ -527,6 +565,9 @@ App.adventureChannel = App.cable.subscriptions.create({
 </div>
 <p>The path is communicated via websocket:</p>
 <p><img src="images/subscribe_adventure.png" srcset='images/subscribe_adventure.png 1x, images/subscribe_adventure@2x.png 2x' alt="Websocket in Firefox with Extension Websocket Monitor"></p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-11' href='slides_rails_websockets.html#slide-11'>▻</a>
 <h4 id="server-accepts">4.2 Server accepts</h4>
 <p>On the server side we create a new file <code>app/channels/adventure_channel.rb</code>:</p>
 <div class="code_container">
@@ -556,6 +597,9 @@ end
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-12' href='slides_rails_websockets.html#slide-12'>▻</a>
 <h4 id="progress-example-client-recieves-data">4.3 Client recieves data</h4>
 <p>To help with debugging the channel while we are building it,
 we will copy over any data recived by the client to the chat window:</p>
@@ -573,6 +617,9 @@ App.adventureChannel = App.cable.subscriptions.create({
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-13' href='slides_rails_websockets.html#slide-13'>▻</a>
 <h4 id="server-sends-data-if-status-changes">4.4 Server sends data if status changes</h4>
 <p>Every time a user changes their status we want the server
 to send out messages.  The model where the status is stored
@@ -602,6 +649,9 @@ we use a helper to contruct this string, we could also have
 done it directly with <code>"/adventure/#{stepstone.adventure_id}"</code>.</p>
 <p>With these pieces in place a change in status should already
 appear in the chat window.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-14' href='slides_rails_websockets.html#slide-14'>▻</a>
 <h4 id="client-recieves-data-partial-as-html">4.5 Client recieves data: partial as html</h4>
 <p>The display of all the users status involves a lot of html and
 additional resources.</p>
@@ -672,14 +722,20 @@ received: function(data) {
 </pre>
 </div>
 <p>Now the status-display with all the users should work!</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-15' href='slides_rails_websockets.html#slide-15'>▻</a>
 <h3 id="deployment">5 Deployment</h3>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-16' href='slides_rails_websockets.html#slide-16'>▻</a>
 <h3 id="see-also">6 See Also</h3>
 <ul>
 <li><a href="https://tools.ietf.org/html/rfc6455">RFC 6455</a></li>
 <li>
 <a href="https://blog.ably.io/rails-5-actioncable-the-good-and-bad-parts-1b56c3b31404#.nhzs3q1qd">O'Riordan(2016) Rails ActionCable — The good and bad parts</a> - a good overview of the uses and limitation of ActionCable</li>
 </ul>
-
+</div>        
       </div>
     </div>
   </div>
@@ -705,6 +761,11 @@ received: function(data) {
   <script>
     SyntaxHighlighter.all()
     $(guidesIndex.bind);
+    $(document).ready(function(){
+      let hash = document.location.hash;
+      if(! hash) return;
+      document.getElementById(hash).scrollIntoView(true);
+    })
   </script>
   </body>
 </html>

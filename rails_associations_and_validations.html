@@ -14,6 +14,12 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
 
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <style>
+
+    .slide img[src$=svg] {
+      width: 100%;
+    }
+  </style>
 </head>
 <body class="guide">
   <div>
@@ -107,10 +113,15 @@ Sadly it is no longer available.</p>
     </div>
   </div>
 
+
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="validations">1 Validations</h3>
+        <div class='slide'><a id='slide-1'></a>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-1' href='slides_rails_associations_and_validations.html#slide-1'>▻</a>
+<h3 id="validations">1 Validations</h3>
 <p>Validations are rules you want to enforce on the data in your models.</p>
 <ul>
 <li>validations are declared on the model</li>
@@ -132,7 +143,13 @@ but it can't be saved because a validation is in place:</p>
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-2' href='slides_rails_associations_and_validations.html#slide-2'>▻</a>
 <h3 id="associations">2 Associations</h3>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-3' href='slides_rails_associations_and_validations.html#slide-3'>▻</a>
 <h4 id="1-n-associations">2.1 1:n Associations</h4>
 <p>If you have used relational databases before you are probably familiar
 with the different types of associations between database tables.  But even
@@ -165,6 +182,9 @@ This column in <code>tweets</code> is called a "foreign key".</p>
 </ul>
 </li>
 </ul>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-4' href='slides_rails_associations_and_validations.html#slide-4'>▻</a>
 <h4 id="further-reading">2.2 Further reading</h4>
 <ul>
 <li>The Rails Guides give a good introduction to a subject area:</li>
@@ -180,7 +200,7 @@ This column in <code>tweets</code> is called a "foreign key".</p>
 <li>Rails @ API Dock: <a href="http://apidock.com/rails/v3.2.8/ActiveRecord/Associations/ClassMethods">ActiveRecord Associations</a>
 </li>
 </ul>
-
+</div>        
       </div>
     </div>
   </div>
@@ -206,6 +226,11 @@ This column in <code>tweets</code> is called a "foreign key".</p>
   <script>
     SyntaxHighlighter.all()
     $(guidesIndex.bind);
+    $(document).ready(function(){
+      let hash = document.location.hash;
+      if(! hash) return;
+      document.getElementById(hash).scrollIntoView(true);
+    })
   </script>
   </body>
 </html>

@@ -14,6 +14,12 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
 
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <style>
+
+    .slide img[src$=svg] {
+      width: 100%;
+    }
+  </style>
 </head>
 <body class="guide">
   <div>
@@ -123,14 +129,25 @@ to built-in mechanisms in Rails for testing your application.</p><p>After readin
     </div>
   </div>
 
+
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="why-write-tests-questionmark">1 Why Write Tests?</h3>
+        <div class='slide'><a id='slide-1'></a>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-1' href='slides_testing.html#slide-1'>▻</a>
+<h3 id="why-write-tests-questionmark">1 Why Write Tests?</h3>
 <p>Rails makes it super easy to write your tests. It starts by producing skeleton test code while you are creating your models and controllers.</p>
 <p>By running your Rails tests after every change in the code you can ensure that you did not break anything.</p>
 <p>Rails tests can also simulate browser requests without or with javascript and thus you can test your application's response without having to test it through your browser.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-2' href='slides_testing.html#slide-2'>▻</a>
 <h3 id="introduction-to-testing">2 Introduction to Testing</h3>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-3' href='slides_testing.html#slide-3'>▻</a>
 <h4 id="setup-for-testing">2.1 Setup for Testing</h4>
 <p>Rails creates a <code>test</code> directory for you. If you list the contents of this directory you see:</p>
 <div class="code_container">
@@ -148,6 +165,9 @@ These tests that are focussed on one single class are also called <em>unit tests
 whole system by accessing the app as a browser would.</p>
 <p>Fixtures are a way of organizing test data; they reside in the <code>fixtures</code> directory.</p>
 <p>The <code>test_helper.rb</code> file holds the default configuration for your tests.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-4' href='slides_testing.html#slide-4'>▻</a>
 <h4 id="the-test-environment">2.2 The Test Environment</h4>
 <p>By default, every Rails application has three environments: development, test, and production.</p>
 <p>Each environment's configuration can be modified similarly. In this case, we can modify our test environment by changing the options found in <code>config/environments/test.rb</code> and we can add gems that are only used in testing by putting them in a test-section in the <code>Gemfile</code> like so:</p>
@@ -161,6 +181,9 @@ end
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-5' href='slides_testing.html#slide-5'>▻</a>
 <h4 id="write-one-test">2.3 Write one Test</h4>
 <p>When you use the scaffold generator it will create
 basic tests and fixtures for you:</p>
@@ -250,6 +273,9 @@ end
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-6' href='slides_testing.html#slide-6'>▻</a>
 <h4 id="running-tests">2.4 Running Tests</h4>
 <p>To run all the tests for your project use <code>rails test</code>.</p>
 <div class="code_container">
@@ -382,6 +408,9 @@ end
 </pre>
 </div>
 <p>This test should now pass.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-7' href='slides_testing.html#slide-7'>▻</a>
 <h4 id="available-assertions">2.5 Available Assertions</h4>
 <p>You have seen some assertions above.</p>
 <p>Here's an extract of the assertions you can use with
@@ -461,6 +490,9 @@ more up-to-date list, please check
 <a href="http://docs.seattlerb.org/minitest/">Minitest API documentation</a>, specifically
 <a href="http://docs.seattlerb.org/minitest/Minitest/Assertions.html"><code>Minitest::Assertions</code></a>.</p>
 <p>Because of the modular nature of the testing framework, it is possible to create your own assertions. In fact, that's exactly what Rails does. It includes some specialized assertions to make your life easier.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-8' href='slides_testing.html#slide-8'>▻</a>
 <h4 id="testing-a-controller">2.6 Testing a Controller</h4>
 <p>To activate controller test add to your Gemfile:</p>
 <div class="code_container">
@@ -551,6 +583,9 @@ end
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-9' href='slides_testing.html#slide-9'>▻</a>
 <h3 id="the-test-database">3 The Test Database</h3>
 <p>Just about every Rails application interacts heavily with a database and, 
 as a result, your tests will need a database to interact with as well. 
@@ -560,6 +595,9 @@ this database and populate it with sample data.</p>
 <p>A dedicated test database allows you to set up and interact with test data in 
 isolation. This way your tests can mangle test data with confidence, 
 without worrying about the data in the development or production databases.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-10' href='slides_testing.html#slide-10'>▻</a>
 <h4 id="maintaining-the-test-database-schema">3.1 Maintaining the test database schema</h4>
 <p>In order to run your tests, your test database will need to have the current
 structure. The test helper checks whether your test database has any pending
@@ -570,6 +608,9 @@ the migrations against the development database (<code>rails db:migrate</code>) 
 bring the schema up to date.</p>
 <div class="note"><p>If existing migrations required modifications, the test database needs to
 be rebuilt. This can be done by executing <code>rails db:test:prepare</code>.</p></div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-11' href='slides_testing.html#slide-11'>▻</a>
 <h4 id="test-data-with-fixtures">3.2 Test Data with Fixtures</h4>
 <p>For good tests, you'll need to give some thought to setting up test data.
 In Rails, the most simple way of doing this is by defining and customizing fixtures. 
@@ -664,6 +705,9 @@ users(:david, :steve)
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-12' href='slides_testing.html#slide-12'>▻</a>
 <h3 id="integration-testing-with-capybara-and-webkit">4 Integration Testing with Capybara and Webkit</h3>
 <p>Integration test are used to test that the various parts of your application interact correctly
 to implement features. You can use a software "browser" to test your app. Rails 5 comes
@@ -781,6 +825,9 @@ to see if anything was written to the javascript console.
 The console is available through <code>page.driver.console_messages</code>.
 But it is probably best not to write tests that expect certain
 console output.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-13' href='slides_testing.html#slide-13'>▻</a>
 <h3 id="further-reading">5 Further Reading</h3>
 <ul>
 <li>
@@ -788,7 +835,7 @@ console output.</p>
 <li><a href="http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html">Fixtures API documentation</a></li>
 <li><a href="https://news.ycombinator.com/item?id=17233371">Observations running 2M headless Chrome sessions</a></li>
 </ul>
-
+</div>        
       </div>
     </div>
   </div>
@@ -814,6 +861,11 @@ console output.</p>
   <script>
     SyntaxHighlighter.all()
     $(guidesIndex.bind);
+    $(document).ready(function(){
+      let hash = document.location.hash;
+      if(! hash) return;
+      document.getElementById(hash).scrollIntoView(true);
+    })
   </script>
   </body>
 </html>

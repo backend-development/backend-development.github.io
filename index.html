@@ -15,6 +15,12 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
 
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <style>
+
+    .slide img[src$=svg] {
+      width: 100%;
+    }
+  </style>
 </head>
 <body class="guide">
   <div>
@@ -103,13 +109,18 @@
     </div>
   </div>
 
+
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        
+        <div class='slide'><a id='slide-1'></a>
 
 
 
+
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-1' href='slides_#slide-1'>▻</a>
 <h3>On Backend Development</h3>
 
 <p>In this course we will learn backend development with
@@ -178,7 +189,7 @@ ready software with it.</p>
 </dd>      <dt><a href="node_cluster.html">Scaling Node</a></dt><dd>
         <p>how to scale node up with cluster.js</p>
 </dd>  </dl>
-
+</div>        
       </div>
     </div>
   </div>
@@ -203,6 +214,11 @@ ready software with it.</p>
   <script>
     SyntaxHighlighter.all()
     $(guidesIndex.bind);
+    $(document).ready(function(){
+      let hash = document.location.hash;
+      if(! hash) return;
+      document.getElementById(hash).scrollIntoView(true);
+    })
   </script>
   </body>
 </html>

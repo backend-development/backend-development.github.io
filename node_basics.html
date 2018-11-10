@@ -14,6 +14,12 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
 
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <style>
+
+    .slide img[src$=svg] {
+      width: 100%;
+    }
+  </style>
 </head>
 <body class="guide">
   <div>
@@ -111,10 +117,15 @@ you build your web server from scratch.</p><p>After working through this guide y
     </div>
   </div>
 
+
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="what-is-node-js-questionmark">1 What is node.js?</h3>
+        <div class='slide'><a id='slide-1'></a>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-1' href='slides_node_basics.html#slide-1'>▻</a>
+<h3 id="what-is-node-js-questionmark">1 What is node.js?</h3>
 <p>Node.js was originally written by Ryan Dahl in 2009
 as a combination of two pieces of software that
 already existed: </p>
@@ -134,6 +145,9 @@ Javascript Libraries.</p>
 </ul>
 <p>So v8 is the biggest part of node:</p>
 <p><img src="images/what-is-node.svg" alt=""></p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-2' href='slides_node_basics.html#slide-2'>▻</a>
 <h3 id="hello-world">2 Hello World</h3>
 <p>You write your program in Javascript:</p>
 <div class="code_container">
@@ -163,6 +177,9 @@ undefined
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-3' href='slides_node_basics.html#slide-3'>▻</a>
 <h3 id="node-version-manager">3 Node Version Manager</h3>
 <p>Node Versions change fast. The node version manager (nvm) makes
 it easy to switch between versions:</p>
@@ -175,6 +192,9 @@ Now using node v7.9.0 (npm v4.2.0)
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-4' href='slides_node_basics.html#slide-4'>▻</a>
 <h3 id="hello-web">4 Hello Web</h3>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -201,6 +221,9 @@ Server running at http://127.0.0.1:3000/
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-5' href='slides_node_basics.html#slide-5'>▻</a>
 <h3 id="packages">5 Packages </h3>
 <p>Node does not use ES6 modules! node packages are
 installed by npm into a folder node_modules.  You can
@@ -229,6 +252,9 @@ $ node bar.js
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-6' href='slides_node_basics.html#slide-6'>▻</a>
 <h3 id="the-javascript-event-loop">6 The javascript Event Loop</h3>
 <p>You have worked with Javascript and asyncronous programming before.</p>
 <div class="code_container">
@@ -256,6 +282,9 @@ el.addEventListener('click',f);
 <li>blix</li>
 <li>bar</li>
 </ol>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-7' href='slides_node_basics.html#slide-7'>▻</a>
 <h3 id="processing-model">7 Processing Model</h3>
 <p>PHP and Ruby on Rails have the same basic processing model. It is either
 implemented with threads or with processes.</p>
@@ -312,9 +341,15 @@ printing out <code>second</code>.  It will pick up something else to do from
 the event queue.  Much later, when the data from the file has been
 loaded, it will find the callback funktion on the event queue, and
 finally reach <code>third</code>.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-8' href='slides_node_basics.html#slide-8'>▻</a>
 <h3 id="example-code">8 Example Code</h3>
 <p><img src="images/node-example-code.png" alt=""></p>
 <p><img src="images/node-example-diagram.png" alt=""></p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-9' href='slides_node_basics.html#slide-9'>▻</a>
 <h3 id="io-bound-vs-cpu-bound">9 IO-bound vs. CPU-bound</h3>
 <p>Describes two kinds of performance bottlenecks</p>
 <ul>
@@ -326,6 +361,9 @@ Running on a faster CPU would not help.</li>
 <p>If one aspect of your app is CPU-bound it will monopolize that kernel, 
 (other) requests cannot be served. Therefore node and is not well suited for CPU
 bound applications.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-10' href='slides_node_basics.html#slide-10'>▻</a>
 <h3 id="writing-asyncronous-code">10 Writing asyncronous code</h3>
 <p>A Node app by necessety contains a lot of asyncronous code.
 The traditional way of writing it, is the "callback" style:</p>
@@ -389,6 +427,9 @@ console.log( read_text('this.txt') );
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-11' href='slides_node_basics.html#slide-11'>▻</a>
 <h3 id="streams">11 Streams</h3>
 <p>Read the file. After the whole file has been read, send it:</p>
 <div class="code_container">
@@ -424,6 +465,9 @@ server.listen(8000);
 <p>.pipe() takes care of listening for 'data' and 'end' events from the fs.createReadStream(). This code is not only cleaner, but now the data.txt file will be written to clients one chunk at a time immediately as they are received from the disk.</p>
 <p>Using .pipe() has other benefits too, like handling backpressure automatically so that node won't buffer chunks into memory needlessly when the remote client is on a really slow or high-latency connection.</p>
 <p>From <a href="https://github.com/substack/stream-handbook#why-you-should-use-streams">the stream handbook</a></p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-12' href='slides_node_basics.html#slide-12'>▻</a>
 <h3 id="see-also">12 See Also</h3>
 <ul>
 <li><a href="https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/">Node Guide: HTTP</a></li>
@@ -434,7 +478,7 @@ server.listen(8000);
 <li><a href="https://www.future-processing.pl/blog/on-problems-with-threads-in-node-js/">On problems with threads in node.js</a></li>
 <li><a href="http://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html">Karpov(2017): Async Await Patterns</a></li>
 </ul>
-
+</div>        
       </div>
     </div>
   </div>
@@ -460,6 +504,11 @@ server.listen(8000);
   <script>
     SyntaxHighlighter.all()
     $(guidesIndex.bind);
+    $(document).ready(function(){
+      let hash = document.location.hash;
+      if(! hash) return;
+      document.getElementById(hash).scrollIntoView(true);
+    })
   </script>
   </body>
 </html>

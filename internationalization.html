@@ -14,6 +14,12 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
 
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <style>
+
+    .slide img[src$=svg] {
+      width: 100%;
+    }
+  </style>
 </head>
 <body class="guide">
   <div>
@@ -100,14 +106,19 @@ After reading it you should be familiar with:</p>
     </div>
   </div>
 
+
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="see-also">1 See Also</h3>
+        <div class='slide'><a id='slide-1'></a>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-1' href='slides_internationalization.html#slide-1'>▻</a>
+<h3 id="see-also">1 See Also</h3>
 <ul>
 <li><a href="http://guides.rubyonrails.org/i18n.html">Rails Guide: Internationalization</a></li>
 </ul>
-
+</div>        
       </div>
     </div>
   </div>
@@ -133,6 +144,11 @@ After reading it you should be familiar with:</p>
   <script>
     SyntaxHighlighter.all()
     $(guidesIndex.bind);
+    $(document).ready(function(){
+      let hash = document.location.hash;
+      if(! hash) return;
+      document.getElementById(hash).scrollIntoView(true);
+    })
   </script>
   </body>
 </html>

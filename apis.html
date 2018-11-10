@@ -14,6 +14,12 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
 
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <style>
+
+    .slide img[src$=svg] {
+      width: 100%;
+    }
+  </style>
 </head>
 <body class="guide">
   <div>
@@ -125,10 +131,15 @@
     </div>
   </div>
 
+
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h2>APIs</h2>
+        <div class='slide'><a id='slide-1'></a>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-1' href='slides_apis.html#slide-1'>▻</a>
+<h2>APIs</h2>
 <p>After working through this guide you will:</p>
 <ul>
 <li>know about the thinking behind REST APIs and JSON API</li>
@@ -136,7 +147,13 @@
 <li>be able to set up an API for your rails app that is separate from existing controllers</li>
 </ul>
 <div class="repo"><p>You can study the <a href="https://github.com/backend-development/api_sample_app">code</a> and try out <a href="https://dry-cove-38472.herokuapp.com/">the demo</a> for the example described here.</p></div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-2' href='slides_apis.html#slide-2'>▻</a>
 <hr>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-3' href='slides_apis.html#slide-3'>▻</a>
 <h3 id="what-is-an-api">1 What is an API</h3>
 <p>API stands for "Application Programming Interface". It is a set of clearly defined methods
 of communication with a software component. So the objects and methods exposed by a library
@@ -145,6 +162,9 @@ form an API.</p>
 commonly used when the software component in question runs on a different server on the
 Internet and is accessed via the network.</p>
 <p>This Guide is concerned with APIs that you build and run using Ruby on Rails.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-4' href='slides_apis.html#slide-4'>▻</a>
 <h3 id="rest">2 REST</h3>
 <p>The acronym REST was coined by Roy Fielding in his dissertation. When describing
 the architecture of the web, and what made it so successfull on a technical level,
@@ -161,6 +181,9 @@ and to distiguish such APIs from SOAP APIs.</p>
 <li> One resource can have multiple representations, for example HTML, JSON and XML</li>
 <li> Communicate statelessly - if possible!</li>
 </ol>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-5' href='slides_apis.html#slide-5'>▻</a>
 <h4 id="urls">2.1 URLS</h4>
 <p>Give every resource a unique URL.
 Please note that REST does not demand a certain form of URL.
@@ -193,6 +216,9 @@ https://example.com/soap/router/
 </pre>
 </div>
 <p>Through this endpoint you can access methods like <code>getUserData()</code> or <code>deleteUser()</code>.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-6' href='slides_apis.html#slide-6'>▻</a>
 <h4 id="hateoas">2.2 HATEOAS</h4>
 <p>“Hypermedia as the engine of application state” means that a client interacts with a network application entirely through hypermedia, and needs no prior knowledge of URLs.</p>
 <p>If an API returns the following JSON:</p>
@@ -224,6 +250,9 @@ For example because the developer read the docs.</p>
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-7' href='slides_apis.html#slide-7'>▻</a>
 <h4 id="http-methods-and-status-codes">2.3 HTTP Methods and Status Codes</h4>
 <p>Use HTTP Methods (and Status Codes) as intended.</p>
 <p>Regarding the HTTP Methods there are two important distinctions:</p>
@@ -241,6 +270,9 @@ For example because the developer read the docs.</p>
 about that API. There is no need to come up with a way to delete
 a resource, or to indicate failure. HTTP already offers the DELETE method
 and status codes that indicate errors.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-8' href='slides_apis.html#slide-8'>▻</a>
 <h4 id="multiple-representations">2.4 Multiple Representations</h4>
 <p>The same resource can be available in different formats.
 There are two common ways of requesting different formats:</p>
@@ -315,6 +347,9 @@ Er hat den Usernamen fhs14287.&lt;/p&gt;
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-9' href='slides_apis.html#slide-9'>▻</a>
 <h4 id="statelessness">2.5 Statelessness</h4>
 <p>Tilkov wirtes: "REST mandates that state be either turned into resource state, or kept on the client. In other words, a server should not have to retain some sort of communication state for any of the clients it communicates with beyond a single request."</p>
 <p>This is important for performance and scalability and performance.<br>
@@ -322,12 +357,18 @@ Er hat den Usernamen fhs14287.&lt;/p&gt;
 servers behind a load balancer, not having state on the server means
 the application will work if the requests bei one client are routest
 to different servers.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-10' href='slides_apis.html#slide-10'>▻</a>
 <h3 id="json-api">3 JSON API</h3>
 <p>When an API returns JSON data this could take many forms.
 The <a href="http://jsonapi.org/">json:api specification</a> is a well thought out
 convention for this.</p>
 <p>It is especially good with the HATEOS aspect of REST.</p>
 <p>The json:api specification adhers to this principle.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-11' href='slides_apis.html#slide-11'>▻</a>
 <h3 id="rendering-json">4 Rendering JSON</h3>
 <p>Rails is equipped to not just create HTML as output, but to easily
 offer other representations as well.</p>
@@ -366,6 +407,9 @@ Content-Type: application/json; charset=utf-8
 <p>This error message is meant for a
 client expecting JSON data. It uses both the HTTP status code
 and the JSON to indicate the error.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-12' href='slides_apis.html#slide-12'>▻</a>
 <h4 id="api-for-the-sample-app">4.1 API for the sample app</h4>
 <p>The "Frontend 1" in the example app expects a very simple JSON structure:</p>
 <p>To display one user, it loads from <code>/user/1.json</code> and expects
@@ -399,6 +443,9 @@ expects a JSON array of objects like above:</p>
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-13' href='slides_apis.html#slide-13'>▻</a>
 <h4 id="creating-json-with-erb">4.2 creating JSON with erb</h4>
 <p>We could create views using erb in <code>app/views/users/show.json.erb</code>:</p>
 <div class="code_container">
@@ -446,6 +493,9 @@ but there should be no comma after the last.</p>
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-14' href='slides_apis.html#slide-14'>▻</a>
 <h4 id="creating-json-with-jbuilder">4.3 creating JSON with jbuilder</h4>
 <p>Formatting JSON would get quite repetitive if we need to create views for several resources.
 We have not even touched on the problem of escaping: what happens
@@ -481,6 +531,9 @@ end
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-15' href='slides_apis.html#slide-15'>▻</a>
 <h4 id="authentication">4.4 authentication</h4>
 <p>All the authentication and access control we built into the
 rails app before is still applicable to the JSON views.</p>
@@ -523,6 +576,9 @@ to handle json differently from html:</p>
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-16' href='slides_apis.html#slide-16'>▻</a>
 <h3 id="stand-alone-api">5 Stand Alone API</h3>
 <p>To create a stand alone API we define new, separate routes under <code>/api/v1</code>.</p>
 <div class="code_container">
@@ -551,6 +607,9 @@ ActiveModelSerializers.config.adapter = :json_api
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-17' href='slides_apis.html#slide-17'>▻</a>
 <h4 id="jsonapi-for-the-sample-app">5.1 JSONAPI for the sample app</h4>
 <p>The "Frontend 2" in the example app expects the json to be formed
 according to the json api specification.</p>
@@ -593,6 +652,9 @@ is an object with on attribute <code>data</code>:</p>
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-18' href='slides_apis.html#slide-18'>▻</a>
 <h4 id="creating-json-with-active-model-serializers">5.2 creating JSON with active_model_serializers</h4>
 <p>After we defined the routes, we next need to create a controller.
 As we are setting up a new hierarchy of controllers that will only
@@ -638,8 +700,14 @@ end
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-19' href='slides_apis.html#slide-19'>▻</a>
 <h3 id="documenting-an-api">6 Documenting an API</h3>
 <p>See Halliday(2016): <a href="https://blog.codeship.com/producing-documentation-for-your-rails-api/">Producing Documentation for Your Rails API</a> for a discussion of automatic methods of documentation generation.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-20' href='slides_apis.html#slide-20'>▻</a>
 <h3 id="see-also">7 See Also</h3>
 <ul>
 <li>
@@ -654,7 +722,7 @@ end
 <li>
 <a href="https://github.com/nsarno/knock">gem knock</a> for token based authentication for API only Rails apps</li>
 </ul>
-
+</div>        
       </div>
     </div>
   </div>
@@ -680,6 +748,11 @@ end
   <script>
     SyntaxHighlighter.all()
     $(guidesIndex.bind);
+    $(document).ready(function(){
+      let hash = document.location.hash;
+      if(! hash) return;
+      document.getElementById(hash).scrollIntoView(true);
+    })
   </script>
   </body>
 </html>
