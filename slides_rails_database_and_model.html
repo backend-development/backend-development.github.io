@@ -97,12 +97,13 @@ SELECT * FROM courses WHERE id=7   Course.find(7)
 <h4 id="conventions">2.2 Conventions</h4>
 <p>Rails has several conventions regarding ActiveRecord and the database:</p>
 <ul>
-<li>The Model Class is written in first-letter-uppercase, and uses a singular noun: <code>Course</code>
+<li>The model class is written in first-letter-uppercase, and uses a singular noun: <code>Course</code>
 </li>
 <li>The table in the database is written in lowercase, and uses the plural of this noun: <code>courses</code>
 </li>
 <li>The table contains an integer attribute <code>id</code> as its primary key</li>
 <li>All the attributes from the database table will show up as properties of the model in rails automatically</li>
+<li>Two extra properties are added: <code>created_at</code> and <code>updated_at</code>.</li>
 <li>If there's an 1:n relationship between two models, the table on the "one" side will contain a foreign key like so:
 
 <ul>
@@ -124,8 +125,8 @@ SELECT * FROM courses WHERE id=7   Course.find(7)
 <div class='slide'>
 <a class='slide_break' href='rails_database_and_model.html#slide-6'>▻</a>
 <h4 id="not-following-conventions">2.3 Not following Conventions</h4>
-<p>If you stick to these conventions building the web app will be very easy.  You 
-can deviate from these conventions, but this takes some extra configuration and programming work.</p>
+<p>If you stick to these conventions building the web app will be very easy.  </p>
+<p>You can deviate from these conventions, but this takes some extra configuration and programming work.</p>
 <p>Here is one scenario where deviating from the conventions might make sense:
 You are building a rails app to replace an old php app, but you want to
 keep using the same database. You can start with the models
@@ -138,45 +139,54 @@ the rails conventions step by step.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='rails_database_and_model.html#slide-8'>▻</a>
-<h4 id="how-to-build-a-model">3.1 How to build a model</h4>
+<h4 id="a-word-on-generators">3.1 A word on generators</h4>
+<p>Rails comes with several commands for the command line. First we will
+use a generator that will help us generate some code.  This generator
+is called the <code>scaffold</code> generator. Like a scaffold on a building site
+it is meant to be used to help build the real stuff.  </p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+$ rails --help
+The most common rails commands are:
+ generate     Generate new code (short-cut alias: "g")
+ console      Start the Rails console (short-cut alias: "c")
+ server       Start the Rails server (short-cut alias: "s")
+ test         Run tests except system tests (short-cut alias: "t")
+ test:system  Run system tests
+ dbconsole    Start a console for the database specified in config/database.yml
+              (short-cut alias: "db")
+
+</pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-9'>▻</a>
+<h4 id="how-to-build-a-model">3.2 How to build a model</h4>
 <p>To build the first model and its corresponding database table,
 you can use the scaffold generator.
 You need to work on the command line using the command <code>rails</code>.<br>
 (before rails 5 there was a second command <code>rake</code> but you don't need that any more.)</p>
-<ul>
-<li>
-<code>rails generate scaffold tweet status:string zombie:string</code>
-
-<ul>
-<li>This will generate a Model <code>Tweet</code> and a migration to create table <code>tweets</code>
-</li>
-</ul>
-</li>
-<li>look at the migration that was generated in <code>db/migrate/*create_tweets.rb</code>
-</li>
-<li>you can edit the migration now - but not later!</li>
-<li>run the migration: <code>rails db:migrate</code>
-
-<ul>
-<li>this will run the appropriate <code>CREATE TABLE</code> statement in your database</li>
-</ul>
-</li>
-<li>look at the model generated in <code>app/models/tweet.rb</code>
-</li>
-<li>add validations, associations to the model</li>
-</ul>
+<p><code>rails generate scaffold tweet status zombie</code></p>
+<p>This will generate a Model <code>Tweet</code>  and a migration to create table <code>tweets</code>.</p>
+<p>Have a look at the migration that was generated in <code>db/migrate/*create_tweets.rb</code>.
+You can edit this migration now - but not later! Run the migration on the command line with  <code>rails db:migrate</code>. This will run the appropriate <code>CREATE TABLE</code> statement in your database.</p>
+<p>Look at the model generated in file <code>app/models/tweet.rb</code>. Add validations, associations to other model and the business logic here.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-9'>▻</a>
-<h4 id="database-migrations">3.2 Database Migrations</h4>
+<a class='slide_break' href='rails_database_and_model.html#slide-10'>▻</a>
+<h4 id="database-migrations">3.3 Database Migrations</h4>
 <p>During Development the database schema will change just as much as
 the code will change. And both changes belong together: if I push out
 a code change to my fellow developers without the db schema changes,
 they will not be able to use the code.</p>
 <p>Rails offers "Database Migrations" to cope with this fact.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-11'>▻</a>
+
 <p>A "Migration" is a (small) change in the database schema. The change is
 described in ruby and saved to a file in the folder <code>db/migrations</code>.
-The files are identified by a timestamp and a uniq name, for example:</p>
+The files are identified by a timestamp and a unique name, for example:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 20191031100433_create_venues.rb  
@@ -187,9 +197,13 @@ The files are identified by a timestamp and a uniq name, for example:</p>
 </div>
 <p>The first two of these migrations were generated by the scaffold,
 the last one by <code>rails generate migration AddVenueRefToEvent</code>.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-12'>▻</a>
+
 <p>The scaffold creates a migration for creating a table:</p>
 <div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
+<pre class="brush: ruby; gutter: false; toolbar: false">
 class CreateEvents &lt; ActiveRecord::Migration
   def change
     create_table :events do |t|
@@ -217,11 +231,11 @@ end
 using and commiting it.  You only ever add new migrations!</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-10'>▻</a>
-<h3 id="model-crud">4 Model CRUD</h3>
+<a class='slide_break' href='rails_database_and_model.html#slide-13'>▻</a>
+<h3 id="the-model">4 The Model</h3>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-11'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-14'>▻</a>
 <h4 id="the-model-in-the-console">4.1 the model in the console</h4>
 <p>You can use the rails console to work with
 the model interactively.  This is similar to the ruby console <code>irb</code>
@@ -233,7 +247,7 @@ to the development database!</p>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-12'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-15'>▻</a>
 <h4 id="finding-a-model">4.2 Finding a model</h4>
 <p>The database table always has a primary key <code>id</code>.  You can use this
 key to find a specific record:</p>
@@ -248,13 +262,13 @@ you typed in.  Here this is an object.  The console prints out the details of th
 object using the <code>inspect</code> method.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-13'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-16'>▻</a>
 
 <p>From now on we will use this slightly shortended format to show rails console
 input and output:</p>
 <div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-irb&gt; Tweet.find(1)
+<pre class="brush: ruby; gutter: false; toolbar: false">
+railsconsole&gt; Tweet.find(1)
 =&gt; #&lt;Tweet id: 1, status: "Where can I get a good bite to eat?", zombie: "Ash"&gt; 
 
 </pre>
@@ -262,76 +276,235 @@ irb&gt; Tweet.find(1)
 <p>(We will leave out the SQL, and some timestamps.)</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-14'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-17'>▻</a>
 <h4 id="accessing-the-properties">4.3 Accessing the properties</h4>
 <p>You can access the properties of the model object as if it were a hash
 or through method names:</p>
 <div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-irb&gt; t = Tweet.find(3)
+<pre class="brush: ruby; gutter: false; toolbar: false">
+railsconsole&gt; t = Tweet.find(3)
 =&gt;  #&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "Jim"&gt; 
-irb&gt; t.status
+railsconsole&gt; t.status
 =&gt; "I just ate some delicious brains."
-irb&gt; t[:status]
+railsconsole&gt; t[:status]
 =&gt; "I just ate some delicious brains."
-irb&gt; t.zombie
+railsconsole&gt; t.zombie
 =&gt; "Jim"
-irb&gt; t[:zombie]
+railsconsole&gt; t[:zombie]
 =&gt; "Jim"
 
 </pre>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-15'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-18'>▻</a>
 <h4 id="crud-create-read-update-delete">4.4 CRUD = Create, Read, Update, Delete</h4>
-<p>Create</p>
+<p>Let's see how ActiveRecord implments the four important
+capabilities of persistance:</p>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-19'>▻</a>
+<h4 id="create">4.5 Create</h4>
 <div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
+<pre class="brush: ruby; gutter: false; toolbar: false">
 t = Tweet.new
 t.status = "I &lt;3 brains."
 t.save
 
 </pre>
 </div>
-<p>Read</p>
+<p>With <code>new</code> you create a new object just in memory.  It is not stored in the
+database yet and does not haven an <code>id</code> yet.  You can set its properties.
+The <code>save</code> method tries to save it to the database.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-20'>▻</a>
+
+<p>On the rails console you can see how the properties are <code>nil</code> in the beginning.
+After saving to the database some of the properties are set:</p>
 <div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-Tweet.find(3)
+<pre class="brush: ruby; gutter: false; toolbar: false">
+railsconsole&gt; t = Tweet.new
+ =&gt; #&lt;Tweet id: nil, status: nil, zombie: nil, created_at: nil, updated_at: nil&gt;
+ railsconsole&gt; t.status = "I &lt;3 brains."
+ =&gt; "I &lt;3 brains."
+ railsconsole&gt; t.save
+   (0.1ms)  begin transaction
+  Tweet Create (1.8ms)  INSERT INTO "tweets" ("status", "created_at", "updated_at") VALUES (?, ?, ?)  [["status", "I &lt;3 brains."], ["created_at", "2018-11-24 09:20:15.931090"], ["updated_at", "2018-11-24 09:20:15.931090"]]
+   (1.7ms)  commit transaction
+ =&gt; true   
+railsconsole&gt; t
+ =&gt; #&lt;Tweet id: 4, status: "I &lt;3 brains.", zombie: nil, created_at: "2018-11-24 09:55:37", updated_at: "2018-11-24 09:55:37"&gt;
 
 </pre>
 </div>
-<p>Update</p>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-21'>▻</a>
+<h4 id="read">4.6 Read</h4>
+<p>There are many ways to read data from the database. We already saw <code>find</code> which
+uses the primary key and always returns one object.  The method <code>where</code> is used for more general <code>select - where</code> SQL statements.</p>
 <div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+t1 = Tweet.find(3)
+t2 = Tweet.where("created_at &gt; '2018-10-01'")
+t3 = Tweet.where(zombie: 'Ash')
+
+</pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-22'>▻</a>
+
+<p>In the rails console you can see the return values: <code>where</code>  returns several objects.</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+railsconsole&gt; t1 = Tweet.find(3)
+  Tweet Load (0.3ms)  SELECT  "tweets".* FROM "tweets" WHERE "tweets"."id" = ? LIMIT ?  [["id", 3], ["LIMIT", 1]]
+ =&gt; #&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "Jim", created_at: "2018-11-24 09:26:48", updated_at: "2018-11-24 09:26:48"&gt;
+railsconsole&gt; t2 = Tweet.where("created_at &gt; '2018-10-01'")
+  Tweet Load (0.5ms)  SELECT  "tweets".* FROM "tweets" WHERE (created_at &gt; '2018-10-01') LIMIT ?  [["LIMIT", 11]]
+ =&gt; #&lt;ActiveRecord::Relation [#&lt;Tweet id: 1, status: "I &lt;3 brains.", zombie: nil, created_at: "2018-11-24 09:20:15", updated_at: "2018-11-24 09:20:15"&gt;, #&lt;Tweet id: 2, status: "Where can I get a good bite to eat?", zombie: "Ash", created_at: "2018-11-24 09:26:26", updated_at: "2018-11-24 09:26:26"&gt;, #&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "Jim", created_at: "2018-11-24 09:26:48", updated_at: "2018-11-24 09:26:48"&gt;]&gt;
+railsconsole&gt; t3 = Tweet.where(zombie: 'Ash')
+  Tweet Load (0.3ms)  SELECT  "tweets".* FROM "tweets" WHERE "tweets"."zombie" = ? LIMIT ?  [["zombie", "Ash"], ["LIMIT", 11]]
+ =&gt; #&lt;ActiveRecord::Relation [#&lt;Tweet id: 2, status: "Where can I get a good bite to eat?", zombie: "Ash", created_at: "2018-11-24 09:26:26", updated_at: "2018-11-24 09:26:26"&gt;]&gt;
+
+</pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-23'>▻</a>
+<h4 id="update">4.7 Update</h4>
+<p>With update - as with <code>new</code> before - we see the difference between the
+object in memory (<code>t</code>) which can be changed and the object in the database
+which is only changed when t is saved back to the database.</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
 t = Tweet.find(3)
 t.zombie = "EyeballChomper"
 t.save
 
 </pre>
 </div>
-<p>Delete</p>
+<p>In the rails console you can see that for every change in the object 
+the property <code>updated_at</code> is automatically set.</p>
 <div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-t = Tweet.find(3)
-t.destroy
+<pre class="brush: ruby; gutter: false; toolbar: false">
+railsconsole&gt; t = Tweet.find(3)
+  Tweet Load (0.4ms)  SELECT  "tweets".* FROM "tweets" WHERE "tweets"."id" = ? LIMIT ?  [["id", 3], ["LIMIT", 1]]
+ =&gt; #&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "Jim", created_at: "2018-11-24 09:26:48", updated_at: "2018-11-24 09:26:48"&gt;
+railsconsole&gt; t.zombie = "EyeballChomper"
+ =&gt; "EyeballChomper"
+railsconsole&gt; t.save
+   (0.2ms)  begin transaction
+  Tweet Update (0.6ms)  UPDATE "tweets" SET "zombie" = ?, "updated_at" = ? WHERE "tweets"."id" = ?  [["zombie", "EyeballChomper"], ["updated_at", "2018-11-24 09:32:52.071511"], ["id", 3]]
+   (1.2ms)  commit transaction
+ =&gt; true
 
 </pre>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-16'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-24'>▻</a>
+<h4 id="delete">4.8 Delete</h4>
+<p>To delete both the object in memory and in the database use <code>destroy</code>.</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+t = Tweet.find(3)
+t.destroy
+
+</pre>
+</div>
+<p>On the console you can see how <code>destroy</code> is translated to <code>DELETE</code> in SQL.</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+railsconsole&gt; t = Tweet.find(3)
+  Tweet Load (0.3ms)  SELECT  "tweets".* FROM "tweets" WHERE "tweets"."id" = ? LIMIT ?  [["id", 3], ["LIMIT", 1]]
+ =&gt; #&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "EyeballChomper", created_at: "2018-11-24 09:26:48", updated_at: "2018-11-24 09:32:52"&gt;
+railsconsole&gt; t.destroy
+   (0.1ms)  begin transaction
+  Tweet Destroy (0.7ms)  DELETE FROM "tweets" WHERE "tweets"."id" = ?  [["id", 3]]
+   (1.1ms)  commit transaction
+ =&gt; #&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "EyeballChomper", created_at: "2018-11-24 09:26:48", updated_at: "2018-11-24 09:32:52"&gt;
+
+</pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-25'>▻</a>
+<h4 id="chaining-activerecord-methods">4.9 Chaining ActiveRecord methods</h4>
+<p>Let's look at the two examples of using <code>where</code> again: the return value was of class <code>ActiveRecord::Relation</code>:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+ =&gt; #&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "Jim", created_at: "2018-11-24 09:26:48", updated_at: "2018-11-24 09:26:48"&gt;
+railsconsole&gt; t2 = Tweet.where("created_at &gt; '2018-10-01'")
+  Tweet Load (0.5ms)  SELECT  "tweets".* FROM "tweets" WHERE (created_at &gt; '2018-10-01') LIMIT ?  [["LIMIT", 11]]
+ =&gt; #&lt;ActiveRecord::Relation [#&lt;Tweet id: 1, status: "I &lt;3 brains.", zombie: nil, created_at: "2018-11-24 09:20:15", updated_at: "2018-11-24 09:20:15"&gt;, #&lt;Tweet id: 2, status: "Where can I get a good bite to eat?", zombie: "Ash", created_at: "2018-11-24 09:26:26", updated_at: "2018-11-24 09:26:26"&gt;, #&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "Jim", created_at: "2018-11-24 09:26:48", updated_at: "2018-11-24 09:26:48"&gt;]&gt;
+railsconsole&gt; t3 = Tweet.where(zombie: 'Ash')
+  Tweet Load (0.3ms)  SELECT  "tweets".* FROM "tweets" WHERE "tweets"."zombie" = ? LIMIT ?  [["zombie", "Ash"], ["LIMIT", 11]]
+ =&gt; #&lt;ActiveRecord::Relation [#&lt;Tweet id: 2, status: "Where can I get a good bite to eat?", zombie: "Ash", created_at: "2018-11-24 09:26:26", updated_at: "2018-11-24 09:26:26"&gt;]&gt;
+
+</pre>
+</div>
+<p>This class supports all the ActiveRecord methods again. This means
+we can chain several <code>where</code>s together:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+tweets = Tweet.where("created_at &gt; '2018-10-01'").where(zombie: 'Ash')
+
+</pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-26'>▻</a>
+
+<p>In fact there are many more methods we might want to use for chaining:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+Tweet.limit(3)
+Tweet.order(:zombie)
+Tweet.select(:created_at, :zombie, :status)
+Tweet.where("created_at &gt; '2018-10-01'").where(zombie: 'Ash').order(:zombie).limit(3)
+
+</pre>
+</div>
+<p>You can use the method <code>to_sql</code> to see the SQL Statement produced by the chained methods:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+railsconsole&gt; Tweet.select(:created_at, :zombie, :status).where("created_at &gt; '2018-10-01'").where(zombie: 'Ash').order(:zombie).limit(3).to_sql
+ =&gt; SELECT  "created_at", "zombie", "status" FROM "tweets" WHERE (created_at &gt; '2018-10-01') AND "zombie" = 'Ash' ORDER BY "zombie" ASC LIMIT 3
+
+</pre>
+</div>
+<p>The order of the methods is not relevant. You can also save an intermediate step to 
+a variable and the chain more methods to that variable later on:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+railsconsole&gt; query = Tweet.where("created_at &gt; '2018-10-01'").order(:zombie).limit(3)
+railsconsole&gt; query.select(:created_at, :zombie, :status).where(zombie: 'Ash').to_sql
+ =&gt; SELECT  "created_at", "zombie", "status" FROM "tweets" WHERE (created_at &gt; '2018-10-01') AND "zombie" = 'Ash' ORDER BY "zombie" ASC LIMIT 3
+
+</pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-27'>▻</a>
 <h3 id="on-documentation">5 On Documentation</h3>
-<p>You should have the ruby and rails documentation available
-on your computer at all times.  A handy tool for this on mac os x is
+<p>You could have learned all this and more from 
+the Rails Guides: <a href="https://guides.rubyonrails.org/active_record_basics.html">ActiveRecord Basics</a>, <a href="http://guides.rubyonrails.org/active_record_querying.html">Active Record Query Interface</a> and <a href="http://guides.rubyonrails.org/active_record_migrations.html">Active Record Migrations</a>. 
+Set a bookmark for the guides now!  Use them as a reference from now on!</p>
+<p>If you are offline now and again you should have the ruby and rails documentation available
+locally on your computer.  A handy tool for this on mac os x is
 <a href="http://kapeli.com/dash">Dash</a>.  This is what a Rails Guide looks like in Dash:</p>
 <p><img src="images/dash-rails-guide.png" alt="Dash"></p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-17'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-28'>▻</a>
 <h4 id="further-reading">5.1 Further reading</h4>
 <ul>
 <li>The Rails Guides give a good introduction to a subject area:</li>
+<li>Rails Guide: <a href="http://guides.rubyonrails.org/active_record_basics.html">Active Record Basics</a>
+</li>
 <li>Rails Guide: <a href="http://guides.rubyonrails.org/active_record_querying.html">Active Record Query Interface</a>
 </li>
 <li>Rails Guide: <a href="http://guides.rubyonrails.org/association_basics.html">Active Record Associations</a>
