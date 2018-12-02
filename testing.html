@@ -23,18 +23,20 @@
 </head>
 <body class="guide">
   <div>
-    <a href="http://github.com/backend-development/backend-development-textbook/"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 10;" src="images/forkme.png" alt="Fork me on GitHub"></a>
+    <a href="https://github.com/backend-development/backend-development-textbook/"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 10;" src="images/forkme.png" alt="Fork me on GitHub"></a>
   </div>
   <div id="topNav">
     <div class="wrapper">
-      <strong class="more-info-label">Learn more at the sources: </strong>
+      <strong class="more-info-label">More Rails: </strong>
       <ul class="more-info-links s-hidden">
-        <li class="more-info"><a href="http://rubyonrails.org/">Ruby on Rails</a></li>
-        <li class="more-info"><a href="http://guides.rubyonrails.org/">Rails Guides</a></li>
-        <li class="more-info"><a href="http://railsforzombies.org/">Rails for Zombies</a></li>
-        <li class="more-info"><a href="http://curriculum.railsbridge.org/docs/">Railsbridge</a></li>
-        <li class="more-info"><a href="http://railscasts.com/">Railscasts</a></li>
+        <li class="more-info"><a href="https://guides.rubyonrails.org/">Rails Guides</a></li>
+        <li class="more-info"><a href="https://curriculum.railsbridge.org/docs/">Railsbridge</a></li>
+        <li class="more-info"><a href="https://railscasts.com/">Railscasts</a></li>
       </ul>
+      <strong class="more-info-label">Beyond Backend: </strong>
+      <ul class="more-info-links s-hidden">
+        <li class="more-info"><a href="https://web-engineering.github.io/">Web Engineering</a></li>
+      </ul>      
     </div>
   </div>
   <div id="header">
@@ -124,7 +126,7 @@ to built-in mechanisms in Rails for testing your application.</p><p>After readin
 <li>How to write integration tests for your application.</li>
 </ul>
 <p>This guide is a shorter version of the offical
-<a href="http://guides.rubyonrails.org/testing.html">Guide to Testing Rails Applications</a>.</p><div class="repo"><p>Fork the <a href="https://github.com/backend-development/rails-example-testing-for-stars">example app &#39;testing for stars&#39;</a> and try out what you learn here.</p></div>
+<a href="https://guides.rubyonrails.org/testing.html">Guide to Testing Rails Applications</a>.</p><div class="repo"><p>Fork the <a href="https://github.com/backend-development/rails-example-testing-for-stars">example app &#39;testing for stars&#39;</a> and try out what you learn here.</p></div>
       </div>
     </div>
   </div>
@@ -487,8 +489,8 @@ the first one here.  For most assertions there is a simple negation <code>assert
 </table>
 <p>The above are a subset of assertions that minitest supports. For an exhaustive &amp;
 more up-to-date list, please check
-<a href="http://docs.seattlerb.org/minitest/">Minitest API documentation</a>, specifically
-<a href="http://docs.seattlerb.org/minitest/Minitest/Assertions.html"><code>Minitest::Assertions</code></a>.</p>
+<a href="https://github.com/seattlerb/minitest#user-content-description">Minitest API documentation</a>, specifically
+<a href="https://docs.ruby-lang.org/en/2.1.0/MiniTest/Assertions.html"><code>Minitest::Assertions</code></a>.</p>
 <p>Because of the modular nature of the testing framework, it is possible to create your own assertions. In fact, that's exactly what Rails does. It includes some specialized assertions to make your life easier.</p>
 </div>
 <div class='slide'>
@@ -665,7 +667,7 @@ category <code>about</code> found in <code>fixtures/categories.yml</code>.</p>
 you cannot specify the <code>id:</code> attribute on the associated fixtures. 
 Rails will auto assign a primary key to be consistent between runs. 
 For more information on this association behavior please read 
-the <a href="http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html">Fixtures API documentation</a>.</p></div>
+the <a href="https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html">Fixtures API documentation</a>.</p></div>
 <h5 id="fixtures-with-erb">3.2.2 Fixtures with ERB</h5>
 <p>ERB allows you to embed Ruby code. The YAML fixture format is pre-processed with 
 ERB when Rails loads fixtures. This allows you to use Ruby to help you generate 
@@ -831,8 +833,8 @@ console output.</p>
 <h3 id="further-reading">5 Further Reading</h3>
 <ul>
 <li>
-<a href="http://guides.rubyonrails.org/testing.html">A Guide to Testing Rails Applications</a> - also contains an introduction to testing routes, mailers, helpers, jobs and more in depth information on testing controllers</li>
-<li><a href="http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html">Fixtures API documentation</a></li>
+<a href="https://guides.rubyonrails.org/testing.html">A Guide to Testing Rails Applications</a> - also contains an introduction to testing routes, mailers, helpers, jobs and more in depth information on testing controllers</li>
+<li><a href="https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html">Fixtures API documentation</a></li>
 <li><a href="https://news.ycombinator.com/item?id=17233371">Observations running 2M headless Chrome sessions</a></li>
 </ul>
 </div>        
@@ -843,7 +845,7 @@ console output.</p>
   <hr class="hide" />
   <div id="footer">
     <div class="wrapper">
-      <p class="copyright">published under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2016 by <a href="http://brigitte-jellinek.at">Brigitte Jellinek</a>.
+      <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2016 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
       </p><p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
         and edit <a href="https://github.com/backend-development/backend-development-textbook/blob/master/source/testing.md">testing.md</a>
       </p>

@@ -23,18 +23,20 @@
 </head>
 <body class="guide">
   <div>
-    <a href="http://github.com/backend-development/backend-development-textbook/"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 10;" src="images/forkme.png" alt="Fork me on GitHub"></a>
+    <a href="https://github.com/backend-development/backend-development-textbook/"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 10;" src="images/forkme.png" alt="Fork me on GitHub"></a>
   </div>
   <div id="topNav">
     <div class="wrapper">
-      <strong class="more-info-label">Learn more at the sources: </strong>
+      <strong class="more-info-label">More Rails: </strong>
       <ul class="more-info-links s-hidden">
-        <li class="more-info"><a href="http://rubyonrails.org/">Ruby on Rails</a></li>
-        <li class="more-info"><a href="http://guides.rubyonrails.org/">Rails Guides</a></li>
-        <li class="more-info"><a href="http://railsforzombies.org/">Rails for Zombies</a></li>
-        <li class="more-info"><a href="http://curriculum.railsbridge.org/docs/">Railsbridge</a></li>
-        <li class="more-info"><a href="http://railscasts.com/">Railscasts</a></li>
+        <li class="more-info"><a href="https://guides.rubyonrails.org/">Rails Guides</a></li>
+        <li class="more-info"><a href="https://curriculum.railsbridge.org/docs/">Railsbridge</a></li>
+        <li class="more-info"><a href="https://railscasts.com/">Railscasts</a></li>
       </ul>
+      <strong class="more-info-label">Beyond Backend: </strong>
+      <ul class="more-info-links s-hidden">
+        <li class="more-info"><a href="https://web-engineering.github.io/">Web Engineering</a></li>
+      </ul>      
     </div>
   </div>
   <div id="header">
@@ -126,7 +128,7 @@ ease!</p><p>After reading this guide, you will know:</p>
 <li>the Turbolinks gem.</li>
 </ul>
 <p>This guide is based on the original
-<a href="http://guides.rubyonrails.org/working_with_javascript_in_rails.html">Rails Guide Working with JavaScript</a>.
+<a href="https://guides.rubyonrails.org/working_with_javascript_in_rails.html">Rails Guide Working with JavaScript</a>.
 The original guide uses coffeescript, this guide uses ES6 and
 refers to an <a href="https://github.com/backend-development/rails-example-recipes-js">example app</a></p><div class="repo"><p>Fork the <a href="https://github.com/backend-development/rails-example-recipes-js">example app &#39;recipes&#39;</a> and try out what you learn here.</p></div>
       </div>
@@ -414,8 +416,8 @@ provides the JavaScript half, and the regular Ruby view helpers add
 tags and data-attributes to the DOM. The JavaScript in rails.js then listens for these
 attributes, and attaches appropriate handlers.</p>
 <h5 id="form-for-and-form-tag">3.4.1 form_for and form_tag</h5>
-<p><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/FormHelper.html#method-i-form_for"><code>form_for</code></a>
-and <a href="http://api.rubyonrails.org/classes/ActionView/Helpers/FormTagHelper.html#method-i-form_tag"><code>form_tag</code></a>
+<p><a href="https://api.rubyonrails.org/classes/ActionView/Helpers/FormHelper.html#method-i-form_for"><code>form_for</code></a>
+and <a href="https://api.rubyonrails.org/classes/ActionView/Helpers/FormTagHelper.html#method-i-form_tag"><code>form_tag</code></a>
 are helpers that assists with writing forms. Both take a <code>:remote</code> option. It works like this:</p>
 <div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
@@ -457,7 +459,7 @@ $("#new_article").on("ajax:error", function(e, xhr, status, error) {
 You can learn more about the available
 events <a href="https://github.com/rails/jquery-ujs/wiki/ajax">in the jquery-ujs wiki</a>.</p>
 <h5 id="link-to">3.4.3 link_to</h5>
-<p><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to"><code>link_to</code></a>
+<p><a href="https://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to"><code>link_to</code></a>
 and its cousin <code>link_to_unless_current</code> 
 are helper that generate links. Again they have a <code>:remote</code> option:</p>
 <div class="code_container">
@@ -476,7 +478,7 @@ are helper that generate links. Again they have a <code>:remote</code> option:</
 <p>Again rails.js removes the data-attribute and attaches a
 hander that deactivates the normal link and sends an Ajax request instead.</p>
 <h5 id="button-to">3.4.4 button_to</h5>
-<p><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-button_to"><code>button_to</code></a> 
+<p><a href="https://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-button_to"><code>button_to</code></a> 
 is a shorthand for creating a form that consists of just one button. This
 help in using consistent REST requests.</p>
 <div class="code_container">
@@ -513,7 +515,7 @@ withoug making changes in the backend.</p>
 <p>Turbolinks attaches a click handler to all <code>&lt;a&gt;</code> Tags on the page. When
 the link is clicked, Turbolinks will make an Ajax request for the page, 
 parse the response, and replace the entire <code>&lt;body&gt;</code> of the page with the 
-<code>&lt;body&gt;</code> of the response. It will then use the <a href="http://caniuse.com/#search=pushState">HTML History API</a>
+<code>&lt;body&gt;</code> of the response. It will then use the <a href="https://caniuse.com/#search=pushState">HTML History API</a>
 to change the URL to the correct one. In unsupported browsers
 , Turbolinks gracefully degrades to standard navigation.</p>
 <p>Turbolinks are enabeld by default in new rails applications.</p>
@@ -571,10 +573,9 @@ README</a>.</p>
 <p>Here are some helpful links to help you learn even more:</p>
 <ul>
 <li>
-<a href="http://guides.rubyonrails.org/working_with_javascript_in_rails.html">Original Rails Guide Working with JavaScript</a>.</li>
+<a href="https://guides.rubyonrails.org/working_with_javascript_in_rails.html">Original Rails Guide Working with JavaScript</a>.</li>
 <li><a href="https://github.com/rails/jquery-ujs/wiki">jquery-ujs wiki</a></li>
 <li><a href="https://github.com/rails/jquery-ujs/wiki/ajax">Events created by Rails AJAX</a></li>
-<li><a href="http://www.kwanso.com/blog/using-ecmascript-6-with-rails-4-2-projects/">Using ES6 in Rails article</a></li>
 <li><a href="http://railscasts.com/episodes/205-unobtrusive-javascript">Railscasts: Unobtrusive JavaScript</a></li>
 <li>
 <a href="https://www.youtube.com/watch?v=SWEts0rlezA">RailsConf 2016 - Turbolinks 5</a> video of the talk on using turbolinks on ios and android</li>
@@ -587,7 +588,7 @@ README</a>.</p>
   <hr class="hide" />
   <div id="footer">
     <div class="wrapper">
-      <p class="copyright">published under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2016 by <a href="http://brigitte-jellinek.at">Brigitte Jellinek</a>.
+      <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2016 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
       </p><p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
         and edit <a href="https://github.com/backend-development/backend-development-textbook/blob/master/source/javascript_and_ajax.md">javascript_and_ajax.md</a>
       </p>

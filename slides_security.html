@@ -1,37 +1,47 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <title>Slides for
+        Security in the Backend Development Textbook
+    </title>
+    <!-- Required stylesheet -->
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
+    <!-- Extension CSS files go here. Remove or add as needed. -->
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
+    <!-- Style theme. More available in /themes/style/ or create your own. -->
+    <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
+    <!-- Transition theme. More available in /themes/transition/ or create your own. -->
+    <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
+    <!-- syntax highlighter -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />    
 
-  <title>Slides for Security in the Backend Development Textbook</title>
 
-  <!-- Required stylesheet -->
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
-
-  <!-- Extension CSS files go here. Remove or add as needed. -->
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
-  <!-- link rel="stylesheet" media="screen" href="stylesheets/deck.scale.css" -->
-
-  <!-- Style theme. More available in /themes/style/ or create your own. -->
-  <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
-
-  <!-- Transition theme. More available in /themes/transition/ or create your own. -->
-  <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
-
-  <!-- Basic black and white print styles -->
-  <link rel="stylesheet" media="print" href="stylesheets/print.css">
-
-  <!-- Required Modernizr file -->
-  <script src="javascripts/modernizr.custom.js"></script>
+    <!-- Basic black and white print styles -->
+    <link rel="stylesheet" media="print" href="stylesheets/print.css">
+    <!-- Required Modernizr file -->
+    <script src="javascripts/modernizr.custom.js"></script>
 </head>
+
 <body>
     <div class="deck-container">
-        <div class='slide'>
+        <div class='slide'><h2>Security</h2><p>This guide will give you an introduction
+to the security features included in ruby on rails,
+how to use them, and how to mess up in spite of all the
+help the framework is giving you</p><p>By referring to this guide, you will be able to:</p>
+<ul>
+<li>Use rails&#39;s security features </li>
+<li>Appreciate how hard security is</li>
+</ul>
+<div class="repo"><p>You can fork the <a href="https://github.com/backend-development/rails-example-security">code of the example app</a>. his app is full of security holes. While reading this guide you should
+work on the app and fix those holes one by one.</p></div>
 <p>Later on this Guide will follow the OWASP Top 10 from 2017 to discuss
 security features of Ruby on Rails. But first a word of warning:</p>
 <p>Rails offers a lot of security features.  But all those clever features
@@ -106,14 +116,14 @@ Project.where(name: params[:name])
 <p>The methods  <code>connection.execute()</code> and  <code>Model.find_by_sql()</code> both take SQL strings
 as arguments.  To use these savely you can apply  <code>sanitize_sql()</code> to user input before
 you interpolate it into a SQL query.</p>
-<p>ActiveRecord will use prepared statements by default, but you can <a href="http://edgeguides.rubyonrails.org/configuring.html#configuring-a-postgresql-database">configure it</a> not to do that.</p>
+<p>ActiveRecord will use prepared statements by default, but you can <a href="https://edgeguides.rubyonrails.org/configuring.html#configuring-a-postgresql-database">configure it</a> not to do that.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='security.html#slide-3'>▻</a>
 <h4 id="links">1.2 Links</h4>
 <ul>
 <li>
-<a href="http://guides.rubyonrails.org/security.html#sql-injection">SQL Injection chapter</a> of the Rails Guide "Securing Rails Applications" </li>
+<a href="https://guides.rubyonrails.org/security.html#sql-injection">SQL Injection chapter</a> of the Rails Guide "Securing Rails Applications" </li>
 <li><a href="https://rails-sqli.org/">rails-sqli.org</a></li>
 <li><a href="https://brakemanscanner.org/docs/warning_types/sql_injection/">brakeman will warn about possible sql injections</a></li>
 </ul>
@@ -127,7 +137,7 @@ you interpolate it into a SQL query.</p>
 <p>Rails comes with basic built in functionality to handle authentication:</p>
 <ul>
 <li>
-<a href="http://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html#method-i-has_secure_password">has_secure_password</a> adds methods to set and authenticate against a BCrypt password to a model.</li>
+<a href="https://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html#method-i-has_secure_password">has_secure_password</a> adds methods to set and authenticate against a BCrypt password to a model.</li>
 </ul>
 <p>For most real world projects you will be using a gem:</p>
 <ul>
@@ -268,9 +278,9 @@ authorize! :read, @project
 but do not want users to be able to enumerate all possible URLs:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-http://my-schedule.at/calendar/17
-http://my-schedule.at/calendar/18
-http://my-schedule.at/calendar/19 ...
+https://my-schedule.at/calendar/17
+https://my-schedule.at/calendar/18
+https://my-schedule.at/calendar/19 ...
 
 </pre>
 </div>
@@ -304,8 +314,8 @@ end
 <p>now your urls will be harder to enumerate:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-http://my-schedule.at/calendar/0d60a85e-0b90-4482-a14c-108aea2557aa
-http://my-schedule.at/calendar/39240e9f-ae09-4e95-9fd0-a712035c8ad7 ...
+https://my-schedule.at/calendar/0d60a85e-0b90-4482-a14c-108aea2557aa
+https://my-schedule.at/calendar/39240e9f-ae09-4e95-9fd0-a712035c8ad7 ...
 
 </pre>
 </div>
@@ -378,7 +388,7 @@ default: &amp;default
   adapter: postgresql
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
-  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: &lt;%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %&gt;
 
 development:
@@ -581,7 +591,7 @@ token as a default header for Ajax calls in your library. </p>
 <a class='slide_break' href='security.html#slide-26'>▻</a>
 <h3 id="see-also">12 See Also</h3>
 <ul>
-<li><a href="http://guides.rubyonrails.org/security.html">Rails Guide: Security</a></li>
+<li><a href="https://guides.rubyonrails.org/security.html">Rails Guide: Security</a></li>
 <li>Tool: <a href="https://github.com/flavorjones/loofah">loofah</a>
 </li>
 <li>Tool: <a href="https://github.com/presidentbeef/brakeman">brakeman</a>
@@ -589,53 +599,62 @@ token as a default header for Ajax calls in your library. </p>
 </ul>
 </div>
     </div>
-
     <!-- End slides. -->
-
     <!-- Begin extension snippets. Add or remove as needed. -->
-
     <!-- deck.navigation snippet -->
     <div aria-role="navigation">
-      <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
-      <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+        <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+        <a href="#" class="deck-next-link" title="Next">&#8594;</a>
     </div>
-
     <!-- deck.status snippet -->
     <p class="deck-status" aria-role="status">
-      <span class="deck-status-current"></span>
-      /
-      <span class="deck-status-total"></span>
+        <span class="deck-status-current"></span>
+        /
+        <span class="deck-status-total"></span>
     </p>
-
     <!-- deck.goto snippet -->
     <form action="." method="get" class="goto-form">
-      <label for="goto-slide">Go to slide:</label>
-      <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
-      <datalist id="goto-datalist"></datalist>
-      <input type="submit" value="Go">
+        <label for="goto-slide">Go to slide:</label>
+        <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+        <datalist id="goto-datalist"></datalist>
+        <input type="submit" value="Go">
     </form>
-
     <!-- End extension snippets. -->
-  </div>
+    </div>
+    <!-- Required JS files. -->
+    <script src="javascripts/jquery.min.js"></script>
+    <script src="javascripts/deck.core.js"></script>
+    <!-- Extension JS files. Add or remove as needed. -->
+    <script src="javascripts/deck.menu.js"></script>
+    <script src="javascripts/deck.goto.js"></script>
+    <script src="javascripts/deck.status.js"></script>
+    <script src="javascripts/deck.navigation.js"></script>
+    <script src="javascripts/deck.escape.js"></script>
+    <!--  Syntax highlighter -->
+    <script src="javascripts/syntaxhighlighter/shCore.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>    
+    <!-- Initialize the deck. You can put this in an external file if desired. -->
+    <script>
+    SyntaxHighlighter.all()      
+    $(function() {
+      $.deck('.slide');
+    });
 
-<!-- Required JS files. -->
-<script src="javascripts/jquery.min.js"></script>
-<script src="javascripts/deck.core.js"></script>
+    var $d = $(document);    
 
-<!-- Extension JS files. Add or remove as needed. -->
-<script src="javascripts/deck.menu.js"></script>
-<script src="javascripts/deck.goto.js"></script>
-<script src="javascripts/deck.status.js"></script>
-<script src="javascripts/deck.navigation.js"></script>
-<script src="javascripts/deck.escape.js"></script>
-<!-- script src="javascripts/deck.scale.js"></script -->
-
-<!-- Initialize the deck. You can put this in an external file if desired. -->
-<script>
-  $(function() {
-    $.deck('.slide');
-  });
-</script>
+    $d.bind('deck.change', function(event, from, to) {
+      // console.log('Moving from slide ' + from + ' to ' + to);
+    });   
+    $d.bind('deck.beforeInit', function() {
+      // console.log('Deck.beforeInit. hash is ' + document.location.hash);
+    });     
+    $d.bind('deck.init', function() {
+      // console.log('Deck.init is done. hash was ' + document.location.hash);
+    }); 
+    </script>
 </body>
-</html>
 
+</html>

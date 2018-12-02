@@ -23,18 +23,20 @@
 </head>
 <body class="guide">
   <div>
-    <a href="http://github.com/backend-development/backend-development-textbook/"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 10;" src="images/forkme.png" alt="Fork me on GitHub"></a>
+    <a href="https://github.com/backend-development/backend-development-textbook/"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 10;" src="images/forkme.png" alt="Fork me on GitHub"></a>
   </div>
   <div id="topNav">
     <div class="wrapper">
-      <strong class="more-info-label">Learn more at the sources: </strong>
+      <strong class="more-info-label">More Rails: </strong>
       <ul class="more-info-links s-hidden">
-        <li class="more-info"><a href="http://rubyonrails.org/">Ruby on Rails</a></li>
-        <li class="more-info"><a href="http://guides.rubyonrails.org/">Rails Guides</a></li>
-        <li class="more-info"><a href="http://railsforzombies.org/">Rails for Zombies</a></li>
-        <li class="more-info"><a href="http://curriculum.railsbridge.org/docs/">Railsbridge</a></li>
-        <li class="more-info"><a href="http://railscasts.com/">Railscasts</a></li>
+        <li class="more-info"><a href="https://guides.rubyonrails.org/">Rails Guides</a></li>
+        <li class="more-info"><a href="https://curriculum.railsbridge.org/docs/">Railsbridge</a></li>
+        <li class="more-info"><a href="https://railscasts.com/">Railscasts</a></li>
       </ul>
+      <strong class="more-info-label">Beyond Backend: </strong>
+      <ul class="more-info-links s-hidden">
+        <li class="more-info"><a href="https://web-engineering.github.io/">Web Engineering</a></li>
+      </ul>      
     </div>
   </div>
   <div id="header">
@@ -288,9 +290,9 @@ Accept: application/xml
 <p>Or by adding an "extension" as part of the URL:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-http://example.com/mini/person/83.html
-http://example.com/mini/person/83.xml
-http://example.com/mini/person/83.json
+https://example.com/mini/person/83.html
+https://example.com/mini/person/83.xml
+https://example.com/mini/person/83.json
 
 </pre>
 </div>
@@ -299,14 +301,14 @@ like this: the HTML web page:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;h1&gt;Details zu einer Person&lt;/h1&gt;
-&lt;p&gt;&lt;img src="http://example.com/mini/profil/edvard_1_2.jpg" /&gt;
+&lt;p&gt;&lt;img src="https://example.com/mini/profil/edvard_1_2.jpg" /&gt;
 Herr Edvard Paul Beisteiner hat insgesamt 4 Werke in dieser Datenbank.
 Er hat den Usernamen fhs14287.&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;a href='http://example.com/mini/werk/24'&gt;The Thin Red Line&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href='http://example.com/mini/werk/50'&gt;Der böse Wolf&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href='http://example.com/mini/werk/83'&gt;nimm zwei, schatz&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href='http://example.com/mini/werk/303'&gt;the neighbour.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href='https://example.com/mini/werk/24'&gt;The Thin Red Line&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href='https://example.com/mini/werk/50'&gt;Der böse Wolf&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href='https://example.com/mini/werk/83'&gt;nimm zwei, schatz&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href='https://example.com/mini/werk/303'&gt;the neighbour.&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 </pre>
@@ -315,15 +317,15 @@ Er hat den Usernamen fhs14287.&lt;/p&gt;
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;person&gt;
-  &lt;image ref='http://example.com/mini/profil/edvard_1_2.jpg' /&gt;
+  &lt;image ref='https://example.com/mini/profil/edvard_1_2.jpg' /&gt;
   &lt;vorname&gt;Edvard&lt;/vorname&gt;
   &lt;nachname&gt;Beisteiner&lt;/nachname&gt;
   &lt;username&gt;fhs14287&lt;/username&gt;
   &lt;werke&gt;
-    &lt;werk ref='http://example.com/mini/werk/24'&gt;The Thin Red Line&lt;/werk&gt;
-    &lt;werk ref='http://example.com/mini/werk/50'&gt;Der böse Wolf&lt;/werk&gt;
-    &lt;werk ref='http://example.com/mini/werk/83'&gt;nimm zwei, schatz&lt;/werk&gt;
-    &lt;werk ref='http://example.com/mini/werk/303'&gt;the neighbour.&lt;/werk&gt;
+    &lt;werk ref='https://example.com/mini/werk/24'&gt;The Thin Red Line&lt;/werk&gt;
+    &lt;werk ref='https://example.com/mini/werk/50'&gt;Der böse Wolf&lt;/werk&gt;
+    &lt;werk ref='https://example.com/mini/werk/83'&gt;nimm zwei, schatz&lt;/werk&gt;
+    &lt;werk ref='https://example.com/mini/werk/303'&gt;the neighbour.&lt;/werk&gt;
   &lt;/werke&gt;
 &lt;/person&gt;
 
@@ -332,18 +334,18 @@ Er hat den Usernamen fhs14287.&lt;/p&gt;
 <p>or as JSON:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-{"image":"http://example.com/mini/profil/edvard_1_2.jpg",
+{"image":"https://example.com/mini/profil/edvard_1_2.jpg",
  "vorname":"Eduard",
  "nachname":"Beisteiner",
  "werk":[
     {"titel":"The Thin Red Line",
-     "url":"http://example.com/mini/werk/24"},
+     "url":"https://example.com/mini/werk/24"},
     {"titel":"Der böse Wolf",
-     "url":"http://example.com/mini/werk/50"},
+     "url":"https://example.com/mini/werk/50"},
     {"titel":"nimm zwei, schatz",
-     "url":"http://example.com/mini/werk/83"},
+     "url":"https://example.com/mini/werk/83"},
     {"titel":"the neighbour.",
-     "url":"http://example.com/mini/werk/303"}]}
+     "url":"https://example.com/mini/werk/303"}]}
 
 </pre>
 </div>
@@ -362,7 +364,7 @@ to different servers.</p>
 <a class='slide_break' id='slide-10' href='slides_apis.html#slide-10'>▻</a>
 <h3 id="json-api">3 JSON API</h3>
 <p>When an API returns JSON data this could take many forms.
-The <a href="http://jsonapi.org/">json:api specification</a> is a well thought out
+The <a href="https://jsonapi.org/">json:api specification</a> is a well thought out
 convention for this.</p>
 <p>It is especially good with the HATEOS aspect of REST.</p>
 <p>The json:api specification adhers to this principle.</p>
@@ -711,11 +713,11 @@ end
 <h3 id="see-also">7 See Also</h3>
 <ul>
 <li>
-<a href="http://www.ics.uci.edu/%7Efielding/pubs/dissertation/top.htm">Fielding, Roy(2000): Architectural Styles and the Design of Network-based Software Architectures</a>. Dissertation. University of California/Irvine, USA.</li>
+<a href="https://www.ics.uci.edu/%7Efielding/pubs/dissertation/top.htm">Fielding, Roy(2000): Architectural Styles and the Design of Network-based Software Architectures</a>. Dissertation. University of California/Irvine, USA.</li>
 <li><a href="https://martinfowler.com/articles/richardsonMaturityModel.html">Fowler (2010): Richardson Maturity Model</a></li>
 <li><a href="https://www.infoq.com/articles/rest-introduction">Tilkov(2007): A Brief Introduction to REST</a></li>
-<li><a href="http://edgeguides.rubyonrails.org/action_controller_overview.html#rendering-xml-and-json-data">Rails Guide: Rendering JSON in Action Controller Overview</a></li>
-<li><a href="http://edgeguides.rubyonrails.org/api_app.html">Rails Guide: Using Rails for API-only Applications</a></li>
+<li><a href="https://edgeguides.rubyonrails.org/action_controller_overview.html#rendering-xml-and-json-data">Rails Guide: Rendering JSON in Action Controller Overview</a></li>
+<li><a href="https://edgeguides.rubyonrails.org/api_app.html">Rails Guide: Using Rails for API-only Applications</a></li>
 <li><a href="https://github.com/vasilakisfil/rails5_api_tutorial">Vasilakis(2017): Rails 5 API Tutorial</a></li>
 <li><a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">Methods HTTP/1.0</a></li>
 <li><a href="https://httpstatuses.com/422">Status codes</a></li>
@@ -730,7 +732,7 @@ end
   <hr class="hide" />
   <div id="footer">
     <div class="wrapper">
-      <p class="copyright">published under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2016 by <a href="http://brigitte-jellinek.at">Brigitte Jellinek</a>.
+      <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2016 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
       </p><p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
         and edit <a href="https://github.com/backend-development/backend-development-textbook/blob/master/source/apis.md">apis.md</a>
       </p>

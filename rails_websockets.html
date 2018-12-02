@@ -23,18 +23,20 @@
 </head>
 <body class="guide">
   <div>
-    <a href="http://github.com/backend-development/backend-development-textbook/"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 10;" src="images/forkme.png" alt="Fork me on GitHub"></a>
+    <a href="https://github.com/backend-development/backend-development-textbook/"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 10;" src="images/forkme.png" alt="Fork me on GitHub"></a>
   </div>
   <div id="topNav">
     <div class="wrapper">
-      <strong class="more-info-label">Learn more at the sources: </strong>
+      <strong class="more-info-label">More Rails: </strong>
       <ul class="more-info-links s-hidden">
-        <li class="more-info"><a href="http://rubyonrails.org/">Ruby on Rails</a></li>
-        <li class="more-info"><a href="http://guides.rubyonrails.org/">Rails Guides</a></li>
-        <li class="more-info"><a href="http://railsforzombies.org/">Rails for Zombies</a></li>
-        <li class="more-info"><a href="http://curriculum.railsbridge.org/docs/">Railsbridge</a></li>
-        <li class="more-info"><a href="http://railscasts.com/">Railscasts</a></li>
+        <li class="more-info"><a href="https://guides.rubyonrails.org/">Rails Guides</a></li>
+        <li class="more-info"><a href="https://curriculum.railsbridge.org/docs/">Railsbridge</a></li>
+        <li class="more-info"><a href="https://railscasts.com/">Railscasts</a></li>
       </ul>
+      <strong class="more-info-label">Beyond Backend: </strong>
+      <ul class="more-info-links s-hidden">
+        <li class="more-info"><a href="https://web-engineering.github.io/">Web Engineering</a></li>
+      </ul>      
     </div>
   </div>
   <div id="header">
@@ -623,7 +625,7 @@ App.adventureChannel = App.cable.subscriptions.create({
 <h4 id="server-sends-data-if-status-changes">4.4 Server sends data if status changes</h4>
 <p>Every time a user changes their status we want the server
 to send out messages.  The model where the status is stored
-is <code>Step</code>. ActiveRecord supplies hooks for <a href="http://guides.rubyonrails.org/active_record_callbacks.html#transaction-callbacks">callbacks</a> we can use here:</p>
+is <code>Step</code>. ActiveRecord supplies hooks for <a href="https://guides.rubyonrails.org/active_record_callbacks.html#transaction-callbacks">callbacks</a> we can use here:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 class Step &lt; ApplicationRecord
@@ -743,7 +745,7 @@ received: function(data) {
   <hr class="hide" />
   <div id="footer">
     <div class="wrapper">
-      <p class="copyright">published under <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2016 by <a href="http://brigitte-jellinek.at">Brigitte Jellinek</a>.
+      <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2016 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
       </p><p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
         and edit <a href="https://github.com/backend-development/backend-development-textbook/blob/master/source/rails_websockets.md">rails_websockets.md</a>
       </p>

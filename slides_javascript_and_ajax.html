@@ -1,37 +1,52 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <title>Slides for
+        JavaScript and AJAX in Rails in the Backend Development Textbook
+    </title>
+    <!-- Required stylesheet -->
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
+    <!-- Extension CSS files go here. Remove or add as needed. -->
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
+    <!-- Style theme. More available in /themes/style/ or create your own. -->
+    <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
+    <!-- Transition theme. More available in /themes/transition/ or create your own. -->
+    <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
+    <!-- syntax highlighter -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />    
 
-  <title>Slides for JavaScript and AJAX in Rails in the Backend Development Textbook</title>
 
-  <!-- Required stylesheet -->
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
-
-  <!-- Extension CSS files go here. Remove or add as needed. -->
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
-  <!-- link rel="stylesheet" media="screen" href="stylesheets/deck.scale.css" -->
-
-  <!-- Style theme. More available in /themes/style/ or create your own. -->
-  <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
-
-  <!-- Transition theme. More available in /themes/transition/ or create your own. -->
-  <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
-
-  <!-- Basic black and white print styles -->
-  <link rel="stylesheet" media="print" href="stylesheets/print.css">
-
-  <!-- Required Modernizr file -->
-  <script src="javascripts/modernizr.custom.js"></script>
+    <!-- Basic black and white print styles -->
+    <link rel="stylesheet" media="print" href="stylesheets/print.css">
+    <!-- Required Modernizr file -->
+    <script src="javascripts/modernizr.custom.js"></script>
 </head>
+
 <body>
     <div class="deck-container">
-        <div class='slide'>
+        <div class='slide'><h2>JavaScript and AJAX in Rails</h2><p>This guide covers the built-in Ajax/JavaScript functionality of Rails; 
+it will enable you to create rich and dynamic Ajax applications with
+ease!</p><p>After reading this guide, you will know:</p>
+<ul>
+<li>unobtrusive JavaScript,</li>
+<li>how to use ES6 in your Rails app,</li>
+<li>the basics of Ajax,</li>
+<li>how Rails handles Ajax,</li>
+<li>how built-in helpers assist you,</li>
+<li>the Turbolinks gem.</li>
+</ul>
+<p>This guide is based on the original
+<a href="https://guides.rubyonrails.org/working_with_javascript_in_rails.html">Rails Guide Working with JavaScript</a>.
+The original guide uses coffeescript, this guide uses ES6 and
+refers to an <a href="https://github.com/backend-development/rails-example-recipes-js">example app</a></p><div class="repo"><p>Fork the <a href="https://github.com/backend-development/rails-example-recipes-js">example app &#39;recipes&#39;</a> and try out what you learn here.</p></div>
 </div>
 <div class='slide'>
 <a class='slide_break' href='javascript_and_ajax.html#slide-1'>▻</a>
@@ -308,8 +323,8 @@ provides the JavaScript half, and the regular Ruby view helpers add
 tags and data-attributes to the DOM. The JavaScript in rails.js then listens for these
 attributes, and attaches appropriate handlers.</p>
 <h5 id="form-for-and-form-tag">3.4.1 form_for and form_tag</h5>
-<p><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/FormHelper.html#method-i-form_for"><code>form_for</code></a>
-and <a href="http://api.rubyonrails.org/classes/ActionView/Helpers/FormTagHelper.html#method-i-form_tag"><code>form_tag</code></a>
+<p><a href="https://api.rubyonrails.org/classes/ActionView/Helpers/FormHelper.html#method-i-form_for"><code>form_for</code></a>
+and <a href="https://api.rubyonrails.org/classes/ActionView/Helpers/FormTagHelper.html#method-i-form_tag"><code>form_tag</code></a>
 are helpers that assists with writing forms. Both take a <code>:remote</code> option. It works like this:</p>
 <div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
@@ -351,7 +366,7 @@ $("#new_article").on("ajax:error", function(e, xhr, status, error) {
 You can learn more about the available
 events <a href="https://github.com/rails/jquery-ujs/wiki/ajax">in the jquery-ujs wiki</a>.</p>
 <h5 id="link-to">3.4.3 link_to</h5>
-<p><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to"><code>link_to</code></a>
+<p><a href="https://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to"><code>link_to</code></a>
 and its cousin <code>link_to_unless_current</code> 
 are helper that generate links. Again they have a <code>:remote</code> option:</p>
 <div class="code_container">
@@ -370,7 +385,7 @@ are helper that generate links. Again they have a <code>:remote</code> option:</
 <p>Again rails.js removes the data-attribute and attaches a
 hander that deactivates the normal link and sends an Ajax request instead.</p>
 <h5 id="button-to">3.4.4 button_to</h5>
-<p><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-button_to"><code>button_to</code></a> 
+<p><a href="https://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-button_to"><code>button_to</code></a> 
 is a shorthand for creating a form that consists of just one button. This
 help in using consistent REST requests.</p>
 <div class="code_container">
@@ -407,7 +422,7 @@ withoug making changes in the backend.</p>
 <p>Turbolinks attaches a click handler to all <code>&lt;a&gt;</code> Tags on the page. When
 the link is clicked, Turbolinks will make an Ajax request for the page, 
 parse the response, and replace the entire <code>&lt;body&gt;</code> of the page with the 
-<code>&lt;body&gt;</code> of the response. It will then use the <a href="http://caniuse.com/#search=pushState">HTML History API</a>
+<code>&lt;body&gt;</code> of the response. It will then use the <a href="https://caniuse.com/#search=pushState">HTML History API</a>
 to change the URL to the correct one. In unsupported browsers
 , Turbolinks gracefully degrades to standard navigation.</p>
 <p>Turbolinks are enabeld by default in new rails applications.</p>
@@ -465,63 +480,71 @@ README</a>.</p>
 <p>Here are some helpful links to help you learn even more:</p>
 <ul>
 <li>
-<a href="http://guides.rubyonrails.org/working_with_javascript_in_rails.html">Original Rails Guide Working with JavaScript</a>.</li>
+<a href="https://guides.rubyonrails.org/working_with_javascript_in_rails.html">Original Rails Guide Working with JavaScript</a>.</li>
 <li><a href="https://github.com/rails/jquery-ujs/wiki">jquery-ujs wiki</a></li>
 <li><a href="https://github.com/rails/jquery-ujs/wiki/ajax">Events created by Rails AJAX</a></li>
-<li><a href="http://www.kwanso.com/blog/using-ecmascript-6-with-rails-4-2-projects/">Using ES6 in Rails article</a></li>
 <li><a href="http://railscasts.com/episodes/205-unobtrusive-javascript">Railscasts: Unobtrusive JavaScript</a></li>
 <li>
 <a href="https://www.youtube.com/watch?v=SWEts0rlezA">RailsConf 2016 - Turbolinks 5</a> video of the talk on using turbolinks on ios and android</li>
 </ul>
 </div>
     </div>
-
     <!-- End slides. -->
-
     <!-- Begin extension snippets. Add or remove as needed. -->
-
     <!-- deck.navigation snippet -->
     <div aria-role="navigation">
-      <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
-      <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+        <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+        <a href="#" class="deck-next-link" title="Next">&#8594;</a>
     </div>
-
     <!-- deck.status snippet -->
     <p class="deck-status" aria-role="status">
-      <span class="deck-status-current"></span>
-      /
-      <span class="deck-status-total"></span>
+        <span class="deck-status-current"></span>
+        /
+        <span class="deck-status-total"></span>
     </p>
-
     <!-- deck.goto snippet -->
     <form action="." method="get" class="goto-form">
-      <label for="goto-slide">Go to slide:</label>
-      <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
-      <datalist id="goto-datalist"></datalist>
-      <input type="submit" value="Go">
+        <label for="goto-slide">Go to slide:</label>
+        <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+        <datalist id="goto-datalist"></datalist>
+        <input type="submit" value="Go">
     </form>
-
     <!-- End extension snippets. -->
-  </div>
+    </div>
+    <!-- Required JS files. -->
+    <script src="javascripts/jquery.min.js"></script>
+    <script src="javascripts/deck.core.js"></script>
+    <!-- Extension JS files. Add or remove as needed. -->
+    <script src="javascripts/deck.menu.js"></script>
+    <script src="javascripts/deck.goto.js"></script>
+    <script src="javascripts/deck.status.js"></script>
+    <script src="javascripts/deck.navigation.js"></script>
+    <script src="javascripts/deck.escape.js"></script>
+    <!--  Syntax highlighter -->
+    <script src="javascripts/syntaxhighlighter/shCore.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>    
+    <!-- Initialize the deck. You can put this in an external file if desired. -->
+    <script>
+    SyntaxHighlighter.all()      
+    $(function() {
+      $.deck('.slide');
+    });
 
-<!-- Required JS files. -->
-<script src="javascripts/jquery.min.js"></script>
-<script src="javascripts/deck.core.js"></script>
+    var $d = $(document);    
 
-<!-- Extension JS files. Add or remove as needed. -->
-<script src="javascripts/deck.menu.js"></script>
-<script src="javascripts/deck.goto.js"></script>
-<script src="javascripts/deck.status.js"></script>
-<script src="javascripts/deck.navigation.js"></script>
-<script src="javascripts/deck.escape.js"></script>
-<!-- script src="javascripts/deck.scale.js"></script -->
-
-<!-- Initialize the deck. You can put this in an external file if desired. -->
-<script>
-  $(function() {
-    $.deck('.slide');
-  });
-</script>
+    $d.bind('deck.change', function(event, from, to) {
+      // console.log('Moving from slide ' + from + ' to ' + to);
+    });   
+    $d.bind('deck.beforeInit', function() {
+      // console.log('Deck.beforeInit. hash is ' + document.location.hash);
+    });     
+    $d.bind('deck.init', function() {
+      // console.log('Deck.init is done. hash was ' + document.location.hash);
+    }); 
+    </script>
 </body>
-</html>
 
+</html>

@@ -1,37 +1,44 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <title>Slides for
+        Rails: Associations and Validations in the Backend Development Textbook
+    </title>
+    <!-- Required stylesheet -->
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
+    <!-- Extension CSS files go here. Remove or add as needed. -->
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
+    <!-- Style theme. More available in /themes/style/ or create your own. -->
+    <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
+    <!-- Transition theme. More available in /themes/transition/ or create your own. -->
+    <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
+    <!-- syntax highlighter -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />    
 
-  <title>Slides for Rails: Associations and Validations in the Backend Development Textbook</title>
 
-  <!-- Required stylesheet -->
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
-
-  <!-- Extension CSS files go here. Remove or add as needed. -->
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
-  <!-- link rel="stylesheet" media="screen" href="stylesheets/deck.scale.css" -->
-
-  <!-- Style theme. More available in /themes/style/ or create your own. -->
-  <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
-
-  <!-- Transition theme. More available in /themes/transition/ or create your own. -->
-  <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
-
-  <!-- Basic black and white print styles -->
-  <link rel="stylesheet" media="print" href="stylesheets/print.css">
-
-  <!-- Required Modernizr file -->
-  <script src="javascripts/modernizr.custom.js"></script>
+    <!-- Basic black and white print styles -->
+    <link rel="stylesheet" media="print" href="stylesheets/print.css">
+    <!-- Required Modernizr file -->
+    <script src="javascripts/modernizr.custom.js"></script>
 </head>
+
 <body>
     <div class="deck-container">
-        <div class='slide'>
+        <div class='slide'><h2>Rails: Associations and Validations</h2><p>After working through this guide you should</p>
+<ul>
+<li>Be able to create models with associations to other models</li>
+<li>Be able to write validations to check data before it is saved in a model</li>
+</ul>
+<div class="repo"><p>Fork the <a href="https://github.com/backend-development/advanced_zombies">basic zombies</a> repository.</p></div><p>The examples are taken from &quot;Rails for Zombies&quot;, which used to be a free rails online course. 
+Sadly it is no longer available.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='rails_associations_and_validations.html#slide-1'>▻</a>
@@ -101,68 +108,81 @@ This column in <code>tweets</code> is called a "foreign key".</p>
 <a class='slide_break' href='rails_associations_and_validations.html#slide-4'>▻</a>
 <h4 id="further-reading">2.2 Further reading</h4>
 <ul>
-<li>The Rails Guides give a good introduction to a subject area:</li>
-<li>Rails Guide: <a href="http://guides.rubyonrails.org/active_record_validations_callbacks.html">Active Record Validations and Callbacks</a>
+<li>The Rails Guides give a good introduction to a subject area:
+
+<ul>
+<li>Rails Guide: <a href="https://guides.rubyonrails.org/active_record_validations_callbacks.html">Active Record Validations and Callbacks</a>
 </li>
-<li>Rails Guide: <a href="http://guides.rubyonrails.org/association_basics.html">Active Record Associations</a>
+<li>Rails Guide: <a href="https://guides.rubyonrails.org/association_basics.html">Active Record Associations</a>
 </li>
-<li>Use the API Dock to look up the details:</li>
-<li>Rails @ API Dock: <a href="http://apidock.com/rails/ActiveResource/Base/find/class">find()</a>
+</ul>
 </li>
-<li>Rails @ API Dock: <a href="http://apidock.com/rails/v2.0.3/ActiveRecord/Validations/ClassMethods/validates_presence_of">ActiveRecord Validations</a>
-</li>
-<li>Rails @ API Dock: <a href="http://apidock.com/rails/v3.2.8/ActiveRecord/Associations/ClassMethods">ActiveRecord Associations</a>
+<li>Use the <a href="https://api.rubyonrails.org/">Rails API</a> documentation to look up the details:
+
+<ul>
+<li><a href="https://api.rubyonrails.org/classes/ActiveRecord/Validations/ClassMethods.html#method-i-validates_presence_of">validates_presence_of</a></li>
+<li><a href="https://api.rubyonrails.org/classes/ActiveRecord/Associations/ClassMethods.html#method-i-has_many">has_many</a></li>
+</ul>
 </li>
 </ul>
 </div>
     </div>
-
     <!-- End slides. -->
-
     <!-- Begin extension snippets. Add or remove as needed. -->
-
     <!-- deck.navigation snippet -->
     <div aria-role="navigation">
-      <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
-      <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+        <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+        <a href="#" class="deck-next-link" title="Next">&#8594;</a>
     </div>
-
     <!-- deck.status snippet -->
     <p class="deck-status" aria-role="status">
-      <span class="deck-status-current"></span>
-      /
-      <span class="deck-status-total"></span>
+        <span class="deck-status-current"></span>
+        /
+        <span class="deck-status-total"></span>
     </p>
-
     <!-- deck.goto snippet -->
     <form action="." method="get" class="goto-form">
-      <label for="goto-slide">Go to slide:</label>
-      <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
-      <datalist id="goto-datalist"></datalist>
-      <input type="submit" value="Go">
+        <label for="goto-slide">Go to slide:</label>
+        <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+        <datalist id="goto-datalist"></datalist>
+        <input type="submit" value="Go">
     </form>
-
     <!-- End extension snippets. -->
-  </div>
+    </div>
+    <!-- Required JS files. -->
+    <script src="javascripts/jquery.min.js"></script>
+    <script src="javascripts/deck.core.js"></script>
+    <!-- Extension JS files. Add or remove as needed. -->
+    <script src="javascripts/deck.menu.js"></script>
+    <script src="javascripts/deck.goto.js"></script>
+    <script src="javascripts/deck.status.js"></script>
+    <script src="javascripts/deck.navigation.js"></script>
+    <script src="javascripts/deck.escape.js"></script>
+    <!--  Syntax highlighter -->
+    <script src="javascripts/syntaxhighlighter/shCore.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>    
+    <!-- Initialize the deck. You can put this in an external file if desired. -->
+    <script>
+    SyntaxHighlighter.all()      
+    $(function() {
+      $.deck('.slide');
+    });
 
-<!-- Required JS files. -->
-<script src="javascripts/jquery.min.js"></script>
-<script src="javascripts/deck.core.js"></script>
+    var $d = $(document);    
 
-<!-- Extension JS files. Add or remove as needed. -->
-<script src="javascripts/deck.menu.js"></script>
-<script src="javascripts/deck.goto.js"></script>
-<script src="javascripts/deck.status.js"></script>
-<script src="javascripts/deck.navigation.js"></script>
-<script src="javascripts/deck.escape.js"></script>
-<!-- script src="javascripts/deck.scale.js"></script -->
-
-<!-- Initialize the deck. You can put this in an external file if desired. -->
-<script>
-  $(function() {
-    $.deck('.slide');
-  });
-</script>
+    $d.bind('deck.change', function(event, from, to) {
+      // console.log('Moving from slide ' + from + ' to ' + to);
+    });   
+    $d.bind('deck.beforeInit', function() {
+      // console.log('Deck.beforeInit. hash is ' + document.location.hash);
+    });     
+    $d.bind('deck.init', function() {
+      // console.log('Deck.init is done. hash was ' + document.location.hash);
+    }); 
+    </script>
 </body>
-</html>
 
+</html>

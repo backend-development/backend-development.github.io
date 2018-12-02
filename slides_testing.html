@@ -1,37 +1,46 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <title>Slides for
+        Getting Started with Testing in the Backend Development Textbook
+    </title>
+    <!-- Required stylesheet -->
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
+    <!-- Extension CSS files go here. Remove or add as needed. -->
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
+    <!-- Style theme. More available in /themes/style/ or create your own. -->
+    <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
+    <!-- Transition theme. More available in /themes/transition/ or create your own. -->
+    <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
+    <!-- syntax highlighter -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />    
 
-  <title>Slides for Getting Started with Testing in the Backend Development Textbook</title>
 
-  <!-- Required stylesheet -->
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
-
-  <!-- Extension CSS files go here. Remove or add as needed. -->
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
-  <!-- link rel="stylesheet" media="screen" href="stylesheets/deck.scale.css" -->
-
-  <!-- Style theme. More available in /themes/style/ or create your own. -->
-  <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
-
-  <!-- Transition theme. More available in /themes/transition/ or create your own. -->
-  <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
-
-  <!-- Basic black and white print styles -->
-  <link rel="stylesheet" media="print" href="stylesheets/print.css">
-
-  <!-- Required Modernizr file -->
-  <script src="javascripts/modernizr.custom.js"></script>
+    <!-- Basic black and white print styles -->
+    <link rel="stylesheet" media="print" href="stylesheets/print.css">
+    <!-- Required Modernizr file -->
+    <script src="javascripts/modernizr.custom.js"></script>
 </head>
+
 <body>
     <div class="deck-container">
-        <div class='slide'>
+        <div class='slide'><h2>Getting Started with Testing</h2><p>This guide gives an introduction
+to built-in mechanisms in Rails for testing your application.</p><p>After reading this guide, you will know:</p>
+<ul>
+<li>Rails testing terminology.</li>
+<li>How to write unit tests for your applications models and controllers</li>
+<li>How to write integration tests for your application.</li>
+</ul>
+<p>This guide is a shorter version of the offical
+<a href="https://guides.rubyonrails.org/testing.html">Guide to Testing Rails Applications</a>.</p><div class="repo"><p>Fork the <a href="https://github.com/backend-development/rails-example-testing-for-stars">example app &#39;testing for stars&#39;</a> and try out what you learn here.</p></div>
 </div>
 <div class='slide'>
 <a class='slide_break' href='testing.html#slide-1'>▻</a>
@@ -385,8 +394,8 @@ the first one here.  For most assertions there is a simple negation <code>assert
 </table>
 <p>The above are a subset of assertions that minitest supports. For an exhaustive &amp;
 more up-to-date list, please check
-<a href="http://docs.seattlerb.org/minitest/">Minitest API documentation</a>, specifically
-<a href="http://docs.seattlerb.org/minitest/Minitest/Assertions.html"><code>Minitest::Assertions</code></a>.</p>
+<a href="https://github.com/seattlerb/minitest#user-content-description">Minitest API documentation</a>, specifically
+<a href="https://docs.ruby-lang.org/en/2.1.0/MiniTest/Assertions.html"><code>Minitest::Assertions</code></a>.</p>
 <p>Because of the modular nature of the testing framework, it is possible to create your own assertions. In fact, that's exactly what Rails does. It includes some specialized assertions to make your life easier.</p>
 </div>
 <div class='slide'>
@@ -563,7 +572,7 @@ category <code>about</code> found in <code>fixtures/categories.yml</code>.</p>
 you cannot specify the <code>id:</code> attribute on the associated fixtures. 
 Rails will auto assign a primary key to be consistent between runs. 
 For more information on this association behavior please read 
-the <a href="http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html">Fixtures API documentation</a>.</p></div>
+the <a href="https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html">Fixtures API documentation</a>.</p></div>
 <h5 id="fixtures-with-erb">3.2.2 Fixtures with ERB</h5>
 <p>ERB allows you to embed Ruby code. The YAML fixture format is pre-processed with 
 ERB when Rails loads fixtures. This allows you to use Ruby to help you generate 
@@ -729,59 +738,68 @@ console output.</p>
 <h3 id="further-reading">5 Further Reading</h3>
 <ul>
 <li>
-<a href="http://guides.rubyonrails.org/testing.html">A Guide to Testing Rails Applications</a> - also contains an introduction to testing routes, mailers, helpers, jobs and more in depth information on testing controllers</li>
-<li><a href="http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html">Fixtures API documentation</a></li>
+<a href="https://guides.rubyonrails.org/testing.html">A Guide to Testing Rails Applications</a> - also contains an introduction to testing routes, mailers, helpers, jobs and more in depth information on testing controllers</li>
+<li><a href="https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html">Fixtures API documentation</a></li>
 <li><a href="https://news.ycombinator.com/item?id=17233371">Observations running 2M headless Chrome sessions</a></li>
 </ul>
 </div>
     </div>
-
     <!-- End slides. -->
-
     <!-- Begin extension snippets. Add or remove as needed. -->
-
     <!-- deck.navigation snippet -->
     <div aria-role="navigation">
-      <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
-      <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+        <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+        <a href="#" class="deck-next-link" title="Next">&#8594;</a>
     </div>
-
     <!-- deck.status snippet -->
     <p class="deck-status" aria-role="status">
-      <span class="deck-status-current"></span>
-      /
-      <span class="deck-status-total"></span>
+        <span class="deck-status-current"></span>
+        /
+        <span class="deck-status-total"></span>
     </p>
-
     <!-- deck.goto snippet -->
     <form action="." method="get" class="goto-form">
-      <label for="goto-slide">Go to slide:</label>
-      <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
-      <datalist id="goto-datalist"></datalist>
-      <input type="submit" value="Go">
+        <label for="goto-slide">Go to slide:</label>
+        <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+        <datalist id="goto-datalist"></datalist>
+        <input type="submit" value="Go">
     </form>
-
     <!-- End extension snippets. -->
-  </div>
+    </div>
+    <!-- Required JS files. -->
+    <script src="javascripts/jquery.min.js"></script>
+    <script src="javascripts/deck.core.js"></script>
+    <!-- Extension JS files. Add or remove as needed. -->
+    <script src="javascripts/deck.menu.js"></script>
+    <script src="javascripts/deck.goto.js"></script>
+    <script src="javascripts/deck.status.js"></script>
+    <script src="javascripts/deck.navigation.js"></script>
+    <script src="javascripts/deck.escape.js"></script>
+    <!--  Syntax highlighter -->
+    <script src="javascripts/syntaxhighlighter/shCore.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>    
+    <!-- Initialize the deck. You can put this in an external file if desired. -->
+    <script>
+    SyntaxHighlighter.all()      
+    $(function() {
+      $.deck('.slide');
+    });
 
-<!-- Required JS files. -->
-<script src="javascripts/jquery.min.js"></script>
-<script src="javascripts/deck.core.js"></script>
+    var $d = $(document);    
 
-<!-- Extension JS files. Add or remove as needed. -->
-<script src="javascripts/deck.menu.js"></script>
-<script src="javascripts/deck.goto.js"></script>
-<script src="javascripts/deck.status.js"></script>
-<script src="javascripts/deck.navigation.js"></script>
-<script src="javascripts/deck.escape.js"></script>
-<!-- script src="javascripts/deck.scale.js"></script -->
-
-<!-- Initialize the deck. You can put this in an external file if desired. -->
-<script>
-  $(function() {
-    $.deck('.slide');
-  });
-</script>
+    $d.bind('deck.change', function(event, from, to) {
+      // console.log('Moving from slide ' + from + ' to ' + to);
+    });   
+    $d.bind('deck.beforeInit', function() {
+      // console.log('Deck.beforeInit. hash is ' + document.location.hash);
+    });     
+    $d.bind('deck.init', function() {
+      // console.log('Deck.init is done. hash was ' + document.location.hash);
+    }); 
+    </script>
 </body>
-</html>
 
+</html>

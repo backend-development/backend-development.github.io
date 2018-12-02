@@ -1,37 +1,44 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <title>Slides for
+        Ruby in the Backend Development Textbook
+    </title>
+    <!-- Required stylesheet -->
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
+    <!-- Extension CSS files go here. Remove or add as needed. -->
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
+    <!-- Style theme. More available in /themes/style/ or create your own. -->
+    <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
+    <!-- Transition theme. More available in /themes/transition/ or create your own. -->
+    <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
+    <!-- syntax highlighter -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />    
 
-  <title>Slides for Ruby in the Backend Development Textbook</title>
 
-  <!-- Required stylesheet -->
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
-
-  <!-- Extension CSS files go here. Remove or add as needed. -->
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
-  <!-- link rel="stylesheet" media="screen" href="stylesheets/deck.scale.css" -->
-
-  <!-- Style theme. More available in /themes/style/ or create your own. -->
-  <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
-
-  <!-- Transition theme. More available in /themes/transition/ or create your own. -->
-  <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
-
-  <!-- Basic black and white print styles -->
-  <link rel="stylesheet" media="print" href="stylesheets/print.css">
-
-  <!-- Required Modernizr file -->
-  <script src="javascripts/modernizr.custom.js"></script>
+    <!-- Basic black and white print styles -->
+    <link rel="stylesheet" media="print" href="stylesheets/print.css">
+    <!-- Required Modernizr file -->
+    <script src="javascripts/modernizr.custom.js"></script>
 </head>
+
 <body>
     <div class="deck-container">
-        <div class='slide'>
+        <div class='slide'><h2>Ruby</h2><p>This guide will focus on ruby - the language - alone.</p><p>After finishing this guide you will</p>
+<ul>
+<li>have an overview of rubys type system</li>
+<li>be able to use list processing functions in ruby</li>
+<li>be able to use blocks and <code>yield</code> in ruby.</li>
+</ul>
+<div class="repo"><p>Fork the <a href="https://github.com/backend-development/learn_ruby">learn_ruby</a> repository to try some test driven ruby learning</p></div>
 </div>
 <div class='slide'>
 <a class='slide_break' href='ruby_commandline.html#slide-1'>▻</a>
@@ -410,13 +417,12 @@ at first. But it offers the following intresting features:</p>
 most compiled languages as a library.  Read more about
 Hashes in Wikipedia:</p>
 <ul>
-<li><a href="http://en.wikipedia.org/wiki/Hash_table">Hashtables in Wikipedia</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Hash_table">Hashtables in Wikipedia</a></li>
 </ul>
 <p>(If you don't know what "in constant time" means above, you
 should learn more about the analysis of algorithms. e.g. by
 taking a algorithms and data strcture course as offered in the second
-semester of most computer science programs.  Or by working through the
-<a href="http://www.brpreiss.com/books/opus8/">the book by Bruno R. Preiss</a>).</p>
+semester of most computer science programs.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='ruby_commandline.html#slide-16'>▻</a>
@@ -573,8 +579,8 @@ the Block on several lines, ending with <code>end</code></p>
 code considerably.</p>
 <p>Read the Reference on</p>
 <ul>
-<li><a href="http://ruby-doc.org/core-2.5.0/Enumerable.html">Enumerable</a></li>
-<li><a href="http://ruby-doc.org/core-2.1.0/Array.html">Array</a></li>
+<li><a href="https://ruby-doc.org/core-2.5.3/Enumerable.html">Enumerable</a></li>
+<li><a href="https://ruby-doc.org/core-2.5.3/Array.html">Array</a></li>
 </ul>
 </div>
 <div class='slide'>
@@ -635,17 +641,13 @@ opportunity to read a bit more than strictly necessary.</p>
 <p>Get an offline version of the documentation
 installed on your development machine so you can look up stuff instantly.</p>
 <ul>
-<li>Mac Tool <a href="http://kapeli.com/dash">Dash</a> for keeping offline copies of documentation</li>
+<li>Mac Tool <a href="https://kapeli.com/dash">Dash</a> for keeping offline copies of documentation</li>
 </ul>
 </div>
 <div class='slide'>
 <a class='slide_break' href='ruby_commandline.html#slide-23'>▻</a>
 <h4 id="online-resources">7.1 Online Resources</h4>
 <ul>
-<li>
-<a href="http://tryruby.org">try ruby</a> - interactive online course</li>
-<li>
-<a href="http://www.codeschool.com/courses/ruby-bits">Ruby Bits</a> - interactive online course, with 8bit game graphics</li>
 <li><a href="http://rubylearning.com/satishtalim/tutorial.html">learningruby.com tutorial</a></li>
 </ul>
 </div>
@@ -653,60 +655,69 @@ installed on your development machine so you can look up stuff instantly.</p>
 <a class='slide_break' href='ruby_commandline.html#slide-24'>▻</a>
 <h4 id="books">7.2 Books</h4>
 <ul>
-<li>Flanagan, Matsumoto(2008): <a href="http://www.amazon.com/Ruby-Programming-Language-David-Flanagan/dp/0596516177">The Ruby Programming Language</a>. O'Reilly. ISBN 0596516177.</li>
-<li>Thomas(2013): <a href="http://www.amazon.com/Programming-Ruby-1-9-2-0-Programmers/dp/1937785491/">Programming Ruby 1.9 + 2.0</a>. Pragmatic Porgrammers. ISBN 1937785491</li>
-<li>Olsen (2011): <a href="http://www.amazon.com/Eloquent-Ruby-Addison-Wesley-Professional/dp/0321584104/">Eloquent Ruby</a>. Addison-Wesley. ISBN 0321584104</li>
-<li>Tate(2010): <a href="http://www.amazon.com/Seven-Languages-Weeks-Programming-Programmers/dp/193435659X/">Seven Languages in Seven Weeks: A Pragmatic Guide to Learning Programming Languages</a>. Pragmatic Programmers.  ISBN 193435659X</li>
+<li>Flanagan, Matsumoto(2008): <a href="https://www.amazon.com/Ruby-Programming-Language-David-Flanagan/dp/0596516177">The Ruby Programming Language</a>. O'Reilly. ISBN 0596516177.</li>
+<li>Thomas(2013): <a href="https://www.amazon.com/Programming-Ruby-1-9-2-0-Programmers/dp/1937785491/">Programming Ruby 1.9 + 2.0</a>. Pragmatic Porgrammers. ISBN 1937785491</li>
+<li>Olsen (2011): <a href="https://www.amazon.com/Eloquent-Ruby-Addison-Wesley-Professional/dp/0321584104/">Eloquent Ruby</a>. Addison-Wesley. ISBN 0321584104</li>
+<li>Tate(2010): <a href="https://www.amazon.com/Seven-Languages-Weeks-Programming-Programmers/dp/193435659X/">Seven Languages in Seven Weeks: A Pragmatic Guide to Learning Programming Languages</a>. Pragmatic Programmers.  ISBN 193435659X</li>
 </ul>
 </div>
     </div>
-
     <!-- End slides. -->
-
     <!-- Begin extension snippets. Add or remove as needed. -->
-
     <!-- deck.navigation snippet -->
     <div aria-role="navigation">
-      <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
-      <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+        <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+        <a href="#" class="deck-next-link" title="Next">&#8594;</a>
     </div>
-
     <!-- deck.status snippet -->
     <p class="deck-status" aria-role="status">
-      <span class="deck-status-current"></span>
-      /
-      <span class="deck-status-total"></span>
+        <span class="deck-status-current"></span>
+        /
+        <span class="deck-status-total"></span>
     </p>
-
     <!-- deck.goto snippet -->
     <form action="." method="get" class="goto-form">
-      <label for="goto-slide">Go to slide:</label>
-      <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
-      <datalist id="goto-datalist"></datalist>
-      <input type="submit" value="Go">
+        <label for="goto-slide">Go to slide:</label>
+        <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+        <datalist id="goto-datalist"></datalist>
+        <input type="submit" value="Go">
     </form>
-
     <!-- End extension snippets. -->
-  </div>
+    </div>
+    <!-- Required JS files. -->
+    <script src="javascripts/jquery.min.js"></script>
+    <script src="javascripts/deck.core.js"></script>
+    <!-- Extension JS files. Add or remove as needed. -->
+    <script src="javascripts/deck.menu.js"></script>
+    <script src="javascripts/deck.goto.js"></script>
+    <script src="javascripts/deck.status.js"></script>
+    <script src="javascripts/deck.navigation.js"></script>
+    <script src="javascripts/deck.escape.js"></script>
+    <!--  Syntax highlighter -->
+    <script src="javascripts/syntaxhighlighter/shCore.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>    
+    <!-- Initialize the deck. You can put this in an external file if desired. -->
+    <script>
+    SyntaxHighlighter.all()      
+    $(function() {
+      $.deck('.slide');
+    });
 
-<!-- Required JS files. -->
-<script src="javascripts/jquery.min.js"></script>
-<script src="javascripts/deck.core.js"></script>
+    var $d = $(document);    
 
-<!-- Extension JS files. Add or remove as needed. -->
-<script src="javascripts/deck.menu.js"></script>
-<script src="javascripts/deck.goto.js"></script>
-<script src="javascripts/deck.status.js"></script>
-<script src="javascripts/deck.navigation.js"></script>
-<script src="javascripts/deck.escape.js"></script>
-<!-- script src="javascripts/deck.scale.js"></script -->
-
-<!-- Initialize the deck. You can put this in an external file if desired. -->
-<script>
-  $(function() {
-    $.deck('.slide');
-  });
-</script>
+    $d.bind('deck.change', function(event, from, to) {
+      // console.log('Moving from slide ' + from + ' to ' + to);
+    });   
+    $d.bind('deck.beforeInit', function() {
+      // console.log('Deck.beforeInit. hash is ' + document.location.hash);
+    });     
+    $d.bind('deck.init', function() {
+      // console.log('Deck.init is done. hash was ' + document.location.hash);
+    }); 
+    </script>
 </body>
-</html>
 
+</html>

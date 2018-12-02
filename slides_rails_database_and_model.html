@@ -1,45 +1,53 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=1024, user-scalable=no">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <title>Slides for
+        Rails: Database and Models in the Backend Development Textbook
+    </title>
+    <!-- Required stylesheet -->
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
+    <!-- Extension CSS files go here. Remove or add as needed. -->
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
+    <!-- Style theme. More available in /themes/style/ or create your own. -->
+    <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
+    <!-- Transition theme. More available in /themes/transition/ or create your own. -->
+    <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
+    <!-- syntax highlighter -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />    
 
-  <title>Slides for Rails: Database and Models in the Backend Development Textbook</title>
 
-  <!-- Required stylesheet -->
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
-
-  <!-- Extension CSS files go here. Remove or add as needed. -->
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
-  <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
-  <!-- link rel="stylesheet" media="screen" href="stylesheets/deck.scale.css" -->
-
-  <!-- Style theme. More available in /themes/style/ or create your own. -->
-  <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
-
-  <!-- Transition theme. More available in /themes/transition/ or create your own. -->
-  <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
-
-  <!-- Basic black and white print styles -->
-  <link rel="stylesheet" media="print" href="stylesheets/print.css">
-
-  <!-- Required Modernizr file -->
-  <script src="javascripts/modernizr.custom.js"></script>
+    <!-- Basic black and white print styles -->
+    <link rel="stylesheet" media="print" href="stylesheets/print.css">
+    <!-- Required Modernizr file -->
+    <script src="javascripts/modernizr.custom.js"></script>
 </head>
+
 <body>
     <div class="deck-container">
-        <div class='slide'>
+        <div class='slide'><h2>Rails: Database and Models</h2><p>Models are the basic classes of a Rails Project.  The
+data is actually stored in a relational database.</p><p>After working through this guide you should</p>
+<ul>
+<li>Understand how ActiveRecord works</li>
+<li>Understand what Database Migrations are</li>
+</ul>
+<div class="repo"><p>Fork the <a href="https://github.com/backend-development/basic-zombies">basic zombies</a> repository.</p></div><p>The examples were inspired by &quot;Rails for Zombies&quot;, which used to be a free rails online course. 
+Sadly it is no longer available.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='rails_database_and_model.html#slide-1'>▻</a>
 <h3 id="models-and-databases">1 Models and Databases</h3>
 <p>In a modern programming language like rails we represent 
-things in the real world with objects. For example if you are
-building a web application for project management, you will
-have objects of classes Project, and WorkPackage, and User.
+things in the real world with objects in our program. For example if you are
+building an application for project management, you might
+have objects of classes <code>Project</code> and <code>WorkPackage</code> and <code>User</code>.
 These classes also implement the "Business Logic": all the methods
 needed for handling projects are actually implemented in the Project class.</p>
 <p>To save these objects permanently (often called "persistance") 
@@ -49,7 +57,7 @@ not the behaviour (see "Business Logic" above).</p>
 <p>Here we hit on an old problem in computer science: storing
 objects into a relational database does not work all that well.
 This problem is called the 
-<a href="http://en.wikipedia.org/wiki/Object-relational_impedance_mismatch">Object-relational impedance mismatch</a>
+<a href="https://en.wikipedia.org/wiki/Object-relational_impedance_mismatch">Object-relational impedance mismatch</a>
 and has been discussed since the early 1980ies.</p>
 </div>
 <div class='slide'>
@@ -58,7 +66,7 @@ and has been discussed since the early 1980ies.</p>
 <p>Today there exist several Design Patterns and Libraries for solving this.
 The solution is called an Object Relational Mapper or ORM.</p>
 <p>Two Patterns used in Rails for this problem are ActiveRecord and ObjectMapper, both 
-described by Fowler in his 2003 book <a href="http://martinfowler.com/books/eaa.html">Patterns of Enterprise Application Architecture</a>.
+described by Fowler in his 2003 book <a href="https://martinfowler.com/books/eaa.html">Patterns of Enterprise Application Architecture</a>.
 ActiveRecord is the default solution used in Rails, we will look into it in detail here.</p>
 </div>
 <div class='slide'>
@@ -220,6 +228,10 @@ end
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-13'>▻</a>
+
 <p>Use <code>rails</code> to apply this migration to the existing database:</p>
 <ul>
 <li>
@@ -231,11 +243,11 @@ end
 using and commiting it.  You only ever add new migrations!</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-13'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-14'>▻</a>
 <h3 id="the-model">4 The Model</h3>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-14'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-15'>▻</a>
 <h4 id="the-model-in-the-console">4.1 the model in the console</h4>
 <p>You can use the rails console to work with
 the model interactively.  This is similar to the ruby console <code>irb</code>
@@ -247,7 +259,7 @@ to the development database!</p>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-15'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-16'>▻</a>
 <h4 id="finding-a-model">4.2 Finding a model</h4>
 <p>The database table always has a primary key <code>id</code>.  You can use this
 key to find a specific record:</p>
@@ -262,7 +274,7 @@ you typed in.  Here this is an object.  The console prints out the details of th
 object using the <code>inspect</code> method.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-16'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-17'>▻</a>
 
 <p>From now on we will use this slightly shortended format to show rails console
 input and output:</p>
@@ -276,7 +288,7 @@ railsconsole&gt; Tweet.find(1)
 <p>(We will leave out the SQL, and some timestamps.)</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-17'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-18'>▻</a>
 <h4 id="accessing-the-properties">4.3 Accessing the properties</h4>
 <p>You can access the properties of the model object as if it were a hash
 or through method names:</p>
@@ -297,13 +309,13 @@ railsconsole&gt; t[:zombie]
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-18'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-19'>▻</a>
 <h4 id="crud-create-read-update-delete">4.4 CRUD = Create, Read, Update, Delete</h4>
 <p>Let's see how ActiveRecord implments the four important
 capabilities of persistance:</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-19'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-20'>▻</a>
 <h4 id="create">4.5 Create</h4>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -318,7 +330,7 @@ database yet and does not haven an <code>id</code> yet.  You can set its propert
 The <code>save</code> method tries to save it to the database.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-20'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-21'>▻</a>
 
 <p>On the rails console you can see how the properties are <code>nil</code> in the beginning.
 After saving to the database some of the properties are set:</p>
@@ -340,7 +352,7 @@ railsconsole&gt; t
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-21'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-22'>▻</a>
 <h4 id="read">4.6 Read</h4>
 <p>There are many ways to read data from the database. We already saw <code>find</code> which
 uses the primary key and always returns one object.  The method <code>where</code> is used for more general <code>select - where</code> SQL statements.</p>
@@ -354,7 +366,7 @@ t3 = Tweet.where(zombie: 'Ash')
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-22'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-23'>▻</a>
 
 <p>In the rails console you can see the return values: <code>where</code>  returns several objects.</p>
 <div class="code_container">
@@ -373,7 +385,7 @@ railsconsole&gt; t3 = Tweet.where(zombie: 'Ash')
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-23'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-24'>▻</a>
 <h4 id="update">4.7 Update</h4>
 <p>With update - as with <code>new</code> before - we see the difference between the
 object in memory (<code>t</code>) which can be changed and the object in the database
@@ -405,7 +417,7 @@ railsconsole&gt; t.save
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-24'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-25'>▻</a>
 <h4 id="delete">4.8 Delete</h4>
 <p>To delete both the object in memory and in the database use <code>destroy</code>.</p>
 <div class="code_container">
@@ -431,22 +443,18 @@ railsconsole&gt; t.destroy
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-25'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-26'>▻</a>
 <h4 id="chaining-activerecord-methods">4.9 Chaining ActiveRecord methods</h4>
-<p>Let's look at the two examples of using <code>where</code> again: the return value was of class <code>ActiveRecord::Relation</code>:</p>
+<p>Let's look at the example of using <code>where</code> again: the return value was of class <code>ActiveRecord::Relation</code>:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
- =&gt; #&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "Jim", created_at: "2018-11-24 09:26:48", updated_at: "2018-11-24 09:26:48"&gt;
-railsconsole&gt; t2 = Tweet.where("created_at &gt; '2018-10-01'")
-  Tweet Load (0.5ms)  SELECT  "tweets".* FROM "tweets" WHERE (created_at &gt; '2018-10-01') LIMIT ?  [["LIMIT", 11]]
- =&gt; #&lt;ActiveRecord::Relation [#&lt;Tweet id: 1, status: "I &lt;3 brains.", zombie: nil, created_at: "2018-11-24 09:20:15", updated_at: "2018-11-24 09:20:15"&gt;, #&lt;Tweet id: 2, status: "Where can I get a good bite to eat?", zombie: "Ash", created_at: "2018-11-24 09:26:26", updated_at: "2018-11-24 09:26:26"&gt;, #&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "Jim", created_at: "2018-11-24 09:26:48", updated_at: "2018-11-24 09:26:48"&gt;]&gt;
 railsconsole&gt; t3 = Tweet.where(zombie: 'Ash')
   Tweet Load (0.3ms)  SELECT  "tweets".* FROM "tweets" WHERE "tweets"."zombie" = ? LIMIT ?  [["zombie", "Ash"], ["LIMIT", 11]]
  =&gt; #&lt;ActiveRecord::Relation [#&lt;Tweet id: 2, status: "Where can I get a good bite to eat?", zombie: "Ash", created_at: "2018-11-24 09:26:26", updated_at: "2018-11-24 09:26:26"&gt;]&gt;
 
 </pre>
 </div>
-<p>This class supports all the ActiveRecord methods again. This means
+<p>This class also supports all the ActiveRecord methods. This means
 we can chain several <code>where</code>s together:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -456,7 +464,7 @@ tweets = Tweet.where("created_at &gt; '2018-10-01'").where(zombie: 'Ash')
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-26'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-27'>▻</a>
 
 <p>In fact there are many more methods we might want to use for chaining:</p>
 <div class="code_container">
@@ -464,104 +472,155 @@ tweets = Tweet.where("created_at &gt; '2018-10-01'").where(zombie: 'Ash')
 Tweet.limit(3)
 Tweet.order(:zombie)
 Tweet.select(:created_at, :zombie, :status)
-Tweet.where("created_at &gt; '2018-10-01'").where(zombie: 'Ash').order(:zombie).limit(3)
+Tweet.where("created_at &gt; '2018-10-01'").   
+  where(zombie: 'Ash').
+  order(:zombie).limit(3)
 
 </pre>
 </div>
-<p>You can use the method <code>to_sql</code> to see the SQL Statement produced by the chained methods:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-railsconsole&gt; Tweet.select(:created_at, :zombie, :status).where("created_at &gt; '2018-10-01'").where(zombie: 'Ash').order(:zombie).limit(3).to_sql
- =&gt; SELECT  "created_at", "zombie", "status" FROM "tweets" WHERE (created_at &gt; '2018-10-01') AND "zombie" = 'Ash' ORDER BY "zombie" ASC LIMIT 3
-
-</pre>
-</div>
-<p>The order of the methods is not relevant. You can also save an intermediate step to 
-a variable and the chain more methods to that variable later on:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-railsconsole&gt; query = Tweet.where("created_at &gt; '2018-10-01'").order(:zombie).limit(3)
-railsconsole&gt; query.select(:created_at, :zombie, :status).where(zombie: 'Ash').to_sql
- =&gt; SELECT  "created_at", "zombie", "status" FROM "tweets" WHERE (created_at &gt; '2018-10-01') AND "zombie" = 'Ash' ORDER BY "zombie" ASC LIMIT 3
-
-</pre>
-</div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-27'>▻</a>
-<h3 id="on-documentation">5 On Documentation</h3>
-<p>You could have learned all this and more from 
-the Rails Guides: <a href="https://guides.rubyonrails.org/active_record_basics.html">ActiveRecord Basics</a>, <a href="http://guides.rubyonrails.org/active_record_querying.html">Active Record Query Interface</a> and <a href="http://guides.rubyonrails.org/active_record_migrations.html">Active Record Migrations</a>. 
-Set a bookmark for the guides now!  Use them as a reference from now on!</p>
-<p>If you are offline now and again you should have the ruby and rails documentation available
-locally on your computer.  A handy tool for this on mac os x is
-<a href="http://kapeli.com/dash">Dash</a>.  This is what a Rails Guide looks like in Dash:</p>
-<p><img src="images/dash-rails-guide.png" alt="Dash"></p>
+<p>(normally the dot is placed in front of the method when chaining. here
+it is placed at the end, to enable copy-and-paste to the rails console)</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='rails_database_and_model.html#slide-28'>▻</a>
-<h4 id="further-reading">5.1 Further reading</h4>
+
+<p>You can use the method <code>to_sql</code> to see the SQL Statement produced by the chained methods:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+railsconsole&gt; Tweet.select(:created_at, :zombie, :status).
+  where("created_at &gt; '2018-10-01'").
+  where(zombie: 'Ash').
+  order(:zombie).
+  limit(3).to_sql
+ =&gt; SELECT  "created_at", "zombie", "status" 
+       FROM "tweets" 
+       WHERE (created_at &gt; '2018-10-01') 
+       AND "zombie" = 'Ash' 
+       ORDER BY "zombie" ASC 
+       LIMIT 3
+
+</pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-29'>▻</a>
+
+<p>The order of the methods is not relevant. You can also save an intermediate step to 
+a variable, and then chain more methods to that variable later on:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+railsconsole&gt; query = Tweet.where("created_at &gt; '2018-10-01'").
+  order(:zombie).limit(3)
+railsconsole&gt; query.select(:created_at, :zombie, :status).
+  where(zombie: 'Ash').to_sql
+ =&gt; SELECT  "created_at", "zombie", "status" 
+      FROM "tweets" 
+      WHERE (created_at &gt; '2018-10-01') 
+      AND "zombie" = 'Ash' 
+      ORDER BY "zombie" ASC 
+      LIMIT 3
+
+</pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-30'>▻</a>
+<h3 id="exercise">5 Exercise</h3>
+<p>Now would be a good time to try out the exercises in the</p>
+<div class="repo"><p><a href="https://github.com/backend-development/basic-zombies">basic zombies</a> repository.</p></div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-31'>▻</a>
+<h3 id="on-documentation">6 On Documentation</h3>
+<p>You could have learned all this and more from 
+the Rails Guides: <a href="https://guides.rubyonrails.org/active_record_basics.html">ActiveRecord Basics</a>, <a href="https://guides.rubyonrails.org/active_record_querying.html">Active Record Query Interface</a> and <a href="https://guides.rubyonrails.org/active_record_migrations.html">Active Record Migrations</a>. 
+Set a bookmark for the guides now!  Use them as a reference from now on!</p>
+<p>If you are offline now and again you should have the ruby and rails documentation available
+locally on your computer.  A handy tool for this on mac os x is
+<a href="https://kapeli.com/dash">Dash</a>.  This is what a Rails Guide looks like in Dash:</p>
+<p><img src="images/dash-rails-guide.png" alt="Dash"></p>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-32'>▻</a>
+<h4 id="further-reading">6.1 Further reading</h4>
 <ul>
-<li>The Rails Guides give a good introduction to a subject area:</li>
-<li>Rails Guide: <a href="http://guides.rubyonrails.org/active_record_basics.html">Active Record Basics</a>
+<li>The Rails Guides give a good introduction to a subject area:
+
+<ul>
+<li>Rails Guide: <a href="https://guides.rubyonrails.org/active_record_basics.html">Active Record Basics</a>
 </li>
-<li>Rails Guide: <a href="http://guides.rubyonrails.org/active_record_querying.html">Active Record Query Interface</a>
+<li>Rails Guide: <a href="https://guides.rubyonrails.org/active_record_querying.html">Active Record Query Interface</a>
 </li>
-<li>Rails Guide: <a href="http://guides.rubyonrails.org/association_basics.html">Active Record Associations</a>
+<li>Rails Guide: <a href="https://guides.rubyonrails.org/association_basics.html">Active Record Associations</a>
 </li>
-<li>Use the API Dock to look up the details:</li>
-<li>Rails @ API Dock: <a href="http://apidock.com/rails/ActiveResource/Base/find/class">find()</a>
+</ul>
+</li>
+<li>Use the <a href="https://api.rubyonrails.org/">Rails API</a> documentation to look up the details:
+
+<ul>
+<li><a href="https://api.rubyonrails.org/classes/ActiveRecord/FinderMethods.html#method-i-find">find</a></li>
+<li><a href="https://api.rubyonrails.org/classes/ActiveRecord/QueryMethods.html#method-i-where">where</a></li>
+</ul>
 </li>
 </ul>
 </div>
     </div>
-
     <!-- End slides. -->
-
     <!-- Begin extension snippets. Add or remove as needed. -->
-
     <!-- deck.navigation snippet -->
     <div aria-role="navigation">
-      <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
-      <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+        <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+        <a href="#" class="deck-next-link" title="Next">&#8594;</a>
     </div>
-
     <!-- deck.status snippet -->
     <p class="deck-status" aria-role="status">
-      <span class="deck-status-current"></span>
-      /
-      <span class="deck-status-total"></span>
+        <span class="deck-status-current"></span>
+        /
+        <span class="deck-status-total"></span>
     </p>
-
     <!-- deck.goto snippet -->
     <form action="." method="get" class="goto-form">
-      <label for="goto-slide">Go to slide:</label>
-      <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
-      <datalist id="goto-datalist"></datalist>
-      <input type="submit" value="Go">
+        <label for="goto-slide">Go to slide:</label>
+        <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+        <datalist id="goto-datalist"></datalist>
+        <input type="submit" value="Go">
     </form>
-
     <!-- End extension snippets. -->
-  </div>
+    </div>
+    <!-- Required JS files. -->
+    <script src="javascripts/jquery.min.js"></script>
+    <script src="javascripts/deck.core.js"></script>
+    <!-- Extension JS files. Add or remove as needed. -->
+    <script src="javascripts/deck.menu.js"></script>
+    <script src="javascripts/deck.goto.js"></script>
+    <script src="javascripts/deck.status.js"></script>
+    <script src="javascripts/deck.navigation.js"></script>
+    <script src="javascripts/deck.escape.js"></script>
+    <!--  Syntax highlighter -->
+    <script src="javascripts/syntaxhighlighter/shCore.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
+    <script src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>    
+    <!-- Initialize the deck. You can put this in an external file if desired. -->
+    <script>
+    SyntaxHighlighter.all()      
+    $(function() {
+      $.deck('.slide');
+    });
 
-<!-- Required JS files. -->
-<script src="javascripts/jquery.min.js"></script>
-<script src="javascripts/deck.core.js"></script>
+    var $d = $(document);    
 
-<!-- Extension JS files. Add or remove as needed. -->
-<script src="javascripts/deck.menu.js"></script>
-<script src="javascripts/deck.goto.js"></script>
-<script src="javascripts/deck.status.js"></script>
-<script src="javascripts/deck.navigation.js"></script>
-<script src="javascripts/deck.escape.js"></script>
-<!-- script src="javascripts/deck.scale.js"></script -->
-
-<!-- Initialize the deck. You can put this in an external file if desired. -->
-<script>
-  $(function() {
-    $.deck('.slide');
-  });
-</script>
+    $d.bind('deck.change', function(event, from, to) {
+      // console.log('Moving from slide ' + from + ' to ' + to);
+    });   
+    $d.bind('deck.beforeInit', function() {
+      // console.log('Deck.beforeInit. hash is ' + document.location.hash);
+    });     
+    $d.bind('deck.init', function() {
+      // console.log('Deck.init is done. hash was ' + document.location.hash);
+    }); 
+    </script>
 </body>
-</html>
 
+</html>
