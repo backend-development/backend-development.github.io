@@ -64,7 +64,9 @@ but it can't be saved because a validation is in place:</p>
 
 </pre>
 </div>
-<p><a href="https://api.rubyonrails.org/classes/ActiveRecord/Validations/ClassMethods.html#method-i-validates_presence_of">validates_presence_of</a></p>
+<p>Notice that the <code>save</code> method does not raise an exception,
+but rather just returns a <code>false</code>.  It is up to the calling
+code to handle the error!</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='rails_associations_and_validations.html#slide-3'>▻</a>
