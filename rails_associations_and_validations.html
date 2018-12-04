@@ -227,7 +227,7 @@ need to be equal.</p>
 <a class='slide_break' id='slide-6' href='slides_rails_associations_and_validations.html#slide-6'>▻</a>
 <h4 id="validations-vs-database-constraints">1.4 Validations vs Database Constraints</h4>
 <p>Validations are checked by ruby code <strong>before</strong> data is inserted
-in the database.  If you want to ensure that the e-mails of you users
+in the database.  If you want to ensure that the e-mails of your users
 are unique, you can do so in Rails, by adding</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -275,6 +275,11 @@ Zombie Sue ------------------------ Tweet 'gagaga'
 <p>How is this 1:n association represented in the <strong>database</strong>?</p>
 <p>In the table <code>tweets</code> there is a column <code>zombie_id</code> which references <code>zombies.id</code>.
 This column in <code>tweets</code> is called a "foreign key".</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-11' href='slides_rails_associations_and_validations.html#slide-11'>▻</a>
+
+<p>How do we create the database?</p>
 <p>You can either add this column when you first create Tweets:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -284,26 +289,48 @@ rails generate tweets status:string zombie:references
 </div>
 <p>You can add the column later, to an existing <code>tweets</code> table, using just a migration </p>
 <div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+$ rails generate migration AddZombieToTweets zombie_id:integer
+
+</pre>
+</div>
+<p>this will generate a migration with the following command</p>
+<div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
   add_column    :tweets, :zombie_id, :integer
 
 </pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' id='slide-11' href='slides_rails_associations_and_validations.html#slide-11'>▻</a>
+<p>or, alternatively you can use</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+$ rails generate migration AddZombieToTweets zombie:references
 
-<p>How is this represented in the <strong>model</strong>?</p>
-<ul>
-<li>1:n associations are declared in the models with <code>belongs_to</code> and <code>has_many</code>
-</li>
-</ul>
+</pre>
+</div>
+<p>this will generate a migration with the following command</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
+  add_reference :tweets, :zombie, foreign_key: true
+
+</pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-12' href='slides_rails_associations_and_validations.html#slide-12'>▻</a>
+
+<p>How is this represented in the <strong>model</strong>?</p>
+<p>You have to declare association in both models, by
+editing the two files in <code>app/models/*.rb</code>.</p>
+<p>1:n associations are declared with <code>belongs_to</code> and <code>has_many</code>:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+# in file app/models/zombie.rb
 class Zombie
   has_many :tweets
 end
 
+# in file app/models/tweet.rb
 class Tweet
   belongs_to :zombie
 end
@@ -313,7 +340,7 @@ end
 <p>notice the plural used with <code>has_many</code> and the singular used with <code>belongs_to</code>.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-12' href='slides_rails_associations_and_validations.html#slide-12'>▻</a>
+<a class='slide_break' id='slide-13' href='slides_rails_associations_and_validations.html#slide-13'>▻</a>
 
 <p>How can you use the association in the <strong>code</strong>?</p>
 <p>There are now methods available to walk from one model to the other:</p>
@@ -331,9 +358,23 @@ end
 </pre>
 </div>
 <p>again: notice the plural <code>tweets</code> and singular <code>zombie</code>.</p>
+<p>$</p>
+<p>You can also use a model to create associated models:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+z = Zombie.find(1)
+z.tweets.create(status: "I'm alive!")
+z.tweets.create(status: "Correction: I'm dead. But still moving.")
+z.tweets.create(status: "Why did my arm just fall off?")
+
+</pre>
+</div>
+<p>You can find a list of all the new methods added by the
+association in the Rails Guide under <a href="https://guides.rubyonrails.org/association_basics.html#belongs-to-association-reference">Methods Added by belongs_to</a> and
+<a href="https://guides.rubyonrails.org/association_basics.html#has-many-association-reference">Methods Added by has_many</a>.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-13' href='slides_rails_associations_and_validations.html#slide-13'>▻</a>
+<a class='slide_break' id='slide-14' href='slides_rails_associations_and_validations.html#slide-14'>▻</a>
 <h4 id="further-reading">2.2 Further reading</h4>
 <ul>
 <li>The Rails Guides give a good introduction to a subject area:
