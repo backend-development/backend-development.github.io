@@ -90,7 +90,17 @@
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <ol class="chapters">
-<li><a href="#validations">Validations</a></li>
+<li>
+<a href="#validations">Validations</a>
+
+<ul>
+<li><a href="#defining-a-validation">Defining a Validation</a></li>
+<li><a href="#other-validations">Other Validations</a></li>
+<li><a href="#combining-validators">Combining Validators</a></li>
+<li><a href="#validations-vs-database-constraints">Validations vs Database Constraints</a></li>
+<li><a href="#validations-and-forms">Validations and Forms</a></li>
+</ul>
+</li>
 <li>
 <a href="#associations">Associations</a>
 
@@ -106,10 +116,10 @@
       <div class="rest_header">
         <h2>Rails: Associations and Validations</h2><p>After working through this guide you should</p>
 <ul>
+<li>Be able to write validations to check data before it is saved to the database</li>
 <li>Be able to create models with associations to other models</li>
-<li>Be able to write validations to check data before it is saved in a model</li>
 </ul>
-<div class="repo"><p>Fork the <a href="https://github.com/backend-development/advanced_zombies">basic zombies</a> repository.</p></div><p>The examples are taken from &quot;Rails for Zombies&quot;, which used to be a free rails online course. 
+<div class="repo"><p>Continue to use the <a href="https://github.com/backend-development/advanced_zombies">basic zombies</a> example.</p></div><p>The examples were inspired by &quot;Rails for Zombies&quot;, which used to be a free rails online course. 
 Sadly it is no longer available.</p>
       </div>
     </div>
@@ -125,11 +135,11 @@ Sadly it is no longer available.</p>
 <a class='slide_break' id='slide-1' href='slides_rails_associations_and_validations.html#slide-1'>▻</a>
 <h3 id="validations">1 Validations</h3>
 <p>Validations are rules you want to enforce on the data in your models.</p>
-<ul>
-<li>validations are declared on the model</li>
-<li>they are checked every time data is saved to the database</li>
-<li>if the data does not conform to the validation, it is not saved, and the errors are available through the object</li>
-</ul>
+<p>Validations are declared on the model. They are checked every time data is <strong>saved to the database</strong>. If the data does not conform to the validation, it is not saved, a false value is returned, and the error messages are available through the object.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-2' href='slides_rails_associations_and_validations.html#slide-2'>▻</a>
+
 <p>An example on the rails console: I try to create a new tweet and save it,
 but it can't be saved because a validation is in place:</p>
 <div class="code_container">
@@ -145,17 +155,105 @@ but it can't be saved because a validation is in place:</p>
 
 </pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' id='slide-2' href='slides_rails_associations_and_validations.html#slide-2'>▻</a>
-<h3 id="associations">2 Associations</h3>
+<p><a href="https://api.rubyonrails.org/classes/ActiveRecord/Validations/ClassMethods.html#method-i-validates_presence_of">validates_presence_of</a></p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-3' href='slides_rails_associations_and_validations.html#slide-3'>▻</a>
-<h4 id="1-n-associations">2.1 1:n Associations</h4>
+<h4 id="defining-a-validation">1.1 Defining a Validation</h4>
+<p>Validation are declared in the model:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Tweet &lt; ActiveRecord::Base
+  validates :status, :zombie presence: true
+end
+
+</pre>
+</div>
+<p>The presence validator calls the method <a href="https://api.rubyonrails.org/classes/Object.html#method-i-blank-3F"><code>blank?</code></a> on each of the value to check if they are present.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-4' href='slides_rails_associations_and_validations.html#slide-4'>▻</a>
+<h4 id="other-validations">1.2 Other Validations</h4>
+<p>There are many more helpers to create validations:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+  validates :terms_of_service,   
+    acceptance: true
+  validates :subdomain,          
+    exclusion: { in: %w(www wiki), message: "%{value} is reserved." }
+  validates :coursecode, 
+    format: { with: /\A[a-zA-Z]+\z/, message: "only allows letters" }
+  validates :size, 
+    inclusion: { in: %w(small medium large), message: "%{value} is not a valid size" }
+  validates :name,                length: { minimum: 2 }
+  validates :bio,                 length: { maximum: 500 }
+  validates :password,            length: { in: 6..20 }
+  validates :registration_number, length: { is: 6 }
+  validates :width_in_cm,  numericality: true
+  validates :games_played, numericality: { only_integer: true } 
+  validates :boolean_field_name, inclusion: { in: [true, false] }
+  validates :email, uniqueness: true  
+  validates :email, confirmation: true
+
+</pre>
+</div>
+<p>The confirmation validator checks that there are two properties: in the example
+this will be the <code>email</code> property and the <code>email_confirmation</code> property. Both
+need to be equal.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-5' href='slides_rails_associations_and_validations.html#slide-5'>▻</a>
+<h4 id="combining-validators">1.3 Combining Validators</h4>
+<p>You can combine several properties that should be checked:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+  validates :name, :login, :email, presence: true
+
+</pre>
+</div>
+<p>or you can combine several validations on one property:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+  :coursecode, 
+    format: { with: /\A[a-zA-Z]+\z/, message: "only allows letters" },
+    length: { is: 10 }
+
+</pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-6' href='slides_rails_associations_and_validations.html#slide-6'>▻</a>
+<h4 id="validations-vs-database-constraints">1.4 Validations vs Database Constraints</h4>
+<p>Validations are checked by ruby code <strong>before</strong> data is inserted
+in the database.  If you want to ensure that the e-mails of you users
+are unique, you can do so in Rails, by adding</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+  validates :email, uniqueness: true
+
+</pre>
+</div>
+<p>The validation happens by performing an SQL query into the model's table, searching for an existing record with the same value in that attribute.  An error is reported by
+returning a false value from <code>save</code> and setting the <code>errors</code> attribute.</p>
+<p>You could also do this by adding a <a href="https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-UNIQUE-CONSTRAINTS">UNIQUE CONSTRAINT</a> in your database. </p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-7' href='slides_rails_associations_and_validations.html#slide-7'>▻</a>
+<h4 id="validations-and-forms">1.5 Validations and Forms</h4>
+<p>Later, when we learn about Views and Forms, you will see 
+that the save / validate / errors lifecycle fits perfectly with
+the way that forms a handled in Rails. See <a href="/rails_view_and_controller.html">Rails: View and Controller</a></p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-8' href='slides_rails_associations_and_validations.html#slide-8'>▻</a>
+<h3 id="associations">2 Associations</h3>
 <p>If you have used relational databases before you are probably familiar
 with the different types of associations between database tables.  But even
 if you have not, the first association is easy to understand:</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-9' href='slides_rails_associations_and_validations.html#slide-9'>▻</a>
+<h4 id="1-n-associations">2.1 1:n Associations</h4>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 One Zombie has many Tweets          One Tweet belongs to one Zombie
@@ -168,25 +266,72 @@ Zombie Sue ------------------------ Tweet 'gagaga'
 
 </pre>
 </div>
-<p>How is this represented in database?</p>
-<p>In the table <code>tweets</code> there is a column <code>zombie_id</code> which references <code>zombies.id</code>.
-This column in <code>tweets</code> is called a "foreign key".</p>
-<p>You can add this column using a migration <code>add_column    :tweets, :zombie_id, :integer</code></p>
-<p>How is this represented in the model?</p>
-<ul>
-<li>1:n associations are declared in the model with <code>belongs_to</code> and <code>has_many</code>
-</li>
-<li>both directions are now available in the objects:
-
-<ul>
-<li><code>t = Tweet.find(7); z = t.zombie</code></li>
-<li><code>z = Zombie.find(1); z.tweets.each{ |t|  puts t.status }</code></li>
-</ul>
-</li>
-</ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-4' href='slides_rails_associations_and_validations.html#slide-4'>▻</a>
+<a class='slide_break' id='slide-10' href='slides_rails_associations_and_validations.html#slide-10'>▻</a>
+
+<p>How is this 1:n association represented in the <strong>database</strong>?</p>
+<p>In the table <code>tweets</code> there is a column <code>zombie_id</code> which references <code>zombies.id</code>.
+This column in <code>tweets</code> is called a "foreign key".</p>
+<p>You can either add this column when you first create Tweets:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+rails generate tweets status:string zombie:references
+
+</pre>
+</div>
+<p>You can add the column later, to an existing <code>tweets</code> table, using just a migration </p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+  add_column    :tweets, :zombie_id, :integer
+
+</pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-11' href='slides_rails_associations_and_validations.html#slide-11'>▻</a>
+
+<p>How is this represented in the <strong>model</strong>?</p>
+<ul>
+<li>1:n associations are declared in the models with <code>belongs_to</code> and <code>has_many</code>
+</li>
+</ul>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Zombie
+  has_many :tweets
+end
+
+class Tweet
+  belongs_to :zombie
+end
+
+</pre>
+</div>
+<p>notice the plural used with <code>has_many</code> and the singular used with <code>belongs_to</code>.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-12' href='slides_rails_associations_and_validations.html#slide-12'>▻</a>
+
+<p>How can you use the association in the <strong>code</strong>?</p>
+<p>There are now methods available to walk from one model to the other:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+t = Tweet.find(7)
+z = t.zombie
+
+
+z = Zombie.find(1)
+z.tweets.each do |t|  
+  puts t.status 
+end
+
+</pre>
+</div>
+<p>again: notice the plural <code>tweets</code> and singular <code>zombie</code>.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-13' href='slides_rails_associations_and_validations.html#slide-13'>▻</a>
 <h4 id="further-reading">2.2 Further reading</h4>
 <ul>
 <li>The Rails Guides give a good introduction to a subject area:
