@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>JavaScript and AJAX in Rails in the Backend Development Textbook</title>
+  <title>JavaScript and Rails in the Backend Development Textbook</title>
   <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
@@ -56,7 +56,7 @@
                 <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
                 <dd><a href="rails_authentication.html">Authentication</a></dd>
                 <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
-                <dd><a href="javascript_and_ajax.html">Javascript and AJAX</a></dd>
+                <dd><a href="javascript_and_ajax.html">Javascript and Rails</a></dd>
                 <dd><a href="testing.html">Getting started with Testing</a></dd>
                 <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
                 <dd><a href="apis.html">APIs</a></dd>
@@ -86,19 +86,19 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2 id="preheader">JavaScript and AJAX in Rails</h2>
+      <h2 id="preheader">JavaScript and Rails</h2>
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <ol class="chapters">
 <li><a href="#unobtrusive-javascript">Unobtrusive JavaScript</a></li>
 <li><a href="#using-es6-in-rails">Using ES6 in Rails</a></li>
 <li>
-<a href="#ajax-and-rails">Ajax and Rails</a>
+<a href="#javascript-and-rails">Javascript and Rails</a>
 
 <ul>
-<li><a href="#what-is-ajax">What is Ajax</a></li>
-<li><a href="#ajax-example">Ajax Example</a></li>
-<li><a href="#the-rails-ajax-style">The Rails Ajax Style</a></li>
+<li><a href="#what-changes-questionmark">What changes?</a></li>
+<li><a href="#javascript-example">Javascript Example</a></li>
+<li><a href="#the-rails-javascript-style">The Rails Javascript Style</a></li>
 <li><a href="#helper-methods">Helper Methods</a></li>
 </ul>
 </li>
@@ -116,14 +116,13 @@
           </div>
 
       <div class="rest_header">
-        <h2>JavaScript and AJAX in Rails</h2><p>This guide covers the built-in Ajax/JavaScript functionality of Rails; 
-it will enable you to create rich and dynamic Ajax applications with
+        <h2>JavaScript and Rails</h2><p>This guide covers the built-in JavaScript functionality of Rails; 
+it will enable you to create rich and dynamic web applications with
 ease!</p><p>After reading this guide, you will know:</p>
 <ul>
 <li>unobtrusive JavaScript,</li>
 <li>how to use ES6 in your Rails app,</li>
-<li>the basics of Ajax,</li>
-<li>how Rails handles Ajax,</li>
+<li>how Rails avoids loading full HTML pages,</li>
 <li>how built-in helpers assist you,</li>
 <li>the Turbolinks gem.</li>
 </ul>
@@ -210,40 +209,39 @@ code will be combined into one file.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-3' href='slides_javascript_and_ajax.html#slide-3'>▻</a>
-<h3 id="ajax-and-rails">3 Ajax and Rails</h3>
+<h3 id="javascript-and-rails">3 Javascript and Rails</h3>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-4' href='slides_javascript_and_ajax.html#slide-4'>▻</a>
-<h4 id="what-is-ajax">3.1 What is Ajax</h4>
-<p>In order to understand Ajax, you must first understand what a web browser does
-normally.</p>
+<h4 id="what-changes-questionmark">3.1 What changes?</h4>
+<p>In order to understand how Javascript is used here, you must first understand what a web browser does normally.</p>
 <p>When you type <code>http://localhost:3000</code> into your browser's address bar and hit
 'Go,' the browser (your 'client') makes a request to the server. It parses the
 response, then fetches all associated assets, like JavaScript files,
-stylesheets and images. It then assembles the page. If you click a link, it
-does the same process: fetch the page, fetch the assets, put it all together,
+stylesheets and images. It then assembles the page. </p>
+<p>If you click a link, the same process starts again: fetch the page, fetch the assets, put it all together,
 show you the results. This is called the 'request response cycle.'</p>
 <p>JavaScript can also make requests to the server, and parse the response. It
 also has the ability to update information on the page. Combining these two
 powers, you can write JavaScript that updates just parts of a webpage,
 without needing to get the full page from the server. This is a
-powerful technique called <a href="https://en.wikipedia.org/wiki/Ajax_(programming)">Ajax</a>.</p>
+powerful technique. It used to be called <a href="https://en.wikipedia.org/wiki/Ajax_(programming)">Ajax</a>, but nowadays it's just the normal way Javascript is used.</p>
 <p>Rails provides quite a bit of built-in support for building web pages with this
 technique. </p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-5' href='slides_javascript_and_ajax.html#slide-5'>▻</a>
-<h4 id="ajax-example">3.2 Ajax Example</h4>
+<h4 id="javascript-example">3.2 Javascript Example</h4>
 <p>You can clone the source code for the example from
 <a href="https://github.com/backend-development/rails-example-recipes-js">github</a></p>
 <p>Let's have a look at the list of ingredients, and how an ingredient
 can be edited with the normal CRUD operations created by the scaffold.
 There are four HTTP requests and three full page loads in this process:</p>
 <p><img src="images/rails-js-1.jpg" srcset='images/rails-js-1.jpg 1x, images/rails-js-1@2x.jpg 2x' alt=""></p>
-<p>We want to replace this with a version that uses Rails typical AJAX. When
+<p>We want to replace this with a version that uses Rails typical Javascript. When
 the 'edit' link is clicked the server returns JavaScript that places
 the form into the existing page.
-When the form is submitted - also via AJAX - the server returns
+When the form is submitted - also by Javascript - the server returns
 JavaScript that enters the name of the new ingredient into 
 the existing list.</p>
 <p>This still needs four HTTP requests, but a lot less data is transferred
@@ -262,8 +260,8 @@ browsers network view you can
 see that a GET request is sent, and HTML code
 is returned (just like before):</p>
 <p><img src="images/rails-js-network-html.png" alt=""> </p>
-<p>But our Ajax request does not handle the HTML.
-In fact, our Ajax requests expects the response to
+<p>But our HTTP request does not handle the HTML.
+In fact, our HTTP requests expects the response to
 contain JavaScript code!  If you look in the Rails log
 you can see that:</p>
 <p><img src="images/rails-js-log.png" alt=""> </p>
@@ -325,7 +323,7 @@ $("#edit_ingredient_&lt;%= @ingredient.id %&gt;").data('remote', true);
 
 </pre>
 </div>
-<p>The form sends a PATCH request via Ajax, which will be handled
+<p>The form sends a PATCH request (via Javascript), which will be handled
 by the <code>update</code> action.  This action already specifies
 two formats it can handle: html and json:</p>
 <div class="code_container">
@@ -393,7 +391,7 @@ the new name of the ingredient.  This is left as an exercise for the reader.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-6' href='slides_javascript_and_ajax.html#slide-6'>▻</a>
-<h4 id="the-rails-ajax-style">3.3 The Rails Ajax Style</h4>
+<h4 id="the-rails-javascript-style">3.3 The Rails Javascript Style</h4>
 <p>Sending JavaScript from the Server to the client is a very
 strange concept at first.  But as you have seen you can achive
 a lot with a few lines of jQuery and some clever reuse of existing
@@ -401,15 +399,13 @@ templates.</p>
 <p>You may have noticed that the HTML code for the example
 app included some additional tags and ids that turned
 out to be very helpful in the example.</p>
-<p>This style of using Ajax is very specific to Rails.  Other
-frameworks use XML or Json or HTML as responses to Ajax requests.
-(Actually Ajax is an acronym for 'Asynchronous Javascript and XML'.
-So only the XML people are doing it correctly.)</p>
+<p>This style of using Javascript is very specific to Rails.  Other
+frameworks use other approaches.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-7' href='slides_javascript_and_ajax.html#slide-7'>▻</a>
 <h4 id="helper-methods">3.4 Helper Methods</h4>
-<p>Because of Unobtrusive JavaScript, the Rails "Ajax helpers" are actually in two
+<p>The "Unobtrusive JavaScript" Helpers, actually consist of two
 parts: the JavaScript half and the Ruby half.</p>
 <p><a href="https://github.com/rails/jquery-ujs/blob/master/src/rails.js">rails.js</a>
 provides the JavaScript half, and the regular Ruby view helpers add 
@@ -443,7 +439,7 @@ are helpers that assists with writing forms. Both take a <code>:remote</code> op
 </pre>
 </div>
 <p>rails.js will remove the <code>data-remote="true"</code> attribute and
-add a handler that turns the form into an Ajax form.</p>
+add a handler that turns the form into an form submitted by Javascript.</p>
 <h5 id="error-handling">3.4.2 error handling</h5>
 <p>You can handle errors (for example: no answer from the server)
 on the client side by listening to the "ajax:error" event:</p>
@@ -476,7 +472,8 @@ are helper that generate links. Again they have a <code>:remote</code> option:</
 </pre>
 </div>
 <p>Again rails.js removes the data-attribute and attaches a
-hander that deactivates the normal link and sends an Ajax request instead.</p>
+hander that deactivates the normal link and uses Javascript
+to send the HTTP request instead.</p>
 <h5 id="button-to">3.4.4 button_to</h5>
 <p><a href="https://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-button_to"><code>button_to</code></a> 
 is a shorthand for creating a form that consists of just one button. This
@@ -507,13 +504,13 @@ help in using consistent REST requests.</p>
 <h3 id="turbolinks">4 Turbolinks</h3>
 <p>Rails ships with the <a href="https://github.com/turbolinks/turbolinks">Turbolinks</a> gem.
 Turbolinks are a method of speeding up user interaction with the webpage
-withoug making changes in the backend.</p>
+without making changes in the backend.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-9' href='slides_javascript_and_ajax.html#slide-9'>▻</a>
 <h4 id="how-turbolinks-works">4.1 How Turbolinks Works</h4>
 <p>Turbolinks attaches a click handler to all <code>&lt;a&gt;</code> Tags on the page. When
-the link is clicked, Turbolinks will make an Ajax request for the page, 
+the link is clicked, Turbolinks will make a HTTP request for the page, 
 parse the response, and replace the entire <code>&lt;body&gt;</code> of the page with the 
 <code>&lt;body&gt;</code> of the response. It will then use the <a href="https://caniuse.com/#search=pushState">HTML History API</a>
 to change the URL to the correct one. In unsupported browsers
