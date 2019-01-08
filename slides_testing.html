@@ -37,7 +37,7 @@ to built-in mechanisms in Rails for testing your application.</p><p>After readin
 <ul>
 <li>Rails testing terminology.</li>
 <li>How to write unit tests for your applications models and controllers</li>
-<li>How to write integration tests for your application.</li>
+<li>How to write system tests for your application.</li>
 </ul>
 <p>This guide is a shorter version of the offical
 <a href="https://guides.rubyonrails.org/testing.html">Guide to Testing Rails Applications</a>.</p><div class="repo"><p>Fork the <a href="https://github.com/backend-development/rails-example-testing-for-stars">example app &#39;testing for stars&#39;</a> and try out what you learn here.</p></div>
@@ -61,14 +61,14 @@ to built-in mechanisms in Rails for testing your application.</p><p>After readin
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ ls -F test
 controllers/    helpers/        mailers/        test_helper.rb
-fixtures/       integration/    models/
+fixtures/       system/         models/
 
 </pre>
 </div>
 <p>The <code>models</code>, <code>controllers</code>, <code>mailers</code> and <code>helpers</code> directory 
 hold tests for (surprise) models, controllers, mailers and view helpers respectively. 
 These tests that are focussed on one single class are also called <em>unit tests</em>. </p>
-<p>The <code>integration</code> directory is meant to hold tests that test the 
+<p>The <code>system</code> directory is meant to hold tests that test the 
 whole system by accessing the app as a browser would.</p>
 <p>Fixtures are a way of organizing test data; they reside in the <code>fixtures</code> directory.</p>
 <p>The <code>test_helper.rb</code> file holds the default configuration for your tests.</p>
@@ -615,32 +615,38 @@ users(:david, :steve)
 </div>
 <div class='slide'>
 <a class='slide_break' href='testing.html#slide-12'>▻</a>
-<h3 id="integration-testing-with-capybara-and-webkit">4 Integration Testing with Capybara and Webkit</h3>
-<p>Integration test are used to test that the various parts of your application interact correctly
-to implement features. You can use a software "browser" to test your app. Rails 5 comes
-with built in integration tests, that simulate a browser without javascript. These
-are stored in the folder <code>test/integration/</code></p>
-<p>We will use the gem <code>capybara</code> and additionally the headless browser <code>webkit</code>
-to write our integration tests.  This way we can test with javascript enabled
-or disabled in our simulated browser.</p>
+<h3 id="system-tests-with-selenium-and-a-headless-browser">4 System Tests with Selenium and a headless Browser</h3>
+<p>System test are used to test that the various parts of your application interact correctly
+to implement features. You can use a real browser to test your app. Rails 5 comes
+with built in system tests. These
+are stored in the folder <code>test/system/</code></p>
+<p>These tests take a lot more time to run than the unit test
+discussed earlier. They are not included if you run <code>rails test</code>, you have 
+to start them separately with <code>rails test:system</code>.</p>
+<p>We will use the gem <code>selenium-webdriver</code> and the headless browser firefox
+to write our system tests. </p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 # Gemfile
 group :development, :test do
-  gem 'minitest-rails-capybara'
-  gem 'capybara-webkit'
-  gem 'transactional_capybara'
+...
 end
 
 # test_helper.rb
-require "minitest/rails/capybara"
-Capybara.javascript_driver = :webkit
+...
 
 </pre>
 </div>
-<p>The integration tests written with capybara are also called feature
-tests (and stored in the 'test/features' directory).
-Minitest and Capybara provide a generator to create a test skeleton for you.</p>
+<p>You need to install the browser separately. On Mac you can do this 
+by using brew:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+brew install geckodriver # for firefox
+brew install chromedriver # for chrome
+
+</pre>
+</div>
+<p>There is a generator to create a test skeleton for you.</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ rails generate minitest:feature add_a_star_to_a_user
@@ -665,7 +671,7 @@ end
 </div>
 <p><code>visit</code> is capybaras method for making a HTTP request just as the browser would.</p>
 <h5 id="testing-a-form">4.1 Testing a form</h5>
-<p>Integration tests are black box tests: we only interact with the
+<p>Syste tests are black box tests: we only interact with the
 app through the web browser, and have no "inside knowledge" about the app.  </p>
 <p>Some helper methods:</p>
 <div class="code_container">
