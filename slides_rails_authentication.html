@@ -154,7 +154,7 @@ as they browse through the web app. For example you could count
 now many requests they have already made:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-# in app/controllers/application_controllers.rb
+# in app/controllers/application_controller.rb
 
   before_action :count_requests
 
@@ -238,7 +238,7 @@ to the user model:</p>
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class User &lt; ActiveRecord::Base
     has_secure_password
-    validates_confirmation_of :password
+    validates :password, confirmation: true
 
 </pre>
 </div>
@@ -338,7 +338,7 @@ rails g controller sessions new create destroy
 
 &lt;h1&gt;Log in&lt;/h1&gt;
 
-&lt;%= form_with login_path do |f| %&gt;
+&lt;%= form_with login_url do |f| %&gt;
     Username: &lt;%= text_field_tag     :username %&gt; &lt;br&gt;
     Password: &lt;%= password_field_tag :password %&gt; &lt;br&gt;
     Password Confirmation: &lt;%= password_field_tag :password_confirmation %&gt; &lt;br&gt;
