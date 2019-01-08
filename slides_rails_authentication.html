@@ -338,7 +338,7 @@ rails g controller sessions new create destroy
 
 &lt;h1&gt;Log in&lt;/h1&gt;
 
-&lt;%= form_with login_url do |f| %&gt;
+&lt;%= form_with url: login_path do |f| %&gt;
     Username: &lt;%= text_field_tag     :username %&gt; &lt;br&gt;
     Password: &lt;%= password_field_tag :password %&gt; &lt;br&gt;
     Password Confirmation: &lt;%= password_field_tag :password_confirmation %&gt; &lt;br&gt;
