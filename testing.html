@@ -111,6 +111,7 @@
 <li><a href="#test-data-with-fixtures">Test Data with Fixtures</a></li>
 </ul>
 </li>
+<li><a href="#integration-tests">Integration Tests </a></li>
 <li><a href="#system-tests-with-selenium-and-a-headless-browser">System Tests with Selenium and a headless Browser</a></li>
 <li><a href="#further-reading">Further Reading</a></li>
 </ol>
@@ -719,12 +720,83 @@ users(:david, :steve)
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-12' href='slides_testing.html#slide-12'>▻</a>
-<h3 id="system-tests-with-selenium-and-a-headless-browser">4 System Tests with Selenium and a headless Browser</h3>
+<h3 id="integration-tests">4 Integration Tests </h3>
+<p>Integration tests are used to test that the various parts of your application interact correctly to implement features.  Integration tests do not include the client side. </p>
+<p>Here is a first example of an integration test:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class PublicTest &lt; ActionDispatch::IntegrationTest
+  setup do
+    @course = courses(:one)
+  end
+
+  test 'Course page' do
+    get course_path(@course, locale: 'en')
+
+    assert_response :success
+    assert_select 'h1 span.title', text: "Course #{@course.title}"
+    assert_select '.calendar_section .button_to input'
+    assert_match 'collect', css_select('div.calendar_section').text
+    assert_match '2 entries found', css_select('div.calendar_section p').text
+  end  
+
+  test 'Edit a Course is not available' do
+    get edit_course_path(@course, locale: 'en')
+
+    assert_response :found
+  end 
+end
+
+</pre>
+</div>
+<p>The first test ensures that a course can be displayed.
+A get request is used to load the show action of the course controller.</p>
+<p>The following five assertions concern the HTTP response and the DOM of the retuned
+html document.  </p>
+<p>The second test ensures that a certain path (here: the edit action of the course
+controller) is not available to a user who is not logged in.  When getting
+the URL we expect a redirection to happen.  The response contains the "found" http status code.</p>
+<p>Here are some tests for logged in users with admin powers:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class AdminTest &lt;  ActionDispatch::IntegrationTest
+  setup do
+    @course = courses(:one)
+    @admin = users(:one)
+
+    get root_url
+
+    post "/login", params: { username: @admin.name,
+      password: 'notneeded' }
+    follow_redirect!
+    follow_redirect!
+
+    assert_equal 200, status    
+  end
+
+  test 'Edit a Course is available' do
+    get edit_course_path(@course, locale: 'en')
+
+    assert_response :success
+  end   
+end
+
+</pre>
+</div>
+<p>In the setup method the we log in as user one, who has admin powers.
+After that the edit action of the course
+controller is available.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-13' href='slides_testing.html#slide-13'>▻</a>
+<h3 id="system-tests-with-selenium-and-a-headless-browser">5 System Tests with Selenium and a headless Browser</h3>
 <p>System test are used to test that the various parts of your application interact correctly
-to implement features. You can use a real browser to test your app. Rails 5 comes
+to implement features. You can use a real browser to test your app, including the client side javascript. </p>
+<p>Rails 5 comes
 with built in system tests. These
 are stored in the folder <code>test/system/</code></p>
 <p>These tests take a lot more time to run than the unit test
+and even the integration tests
 discussed earlier. They are not included if you run <code>rails test</code>, you have 
 to start them separately with <code>rails test:system</code>.</p>
 <p>We will use the gem <code>selenium-webdriver</code> and the headless browser firefox
@@ -774,7 +846,7 @@ end
 </pre>
 </div>
 <p><code>visit</code> is capybaras method for making a HTTP request just as the browser would.</p>
-<h5 id="testing-a-form">4.1 Testing a form</h5>
+<h5 id="testing-a-form">5.1 Testing a form</h5>
 <p>Syste tests are black box tests: we only interact with the
 app through the web browser, and have no "inside knowledge" about the app.  </p>
 <p>Some helper methods:</p>
@@ -815,7 +887,7 @@ assert_link('more')
 
 </pre>
 </div>
-<h5 id="testing-javascript">4.1.1 Testing Javascript</h5>
+<h5 id="testing-javascript">5.1.1 Testing Javascript</h5>
 <p>Testing with an embedded browser like webkit makes
 it possible to test javascript and AJAX behaviour.</p>
 <div class="code_container">
@@ -844,8 +916,8 @@ But it is probably best not to write tests that expect certain
 console output.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-13' href='slides_testing.html#slide-13'>▻</a>
-<h3 id="further-reading">5 Further Reading</h3>
+<a class='slide_break' id='slide-14' href='slides_testing.html#slide-14'>▻</a>
+<h3 id="further-reading">6 Further Reading</h3>
 <ul>
 <li>
 <a href="https://guides.rubyonrails.org/testing.html">A Guide to Testing Rails Applications</a> - also contains an introduction to testing routes, mailers, helpers, jobs and more in depth information on testing controllers</li>
