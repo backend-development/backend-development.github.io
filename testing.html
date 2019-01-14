@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Getting Started with Testing in the Backend Development Textbook</title>
+  <title>Getting Started with Testing in Rails in the Backend Development Textbook</title>
   <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
@@ -86,7 +86,7 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2 id="preheader">Getting Started with Testing</h2>
+      <h2 id="preheader">Getting Started with Testing in Rails</h2>
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <ol class="chapters">
@@ -118,7 +118,7 @@
           </div>
 
       <div class="rest_header">
-        <h2>Getting Started with Testing</h2><p>This guide gives an introduction
+        <h2>Getting Started with Testing in Rails</h2><p>This guide gives an introduction
 to built-in mechanisms in Rails for testing your application.</p><p>After reading this guide, you will know:</p>
 <ul>
 <li>Rails testing terminology.</li>
@@ -155,16 +155,22 @@ to built-in mechanisms in Rails for testing your application.</p><p>After readin
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ ls -F test
-controllers/    helpers/        mailers/        test_helper.rb
-fixtures/       system/         models/
+integration/    system/
+controllers/    helpers/        mailers/        models/
+fixtures/       test_helper.rb        
 
 </pre>
 </div>
 <p>The <code>models</code>, <code>controllers</code>, <code>mailers</code> and <code>helpers</code> directory 
 hold tests for (surprise) models, controllers, mailers and view helpers respectively. 
 These tests that are focussed on one single class are also called <em>unit tests</em>. </p>
+<p>The <code>integration</code> directory hold tests that exercise the whole Rails stack,
+from HTTP Request through routes, controllers, down to models and back
+up to the view.  The only thing left out is the client side of your app: Javascript
+cannot be tested here.</p>
 <p>The <code>system</code> directory is meant to hold tests that test the 
-whole system by accessing the app as a browser would.</p>
+whole system by accessing the app with a browser, including running
+the javascript.</p>
 <p>Fixtures are a way of organizing test data; they reside in the <code>fixtures</code> directory.</p>
 <p>The <code>test_helper.rb</code> file holds the default configuration for your tests.</p>
 </div>
@@ -172,13 +178,16 @@ whole system by accessing the app as a browser would.</p>
 <a class='slide_break' id='slide-4' href='slides_testing.html#slide-4'>▻</a>
 <h4 id="the-test-environment">2.2 The Test Environment</h4>
 <p>By default, every Rails application has three environments: development, test, and production.</p>
-<p>Each environment's configuration can be modified similarly. In this case, we can modify our test environment by changing the options found in <code>config/environments/test.rb</code> and we can add gems that are only used in testing by putting them in a test-section in the <code>Gemfile</code> like so:</p>
+<p>Each environment has a configuration file in <code>config/environments/</code>. 
+For the test environment the file is <code>config/environments/test.rb</code>.</p>
+<p>In the Gemfile you can add gems that are only used in one environment 
+by putting them in a section like so:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 # Gemfile
 # use gem capybara only in test environment:
 group :test do
-  gem 'capybara'
+  gem 'capybara', '~&gt; 2.13'
 end
 
 </pre>
