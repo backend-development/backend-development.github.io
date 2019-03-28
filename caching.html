@@ -220,11 +220,7 @@ See <a href="asset_pipeline.html">the chapter on the asset pipeline</a>.</p>
 You have to activate it if you want to try this out in development:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-# config/environments/development.rb
-
-[...]
-config.action_controller.perform_caching = true
-[...]
+rails dev:cache
 
 </pre>
 </div>
@@ -244,8 +240,11 @@ it is helpful to use the file_store in development:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 # config/environments/development.rb
-
-  config.cache_store = :file_store, "#{Rails.root}/tmp/file_store"  
+    # config.cache_store = :memory_store
+    config.cache_store = :file_store, "#{Rails.root}/tmp/file_store"  
+    config.public_file_server.headers = {
+      'Cache-Control' =&gt; 'public, max-age=172800'
+    }
 
 </pre>
 </div>
