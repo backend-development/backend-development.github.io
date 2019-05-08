@@ -318,6 +318,9 @@ parts: the JavaScript half and the Ruby half.</p>
 provides the JavaScript half, and the regular Ruby view helpers add 
 tags and data-attributes to the DOM. The JavaScript in rails.js then listens for these
 attributes, and attaches appropriate handlers.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' href='javascript_and_ajax.html#slide-8'>▻</a>
 <h5 id="form-for-and-form-tag">3.4.1 form_for and form_tag</h5>
 <p><a href="https://api.rubyonrails.org/classes/ActionView/Helpers/FormHelper.html#method-i-form_for"><code>form_for</code></a>
 and <a href="https://api.rubyonrails.org/classes/ActionView/Helpers/FormTagHelper.html#method-i-form_tag"><code>form_tag</code></a>
@@ -347,6 +350,9 @@ are helpers that assists with writing forms. Both take a <code>:remote</code> op
 </div>
 <p>rails.js will remove the <code>data-remote="true"</code> attribute and
 add a handler that turns the form into an form submitted by Javascript.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' href='javascript_and_ajax.html#slide-9'>▻</a>
 <h5 id="error-handling">3.4.2 error handling</h5>
 <p>You can handle errors (for example: no answer from the server)
 on the client side by listening to the "ajax:error" event:</p>
@@ -361,6 +367,9 @@ $("#new_article").on("ajax:error", function(e, xhr, status, error) {
 <p>These events work for all the helpers discussed here.
 You can learn more about the available
 events <a href="https://github.com/rails/jquery-ujs/wiki/ajax">in the jquery-ujs wiki</a>.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' href='javascript_and_ajax.html#slide-10'>▻</a>
 <h5 id="link-to">3.4.3 link_to</h5>
 <p><a href="https://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to"><code>link_to</code></a>
 and its cousin <code>link_to_unless_current</code> 
@@ -381,6 +390,9 @@ are helper that generate links. Again they have a <code>:remote</code> option:</
 <p>Again rails.js removes the data-attribute and attaches a
 hander that deactivates the normal link and uses Javascript
 to send the HTTP request instead.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' href='javascript_and_ajax.html#slide-11'>▻</a>
 <h5 id="button-to">3.4.4 button_to</h5>
 <p><a href="https://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-button_to"><code>button_to</code></a> 
 is a shorthand for creating a form that consists of just one button. This
@@ -407,14 +419,14 @@ help in using consistent REST requests.</p>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='javascript_and_ajax.html#slide-8'>▻</a>
+<a class='slide_break' href='javascript_and_ajax.html#slide-12'>▻</a>
 <h3 id="turbolinks">4 Turbolinks</h3>
 <p>Rails ships with the <a href="https://github.com/turbolinks/turbolinks">Turbolinks</a> gem.
 Turbolinks are a method of speeding up user interaction with the webpage
 without making changes in the backend.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='javascript_and_ajax.html#slide-9'>▻</a>
+<a class='slide_break' href='javascript_and_ajax.html#slide-13'>▻</a>
 <h4 id="how-turbolinks-works">4.1 How Turbolinks Works</h4>
 <p>Turbolinks attaches a click handler to all <code>&lt;a&gt;</code> Tags on the page. When
 the link is clicked, Turbolinks will make a HTTP request for the page, 
@@ -444,7 +456,7 @@ for example in the layout:</p>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='javascript_and_ajax.html#slide-10'>▻</a>
+<a class='slide_break' href='javascript_and_ajax.html#slide-14'>▻</a>
 <h4 id="page-change-events">4.2 Page Change Events</h4>
 <p>When writing JavaScript, you'll often want to do some sort of processing upon
 page load. With jQuery, you'd write something like this:</p>
@@ -472,7 +484,7 @@ Turbolinks
 README</a>.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='javascript_and_ajax.html#slide-11'>▻</a>
+<a class='slide_break' href='javascript_and_ajax.html#slide-15'>▻</a>
 <h3 id="other-resources">5 Other Resources</h3>
 <p>Here are some helpful links to help you learn even more:</p>
 <ul>

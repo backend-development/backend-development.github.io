@@ -287,6 +287,9 @@ functionality, then we wrote some code which adds the functionality and finally
 we ensured that our test passes. This approach to software development is
 referred to as
 <a href="http://c2.com/cgi/wiki?TestDrivenDevelopment"><em>Test-Driven Development</em> (TDD)</a>.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' href='testing.html#slide-9'>▻</a>
 <h5 id="what-an-error-in-you-test-looks-like">2.4.1 What an error in you test looks like</h5>
 <p>An error is different from a failing test. An error
 is a problem in your test code, not your application code.
@@ -325,6 +328,9 @@ test. All test methods are executed in random order.</p></div>
 <p>When a test fails you are presented with the corresponding backtrace. By default
 Rails filters that backtrace and will only print lines relevant to your
 application. Read the backtrace!</p>
+</div>
+<div class='slide'>
+<a class='slide_break' href='testing.html#slide-10'>▻</a>
 <h5 id="how-to-catch-exceptions-from-your-application-code">2.4.2 How to catch exceptions from your application code</h5>
 <p>If you want to ensure that an exception is raised
 by your application code
@@ -342,7 +348,7 @@ end
 <p>This test should now pass.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='testing.html#slide-9'>▻</a>
+<a class='slide_break' href='testing.html#slide-11'>▻</a>
 <h4 id="available-assertions">2.5 Available Assertions</h4>
 <p>You have seen some assertions above.</p>
 <p>Here's an extract of the assertions you can use with
@@ -424,7 +430,7 @@ more up-to-date list, please check
 <p>Because of the modular nature of the testing framework, it is possible to create your own assertions. In fact, that's exactly what Rails does. It includes some specialized assertions to make your life easier.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='testing.html#slide-10'>▻</a>
+<a class='slide_break' href='testing.html#slide-12'>▻</a>
 <h4 id="testing-a-model">2.6 Testing a Model</h4>
 <p>Models are easy to test separately because they do not depend on
 other code (most of the time). In Rails the tests for a model X
@@ -469,7 +475,7 @@ later one. There you will learn how to build tests that only
 test one unit of code.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='testing.html#slide-11'>▻</a>
+<a class='slide_break' href='testing.html#slide-13'>▻</a>
 <h4 id="testing-a-controller">2.7 Testing a Controller</h4>
 <p>Controller tests exercise several parts of the rails stack: routing, the controller, models, the test database. But they do try to keep
 views out of the mix.</p>
@@ -565,7 +571,7 @@ end
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='testing.html#slide-12'>▻</a>
+<a class='slide_break' href='testing.html#slide-14'>▻</a>
 <h3 id="the-test-database">3 The Test Database</h3>
 <p>Just about every Rails application interacts heavily with a database and,
 as a result, your tests will need a database to interact with as well.
@@ -577,7 +583,7 @@ isolation. This way your tests can mangle test data with confidence,
 without worrying about the data in the development or production databases.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='testing.html#slide-13'>▻</a>
+<a class='slide_break' href='testing.html#slide-15'>▻</a>
 <h4 id="maintaining-the-test-database-schema">3.1 Maintaining the test database schema</h4>
 <p>In order to run your tests, your test database will need to have the current
 structure. The test helper checks whether your test database has any pending
@@ -590,7 +596,7 @@ bring the schema up to date.</p>
 be rebuilt. This can be done by executing <code>rails db:test:prepare</code>.</p></div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='testing.html#slide-14'>▻</a>
+<a class='slide_break' href='testing.html#slide-16'>▻</a>
 <h4 id="test-data-with-fixtures">3.2 Test Data with Fixtures</h4>
 <p>For good tests, you'll need to give some thought to setting up test data.
 In Rails, the most simple way of doing this is by defining and customizing fixtures.
@@ -598,6 +604,9 @@ Fixtures are database independent and written in YAML. There is one file per mod
 <p>You'll find fixtures under your <code>test/fixtures</code> directory. When you run
 <code>rails generate model</code> to create a new model,
 Rails automatically creates fixture stubs in this directory.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' href='testing.html#slide-17'>▻</a>
 <h5 id="yaml">3.2.1 YAML</h5>
 <p>YAML-formatted fixtures are a human-friendly way to describe
 your sample data. These types of fixtures have the <strong>.yml</strong> file extension (as in <code>users.yml</code>).</p>
@@ -645,6 +654,9 @@ category <code>about</code> found in <code>fixtures/categories.yml</code>.</p>
 Rails will auto assign a primary key to be consistent between runs.
 For more information on this association behavior please read
 the <a href="https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html">Fixtures API documentation</a>.</p></div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='testing.html#slide-18'>▻</a>
 <h5 id="fixtures-with-erb">3.2.2 Fixtures with ERB</h5>
 <p>ERB allows you to embed Ruby code. The YAML fixture format is pre-processed with
 ERB when Rails loads fixtures. This allows you to use Ruby to help you generate
@@ -659,6 +671,9 @@ user_&lt;%= n %&gt;:
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='testing.html#slide-19'>▻</a>
 <h5 id="using-fixtures-in-tests">3.2.3 Using fixtures in Tests</h5>
 <p>The data defined by the fixture files will be available
 in your tests as Active Record objects. For example:</p>
@@ -686,7 +701,7 @@ users(:david, :steve)
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='testing.html#slide-15'>▻</a>
+<a class='slide_break' href='testing.html#slide-20'>▻</a>
 <h3 id="integration-tests">4 Integration Tests</h3>
 <p>Integration tests are used to test that the various parts of your application interact correctly to implement features. Integration tests do not include the client side.</p>
 <p>Here is a first example of an integration test:</p>
@@ -762,7 +777,7 @@ You can also access it directly as <code>document_root_element</code>.</p>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' href='testing.html#slide-16'>▻</a>
+<a class='slide_break' href='testing.html#slide-21'>▻</a>
 <h3 id="system-tests-with-selenium-and-a-headless-browser">5 System Tests with Selenium and a headless Browser</h3>
 <p>System test are used to test that the various parts of your application interact correctly
 to implement features. You can use a real browser to test your app, including the client side javascript.</p>
@@ -820,6 +835,9 @@ end
 </pre>
 </div>
 <p><code>visit</code> is capybaras method for making a HTTP request just as the browser would.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' href='testing.html#slide-22'>▻</a>
 <h5 id="testing-a-form">5.1 Testing a form</h5>
 <p>Syste tests are black box tests: we only interact with the
 app through the web browser, and have no "inside knowledge" about the app.</p>
@@ -861,6 +879,9 @@ assert_link('more')
 
 </pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='testing.html#slide-23'>▻</a>
 <h5 id="testing-javascript">5.1.1 Testing Javascript</h5>
 <p>Testing with an embedded browser like webkit makes
 it possible to test javascript and AJAX behaviour.</p>
@@ -890,7 +911,7 @@ But it is probably best not to write tests that expect certain
 console output.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='testing.html#slide-17'>▻</a>
+<a class='slide_break' href='testing.html#slide-24'>▻</a>
 <h3 id="further-reading">6 Further Reading</h3>
 <ul>
 <li>
