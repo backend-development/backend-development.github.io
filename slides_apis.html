@@ -261,8 +261,7 @@ to different servers.</p>
 <p>When an API returns JSON data this could take many forms.
 The <a href="https://jsonapi.org/">json:api specification</a> is a well thought out
 convention for this.</p>
-<p>It is especially good with the HATEOS aspect of REST.</p>
-<p>The json:api specification adhers to this principle.</p>
+<p>It is especially good with the HATEOS aspect of REST, the json:api specification adhers to this principle.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='apis.html#slide-11'>▻</a>
@@ -373,18 +372,18 @@ to handle json differently from html:</p>
     @user = User.new(user_params)
     respond_to do |format|
       if @user.save
-        format.html { 
-          redirect_to @user, notice: 'User was successfully created.' 
+        format.html {
+          redirect_to @user, notice: 'User was successfully created.'
         }
-        format.json { 
-          render :show, status: :created, location: @user 
+        format.json {
+          render :show, status: :created, location: @user
         }
       else
-        format.html { 
-          render :new 
+        format.html {
+          render :new
         }
-        format.json { 
-          render json: @user.errors, status: :unprocessable_entity 
+        format.json {
+          render json: @user.errors, status: :unprocessable_entity
         }
       end
     end
@@ -630,6 +629,8 @@ end
 <a href="https://www.ics.uci.edu/%7Efielding/pubs/dissertation/top.htm">Fielding, Roy(2000): Architectural Styles and the Design of Network-based Software Architectures</a>. Dissertation. University of California/Irvine, USA.</li>
 <li><a href="https://martinfowler.com/articles/richardsonMaturityModel.html">Fowler (2010): Richardson Maturity Model</a></li>
 <li><a href="https://www.infoq.com/articles/rest-introduction">Tilkov(2007): A Brief Introduction to REST</a></li>
+<li>
+<a href="http://standards.rest/">standards.rest</a> a collection of standards that have developed around REST</li>
 <li><a href="https://edgeguides.rubyonrails.org/action_controller_overview.html#rendering-xml-and-json-data">Rails Guide: Rendering JSON in Action Controller Overview</a></li>
 <li><a href="https://edgeguides.rubyonrails.org/api_app.html">Rails Guide: Using Rails for API-only Applications</a></li>
 <li><a href="https://github.com/vasilakisfil/rails5_api_tutorial">Vasilakis(2017): Rails 5 API Tutorial</a></li>
