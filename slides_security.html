@@ -588,8 +588,28 @@ end
 
 </pre>
 </div>
-<p>To handle the violation reports you need to set up a model, controller and route
-<a href="https://bauland42.com/ruby-on-rails-content-security-policy-csp/#cspviolationreports">as described here</a>.</p>
+<p>This automatically forbids all 'unsave-inline' script: <code>&lt;script&gt;</code>-tags
+in the html code and event-handler-attributes like <code>&lt;button onclick=...&gt;</code>.</p>
+<p>To allow certain <code>&lt;script&gt;</code>-tags in your code you can give
+them a "nonce":</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+&lt;script nonce="2726c7f26c"&gt;
+  var inline = 1;  // good javascript
+&lt;/script&gt;
+
+</pre>
+</div>
+<p>This must be the same nonce given in the CSP:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+Content-Security-Policy: script-src 'nonce-2726c7f26c'
+
+</pre>
+</div>
+<p>Rails can generate separate nonces for separate sessions automatically,
+see <a href="https://edgeguides.rubyonrails.org/security.html#content-security-policy">the Rails Security Guide</a>.</p>
+<p>If you want to handle violation reports, you need to set up a model, controller and route <a href="https://bauland42.com/ruby-on-rails-content-security-policy-csp/#cspviolationreports">as described here</a>.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='security.html#slide-35'>▻</a>
