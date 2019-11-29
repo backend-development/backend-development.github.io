@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Rails: Associations and Validations in the Backend Development Textbook</title>
+  <title>Backend Development Textbook</title>
   <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
@@ -86,7 +86,7 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2 id="preheader">Rails: Associations and Validations</h2>
+      <h2 id="preheader">no heading</h2>
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <ol class="chapters">
@@ -117,13 +117,7 @@
           </div>
 
       <div class="rest_header">
-        <h2>Rails: Associations and Validations</h2><p>After working through this guide you should</p>
-<ul>
-<li>Be able to write validations to check data before it is saved to the database</li>
-<li>Be able to create models with associations to other models</li>
-</ul>
-<div class="repo"><p>Continue to use the <a href="https://github.com/backend-development/advanced_zombies">basic zombies</a> example.</p></div><p>The examples were inspired by &quot;Rails for Zombies&quot;, which used to be a free rails online course. 
-Sadly it is no longer available.</p>
+        
       </div>
     </div>
   </div>
@@ -136,12 +130,28 @@ Sadly it is no longer available.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-1' href='slides_rails_associations_and_validations.html#slide-1'>▻</a>
+<h2>Rails: Associations and Validations</h2>
+<p>After working through this guide you should</p>
+<ul>
+<li>Be able to write validations to check data before it is saved to the database</li>
+<li>Be able to create models with associations to other models</li>
+</ul>
+<div class="repo"><p>Continue to use the <a href="https://github.com/backend-development/advanced_zombies">basic zombies</a> example.</p></div>
+<p>The examples were inspired by "Rails for Zombies", which used to be a free rails online course.
+Sadly it is no longer available.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-2' href='slides_rails_associations_and_validations.html#slide-2'>▻</a>
+<hr>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-3' href='slides_rails_associations_and_validations.html#slide-3'>▻</a>
 <h3 id="validations">1 Validations</h3>
 <p>Validations are rules you want to enforce on the data in your models.</p>
 <p>Validations are declared on the model. They are checked every time data is <strong>saved to the database</strong>. If the data does not conform to the validation, it is not saved, a false value is returned, and the error messages are available through the object.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-2' href='slides_rails_associations_and_validations.html#slide-2'>▻</a>
+<a class='slide_break' id='slide-4' href='slides_rails_associations_and_validations.html#slide-4'>▻</a>
 
 <p>An example on the rails console: I try to create a new tweet and save it,
 but it can't be saved because a validation is in place:</p>
@@ -159,11 +169,11 @@ but it can't be saved because a validation is in place:</p>
 </pre>
 </div>
 <p>Notice that the <code>save</code> method does not raise an exception,
-but rather just returns a <code>false</code>.  It is up to the calling
+but rather just returns a <code>false</code>. It is up to the calling
 code to handle the error!</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-3' href='slides_rails_associations_and_validations.html#slide-3'>▻</a>
+<a class='slide_break' id='slide-5' href='slides_rails_associations_and_validations.html#slide-5'>▻</a>
 <h4 id="defining-a-validation">1.1 Defining a Validation</h4>
 <p>Validation are declared in the model:</p>
 <div class="code_container">
@@ -177,33 +187,33 @@ end
 <p>The presence validator calls the method <a href="https://api.rubyonrails.org/classes/Object.html#method-i-blank-3F"><code>blank?</code></a> on each of the value to check if they are present.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-4' href='slides_rails_associations_and_validations.html#slide-4'>▻</a>
+<a class='slide_break' id='slide-6' href='slides_rails_associations_and_validations.html#slide-6'>▻</a>
 <h4 id="other-validations">1.2 Other Validations</h4>
 <p>There are many more helpers to create validations:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-  validates :terms_of_service,   
+  validates :terms_of_service,
     acceptance: true
-  validates :subdomain, exclusion: { 
-    in: %w(www wiki), 
-    message: "%{value} is reserved." 
+  validates :subdomain, exclusion: {
+    in: %w(www wiki),
+    message: "%{value} is reserved."
   }
-  validates :coursecode, format: { 
-    with: /\A[a-zA-Z]+\z/, 
+  validates :coursecode, format: {
+    with: /\A[a-zA-Z]+\z/,
     message: "only allows letters"
   }
-  validates :size, inclusion: { 
-    in: %w(small medium large), 
-    message: "%{value} is not a valid size" 
+  validates :size, inclusion: {
+    in: %w(small medium large),
+    message: "%{value} is not a valid size"
   }
   validates :name,                length: { minimum: 2 }
   validates :bio,                 length: { maximum: 500 }
   validates :password,            length: { in: 6..20 }
   validates :registration_number, length: { is: 6 }
   validates :width_in_cm,  numericality: true
-  validates :games_played, numericality: { only_integer: true } 
+  validates :games_played, numericality: { only_integer: true }
   validates :boolean_field_name, inclusion: { in: [true, false] }
-  validates :email, uniqueness: true  
+  validates :email, uniqueness: true
   validates :email, confirmation: true
 
 </pre>
@@ -213,7 +223,7 @@ this will be the <code>email</code> property and the <code>email_confirmation</c
 need to be equal.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-5' href='slides_rails_associations_and_validations.html#slide-5'>▻</a>
+<a class='slide_break' id='slide-7' href='slides_rails_associations_and_validations.html#slide-7'>▻</a>
 <h4 id="combining-validations">1.3 Combining Validations</h4>
 <p>You can combine several properties that should be checked:</p>
 <div class="code_container">
@@ -225,7 +235,7 @@ need to be equal.</p>
 <p>or you can combine several validations on one property:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-  :coursecode, 
+  :coursecode,
     format: { with: /\A[a-zA-Z]+\z/, message: "only allows letters" },
     length: { is: 10 }
 
@@ -233,10 +243,10 @@ need to be equal.</p>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-6' href='slides_rails_associations_and_validations.html#slide-6'>▻</a>
+<a class='slide_break' id='slide-8' href='slides_rails_associations_and_validations.html#slide-8'>▻</a>
 <h4 id="validations-vs-database-constraints">1.4 Validations vs Database Constraints</h4>
 <p>Validations are checked by ruby code <strong>before</strong> data is inserted
-in the database.  If you want to ensure that the e-mails of your users
+in the database. If you want to ensure that the e-mails of your users
 are unique, you can do so in Rails, by adding</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -244,22 +254,22 @@ are unique, you can do so in Rails, by adding</p>
 
 </pre>
 </div>
-<p>The validation happens by performing an SQL query into the model's table, searching for an existing record with the same value in that attribute.  An error is reported by
+<p>The validation happens by performing an SQL query into the model's table, searching for an existing record with the same value in that attribute. An error is reported by
 returning a false value from <code>save</code> and setting the <code>errors</code> attribute.</p>
-<p>You could also do this by adding a <a href="https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-UNIQUE-CONSTRAINTS">UNIQUE CONSTRAINT</a> in your database. </p>
+<p>You could also do this by adding a <a href="https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-UNIQUE-CONSTRAINTS">UNIQUE CONSTRAINT</a> in your database.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-7' href='slides_rails_associations_and_validations.html#slide-7'>▻</a>
+<a class='slide_break' id='slide-9' href='slides_rails_associations_and_validations.html#slide-9'>▻</a>
 <h4 id="validations-and-forms">1.5 Validations and Forms</h4>
-<p>Later, when we learn about Views and Forms, you will see 
+<p>Later, when we learn about Views and Forms, you will see
 that the save / validate / errors lifecycle fits perfectly with
 the way that forms a handled in Rails. See <a href="/rails_view_and_controller.html">Rails: View and Controller</a></p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-8' href='slides_rails_associations_and_validations.html#slide-8'>▻</a>
+<a class='slide_break' id='slide-10' href='slides_rails_associations_and_validations.html#slide-10'>▻</a>
 <h3 id="1-n-associations">2 1:n Associations</h3>
 <p>If you have used relational databases before you are probably familiar
-with the different types of associations between database tables.  But even
+with the different types of associations between database tables. But even
 if you have not, the first association is easy to understand:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -275,22 +285,22 @@ Zombie Sue ------------------------ Tweet 'gagaga'
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-9' href='slides_rails_associations_and_validations.html#slide-9'>▻</a>
+<a class='slide_break' id='slide-11' href='slides_rails_associations_and_validations.html#slide-11'>▻</a>
 <h4 id="database">2.1 Database</h4>
 <p>In the table <code>tweets</code> there is a column <code>zombie_id</code> which references <code>zombies.id</code>.
 This column in <code>tweets</code> is called a "foreign key".</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-10' href='slides_rails_associations_and_validations.html#slide-10'>▻</a>
+<a class='slide_break' id='slide-12' href='slides_rails_associations_and_validations.html#slide-12'>▻</a>
 <h4 id="create-the-database">2.2 Create the Database</h4>
 <p>You can either add this column when you first create Tweets:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-rails generate tweets status:string zombie:references
+rails generate model tweet status:string zombie:references
 
 </pre>
 </div>
-<p>You can add the column later, to an existing <code>tweets</code> table, using just a migration </p>
+<p>You can add the column later, to an existing <code>tweets</code> table, using just a migration</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ rails generate migration AddZombieToTweets zombie:references
@@ -306,7 +316,7 @@ $ rails generate migration AddZombieToTweets zombie:references
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-11' href='slides_rails_associations_and_validations.html#slide-11'>▻</a>
+<a class='slide_break' id='slide-13' href='slides_rails_associations_and_validations.html#slide-13'>▻</a>
 <h4 id="model">2.3 Model</h4>
 <p>You have to declare association in both models, by
 editing the two files in <code>app/models/*.rb</code>.</p>
@@ -328,7 +338,7 @@ end
 <p>notice the plural used with <code>has_many</code> and the singular used with <code>belongs_to</code>.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-12' href='slides_rails_associations_and_validations.html#slide-12'>▻</a>
+<a class='slide_break' id='slide-14' href='slides_rails_associations_and_validations.html#slide-14'>▻</a>
 <h4 id="methods">2.4 Methods</h4>
 <p>There are now methods available to walk from one model to the other:</p>
 <div class="code_container">
@@ -339,8 +349,8 @@ z = t.zombie
 
 # from zombie to tweets
 z = Zombie.find(1)
-z.tweets.each do |t|  
-  puts t.status 
+z.tweets.each do |t|
+  puts t.status
 end
 
 </pre>
@@ -348,7 +358,7 @@ end
 <p>again: notice the plural <code>tweets</code> and singular <code>zombie</code>.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-13' href='slides_rails_associations_and_validations.html#slide-13'>▻</a>
+<a class='slide_break' id='slide-15' href='slides_rails_associations_and_validations.html#slide-15'>▻</a>
 
 <p>You can also use a model to create associated models:</p>
 <div class="code_container">
@@ -365,7 +375,7 @@ association in the Rails Guide under <a href="https://guides.rubyonrails.org/ass
 <a href="https://guides.rubyonrails.org/association_basics.html#has-many-association-reference">Methods Added by has_many</a>.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-14' href='slides_rails_associations_and_validations.html#slide-14'>▻</a>
+<a class='slide_break' id='slide-16' href='slides_rails_associations_and_validations.html#slide-16'>▻</a>
 <h3 id="further-reading">3 Further reading</h3>
 <ul>
 <li>The Rails Guides give a good introduction to a subject area:

@@ -251,11 +251,66 @@ using, commiting and pushing it. You only ever add new migrations!</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='rails_database_and_model.html#slide-16'>▻</a>
+<h4 id="a-real-world-example">3.4 a real world example:</h4>
+<p>The following are three migrations from the program <code>gitlab</code> which
+is written in rails:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+== 20191120084627 AddEncryptedFieldsToApplicationSettings: migrating ==========
+-- add_column(:application_settings, "encrypted_akismet_api_key", :text)
+ -&gt; 0.0013s
+-- add_column(:application_settings, "encrypted_akismet_api_key_iv", :string, {:limit=&gt;255})
+ -&gt; 0.0007s
+-- add_column(:application_settings, "encrypted_elasticsearch_aws_secret_access_key", :text)
+ -&gt; 0.0007s
+-- add_column(:application_settings, "encrypted_elasticsearch_aws_secret_access_key_iv", :string, {:limit=&gt;255})
+ -&gt; 0.0008s
+-- add_column(:application_settings, "encrypted_recaptcha_private_key", :text)
+ -&gt; 0.0008s
+-- add_column(:application_settings, "encrypted_recaptcha_private_key_iv", :string, {:limit=&gt;255})
+ -&gt; 0.0007s
+-- add_column(:application_settings, "encrypted_recaptcha_site_key", :text)
+ -&gt; 0.0007s
+-- add_column(:application_settings, "encrypted_recaptcha_site_key_iv", :string, {:limit=&gt;255})
+ -&gt; 0.0007s
+-- add_column(:application_settings, "encrypted_slack_app_secret", :text)
+ -&gt; 0.0007s
+-- add_column(:application_settings, "encrypted_slack_app_secret_iv", :string, {:limit=&gt;255})
+ -&gt; 0.0007s
+-- add_column(:application_settings, "encrypted_slack_app_verification_token", :text)
+ -&gt; 0.0007s
+-- add_column(:application_settings, "encrypted_slack_app_verification_token_iv", :string, {:limit=&gt;255})
+ -&gt; 0.0007s
+== 20191120084627 AddEncryptedFieldsToApplicationSettings: migrated (0.0095s) =
+
+== 20191120115530 EncryptPlaintextAttributesOnApplicationSettings: migrating ==
+== 20191120115530 EncryptPlaintextAttributesOnApplicationSettings: migrated (0.4133s)
+
+== 20191122135327 RemovePlaintextColumnsFromApplicationSettings: migrating ====
+-- remove_column(:application_settings, "akismet_api_key")
+ -&gt; 0.0010s
+-- remove_column(:application_settings, "elasticsearch_aws_secret_access_key")
+ -&gt; 0.0006s
+-- remove_column(:application_settings, "recaptcha_private_key")
+ -&gt; 0.0006s
+-- remove_column(:application_settings, "recaptcha_site_key")
+ -&gt; 0.0006s
+-- remove_column(:application_settings, "slack_app_secret")
+ -&gt; 0.0006s
+-- remove_column(:application_settings, "slack_app_verification_token")
+ -&gt; 0.0007s
+== 20191122135327 RemovePlaintextColumnsFromApplicationSettings: migrated (0.0045s)
+
+</pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-17'>▻</a>
 <h3 id="the-model">4 The Model</h3>
 <p>Look at the model generated in file <code>app/models/tweet.rb</code>. Add validations, associations to other model and the business logic here.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-17'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-18'>▻</a>
 <h4 id="the-model-in-the-console">4.1 the model in the console</h4>
 <p>You can use the Rails console to work with
 the model interactively. This is similar to the ruby console <code>irb</code>
@@ -267,7 +322,7 @@ to the development database!</p>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-18'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-19'>▻</a>
 <h4 id="finding-a-model">4.2 Finding a model</h4>
 <p>The database table always has a primary key <code>id</code>. You can use this
 key to find a specific record:</p>
@@ -282,7 +337,7 @@ you typed in. Here this is an object. The console prints out the details of this
 object using the <code>inspect</code> method.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-19'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-20'>▻</a>
 
 <p>From now on we will use this slightly shortended format to show Rails console
 input and output:</p>
@@ -296,7 +351,7 @@ railsconsole&gt; Tweet.find(1)
 <p>(We will leave out the SQL, and some timestamps.)</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-20'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-21'>▻</a>
 <h4 id="accessing-the-properties">4.3 Accessing the properties</h4>
 <p>You can access the properties of the model object as if it were a hash
 or through method names:</p>
@@ -317,13 +372,13 @@ railsconsole&gt; t[:zombie]
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-21'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-22'>▻</a>
 <h4 id="crud-create-read-update-delete">4.4 CRUD = Create, Read, Update, Delete</h4>
 <p>Let's see how ActiveRecord implements the four important
 capabilities of persistance:</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-22'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-23'>▻</a>
 <h4 id="create">4.5 Create</h4>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -338,7 +393,7 @@ database yet and does not have an <code>id</code> yet. You can set its propertie
 The <code>save</code> method tries to save it to the database.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-23'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-24'>▻</a>
 
 <p>On the Rails console you can see how the properties are <code>nil</code> in the beginning.
 After saving to the database some of the properties are set:</p>
@@ -360,7 +415,7 @@ railsconsole&gt; t
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-24'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-25'>▻</a>
 <h4 id="read">4.6 Read</h4>
 <p>There are many ways to read data from the database. We already saw <code>find</code> which
 uses the primary key and always returns one object. The method <code>where</code> is used for more general <code>select - where</code> SQL statements.</p>
@@ -374,7 +429,7 @@ t3 = Tweet.where(zombie: 'Ash')
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-25'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-26'>▻</a>
 
 <p>In the Rails console you can see the return values: <code>where</code> returns serveral objects in the end.</p>
 <div class="code_container">
@@ -393,7 +448,7 @@ railsconsole&gt; t3 = Tweet.where(zombie: 'Ash')
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-26'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-27'>▻</a>
 <h4 id="update">4.7 Update</h4>
 <p>With update - as with <code>new</code> before - we see the difference between the
 object in memory (<code>t</code>) which can be changed and the object in the database
@@ -425,7 +480,7 @@ railsconsole&gt; t.save
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-27'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-28'>▻</a>
 <h4 id="delete">4.8 Delete</h4>
 <p>To delete both the object in memory and in the database use <code>destroy</code>.</p>
 <div class="code_container">
@@ -451,7 +506,7 @@ railsconsole&gt; t.destroy
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-28'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-29'>▻</a>
 <h4 id="chaining-activerecord-methods">4.9 Chaining ActiveRecord methods</h4>
 <p>Let's look at the example of using <code>where</code> again: the return value was of class <code>ActiveRecord::Relation</code>:</p>
 <div class="code_container">
@@ -472,7 +527,7 @@ tweets = Tweet.where("created_at &gt; '2018-10-01'").where(zombie: 'Ash')
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-29'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-30'>▻</a>
 
 <p>In fact there are many more methods we might want to use for chaining:</p>
 <div class="code_container">
@@ -490,7 +545,7 @@ Tweet.where("created_at &gt; '2018-10-01'").
 it is placed at the end, to enable copy-and-paste to the Rails console)</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-30'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-31'>▻</a>
 
 <p>You can use the method <code>to_sql</code> to see the SQL Statement produced by the chained methods:</p>
 <div class="code_container">
@@ -511,7 +566,7 @@ railsconsole&gt; Tweet.select(:created_at, :zombie, :status).
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-31'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-32'>▻</a>
 
 <p>The order of the methods is not relevant. You can also save an intermediate step to
 a variable, and then chain more methods to that variable later on:</p>
@@ -532,13 +587,13 @@ railsconsole&gt; query.select(:created_at, :zombie, :status).
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-32'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-33'>▻</a>
 <h3 id="exercise">5 Exercise</h3>
 <p>Now would be a good time to try out the exercises in the</p>
 <div class="repo"><p><a href="https://github.com/backend-development/basic-zombies">basic zombies</a> repository.</p></div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-33'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-34'>▻</a>
 <h3 id="on-documentation">6 On Documentation</h3>
 <p>You could have learned all this and more from
 the Rails Guides: <a href="https://guides.rubyonrails.org/active_record_basics.html">ActiveRecord Basics</a>, <a href="https://guides.rubyonrails.org/active_record_querying.html">Active Record Query Interface</a> and <a href="https://guides.rubyonrails.org/active_record_migrations.html">Active Record Migrations</a>.
@@ -549,7 +604,7 @@ locally on your computer. A handy tool for this on mac os x is
 <p><img src="images/dash-rails-guide.png" alt="Dash"></p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-34'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-35'>▻</a>
 <h4 id="further-reading">6.1 Further reading</h4>
 <ul>
 <li>The Rails Guides give a good introduction to a subject area:
