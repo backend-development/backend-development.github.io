@@ -310,10 +310,12 @@ $ rails generate migration AddZombieToTweets zombie:references
 <p>this will generate a migration with the following command</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-  add_reference :tweets, :zombie, foreign_key: true
+    add_reference :tweets, :zombie, null: false, foreign_key: true
 
 </pre>
 </div>
+<p>Warning: in SQLite3 this will cause some problems ("SQLite3::SQLException: Cannot add a NOT NULL column with default value NULL"), please remove the <code>null: false,</code> part of the migration.</p>
+<p>If you ever mistype your <code>rails generate ...</code> line, you can undo it by running <code>rails destroy ...</code>.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-13' href='slides_rails_associations_and_validations.html#slide-13'>▻</a>
