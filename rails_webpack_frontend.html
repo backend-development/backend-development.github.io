@@ -112,17 +112,18 @@
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-1' href='slides_rails_webpack_frontend.html#slide-1'>▻</a>
-<h2>Building the Frontend with Webpack</h2>
-<p>While the asset pipeline is rails' way of preparing
+<h2>Building the Frontend with webpacker</h2>
+<p>While the asset pipeline is rails' traditional way of preparing
 files for the frontend, in recent years a completely
 different toolchain was developed in the frontend community.</p>
 <p>In this guide you will learn how to integrate webpack
 and a current frontend framework with your rails app.
 You will be able to:</p>
 <ul>
-<li>  Use React with Ruby on Rails</li>
+<li>use webpack to prepare your javascript files</li>
+<li>use a framework like svelte, angular, react</li>
 </ul>
-<div class="repo"><p>Fork the <a href="https://github.com/backend-development/xxx">example app 'xxx'</a> and try out what you learn here.</p></div>
+
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-2' href='slides_rails_webpack_frontend.html#slide-2'>▻</a>
@@ -133,20 +134,24 @@ You will be able to:</p>
 <h3 id="frontend-pipelines">1 Frontend Pipelines</h3>
 <p>When the rails asset pipeline was published with Rails 3.1 in 2011, node.js
 was only 2 years old and version 1.0 of npm was just released.<br>
-In the years since, the frontend community developed, released (and dropped) a lot of
-new tools: bower, grunt, gulp, yarn, webpack.</p>
+In the years since, the frontend community developed, released (and dropped) a lot of new tools: bower, grunt, gulp, yarn, webpack.</p>
 <p>Since Rails 5.1 the webpacker gem is officialy part of Rails. It integrates webpack
-into rails, and makes developing with react, vue, angular or other frontend frameworks
+into rails, and makes developing with svelte, react, vue, angular or other frontend frameworks
 easy.</p>
-<p>Webpacker coexists with the asset pipeline.  You can start using webpacker for
+<p>Webpacker coexists with the asset pipeline. You can start using webpacker for
 certain aspects of your Rails app, for example just one page with very complex, UI,
-and still continue using the asset pipeline for the rest. </p>
+and still continue using the asset pipeline for the rest.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-4' href='slides_rails_webpack_frontend.html#slide-4'>▻</a>
 <h3 id="files">2 Files</h3>
-<p>Webpacker creates a new folder <code>app/javascript</code> and a folder structure:</p>
+<p>Webpacker creates a new folder <code>app/javascript</code> and a folder structure.</p>
+<p>The folder <code>app/javascript/packs</code> is reserved for
+webpack entry files, with
+<code>app/javascript/packs/application.js</code> being the default file.</p>
 <p><img src="images/javascript-folder.png" srcset='images/javascript-folder.png 1x, images/javascript-folder@2x.png 2x' alt=""></p>
+<p>The bundle created by webpacker is included in the rails app
+with</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-5' href='slides_rails_webpack_frontend.html#slide-5'>▻</a>

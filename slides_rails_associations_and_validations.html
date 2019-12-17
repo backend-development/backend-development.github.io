@@ -84,7 +84,7 @@ code to handle the error!</p>
 <p>Validation are declared in the model:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-class Tweet &lt; ActiveRecord::Base
+class Tweet &lt; ApplicationRecord
   validates :status, :zombie presence: true
 end
 

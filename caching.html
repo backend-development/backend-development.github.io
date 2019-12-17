@@ -936,7 +936,7 @@ mysql&gt; SELECT * from degree_programs WHERE user_id=901 ;
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 app/models/degree_program.rb
-class DegreeProgram &lt; ActiveRecord::Base
+class DegreeProgram &lt; ApplicationRecord
   belongs_to :user
 
   def to_s
@@ -949,7 +949,7 @@ end
 <p>And add a relationship from user:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-class User &lt; ActiveRecord::Base
+class User &lt; ApplicationRecord
 ...
   has_many :degree_programs
 

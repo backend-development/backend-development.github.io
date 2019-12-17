@@ -275,7 +275,7 @@ Saved the article without a title
 <p>Now to get this test to pass we can add a model level validation for the <em>title</em> field.</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-class Article &lt; ActiveRecord::Base
+class Article &lt; ApplicationRecord
   validates :title, presence: true
 end
 
