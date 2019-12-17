@@ -367,9 +367,14 @@ class User &lt;  ApplicationRecord
 passwort twice to the create method:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-User.create({username: "mariam",
-    password: 'badpassword123',
-    password_confirmation: 'badpassword1234'})
+&gt; u = User.create({username: "yusuf",
+                   password: 'badpassword123',
+                   password_confirmation: 'badpassword1234'})
+=&gt; #&lt;User id: nil, username: "yusuf", password_digest: [FILTERED], created_at: nil, updated_at: nil&gt;
+&gt; u.save
+=&gt; false
+&gt; u.errors.messages
+=&gt; {:password_confirmation=&gt;["doesn't match Password"]}
 
 </pre>
 </div>
