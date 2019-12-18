@@ -62,8 +62,8 @@ the crucial value is the time it takes from requesting a page (by clicking a lin
 or button, or typing in an URL) to having the page displayed and interactive in your browser.
 We will call this the 'response time'.</p>
 <p>From the publishers point of view it might also encompass the question of
-how many uses you can serve (with acceptable response time) on a given
-server. If you look at the question of how to server more users in case
+how many users you can serve (with acceptable response time) on a given
+server. If you look at the question of how to serve more users in case
 of more demand you enter the realm of 'scalability'. This is a more advanced
 question that goes beyond the scope of this guide.</p>
 </div>
@@ -76,7 +76,7 @@ Many beginners are fascinated by details of their programming
 language like: <code>will using more variables make my program slower?</code>
 or <code>is string concatenation faster than string interpolation?</code>.</p>
 <p>These 'micro optimizations' are hardly ever necssary with modern
-programming languages and computers. Using rails, postgres and a modern
+programming languages and computers. Using Rails, Postgres and a modern
 hosting service you will have no trouble serving hundreds
 of users a day and achieving adequate performance for all of them.</p>
 <p>Trying to 'optimize' you code if there is no problem, or
@@ -93,7 +93,7 @@ start to 'optimize'.</p>
 <div class='slide'>
 <a class='slide_break' href='asset_pipeline.html#slide-5'>▻</a>
 <h4 id="measuring-web-performance">1.2 Measuring Web Performance</h4>
-<p>The "exceptional performance" group at yahoo published the browser addon
+<p>The "exceptional performance" group at Yahoo published the browser addon
 <code>yslow</code> in 2007. It measures performance and displays the timing
 of the different HTTP connections as a "waterfall graph":</p>
 <p><img src="images/network-souders-2008.png" alt="displaying http downloads with yslow"></p>
@@ -101,7 +101,7 @@ of the different HTTP connections as a "waterfall graph":</p>
 <p>Each bar is one resource being retrieved via HTTP, the x-axis
 is a common timeline for all. The most striking result you can read from
 this graph: the backend is only responsible for 5% of the time in this
-example! 95% of time are spent loading and parsing javascript and css files
+example! 95% of time is spent loading and parsing javascript and css files
 and loading and displaying images!</p>
 <p>This graph was later integrated into the built in developer tools
 of several browsers, and into the online tool <a href="https://webpagetest.org/">webpagetest</a>.</p>
@@ -142,8 +142,8 @@ landscape of web performance! These rules and their priority will change!</p>
 a lot of tools. The Rails asset pipeline was introduced in Rails 3.1 in the year 2011.</p>
 <p>I lets you use all theses tools automatically:</p>
 <ul>
-<li>compile to JavaScript (e.g. coffeescript, typescript, babel)</li>
-<li>compile to CSS (e.g. LESS, SASS)</li>
+<li>Compile to JavaScript (e.g. coffeescript, typescript, babel)</li>
+<li>Compile to CSS (e.g. LESS, SASS)</li>
 <li>Minify and combine several JavaScript files into one</li>
 <li>Minify and combine several CSS files into one</li>
 <li>Optimize images</li>
@@ -161,7 +161,7 @@ a lot of tools. The Rails asset pipeline was introduced in Rails 3.1 in the year
 <li>files for publishing are created in <code>public/assets/*</code>
 </li>
 </ul>
-<p>The second folder will be served by web server directly, without going through the rails stack</p>
+<p>The second folder will be served by the web server directly, without going through the Rails stack</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='asset_pipeline.html#slide-8'>▻</a>
@@ -235,7 +235,7 @@ which generates the files in <code>public/assets</code>, including <code>public/
 <p>If you look at the generated HTML code on the production server,
 you will only find two links (plus some code to handle IE 8): in production
 the many css files have been concatenated into one <code>application*.css</code>, and
-all JavaScript files have bin concatenated int one <code>application*.js</code>:</p>
+all JavaScript files have been concatenated into one <code>application*.js</code>:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;link href="/assets/application-dee0187.css" media="screen" rel="stylesheet" /&gt;

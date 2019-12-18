@@ -40,7 +40,7 @@
 <p>This guide is about Logins and Logouts for your Rails app.</p>
 <p>After reading this guide you will</p>
 <ul>
-<li>understand how cookies, sessions, logins are connected</li>
+<li>understand how cookies, sessions, and logins are connected</li>
 <li>be able to build a rails app with simple login and logout</li>
 <li>be able to offer password reminders to your users</li>
 <li>be able to use other authentication providers</li>
@@ -73,7 +73,7 @@ can use variables in main memory to store information pertaining
 to that user, and they will carry over through many interactions
 (opening a new window of our app, clicking a button, selecting
 something from a menu).</p>
-<p>In a <strong>web app</strong> this is true for the front end of the app, but only in a very
+<p>In a <strong>web app</strong> this is true for the frontend of the app, but only in a very
 limited sense: If you set a variable in javascript it will only
 be available for this one user in this one webbrowser.
 But if the user leaves your app by typing in a new URL,
@@ -139,7 +139,7 @@ curl -v --cookie "_kanban_session=bWdwc...d4c; path=/; HttpOnly" https://kanban-
 
 </pre>
 </div>
-<p>This makes it all the more important that the cookie not be stolen!
+<p>This makes it all the more important that the cookie can not be stolen!
 Remember to <strong>always use https</strong> if your app authenticates users at
 any point.</p>
 </div>
@@ -158,9 +158,9 @@ multiple web servers.</p>
 <div class='slide'>
 <a class='slide_break' href='rails_authentication.html#slide-10'>▻</a>
 
-<p>Even without a Login, you can use the session to track a user
+<p>Even without a login, you can use the session to track a user
 as they browse through the web app. For example you could count
-now many requests they have already made:</p>
+how many requests they have already made:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # in app/controllers/application_controller.rb
@@ -192,7 +192,7 @@ for more details.</p>
 <h3 id="authentication">2 Authentication</h3>
 <p>The session lets you recognize the same user from one HTTP
 request to the next. But it does not - in itself - help to authenticate users.</p>
-<p>The most common way to achieve Authentication is through passwords.</p>
+<p>The most common way to achieve authentication is through passwords.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='rails_authentication.html#slide-12'>▻</a>
@@ -224,7 +224,8 @@ User.create({username: "mariam", password: 'badpassword123' })
 
 </pre>
 </div>
-<p>in the rails console, the password will be encrypted, and only the encrypted version will be stored in the database, in attribut <code>password_digest</code>.</p>
+<p>The password will be encrypted, and only the encrypted version
+will be stored in the database, in attribute <code>password_digest</code>.</p>
 <p>It will add the <code>authenticate</code> method to your User model:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -296,7 +297,7 @@ end
 <p>There are some Rails convention around this:</p>
 <ul>
 <li>the current user should be accessible in controllers and views via a helper method <code>current_user</code>,</li>
-<li>login in and login out is seen as "creating a session" and "deleting a session" and handled by restful routes,</li>
+<li>logging in and logging out are seen as "creating a session" and "deleting a session" and handled by restful routes,</li>
 <li>there is a session controller and some views, but no session model!</li>
 </ul>
 </div>
@@ -317,7 +318,7 @@ end
 <div class='slide'>
 <a class='slide_break' href='rails_authentication.html#slide-18'>▻</a>
 <h4 id="controller">3.2 Controller</h4>
-<p>and the session controller to handle this routes:</p>
+<p>And the session controller to handle these routes:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 rails g controller sessions new create destroy
@@ -447,7 +448,7 @@ to display different things for logged in users and non logged in visitors:</p>
 <div class='slide'>
 <a class='slide_break' href='rails_authentication.html#slide-23'>▻</a>
 <h3 id="better-login-ux">4 Better Login UX</h3>
-<p>If your app deals with more then just one or two users
+<p>If your app deals with more than just one or two users
 that you set up "by hand", the gem <code>devise</code> can help you a lot.
 It can makes your logins ...</p>
 <ul>
@@ -494,16 +495,16 @@ other authentication providers. The <a href="https://github.com/intridea/omniaut
 is quite impressive. Think carefully about what services your users
 are using, and which services might be useful to your app: could
 you use Dropbox to authenticate, and also to deliver data directly
-to your users dropbox? Would it make sense to use facebook or twitter and also
+to your user's dropbox? Would it make sense to use Facebook or Twitter and also
 send out messages that way? Or are your users very privacy conscious and
-want to avoid facebook and google?</p>
+want to avoid Facebook and Google?</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='rails_authentication.html#slide-26'>▻</a>
 <h4 id="providers">5.1 Providers</h4>
 <p>You will need the Gem <code>omniauth</code> and
 additional gems for each provider. For example if you
-want to use both github and stackoverflow for your web app geared
+want to use both Github and Stackoverflow for your web app geared
 towards developers, you would need three gems:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -529,9 +530,9 @@ You have to specify the URL of your web app, and a callback URL:</p>
 <p>You get back two pieces of information: a key and a secret.
 In Twitter this looks like this:</p>
 <p><img src="images/oauth-app-secret.png" srcset='images/oauth-app-secret.png 1x, images/oauth-app-secret@2x.png 2x' alt="facebook app configuration"></p>
-<p>(A word of warning: if you change the configuration in <code>developers.facebook.com</code> the
+<p>(A word of warning: if you change the configuration in <code>developers.facebook.com</code> then
 you will get a new key and secret!)</p>
-<p>You need add the key and the secret to the configuration of omniauth:</p>
+<p>You need to add the key and the secret to the configuration of omniauth:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # config/initializers/omniauth.rb:
@@ -600,9 +601,9 @@ rails g model user provider uid token secret
 </pre>
 </div>
 <p>If you want to enable that one user can log in via different
-providers and still be recognised as the same user you need to
+providers and still be recognised as the same user, you need to
 create a user model with a has_many relationship to an authentiation model
-that stores provider uid.</p>
+that stores provider and uid.</p>
 <p>But we will stick to the simple version:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -623,8 +624,8 @@ end
 <a class='slide_break' href='rails_authentication.html#slide-31'>▻</a>
 <h4 id="login-and-logout">5.3 Login and Logout</h4>
 <p>Omniauth is a "Rack Middleware". That means it is somewhat independent
-of the rails app you are building. It has access to the HTTP request, will
-analyze that, and pass on data to your rails app through the
+of the Rails app you are building. It has access to the HTTP request, will
+analyze that, and pass on data to your Rails app through the
 environment variable <code>omniauth.auth</code>.</p>
 <p>To log in you send the user to <code>/auth/:provider</code> (e.g. <code>/auth/facebook</code>).</p>
 <div class="code_container">
@@ -643,8 +644,8 @@ environment variable <code>omniauth.auth</code>.</p>
 <div class='slide'>
 <a class='slide_break' href='rails_authentication.html#slide-32'>▻</a>
 
-<p>This URL is handled by omniauth, not by your rails app. omniauth will send
-the users browser on to a URL at the provider. There the user can log in. After
+<p>This URL is handled by omniauth, not by your Rails app. Omniauth will send
+the user's browser on to a URL at the provider. There the user can log in. After
 that the browser is redirected to your app again, to <code>/auth/:provider/callback</code></p>
 <p>This URL you need to map to a session controller:</p>
 <div class="code_container">

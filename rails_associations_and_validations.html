@@ -245,7 +245,7 @@ need to be equal.</p>
 <div class='slide'>
 <a class='slide_break' id='slide-8' href='slides_rails_associations_and_validations.html#slide-8'>▻</a>
 <h4 id="validations-vs-database-constraints">1.4 Validations vs Database Constraints</h4>
-<p>Validations are checked by ruby code <strong>before</strong> data is inserted
+<p>Validations are checked by Ruby code <strong>before</strong> data is inserted
 in the database. If you want to ensure that the e-mails of your users
 are unique, you can do so in Rails, by adding</p>
 <div class="code_container">
@@ -263,7 +263,7 @@ returning a false value from <code>save</code> and setting the <code>errors</cod
 <h4 id="validations-and-forms">1.5 Validations and Forms</h4>
 <p>Later, when we learn about Views and Forms, you will see
 that the save / validate / errors lifecycle fits perfectly with
-the way that forms a handled in Rails. See <a href="/rails_view_and_controller.html">Rails: View and Controller</a></p>
+the way that forms are handled in Rails. See <a href="/rails_view_and_controller.html">Rails: View and Controller</a></p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-10' href='slides_rails_associations_and_validations.html#slide-10'>▻</a>
@@ -320,7 +320,7 @@ $ rails generate migration AddZombieToTweets zombie:references
 <div class='slide'>
 <a class='slide_break' id='slide-13' href='slides_rails_associations_and_validations.html#slide-13'>▻</a>
 <h4 id="model">2.3 Model</h4>
-<p>You have to declare association in both models, by
+<p>You have to declare associations in both models, by
 editing the two files in <code>app/models/*.rb</code>.</p>
 <p>1:n associations are declared with <code>belongs_to</code> and <code>has_many</code>:</p>
 <div class="code_container">
@@ -337,7 +337,7 @@ end
 
 </pre>
 </div>
-<p>notice the plural used with <code>has_many</code> and the singular used with <code>belongs_to</code>.</p>
+<p>Notice the plural used with <code>has_many</code> and the singular used with <code>belongs_to</code>.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-14' href='slides_rails_associations_and_validations.html#slide-14'>▻</a>
@@ -357,7 +357,7 @@ end
 
 </pre>
 </div>
-<p>again: notice the plural <code>tweets</code> and singular <code>zombie</code>.</p>
+<p>Again: notice the plural <code>tweets</code> and singular <code>zombie</code>.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-15' href='slides_rails_associations_and_validations.html#slide-15'>▻</a>

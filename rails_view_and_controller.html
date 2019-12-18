@@ -316,20 +316,20 @@ DELETE /zombies/:id      zombies_controller  def destroy
 adds the necessary views.  This way we end up with full CRUD (create, read, update, delete)
 capability for zombies:</p>
 <p><img src="images/rest.png" alt="scaffold"></p>
-<p>Do adapt the views to better fit your users needs, but 
+<p>Do adapt the views to better fit your user's needs, but 
 try to keep the underlying routes the same!</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-13' href='slides_rails_view_and_controller.html#slide-13'>▻</a>
 <h3 id="form-helpers">4 Form Helpers</h3>
-<p>When you write a Rails App, you never write <code>form</code>- or <code>input</code>-Tags by hand.
+<p>When you write a Rails App, you never write <code>form</code>- or <code>input</code>-tags by hand.
 You always use form helpers to contruct the HTML for you.  You gain a lot of
 functionality by using the helpers, but you also need to understand how they work.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-14' href='slides_rails_view_and_controller.html#slide-14'>▻</a>
 <h4 id="creating-the-form-tag">4.1 Creating the Form Tag</h4>
-<p>Let's look at a very simple edit-form for a Resource called user:</p>
+<p>Let's look at a very simple edit-form for a resource called user:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 &lt;%= form_for(@user) do |f| %&gt;
@@ -405,7 +405,7 @@ Processing by UsersController#update as HTML
 
 </pre>
 </div>
-<p>Actually the Parameter came in through two separate channels: the data for the
+<p>Actually the Parameters came in through two separate channels: the data for the
 user came through the body of the HTTP request, the <code>id</code> came in as part of the URL.
 Observe the URI Pattern in the output of <code>rails routes</code>:</p>
 <div class="code_container">

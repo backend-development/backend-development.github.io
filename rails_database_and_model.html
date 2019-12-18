@@ -190,7 +190,7 @@ not the behaviour (see "Business Logic" above).</p>
 objects into a relational database does not work all that well.
 This problem is called the
 <a href="https://en.wikipedia.org/wiki/Object-relational_impedance_mismatch">Object-relational impedance mismatch</a>
-and has been discussed since the early 1980ies.</p>
+and has been discussed since the early 1980s.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-4' href='slides_rails_database_and_model.html#slide-4'>▻</a>
@@ -306,7 +306,7 @@ use a generator that will help us generate some code.</p>
 <p>This will generate a Model <code>Tweet</code> and a migration to create table <code>tweets</code>.</p>
 <p>Have a look at the migration that was generated in <code>db/migrate/*create_tweets.rb</code>.
 You can edit this migration now - but not later! Run the migration on the command line with <code>rails db:migrate</code>. This will run the appropriate <code>CREATE TABLE</code> statement in your database.</p>
-<p>Look at the model generated in file <code>app/models/tweet.rb</code>. Add validations, associations to other model and the business logic here.</p>
+<p>Look at the model generated in file <code>app/models/tweet.rb</code>. Add validations, associations to other models and the business logic here.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-12' href='slides_rails_database_and_model.html#slide-12'>▻</a>
@@ -321,7 +321,7 @@ they will not be able to use the code.</p>
 <a class='slide_break' id='slide-13' href='slides_rails_database_and_model.html#slide-13'>▻</a>
 
 <p>A "Migration" is a (small) change in the database schema. The change is
-described in ruby and saved to a file in the folder <code>db/migrations</code>.
+described in Ruby and saved to a file in the folder <code>db/migrations</code>.
 The files are identified by a timestamp and a unique name, for example:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -428,7 +428,7 @@ is written in rails:</p>
 <div class='slide'>
 <a class='slide_break' id='slide-17' href='slides_rails_database_and_model.html#slide-17'>▻</a>
 <h3 id="the-model">4 The Model</h3>
-<p>Look at the model generated in file <code>app/models/tweet.rb</code>. Add validations, associations to other model and the business logic here.</p>
+<p>Look at the model generated in file <code>app/models/tweet.rb</code>. Add validations, associations to other models and the business logic here.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-18' href='slides_rails_database_and_model.html#slide-18'>▻</a>
@@ -662,7 +662,7 @@ Tweet.where("created_at &gt; '2018-10-01'").
 
 </pre>
 </div>
-<p>(normally the dot is placed in front of the method when chaining. here
+<p>(Normally the dot is placed in front of the method when chaining. Here
 it is placed at the end, to enable copy-and-paste to the Rails console)</p>
 </div>
 <div class='slide'>

@@ -37,12 +37,12 @@
 <div class='slide'>
 <a class='slide_break' href='ruby_commandline.html#slide-1'>▻</a>
 <h2>Ruby</h2>
-<p>This guide will focus on ruby - the language - alone.</p>
+<p>This guide will focus on Ruby - the language - alone.</p>
 <p>After finishing this guide you will</p>
 <ul>
-<li>have an overview of rubys type system</li>
-<li>be able to use list processing functions in ruby</li>
-<li>be able to use blocks and <code>yield</code> in ruby.</li>
+<li>have an overview of Ruby's type system</li>
+<li>be able to use list processing functions in Ruby</li>
+<li>be able to use blocks and <code>yield</code> in Ruby.</li>
 </ul>
 <div class="repo"><p>Fork the <a href="https://github.com/backend-development/learn_ruby">learn_ruby</a> repository to try some test driven ruby learning</p></div>
 </div>
@@ -76,13 +76,13 @@ called on it. The result is an Object of class String.</p>
 <a class='slide_break' href='ruby_commandline.html#slide-4'>▻</a>
 <h4 id="what-is-ruby-on-rails">1.1 What is Ruby on Rails</h4>
 <p><img src="images/Ruby_on_Rails_logo.png" alt="Ruby on Rails Logo"></p>
-<p>Ruby on Rails is a web framework written in ruby.
+<p>Ruby on Rails is a web framework written in Ruby.
 It was created by David Heinemeier Hansson ('DHH') starting in 2005.</p>
 <p>Rails is famous for the high productivity it gives to developers. It
 is often used in startups, where speed of delivery is very important.
 Rails moves fast, new versions with major improvement appear about every 18
-months. The rails community values speed of development, DRY code, testing,
-version control, ... when you learn rails you also pick up a whole culture
+months. The Rails community values speed of development, DRY code, testing,
+version control, ... when you learn Rails you also pick up a whole culture
 surrounding it.</p>
 <p>Some sites built with Rails are: <a href="https://github.com">GitHub</a> and <a href="https://gitlab.com">GitLab</a>, <a href="https://shopify.com">Shopify</a>, <a href="https://airbnb.com">Airbnb</a>, <a href="https://www.twitch.tv/">Twitch</a>, <a href="https://soundcloud.com">SoundCloud</a>, <a href="https://squareup.com/">Square</a> and of course <a href="https://basecamp.com">Basecamp</a>, DHHs own product.</p>
 </div>
@@ -103,10 +103,10 @@ and frameworks?</p>
 <div class='slide'>
 <a class='slide_break' href='ruby_commandline.html#slide-6'>▻</a>
 <h3 id="ruby-basics">2 Ruby Basics</h3>
-<p>To get to know ruby you don't need to write
+<p>To get to know Ruby you don't need to write
 whole programes. You can start out with <strong>interactive ruby - irb</strong>.
-When you start irb you get a command line to type in ruby code. When
-you press enter the code is evaluted immediatly and you get the result.
+When you start irb you get a command line to type in Ruby code. When
+you press enter the code is evaluated immediately and you get the result.
 Use the commands <code>exit</code> or <code>quit</code> or the key combination CONTROL-D to get out.</p>
 <p>In this guide we will show code run in irb by marking the prompt as <code>&gt;&gt;</code> and
 the result as <code>=&gt;</code>, for example:</p>
@@ -122,9 +122,9 @@ the result as <code>=&gt;</code>, for example:</p>
 <a class='slide_break' href='ruby_commandline.html#slide-7'>▻</a>
 <h4 id="some-code-conventions">2.1 Some code conventions</h4>
 <p>Try to stick to <a href="https://github.com/styleguide/ruby">github's style for ruby</a>.</p>
-<p>When you chose names for your objects, classes and methods
+<p>When you choose names for your objects, classes and methods
 you should stick to the following conventions to avoid
-confusing other ruby developers:</p>
+confusing other Ruby developers:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 the_variable = SomeClass.new
@@ -132,7 +132,7 @@ the_variable = SomeClass.new
              # classes in capital CamelCase
 
              # method names are written in snake_case
-a = b.sugar  # a method the returns something
+a = b.sugar  # a method that returns something
 b.sweet?     # a method that returns true or false
              # ends in a question mark
 b.sugar!     # a method that changes its object
@@ -155,7 +155,7 @@ puts "less code"
 <div class='slide'>
 <a class='slide_break' href='ruby_commandline.html#slide-8'>▻</a>
 <h2>Data Types</h2>
-<p>All of rubys basic data types are Classes.</p>
+<p>All of Ruby's basic data types are Classes.</p>
 <ul>
 <li>nil</li>
 <li>Numeric, Integer, Fixnum, Bignum, Float <code># are converted automatically to each other</code>
@@ -229,7 +229,7 @@ s = %Q{
 <div class='slide'>
 <a class='slide_break' href='ruby_commandline.html#slide-10'>▻</a>
 <h4 id="boolean-values">2.3 Boolean Values</h4>
-<p>In ruby only <code>false</code> and <code>nil</code> are treated as false. This might
+<p>In Ruby only <code>false</code> and <code>nil</code> are treated as false. This might
 be confusing for programmers used to other languages with
 more complex rules for truthyness:</p>
 <div class="code_container">
@@ -261,13 +261,13 @@ puts '"false" (the string) is true' if "false"
 </pre>
 </div>
 <p>This syntax should be familiar to you if
-you understand english. (yes, that's an english
+you understand English. (yes, that's an English
 sentence using the same syntax).</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='ruby_commandline.html#slide-12'>▻</a>
 <h4 id="boolean-operators">2.5 Boolean Operators</h4>
-<p>When ruby evaluates a boolean operator,
+<p>When Ruby evaluates a boolean operator,
 it does as little work as possible. It
 stops evaluation as soon as the result is clear:</p>
 <div class="code_container">
@@ -351,7 +351,7 @@ or if you need distinct constants, when the value is not important.</p>
 <div class='slide'>
 <a class='slide_break' href='ruby_commandline.html#slide-15'>▻</a>
 <h4 id="methods">3.2 Methods</h4>
-<p>Methods in ruby return the last expression - even
+<p>Methods in Ruby return the last expression - even
 if no explicit <code>return</code> statement is given.</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -367,7 +367,7 @@ f(1,42)  # returns "x"
 <div class='slide'>
 <a class='slide_break' href='ruby_commandline.html#slide-16'>▻</a>
 <h4 id="arrays">3.3 Arrays</h4>
-<p>There are several ways of writing literal arrays in ruby.
+<p>There are several ways of writing literal arrays in Ruby.
 The first one looks like JSON:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -417,14 +417,14 @@ h[t] = "recently"
 
 </pre>
 </div>
-<p>The data structure behind a ruby Hash is more complex
-than an array: The key is sent though a function (called hash function)
+<p>The data structure behind a Ruby Hash is more complex
+than an array: The key is sent through a function (called hash function)
 that returns a number. This number is used as the index
 for an array. If the hash function for two keys is the
 same a linked list is built.</p>
 <p><img src="images/hash_table.svg" alt="How Hash(tabl)es work"></p>
-<p>This datastructure seems like an serious waste of memory
-at first. But it offers the following intresting features:</p>
+<p>This datastructure seems like a serious waste of memory
+at first. But it offers the following interesting features:</p>
 <ul>
 <li>looking up a key can be accomplished in constant time</li>
 <li>inserting a new key / value pair can be accomplished in constant time</li>
@@ -437,8 +437,8 @@ Hashes in Wikipedia:</p>
 </ul>
 <p>(If you don't know what "in constant time" means above, you
 should learn more about the analysis of algorithms. e.g. by
-taking a algorithms and data strcture course as offered in the second
-semester of most computer science programs.)</p>
+taking an algorithms and data structure course as offered in the second
+semester of most computer science programs.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='ruby_commandline.html#slide-18'>▻</a>
@@ -530,7 +530,7 @@ this line to to top of a ruby file:</p>
 <div class='slide'>
 <a class='slide_break' href='ruby_commandline.html#slide-21'>▻</a>
 <h3 id="enumerables-and-piping-data">6 Enumerables and Piping Data</h3>
-<p>When working with a list of values ruby
+<p>When working with a list of values Ruby
 helps you think about data on a new, more abstract level
 with Enumerables:</p>
 </div>
@@ -578,7 +578,7 @@ languages.sort.first(3)
 </pre>
 </div>
 <p>The elements of the array are piped into the sort-method, which again outputs a list
-of elements. Theses are piped into first, which only returns the first three and discards
+of elements. These are piped into first, which only returns the first three and discards
 the rest. The result is a list of 3 elements.</p>
 <p>Here are some simple methods you can use on Arrays (and other Enumerables)
 that return a new Enumerable. You can connect theses methods to each other:</p>
@@ -694,10 +694,10 @@ end
 <a class='slide_break' href='ruby_commandline.html#slide-26'>▻</a>
 <h3 id="summary">8 Summary</h3>
 <p>You now know about the basic data types, about enumerables and about blocks -<br>
-features that distinguish ruby from other scripting languages.</p>
-<p>If you want to get more pracitical with ruby, you can
+features that distinguish Ruby from other scripting languages.</p>
+<p>If you want to get more pracitical with Ruby, you can
 do the
-<a href="https://github.com/backend-development/learn_ruby">Learn Ruby</a> test driven ruby exercises.</p>
+<a href="https://github.com/backend-development/learn_ruby">Learn Ruby</a> test driven Ruby exercises.</p>
 <p>This should be a good enough basis to start with Rails.<br>
 But do take every
 opportunity you get to learn more about Ruby itself: if you are unsure about
