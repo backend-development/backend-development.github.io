@@ -594,6 +594,34 @@ It can makes your logins ...</p>
 <li>
 <code>before_action :authenticate_user!</code> # to make a controller only accessible to authenticated users</li>
 </ul>
+<p>It also adds new routes to your app:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+                  Prefix Verb   URI Pattern              Controller#Action
+        new_user_session GET    /users/sign_in           devise/sessions#new
+            user_session POST   /users/sign_in           devise/sessions#create
+    destroy_user_session DELETE /users/sign_out          devise/sessions#destroy
+       new_user_password GET    /users/password/new      devise/passwords#new
+      edit_user_password GET    /users/password/edit     devise/passwords#edit
+           user_password PATCH  /users/password          devise/passwords#update
+                         PUT    /users/password          devise/passwords#update
+                         POST   /users/password          devise/passwords#create
+cancel_user_registration GET    /users/cancel            devise/registrations#cancel
+   new_user_registration GET    /users/sign_up           devise/registrations#new
+  edit_user_registration GET    /users/edit              devise/registrations#edit
+       user_registration PATCH  /users                   devise/registrations#update
+                         PUT    /users                   devise/registrations#update
+                         DELETE /users                   devise/registrations#destroy
+                         POST   /users                   devise/registrations#create
+   new_user_confirmation GET    /users/confirmation/new  devise/confirmations#new
+       user_confirmation GET    /users/confirmation      devise/confirmations#show
+                         POST   /users/confirmation      devise/confirmations#create
+
+</pre>
+</div>
+<p>You will propably want to link to <code>new_user_session_path</code> for login,
+<code>destroy_user_session</code> for logout and <code>new_user_registration</code> for registering
+a new user.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-25' href='slides_rails_authentication.html#slide-25'>▻</a>
