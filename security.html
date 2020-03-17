@@ -558,12 +558,69 @@ https://my-schedule.at/calendar/39240e9f-ae09-4e95-9fd0-a712035c8ad7 ...
 <h4 id="set-cors-for-your-api">6.4 set CORS for your API</h4>
 <p>Browsers restrict cross-origin HTTP requests initiated by scripts. For example, <strong>XMLHttpRequest</strong> and the <strong>Fetch API</strong> follow the same-origin policy. This means that a web application using those APIs can only request HTTP resources from the same origin the application was loaded from, unless the response <strong>from the other origin</strong> includes the right CORS headers.</p>
 <p><img src="images/cors_principle.png" srcset='images/cors_principle.png 1x, images/cors_principle@2x.png 2x' alt="cors principle"></p>
+<p>(Text and Image originally from <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">MDN</a> by <a href="https://wiki.developer.mozilla.org/en-US/docs/Web/HTTP/CORS%24history">many contributres</a> is licensed under <a href="https://creativecommons.org/licenses/by-sa/2.5/">CC BY-SA 2.5</a></p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-28' href='slides_security.html#slide-28'>▻</a>
 
-<p>If you want to make your API available to frontends on other origins you
-can use the <code>rack-cors</code> gem:</p>
+<p>In the most simple case, when doing a cross-origin request:</p>
+<ul>
+<li>the client send a <code>Origin</code> header </li>
+<li>the server responds with a <code>Access-Control-Allow-Origin</code> header</li>
+</ul>
+<p>for example:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+GET /resources/data.json HTTP/1.1
+Host: bar.other
+Origin: https://foo.example
+
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: *
+Content-Type: application/json
+
+</pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-29' href='slides_security.html#slide-29'>▻</a>
+
+<p>If you try to fetch a ressource cross-origin and no
+is set, an error occurs:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+fetch("https://iou-brigitte.herokuapp.com/users.json")
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(data) {
+    console.log(data);
+  });  
+
+</pre>
+</div>
+<p><img src="/images/cors-error.png" srcset='/images/cors-error.png 1x, /images/cors-error@2x.png 2x' alt=""></p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-30' href='slides_security.html#slide-30'>▻</a>
+
+<p>After setting the right Headers for the HTTP Response, 
+the request goes through:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Methods: GET
+
+</pre>
+</div>
+<p><img src="/images/cors-ok.png" srcset='/images/cors-ok.png 1x, /images/cors-ok@2x.png 2x' alt=""></p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-31' href='slides_security.html#slide-31'>▻</a>
+
+<p>In Rails you
+can use the <code>rack-cors</code> gem to set the Header in middleware:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Gemfile
@@ -577,20 +634,24 @@ gem 'rack-cors'
 # config/initializers/cors.rb
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'localhost:3000', '127.0.0.1:3000', 'https://my-frontend.org'
-    resource '/api/v1/*',
-      methods: %i(get post put patch delete options head),
-      max_age: 600
+    origins '*'
+    resource '/*', headers: :any, methods: :get
   end
 
   allow do
-    origins '*'
-    resource '/public/*', headers: :any, methods: :get
+    origins 'localhost:3000', '127.0.0.1:3000', 'https://my-frontend.org'
+    resource '/api/v1/*',
+      methods: %i(get post put patch delete options head)
   end
 end
 
 </pre>
 </div>
+<p>In this example get-requests are allowed for all origins,
+while using the full api is only allowed for three specific domains.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-32' href='slides_security.html#slide-32'>▻</a>
 
 <ul>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">MDN: CORS</a></li>
@@ -598,7 +659,7 @@ end
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-29' href='slides_security.html#slide-29'>▻</a>
+<a class='slide_break' id='slide-33' href='slides_security.html#slide-33'>▻</a>
 <h3 id="security-misconfiguration">7 Security Misconfiguration</h3>
 <blockquote>
 <p>Security misconfiguration is a result of insecure default configurations, incomplete or ad hoc configurations, open cloud storage, misconfigured HTTP headers, and verbose error messages containing sensitive information. Not only must all operating systems, frameworks, libraries, and applications be securely configured, but they must be patched/upgraded in a timely fashion. <a href="https://www.owasp.org/index.php/Top_10-2017_A6-Security_Misconfiguration">OWASP Wiki</a></p>
@@ -612,7 +673,7 @@ end
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-30' href='slides_security.html#slide-30'>▻</a>
+<a class='slide_break' id='slide-34' href='slides_security.html#slide-34'>▻</a>
 <h4 id="use-environment-variables">7.1 Use Environment Variables</h4>
 <p>The files <code>config/database.yml</code> and <code>config/secrets.yml</code> should not be added
 to the repository - unless you extract out all the secrets into environment
@@ -646,7 +707,7 @@ production:
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-31' href='slides_security.html#slide-31'>▻</a>
+<a class='slide_break' id='slide-35' href='slides_security.html#slide-35'>▻</a>
 <h4 id="handling-secrets-and-credentials">7.2 Handling Secrets and Credentials</h4>
 <p>Rails 5.2 and later generates two files to handle credentials (passwords, api keys, ...):</p>
 <ul>
@@ -662,7 +723,7 @@ production:
 access keys for external APIs.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-32' href='slides_security.html#slide-32'>▻</a>
+<a class='slide_break' id='slide-36' href='slides_security.html#slide-36'>▻</a>
 
 <p>The credentials are accessible in
 the running Rails app via <code>Rails.application.credentials</code>.</p>
@@ -686,14 +747,14 @@ Rails.application.credentials.some_api_key!
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-33' href='slides_security.html#slide-33'>▻</a>
+<a class='slide_break' id='slide-37' href='slides_security.html#slide-37'>▻</a>
 <h3 id="cross-site-scripting-xss">8 Cross-Site Scripting (XSS)</h3>
 <blockquote>
 <p>XSS flaws occur whenever an application includes untrusted data in a new web page without proper validation or escaping, or updates an existing web page with user-supplied data using a browser API that can create HTML or JavaScript. XSS allows attackers to execute scripts in the victim's browser which can hijack user sessions, deface web sites, or redirect the user to malicious sites. <a href="https://www.owasp.org/index.php/Top_10-2017_A7-Cross-Site_Scripting_(XSS)">OWASP Wiki</a></p>
 </blockquote>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-34' href='slides_security.html#slide-34'>▻</a>
+<a class='slide_break' id='slide-38' href='slides_security.html#slide-38'>▻</a>
 <h4 id="use-a-content-security-policy-csp">8.1 Use a Content Security Policy (CSP)</h4>
 <p>In Rails 5.2 and later you dan configure a
 <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy">Content Security Policy</a>
@@ -741,7 +802,7 @@ see <a href="https://edgeguides.rubyonrails.org/security.html#content-security-p
 <p>If you want to handle violation reports, you need to set up a model, controller and route <a href="https://bauland42.com/ruby-on-rails-content-security-policy-csp/#cspviolationreports">as described here</a>.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-35' href='slides_security.html#slide-35'>▻</a>
+<a class='slide_break' id='slide-39' href='slides_security.html#slide-39'>▻</a>
 <h4 id="escape-for-the-correct-context">8.2 Escape for the correct context:</h4>
 <p>erb automatically escapes for HTML:</p>
 <div class="code_container">
@@ -779,7 +840,7 @@ it is easiest to use view helpers like <code>tag</code> and <code>content_tag</c
 <p>See <a href="https://brakemanpro.com/2017/09/08/cross-site-scripting-in-rails">XSS in the brakeman documentation</a></p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-36' href='slides_security.html#slide-36'>▻</a>
+<a class='slide_break' id='slide-40' href='slides_security.html#slide-40'>▻</a>
 <h3 id="insecure-deserialization">9 Insecure Deserialization</h3>
 <blockquote>
 <p>Insecure deserialization often leads to remote code execution. Even if deserialization flaws do not result in remote code execution, they can be used to perform attacks, including replay attacks, injection attacks, and privilege escalation attacks. <a href="https://www.owasp.org/index.php/Top_10-2017_A8-Insecure_Deserialization">OWASP Wiki</a></p>
@@ -787,7 +848,7 @@ it is easiest to use view helpers like <code>tag</code> and <code>content_tag</c
 <p>Brakeman will warn about <a href="https://brakemanscanner.org/docs/warning_types/unsafe_deserialization/index.html">Unsafe Deserialization</a></p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-37' href='slides_security.html#slide-37'>▻</a>
+<a class='slide_break' id='slide-41' href='slides_security.html#slide-41'>▻</a>
 <h3 id="using-components-with-known-vulnerabilities">10 Using Components with Known Vulnerabilities</h3>
 <blockquote>
 <p>Components, such as libraries, frameworks, and other software modules, run with the same privileges as the application. If a vulnerable component is exploited, such an attack can facilitate serious data loss or server takeover. Applications and APIs using components with known vulnerabilities may undermine application defenses and enable various attacks and impacts. <a href="https://www.owasp.org/index.php/Top_10-2017_A9-Using_Components_with_Known_Vulnerabilities">OWASP Wiki</a></p>
@@ -820,7 +881,7 @@ This way no user credentials will every be sent to <code>code.jquery.com</code>)
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-38' href='slides_security.html#slide-38'>▻</a>
+<a class='slide_break' id='slide-42' href='slides_security.html#slide-42'>▻</a>
 <h3 id="insufficient-logging-monitoring">11 Insufficient Logging&amp;Monitoring</h3>
 <blockquote>
 <p>Insufficient logging and monitoring, coupled with missing or ineffective integration with incident response, allows attackers to further attack systems, maintain persistence, pivot to more systems, and tamper, extract, or destroy data. Most breach studies show time to detect a breach is over 200 days, typically detected by external parties rather than internal processes or monitoring. <a href="https://www.owasp.org/index.php/Top_10-2017_A10-Insufficient_Logging%26Monitoring">OWASP Wiki</a></p>
@@ -828,7 +889,7 @@ This way no user credentials will every be sent to <code>code.jquery.com</code>)
 <p>This is really outside the scope of the backend framework.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-39' href='slides_security.html#slide-39'>▻</a>
+<a class='slide_break' id='slide-43' href='slides_security.html#slide-43'>▻</a>
 <h3 id="cross-site-request-forgery-csrf">12 Cross Site Request Forgery (CSRF)</h3>
 <p>This security problem used to be No 8 on the list, but was no longer listed in the 2017.</p>
 <blockquote>
@@ -853,7 +914,7 @@ token as a default header for Ajax calls in your library.</p>
 <p>Note that cross-site scripting (XSS) vulnerabilities bypass all CSRF protections. XSS gives the attacker access to all elements on a page, so they can read the CSRF security token from a form or directly submit the form.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-40' href='slides_security.html#slide-40'>▻</a>
+<a class='slide_break' id='slide-44' href='slides_security.html#slide-44'>▻</a>
 <h3 id="see-also">13 See Also</h3>
 <ul>
 <li><a href="https://guides.rubyonrails.org/security.html">Rails Guide: Security</a></li>
