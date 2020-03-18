@@ -592,23 +592,14 @@ end
 
 </pre>
 </div>
-<p>we will be using the <code>active_model_serializers</code> gem for creating jsonapi:</p>
+<p>we will be using the <code>fast_jsonapi</code> gem for creating JSON output that compllies to jsonapi:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-bundle add 'active_model_serializers'
+bundle add 'fast_jsonapi'
 
 </pre>
 </div>
-<p>this gem needs an initizalizer <code>config/initializers/active_model_serializers.rb</code></p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-require 'active_model_serializers/register_jsonapi_renderer'
-
-ActiveModelSerializers.config.adapter = :json_api
-
-</pre>
-</div>
-<p><strong>Beware</strong>: After adding a gem or changing an initializer you
+<p><strong>Beware</strong>: After adding a gem you
 need to restart the rails server!</p>
 </div>
 <div class='slide'>
@@ -658,7 +649,7 @@ is an object with on attribute <code>data</code>:</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='apis.html#slide-30'>▻</a>
-<h4 id="creating-json-with-active-model-serializers">5.2 creating JSON with active_model_serializers</h4>
+<h4 id="creating-json-with-fast-jsonapi">5.2 creating JSON with fast_jsonapi</h4>
 <p>After we defined the routes, we next need to create a controller.
 As we are setting up a new hierarchy of controllers that will only
 concerned with the API, it makes sense to inhert from <code>ActionController::API</code>,
@@ -692,13 +683,22 @@ end
 </div>
 <p>The controller loads the right model, and then calls a <strong>serializer</strong> to
 do the actual rendering of the json data.</p>
-<p>The serializer needs to be defined in a separate file:</p>
+<p>All serializers live in the <code>/app/serializers</code> folder.
+You can generate a serializer from an existing model:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-# app/serializers/api/v1/user_serializer.rb
+rails g serializer User name email
 
-class Api::V1::UserSerializer &lt; ActiveModel::Serializer
-  attributes(:name, :email)
+</pre>
+</div>
+<p>this creates the following code:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+# app/serializers/user_serializer.rb
+
+class UserSerializer
+  include FastJsonapi::ObjectSerializer
+  attributes :name, :email
 end
 
 </pre>
