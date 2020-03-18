@@ -718,7 +718,7 @@ end
 <p>we will be using the <code>active_model_serializers</code> gem for creating jsonapi:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-gem 'active_model_serializers'
+bundle add 'active_model_serializers'
 
 </pre>
 </div>
@@ -731,6 +731,8 @@ ActiveModelSerializers.config.adapter = :json_api
 
 </pre>
 </div>
+<p><strong>Beware</strong>: After adding a gem or changing an initializer you
+need to restart the rails server!</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-29' href='slides_apis.html#slide-29'>▻</a>
