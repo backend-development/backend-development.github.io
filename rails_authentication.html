@@ -129,6 +129,14 @@
 <li><a href="#login-and-logout">Login and Logout</a></li>
 </ul>
 </li>
+<li>
+<a href="#jwt-for-your-api">JWT for your API</a>
+
+<ul>
+<li><a href="#structure-of-a-token">Structure of a Token</a></li>
+<li><a href="#adding-jwt-to-rails">Adding JWT to Rails</a></li>
+</ul>
+</li>
 <li><a href="#further-reading">Further Reading</a></li>
 </ol>
 
@@ -201,7 +209,7 @@ from one HTTP request to the next.</p>
 <ol>
 <li> <strong>HTTP Basic Authentication</strong> according to <a href="https://tools.ietf.org/html/rfc1945#section-11">rfc 1945, section 11</a>: The server sends a <code>WWW-Authenticate: Basic ...</code> header in the first response. The browser asks the user for username and password, and then sends the (hashed) username and password to the server with subsequent request using the HTTP Headers <code>Authorization: Basic ...</code>.</li>
 <li> <strong>HTTP Cookies</strong> according to <a href="https://tools.ietf.org/html/rfc6265">rfc 6265</a>. The server sets the cookie (using the Header 'Set-Cookie'), the client returns the cookie automatically for every subsequent request to the server (using the HTTP Header <code>Cookie</code>).</li>
-<li> <strong>JSON-Token</strong> according to <a href="https://jwt.io/">jwt.io</a> / <a href="https://tools.ietf.org/html/rfc7519">rfc 7519</a> use a can be used in three ways:</li>
+<li> <strong>JSON-Web-Token</strong> according to <a href="https://jwt.io/">jwt.io</a> / <a href="https://tools.ietf.org/html/rfc7519">rfc 7519</a> use a can be used in three ways:</li>
 </ol>
 
 <ul>
@@ -896,7 +904,59 @@ end
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-38' href='slides_rails_authentication.html#slide-38'>▻</a>
-<h3 id="further-reading">6 Further Reading</h3>
+<h3 id="jwt-for-your-api">6 JWT for your API</h3>
+<p>Cookies work best when the only clients are browsers (and not native apps),
+and when the frontend and the backend are hosted on the same domain.</p>
+<p>For more complex scenarios  <strong>JSON-Web-Token</strong> use a can be, as the
+offer the flexibility to use </p>
+<ul>
+<li>HTTP-Headers  <code>Authorization: Bearer ...</code> and <code>WWW-Authenticate: Bearer ...</code>
+</li>
+<li>Parameter in an URL</li>
+<li>POST data</li>
+</ul>
+<p><a href="https://jwt.io/">jwt.io</a> / <a href="https://tools.ietf.org/html/rfc7519">rfc 7519</a></p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-39' href='slides_rails_authentication.html#slide-39'>▻</a>
+<h4 id="structure-of-a-token">6.1 Structure of a Token</h4>
+<p>A JWT consists of three parts: header, payload and signature.
+All three are encoded and concatenated with a dot. The result
+looks like this (if you color-code it):</p>
+<p><img src="images/encoded-jwt3.png" srcset='images/encoded-jwt3.png 1x, images/encoded-jwt3@2x.png 2x' alt=""></p>
+<p>The encoding consists of two steps:  </p>
+<ul>
+<li>with <a href="https://en.wikipedia.org/wiki/Base64#Examples">Base64</a>
+endcoding the input string is converted to a new, longer string of only 64 characters
+that are considered "save".  Three bytes of the original are encoded into 4 bytes in 
+the resulting string.  Base64 encoded strings may contain plus signs and equal signs at the
+end for padding. </li>
+<li>As a second step the plus signs are replaced by minus signs and
+the padding is dropped, resulting in a string that can be used in a URL without problems:</li>
+</ul>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+{ "msg_en": "Hello",
+  "msg_jp": "こんにちは"
+  "msg_de": "Guten Tag" }
+
+eyAibXNnX2VuIjogIkhlbGxvIiwKICAibXNnX2pwIjogIuOBk+OCk+OBq+OBoeOBryIKICAibXNnX2RlIjogIkd1dGVuIFRhZyIgfQ==
+
+eyAibXNnX2VuIjogIkhlbGxvIiwKICAibXNnX2pwIjogIuOBk-OCk-OBq-OBoeOBryIKICAibXNnX2RlIjogIkd1dGVuIFRhZyIgfQ
+
+</pre>
+</div>
+<p>You can use the <a href="https://jwt.io/#debugger-io">JWT Debugger</a> to decode this.</p>
+<p><img src="images/jwt-debugger.png" srcset='images/jwt-debugger.png 1x, images/jwt-debugger@2x.png 2x' alt=""></p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-40' href='slides_rails_authentication.html#slide-40'>▻</a>
+<h4 id="adding-jwt-to-rails">6.2 Adding JWT to Rails</h4>
+<p><code>bundler add jwt</code> and restart the server.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-41' href='slides_rails_authentication.html#slide-41'>▻</a>
+<h3 id="further-reading">7 Further Reading</h3>
 <ul>
 <li>OmniAuth <a href="https://github.com/intridea/omniauth/wiki">wiki</a>
 </li>
