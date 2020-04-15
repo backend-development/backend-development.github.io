@@ -133,6 +133,7 @@
 <a href="#jwt-for-your-api">JWT for your API</a>
 
 <ul>
+<li><a href="#encoding-a-token">Encoding a Token</a></li>
 <li><a href="#structure-of-a-token">Structure of a Token</a></li>
 <li><a href="#adding-jwt-to-rails">Adding JWT to Rails</a></li>
 </ul>
@@ -907,8 +908,8 @@ end
 <h3 id="jwt-for-your-api">6 JWT for your API</h3>
 <p>Cookies work best when the only clients are browsers (and not native apps),
 and when the frontend and the backend are hosted on the same domain.</p>
-<p>For more complex scenarios  <strong>JSON-Web-Token</strong> use a can be, as the
-offer the flexibility to use </p>
+<p><strong>JSON-Web-Token</strong> are used for more complex scenarios.
+They offer the flexibility to use many transmission methods:</p>
 <ul>
 <li>HTTP-Headers  <code>Authorization: Bearer ...</code> and <code>WWW-Authenticate: Bearer ...</code>
 </li>
@@ -919,7 +920,7 @@ offer the flexibility to use </p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-39' href='slides_rails_authentication.html#slide-39'>▻</a>
-<h4 id="structure-of-a-token">6.1 Structure of a Token</h4>
+<h4 id="encoding-a-token">6.1 Encoding a Token</h4>
 <p>A JWT consists of three parts: header, payload and signature.
 All three are encoded and concatenated with a dot. The result
 looks like this (if you color-code it):</p>
@@ -928,9 +929,9 @@ looks like this (if you color-code it):</p>
 <ul>
 <li>with <a href="https://en.wikipedia.org/wiki/Base64#Examples">Base64</a>
 endcoding the input string is converted to a new, longer string of only 64 characters
-that are considered "save".  Three bytes of the original are encoded into 4 bytes in 
-the resulting string.  Base64 encoded strings may contain plus signs and equal signs at the
-end for padding. </li>
+that are considered "save" for transfer via (ASCII only) e-mail.  Three bytes of the original are encoded into 4 bytes in 
+the resulting string.  Base64 encoded strings may contain plus signs and are
+padded with equal signs at the end. </li>
 <li>As a second step the plus signs are replaced by minus signs and
 the padding is dropped, resulting in a string that can be used in a URL without problems:</li>
 </ul>
@@ -951,11 +952,15 @@ eyAibXNnX2VuIjogIkhlbGxvIiwKICAibXNnX2pwIjogIuOBk-OCk-OBq-OBoeOBryIKICAibXNnX2Rl
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-40' href='slides_rails_authentication.html#slide-40'>▻</a>
-<h4 id="adding-jwt-to-rails">6.2 Adding JWT to Rails</h4>
-<p><code>bundler add jwt</code> and restart the server.</p>
+<h4 id="structure-of-a-token">6.2 Structure of a Token</h4>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-41' href='slides_rails_authentication.html#slide-41'>▻</a>
+<h4 id="adding-jwt-to-rails">6.3 Adding JWT to Rails</h4>
+<p><code>bundler add jwt</code> and restart the server.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-42' href='slides_rails_authentication.html#slide-42'>▻</a>
 <h3 id="further-reading">7 Further Reading</h3>
 <ul>
 <li>OmniAuth <a href="https://github.com/intridea/omniauth/wiki">wiki</a>
