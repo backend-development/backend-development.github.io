@@ -814,17 +814,17 @@ brew install chromedriver # for chrome
 <p>There is a generator to create a test skeleton for you.</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ rails generate minitest:feature add_a_star_to_a_user
-      create  test/features/add_a_star_to_a_user_test.rb
+$ rails generate test_unit:system add_a_star_to_a_user
+      create  test/system/add_a_star_to_a_user_test.rb
 
 </pre>
 </div>
-<p>Here's what a freshly-generated feature test looks like:</p>
+<p>Here's what a freshly-generated system test looks like:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 require 'test_helper'
 
-class AddAStarToAUserTest &lt; Capybara::Rails::TestCase
+class AddAStarToAUserTest &lt; ApplicationSystemTestCase
   test "sanity" do
     visit root_path
     assert_content page, "Hello World"
@@ -839,7 +839,7 @@ end
 <div class='slide'>
 <a class='slide_break' href='testing.html#slide-22'>▻</a>
 <h5 id="testing-a-form">5.1 Testing a form</h5>
-<p>Syste tests are black box tests: we only interact with the
+<p>System tests are black box tests: we only interact with the
 app through the web browser, and have no "inside knowledge" about the app.</p>
 <p>Some helper methods:</p>
 <div class="code_container">
