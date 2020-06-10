@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Backend Development Textbook</title>
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />
+
+  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
+
+  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <style>
+
+    .slide img[src$=svg] {
+      width: 100%;
+    }
+  </style>
+</head>
+<body class="guide">
+  <div>
+    <a href="https://github.com/backend-development/backend-development-textbook/"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 10;" src="images/forkme.png" alt="Fork me on GitHub"></a>
+  </div>
+  <div id="topNav">
+    <div class="wrapper">
+      <strong class="more-info-label">More Rails: </strong>
+      <ul class="more-info-links s-hidden">
+        <li class="more-info"><a href="https://guides.rubyonrails.org/">Rails Guides</a></li>
+        <li class="more-info"><a href="https://curriculum.railsbridge.org/docs/">Railsbridge</a></li>
+        <li class="more-info"><a href="https://railscasts.com/">Railscasts</a></li>
+      </ul>
+      <strong class="more-info-label">Beyond Backend: </strong>
+      <ul class="more-info-links s-hidden">
+        <li class="more-info"><a href="https://web-engineering.github.io/">Web Engineering</a></li>
+      </ul>      
+    </div>
+  </div>
+  <div id="header">
+    <div class="wrapper clearfix">
+      <h1><a href="index.html" title="Return to home page">Backend<span> Development</span></a></h1>
+      <ul class="nav">
+        <li><a class="nav-item" href="index.html">Home</a></li>
+        <li class="guides-index guides-index-large">
+          <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
+          <div id="guides" class="clearfix" style="display: none;">
+            <hr />
+              <dl class="L">
+                <dt>Ruby on Rails</dt>
+                <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
+                <dd><a href="rails_database_and_model.html">Database and Models</a></dd>
+                <dd><a href="rails_associations_and_validations.html">Associations and Validations</a></dd>
+                <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
+                <dd><a href="rails_authentication.html">Simple Authentication</a></dd>
+                <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
+                <dd><a href="javascript_and_ajax.html">Javascript and Rails</a></dd>
+                <dd><a href="testing.html">Getting started with Testing</a></dd>
+                <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
+                <dd><a href="rest-api.html">REST API</a></dd>
+                <dd><a href="graphql-api.html">GraphQL API</a></dd>
+                <dd><a href="rails_websockets.html">Websocket in Rails</a></dd>
+                <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
+                <dt>Overarching Concerns</dt>
+                <dd><a href="security.html">Security</a></dd>
+                <dd><a href="adv_authentication.html">Advanced Authentication</a></dd>
+                <dd><a href="caching.html">Caching</a></dd>
+                <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
+                <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
+              </dl>
+              <dl class="R">
+                <dt>Nodes.js</dt>
+                <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
+                <dd><a href="node_basics.html">Node Basics</a></dd>
+                <dd><a href="node_websockets.html">Node Websockets</a></dd>
+                <dd><a href="node_express.html">Node Web App</a></dd>
+                <dd><a href="node_cluster.html">Scaling Node</a></dd>
+              </dl>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="hide" />
+
+  <div id="feature">
+    <div class="wrapper">
+      <h2 id="preheader">no heading</h2>
+                <div id="subCol">
+            <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
+            <ol class="chapters">
+<li><a href="#what-is-an-api">What is an API</a></li>
+<li><a href="#soap-rest-and-graphql">SOAP, REST and GraphQL</a></li>
+<li><a href="#api-layer-is-a-separate-layer">API layer is a separate layer</a></li>
+<li>
+<a href="#graphql">GraphQL</a>
+
+<ul>
+<li><a href="#query-language">Query Language</a></li>
+<li><a href="#introspection-and-playground">Introspection and Playground</a></li>
+<li><a href="#graphql-types">Types</a></li>
+<li><a href="#basic-example">basic example</a></li>
+<li><a href="#how-the-server-handles-the-request">how the server handles the request</a></li>
+<li><a href="#aggragate">aggragate</a></li>
+<li><a href="#pagination">pagination</a></li>
+<li><a href="#mutation-and-response">mutation and response</a></li>
+<li><a href="#errors">errors</a></li>
+<li><a href="#versioning-deprecation">versioning, deprecation</a></li>
+</ul>
+</li>
+<li>
+<a href="#using-rails-to-build-a-graphql-api">Using Rails to build a GraphQL API</a>
+
+<ul>
+<li><a href="#queries-with-arguments">Queries with arguments</a></li>
+<li><a href="#relationships-between-models">Relationships between models</a></li>
+<li><a href="#using-rails-to-build-a-graphql-api-types">Types</a></li>
+</ul>
+</li>
+<li><a href="#see-also">See Also</a></li>
+</ol>
+
+          </div>
+
+      <div class="rest_header">
+        
+      </div>
+    </div>
+  </div>
+
+
+  <div id="container">
+    <div class="wrapper">
+      <div id="mainCol">
+        <div class='slide'><a id='slide-1'></a>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-1' href='slides_graphql-api.html#slide-1'>▻</a>
+<h2>APIs</h2>
+<p>After working through this guide you will:</p>
+<ul>
+<li>know about the thinking behind GraphQL APIs</li>
+<li>be able to configure your existing Rails App to offer a GraphQL API</li>
+</ul>
+
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-2' href='slides_graphql-api.html#slide-2'>▻</a>
+<hr>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-3' href='slides_graphql-api.html#slide-3'>▻</a>
+<h3 id="what-is-an-api">1 What is an API</h3>
+<p>API stands for "Application Programming Interface". It is a set of clearly defined methods
+of communication with a software component. So the objects and methods exposed by a library
+form an API.</p>
+<p>In Web development the acronym API is most
+commonly used when the software component in question runs on a different server on the
+Internet and is accessed via HTTP.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-4' href='slides_graphql-api.html#slide-4'>▻</a>
+<h3 id="soap-rest-and-graphql">2 SOAP, REST and GraphQL</h3>
+<p>Currently three main API styles are used on the Web:</p>
+<ul>
+<li>SOAP, designed 1998 at Mircosoft, uses XML and POST requests to make "remote procedure calls"</li>
+<li>REST, described in 2000, uses different HTTP Methods and Status Messages to access "resources"</li>
+<li>GraphQL, released 2015 by Facebook, uses POST requests, it's only query language and JSON</li>
+</ul>
+<p>This Guide is concerned with GraphQL, there is a second guide for <a href="/rest-api.html">REST</a>. SOAP
+is rearely offered with Rails, but there is a <a href="https://github.com/savonrb/savon">soap client</a> in
+ruby.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-5' href='slides_graphql-api.html#slide-5'>▻</a>
+<h3 id="api-layer-is-a-separate-layer">3 API layer is a separate layer</h3>
+<p>Please note that any of the API styles can be used
+with any backend, frontend, persistance layers: </p>
+<ul>
+<li>You can build a REST in front of a PHP backend using MongoDB as the database and use it from a frontend written with jQuery. </li>
+<li>You can build a GraphQL API for a Rails backend using MySQL as the database and build the frontend with React.</li>
+</ul>
+<p>That's kind of the point of an API: to allow different technologies
+on both sides of the API.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-6' href='slides_graphql-api.html#slide-6'>▻</a>
+<h3 id="graphql">4 GraphQL</h3>
+<p>REST and SOAP APIs are fixed interfaces: each api call has a fixed set of
+arguments and returns a fixed data structure.  All decisions are made when
+specifying the API.</p>
+<p>GraphQL shifts some decisions to the client: through a Query Language the client
+can request data in the specific shape it needs, within the limits that the
+API sets. </p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-7' href='slides_graphql-api.html#slide-7'>▻</a>
+<h4 id="query-language">4.1 Query Language</h4>
+<p>A simple example with two models: a project has many URLs. when querying
+through GraphQL you can request different attributes of both models:</p>
+<p><img src="images/two-queries.gif" srcset='images/two-queries.gif 1x, images/two-queries@2x.gif 2x' alt="1:n relationship in the database"></p>
+<p>Notice how the resulting JSON data mirrors the structure of the query.
+The query language is used for both Queries (getting data) and Mutations (changing
+data).</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-8' href='slides_graphql-api.html#slide-8'>▻</a>
+<h4 id="introspection-and-playground">4.2 Introspection and Playground</h4>
+<p>A GraphQL API can always be queried to give information
+about the possible queries, mutations and types.  This is called
+introspection.</p>
+<p>The GraphQL Playground is a Web App that enables you to
+make Queries and Mutations.  It uses introspection to display
+documentation and to offer autocompletion:</p>
+<video controls autoplay>
+  <source src="images/autocomplete.mov" type="video/quicktime"></source>
+  <source src="images/autocomplete.mp4" type="video/mp4"></source>  
+  ![GraphQL Playground](images/graphql-playground.png)
+</video>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-9' href='slides_graphql-api.html#slide-9'>▻</a>
+<h4 id="graphql-types">4.3 Types</h4>
+<p>A GraphQL delivers JSON, which only has objects, arrays, strings, numbers and null 
+as types.  But GraphQL itself can build a more detailed type system and check
+these types in queries and mutations.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-10' href='slides_graphql-api.html#slide-10'>▻</a>
+<h4 id="basic-example">4.4 basic example</h4>
+<p>example query:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+{
+  cityZone(id: "2349ksj0342" ) {
+    id
+    url
+  }
+}
+
+</pre>
+</div>
+<p>a possible resonse</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+{
+  "data": {
+    "cityZone": {
+      "id": "2349ksj0342",
+      "url": "wuppertal"
+    }
+  }
+}
+
+</pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-11' href='slides_graphql-api.html#slide-11'>▻</a>
+<h4 id="how-the-server-handles-the-request">4.5 how the server handles the request</h4>
+<ul>
+<li>parse query</li>
+<li>validate with schema</li>
+<li>resolve data</li>
+<li>convert response to JSON</li>
+</ul>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-12' href='slides_graphql-api.html#slide-12'>▻</a>
+<h4 id="aggragate">4.6 aggragate</h4>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-13' href='slides_graphql-api.html#slide-13'>▻</a>
+<h4 id="pagination">4.7 pagination</h4>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-14' href='slides_graphql-api.html#slide-14'>▻</a>
+<h4 id="mutation-and-response">4.8 mutation and response</h4>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-15' href='slides_graphql-api.html#slide-15'>▻</a>
+<h4 id="errors">4.9 errors</h4>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-16' href='slides_graphql-api.html#slide-16'>▻</a>
+<h4 id="versioning-deprecation">4.10 versioning, deprecation</h4>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-17' href='slides_graphql-api.html#slide-17'>▻</a>
+<h3 id="using-rails-to-build-a-graphql-api">5 Using Rails to build a GraphQL API</h3>
+<p>To add a GraphQL API to an existing Rails app you need just two gems:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+gem 'graphql'
+group :development do
+  gem 'graphql-rails-generators'
+end
+
+</pre>
+</div>
+<p>The rest of the setup is handled by a generator added by the <code>graphql</code> gem:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+rails generate graphql:install
+       exist  app/graphql/types
+      create  app/graphql/types/.keep
+      create  app/graphql/portfolio_relaunch_schema.rb
+      create  app/graphql/types/base_object.rb
+      create  app/graphql/types/base_argument.rb
+      create  app/graphql/types/base_field.rb
+      create  app/graphql/types/base_enum.rb
+      create  app/graphql/types/base_input_object.rb
+      create  app/graphql/types/base_interface.rb
+      create  app/graphql/types/base_scalar.rb
+      create  app/graphql/types/base_union.rb
+      create  app/graphql/types/query_type.rb
+add_root_type  query
+      create  app/graphql/mutations
+      create  app/graphql/mutations/.keep
+      create  app/graphql/mutations/base_mutation.rb
+      create  app/graphql/types/mutation_type.rb
+add_root_type  mutation
+      create  app/controllers/graphql_controller.rb
+       route  post "/graphql", to: "graphql#execute"
+     gemfile  graphiql-rails
+       route  graphiql-rails
+Gemfile has been modified, make sure you `bundle install`
+
+</pre>
+</div>
+<p>After running bundle and restarting the server you can
+access the graphql playground at <code>http://localhost:3000/graphiql</code>:
+in the left pane you can enter a query, run it, and see the
+result in the middle pane.  The right pane contains documentation
+that was created automatically.</p>
+<p><img src="images/graphql-playground.png" srcset='images/graphql-playground.png 1x, images/graphql-playground@2x.png 2x' alt="GraphQL Playground"></p>
+<p>We have no Queries to run yet.  As a first step we can
+use a generator to create a type from an existing model:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+rails generate gql:model_type Project
+      create  app/graphql/types/project_type.rb
+
+</pre>
+</div>
+<p>Now edit the type to fit your needs:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+module Types
+  class ProjectType &lt; Types::BaseObject
+    field :id, GraphQL::Types::ID, null: false
+    field :title, String, null: false
+    field :publicationdate, GraphQL::Types::ISO8601Date, null: false
+    field :membership, Int, null: true
+    field :created_at, GraphQL::Types::ISO8601DateTime, null: false
+    field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
+    field :slug, String, null: false
+  end
+end
+
+</pre>
+</div>
+<p>The next level up we come to the query.  There is already
+a dummy Query in <code>app/graphql/types/query_type.rb</code></p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+module Types
+  class QueryType &lt; Types::BaseObject
+    # Add root-level fields here.
+    # They will be entry points for queries on your schema.
+
+    # TODO: remove me
+    field :test_field, String, null: false,
+      description: "An example field added by the generator"
+    def test_field
+      "Hello World!"
+    end
+  end
+end
+
+</pre>
+</div>
+<p>We can replace it with a query that returns a list of all projects:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+module Types
+  class QueryType &lt; Types::BaseObject
+    field :all_projects, [ProjectType], 
+      null: false,
+      description: "a list of all publicly visible projects"
+    def all_projects
+      "Hello World!"
+    end
+  end
+end
+
+</pre>
+</div>
+<p>and run the query in the playground. Your query will be autocompleted.</p>
+<video controls autoplay>
+  <source src="images/autocomplete.mov" type="video/quicktime"></source>
+  <source src="images/autocomplete.mp4" type="video/mp4"></source>  
+  ![GraphQL Playground](images/graphql-playground.png)
+</video>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-18' href='slides_graphql-api.html#slide-18'>▻</a>
+<h4 id="queries-with-arguments">5.1 Queries with arguments</h4>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+    field :project, ProjectType, null: true do
+      argument :id, ID, required: true
+    end
+    def project(id:)
+      Project.visible.find(id)
+    end
+
+</pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-19' href='slides_graphql-api.html#slide-19'>▻</a>
+<h4 id="relationships-between-models">5.2 Relationships between models</h4>
+<p><img src="images/graphql-project-has-many-urls.png" srcset='images/graphql-project-has-many-urls.png 1x, images/graphql-project-has-many-urls@2x.png 2x' alt="1:n relationship in the database"></p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+    field :project, ProjectType, null: true do
+      argument :id, ID, required: true
+    end
+    def project(id:)
+      Project.visible.find(id)
+    end
+
+</pre>
+</div>
+<p>generate the UlrType automatically from the model:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+module Types
+  class UrlType &lt; Types::BaseObject
+    field :id, GraphQL::Types::ID, null: false
+    field :title, String, null: true
+    field :url, String, null: true
+    field :url_type, String, null: true
+    field :created_at, GraphQL::Types::ISO8601DateTime, null: true
+    field :updated_at, GraphQL::Types::ISO8601DateTime, null: true
+  end
+end
+
+</pre>
+</div>
+<p>add the queries <code>all_urls</code> and <code>url</code> to  <code>app/graphql/types/query_type.rb</code></p>
+<p>add the field <code>urls</code> to <code>app/graphql/types/project_type.rb</code>:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+module Types
+  class ProjectType &lt; Types::BaseObject
+    field :id, GraphQL::Types::ID, null: false
+    field :title, String, null: false
+    field :publicationdate, GraphQL::Types::ISO8601Date, null: false
+    field :membership, Int, null: true
+    field :created_at, GraphQL::Types::ISO8601DateTime, null: false
+    field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
+    field :slug, String, null: false
+    field :urls, [UrlType], null: false
+  end
+end
+
+</pre>
+</div>
+<p>now you can query for Urls directly or though their project:</p>
+<p><img src="images/graphql-query-relationship.png" srcset='images/graphql-query-relationship.png 1x, images/graphql-query-relationship@2x.png 2x' alt="query a 1:n relationship with graphql"></p>
+<p>Thought Experiment: what would you need to do, to make a query 
+from Url to Project possible?</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+{
+  url(id:2077){
+    id
+    url
+    urlType
+    title
+    project {
+      title
+    }
+  }
+}
+
+</pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-20' href='slides_graphql-api.html#slide-20'>▻</a>
+
+<p>Answer: add a field project to UrlType:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+module Types
+  class UrlType &lt; Types::BaseObject
+    field :id, GraphQL::Types::ID, null: false
+    field :title, String, null: true
+    field :url, String, null: true
+    field :url_type, String, null: true
+    field :created_at, GraphQL::Types::ISO8601DateTime, null: true
+    field :updated_at, GraphQL::Types::ISO8601DateTime, null: true
+    field :project, ProjectType, null: false
+  end
+end
+
+</pre>
+</div>
+<p><img src="images/graphql-query-belongs-to.png" srcset='images/graphql-query-belongs-to.png 1x, images/graphql-query-belongs-to@2x.png 2x' alt="query a 1:n relationship with graphql (reverse)"></p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-21' href='slides_graphql-api.html#slide-21'>▻</a>
+<h4 id="using-rails-to-build-a-graphql-api-types">5.3 Types</h4>
+<p>In Ruby and JavaScript we often use Strings to store all
+kinds of values.   In the example
+above, <code>Url.url_type</code> only has three possible values: 'Link','Repository','Award'.</p>
+<p>In GraphQL you can define a Type for that:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+rails g graphql:enum UrlTypeEnum Link Repository Award
+      create  app/graphql/types/url_type_enum_type.rb
+
+</pre>
+</div>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+module Types
+  class UrlTypeEnumType &lt; Types::BaseEnum
+    value "Link"
+    value "Repository"
+    value "Award"
+  end
+end
+
+</pre>
+</div>
+<p>This can now be used in <code>UrlType</code>:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+module Types
+  class UrlType &lt; Types::BaseObject
+    field :id, GraphQL::Types::ID, null: false
+    field :title, String, null: true
+    field :url, String, null: true
+    field :url_type, UrlTypeEnumType, null: true
+    field :created_at, GraphQL::Types::ISO8601DateTime, null: true
+    field :updated_at, GraphQL::Types::ISO8601DateTime, null: true
+    field :project, ProjectType, null: false
+  end
+end
+
+</pre>
+</div>
+<p>The data returned by a query is still JSON, and cannot contain
+enums, only Strings. </p>
+<p><img src="images/graphql-enum.png" srcset='images/graphql-enum.png 1x, images/graphql-enum@2x.png 2x' alt="querying an enum gives a string"></p>
+<p>In the documentation you can see that
+only three Strings are valid.  The GraphQL API will 
+validate this both in Queries and in Mutations.</p>
+<ul>
+<li>Hannes sagt gem graphql, für n+1 queries graphql-batch von shopify.  und graphiql </li>
+<li><a href="https://github.com/eliias/concat-tv">https://github.com/eliias/concat-tv</a></li>
+<li><a href="https://www.howtographql.com/graphql-ruby/0-introduction/">https://www.howtographql.com/graphql-ruby/0-introduction/</a></li>
+<li><a href="https://github.com/ajsharp/graphql-rails-generators">https://github.com/ajsharp/graphql-rails-generators</a></li>
+</ul>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-22' href='slides_graphql-api.html#slide-22'>▻</a>
+<h3 id="see-also">6 See Also</h3>
+<ul>
+<li><a href="https://edgeguides.rubyonrails.org/api_app.html">Rails Guide: Using Rails for API-only Applications</a></li>
+</ul>
+</div>        
+      </div>
+    </div>
+  </div>
+
+  <hr class="hide" />
+  <div id="footer">
+    <div class="wrapper">
+      <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2019 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
+      </p><p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
+        and edit <a href="https://github.com/backend-development/backend-development-textbook/blob/master/source/graphql-api.md">graphql-api.md</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="javascripts/jquery.min.js"></script>
+  <script src="javascripts/responsive-tables.js"></script>
+  <script src="javascripts/guides.js"></script>
+  <script src="javascripts/syntaxhighlighter/shCore.js"></script>
+  <script src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
+  <script src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
+  <script src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
+  <script src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>
+  <script>
+    SyntaxHighlighter.all()
+    $(guidesIndex.bind);
+    $(document).ready(function(){
+      let hash = document.location.hash;
+      if(! hash) return;
+      document.getElementById(hash.substr(1)).scrollIntoView(true);
+    })
+  </script>
+  </body>
+</html>
