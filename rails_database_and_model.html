@@ -166,7 +166,6 @@ data is actually stored in a relational database.</p>
 <li>Understand how ActiveRecord works</li>
 <li>Understand what Database Migrations are</li>
 </ul>
-<div class="repo"><p>There is an exercise fo this in <a href="https://github.com/backend-development/basic-zombies">basic zombies</a> repository.</p></div>
 <p>The examples were inspired by "Rails for Zombies", which used to be a free Rails online course.
 Sadly it is no longer available.</p>
 </div>
@@ -177,7 +176,7 @@ Sadly it is no longer available.</p>
 <div class='slide'>
 <a class='slide_break' id='slide-3' href='slides_rails_database_and_model.html#slide-3'>▻</a>
 <h3 id="models-and-databases">1 Models and Databases</h3>
-<p>In a modern programming language like Rails we represent
+<p>In an object-oriented programming language like Ruby we represent
 things in the real world with objects in our program. For example if you are
 building an application for project management, you might
 have objects of classes <code>Project</code> and <code>WorkPackage</code> and <code>User</code>.
@@ -186,7 +185,7 @@ needed for handling projects are actually implemented in the Project class.</p>
 <p>To save these objects permanently (often called "persistance")
 we use a relational database,
 in most cases Postgres or MySQL/MariaDB. Only the data is stored in the database,
-not the behaviour (see "Business Logic" above).</p>
+not the behaviour (the "Business Logic" mentioned above).</p>
 <p>Here we hit on an old problem in computer science: storing
 objects into a relational database does not work all that well.
 This problem is called the
@@ -552,7 +551,7 @@ uses the primary key and always returns one object. The method <code>where</code
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 t1 = Tweet.find(3)
-t2 = Tweet.where("created_at &gt; '2018-10-01'")
+t2 = Tweet.where("created_at &gt; '2020-10-01'")
 t3 = Tweet.where(zombie: 'Ash')
 
 </pre>
@@ -567,8 +566,8 @@ t3 = Tweet.where(zombie: 'Ash')
 railsconsole&gt; t1 = Tweet.find(3)
   Tweet Load (0.3ms)  SELECT  "tweets".* FROM "tweets" WHERE "tweets"."id" = ? LIMIT ?  [["id", 3], ["LIMIT", 1]]
  =&gt; #&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "Jim", created_at: "2020-11-24 09:26:48", updated_at: "2020-11-24 09:26:48"&gt;
-railsconsole&gt; t2 = Tweet.where("created_at &gt; '2018-10-01'")
-  Tweet Load (0.5ms)  SELECT  "tweets".* FROM "tweets" WHERE (created_at &gt; '2018-10-01') LIMIT ?  [["LIMIT", 11]]
+railsconsole&gt; t2 = Tweet.where("created_at &gt; '2020-10-01'")
+  Tweet Load (0.5ms)  SELECT  "tweets".* FROM "tweets" WHERE (created_at &gt; '2020-10-01') LIMIT ?  [["LIMIT", 11]]
  =&gt; #&lt;ActiveRecord::Relation [#&lt;Tweet id: 1, status: "I &lt;3 brains.", zombie: nil, created_at: "2020-11-24 09:20:15", updated_at: "2020-11-24 09:20:15"&gt;, #&lt;Tweet id: 2, status: "Where can I get a good bite to eat?", zombie: "Ash", created_at: "2020-11-24 09:26:26", updated_at: "2020-11-24 09:26:26"&gt;, #&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "Jim", created_at: "2020-11-24 09:26:48", updated_at: "2020-11-24 09:26:48"&gt;]&gt;
 railsconsole&gt; t3 = Tweet.where(zombie: 'Ash')
   Tweet Load (0.3ms)  SELECT  "tweets".* FROM "tweets" WHERE "tweets"."zombie" = ? LIMIT ?  [["zombie", "Ash"], ["LIMIT", 11]]
@@ -651,7 +650,7 @@ railsconsole&gt; t3 = Tweet.where(zombie: 'Ash')
 we can chain several <code>where</code>s together:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-tweets = Tweet.where("created_at &gt; '2018-10-01'").where(zombie: 'Ash')
+tweets = Tweet.where("created_at &gt; '2020-10-01'").where(zombie: 'Ash')
 
 </pre>
 </div>
@@ -665,7 +664,7 @@ tweets = Tweet.where("created_at &gt; '2018-10-01'").where(zombie: 'Ash')
 Tweet.limit(3)
 Tweet.order(:zombie)
 Tweet.select(:created_at, :zombie, :status)
-Tweet.where("created_at &gt; '2018-10-01'").
+Tweet.where("created_at &gt; '2020-10-01'").
   where(zombie: 'Ash').
   order(:zombie).limit(3)
 
@@ -681,13 +680,13 @@ it is placed at the end, to enable copy-and-paste to the Rails console)</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 railsconsole&gt; Tweet.select(:created_at, :zombie, :status).
-  where("created_at &gt; '2018-10-01'").
+  where("created_at &gt; '2020-10-01'").
   where(zombie: 'Ash').
   order(:zombie).
   limit(3).to_sql
  =&gt; SELECT  "created_at", "zombie", "status"
        FROM "tweets"
-       WHERE (created_at &gt; '2018-10-01')
+       WHERE (created_at &gt; '2020-10-01')
        AND "zombie" = 'Ash'
        ORDER BY "zombie" ASC
        LIMIT 3
@@ -702,13 +701,13 @@ railsconsole&gt; Tweet.select(:created_at, :zombie, :status).
 a variable, and then chain more methods to that variable later on:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-railsconsole&gt; query = Tweet.where("created_at &gt; '2018-10-01'").
+railsconsole&gt; query = Tweet.where("created_at &gt; '2020-10-01'").
   order(:zombie).limit(3)
 railsconsole&gt; query.select(:created_at, :zombie, :status).
   where(zombie: 'Ash').to_sql
  =&gt; SELECT  "created_at", "zombie", "status"
       FROM "tweets"
-      WHERE (created_at &gt; '2018-10-01')
+      WHERE (created_at &gt; '2020-10-01')
       AND "zombie" = 'Ash'
       ORDER BY "zombie" ASC
       LIMIT 3
