@@ -574,7 +574,7 @@ $ ps aux | less
 $ ps aux | grep httpd | less
 $ ps aux | grep httpd | cut -c1-8 | less
 $ ps aux | grep httpd | cut -c1-8 | sort | less
-$ ps aux | grep httpd | cut -c1-8 | sort | uniq | less
+$ ps aux | grep httpd | cut -c1-8 | sort | uniq | less
 
 </pre>
 </div>
@@ -605,6 +605,14 @@ that return a new Enumerable. You can connect theses methods to each other:</p>
 <li>chunk(method)</li>
 <li>reverse</li>
 </ul>
+<p>The method <code>tally</code> counts the occourance of elements and returns a hash:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+["a", "b", "c", "b"].tally
+#=&gt; {"a"=&gt;1, "b"=&gt;2, "c"=&gt;1}
+
+</pre>
+</div>
 <p>Some other methods return just a single value, and thus end the pipe:</p>
 <ul>
 <li>count</li>
@@ -729,6 +737,8 @@ installed on your development machine so you can look up stuff instantly.</p>
 <ul>
 <li><a href="https://ruby.github.io/TryRuby/">try ruby</a></li>
 <li><a href="http://rubylearning.com/satishtalim/tutorial.html">learningruby.com tutorial</a></li>
+<li>
+<a href="https://learnbyexample.github.io/learn_ruby_oneliners/one-liner-introduction.html">learn ruby onliners</a> </li>
 </ul>
 </div>
 <div class='slide'>
