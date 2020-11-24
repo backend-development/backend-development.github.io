@@ -67,18 +67,17 @@ to built-in mechanisms in Rails for testing your application.</p>
 <div class='slide'>
 <a class='slide_break' href='testing.html#slide-5'>▻</a>
 <h4 id="setup-for-testing">2.1 Setup for Testing</h4>
-<p>Rails creates a <code>test</code> directory for you. If you list the contents of this directory you see:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-$ ls -F test
-integration/    system/
-controllers/    helpers/        mailers/        models/
-fixtures/       test_helper.rb
-
-</pre>
-</div>
-<p>The <code>models</code>, <code>controllers</code>, <code>mailers</code> and <code>helpers</code> directory
-hold tests for (surprise) models, controllers, mailers and view helpers respectively.
+<p>Rails creates a <code>test</code> directory for you. If you list the contents of this directory you will
+find two files that hold the configuration for your tests:</p>
+<ul>
+<li>
+<code>test_helper.rb</code> global test configuration</li>
+<li>
+<code>application_system_test_case.rb</code> configure a browser for system test</li>
+</ul>
+<p>and several directories:</p>
+<p>The <code>models</code>, <code>controllers</code>, <code>mailers</code>, <code>channels</code>,  and <code>helpers</code> directory
+hold tests for (surprise) models, controllers, mailers, channels and view helpers respectively.
 These tests that are focussed on one single class are also called <em>unit tests</em>.</p>
 <p>The <code>integration</code> directory hold tests that exercise the whole Rails stack,
 from HTTP Request through routes, controllers, down to models and back
@@ -88,7 +87,6 @@ cannot be tested here.</p>
 whole system by accessing the app with a browser, including running
 the javascript.</p>
 <p>Fixtures are a way of organizing test data; they reside in the <code>fixtures</code> directory.</p>
-<p>The <code>test_helper.rb</code> file holds the default configuration for your tests.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='testing.html#slide-6'>▻</a>
@@ -112,7 +110,7 @@ end
 <div class='slide'>
 <a class='slide_break' href='testing.html#slide-7'>▻</a>
 <h4 id="write-one-test">2.3 Write one Test</h4>
-<p>When you use the scaffold generator it will create
+<p>When you use a generator it will also create
 basic tests and fixtures for you:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -191,13 +189,14 @@ assert true
 <li>is the user's password longer than 5 characters?</li>
 </ul>
 <p>Every test must contain at least one assertion, with no restriction as to how many assertions are allowed. Only when all the assertions are successful will the test pass.</p>
-<p>Here an example of a useful test: It checks that
-a new article does not have an empty or nil title:</p>
+<p>Here an example of a useful test: I want to add a validation
+to my article class to forbid very short or missing titles.</p>
+<p>I start by writing this test:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-test "new article has default title" do
-  a = Article.new
-  assert a.title.length &gt; 3
+test "article title needs to be at least 3 characters long" do
+  a = Article.new(title: 'x')
+  assert_not article.save
 end
 
 </pre>
@@ -207,33 +206,7 @@ end
 <a class='slide_break' href='testing.html#slide-8'>▻</a>
 <h4 id="running-tests">2.4 Running Tests</h4>
 <p>To run all the tests for your project use <code>rails test</code>.</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-$ rails test
-Run options: --seed 8625
-
-# Running:
-
-........
-
-Finished in 0.498780s, 16.0391 runs/s, 28.0685 assertions/s.
-
-8 runs, 14 assertions, 0 failures, 0 errors, 0 skips
-
-</pre>
-</div>
-<p>Every dot stands for one test that ran through sucessfully.</p>
-<p>To see how a test failure is reported, you can add a failing test:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-test "should not save article without title" do
-  article = Article.new
-  assert_not article.save
-end
-
-</pre>
-</div>
-<p>If you run this newly added test the result might look like this:</p>
+<p>If you run the test above the result might look like this:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ rails test
@@ -256,9 +229,9 @@ Expected true to be nil or false
 <p>In the output, <code>F</code> denotes a failure. You can see the corresponding trace shown under <code>1)</code> along with the name of the failing test. The next few lines contain the stack trace followed by a message that mentions the actual value and the expected value by the assertion. The default assertion messages provide just enough information to help pinpoint the error. To make the assertion failure message more readable, provide a message, as shown here:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-test "should not save article without title" do
-  article = Article.new
-  assert_not article.save, "Saved the article without a title"
+test "article title needs to be at least 3 characters long" do
+  a = Article.new(title: 'x')
+  assert_not article.save, "Saved the article with title of length 1"
 end
 
 </pre>
@@ -267,8 +240,8 @@ end
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
   1) Failure:
-test_should_not_save_article_without_title(ArticleTest) [test/models/article_test.rb:6]:
-Saved the article without a title
+article_title_needs_to_be_at_least_3_characters_long(ArticleTest) [test/models/article_test.rb:6]:
+Saved the article with title of length 1
 
 </pre>
 </div>
@@ -276,12 +249,29 @@ Saved the article without a title
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Article &lt; ApplicationRecord
-  validates :title, presence: true
+  validates :title, length: { minimum: 3 }
 end
 
 </pre>
 </div>
 <p>Now the test should pass. Verify this by actually running the test!</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+$ rails test
+Run options: --seed 8625
+
+# Running:
+
+........
+
+Finished in 0.498780s, 16.0391 runs/s, 28.0685 assertions/s.
+
+8 runs, 14 assertions, 0 failures, 0 errors, 0 skips
+
+</pre>
+</div>
+<p>Every dot stands for one test that ran through sucessfully.
+```</p>
 <p>We first wrote a test which fails for a desired
 functionality, then we wrote some code which adds the functionality and finally
 we ensured that our test passes. This approach to software development is
@@ -321,7 +311,7 @@ NameError: undefined local variable or method `some_undefined_variable' for #&lt
 
 </pre>
 </div>
-<p>Notice the 'E' in the output. It denotes a test with error.</p>
+<p>Notice the 'E' in the output. It denotes a test with an error.</p>
 <div class="note"><p>The execution of each test method stops as soon as any error or an
 assertion failure is encountered. But the test suite continues with the next
 test. All test methods are executed in random order.</p></div>
@@ -345,7 +335,6 @@ end
 
 </pre>
 </div>
-<p>This test should now pass.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='testing.html#slide-11'>▻</a>
@@ -466,7 +455,7 @@ end
 
 </pre>
 </div>
-<p>So ist the model test a unit test? It only tests one unit
+<p>So is the model test a unit test? It only tests one unit
 of source code that you have written. It also exercises ActiveRecord
 and the test database. So you could argue that it is more
 than just a unit test. But for now it is a near a unit test as
