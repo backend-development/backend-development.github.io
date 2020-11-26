@@ -274,12 +274,12 @@ editing the two files in <code>app/models/*.rb</code>.</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # in file app/models/zombie.rb
-class Zombie
+class Zombie &lt; ApplicationRecord
   has_many :tweets
 end
 
 # in file app/models/tweet.rb
-class Tweet
+class Tweet &lt; ApplicationRecord
   belongs_to :zombie
 end
 
