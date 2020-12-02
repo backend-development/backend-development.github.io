@@ -140,7 +140,7 @@ and using the model and views to generate a result.</p><p>After reading this gui
 <li>build a form for editing a model</li>
 <li>use nested resources</li>
 </ul>
-<div class="repo"><p>Fork the <a href="https://github.com/backend-development/rails-example-kanban-board">example app &#39;kanban-board&#39;</a> and try out what you learn here.</p></div>
+
       </div>
     </div>
   </div>
@@ -266,7 +266,7 @@ $ rails routes
 
 </pre>
 </div>
-<p>Use the "prefix" from <code>rails routes</code> and <code>_path</code> or <code>_url</code> to get the path or full URL of the
+<p>Use the "prefix" from <code>rails routes</code> and  add<code>_path</code> or <code>_url</code> to get the path or full URL of the
 action.</p>
 <ul>
 <li>
@@ -316,10 +316,18 @@ DELETE /zombies/:id      zombies_controller  def destroy
 
 <p>You have already used the scaffold generator which also
 adds the necessary views.  This way we end up with full CRUD (create, read, update, delete)
-capability for zombies:</p>
+capability.  For this example:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+rails generate scaffold thing title no:integer description start:date
+
+</pre>
+</div>
+<p>we end up with 4 web pages and the following connections:</p>
 <p><img src="images/rest.png" alt="scaffold"></p>
-<p>Do adapt the views to better fit your user's needs, but 
-try to keep the underlying routes the same!</p>
+<p>The scaffold is only meant as a starting point. Always change
+the view to better fit your user's needs. But 
+try to keep the underlying routes the same.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-13' href='slides_rails_view_and_controller.html#slide-13'>▻</a>
