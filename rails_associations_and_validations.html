@@ -55,7 +55,7 @@
                 <dd><a href="rails_associations_and_validations.html">Associations and Validations</a></dd>
                 <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
                 <dd><a href="rails_authentication.html">Simple Authentication</a></dd>
-                <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
+                <dd><a href="assets_and_webpacker.html">Assets and Webpacker</a></dd>
                 <dd><a href="javascript_and_ajax.html">Javascript and Rails</a></dd>
                 <dd><a href="testing.html">Getting started with Testing</a></dd>
                 <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
@@ -101,13 +101,7 @@
 <li><a href="#combining-validations">Combining Validations</a></li>
 <li><a href="#checking-uniqueness-in-activerecord">Checking Uniqueness in ActiveRecord</a></li>
 <li><a href="#checking-uniqueness-in-the-database">Checking Uniqueness in the Database</a></li>
-<li><a href="#validations-and-forms">Validations and Forms</a></li>
-</ul>
-</li>
-<li>
-<a href="#1-n-associations">1:n Associations</a>
-
-<ul>
+<li><a href="#explore-the-models">explore the models</a></li>
 <li><a href="#database">Database</a></li>
 <li><a href="#create-the-database">Create the Database</a></li>
 <li><a href="#model">Model</a></li>
@@ -306,39 +300,41 @@ a description "Key (email)=(<a href="mailto:b@a.com">b@a.com</a>) already exists
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-10' href='slides_rails_associations_and_validations.html#slide-10'>▻</a>
-<h4 id="validations-and-forms">1.6 Validations and Forms</h4>
-<p>Later, when we learn about Views and Forms, you will see
-that the save / validate / errors lifecycle fits perfectly with
-the way that forms are handled in Rails. See <a href="/rails_view_and_controller.html">Rails: View and Controller</a></p>
-</div>
-<div class='slide'>
-<a class='slide_break' id='slide-11' href='slides_rails_associations_and_validations.html#slide-11'>▻</a>
-<h3 id="1-n-associations">2 1:n Associations</h3>
-<p>If you have used relational databases before you are probably familiar
-with the different types of associations between database tables. But even
-if you have not, the first association is easy to understand:</p>
+<h4 id="explore-the-models">1.6 explore the models</h4>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-One Zombie has many Tweets          One Tweet belongs to one Zombie
 
-Zombie Ash  ----------------------- Tweet 'arg'
-            \---------------------- Tweet 'aarrrrrgggh'
-             \--------------------- Tweet 'aaaarrrrrrrrrgggh'
+### Validations and Forms
 
-Zombie Sue ------------------------ Tweet 'gagaga'
+Later, when we learn about Views and Forms, you will see
+that the save / validate / errors lifecycle fits perfectly with
+the way that forms are handled in Rails. See [Rails: View and Controller](/rails_view_and_controller.html)
+
+## 1:n Associations
+
+If you have used relational databases before you are probably familiar
+with the different types of associations between database tables. But even
+if you have not, the first association is easy to understand:
+
 
 </pre>
 </div>
+<p>One Zombie has many Tweets          One Tweet belongs to one Zombie</p>
+<p>Zombie Ash  ----------------------- Tweet 'arg'
+            ---------------------- Tweet 'aarrrrrgggh'
+             --------------------- Tweet 'aaaarrrrrrrrrgggh'</p>
+<p>Zombie Sue ------------------------ Tweet 'gagaga'
+```</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-12' href='slides_rails_associations_and_validations.html#slide-12'>▻</a>
-<h4 id="database">2.1 Database</h4>
+<a class='slide_break' id='slide-11' href='slides_rails_associations_and_validations.html#slide-11'>▻</a>
+<h4 id="database">1.7 Database</h4>
 <p>In the table <code>tweets</code> there is a column <code>zombie_id</code> which references <code>zombies.id</code>.
 This column in <code>tweets</code> is called a "foreign key".</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-13' href='slides_rails_associations_and_validations.html#slide-13'>▻</a>
-<h4 id="create-the-database">2.2 Create the Database</h4>
+<a class='slide_break' id='slide-12' href='slides_rails_associations_and_validations.html#slide-12'>▻</a>
+<h4 id="create-the-database">1.8 Create the Database</h4>
 <p>You can either add this column when you first create Tweets:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -363,8 +359,8 @@ $ rails generate migration AddZombieToTweets zombie:references
 <p>If you ever mistype your <code>rails generate ...</code> line, you can undo it by running <code>rails destroy ...</code>.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-14' href='slides_rails_associations_and_validations.html#slide-14'>▻</a>
-<h4 id="model">2.3 Model</h4>
+<a class='slide_break' id='slide-13' href='slides_rails_associations_and_validations.html#slide-13'>▻</a>
+<h4 id="model">1.9 Model</h4>
 <p>You have to declare associations in both models, by
 editing the two files in <code>app/models/*.rb</code>.</p>
 <p>1:n associations are declared with <code>belongs_to</code> and <code>has_many</code>:</p>
@@ -385,8 +381,8 @@ end
 <p>Notice the plural used with <code>has_many</code> and the singular used with <code>belongs_to</code>.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-15' href='slides_rails_associations_and_validations.html#slide-15'>▻</a>
-<h4 id="methods">2.4 Methods</h4>
+<a class='slide_break' id='slide-14' href='slides_rails_associations_and_validations.html#slide-14'>▻</a>
+<h4 id="methods">1.10 Methods</h4>
 <p>There are now methods available to walk from one model to the other:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -405,7 +401,7 @@ end
 <p>Again: notice the plural <code>tweets</code> and singular <code>zombie</code>.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-16' href='slides_rails_associations_and_validations.html#slide-16'>▻</a>
+<a class='slide_break' id='slide-15' href='slides_rails_associations_and_validations.html#slide-15'>▻</a>
 
 <p>You can also use a model to create associated models:</p>
 <div class="code_container">
@@ -422,8 +418,8 @@ association in the Rails Guide under <a href="https://guides.rubyonrails.org/ass
 <a href="https://guides.rubyonrails.org/association_basics.html#has-many-association-reference">Methods Added by has_many</a>.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-17' href='slides_rails_associations_and_validations.html#slide-17'>▻</a>
-<h3 id="further-reading">3 Further reading</h3>
+<a class='slide_break' id='slide-16' href='slides_rails_associations_and_validations.html#slide-16'>▻</a>
+<h3 id="further-reading">2 Further reading</h3>
 <ul>
 <li>The Rails Guides give a good introduction to a subject area:
 
