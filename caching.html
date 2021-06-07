@@ -121,6 +121,7 @@
 <li><a href="#caching-in-api-only-rails-projects">Caching in API-only Rails Projects</a></li>
 <li><a href="#the-limits-of-fragment-caching">The limits of fragment caching</a></li>
 <li><a href="#caching-in-other-frameworks">Caching in other Frameworks</a></li>
+<li><a href="#final-thought-on-caching-in-rails">Final Thought on Caching in Rails</a></li>
 </ul>
 </li>
 <li>
@@ -649,8 +650,12 @@ important pages of your app after each deployment.</p>
 <li>Stale-While-Revalidate Staregy for frontend and APIs <a href="https://medium.com/nerd-for-tech/swr-frontend-data-fetching-and-caching-ca0313239d6f">SWR</a>
 </li>
 <li>next.js: <a href="https://nextjs.org/docs/basic-features/data-fetching#swr">SWR</a>
-### Final Thought on Caching in Rails</li>
+</li>
 </ul>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-33' href='slides_caching.html#slide-33'>▻</a>
+<h4 id="final-thought-on-caching-in-rails">5.8 Final Thought on Caching in Rails</h4>
 <p>If you find that the backend framework causes a performance problem
 you should be able to narrow down the problem and fix it using
 different methods. You should be able to:</p>
@@ -662,7 +667,7 @@ different methods. You should be able to:</p>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-33' href='slides_caching.html#slide-33'>▻</a>
+<a class='slide_break' id='slide-34' href='slides_caching.html#slide-34'>▻</a>
 <h3 id="activerecord-and-db">6 ActiveRecord and DB</h3>
 <p>Accessing the database takes a long time - compared to all
 the computation that is done in ruby code itself. So looking
@@ -680,7 +685,7 @@ Development mode is no longer being cached.
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-34' href='slides_caching.html#slide-34'>▻</a>
+<a class='slide_break' id='slide-35' href='slides_caching.html#slide-35'>▻</a>
 <h4 id="ignore-this">6.1 Ignore this</h4>
 <p>If you find <code>SHOW FULL FIELDS</code> queries in your log file or in rack-mini-profiler,
 you can ignore them. These
@@ -689,14 +694,14 @@ object has. In production these will only occur when the first
 object of a type is loaded, so you can savely ignore them.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-35' href='slides_caching.html#slide-35'>▻</a>
+<a class='slide_break' id='slide-36' href='slides_caching.html#slide-36'>▻</a>
 <h4 id="querycache">6.2 QueryCache</h4>
 <p>If you look into the log file <code>logs/development.log</code> you will
 see all the SQL queries made to the database, and also some that
 are not really sent to the database.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-36' href='slides_caching.html#slide-36'>▻</a>
+<a class='slide_break' id='slide-37' href='slides_caching.html#slide-37'>▻</a>
 
 <p>Here are some lines from a log file:</p>
 <div class="code_container">
@@ -724,7 +729,7 @@ the data from the database took 6.9 ms here.</p>
 ActiveRecord QueryCache, which only took 0.1ms or less.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-37' href='slides_caching.html#slide-37'>▻</a>
+<a class='slide_break' id='slide-38' href='slides_caching.html#slide-38'>▻</a>
 
 <p>The default behaviour is that rails loads each model only once for each
 HTTP request.
@@ -732,7 +737,7 @@ For the next HTTP request the QueryCache is cleard. So one request-responce
 cycle is the lifespan of the cached object.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-38' href='slides_caching.html#slide-38'>▻</a>
+<a class='slide_break' id='slide-39' href='slides_caching.html#slide-39'>▻</a>
 
 <p>If you ever run into problems with the QueryCache, you can always
 reload a model explicitly:</p>
@@ -751,7 +756,7 @@ user.reload
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-39' href='slides_caching.html#slide-39'>▻</a>
+<a class='slide_break' id='slide-40' href='slides_caching.html#slide-40'>▻</a>
 <h4 id="indexes-in-the-db">6.3 indexes in the db</h4>
 <p>When we query the database by <code>id</code> we will get a rapid response:
 the primary key is always accessed through an index.</p>
@@ -773,7 +778,7 @@ is not accessed through the conventional route</p>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-40' href='slides_caching.html#slide-40'>▻</a>
+<a class='slide_break' id='slide-41' href='slides_caching.html#slide-41'>▻</a>
 
 <p>In the miniprofiler we can see, that this translates to the SQL query</p>
 <div class="code_container">
@@ -814,7 +819,7 @@ mysql&gt; DESCRIBE SELECT * FROM projects WHERE publicationdate='2014-07-22';
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-41' href='slides_caching.html#slide-41'>▻</a>
+<a class='slide_break' id='slide-42' href='slides_caching.html#slide-42'>▻</a>
 <h4 id="n-1-queries">6.4 n+1 queries</h4>
 <p>When analysing the SQL queries a rails project generates
 you will often find this situation: you have a one-to-many relationship,
@@ -842,7 +847,7 @@ This is inefficient! If we were coding SQL by hand,
 we could get the same data using one query with a join.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-42' href='slides_caching.html#slide-42'>▻</a>
+<a class='slide_break' id='slide-43' href='slides_caching.html#slide-43'>▻</a>
 
 <p>We can use rack-mini-profiler to find the code line that generated
 the request:</p>
@@ -865,7 +870,7 @@ the first request is in project_controller.rb, line 26</p>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-43' href='slides_caching.html#slide-43'>▻</a>
+<a class='slide_break' id='slide-44' href='slides_caching.html#slide-44'>▻</a>
 
 <p>To get ActiveRecord to automatically load <strong>all the users</strong> for the project at once
 we can change this one line in the controller:</p>
@@ -877,7 +882,7 @@ we can change this one line in the controller:</p>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-44' href='slides_caching.html#slide-44'>▻</a>
+<a class='slide_break' id='slide-45' href='slides_caching.html#slide-45'>▻</a>
 
 <p>After this change we find a lot less SQL requests:</p>
 <div class="code_container">
@@ -892,7 +897,7 @@ SELECT * FROM `users` WHERE `id` IN (1033, 1018, 901, 938, 945, 977, 953, 652, 9
 <p><img src="images/sql-include.png" srcset='images/sql-include.png 1x, images/sql-include@2x.png 2x' alt="compare render times with and withoud include"></p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-45' href='slides_caching.html#slide-45'>▻</a>
+<a class='slide_break' id='slide-46' href='slides_caching.html#slide-46'>▻</a>
 
 <p>In the demo app, the project model has associations not only
 with the user model, but with many other models too.
@@ -906,13 +911,13 @@ If we include them all, we end up with a sizable reduction in SQL queries:</p>
 <p><img src="images/sql-include-more.png" srcset='images/sql-include-more.png 1x, images/sql-include-more@2x.png 2x' alt="compare render times with many includes"></p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-46' href='slides_caching.html#slide-46'>▻</a>
+<a class='slide_break' id='slide-47' href='slides_caching.html#slide-47'>▻</a>
 <h4 id="view-in-the-database">6.5 view in the database</h4>
 <p>The last method of speeding up the database access is called a <strong>view</strong>. The word
 view here has nothing to do with MVC in Rails, but is a technical term used in databases.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-47' href='slides_caching.html#slide-47'>▻</a>
+<a class='slide_break' id='slide-48' href='slides_caching.html#slide-48'>▻</a>
 
 <p>Let's look at a problem where a database view might be a solution:</p>
 <p>For the <code>collaborators/_show</code> partial a lot of SQL queries are created.</p>
@@ -927,7 +932,7 @@ and the role(s) they had in the project.</p>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-48' href='slides_caching.html#slide-48'>▻</a>
+<a class='slide_break' id='slide-49' href='slides_caching.html#slide-49'>▻</a>
 
 <p>To display "MMT Bachelor 2010, MMT Master 2014"
 for Mr. Huber the helper method <code>print_studycourses</code> is used. We can try out this
@@ -948,7 +953,7 @@ helper method in the rails console:</p>
 <p>Here information from three database tables is combined.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-49' href='slides_caching.html#slide-49'>▻</a>
+<a class='slide_break' id='slide-50' href='slides_caching.html#slide-50'>▻</a>
 <h5 id="creating-a-database-view">6.5.1 creating a database view</h5>
 <p>In the database console we can build a simple select statement with two
 joins to get the same information:</p>
@@ -971,7 +976,7 @@ WHERE user_id=901;
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-50' href='slides_caching.html#slide-50'>▻</a>
+<a class='slide_break' id='slide-51' href='slides_caching.html#slide-51'>▻</a>
 
 <p>Any Query can turned into a <strong>view</strong> by prepending it with <code>CREATE VIEW ... AS</code>.</p>
 <div class="code_container">
@@ -987,7 +992,7 @@ Query OK, 0 rows affected (0,06 sec)
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-51' href='slides_caching.html#slide-51'>▻</a>
+<a class='slide_break' id='slide-52' href='slides_caching.html#slide-52'>▻</a>
 
 <p>After the view has been created, we can use <code>degree_programs</code> like a
 table in the database.</p>
@@ -1006,7 +1011,7 @@ mysql&gt; SELECT * from degree_programs WHERE user_id=901 ;
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-52' href='slides_caching.html#slide-52'>▻</a>
+<a class='slide_break' id='slide-53' href='slides_caching.html#slide-53'>▻</a>
 <h5 id="model-and-relationships-for-the-view">6.5.2 model and relationships for the view</h5>
 <p>In Rails we can define a model for a database view:</p>
 <div class="code_container">
@@ -1033,7 +1038,7 @@ class User &lt; ApplicationRecord
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-53' href='slides_caching.html#slide-53'>▻</a>
+<a class='slide_break' id='slide-54' href='slides_caching.html#slide-54'>▻</a>
 
 <p>back in the rails console we can now use this new model:</p>
 <div class="code_container">
@@ -1048,7 +1053,7 @@ class User &lt; ApplicationRecord
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-54' href='slides_caching.html#slide-54'>▻</a>
+<a class='slide_break' id='slide-55' href='slides_caching.html#slide-55'>▻</a>
 
 <p>And in a final step we can refactor the helper method print_studycourses</p>
 <div class="code_container">
@@ -1063,7 +1068,7 @@ class User &lt; ApplicationRecord
 <p><img src="images/view.png" srcset='images/view.png 1x, images/view@2x.png 2x' alt="view"></p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-55' href='slides_caching.html#slide-55'>▻</a>
+<a class='slide_break' id='slide-56' href='slides_caching.html#slide-56'>▻</a>
 
 <p>If we add a relationship from projects to degree_program (actually: three <code>has_many through:</code> steps to get from projects to collaborators,
 and from collaborators to users, and from users to degree_programs), we can also include degree_programs in our
@@ -1078,7 +1083,7 @@ includes statement when loading the project:</p>
 <p><img src="images/before-after.png" srcset='images/before-after.png 1x, images/before-after@2x.png 2x' alt="final state of the app"></p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-56' href='slides_caching.html#slide-56'>▻</a>
+<a class='slide_break' id='slide-57' href='slides_caching.html#slide-57'>▻</a>
 <h5 id="create-view-in-production">6.5.3 create view in production</h5>
 <p>To deploy the view to production, you need to create it with a migration.
 Both the <code>up</code> and <code>down</code> methods of this migration use <code>execute</code> to run
@@ -1104,7 +1109,7 @@ end
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-57' href='slides_caching.html#slide-57'>▻</a>
+<a class='slide_break' id='slide-58' href='slides_caching.html#slide-58'>▻</a>
 <h5 id="uses-and-limitations-of-view">6.5.4 uses and limitations of view</h5>
 <p>In this case the view might be a <strong>first step</strong> towards <strong>refactoring
 the database</strong>. We just have too many tables in the database that
@@ -1116,7 +1121,7 @@ a table with the same data instead. Then we can drop the original tables
 and are finished with the database refactoring.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-58' href='slides_caching.html#slide-58'>▻</a>
+<a class='slide_break' id='slide-59' href='slides_caching.html#slide-59'>▻</a>
 
 <p>In other cases you might use a view <strong>permanently</strong>: If you need both
 the underlying, more complex data, and the simplified data in the view.
@@ -1125,7 +1130,7 @@ complex database expressions, or tables with a reduced set
 of attributes would be good examples for using a view.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-59' href='slides_caching.html#slide-59'>▻</a>
+<a class='slide_break' id='slide-60' href='slides_caching.html#slide-60'>▻</a>
 
 <p>For data that is accessed a lot, but changes very seldom, you can
 us a <strong>materialized view</strong>. In a normal view each access to the view
@@ -1135,7 +1140,7 @@ this needs more memory, but gives
 faster access.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-60' href='slides_caching.html#slide-60'>▻</a>
+<a class='slide_break' id='slide-61' href='slides_caching.html#slide-61'>▻</a>
 <h4 id="final-thoughts">6.6 final thoughts</h4>
 <p>ActiveRecord was a big help when writing this app. But it cannot find
 the best SQL Query for every situation and it cannot improve the database.
@@ -1151,28 +1156,29 @@ ORM creates make sense and are efficient. You should</p>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-61' href='slides_caching.html#slide-61'>▻</a>
+<a class='slide_break' id='slide-62' href='slides_caching.html#slide-62'>▻</a>
 <h4 id="orms-in-other-frameworks">6.7 ORMs in other Frameworks</h4>
 <ul>
 <li>Laravel: the ORM eloquent offers <code>with()</code> to <a href="https://kordes.dev/posts/laravel-and-n-1-problem">solve the n+1 problem</a>
 </li>
 <li>nest.js: <a href="https://wanago.io/2021/02/08/api-nestjs-n-1-problem-graphql/">Dealing in the N + 1 problem in GraphQL</a>
 </li>
-<li>
-<p>typeorm: <a href="https://github.com/typeorm/typeorm/issues/3857">hat ernste Probleme</a></p>
+<li>typeorm: <a href="https://github.com/typeorm/typeorm/issues/3857">hat ernste Probleme</a>
+</li>
+</ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-62' href='slides_caching.html#slide-62'>▻</a>
+<a class='slide_break' id='slide-63' href='slides_caching.html#slide-63'>▻</a>
 <h2>See Also</h2>
-</li>
-<li><p><a href="https://guides.rubyonrails.org/caching_with_rails.html">Rails Guide: Caching</a></p></li>
-<li><p><a href="https://guides.rubyonrails.org/active_record_querying.html#eager-loading-associations">Rails Guide: Active Record Query Interface. N+1 problems</a></p></li>
-<li><p><a href="https://www.speedshop.co/2015/07/15/the-complete-guide-to-rails-caching.html">Berkopec(2015): Speed Up Your Rails App by 66% - The Complete Guide to Rails Caching</a></p></li>
-<li><p><a href="https://github.com/flyerhzm/bullet#readme">bullet gem for finding n+1 problems</a></p></li>
-<li><p><a href="https://content.pivotal.io/blog/using-database-views-for-performance-wins-in-rails">Using database views for performance wins in Rails</a></p></li>
-<li><p><a href="https://www.fromdual.ch/mysql-materialized-views">materialized views in mysql</a></p></li>
-<li><p><a href="https://www.postgresql.org/docs/9.3/static/rules-materializedviews.html">materialized view in postgres</a></p></li>
-<li><p><a href="https://signalvnoise.com/posts/3113-how-key-based-cache-expiration-works">DHH(2012): How key-based cache expiration works</a></p></li>
+<ul>
+<li><a href="https://guides.rubyonrails.org/caching_with_rails.html">Rails Guide: Caching</a></li>
+<li><a href="https://guides.rubyonrails.org/active_record_querying.html#eager-loading-associations">Rails Guide: Active Record Query Interface. N+1 problems</a></li>
+<li><a href="https://www.speedshop.co/2015/07/15/the-complete-guide-to-rails-caching.html">Berkopec(2015): Speed Up Your Rails App by 66% - The Complete Guide to Rails Caching</a></li>
+<li><a href="https://github.com/flyerhzm/bullet#readme">bullet gem for finding n+1 problems</a></li>
+<li><a href="https://content.pivotal.io/blog/using-database-views-for-performance-wins-in-rails">Using database views for performance wins in Rails</a></li>
+<li><a href="https://www.fromdual.ch/mysql-materialized-views">materialized views in mysql</a></li>
+<li><a href="https://www.postgresql.org/docs/9.3/static/rules-materializedviews.html">materialized view in postgres</a></li>
+<li><a href="https://signalvnoise.com/posts/3113-how-key-based-cache-expiration-works">DHH(2012): How key-based cache expiration works</a></li>
 </ul>
 </div>        
       </div>
