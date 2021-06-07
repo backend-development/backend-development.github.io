@@ -68,7 +68,7 @@ because it's already there in a cache.</p>
 <div class='slide'>
 <a class='slide_break' href='caching.html#slide-3'>▻</a>
 <h3 id="what-is-caching">1 What is Caching</h3>
-<p>In general english usage a cache is <a href="https://en.wiktionary.org/wiki/cache#Noun">A store of things that may be required in the future, which can be retrieved rapidly, protected or hidden in some way. </a>. 
+<p>In general english usage a cache is <a href="https://en.wiktionary.org/wiki/cache#Noun">A store of things that may be required in the future, which can be retrieved rapidly, protected or hidden in some way</a>.
 But in computing the cache is not proteced or hidden, the important part
 it that data stored in a cache can be retrieved rapidly. </p>
 <p><img src="images/caching.svg" alt="what is caching"></p>
@@ -88,7 +88,9 @@ it in the cache.</p>
 <p>See <a href="https://gist.github.com/hellerbarde/2843375#file-latency_humanized-markdown">Latency numbers every programmer should know</a>.</p>
 <p>Given these numbers it makes sense to keep a local copy of data that
 we might use again soon. Better to read it from ssd or memory the second
-time we need it! </p>
+time we need it!</p>
+<p>Caches have finite storage so items are periodically removed from storage.
+This process is called cache eviction.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='caching.html#slide-5'>▻</a>
@@ -97,12 +99,14 @@ time we need it! </p>
 of caches involved:</p>
 <ul>
 <li>Caching in the Browser, configured by HTTP Headers</li>
-<li>Caching Proxies </li>
+<li>Caching Proxies</li>
 <li>Load Balancer + Caches, for example <a href="https://dev.to/satrobit/how-to-set-up-an-nginx-reverse-proxy-cluster-with-a-shared-cache-38eh">nginx</a>, or <a href="https://varnish-cache.org/">varnish</a>
 </li>
 <li>Inside the Backend Framework (see below)</li>
 <li>Inside the Database (see below)</li>
 </ul>
+<p>If you are using a separate frontend you will have another caching layer
+in the frontend for storing the result of api requests.</p>
 <p>And in all the computers involved in this process:</p>
 <ul>
 <li>
@@ -118,13 +122,20 @@ of caches involved:</p>
 headers in both the HTTP-request and HTTP-response that influence
 if the browser will cache a resource for later and how long
 it will keep the resource in the cache.</p>
+<p>The Server can send the <code>Cache-Control:</code> header:</p>
+<ul>
+<li>
+<code>Cache-Control: no-store</code> - The cache should not store anything about the client request or server response. A request is sent to the server and a full response is downloaded each and every time.</li>
+<li>
+<code>Cache-Control: no-cache</code> - The cache will send the request to the origin server for validation before releasing a cached copy.</li>
+<li>
+<code>Cache-Control: public</code> - that the response may be cached by any cache. </li>
+<li>
+<code>Cache-Control: private</code> - the response is intended for a single user only and must not be stored by a shared cache. A private browser cache may store the response.</li>
+</ul>
 </div>
 <div class='slide'>
 <a class='slide_break' href='caching.html#slide-7'>▻</a>
-<h4 id="caching-proxies">3.2 Caching Proxies</h4>
-</div>
-<div class='slide'>
-<a class='slide_break' href='caching.html#slide-8'>▻</a>
 <h3 id="measuring-performance">4 Measuring Performance</h3>
 <p>As we already discussed in <a href="asset_pipeline.html">the chapter on the asset pipeline</a>
 it is important to measure the performance of your app before you try to optimize anyhing.</p>
@@ -133,7 +144,7 @@ it is important to measure the performance of your app before you try to optimiz
 <p>We want the whole web page to load within a second. We expect to need about half of that (500ms) for loading extra assets like javascript files, css, images. We will set aside another 200ms for shipping data across the network, which leaves us with 300ms time to render out the first HTML document from our Rails App.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-9'>▻</a>
+<a class='slide_break' href='caching.html#slide-8'>▻</a>
 <h4 id="rack-mini-profiler">4.1 rack-mini-profiler</h4>
 <p>This gem helps you analyze where your Rails App spends time.</p>
 <p><img src="images/rack-mini-profiler.png" srcset='images/rack-mini-profiler.png 1x, images/rack-mini-profiler@2x.png 2x' alt="https://github.com/MiniProfiler/rack-mini-profiler"></p>
@@ -144,14 +155,14 @@ the webpage. So we need to compare the numbers Mini Profiler gives us to the
 300ms threshold defined above.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-10'>▻</a>
+<a class='slide_break' href='caching.html#slide-9'>▻</a>
 <h4 id="example-app">4.2 Example App</h4>
 <p>We will use a portfolio site as an example app. All the screenshots
 above already show this example app. You can study <a href="https://caching-red.projects.multimediatechnology.at/?pp=enable">the demo</a>
 on heroku, there all the caching is already implemented.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-11'>▻</a>
+<a class='slide_break' href='caching.html#slide-10'>▻</a>
 <h3 id="fragment-caching">5 Fragment Caching</h3>
 <p>Fragement caching is a feature of the Rails Framework. Looking at
 the views and partials that are rendered, you can mark some fragments
@@ -161,7 +172,7 @@ the view have to be computed anew every time you need to know
 about the application.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-12'>▻</a>
+<a class='slide_break' href='caching.html#slide-11'>▻</a>
 <h4 id="configure-caching">5.1 Configure Caching</h4>
 <p>Fragment Caching is deactivated by default in the development environment.
 You have to activate it if you want to try this out in development:</p>
@@ -175,7 +186,7 @@ Development mode is now being cached.
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-13'>▻</a>
+<a class='slide_break' href='caching.html#slide-12'>▻</a>
 
 <p>You have to decide on a <strong>cache store</strong>. This store can be
 any "key-value" store.
@@ -205,7 +216,7 @@ it is helpful to use the file_store:</p>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-14'>▻</a>
+<a class='slide_break' href='caching.html#slide-13'>▻</a>
 <h4 id="caching-a-view">5.2 Caching a View</h4>
 <p>The first image of miniprofiler above showed
 the rendering of the show-action in the project controller.</p>
@@ -226,7 +237,7 @@ the whole view.</p>
 <p><img src="images/rack-mini-profiler-faster.png" srcset='images/rack-mini-profiler-faster.png 1x, images/rack-mini-profiler-faster@2x.png 2x' alt="https://github.com/MiniProfiler/rack-mini-profiler"></p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-15'>▻</a>
+<a class='slide_break' href='caching.html#slide-14'>▻</a>
 <h5 id="how-caching-works">5.2.1 How caching works</h5>
 <p>So what happens here? When the view is rendered for the <strong>first time</strong>,
 it will be rendered normally and still take around 450ms.
@@ -247,7 +258,7 @@ of the key is a hash of the view fragment inside the <code>cache</code> block.</
 and nothing will be found in the cache. The view will be rendered from scratch.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-16'>▻</a>
+<a class='slide_break' href='caching.html#slide-15'>▻</a>
 
 <p>When the view is rendered for the <strong>second time</strong>,
 you find the following message in the log file:</p>
@@ -260,7 +271,7 @@ Read fragment views/projects/1679-20140722193808000000000/0db0955317bafa37cc34ff
 <p>Here the cache is read out, which is a lot faster then rendering.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-17'>▻</a>
+<a class='slide_break' href='caching.html#slide-16'>▻</a>
 
 <p>So which parts of the Rail Stack have we skipped by using the
 fragment cache?</p>
@@ -268,7 +279,7 @@ fragment cache?</p>
 from Routing to Controller to View.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-18'>▻</a>
+<a class='slide_break' href='caching.html#slide-17'>▻</a>
 <h5 id="peeking-into-the-cache">5.2.2 Peeking into the cache</h5>
 <p>You can also read from the cache in the rails console:</p>
 <div class="code_container">
@@ -293,7 +304,7 @@ tmp/file_store/5E6/091/views%2Fprojects%2F1679-20140722193808000000000%2F0db0955
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-19'>▻</a>
+<a class='slide_break' href='caching.html#slide-18'>▻</a>
 <h5 id="changing-the-model">5.2.3 Changing the model</h5>
 <p>Now let's check if the cache is really invalidated when the underlying model
 changes. Load the project "Origin" in your web browser: <a href="http://localhost:3000/projects/2015-origin">http://localhost:3000/projects/2015-origin</a></p>
@@ -310,7 +321,7 @@ project.save
 Reload again to check if the new version is cached.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-20'>▻</a>
+<a class='slide_break' href='caching.html#slide-19'>▻</a>
 <h4 id="caching-smaller-fragements">5.3 Caching smaller fragements</h4>
 <p>If you look at the homepage of <a href="https://caching-red.projects.multimediatechnology.at/?pp=enable">the demo</a>
 you can see that the list of project under "Bachelorprojekte" is different every time
@@ -322,7 +333,7 @@ The same five projects will appear on the homepage indefinetly.</p>
 <p>There are two approaches to this:</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-21'>▻</a>
+<a class='slide_break' href='caching.html#slide-20'>▻</a>
 
 <p><em>a)</em> We could change our expectations for the random display:
 We could decide that the same 5 projects should be shown for a whole day,
@@ -330,7 +341,7 @@ and only on the next day new projects should be picked.</p>
 <p>This would work for our example app.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-22'>▻</a>
+<a class='slide_break' href='caching.html#slide-21'>▻</a>
 
 <p><em>b)</em> a second approach would be
 to not cache the whole homepage, but only the display of an individual project.
@@ -343,7 +354,7 @@ smaller fragments which can be cached: the individual status message, or event,
 or photo can be reused.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-23'>▻</a>
+<a class='slide_break' href='caching.html#slide-22'>▻</a>
 <h5 id="caching-a-partial">5.3.1 Caching a partial</h5>
 <p>In the file <code>projects/_project.html.erb</code> we switch on caching.</p>
 <p>When you add the code,
@@ -355,7 +366,7 @@ be faster now:</p>
 <p><img src="images/caching-compare.png" srcset='images/caching-compare.png 1x, images/caching-compare@2x.png 2x' alt="successful fragement caching"></p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-24'>▻</a>
+<a class='slide_break' href='caching.html#slide-23'>▻</a>
 
 <p>In Rails 5 you can speed up the rendering even more.
 If you look at the <code>fronts/show</code> view you can see that the project partial
@@ -379,7 +390,7 @@ in Rails 4, so this does not work yet.</p>
 <p>See <a href="http://blog.bigbinary.com/2016/03/09/rails-5-makes-partial-redering-from-cache-substantially-faster.html">Deshmane(2016)</a></p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-25'>▻</a>
+<a class='slide_break' href='caching.html#slide-24'>▻</a>
 <h5 id="side-effects">5.3.2 Side Effects</h5>
 <p>An unexpected side effect of caching the partial can be seen in the
 <a href="https://caching-red.projects.multimediatechnology.at/editions/bachelorprojekte-web-2015?pp=enable">edition view</a>:
@@ -387,7 +398,7 @@ this view also uses the <code>projects/_project</code> partial, so it too will
 profit from the caching.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-26'>▻</a>
+<a class='slide_break' href='caching.html#slide-25'>▻</a>
 <h4 id="russian-doll-caching">5.4 Russian Doll Caching</h4>
 <p>In the previous step we implemented caching for the <code>projects/_project</code> partial,
 which is also used in the <code>editions/show</code> view. Now let's add caching to this
@@ -404,7 +415,7 @@ view also:</p>
 <p><img src="images/russian.png" srcset='images/russian.png 1x, images/russian@2x.png 2x' alt="russian doll caching"></p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-27'>▻</a>
+<a class='slide_break' href='caching.html#slide-26'>▻</a>
 
 <p>But now we have problem: if we change one of the projects
 <strong>inside</strong> this edition, the cache for the partial would be recreated.
@@ -422,7 +433,7 @@ project.save
 "Orange".</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-28'>▻</a>
+<a class='slide_break' href='caching.html#slide-27'>▻</a>
 
 <p>The problem here is a <strong>missing dependency</strong>: our cache entry only depends
 on the edition, not on the projects contained in the edition.</p>
@@ -438,7 +449,7 @@ the cache helper method:</p>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-29'>▻</a>
+<a class='slide_break' href='caching.html#slide-28'>▻</a>
 
 <p>If you reload the page now, you can see that a much longer cache key is
 generated:</p>
@@ -464,7 +475,7 @@ ects/1872-20150603140238000000000/projects/1873-201506030846480
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-30'>▻</a>
+<a class='slide_break' href='caching.html#slide-29'>▻</a>
 
 <p>In the example below the title of one of the projects was changed:
 You can see in rack-mini-profiler that only one of the
@@ -473,30 +484,55 @@ The next time the same page was rendered the edition cache was reused.</p>
 <p><img src="images/russian-change.png" srcset='images/russian-change.png 1x, images/russian-change@2x.png 2x' alt="russian doll caching at work: changes when a project changes"></p>
 </div>
 <div class='slide'>
+<a class='slide_break' href='caching.html#slide-30'>▻</a>
+<h4 id="caching-in-api-only-rails-projects">5.5 Caching in API-only Rails Projects</h4>
+<p>jbuilder has built in caching support:</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+json.cache! ['v1', @person], expires_in: 10.minutes do
+  json.extract! @person, :name, :age
+end
+
+</pre>
+</div>
+</div>
+<div class='slide'>
 <a class='slide_break' href='caching.html#slide-31'>▻</a>
-<h4 id="the-limits-of-fragment-caching">5.5 The limits of fragment caching</h4>
+<h4 id="the-limits-of-fragment-caching">5.6 The limits of fragment caching</h4>
 <p>Caching is really helpful for pages that are accessed a lot.
 In our example app this might be true for the homepage and
 maybe the editions. But there are hundreds of projects in the portfolio.
 Each individual project page will only get very few hits.
 Which means that chances are high that the page will not
 already be in the cache when it is requested.</p>
-<p>So caching cannot be the solution to all performance problems.
-We need to take a closer look at the first render of a page
-to find where we are wasting time.
-To do this it makes sense to switch off caching in development:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-# on the command line
-$ rails dev:cache
-Development mode is no longer being cached.
-
-</pre>
-</div>
+<p>You can "warm up the cache" by automatically loading the most
+important pages of your app after each deployment.</p>
+<p>But caching cannot be the solution to all performance problems.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='caching.html#slide-32'>▻</a>
-<h4 id="final-thought-on-caching-in-rails">5.6 Final Thought on Caching in Rails</h4>
+<h4 id="caching-in-other-frameworks">5.7 Caching in other Frameworks</h4>
+<p>Backend Frameworks:</p>
+<ul>
+<li>laravel: <a href="https://laravel.com/docs/8.x/cache">Cache</a>
+</li>
+<li>nest.js: <a href="https://docs.nestjs.com/techniques/caching#in-memory-cache">Caching</a>
+</li>
+</ul>
+<p>Frontend Frameworks:</p>
+<ul>
+<li>Angular: <a href="https://laravel.com/docs/8.x/cache">$templateCache</a>
+</li>
+<li>vue SSR: <a href="https://ssr.vuejs.org/guide/caching.html#page-level-caching">caching</a>
+</li>
+</ul>
+<p>Frontend + SSR:</p>
+<ul>
+<li>Stale-While-Revalidate Staregy for frontend and APIs <a href="https://medium.com/nerd-for-tech/swr-frontend-data-fetching-and-caching-ca0313239d6f">SWR</a>
+</li>
+<li>next.js: <a href="https://nextjs.org/docs/basic-features/data-fetching#swr">SWR</a>
+### Final Thought on Caching in Rails</li>
+</ul>
 <p>If you find that the backend framework causes a performance problem
 you should be able to narrow down the problem and fix it using
 different methods. You should be able to:</p>
@@ -514,6 +550,16 @@ different methods. You should be able to:</p>
 the computation that is done in ruby code itself. So looking
 at the Database, and the ORM we use to access the database, might
 make sense for performance optimisation.</p>
+<p>Before you start working on the Database, 
+make sure to switch off caching in development:</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+# on the command line
+$ rails dev:cache
+Development mode is no longer being cached.
+
+</pre>
+</div>
 </div>
 <div class='slide'>
 <a class='slide_break' href='caching.html#slide-34'>▻</a>
@@ -809,7 +855,7 @@ WHERE user_id=901;
 <div class='slide'>
 <a class='slide_break' href='caching.html#slide-50'>▻</a>
 
-<p>We can use the select statement to create a view:</p>
+<p>Any Query can turned into a <strong>view</strong> by prepending it with <code>CREATE VIEW ... AS</code>.</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 mysql&gt; CREATE VIEW degree_programs AS
@@ -825,9 +871,8 @@ Query OK, 0 rows affected (0,06 sec)
 <div class='slide'>
 <a class='slide_break' href='caching.html#slide-51'>▻</a>
 
-<p>The select statment with the two joins can now
-be used like a simple table called <code>degree_programs</code> in the database when creating
-new sql queries.</p>
+<p>After the view has been created, we can use <code>degree_programs</code> like a
+table in the database.</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 mysql&gt; SELECT * from degree_programs WHERE user_id=901 ;
@@ -917,7 +962,9 @@ includes statement when loading the project:</p>
 <div class='slide'>
 <a class='slide_break' href='caching.html#slide-56'>▻</a>
 <h5 id="create-view-in-production">6.5.3 create view in production</h5>
-<p>To deploy the view to production, you need to create it with a migration:</p>
+<p>To deploy the view to production, you need to create it with a migration.
+Both the <code>up</code> and <code>down</code> methods of this migration use <code>execute</code> to run
+SQL directly in the database.</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 class CreateViewDegreeProgram &lt; ActiveRecord::Migration
@@ -941,19 +988,27 @@ end
 <div class='slide'>
 <a class='slide_break' href='caching.html#slide-57'>▻</a>
 <h5 id="uses-and-limitations-of-view">6.5.4 uses and limitations of view</h5>
-<p>In this case the view might be a first step towards refactoring
-the database. We just have too many tables in the database that
+<p>In this case the view might be a <strong>first step</strong> towards <strong>refactoring
+the database</strong>. We just have too many tables in the database that
 are not really needed.</p>
 <p>We can rewrite the rails app step by step to use only the new view,
 and not the database tables it is supposed to replace. After we
 have changed all the rails code, we can drop the view, and create
 a table with the same data instead. Then we can drop the original tables
 and are finished with the database refactoring.</p>
-<p>In other cases you might use a view permanently: If you need both
+</div>
+<div class='slide'>
+<a class='slide_break' href='caching.html#slide-58'>▻</a>
+
+<p>In other cases you might use a view <strong>permanently</strong>: If you need both
 the underlying, more complex data, and the simplified data in the view.
 Reports with aggregated data, top 10 lists, queries that use
 complex database expressions, or tables with a reduced set
 of attributes would be good examples for using a view.</p>
+</div>
+<div class='slide'>
+<a class='slide_break' href='caching.html#slide-59'>▻</a>
+
 <p>For data that is accessed a lot, but changes very seldom, you can
 us a <strong>materialized view</strong>. In a normal view each access to the view
 triggers the underlying sql requests. In a materialized view the
@@ -962,7 +1017,7 @@ this needs more memory, but gives
 faster access.</p>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-58'>▻</a>
+<a class='slide_break' href='caching.html#slide-60'>▻</a>
 <h4 id="final-thoughts">6.6 final thoughts</h4>
 <p>ActiveRecord was a big help when writing this app. But it cannot find
 the best SQL Query for every situation and it cannot improve the database.
@@ -978,17 +1033,28 @@ ORM creates make sense and are efficient. You should</p>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' href='caching.html#slide-59'>▻</a>
-<h2>See Also</h2>
+<a class='slide_break' href='caching.html#slide-61'>▻</a>
+<h4 id="orms-in-other-frameworks">6.7 ORMs in other Frameworks</h4>
 <ul>
-<li><a href="https://guides.rubyonrails.org/caching_with_rails.html">Rails Guide: Caching</a></li>
-<li><a href="https://guides.rubyonrails.org/active_record_querying.html#eager-loading-associations">Rails Guide: Active Record Query Interface. N+1 problems</a></li>
-<li><a href="https://www.speedshop.co/2015/07/15/the-complete-guide-to-rails-caching.html">Berkopec(2015): Speed Up Your Rails App by 66% - The Complete Guide to Rails Caching</a></li>
-<li><a href="https://github.com/flyerhzm/bullet#readme">bullet gem for finding n+1 problems</a></li>
-<li><a href="https://content.pivotal.io/blog/using-database-views-for-performance-wins-in-rails">Using database views for performance wins in Rails</a></li>
-<li><a href="https://www.fromdual.ch/mysql-materialized-views">materialized views in mysql</a></li>
-<li><a href="https://www.postgresql.org/docs/9.3/static/rules-materializedviews.html">materialized view in postgres</a></li>
-<li><a href="https://signalvnoise.com/posts/3113-how-key-based-cache-expiration-works">DHH(2012): How key-based cache expiration works</a></li>
+<li>Laravel: the ORM eloquent offers <code>with()</code> to <a href="https://kordes.dev/posts/laravel-and-n-1-problem">solve the n+1 problem</a>
+</li>
+<li>nest.js: <a href="https://wanago.io/2021/02/08/api-nestjs-n-1-problem-graphql/">Dealing in the N + 1 problem in GraphQL</a>
+</li>
+<li>
+<p>typeorm: <a href="https://github.com/typeorm/typeorm/issues/3857">hat ernste Probleme</a></p>
+</div>
+<div class='slide'>
+<a class='slide_break' href='caching.html#slide-62'>▻</a>
+<h2>See Also</h2>
+</li>
+<li><p><a href="https://guides.rubyonrails.org/caching_with_rails.html">Rails Guide: Caching</a></p></li>
+<li><p><a href="https://guides.rubyonrails.org/active_record_querying.html#eager-loading-associations">Rails Guide: Active Record Query Interface. N+1 problems</a></p></li>
+<li><p><a href="https://www.speedshop.co/2015/07/15/the-complete-guide-to-rails-caching.html">Berkopec(2015): Speed Up Your Rails App by 66% - The Complete Guide to Rails Caching</a></p></li>
+<li><p><a href="https://github.com/flyerhzm/bullet#readme">bullet gem for finding n+1 problems</a></p></li>
+<li><p><a href="https://content.pivotal.io/blog/using-database-views-for-performance-wins-in-rails">Using database views for performance wins in Rails</a></p></li>
+<li><p><a href="https://www.fromdual.ch/mysql-materialized-views">materialized views in mysql</a></p></li>
+<li><p><a href="https://www.postgresql.org/docs/9.3/static/rules-materializedviews.html">materialized view in postgres</a></p></li>
+<li><p><a href="https://signalvnoise.com/posts/3113-how-key-based-cache-expiration-works">DHH(2012): How key-based cache expiration works</a></p></li>
 </ul>
 </div>
     </div>
