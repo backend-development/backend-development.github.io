@@ -4,13 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Node Web App in the Backend Development Textbook</title>
+  <title>Node Web App — Backend Development</title>
   <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />
-
+  <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+  
   <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
 
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
@@ -70,14 +69,14 @@
                 <dd><a href="caching.html">Caching</a></dd>
                 <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
                 <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
-              </dl>
-              <dl class="R">
                 <dt>Nodes.js</dt>
                 <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
                 <dd><a href="node_basics.html">Node Basics</a></dd>
                 <dd><a href="node_websockets.html">Node Websockets</a></dd>
                 <dd><a href="node_express.html">Node Web App</a></dd>
                 <dd><a href="node_cluster.html">Scaling Node</a></dd>
+              </dl>
+              <dl class="R">
               </dl>
           </div>
         </li>
@@ -123,14 +122,12 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <div class='slide'><a id='slide-1'></a>
+        <div class='slide'><a id='slide-0'></a>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-1' href='slides_node_express.html#slide-1'>▻</a>
-<h3 id="http">1 HTTP</h3>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-const http = require('http');
+<h3 id="http"><a class="anchorlink" href="#http">1 HTTP</a></h3><div class="code_container">
+<pre><code class="highlight plaintext">const http = require('http');
 const hostname = '127.0.0.1';
 const port = 3000;
 
@@ -142,18 +139,14 @@ const server = http.createServer((req, res) =&gt; {
 server.listen(port, hostname, () =&gt; {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
-
-</pre>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-2' href='slides_node_express.html#slide-2'>▻</a>
-<h3 id="connect">2 Connect</h3>
-<p>Connect is a middleware framework for node
-Built on top of node’s Http Server</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-var connect = require('connect');
+<h3 id="connect"><a class="anchorlink" href="#connect">2 Connect</a></h3><p>Connect is a middleware framework for node
+Built on top of node’s Http Server</p><div class="code_container">
+<pre><code class="highlight plaintext">var connect = require('connect');
 var app = connect()
   .use(connect.logger('dev'))
   .use(connect.static('public'))
@@ -161,13 +154,10 @@ var app = connect()
     res.end('hello world\n');
   })
 http.createServer(app).listen(3000);
-
-</pre>
+</code></pre>
 </div>
-<p><img src="images/connect.svg" alt=""></p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-var connect = require('connect'),
+<p><img src="images/connect.svg" alt=""></p><div class="code_container">
+<pre><code class="highlight plaintext">var connect = require('connect'),
     util = require('util');
 var interceptorFunction = function(request, response, next) {
     console.log(util.format('Request for %s with method %s',
@@ -179,13 +169,12 @@ var app = connect()
     .use(function onRequest(request, response) {
         response.end('Hello from Connect!');
     }).listen(3001);
-
-</pre>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-3' href='slides_node_express.html#slide-3'>▻</a>
-<h3 id="express">3 Express</h3>
+<h3 id="express"><a class="anchorlink" href="#express">3 Express</a></h3>
 <ul>
 <li>Project Generator</li>
 <li>Request / Response enhancements</li>
@@ -196,43 +185,30 @@ var app = connect()
 <li>(all on top of connect)</li>
 </ul>
 <div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-express projectname
-
-</pre>
+<pre><code class="highlight plaintext">express projectname
+</code></pre>
 </div>
 <p>Creates your project with all the necessary packages
-Creates package.json has the dependencies listed</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-cd projectname
+Creates package.json has the dependencies listed</p><div class="code_container">
+<pre><code class="highlight plaintext">cd projectname
 npm install
-
-</pre>
+</code></pre>
 </div>
-<p>Installs all dependencies to your project</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-DEBUG=node-express:* npm start
-
-</pre>
+<p>Installs all dependencies to your project</p><div class="code_container">
+<pre><code class="highlight plaintext">DEBUG=node-express:* npm start
+</code></pre>
 </div>
-<p>has your project up and running</p>
-</div>
+<p>has your project up and running</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-4' href='slides_node_express.html#slide-4'>▻</a>
-<h4 id="views-with-jade">3.1 Views with JADE</h4>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-app.get('/', function (req, res) {
+<h4 id="views-with-jade"><a class="anchorlink" href="#views-with-jade">3.1 Views with JADE</a></h4><div class="code_container">
+<pre><code class="highlight plaintext">app.get('/', function (req, res) {
     res.render('index', {user: 'Welt'});
 });
-
-</pre>
+</code></pre>
 </div>
 <div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-extends layout
+<pre><code class="highlight plaintext">extends layout
 
 block content
     h1 Hallo #{user}
@@ -240,62 +216,45 @@ block content
     ul 
       - for (var x = 0; x &lt; 3; x++)
         li bla
-
-</pre>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-5' href='slides_node_express.html#slide-5'>▻</a>
-<h4 id="working-with-data">3.2 Working with data</h4>
-<p>Pass data to the views</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-res.render('index', { title: 'Customer List' });
-
-</pre>
+<h4 id="working-with-data"><a class="anchorlink" href="#working-with-data">3.2 Working with data</a></h4><p>Pass data to the views</p><div class="code_container">
+<pre><code class="highlight plaintext">res.render('index', { title: 'Customer List' });
+</code></pre>
 </div>
-<p>Read data from form </p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-app.use(bodyParser.urlencoded({ extended: false }));
+<p>Read data from form </p><div class="code_container">
+<pre><code class="highlight plaintext">app.use(bodyParser.urlencoded({ extended: false }));
 app.post('/', function(req, res){  
   var userName = req.body.username;   
   res.send(`Hello ${username}&lt;br&gt;&lt;a href="/"&gt;Try again.&lt;/a&gt;`);
 }); 
-
-</pre>
+</code></pre>
 </div>
-<p>Read and send files</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-let filePath = req.files.picture.path;
+<p>Read and send files</p><div class="code_container">
+<pre><code class="highlight plaintext">let filePath = req.files.picture.path;
 res.sendfile(filePath); // also: sets Content-Type from ext
 // res.download(filePath);  // same, as attachment, size
-
-</pre>
+</code></pre>
 </div>
-<p>Data for all views</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-app.locals.clock = new Date().toUTCString();
-
-</pre>
+<p>Data for all views</p><div class="code_container">
+<pre><code class="highlight plaintext">app.locals.clock = new Date().toUTCString();
+</code></pre>
 </div>
-<p>clock is now available in all views:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-p This Server started at #{clock}
-
-</pre>
+<p>clock is now available in all views:</p><div class="code_container">
+<pre><code class="highlight plaintext">p This Server started at #{clock}
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-6' href='slides_node_express.html#slide-6'>▻</a>
-<h3 id="see-also">4 See Also</h3>
+<h3 id="see-also"><a class="anchorlink" href="#see-also">4 See Also</a></h3>
 <ul>
 <li><a href="https://expressjs.com/en/resources/frameworks.html">frameworks recommended by express</a></li>
 </ul>
-</div>        
+</div>
       </div>
     </div>
   </div>
@@ -305,19 +264,12 @@ p This Server started at #{clock}
     <div class="wrapper">
       <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2021 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
       </p><p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
-        and edit <a href="https://github.com/backend-development/backend-development-textbook/blob/master/source/node_express.md">node_express.md</a>
       </p>
     </div>
   </div>
 
   <script src="javascripts/jquery.min.js"></script>
-  <script src="javascripts/responsive-tables.js"></script>
   <script src="javascripts/guides.js"></script>
-  <script src="javascripts/syntaxhighlighter/shCore.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>
   <script>
     SyntaxHighlighter.all()
     $(guidesIndex.bind);

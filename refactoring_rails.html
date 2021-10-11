@@ -4,13 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Refactoring Rails in the Backend Development Textbook</title>
+  <title>Refactoring Rails — Backend Development</title>
   <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />
-
+  <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+  
   <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
 
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
@@ -70,14 +69,14 @@
                 <dd><a href="caching.html">Caching</a></dd>
                 <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
                 <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
-              </dl>
-              <dl class="R">
                 <dt>Nodes.js</dt>
                 <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
                 <dd><a href="node_basics.html">Node Basics</a></dd>
                 <dd><a href="node_websockets.html">Node Websockets</a></dd>
                 <dd><a href="node_express.html">Node Web App</a></dd>
                 <dd><a href="node_cluster.html">Scaling Node</a></dd>
+              </dl>
+              <dl class="R">
               </dl>
           </div>
         </li>
@@ -117,16 +116,14 @@ your code.  </p><p>By referring to this guide, you will be able to:</p>
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <div class='slide'><a id='slide-1'></a>
+        <div class='slide'><a id='slide-0'></a>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-1' href='slides_refactoring_rails.html#slide-1'>▻</a>
-<h3 id="refactoring">1 Refactoring</h3>
-<p>Never be ashamed of making you code better.  On the contrary: recognizing code smells
+<h3 id="refactoring"><a class="anchorlink" href="#refactoring">1 Refactoring</a></h3><p>Never be ashamed of making you code better.  On the contrary: recognizing code smells
 in your old code means that you learnt something in the meantime.
 Only very inexperienced people think that the code they wrote yesterday is
-perfect.</p>
-<p>Refactoring is </p>
+perfect.</p><p>Refactoring is </p>
 <ul>
 <li>restructuring an existing body of code</li>
 <li>altering its internal structure</li>
@@ -134,15 +131,11 @@ perfect.</p>
 </li>
 </ul>
 <p>We will use <strong>tests</strong> to ensure that we do not change the external behavior 
-of the code we are refactoring.</p>
-<p>A <strong>code smell</strong> is a piece of bad code that we recognize.</p>
-<p>Read the Ruby version of Fowlers refactoring book to 
-learn both code smells and refactorings:</p>
-</div>
+of the code we are refactoring.</p><p>A <strong>code smell</strong> is a piece of bad code that we recognize.</p><p>Read the Ruby version of Fowlers refactoring book to 
+learn both code smells and refactorings:</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-2' href='slides_refactoring_rails.html#slide-2'>▻</a>
-<h3 id="code-smells">2 Code Smells</h3>
-<p>This is the list of code smells from 
+<h3 id="code-smells"><a class="anchorlink" href="#code-smells">2 Code Smells</a></h3><p>This is the list of code smells from 
 Fields, Harvie, Fowler(2010): Refactoring, Ruby Edition. Addison-Wesley.
 In chapter 6 to 12 of that book they describe refactorings to handle
 all these problems and more:</p>
@@ -176,41 +169,33 @@ all these problems and more:</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-3' href='slides_refactoring_rails.html#slide-3'>▻</a>
-<h3 id="tools-for-code-quality">3 Tools for Code Quality</h3>
-<p>Recognizing code that is problematic and should be refactored
+<h3 id="tools-for-code-quality"><a class="anchorlink" href="#tools-for-code-quality">3 Tools for Code Quality</a></h3><p>Recognizing code that is problematic and should be refactored
 is one of the main skills of a developer.  Often it is not a
 black and white situation: there might be several ways of writing
 a certain piece of code, each with it's own pros and cons.<br>
-A tool cannot help you make these decision.</p>
-<p>But there is a role for tools in this process: especially when
+A tool cannot help you make these decision.</p><p>But there is a role for tools in this process: especially when
 faced with a lot of code there are tools that can help
-you find places you should look at.</p>
-<p>A <a href="https://en.wikipedia.org/wiki/Software_metric">code metric</a> is 
-a quantitive measure of the quality of a piece of code.</p>
-<p>The Gem <code>metric_fu</code> combines some metrics. Install it in your
+you find places you should look at.</p><p>A <a href="https://en.wikipedia.org/wiki/Software_metric">code metric</a> is 
+a quantitive measure of the quality of a piece of code.</p><p>The Gem <code>metric_fu</code> combines some metrics. Install it in your
 Gemfile, and add a task-file, and run it on the command line <code>metriy_fu</code>.
-It will generate a report in <code>tmp/metric_fu/output/</code>. </p>
-<p><strong>Saikuro</strong> is a good place to start reading the report: it
-measures  cyclomatic complexity, or how deep you nest your control structures.</p>
-<p>See <a href="http://railscasts.com/episodes/166-metric-fu?view=asciicast">Rails Cast no
+It will generate a report in <code>tmp/metric_fu/output/</code>. </p><p><strong>Saikuro</strong> is a good place to start reading the report: it
+measures  cyclomatic complexity, or how deep you nest your control structures.</p><p>See <a href="http://railscasts.com/episodes/166-metric-fu?view=asciicast">Rails Cast no
 166</a> for a more
-detailed introduction to metric_fu.</p>
-<p>Another tool to help find spots where you can improve the quality of
+detailed introduction to metric_fu.</p><p>Another tool to help find spots where you can improve the quality of
 your code is <code>rails_best_practices</code>.  Install the gem, but don't put
 it in your <code>Gemfile</code>.  Just run <code>rails_best_practices -f html</code> in
 the main directory of your app.  The result will be written to 
-<code>./rails_best_practices_output.html</code>.</p>
-</div>
+<code>./rails_best_practices_output.html</code>.</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-4' href='slides_refactoring_rails.html#slide-4'>▻</a>
-<h3 id="futher-reading">4 Futher Reading</h3>
+<h3 id="futher-reading"><a class="anchorlink" href="#futher-reading">4 Futher Reading</a></h3>
 <ul>
 <li>Fowler, Beck, Brant, Opdyke, Roberts(1999). Refactoring: improving the design of existing code. Addison Wesley. ISBN: 0-201-48567-2.</li>
 <li>Fields, Harvie, Fowler(2010): Refactoring, Ruby Edition. Addison-Wesley.</li>
 <li>
 <a href="https://github.com/facebook/codemod">codemod</a> a python script</li>
 </ul>
-</div>        
+</div>
       </div>
     </div>
   </div>
@@ -220,19 +205,12 @@ the main directory of your app.  The result will be written to
     <div class="wrapper">
       <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2021 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
       </p><p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
-        and edit <a href="https://github.com/backend-development/backend-development-textbook/blob/master/source/refactoring_rails.md">refactoring_rails.md</a>
       </p>
     </div>
   </div>
 
   <script src="javascripts/jquery.min.js"></script>
-  <script src="javascripts/responsive-tables.js"></script>
   <script src="javascripts/guides.js"></script>
-  <script src="javascripts/syntaxhighlighter/shCore.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>
   <script>
     SyntaxHighlighter.all()
     $(guidesIndex.bind);

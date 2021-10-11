@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=1024, user-scalable=no">
     <title>Slides for
         Backend Development Textbook
@@ -20,8 +20,7 @@
     <!-- Transition theme. More available in /themes/transition/ or create your own. -->
     <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
     <!-- syntax highlighter -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />    
+    <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
 
 
     <!-- Basic black and white print styles -->
@@ -36,15 +35,13 @@
 </div>
 <div class='slide'>
 <a class='slide_break' href='ruby_commandline.html#slide-1'>▻</a>
-<h2>Ruby</h2>
-<p>This guide will focus on Ruby - the language - alone.</p>
-<p>After finishing this guide you will</p>
+<h2>Ruby</h2><p>This guide will focus on Ruby - the language - alone.</p><p>After finishing this guide you will</p>
 <ul>
 <li>have an overview of Ruby's type system</li>
 <li>be able to use list processing functions in Ruby</li>
 <li>be able to use blocks and <code>yield</code> in Ruby.</li>
 </ul>
-<div class="repo"><p>Fork the <a href="https://github.com/backend-development/learn_ruby">learn_ruby</a> repository to try some test driven ruby learning</p></div>
+<p>REPO: Fork the <a href="https://github.com/backend-development/learn_ruby">learn_ruby</a> repository to try some test driven ruby learning</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='ruby_commandline.html#slide-2'>▻</a>
@@ -52,110 +49,148 @@
 </div>
 <div class='slide'>
 <a class='slide_break' href='ruby_commandline.html#slide-3'>▻</a>
-<h3 id="what-is-ruby">1 What is Ruby</h3>
-<p><img src="images/Ruby_logo.png" alt="Ruby Logo"></p>
-<p>Ruby is an open source project. It was started
+<h3 id="what-is-ruby"><a class="anchorlink" href="#what-is-ruby">1 What is Ruby</a></h3><p><img src="images/Ruby_logo.png" alt="Ruby Logo"></p><p>Ruby is an open source project. It was started
 in 1996 by Yukihiro 'Matz' Matsumoto. He is still
-the "benevolent dictator" who decides on the future of the language.</p>
-<p>In a colossal break with tradition he did not
+the "benevolent dictator" who decides on the future of the language.</p><p>In a colossal break with tradition he did not
 choose a name starting with p for his scripting language
-(think perl, python, php) but opted for r instead.</p>
-<p>Ruby is a thoroughly object oriented scripting language.
-Even basic data types are object:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-1.to_s
-=&gt; "1"
-
-</pre>
+(think perl, python, php) but opted for r instead.</p><p>Ruby is a thoroughly object oriented scripting language.
+Even basic data types are object:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="mi">1</span><span class="p">.</span><span class="nf">to_s</span>
+<span class="o">=&gt;</span> <span class="s2">"1"</span>
+</code></pre>
 </div>
 <p>In this example the number 1 is used as an object, the method <code>to_s</code> is
-called on it. The result is an Object of class String.</p>
-</div>
+called on it. The result is an Object of class String.</p></div>
 <div class='slide'>
 <a class='slide_break' href='ruby_commandline.html#slide-4'>▻</a>
-<h4 id="what-is-ruby-on-rails">1.1 What is Ruby on Rails</h4>
-<p><img src="images/Ruby_on_Rails_logo.png" alt="Ruby on Rails Logo"></p>
-<p>Ruby on Rails is a web framework written in Ruby.
-It was created by David Heinemeier Hansson ('DHH') starting in 2005.</p>
-<p>Rails is famous for the high productivity it gives to developers. It
+<h4 id="what-is-ruby-on-rails"><a class="anchorlink" href="#what-is-ruby-on-rails">1.1 What is Ruby on Rails</a></h4><p><img src="images/Ruby_on_Rails_logo.png" alt="Ruby on Rails Logo"></p><p>Ruby on Rails is a web framework written in Ruby.
+It was created by David Heinemeier Hansson ('DHH') starting in 2005.</p><p>Rails is famous for the high productivity it gives to developers. It
 is often used in startups, where speed of delivery is very important.
 Rails moves fast, new versions with major improvement appear about every 18
 months. The Rails community values speed of development, DRY code, testing,
 version control, ... when you learn Rails you also pick up a whole culture
-surrounding it.</p>
-<p>Some sites built with Rails are: <a href="https://github.com">GitHub</a> and <a href="https://gitlab.com">GitLab</a>, <a href="https://shopify.com">Shopify</a>, <a href="https://www.fiverr.com/">Fiverr</a>, <a href="https://codepen.io/">codepen.io</a>, <a href="https://airbnb.com">Airbnb</a>, <a href="https://blog.twitch.tv/en/2015/12/18/twitch-engineering-an-introduction-and-overview-a23917b71a25/">Twitch</a>, <a href="https://squareup.com/">Square</a>, <a href="https://dribbble.com/">Dribble</a> and of course <a href="https://basecamp.com">Basecamp</a>, DHHs own product.</p>
-</div>
+surrounding it.</p><p>Some sites built with Rails are: <a href="https://github.com">GitHub</a> and <a href="https://gitlab.com">GitLab</a>, <a href="https://shopify.com">Shopify</a>, <a href="https://www.fiverr.com/">Fiverr</a>, <a href="https://codepen.io/">codepen.io</a>, <a href="https://airbnb.com">Airbnb</a>, <a href="https://blog.twitch.tv/en/2015/12/18/twitch-engineering-an-introduction-and-overview-a23917b71a25/">Twitch</a>, <a href="https://squareup.com/">Square</a>, <a href="https://dribbble.com/">Dribble</a> and of course <a href="https://basecamp.com">Basecamp</a>, DHHs own product.</p></div>
 <div class='slide'>
 <a class='slide_break' href='ruby_commandline.html#slide-5'>▻</a>
-<h4 id="why-ruby-questionmark-why-rails-questionmark">1.2 Why Ruby? Why Rails ?</h4>
-<p>Why should you use Ruby and Rails over other programming languages
+<h4 id="why-ruby-questionmark-why-rails-questionmark"><a class="anchorlink" href="#why-ruby-questionmark-why-rails-questionmark">1.2 Why Ruby? Why Rails ?</a></h4><p>Why should you use Ruby and Rails over other programming languages
 and frameworks?</p>
 <ul>
 <li>Because you want to be a highly productive web developer?</li>
 <li>Because you want to learn from the best?</li>
 <li>Because you want try out many different languages and many frameworks?</li>
 </ul>
-<p>All these answers are equally valid.</p>
-<p>Also, there are cool t-shirts:</p>
-<p><img src="images/ruby-and-rails-t-shirts.png" alt="Ruby and Rails T-Shirts"></p>
-</div>
+<p>All these answers are equally valid.</p><p>Also, there are cool t-shirts:</p><p><img src="images/ruby-and-rails-t-shirts.png" alt="Ruby and Rails T-Shirts"></p></div>
 <div class='slide'>
 <a class='slide_break' href='ruby_commandline.html#slide-6'>▻</a>
-<h3 id="ruby-basics">2 Ruby Basics</h3>
-<p>To get to know Ruby you don't need to write
+<h3 id="ruby-basics"><a class="anchorlink" href="#ruby-basics">2 Ruby Basics</a></h3><p>To get to know Ruby you don't need to write
 whole programes. You can start out with <strong>interactive ruby - irb</strong>.
 When you start irb you get a command line to type in Ruby code. When
 you press enter the code is evaluated immediately and you get the result.
-Use the commands <code>exit</code> or <code>quit</code> or the key combination CONTROL-D to get out.</p>
-<p>In this guide we will show code run in irb by marking the prompt as <code>&gt;&gt;</code> and
-the result as <code>=&gt;</code>, for example:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-&gt;&gt; 2 + 2
-=&gt; 4
-
-</pre>
+Use the commands <code>exit</code> or <code>quit</code> or the key combination CONTROL-D to get out.</p><p>In this guide we will show code run in irb by marking the prompt as <code>&gt;&gt;</code> and
+the result as <code>=&gt;</code>, for example:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="o">&gt;&gt;</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span>
+<span class="o">=&gt;</span> <span class="mi">4</span>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' href='ruby_commandline.html#slide-7'>▻</a>
-<h4 id="some-code-conventions">2.1 Some code conventions</h4>
-<p>Try to stick to <a href="https://github.com/styleguide/ruby">github's style for ruby</a>.</p>
-<p>When you choose names for your objects, classes and methods
+<h4 id="some-code-conventions"><a class="anchorlink" href="#some-code-conventions">2.1 Some code conventions</a></h4><p>Try to stick to <a href="https://github.com/styleguide/ruby">github's style for ruby</a>.</p><p>When you choose names for your objects, classes and methods
 you should stick to the following conventions to avoid
-confusing other Ruby developers:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-the_variable = SomeClass.new
-             # variables are written in snake_case
-             # classes in capital CamelCase
+confusing other Ruby developers:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">the_variable</span> <span class="o">=</span> <span class="no">SomeClass</span><span class="p">.</span><span class="nf">new</span>
+             <span class="c1"># variables are written in snake_case</span>
+             <span class="c1"># classes in capital CamelCase</span>
 
-             # method names are written in snake_case
-a = b.sugar  # a method that returns something
-b.sweet?     # a method that returns true or false
-             # ends in a question mark
-b.sugar!     # a method that changes its object
-             # ends in an exclamation mark
-
-</pre>
+             <span class="c1"># method names are written in snake_case</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">b</span><span class="p">.</span><span class="nf">sugar</span>  <span class="c1"># a method that returns something</span>
+<span class="n">b</span><span class="p">.</span><span class="nf">sweet?</span>     <span class="c1"># a method that returns true or false</span>
+             <span class="c1"># ends in a question mark</span>
+<span class="n">b</span><span class="p">.</span><span class="nf">sugar!</span>     <span class="c1"># a method that changes its object</span>
+             <span class="c1"># ends in an exclamation mark</span>
+</code></pre>
 </div>
 <p>In the last two examples the punctuation marks are really
-part of the method names!</p>
-<p>The parantheses around the arguments of a method are optional.
-Leave them off unless your code get's confusing:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-puts("less code")
-puts "less code"
-
-</pre>
+part of the method names!</p></div>
+<div class='slide'>
+<a class='slide_break' href='ruby_commandline.html#slide-8'>▻</a>
+<h3 id="methods"><a class="anchorlink" href="#methods">3 Methods</a></h3><p>When calling a method,
+the parantheses around the arguments are optional.
+Leave them off unless your code get's confusing:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="nb">puts</span><span class="p">(</span><span class="s2">"less code"</span><span class="p">)</span>
+<span class="nb">puts</span> <span class="s2">"less code"</span>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='ruby_commandline.html#slide-8'>▻</a>
-<h2>Data Types</h2>
-<p>All of Ruby's basic data types are Classes.</p>
+<a class='slide_break' href='ruby_commandline.html#slide-9'>▻</a>
+<h4 id="definig-a-method"><a class="anchorlink" href="#definig-a-method">3.1 Definig a Method</a></h4><div class="code_container">
+<pre><code class="highlight ruby"><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="s2">"Hello World"</span>
+  <span class="nb">puts</span> <span class="s2">"I'm just ignoring my arguments for now"</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='ruby_commandline.html#slide-10'>▻</a>
+<h4 id="return-value"><a class="anchorlink" href="#return-value">3.2 Return Value</a></h4><p>Methods in Ruby return the last expression - even
+if no explicit <code>return</code> statement is given.</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+  <span class="s2">"x"</span>
+<span class="k">end</span>
+
+<span class="n">f</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">42</span><span class="p">)</span>  <span class="c1"># returns "x"</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='ruby_commandline.html#slide-11'>▻</a>
+<h4 id="keyword-arguments"><a class="anchorlink" href="#keyword-arguments">3.3 Keyword Arguments</a></h4><p>Since ruby 2.0 keyword arguments can be used instead,
+and can be given default values:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="k">def</span> <span class="nf">apply_the_style</span><span class="p">(</span><span class="ss">font_family: </span><span class="s1">'MS Comic Sans'</span><span class="p">,</span> <span class="ss">font_size: </span><span class="mi">16</span> <span class="p">)</span>
+  <span class="o">...</span>
+<span class="k">end</span>
+
+<span class="n">apply_the_style</span><span class="p">()</span>    <span class="c1"># uses both default values</span>
+<span class="n">apply_the_style</span><span class="p">(</span><span class="ss">font_family: </span><span class="s2">"Arial"</span><span class="p">)</span>
+<span class="n">apply_the_style</span><span class="p">(</span><span class="ss">font_size: </span><span class="mi">10</span><span class="p">,</span> <span class="ss">font_family: </span><span class="s2">"Arial"</span><span class="p">)</span>  <span class="c1"># order can be different</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='ruby_commandline.html#slide-12'>▻</a>
+<h3 id="object-orientation"><a class="anchorlink" href="#object-orientation">4 Object Orientation</a></h3><p>Everything is an Object, even Integers and Strings.
+They have methods and properties, like other objects:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="o">&gt;&gt;</span> <span class="kp">nil</span><span class="p">.</span><span class="nf">class</span>
+<span class="o">=&gt;</span> <span class="no">NilClass</span>
+
+<span class="o">&gt;&gt;</span> <span class="mi">2</span><span class="p">.</span><span class="nf">class</span>
+<span class="o">=&gt;</span> <span class="no">Fixnum</span>
+
+<span class="o">&gt;&gt;</span> <span class="s2">"some text"</span><span class="p">.</span><span class="nf">length</span>
+<span class="o">=&gt;</span> <span class="mi">9</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='ruby_commandline.html#slide-13'>▻</a>
+<h4 id="the-save-navigation-operator"><a class="anchorlink" href="#the-save-navigation-operator">4.1 The 'Save Navigation' Operator</a></h4><p>Imagine you have an Object <code>a</code>, that has a property <code>b</code> containing
+another object, and <code>b</code> has a property <code>c</code>. You can access <code>c</code> through <code>a.b.c</code></p><p>But if a is <code>nil</code> then you will get an error:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="o">&gt;</span> <span class="n">a</span><span class="p">.</span><span class="nf">b</span><span class="p">.</span><span class="nf">c</span>
+<span class="no">NoMethodError</span><span class="p">:</span> <span class="n">undefined</span> <span class="nb">method</span> <span class="sb">`b' for nil:NilClass
+</span></code></pre>
+</div>
+<p>The Operator <code>&amp;.</code> avoids this error:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="o">&gt;</span> <span class="n">a</span><span class="o">&amp;</span><span class="p">.</span><span class="nf">b</span><span class="o">&amp;</span><span class="p">.</span><span class="nf">c</span>
+<span class="kp">nil</span>
+</code></pre>
+</div>
+<p>The Operator was introduced in Ruby 2.3.0 is is called
+"save navigation operator" or sometimes "lonely operator".</p></div>
+<div class='slide'>
+<a class='slide_break' href='ruby_commandline.html#slide-14'>▻</a>
+<h3 id="type-system"><a class="anchorlink" href="#type-system">5 Type System</a></h3><p>All of Ruby's basic data types are Classes.</p>
 <ul>
 <li>nil</li>
 <li>Numeric, Integer, Fixnum, Bignum, Float <code># are converted automatically to each other</code>
@@ -172,258 +207,129 @@ puts "less code"
 <li>Object</li>
 <li>Regex</li>
 </ul>
-<p>Ruby is strict about data types, there is no automatic conversion except
-between numeric types.</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-&gt;&gt; "a string" + "another"
-=&gt; "a stringanother"
-
-&gt;&gt; "a string" + 2
-TypeError: no implicit conversion of Fixnum into String
-
-&gt;&gt; 42 + 3.141
-=&gt; 45.141
-
-</pre>
-</div>
-<p>Everything is an Object, even Integers and Strings.
-They have methods and properties, like other objects:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-&gt;&gt; nil.class
-=&gt; NilClass
-
-&gt;&gt; 2.class
-=&gt; Fixnum
-
-&gt;&gt; "some text".length
-=&gt; 9
-
-</pre>
-</div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='ruby_commandline.html#slide-9'>▻</a>
-<h4 id="strings">2.2 Strings</h4>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-s = 'just a string of characters'
-s = "string with #{the_variable} embedded"
-s = "string with #{a+b/c} a ruby expression embedded"
-s = &lt;&lt;EOM
-This is a so called "Here-Document"
-it can contain many lines of text
-and ends with the identifier EOM (that i chose!)
-but only if it's alone on a line all by itself:
-EOM
-s = %Q§with %Q you can chose any character als string delimiters§
-s = %Q{
-  with %Q you can chose any character als string delimiters.
-  opening brackets go with closing brackets.
-}
-
-</pre>
-</div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='ruby_commandline.html#slide-10'>▻</a>
-<h4 id="boolean-values">2.3 Boolean Values</h4>
-<p>In Ruby only <code>false</code> and <code>nil</code> are treated as false. This might
-be confusing for programmers used to other languages with
-more complex rules for truthyness:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-if 0
-  puts '0 is true!'
-end
-if "false"
-  puts '"false" (the string) is true'
-end
-
-</pre>
-</div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='ruby_commandline.html#slide-11'>▻</a>
-<h4 id="shorthand-version-of-conditions">2.4 Shorthand version of Conditions</h4>
-<p>The two conditions shown in the last
-code block only have one statement inside
-the block.</p>
-<p>This can also be written in another way by
-appending the condition to the statement,
-like so:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-puts '0 is true!' if 0
-puts '"false" (the string) is true' if "false"
-
-</pre>
-</div>
-<p>This syntax should be familiar to you if
-you understand English. (yes, that's an English
-sentence using the same syntax).</p>
-</div>
-<div class='slide'>
-<a class='slide_break' href='ruby_commandline.html#slide-12'>▻</a>
-<h4 id="boolean-operators">2.5 Boolean Operators</h4>
-<p>When Ruby evaluates a boolean operator,
-it does as little work as possible. It
-stops evaluation as soon as the result is clear:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-# the second argument is not evaluated!
-a =  true || ...
-a = false &amp;&amp; ...
-
-</pre>
-</div>
-<p>The boolean operators don't just return true or
-false, they return the argument last evaluated.
-This is often used to set a variable:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-default_value = "gray"
-input_value = nil
-# here input_value might be set...
-a = input_value || default_value
-
-</pre>
-</div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='ruby_commandline.html#slide-13'>▻</a>
-<h3 id="the-save-navigation-operator">3 The 'Save Navigation' Operator</h3>
-<p>Imagine you have an Object a, that has a property b containing
-another object, and b has a property c. You can access c through <code>a.b.c</code></p>
-<p>But if a is <code>nil</code> then you will get an error:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-&gt; a.b.c
-NoMethodError: undefined method `b' for nil:NilClass
-
-</pre>
-</div>
-<p>The Operator <code>&amp;.</code> avoids this error:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-&gt; a&amp;.b&amp;.c
-nil
-
-</pre>
-</div>
-<p>The Operator was introduced in Ruby 2.3.0 is is called
-"save navigation operator" or sometimes "lonely operator".</p>
-</div>
-<div class='slide'>
-<a class='slide_break' href='ruby_commandline.html#slide-14'>▻</a>
-<h4 id="symbols">3.1 Symbols</h4>
-<p>A Symbol looks - at first glance - similar to a string: you can
-invent it at any time (no 'declaration') and give it any name:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-a = :foo
-a = :bar
-
-s = "foo"
-s = "bar"
-
-</pre>
-</div>
-<p>But: there is always just one instance of a symbol while
-there can be several strings that have the same content, but are different objects:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-&gt;&gt; :foo.object_id
-=&gt; 635528
-&gt;&gt; :foo.object_id
-=&gt; 635528
-&gt;&gt; "foo".object_id
-=&gt; 70099463087600
-&gt;&gt; "foo".object_id
-=&gt; 70099463106400
-
-</pre>
-</div>
-<p>Use symbols where you would enums in a database or another language,
-or if you need distinct constants, when the value is not important.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='ruby_commandline.html#slide-15'>▻</a>
-<h4 id="methods">3.2 Methods</h4>
-<p>Methods in Ruby return the last expression - even
-if no explicit <code>return</code> statement is given.</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-def f(a,b)
-  "x"
-end
+<h4 id="strict-type-checking"><a class="anchorlink" href="#strict-type-checking">5.1 Strict Type Checking</a></h4><p>Ruby is strict about data types, there is no automatic conversion except
+between numeric types.</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="o">&gt;&gt;</span> <span class="s2">"a string"</span> <span class="o">+</span> <span class="s2">"another"</span>
+<span class="o">=&gt;</span> <span class="s2">"a stringanother"</span>
 
-f(1,42)  # returns "x"
+<span class="o">&gt;&gt;</span> <span class="s2">"a string"</span> <span class="o">+</span> <span class="mi">2</span>
+<span class="no">TypeError</span><span class="p">:</span> <span class="n">no</span> <span class="n">implicit</span> <span class="n">conversion</span> <span class="n">of</span> <span class="no">Fixnum</span> <span class="n">into</span> <span class="no">String</span>
 
-</pre>
+<span class="o">&gt;&gt;</span> <span class="mi">42</span> <span class="o">+</span> <span class="mf">3.141</span>
+<span class="o">=&gt;</span> <span class="mf">45.141</span>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' href='ruby_commandline.html#slide-16'>▻</a>
-<h4 id="arrays">3.3 Arrays</h4>
-<p>There are several ways of writing literal arrays in Ruby.
-The first one looks like JSON:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-&gt;&gt; a = ["this", "that", "something"]
-=&gt; ["this", "that", "something"]
-
-</pre>
-</div>
-<p>For creating an array of words (strings without whitespace in them)
-you can use <code>%w</code>:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-&gt;&gt; a = %w(this that something)
-=&gt; ["this", "that", "something"]
-
-</pre>
-</div>
-<p>When creating an array of consecutive numbers you can
-use a Range and convert it to an Array:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-&gt;&gt; (1..4).to_a
-=&gt; [1, 2, 3, 4]
-
-</pre>
+<h4 id="strings"><a class="anchorlink" href="#strings">5.2 Strings</a></h4><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">s</span> <span class="o">=</span> <span class="s1">'just a string of characters'</span>
+<span class="n">s</span> <span class="o">=</span> <span class="s2">"string with </span><span class="si">#{</span><span class="n">the_variable</span><span class="si">}</span><span class="s2"> embedded"</span>
+<span class="n">s</span> <span class="o">=</span> <span class="s2">"string with </span><span class="si">#{</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">/</span><span class="n">c</span><span class="si">}</span><span class="s2"> a ruby expression embedded"</span>
+<span class="n">s</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="no">EOM</span><span class="sh">
+This is a so called "Here-Document"
+it can contain many lines of text
+and ends with the identifier EOM (that i chose!)
+but only if it's alone on a line all by itself:
+</span><span class="no">EOM</span>
+<span class="n">s</span> <span class="o">=</span> <span class="sx">%Q|with %Q you can chose any character als string delimiters|</span>
+<span class="n">s</span> <span class="o">=</span> <span class="sx">%Q{
+  with %Q you can chose any character als string delimiters.
+  opening brackets go with closing brackets.
+}</span>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' href='ruby_commandline.html#slide-17'>▻</a>
-<h3 id="hashes">4 Hashes</h3>
-<p>A Hash is a datastructure similar to an array. An array uses integers as keys
-while a Hash allows any type as the keys. Mostly strings and symbols are used:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-h = Hash.new
-h["alice"] = "beer"
-h["chris"] = "tea"
-h["bob"] = "mate"
-
-</pre>
+<h4 id="boolean-values"><a class="anchorlink" href="#boolean-values">5.3 Boolean Values</a></h4><p>In Ruby only <code>false</code> and <code>nil</code> are treated as false. This might
+be confusing for programmers used to other languages with
+more complex rules for truthyness:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="k">if</span> <span class="mi">0</span>
+  <span class="nb">puts</span> <span class="s1">'0 is true!'</span>
+<span class="k">end</span>
+<span class="k">if</span> <span class="s2">"false"</span>
+  <span class="nb">puts</span> <span class="s1">'"false" (the string) is true'</span>
+<span class="k">end</span>
+</code></pre>
 </div>
-<p>But you can use other objects:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-t = Date.new
-h[t] = "recently"
-
-</pre>
 </div>
-<p>The data structure behind a Ruby Hash is more complex
+<div class='slide'>
+<a class='slide_break' href='ruby_commandline.html#slide-18'>▻</a>
+<h4 id="symbols"><a class="anchorlink" href="#symbols">5.4 Symbols</a></h4><p>A Symbol looks - at first glance - similar to a string: you can
+invent it at any time (no 'declaration') and give it any name:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">a</span> <span class="o">=</span> <span class="ss">:foo</span>
+<span class="n">a</span> <span class="o">=</span> <span class="ss">:bar</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="s2">"foo"</span>
+<span class="n">s</span> <span class="o">=</span> <span class="s2">"bar"</span>
+</code></pre>
+</div>
+<p>But: there is always just one instance of a symbol while
+there can be several strings that have the same content, but are different objects:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="o">&gt;&gt;</span> <span class="ss">:foo</span><span class="p">.</span><span class="nf">object_id</span>
+<span class="o">=&gt;</span> <span class="mi">635528</span>
+<span class="o">&gt;&gt;</span> <span class="ss">:foo</span><span class="p">.</span><span class="nf">object_id</span>
+<span class="o">=&gt;</span> <span class="mi">635528</span>
+
+<span class="o">&gt;&gt;</span> <span class="s2">"foo"</span><span class="p">.</span><span class="nf">object_id</span>
+<span class="o">=&gt;</span> <span class="mi">70099463087600</span>
+<span class="o">&gt;&gt;</span> <span class="s2">"foo"</span><span class="p">.</span><span class="nf">object_id</span>
+<span class="o">=&gt;</span> <span class="mi">70099463106400</span>
+</code></pre>
+</div>
+<p>Use symbols where you would enums in a database or another language,
+or if you need distinct constants, when the value is not important.</p></div>
+<div class='slide'>
+<a class='slide_break' href='ruby_commandline.html#slide-19'>▻</a>
+<h4 id="arrays"><a class="anchorlink" href="#arrays">5.5 Arrays</a></h4><p>There are several ways of writing literal arrays in Ruby.
+The first one looks like JSON:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"this"</span><span class="p">,</span> <span class="s2">"that"</span><span class="p">,</span> <span class="s2">"something"</span><span class="p">]</span>
+<span class="o">=&gt;</span> <span class="p">[</span><span class="s2">"this"</span><span class="p">,</span> <span class="s2">"that"</span><span class="p">,</span> <span class="s2">"something"</span><span class="p">]</span>
+</code></pre>
+</div>
+<p>For creating an array of words (strings without whitespace in them)
+you can use <code>%w</code>:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="o">&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="sx">%w(this that something)</span>
+<span class="o">=&gt;</span> <span class="p">[</span><span class="s2">"this"</span><span class="p">,</span> <span class="s2">"that"</span><span class="p">,</span> <span class="s2">"something"</span><span class="p">]</span>
+</code></pre>
+</div>
+<p>When creating an array of consecutive numbers you can
+use a Range and convert it to an Array:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="mi">4</span><span class="p">).</span><span class="nf">to_a</span>
+<span class="o">=&gt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='ruby_commandline.html#slide-20'>▻</a>
+<h4 id="hashes"><a class="anchorlink" href="#hashes">5.6 Hashes</a></h4><p>A Hash is a datastructure similar to an array. An array uses integers as keys
+while a Hash allows any type as the keys. Mostly strings and symbols are used:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">h</span> <span class="o">=</span> <span class="no">Hash</span><span class="p">.</span><span class="nf">new</span>
+<span class="n">h</span><span class="p">[</span><span class="s2">"alice"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"beer"</span>
+<span class="n">h</span><span class="p">[</span><span class="s2">"chris"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"tea"</span>
+<span class="n">h</span><span class="p">[</span><span class="s2">"bob"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"mate"</span>
+</code></pre>
+</div>
+<p>But you can use other objects:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">t</span> <span class="o">=</span> <span class="no">Date</span><span class="p">.</span><span class="nf">new</span>
+<span class="n">h</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"recently"</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='ruby_commandline.html#slide-21'>▻</a>
+<h5 id="hash-implementation"><a class="anchorlink" href="#hash-implementation">5.6.1 Hash implementation</a></h5><p>The data structure behind a Ruby Hash is more complex
 than an array: The key is sent through a function (called hash function)
 that returns a number. This number is used as the index
-for an array. If the hash function for two keys is the
-same a linked list is built.</p>
-<p><img src="images/hash_table.svg" alt="How Hash(tabl)es work"></p>
-<p>This datastructure seems like a serious waste of memory
+for an array. If the result for two keys is the
+same, a linked list is built.</p><p><img src="images/hash_table.svg" alt="How Hash(tabl)es work"></p></div>
+<div class='slide'>
+<a class='slide_break' href='ruby_commandline.html#slide-22'>▻</a>
+<h5 id="why-this-hash-implementation-questionmark"><a class="anchorlink" href="#why-this-hash-implementation-questionmark">5.6.2 Why this Hash implementation?</a></h5><p>This datastructure seems like a serious waste of memory
 at first. But it offers the following interesting features:</p>
 <ul>
 <li>looking up a key can be accomplished in constant time</li>
@@ -438,67 +344,38 @@ Hashes in Wikipedia:</p>
 <p>(If you don't know what "in constant time" means above, you
 should learn more about the analysis of algorithms. e.g. by
 taking an algorithms and data structure course as offered in the second
-semester of most computer science programs.</p>
-</div>
+semester of most computer science programs.)</p></div>
 <div class='slide'>
-<a class='slide_break' href='ruby_commandline.html#slide-18'>▻</a>
-<h4 id="implicit-form">4.1 Implicit Form</h4>
-<p>A Hash can be created by using its "implicit form":</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-roomnumber = { "Jane Doe" =&gt; 10, "Jim Doe" =&gt; 6 }
-
-</pre>
+<a class='slide_break' href='ruby_commandline.html#slide-23'>▻</a>
+<h5 id="implicit-form"><a class="anchorlink" href="#implicit-form">5.6.3 Implicit Form</a></h5><p>A Hash can be created with Hash.new, or by writing it in "implicit form":</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">roomnumber</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"Jane Doe"</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">"Jim Doe"</span> <span class="o">=&gt;</span> <span class="mi">6</span> <span class="p">}</span>
+</code></pre>
 </div>
-<p>Since Ruby 1.9.3 Hashes allow an alternate syntax when the keys are symbols. Instead of</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-style = { :font_size =&gt; 10, :font_family =&gt; "Arial" }
-
-</pre>
-</div>
-<p>you could write this in a JSON-like way:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-style = { font_size: 10, font_family: "Arial" }
-
-</pre>
-</div>
-<p>This style of hash is often used as an argument for a method.
-Calling the method then reads like named arguments:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-def apply_the_style( h )
-  ...
-end
-
-apply_the_style(font_size: 10, font_family: "Arial")
-apply_the_style font_size: 10, font_family: "Arial"
-
-</pre>
-</div>
-<p>Since ruby 2.0 keyword arguments can be used instead,
-and can be given default values:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-def apply_the_style(font_family: 'MS Comic Sans', font_size: 16 )
-  ...
-end
-
-apply_the_style()    # uses both default values
-apply_the_style(font_family: "Arial")   
-apply_the_style(font_size: 10, font_family: "Arial")  # order can be different
-
-</pre>
+<p>When the keys are symbols you can use an alternative syntax that
+looks like json</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">style</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">:font_size</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span> <span class="ss">:font_family</span> <span class="o">=&gt;</span> <span class="s2">"Arial"</span> <span class="p">}</span>
+<span class="n">style</span> <span class="o">=</span> <span class="p">{</span>  <span class="ss">font_size:   </span><span class="mi">10</span><span class="p">,</span>  <span class="ss">font_family:   </span><span class="s2">"Arial"</span> <span class="p">}</span>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='ruby_commandline.html#slide-19'>▻</a>
-<h3 id="frozen-vs-mutable-values">5 Frozen vs Mutable Values</h3>
-<p>Most objects in Ruby are mutabel by default.</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-# mutable
+<a class='slide_break' href='ruby_commandline.html#slide-24'>▻</a>
+<h5 id="a-hash-as-an-argument"><a class="anchorlink" href="#a-hash-as-an-argument">5.6.4 A Hash as an Argument</a></h5><p>Before keyword arguments were added to ruby,
+often a hash was used as the single argument for a method.
+Calling the method then reads like named arguments:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="k">def</span> <span class="nf">apply_the_style</span><span class="p">(</span> <span class="n">h</span> <span class="p">)</span>
+  <span class="o">...</span>
+<span class="k">end</span>
+
+<span class="n">apply_the_style</span><span class="p">(</span><span class="ss">font_size: </span><span class="mi">10</span><span class="p">,</span> <span class="ss">font_family: </span><span class="s2">"Arial"</span><span class="p">)</span>
+<span class="n">apply_the_style</span> <span class="ss">font_size: </span><span class="mi">10</span><span class="p">,</span> <span class="ss">font_family: </span><span class="s2">"Arial"</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='ruby_commandline.html#slide-25'>▻</a>
+<h3 id="frozen-vs-mutable"><a class="anchorlink" href="#frozen-vs-mutable">6 Frozen vs Mutable</a></h3><p>Most objects in Ruby are mutabel by default.</p><div class="code_container">
+<pre><code class="highlight plaintext"># mutable
 &gt;&gt; configuration = { color: 'yellow', number: 10 }
 =&gt; {:color=&gt;"yellow", :number=&gt;10}
 &gt;&gt; configuration[:smoking] = false  # no problem, can add new key
@@ -507,94 +384,134 @@ apply_the_style(font_size: 10, font_family: "Arial")  # order can be different
 =&gt; 2
 &gt;&gt; configuration
 =&gt; {:color=&gt;"yellow", :number=&gt;2, :smoking=&gt;false}
-
-</pre>
+</code></pre>
 </div>
 <p>You can freeze an object to make it immutable.
 Notice that this is different from using a <code>const</code>
 in JavaScript: changing the object in any way
-will throw a runtime error.</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-# frozen
+will throw a runtime error.</p><div class="code_container">
+<pre><code class="highlight plaintext"># frozen
 &gt;&gt; configuration = { color: 'yellow', number: 10 }.freeze
 =&gt; {:color=&gt;"yellow", :number=&gt;10}
 &gt;&gt; configuration[:smoking] = false
 =&gt; RuntimeError: can't modify frozen Hash
 &gt;&gt; configuration[:number] = 2
 =&gt;RuntimeError: can't modify frozen Hash
-
-</pre>
+</code></pre>
 </div>
-<p>You cannot modify a frozen object, but you can copy it with <code>.dup</code></p>
+<p>You cannot modify a frozen object, but you can copy it with <code>.dup</code></p></div>
+<div class='slide'>
+<a class='slide_break' href='ruby_commandline.html#slide-26'>▻</a>
+<h4 id="frozen-string-literals"><a class="anchorlink" href="#frozen-string-literals">6.1 Frozen String Literals</a></h4><p>Since Ruby 2.3 all String literals can be frozen by adding
+this line to to top of a ruby file:</p><div class="code_container">
+<pre><code class="highlight plaintext"># frozen_string_literal: true
+</code></pre>
+</div>
+<p>This is switched on in Rails since 5.2.</p></div>
+<div class='slide'>
+<a class='slide_break' href='ruby_commandline.html#slide-27'>▻</a>
+<h3 id="conditions"><a class="anchorlink" href="#conditions">7 Conditions</a></h3><p>The Basic condition with <code>if</code> works like in most programming languages.</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">10</span>
+  <span class="nb">puts</span> <span class="s1">'cannot compute, not enough fingers'</span>
+<span class="k">elsif</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">0</span>
+  <span class="nb">puts</span> <span class="s1">'cannot compute, negative number'</span>
+<span class="k">else</span>
+  <span class="nb">puts</span> <span class="s1">'input corrent'</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+<p>The <code>case</code> expression can match one value in several ways.</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="k">case</span> <span class="n">x</span>
+  <span class="k">when</span> <span class="mi">1</span><span class="o">..</span><span class="mi">5</span>
+    <span class="nb">puts</span> <span class="s2">"It's between 1 and 5"</span>
+  <span class="k">when</span> <span class="mi">6</span>
+    <span class="nb">puts</span> <span class="s2">"It's 6"</span>
+  <span class="k">when</span> <span class="s2">"foo"</span><span class="p">,</span> <span class="s2">"bar"</span>
+    <span class="nb">puts</span> <span class="s2">"It's either foo or bar"</span>
+  <span class="k">when</span> <span class="no">String</span>
+    <span class="nb">puts</span> <span class="s2">"You passed a string"</span>
+  <span class="k">else</span>
+    <span class="nb">puts</span> <span class="s2">"You gave me </span><span class="si">#{</span><span class="n">x</span><span class="si">}</span><span class="s2"> -- I have no idea what to do with that."</span>
+<span class="k">end</span>
+</code></pre>
+</div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='ruby_commandline.html#slide-20'>▻</a>
-<h4 id="frozen-string-literals">5.1 Frozen String Literals</h4>
-<p>Since Ruby 2.3 all String literals can be frozen by adding
-this line to to top of a ruby file:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-# frozen_string_literal: true
+<a class='slide_break' href='ruby_commandline.html#slide-28'>▻</a>
+<h4 id="shorthand-version"><a class="anchorlink" href="#shorthand-version">7.1 Shorthand version</a></h4><p>If the <code>if</code> only has one statement
+you can write it in a shorthand version:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="k">if</span> <span class="n">errors</span> <span class="o">&gt;</span> <span class="mi">0</span>
+  <span class="nb">puts</span> <span class="s2">"Some errors occured"</span>
+<span class="k">end</span>
 
-</pre>
+<span class="nb">puts</span> <span class="s2">"Some errors occured"</span> <span class="k">if</span> <span class="n">errors</span> <span class="o">&gt;</span> <span class="mi">0</span>
+</code></pre>
 </div>
-<p>This is switched on in Rails since 5.2.</p>
+<p>This syntax should be familiar to you if
+you understand English. (yes, that's an English
+sentence using the same syntax).</p></div>
+<div class='slide'>
+<a class='slide_break' href='ruby_commandline.html#slide-29'>▻</a>
+<h4 id="boolean-operators-as-conditions"><a class="anchorlink" href="#boolean-operators-as-conditions">7.2 Boolean Operators as conditions</a></h4><p>When Ruby evaluates a boolean operator,
+it does as little work as possible. It
+stops evaluation as soon as the result is clear:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="c1"># the second argument is not evaluated!</span>
+<span class="n">a</span> <span class="o">=</span>  <span class="kp">true</span> <span class="o">||</span> <span class="o">...</span>
+<span class="n">a</span> <span class="o">=</span> <span class="kp">false</span> <span class="o">&amp;&amp;</span> <span class="o">...</span>
+</code></pre>
+</div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='ruby_commandline.html#slide-21'>▻</a>
-<h3 id="enumerables-and-piping-data">6 Enumerables and Piping Data</h3>
-<p>When working with a list of values Ruby
+<a class='slide_break' href='ruby_commandline.html#slide-30'>▻</a>
+<p>The boolean operators don't just return true or
+false, they return the argument last evaluated.
+This is often used to set a variable:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">default_value</span> <span class="o">=</span> <span class="s2">"gray"</span>
+<span class="n">input_value</span> <span class="o">=</span> <span class="kp">nil</span>
+<span class="c1"># here input_value might be set...</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">input_value</span> <span class="o">||</span> <span class="n">default_value</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='ruby_commandline.html#slide-31'>▻</a>
+<h3 id="enumerables"><a class="anchorlink" href="#enumerables">8 Enumerables</a></h3><p>When working with a list of values Ruby
 helps you think about data on a new, more abstract level
-with Enumerables:</p>
-</div>
+with Enumerables:</p></div>
 <div class='slide'>
-<a class='slide_break' href='ruby_commandline.html#slide-22'>▻</a>
-<h4 id="piping-data">6.1 "Piping Data"</h4>
-<p>From the UNIX shell you may know the concept of piping data
-from one command to the next:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-# many httpd processes are running. as which user(s) ?
-#
-$ ps aux | grep httpd | cut -c1-8 | sort | uniq
-
-</pre>
+<a class='slide_break' href='ruby_commandline.html#slide-32'>▻</a>
+<h4 id="piping-data"><a class="anchorlink" href="#piping-data">8.1 Piping Data</a></h4><p>From the UNIX shell you may know the concept of piping data
+from one command to the next:</p><div class="code_container">
+<pre><code class="highlight shell"><span class="c"># many httpd processes are running. as which user(s) ?</span>
+<span class="c">#</span>
+<span class="nv">$ </span>ps aux | <span class="nb">grep </span>httpd | <span class="nb">cut</span> <span class="nt">-c1-8</span> | <span class="nb">sort</span> | <span class="nb">uniq</span>
+</code></pre>
 </div>
 <p>Each of those programs reads data from "Standard Input" and
 writes data to "Standard Output". The vertical bar symbol (called "pipe") takes
 the output of the preceding program and sends it input the next
 program. The data in question is plain text, consisting
-of several lines.</p>
-<p>Try it out on your commmand line by building up
-the pipe step by step:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-$ ps aux | less
-$ ps aux | grep httpd | less
-$ ps aux | grep httpd | cut -c1-8 | less
-$ ps aux | grep httpd | cut -c1-8 | sort | less
-$ ps aux | grep httpd | cut -c1-8 | sort | uniq | less
-
-</pre>
+of several lines.</p><p>Try it out on your commmand line by building up
+the pipe step by step:</p><div class="code_container">
+<pre><code class="highlight shell"><span class="nv">$ </span>ps aux | less
+<span class="nv">$ </span>ps aux | <span class="nb">grep </span>httpd | less
+<span class="nv">$ </span>ps aux | <span class="nb">grep </span>httpd | <span class="nb">cut</span> <span class="nt">-c1-8</span> | less
+<span class="nv">$ </span>ps aux | <span class="nb">grep </span>httpd | <span class="nb">cut</span> <span class="nt">-c1-8</span> | <span class="nb">sort</span> | less
+<span class="nv">$ </span>ps aux | <span class="nb">grep </span>httpd | <span class="nb">cut</span> <span class="nt">-c1-8</span> | <span class="nb">sort</span> | <span class="nb">uniq</span> | less
+</code></pre>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='ruby_commandline.html#slide-23'>▻</a>
-<h4 id="piping-data-in-ruby">6.2 Piping Data in Ruby</h4>
-<p>When piping data in ruby you can start with
-an Array</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-languages = %w[Fortran Ada C C++ Java Scala Haskell]
-languages.sort.first(3)
-
-</pre>
+<a class='slide_break' href='ruby_commandline.html#slide-33'>▻</a>
+<h4 id="piping-data-in-ruby"><a class="anchorlink" href="#piping-data-in-ruby">8.2 Piping Data in Ruby</a></h4><p>When piping data in ruby you can start with
+an Array</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">languages</span> <span class="o">=</span> <span class="sx">%w[Fortran Ada C C++ Java Scala Haskell]</span>
+<span class="n">languages</span><span class="p">.</span><span class="nf">sort</span><span class="p">.</span><span class="nf">first</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</code></pre>
 </div>
 <p>The elements of the array are piped into the sort-method, which again outputs a list
 of elements. These are piped into first, which only returns the first three and discards
-the rest. The result is a list of 3 elements.</p>
-<p>Here are some simple methods you can use on Arrays (and other Enumerables)
+the rest. The result is a list of 3 elements.</p><p>Here are some simple methods you can use on Arrays (and other Enumerables)
 that return a new Enumerable. You can connect theses methods to each other:</p>
 <ul>
 <li>sort</li>
@@ -605,13 +522,10 @@ that return a new Enumerable. You can connect theses methods to each other:</p>
 <li>chunk(method)</li>
 <li>reverse</li>
 </ul>
-<p>The method <code>tally</code> counts the occourance of elements and returns a hash:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-["a", "b", "c", "b"].tally
+<p>The method <code>tally</code> counts the occourance of elements and returns a hash:</p><div class="code_container">
+<pre><code class="highlight plaintext">["a", "b", "c", "b"].tally
 #=&gt; {"a"=&gt;1, "b"=&gt;2, "c"=&gt;1}
-
-</pre>
+</code></pre>
 </div>
 <p>Some other methods return just a single value, and thus end the pipe:</p>
 <ul>
@@ -622,32 +536,26 @@ that return a new Enumerable. You can connect theses methods to each other:</p>
 </ul>
 <p>More advanced methods take a Block (of code) as their argument.
 The method <code>map</code> applys the Block to each piece of data, and
-returns an Enumerable of the new data:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-&gt;&gt; (1..10).map{ |x| 2*x }
-=&gt; [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+returns an Enumerable of the new data:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">).</span><span class="nf">map</span><span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="p">}</span>
+<span class="o">=&gt;</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">20</span><span class="p">]</span>
 
-&gt;&gt; (1..10).map{ |x| 2*x }.reverse
-=&gt; [20, 18, 16, 14, 12, 10, 8, 6, 4, 2]
-
-</pre>
+<span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">).</span><span class="nf">map</span><span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span> <span class="p">}.</span><span class="nf">reverse</span>
+<span class="o">=&gt;</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</code></pre>
 </div>
 <p>If the computation is more complex you can write
-the Block on several lines, ending with <code>end</code></p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-&gt;&gt; (1..10).map do |x|
-?&gt;   x*2
-&gt;&gt; end
-=&gt; [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+the Block on several lines, ending with <code>end</code></p><div class="code_container">
+<pre><code class="highlight ruby"><span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">).</span><span class="nf">map</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
+<span class="sc">?&gt;</span>   <span class="n">x</span><span class="o">*</span><span class="mi">2</span>
+<span class="o">&gt;&gt;</span> <span class="k">end</span>
+<span class="o">=&gt;</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">20</span><span class="p">]</span>
 
-&gt;&gt; (1..10).map do |x|
-?&gt;   x*2
-&gt;&gt; end.reverse
-=&gt; [20, 18, 16, 14, 12, 10, 8, 6, 4, 2]
-
-</pre>
+<span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">).</span><span class="nf">map</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
+<span class="sc">?&gt;</span>   <span class="n">x</span><span class="o">*</span><span class="mi">2</span>
+<span class="o">&gt;&gt;</span> <span class="k">end</span><span class="p">.</span><span class="nf">reverse</span>
+<span class="o">=&gt;</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</code></pre>
 </div>
 <p>Some other methods for Enumerables that take a Block:</p>
 <ul>
@@ -663,87 +571,72 @@ the Block on several lines, ending with <code>end</code></p>
 </li>
 </ul>
 <p>These methods should help you avoid loops and thus simplify
-code considerably.</p>
-<p>Read the Reference on</p>
+code considerably.</p><p>Read the Reference on</p>
 <ul>
 <li><a href="https://ruby-doc.org/core-2.5.3/Enumerable.html">Enumerable</a></li>
 <li><a href="https://ruby-doc.org/core-2.5.3/Array.html">Array</a></li>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' href='ruby_commandline.html#slide-24'>▻</a>
-<h3 id="blocks">7 Blocks</h3>
-<p>Blocks of code are not just used in Enumerables, they are
+<a class='slide_break' href='ruby_commandline.html#slide-34'>▻</a>
+<h3 id="blocks"><a class="anchorlink" href="#blocks">9 Blocks</a></h3><p>Blocks of code are not just used in Enumerables, they are
 a basic building block of ruby. You can write functions
-that take a Block as an argument:</p>
-</div>
+that take a Block as an argument:</p></div>
 <div class='slide'>
-<a class='slide_break' href='ruby_commandline.html#slide-25'>▻</a>
-<h4 id="my-function-takes-a-block-of-code">7.1 My Function takes a Block of Code</h4>
-<p>Any function you write can take an addictional block
+<a class='slide_break' href='ruby_commandline.html#slide-35'>▻</a>
+<h4 id="my-function-takes-a-block-of-code"><a class="anchorlink" href="#my-function-takes-a-block-of-code">9.1 My Function takes a Block of Code</a></h4><p>Any function you write can take an addictional block
 of code as its last argument. The block is only
-called if and when you call <code>yield</code> inside the function:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-def my_function_with_block_arg
-  puts "code in the funtion"
-  yield
-  puts "more code in the function"
-end
+called if and when you call <code>yield</code> inside the function:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="k">def</span> <span class="nf">my_function_with_block_arg</span>
+  <span class="nb">puts</span> <span class="s2">"code in the funtion"</span>
+  <span class="k">yield</span>
+  <span class="nb">puts</span> <span class="s2">"more code in the function"</span>
+<span class="k">end</span>
 
-my_function_with_block_arg { puts "code in the block" }
+<span class="n">my_function_with_block_arg</span> <span class="p">{</span> <span class="nb">puts</span> <span class="s2">"code in the block"</span> <span class="p">}</span>
 
-# OUTPUT:
-# code in the funtion
-# code in the block
-# more code in the function
-
-</pre>
+<span class="c1"># OUTPUT:</span>
+<span class="c1"># code in the funtion</span>
+<span class="c1"># code in the block</span>
+<span class="c1"># more code in the function</span>
+</code></pre>
 </div>
 <p>There is an alternate syntax for calling the function: instead
-of the curly braces you can use <code>do</code> and <code>end</code>:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-my_function_with_block_arg do
-  puts "code in the block"
-  puts "more code in the block"
-end
-
-</pre>
+of the curly braces you can use <code>do</code> and <code>end</code>:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">my_function_with_block_arg</span> <span class="k">do</span>
+  <span class="nb">puts</span> <span class="s2">"code in the block"</span>
+  <span class="nb">puts</span> <span class="s2">"more code in the block"</span>
+<span class="k">end</span>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='ruby_commandline.html#slide-26'>▻</a>
-<h3 id="summary">8 Summary</h3>
-<p>You now know about the basic data types, about enumerables and about blocks -<br>
-features that distinguish Ruby from other scripting languages.</p>
-<p>If you want to get more pracitical with Ruby, you can
+<a class='slide_break' href='ruby_commandline.html#slide-36'>▻</a>
+<h3 id="summary"><a class="anchorlink" href="#summary">10 Summary</a></h3><p>You now know about the basic data types, about enumerables and about blocks -
+features that distinguish Ruby from other scripting languages.</p><p>If you want to get more pracitical with Ruby, you can
 do the
-<a href="https://github.com/backend-development/learn_ruby">Learn Ruby</a> test driven Ruby exercises.</p>
-<p>This should be a good enough basis to start with Rails.<br>
+<a href="https://github.com/backend-development/learn_ruby">Learn Ruby</a> test driven Ruby exercises.</p><p>This should be a good enough basis to start with Rails.
 But do take every
 opportunity you get to learn more about Ruby itself: if you are unsure about
 a line of code, look it up in the Ruby documentation and use the
-opportunity to read a bit more than strictly necessary.</p>
-<p>Get an offline version of the documentation
+opportunity to read a bit more than strictly necessary.</p><p>Get an offline version of the documentation
 installed on your development machine so you can look up stuff instantly.</p>
 <ul>
 <li>Mac Tool <a href="https://kapeli.com/dash">Dash</a> for keeping offline copies of documentation</li>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' href='ruby_commandline.html#slide-27'>▻</a>
-<h4 id="online-resources">8.1 Online Resources</h4>
+<a class='slide_break' href='ruby_commandline.html#slide-37'>▻</a>
+<h4 id="online-resources"><a class="anchorlink" href="#online-resources">10.1 Online Resources</a></h4>
 <ul>
 <li><a href="https://ruby.github.io/TryRuby/">try ruby</a></li>
 <li><a href="http://rubylearning.com/satishtalim/tutorial.html">learningruby.com tutorial</a></li>
-<li>
-<a href="https://learnbyexample.github.io/learn_ruby_oneliners/one-liner-introduction.html">learn ruby onliners</a> </li>
+<li><a href="https://learnbyexample.github.io/learn_ruby_oneliners/one-liner-introduction.html">learn ruby onliners</a></li>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' href='ruby_commandline.html#slide-28'>▻</a>
-<h4 id="books">8.2 Books</h4>
+<a class='slide_break' href='ruby_commandline.html#slide-38'>▻</a>
+<h4 id="books"><a class="anchorlink" href="#books">10.2 Books</a></h4>
 <ul>
 <li>Flanagan, Matsumoto(2008): <a href="https://www.amazon.com/Ruby-Programming-Language-David-Flanagan/dp/0596516177">The Ruby Programming Language</a>. O'Reilly. ISBN 0596516177.</li>
 <li>Thomas(2013): <a href="https://www.amazon.com/Programming-Ruby-1-9-2-0-Programmers/dp/1937785491/">Programming Ruby 1.9 + 2.0</a>. Pragmatic Porgrammers. ISBN 1937785491</li>
@@ -773,7 +666,6 @@ installed on your development machine so you can look up stuff instantly.</p>
         <input type="submit" value="Go">
     </form>
     <!-- End extension snippets. -->
-    </div>
     <!-- Required JS files. -->
     <script src="javascripts/jquery.min.js"></script>
     <script src="javascripts/deck.core.js"></script>
@@ -783,15 +675,9 @@ installed on your development machine so you can look up stuff instantly.</p>
     <script src="javascripts/deck.status.js"></script>
     <script src="javascripts/deck.navigation.js"></script>
     <script src="javascripts/deck.escape.js"></script>
-    <!--  Syntax highlighter -->
-    <script src="javascripts/syntaxhighlighter/shCore.js"></script>
-    <script src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
-    <script src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
-    <script src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
-    <script src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>    
+
     <!-- Initialize the deck. You can put this in an external file if desired. -->
     <script>
-    SyntaxHighlighter.all()      
     $(function() {
       $.deck('.slide');
     });

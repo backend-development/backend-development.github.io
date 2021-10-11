@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=1024, user-scalable=no">
     <title>Slides for
-        Rails Views and Controller in the Backend Development Textbook
+        Rails Views and Controller — Backend Development
     </title>
     <!-- Required stylesheet -->
     <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
@@ -20,8 +20,7 @@
     <!-- Transition theme. More available in /themes/transition/ or create your own. -->
     <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
     <!-- syntax highlighter -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />    
+    <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
 
 
     <!-- Basic black and white print styles -->
@@ -49,8 +48,7 @@ and using the model and views to generate a result.</p><p>After reading this gui
 </div>
 <div class='slide'>
 <a class='slide_break' href='rails_view_and_controller.html#slide-1'>▻</a>
-<h3 id="mvc-in-rails">1 MVC in Rails</h3>
-<p>The Pattern "Model-View-Controller" has a long history.  It has been used in building Graphical User Interfaces (GUIs) since the 1990ies. The general idea is simple:</p>
+<h3 id="mvc-in-rails"><a class="anchorlink" href="#mvc-in-rails">1 MVC in Rails</a></h3><p>The Pattern "Model-View-Controller" has a long history.  It has been used in building Graphical User Interfaces (GUIs) since the 1990ies. The general idea is simple:</p>
 <ul>
 <li>The model represents the state of the application</li>
 <li>The view is concerned with showing the Interface</li>
@@ -59,62 +57,43 @@ and using the model and views to generate a result.</p><p>After reading this gui
 </div>
 <div class='slide'>
 <a class='slide_break' href='rails_view_and_controller.html#slide-2'>▻</a>
-
-<p>In Ruby on Rails we already encounterd the model, or, to be more specific: the models.  Several classes that together represent the state of our application.</p>
-<p>Typically we will have one controller per model, and many views per model.</p>
-<p>The controller is concerned with handling HTTP requests for certain URLs. It will set cookies, return HTTP Status Codes for redirection, or call a View to render HTML, XML, JSON, and return that in the HTTP response.  </p>
-<p><img src="images/rails-mvc.svg" alt="MVC in Rails"></p>
-</div>
+<p>In Ruby on Rails we already encounterd the model, or, to be more specific: the models.  Several classes that together represent the state of our application.</p><p>Typically we will have one controller per model, and many views per model.</p><p>The controller is concerned with handling HTTP requests for certain URLs. It will set cookies, return HTTP Status Codes for redirection, or call a View to render HTML, XML, JSON, and return that in the HTTP response.  </p><p><img src="images/rails-mvc.svg" alt="MVC in Rails"></p></div>
 <div class='slide'>
 <a class='slide_break' href='rails_view_and_controller.html#slide-3'>▻</a>
-<h3 id="the-view">2 The View</h3>
-<p>The View in the Model-View-Controller pattern
+<h3 id="the-view"><a class="anchorlink" href="#the-view">2 The View</a></h3><p>The View in the Model-View-Controller pattern
 is responsible for generating output that will be
 displayed to the user in various ways.  This means generating
 HTML that will later be displayed by a browser, or generating
-XML or JSON that will be loaded by another program.</p>
-<p>We will focus on HTML for now. Views that generate XML or JSON
-are covered in the chapter on <a href="apis.html">APIs</a>.</p>
-</div>
+XML or JSON that will be loaded by another program.</p><p>We will focus on HTML for now. Views that generate XML or JSON
+are covered in the chapter on <a href="apis.html">APIs</a>.</p></div>
 <div class='slide'>
 <a class='slide_break' href='rails_view_and_controller.html#slide-4'>▻</a>
-
 <p>In Ruby on Rails <strong>Embedded Ruby</strong> (ERB) is normally used
 as the templating language for HTML.  This will
 be familiar to you if you have
-used templates in other languages or have used PHP embedded in HTML.</p>
-<p>Both Web Designers and Web Developers might want to edit
+used templates in other languages or have used PHP embedded in HTML.</p><p>Both Web Designers and Web Developers might want to edit
 the HTML templates. (This is one of the points where
-using git to resolve merge conflicts comes in handy!).</p>
-</div>
+using git to resolve merge conflicts comes in handy!).</p></div>
 <div class='slide'>
 <a class='slide_break' href='rails_view_and_controller.html#slide-5'>▻</a>
-<h4 id="layouts-and-views">2.1 Layouts and Views</h4>
-<p>The view file itself (e.g. <code>app/views/controller/action.html.erb</code>) will only
+<h4 id="layouts-and-views"><a class="anchorlink" href="#layouts-and-views">2.1 Layouts and Views</a></h4><p>The view file itself (e.g. <code>app/views/controller/action.html.erb</code>) will only
 contain the HTML that is specific to this view.  There is
 another file <code>app/views/layouts/application.html.erb</code> that contains
 the surrounding code, that stays the same for every page in the app: 
-head, main navigation, footer.</p>
-<p><img src="images/layout_view.svg" alt="Layouts and Views"></p>
-</div>
+head, main navigation, footer.</p><p><img src="images/layout_view.svg" alt="Layouts and Views"></p></div>
 <div class='slide'>
 <a class='slide_break' href='rails_view_and_controller.html#slide-6'>▻</a>
-
 <p>If you find other parts of your code that you want to reuse
 in several views you can extract it into a "partial".  An example
 is the <code>_form.html.erb</code> partial created by the scaffold: it is
-used both by the <code>new.html.erb</code> and the <code>edit.html.erb</code> view.</p>
-<p><img src="images/layout_view_partial.svg" alt="Layouts, Views and Partials"></p>
-</div>
+used both by the <code>new.html.erb</code> and the <code>edit.html.erb</code> view.</p><p><img src="images/layout_view_partial.svg" alt="Layouts, Views and Partials"></p></div>
 <div class='slide'>
 <a class='slide_break' href='rails_view_and_controller.html#slide-7'>▻</a>
-<h4 id="views-with-erb">2.2 Views with ERB</h4>
-<p>When it comes to templating systems there are two competing
+<h4 id="views-with-erb"><a class="anchorlink" href="#views-with-erb">2.2 Views with ERB</a></h4><p>When it comes to templating systems there are two competing
 schools of thought: on the one side there are minimal <strong>logic-less</strong>
 templating systems that only offer the inclusion of variable values
 and maybe iteration.  On the other hand are <strong>full programming
-languages</strong> embedded in HTML.</p>
-<p>ERB is an example of the latter: the full power of Ruby is
+languages</strong> embedded in HTML.</p><p>ERB is an example of the latter: the full power of Ruby is
 available inside the template:</p>
 <ul>
 <li>Instance Variables of the controller are available in the view</li>
@@ -126,41 +105,33 @@ available inside the template:</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='rails_view_and_controller.html#slide-8'>▻</a>
-
 <p>You can use all the usual ruby constructs for iteration, conditions, blocks.
-Here's an example of a loop:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-&lt;ul&gt;
-&lt;% @groups.each do |group| %&gt;
-  &lt;li&gt;&lt;%= link_to group.name, group %&gt;&lt;/li&gt;
+Here's an example of a loop:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="o">&lt;</span><span class="n">ul</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="sx">% @groups.each </span><span class="k">do</span> <span class="o">|</span><span class="n">group</span><span class="o">|</span> <span class="sx">%&gt;
+  &lt;li&gt;</span><span class="o">&lt;</span><span class="sx">%= link_to group.name, group %&gt;&lt;/li&gt;
 &lt;% end %&gt;
 &lt;/ul&gt;
-
-</pre>
+</span></code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' href='rails_view_and_controller.html#slide-9'>▻</a>
-<h4 id="links">2.3 Links</h4>
-<p>Never write links to your own app "by hand"! Use helper methods to get the right URLs.
-Use <code>rails routes</code> on the command line do find out which URLs exist and helper methods exist:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-$ rails routes
+<h4 id="links"><a class="anchorlink" href="#links">2.3 Links</a></h4><p>Never write links to your own app "by hand"! Use helper methods to get the right URLs.
+Use <code>rails routes</code> on the command line do find out which URLs exist and helper methods exist:</p><div class="code_container">
+<pre><code class="highlight shell"><span class="nv">$ </span><span class="nb">rails </span>routes
           Prefix Verb     URI Pattern
-  add_user_group PUT      /groups/:id/add_user(.:format)
-  del_user_group PUT      /groups/:id/del_user(.:format)
-          groups GET      /groups(.:format)
-                 POST     /groups(.:format)
-       new_group GET      /groups/new(.:format)
-      edit_group GET      /groups/:id/edit(.:format)
-           group GET      /groups/:id(.:format)
-                 PATCH    /groups/:id(.:format)
-                 PUT      /groups/:id(.:format)
-                 DELETE   /groups/:id(.:format)
-
-</pre>
+  add_user_group PUT      /groups/:id/add_user<span class="o">(</span>.:format<span class="o">)</span>
+  del_user_group PUT      /groups/:id/del_user<span class="o">(</span>.:format<span class="o">)</span>
+          <span class="nb">groups </span>GET      /groups<span class="o">(</span>.:format<span class="o">)</span>
+                 POST     /groups<span class="o">(</span>.:format<span class="o">)</span>
+       new_group GET      /groups/new<span class="o">(</span>.:format<span class="o">)</span>
+      edit_group GET      /groups/:id/edit<span class="o">(</span>.:format<span class="o">)</span>
+           group GET      /groups/:id<span class="o">(</span>.:format<span class="o">)</span>
+                 PATCH    /groups/:id<span class="o">(</span>.:format<span class="o">)</span>
+                 PUT      /groups/:id<span class="o">(</span>.:format<span class="o">)</span>
+                 DELETE   /groups/:id<span class="o">(</span>.:format<span class="o">)</span>
+</code></pre>
 </div>
 <p>Use the "prefix" from <code>rails routes</code> and  add<code>_path</code> or <code>_url</code> to get the path or full URL of the
 action.</p>
@@ -173,28 +144,20 @@ action.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='rails_view_and_controller.html#slide-10'>▻</a>
-<h3 id="the-controller">3 The Controller</h3>
-<p>The controller is the central part of MVC. An incoming HTTP request 
+<h3 id="the-controller"><a class="anchorlink" href="#the-controller">3 The Controller</a></h3><p>The controller is the central part of MVC. An incoming HTTP request 
 is routed to exactly one controller action that will respond to the request.
 The controller then uses the model(s) to load and manipulate the right data, 
-and finally displays the resulting page by rendering a view.</p>
-</div>
+and finally displays the resulting page by rendering a view.</p></div>
 <div class='slide'>
 <a class='slide_break' href='rails_view_and_controller.html#slide-11'>▻</a>
-<h4 id="restful-resources">3.1 Restful Resources</h4>
-<p>Rails uses <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> as
+<h4 id="restful-resources"><a class="anchorlink" href="#restful-resources">3.1 Restful Resources</a></h4><p>Rails uses <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> as
 a convention for which actions should be available.  For example
-if you specify in <code>config/routes.rb</code>  </p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-resources :zombies
-
-</pre>
+if you specify in <code>config/routes.rb</code>  </p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">resources</span> <span class="ss">:zombies</span>
+</code></pre>
 </div>
-<p>This will generate the following mappings (visibile through <code>rails routes</code>):</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-HTTP
+<p>This will generate the following mappings (visibile through <code>rails routes</code>):</p><div class="code_container">
+<pre><code class="highlight plaintext">HTTP
 Method URI Pattern       Controller          Action
 GET    /zombies          zombies_controller  def index
 POST   /zombies          zombies_controller  def create
@@ -203,159 +166,119 @@ GET    /zombies/:id/edit zombies_controller  def edit
 GET    /zombies/:id      zombies_controller  def show
 PATCH  /zombies/:id      zombies_controller  def update
 DELETE /zombies/:id      zombies_controller  def destroy
-
-</pre>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' href='rails_view_and_controller.html#slide-12'>▻</a>
-
 <p>You have already used the scaffold generator which also
 adds the necessary views.  This way we end up with full CRUD (create, read, update, delete)
-capability.  For this example:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-rails generate scaffold thing title no:integer description start:date
-
-</pre>
+capability.  For this example:</p><div class="code_container">
+<pre><code class="highlight plaintext">rails generate scaffold thing title no:integer description start:date
+</code></pre>
 </div>
-<p>we end up with 4 web pages and the following connections:</p>
-<p><img src="images/rest.png" alt="scaffold"></p>
-<p>The scaffold is only meant as a starting point. Always change
+<p>we end up with 4 web pages and the following connections:</p><p><img src="images/rest.png" alt="scaffold"></p><p>The scaffold is only meant as a starting point. Always change
 the view to better fit your user's needs. But 
-try to keep the underlying routes the same.</p>
-</div>
+try to keep the underlying routes the same.</p></div>
 <div class='slide'>
 <a class='slide_break' href='rails_view_and_controller.html#slide-13'>▻</a>
-<h3 id="form-helpers">4 Form Helpers</h3>
-<p>When you write a Rails App, you never write <code>form</code>- or <code>input</code>-tags by hand.
+<h3 id="form-helpers"><a class="anchorlink" href="#form-helpers">4 Form Helpers</a></h3><p>When you write a Rails App, you never write <code>form</code>- or <code>input</code>-tags by hand.
 You always use form helpers to contruct the HTML for you.  You gain a lot of
-functionality by using the helpers, but you also need to understand how they work.</p>
-</div>
+functionality by using the helpers, but you also need to understand how they work.</p></div>
 <div class='slide'>
 <a class='slide_break' href='rails_view_and_controller.html#slide-14'>▻</a>
-<h4 id="creating-the-form-tag">4.1 Creating the Form Tag</h4>
-<p>Let's look at a very simple edit-form for a resource called user:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-&lt;%= form_for(@user) do |f| %&gt;
-    Uid:      &lt;%= f.text_field :uid %&gt;  &lt;br&gt;
-    Name:     &lt;%= f.text_field :name %&gt; &lt;br&gt;
-    E-Mail:   &lt;%= f.email_field :email %&gt; &lt;br&gt;
-    Homepage: &lt;%= f.url_field :homepage %&gt; &lt;br&gt;
-    &lt;%= f.submit %&gt;
-&lt;% end %&gt;
-
-</pre>
+<h4 id="creating-the-form-tag"><a class="anchorlink" href="#creating-the-form-tag">4.1 Creating the Form Tag</a></h4><p>Let's look at a very simple edit-form for a resource called user:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="o">&lt;</span><span class="sx">%= form_for(@user) do |f| %&gt;
+    Uid:      &lt;%=</span> <span class="n">f</span><span class="p">.</span><span class="nf">text_field</span> <span class="ss">:uid</span> <span class="o">%&gt;</span>  <span class="o">&lt;</span><span class="n">br</span><span class="o">&gt;</span>
+    <span class="no">Name</span><span class="p">:</span>     <span class="o">&lt;</span><span class="sx">%= f.text_field :name %&gt; &lt;br&gt;
+    E-Mail:   &lt;%=</span> <span class="n">f</span><span class="p">.</span><span class="nf">email_field</span> <span class="ss">:email</span> <span class="o">%&gt;</span> <span class="o">&lt;</span><span class="n">br</span><span class="o">&gt;</span>
+    <span class="no">Homepage</span><span class="p">:</span> <span class="o">&lt;</span><span class="sx">%= f.url_field :homepage %&gt; &lt;br&gt;
+    &lt;%=</span> <span class="n">f</span><span class="p">.</span><span class="nf">submit</span> <span class="sx">%&gt;
+&lt;% end %&gt;</span>
+</code></pre>
 </div>
 <p>The form helper <code>form_for</code>  will create the form-tag
 and set the action and method according to the REST conventions.
 For example if the <code>@user</code> variable contains a user object with id 16, 
-the resulting form tag will look like this:</p>
-<div class="code_container">
-<pre class="brush: xml; gutter: false; toolbar: false">
-&lt;form class="edit_user" id="edit_user_16" action="/users/16" accept-charset="UTF-8" method="post"&gt;
-  &lt;input type="hidden" name="_method" value="patch" /&gt;
+the resulting form tag will look like this:</p><div class="code_container">
+<pre><code class="highlight html"><span class="nt">&lt;form</span> <span class="na">class=</span><span class="s">"edit_user"</span> <span class="na">id=</span><span class="s">"edit_user_16"</span> <span class="na">action=</span><span class="s">"/users/16"</span> <span class="na">accept-charset=</span><span class="s">"UTF-8"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"hidden"</span> <span class="na">name=</span><span class="s">"_method"</span> <span class="na">value=</span><span class="s">"patch"</span> <span class="nt">/&gt;</span>
 ...
-&lt;/form&gt;
-
-</pre>
+<span class="nt">&lt;/form&gt;</span>
+</code></pre>
 </div>
 <p>The REST conventions say we should use the PATCH method for updating an existing
 resource, but this is not available in html forms currently. Current browsers
 only support Html forms using <code>GET</code> or <code>POST</code> methods. Rails gets around
 this restriction by using a hidden field and some javascript to actually send the HTTP
-request with the correct method.</p>
-</div>
+request with the correct method.</p></div>
 <div class='slide'>
 <a class='slide_break' href='rails_view_and_controller.html#slide-15'>▻</a>
-<h4 id="creating-input-elements">4.2 Creating Input Elements</h4>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-&lt;%= form_for(@user) do |f| %&gt;
-    Uid:      &lt;%= f.text_field :uid %&gt;  &lt;br&gt;
-    Name:     &lt;%= f.text_field :name %&gt; &lt;br&gt;
-    E-Mail:   &lt;%= f.email_field :email %&gt; &lt;br&gt;
-    Homepage: &lt;%= f.url_field :homepage %&gt; &lt;br&gt;
-    &lt;%= f.submit %&gt;
-&lt;% end %&gt;
-
-</pre>
+<h4 id="creating-input-elements"><a class="anchorlink" href="#creating-input-elements">4.2 Creating Input Elements</a></h4><div class="code_container">
+<pre><code class="highlight ruby"><span class="o">&lt;</span><span class="sx">%= form_for(@user) do |f| %&gt;
+    Uid:      &lt;%=</span> <span class="n">f</span><span class="p">.</span><span class="nf">text_field</span> <span class="ss">:uid</span> <span class="o">%&gt;</span>  <span class="o">&lt;</span><span class="n">br</span><span class="o">&gt;</span>
+    <span class="no">Name</span><span class="p">:</span>     <span class="o">&lt;</span><span class="sx">%= f.text_field :name %&gt; &lt;br&gt;
+    E-Mail:   &lt;%=</span> <span class="n">f</span><span class="p">.</span><span class="nf">email_field</span> <span class="ss">:email</span> <span class="o">%&gt;</span> <span class="o">&lt;</span><span class="n">br</span><span class="o">&gt;</span>
+    <span class="no">Homepage</span><span class="p">:</span> <span class="o">&lt;</span><span class="sx">%= f.url_field :homepage %&gt; &lt;br&gt;
+    &lt;%=</span> <span class="n">f</span><span class="p">.</span><span class="nf">submit</span> <span class="sx">%&gt;
+&lt;% end %&gt;</span>
+</code></pre>
 </div>
 <p>The <code>text_field</code>, <code>email_field</code>, <code>url_field</code> helpers create input
 fields that are related to the attributes of the user-object.
 The fields are set up correctly for both displaying the current value
 of the attribute and for editing and overwriting it when the form is 
-sent in.  For example <code>&lt;%= f.text_field :name %&gt;</code> might  be displayed as</p>
-<div class="code_container">
-<pre class="brush: xml; gutter: false; toolbar: false">
-&lt;input type="text" value="Brigitte Jellinek" name="user[name]" id="user_name" /&gt;
-
-</pre>
+sent in.  For example <code>&lt;%= f.text_field :name %&gt;</code> might  be displayed as</p><div class="code_container">
+<pre><code class="highlight html"><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">value=</span><span class="s">"Brigitte Jellinek"</span> <span class="na">name=</span><span class="s">"user[name]"</span> <span class="na">id=</span><span class="s">"user_name"</span> <span class="nt">/&gt;</span>
+</code></pre>
 </div>
 <p>To turn the validation you defined in the model
 into html5 <code>require</code> attributes on the form fields
-you can install the gem <code>html5_validators</code>.</p>
-</div>
+you can install the gem <code>html5_validators</code>.</p></div>
 <div class='slide'>
 <a class='slide_break' href='rails_view_and_controller.html#slide-16'>▻</a>
-<h4 id="sending-the-data">4.3 Sending the Data</h4>
-<p>When you press the submit-button, the data from the form is sent via a HTTP request.
+<h4 id="sending-the-data"><a class="anchorlink" href="#sending-the-data">4.3 Sending the Data</a></h4><p>When you press the submit-button, the data from the form is sent via a HTTP request.
 In the development-log file on the server you can see the request coming in and being
-routed to the right action:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-Started PATCH "/users/16" for ::1 at 2015-11-11 12:47:15 +0100
+routed to the right action:</p><div class="code_container">
+<pre><code class="highlight plaintext">Started PATCH "/users/16" for ::1 at 2015-11-11 12:47:15 +0100
 Processing by UsersController#update as HTML
   Parameters: { "user"=&gt;{"uid"=&gt;"4206851", "name"=&gt;"Brigitte Jellinek", "email"=&gt;"", ... }, "id"=&gt;"16"}
-
-</pre>
+</code></pre>
 </div>
 <p>Actually the Parameters came in through two separate channels: the data for the
 user came through the body of the HTTP request, the <code>id</code> came in as part of the URL.
-Observe the URI Pattern in the output of <code>rails routes</code>:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-          Prefix Verb     URI Pattern                        Controller#Action
+Observe the URI Pattern in the output of <code>rails routes</code>:</p><div class="code_container">
+<pre><code class="highlight plaintext">          Prefix Verb     URI Pattern                        Controller#Action
            users GET      /users(.:format)                   users#index
                  POST     /users(.:format)                   users#create
         new_user GET      /users/new(.:format)               users#new
        edit_user GET      /users/:id/edit(.:format)          users#edit
             user GET      /users/:id(.:format)               users#show
                  PATCH    /users/:id(.:format)               users#update
-
-</pre>
+</code></pre>
 </div>
 <p>Because the pattern is <code>/users/:id</code> a request to <code>/users/16</code> will also
-set the id to 16.</p>
-</div>
+set the id to 16.</p></div>
 <div class='slide'>
 <a class='slide_break' href='rails_view_and_controller.html#slide-17'>▻</a>
-<h4 id="processing-the-data">4.4 Processing the Data</h4>
-<p>The parameters from the HTTP request can be used
-directly in the controller via the <code>params</code> Hash:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-# PATCH /users/1
+<h4 id="processing-the-data"><a class="anchorlink" href="#processing-the-data">4.4 Processing the Data</a></h4><p>The parameters from the HTTP request can be used
+directly in the controller via the <code>params</code> Hash:</p><div class="code_container">
+<pre><code class="highlight plaintext"># PATCH /users/1
 # PATCH /users/1.json
 def update
   @user = User.find(params[:id])
   ...
 end
-
-</pre>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' href='rails_view_and_controller.html#slide-18'>▻</a>
-
 <p>For mass-assignments (update, create) rails offers an easy
 way to filter out only the parameters you really want to be changed / created,
 and ignore all others. The following code will look for a key <code>user</code> in the
-params Hash and only pick out its sub-entries <code>uid</code>, <code>name</code> and <code>email</code>:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-# PATCH /users/1
+params Hash and only pick out its sub-entries <code>uid</code>, <code>name</code> and <code>email</code>:</p><div class="code_container">
+<pre><code class="highlight plaintext"># PATCH /users/1
 # PATCH /users/1.json
 def update
   @user = User.find(params[:id])
@@ -363,15 +286,12 @@ def update
   @user.update(good_params)
   redirect_to @user, notice: 'User updated.'
 end
-
-</pre>
+</code></pre>
 </div>
 <p>We should also handle errors.  If the update does not succeed, <code>update</code> returns <code>false</code>
 and the <code>errors</code> attribute is set on the user-object.  In this case we just re-display
-the edit-view from before:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-# PATCH /users/1
+the edit-view from before:</p><div class="code_container">
+<pre><code class="highlight plaintext"># PATCH /users/1
 # PATCH /users/1.json
 def update
   @user = User.find(params[:id])
@@ -382,50 +302,41 @@ def update
     render :edit 
   end
 end
-
-</pre>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' href='rails_view_and_controller.html#slide-19'>▻</a>
-<h4 id="handling-and-displaying-errors">4.5 Handling and Displaying Errors</h4>
-<p>When displaying the form we always display errors that are
-available throught the <code>errors</code> attribute of the user object:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-&lt;%= form_for(@user) do |f| %&gt;
+<h4 id="handling-and-displaying-errors"><a class="anchorlink" href="#handling-and-displaying-errors">4.5 Handling and Displaying Errors</a></h4><p>When displaying the form we always display errors that are
+available throught the <code>errors</code> attribute of the user object:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="o">&lt;</span><span class="sx">%= form_for(@user) do |f| %&gt;
   &lt;% if @user.errors.any? %&gt;
-    &lt;div id="error_explanation"&gt;
-      &lt;h2&gt;&lt;%= pluralize(@user.errors.count, "error") %&gt; prohibited this user from being saved:&lt;/h2&gt;
+    &lt;div id=</span><span class="s2">"error_explanation"</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">h2</span><span class="o">&gt;&lt;</span><span class="sx">%= pluralize(@user.errors.count, "error") %&gt; prohibited this user from being saved:&lt;/h2&gt;
 
       &lt;ul&gt;
       &lt;% @user.errors.full_messages.each do |message| %&gt;
-        &lt;li&gt;&lt;%= message %&gt;&lt;/li&gt;
-      &lt;% end %&gt;
-      &lt;/ul&gt;
-    &lt;/div&gt;
-  &lt;% end %&gt;
-  ...
-&lt;% end %&gt;
-
-</pre>
+        &lt;li&gt;&lt;%=</span> <span class="n">message</span> <span class="sx">%&gt;&lt;/li&gt;</span>
+      <span class="o">&lt;</span><span class="sx">% end </span><span class="o">%&gt;</span>
+      <span class="o">&lt;</span><span class="sr">/ul&gt;
+    &lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="sx">% end </span><span class="o">%&gt;</span>
+  <span class="o">...</span>
+<span class="o">&lt;</span><span class="sx">% end </span><span class="o">%&gt;</span>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' href='rails_view_and_controller.html#slide-20'>▻</a>
-<h4 id="using-view-helpers-in-the-console">4.6 Using View Helpers in the console</h4>
-<p>You already know that
+<h4 id="using-view-helpers-in-the-console"><a class="anchorlink" href="#using-view-helpers-in-the-console">4.6 Using View Helpers in the console</a></h4><p>You already know that
 the rails console is great for working with models.
 You can also use it to check path helpers, by calling them
-through the object <code>app.</code>.</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-&gt; app.projects_path
-=&gt; "/projects"
-&gt; app.project_path(Project.first)
-=&gt; "/projects/2007-portfolio-system-multimediaart-at"
-
-</pre>
+through the object <code>app.</code>.</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="o">&gt;</span> <span class="n">app</span><span class="p">.</span><span class="nf">projects_path</span>
+<span class="o">=&gt;</span> <span class="s2">"/projects"</span>
+<span class="o">&gt;</span> <span class="n">app</span><span class="p">.</span><span class="nf">project_path</span><span class="p">(</span><span class="no">Project</span><span class="p">.</span><span class="nf">first</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="s2">"/projects/2007-portfolio-system-multimediaart-at"</span>
+</code></pre>
 </div>
 
 <!--
@@ -484,7 +395,7 @@ Another change is needed in the form for editing or creating a card:
 </div>
 <div class='slide'>
 <a class='slide_break' href='rails_view_and_controller.html#slide-21'>▻</a>
-<h3 id="further-reading">5 Further reading</h3>
+<h3 id="further-reading"><a class="anchorlink" href="#further-reading">5 Further reading</a></h3>
 <ul>
 <li>The Rails Guides give a good introduction to the subject:
 
@@ -497,12 +408,12 @@ Another change is needed in the form for editing or creating a card:
 </li>
 </ul>
 </li>
-<li>Use the <a href="https://api.rubyonrails.org/">Rails API</a> documentation to look up the details:
+<li>Use the <a href="https://edgeapi.rubyonrails.org/">Rails API</a> documentation to look up the details:
 
 <ul>
-<li><a href="https://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to">link_to</a></li>
-<li><a href="https://api.rubyonrails.org/classes/AbstractController/Callbacks/ClassMethods.html#method-i-before_action">before_action</a></li>
-<li><a href="https://api.rubyonrails.org/classes/ActionDispatch/Routing/Mapper/Resources.html">resources</a></li>
+<li><a href="https://edgeapi.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to">link_to</a></li>
+<li><a href="https://edgeapi.rubyonrails.org/classes/AbstractController/Callbacks/ClassMethods.html#method-i-before_action">before_action</a></li>
+<li><a href="https://edgeapi.rubyonrails.org/classes/ActionDispatch/Routing/Mapper/Resources.html">resources</a></li>
 </ul>
 </li>
 <li>Alternative to ERB: <a href="http://haml.info/tutorial.html">HAML</a>  similar to SASS</li>
@@ -530,7 +441,6 @@ Another change is needed in the form for editing or creating a card:
         <input type="submit" value="Go">
     </form>
     <!-- End extension snippets. -->
-    </div>
     <!-- Required JS files. -->
     <script src="javascripts/jquery.min.js"></script>
     <script src="javascripts/deck.core.js"></script>
@@ -540,15 +450,9 @@ Another change is needed in the form for editing or creating a card:
     <script src="javascripts/deck.status.js"></script>
     <script src="javascripts/deck.navigation.js"></script>
     <script src="javascripts/deck.escape.js"></script>
-    <!--  Syntax highlighter -->
-    <script src="javascripts/syntaxhighlighter/shCore.js"></script>
-    <script src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
-    <script src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
-    <script src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
-    <script src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>    
+
     <!-- Initialize the deck. You can put this in an external file if desired. -->
     <script>
-    SyntaxHighlighter.all()      
     $(function() {
       $.deck('.slide');
     });

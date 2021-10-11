@@ -4,13 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Scaling Node  in the Backend Development Textbook</title>
+  <title>Scaling Node  — Backend Development</title>
   <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />
-
+  <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+  
   <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
 
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
@@ -70,14 +69,14 @@
                 <dd><a href="caching.html">Caching</a></dd>
                 <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
                 <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
-              </dl>
-              <dl class="R">
                 <dt>Nodes.js</dt>
                 <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
                 <dd><a href="node_basics.html">Node Basics</a></dd>
                 <dd><a href="node_websockets.html">Node Websockets</a></dd>
                 <dd><a href="node_express.html">Node Web App</a></dd>
                 <dd><a href="node_cluster.html">Scaling Node</a></dd>
+              </dl>
+              <dl class="R">
               </dl>
           </div>
         </li>
@@ -119,131 +118,94 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <div class='slide'><a id='slide-1'></a>
+        <div class='slide'><a id='slide-0'></a>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-1' href='slides_node_cluster.html#slide-1'>▻</a>
-<h3 id="node-and-the-command-line">1 Node and the Command Line</h3>
-</div>
+<h3 id="node-and-the-command-line"><a class="anchorlink" href="#node-and-the-command-line">1 Node and the Command Line</a></h3></div>
 <div class='slide'>
 <a class='slide_break' id='slide-2' href='slides_node_cluster.html#slide-2'>▻</a>
-<h3 id="arguments">2 Arguments</h3>
-<p>The array <code>process.argv</code> contains information about how the program
-was started:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-node fs.js file.txt
-
-</pre>
+<h3 id="arguments"><a class="anchorlink" href="#arguments">2 Arguments</a></h3><p>The array <code>process.argv</code> contains information about how the program
+was started:</p><div class="code_container">
+<pre><code class="highlight plaintext">node fs.js file.txt
+</code></pre>
 </div>
-<p>The contents of the array might be:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-['/Users/b/.nvm/versions/node/v5.9.0/bin/node',  '/Users/b/code/fs.js', 'file.txt' ]
-
-</pre>
+<p>The contents of the array might be:</p><div class="code_container">
+<pre><code class="highlight plaintext">['/Users/b/.nvm/versions/node/v5.9.0/bin/node',  '/Users/b/code/fs.js', 'file.txt' ]
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-3' href='slides_node_cluster.html#slide-3'>▻</a>
-<h3 id="standard-input-and-standard-output-channels">3 Standard Input and Standard Output channels</h3>
-<p>are streams in node:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-process.stdout.write("Hello World\n"); 
-process.stderr.write("you're doing it wrong");
-console.log("this", true, 42, that);
-
-</pre>
+<h3 id="standard-input-and-standard-output-channels"><a class="anchorlink" href="#standard-input-and-standard-output-channels">3 Standard Input and Standard Output channels</a></h3><p>are streams in node:</p><div class="code_container">
+<pre><code class="highlight javascript"><span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hello World</span><span class="se">\n</span><span class="dl">"</span><span class="p">);</span> 
+<span class="nx">process</span><span class="p">.</span><span class="nx">stderr</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">you're doing it wrong</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">this</span><span class="dl">"</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="nx">that</span><span class="p">);</span>
+</code></pre>
 </div>
 <div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-node app.js &gt; out.txt 2&gt; err.txt
-
-</pre>
+<pre><code class="highlight shell"><span class="nb">node </span>app.js <span class="o">&gt;</span> out.txt 2&gt; err.txt
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-4' href='slides_node_cluster.html#slide-4'>▻</a>
-<h3 id="environment-variables">4 environment variables</h3>
-</div>
+<h3 id="environment-variables"><a class="anchorlink" href="#environment-variables">4 environment variables</a></h3></div>
 <div class='slide'>
 <a class='slide_break' id='slide-5' href='slides_node_cluster.html#slide-5'>▻</a>
-<h3 id="process-id">5 process id</h3>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-console.log(`process ${process.pid}`)
-
-</pre>
+<h3 id="process-id"><a class="anchorlink" href="#process-id">5 process id</a></h3><div class="code_container">
+<pre><code class="highlight javascript"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`process </span><span class="p">${</span><span class="nx">process</span><span class="p">.</span><span class="nx">pid</span><span class="p">}</span><span class="s2">`</span><span class="p">)</span>
+</code></pre>
 </div>
-<p>Or find it on the commandline:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-$ ps
+<p>Or find it on the commandline:</p><div class="code_container">
+<pre><code class="highlight shell"><span class="nv">$ </span>ps
   PID TTY           TIME CMD
 71422 ttys000    0:00.05 bash
-20877 ttys002    0:00.11 node app.js
-
-</pre>
+20877 ttys002    0:00.11 <span class="nb">node </span>app.js
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-6' href='slides_node_cluster.html#slide-6'>▻</a>
-<h3 id="sending-and-reacting-to-signals">6 Sending and reacting to signals</h3>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-process.on( "SIGINT", function() {
-  console.log(`stopping`);
-  process.exit();
-});
-
-</pre>
+<h3 id="sending-and-reacting-to-signals"><a class="anchorlink" href="#sending-and-reacting-to-signals">6 Sending and reacting to signals</a></h3><div class="code_container">
+<pre><code class="highlight javascript"><span class="nx">process</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span> <span class="dl">"</span><span class="s2">SIGINT</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`stopping`</span><span class="p">);</span>
+  <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre>
 </div>
 <p>Send SIGINT by pressing CTRL-C
-Send SIGINT with <code>kill 20877</code></p>
-<p>SIGTERM is used by docker, always handle it!</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-process.on( "SIGTERM", function() {
+Send SIGINT with <code>kill 20877</code></p><p>SIGTERM is used by docker, always handle it!</p><div class="code_container">
+<pre><code class="highlight plaintext">process.on( "SIGTERM", function() {
   console.log(`stopping`);
   process.exit();
 });
-
-</pre>
+</code></pre>
 </div>
 <p>SIGHUB can be used for less serious signals, for example
-to get the app to dump some statistics, or reload a configuration file:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-let count = 1;
+to get the app to dump some statistics, or reload a configuration file:</p><div class="code_container">
+<pre><code class="highlight plaintext">let count = 1;
 process.on( "SIGHUP", function() {
   console.log(`count = ${count}`);
 });
-
-</pre>
+</code></pre>
 </div>
 <div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-kill –HUP 20877
-
-</pre>
+<pre><code class="highlight plaintext">kill –HUP 20877
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-7' href='slides_node_cluster.html#slide-7'>▻</a>
-<h3 id="scaling-node-with-cluster-js">7 Scaling Node with cluster.js</h3>
-<p>V8 has a default memory limit of ~1.5GB
+<h3 id="scaling-node-with-cluster-js"><a class="anchorlink" href="#scaling-node-with-cluster-js">7 Scaling Node with cluster.js</a></h3><p>V8 has a default memory limit of ~1.5GB
 If your server has more memory
 this might be unsatisfactory! 
 You can increase this by starting node with the option
-<code>--max-old-space-size</code>.</p>
-<p>The Eventloop uses 1 core
+<code>--max-old-space-size</code>.</p><p>The Eventloop uses 1 core
 If your server has 64 cores 
 this might be unsatisfactory!
-To get around this limitation use cluster.js</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-const cluster = require('cluster');
+To get around this limitation use cluster.js</p><div class="code_container">
+<pre><code class="highlight plaintext">const cluster = require('cluster');
 const http = require('http');
 const numCPUs = require('os').cpus().length;
 if (cluster.isMaster) {
@@ -253,13 +215,10 @@ if (cluster.isMaster) {
 } else {
   console.log('working!');
 }
-
-</pre>
+</code></pre>
 </div>
-<p>sockets are shared between slave processes:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-if (cluster.isMaster) {
+<p>sockets are shared between slave processes:</p><div class="code_container">
+<pre><code class="highlight plaintext">if (cluster.isMaster) {
   // ...
 } else {
   // Workers can share any 
@@ -269,13 +228,10 @@ if (cluster.isMaster) {
     res.end('hello world\n');
   }).listen(8000);             
 }
-
-</pre>
+</code></pre>
 </div>
-<p>the master process is in charge:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-if (cluster.isMaster) {
+<p>the master process is in charge:</p><div class="code_container">
+<pre><code class="highlight plaintext">if (cluster.isMaster) {
   for (var i = 0; i &lt; numCPUs; i++) {
     cluster.fork();
   }
@@ -283,16 +239,13 @@ if (cluster.isMaster) {
     console.log(`${worker.process.pid} died`);
   });
 }
-
-</pre>
+</code></pre>
 </div>
 <p>they do not share the same memory space
 = objects are local to each instance of the app.
 You cannot maintain state in the application code!
-You can send messages:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-const cluster = require('cluster');
+You can send messages:</p><div class="code_container">
+<pre><code class="highlight plaintext">const cluster = require('cluster');
 const http = require('http');
 const numCPUs = require('os').cpus().length;
 if (cluster.isMaster) {
@@ -306,8 +259,7 @@ if (cluster.isMaster) {
  }); 
 }
 
-
-</pre>
+</code></pre>
 </div>
 <p>Where do we keep the state of the app? The answers
 are the same as for PHP, Rails, etc:</p>
@@ -319,12 +271,12 @@ are the same as for PHP, Rails, etc:</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-8' href='slides_node_cluster.html#slide-8'>▻</a>
-<h3 id="see-also">8 See Also</h3>
+<h3 id="see-also"><a class="anchorlink" href="#see-also">8 See Also</a></h3>
 <ul>
 <li><a href="https://nodejs.org/api/cluster.html">cluster.js documentation</a></li>
 <li><a href="https://pm2.io/doc/en/runtime/overview/">pm2 - process manager for Node.js</a></li>
 </ul>
-</div>        
+</div>
       </div>
     </div>
   </div>
@@ -334,19 +286,12 @@ are the same as for PHP, Rails, etc:</p>
     <div class="wrapper">
       <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2021 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
       </p><p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
-        and edit <a href="https://github.com/backend-development/backend-development-textbook/blob/master/source/node_cluster.md">node_cluster.md</a>
       </p>
     </div>
   </div>
 
   <script src="javascripts/jquery.min.js"></script>
-  <script src="javascripts/responsive-tables.js"></script>
   <script src="javascripts/guides.js"></script>
-  <script src="javascripts/syntaxhighlighter/shCore.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>
   <script>
     SyntaxHighlighter.all()
     $(guidesIndex.bind);

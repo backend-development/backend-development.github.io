@@ -4,13 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Rails Websockets in the Backend Development Textbook</title>
+  <title>Rails Websockets — Backend Development</title>
   <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />
-
+  <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+  
   <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
 
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
@@ -70,14 +69,14 @@
                 <dd><a href="caching.html">Caching</a></dd>
                 <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
                 <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
-              </dl>
-              <dl class="R">
                 <dt>Nodes.js</dt>
                 <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
                 <dd><a href="node_basics.html">Node Basics</a></dd>
                 <dd><a href="node_websockets.html">Node Websockets</a></dd>
                 <dd><a href="node_express.html">Node Web App</a></dd>
                 <dd><a href="node_cluster.html">Scaling Node</a></dd>
+              </dl>
+              <dl class="R">
               </dl>
           </div>
         </li>
@@ -131,7 +130,7 @@ With Actioncable you can use websockets for publish-subscribe communication.</p>
 <li>Build a chat app in your webapp</li>
 <li>Incorporate &quot;server push&quot; functionality in your app</li>
 </ul>
-<div class="repo"><p>You can study the <a href="https://github.com/backend-development/rails_websockets">code</a> and try out <a href="https://stepstones.herokuapp.com/">the demo</a> for the example app described here.</p></div>
+<p>REPO: You can study the <a href="https://github.com/backend-development/rails_websockets">code</a> and try out <a href="https://stepstones.herokuapp.com/">the demo</a> for the example app described here.</p>
       </div>
     </div>
   </div>
@@ -140,23 +139,19 @@ With Actioncable you can use websockets for publish-subscribe communication.</p>
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <div class='slide'><a id='slide-1'></a>
-<p>TBD</p>
-</div>
+        <div class='slide'><a id='slide-0'></a>
+<p>TBD</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-1' href='slides_rails_websockets.html#slide-1'>▻</a>
-<h3 id="websockets">1 Websockets</h3>
-<p>Websockets are built on top of HTTP and HTTPS:</p>
+<h3 id="websockets"><a class="anchorlink" href="#websockets">1 Websockets</a></h3><p>Websockets are built on top of HTTP and HTTPS:</p>
 <ul>
 <li>they reuse the default ports 80 and 443</li>
 <li>they start out as a normal HTTP request</li>
 <li>they reuse cookies</li>
 </ul>
 <p>but after the initial request, a websocket turns into
-a permanent connection between the server and the client.</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-GET /chat HTTP/1.1
+a permanent connection between the server and the client.</p><div class="code_container">
+<pre><code class="highlight plaintext">GET /chat HTTP/1.1
 Host: server.example.com
 Upgrade: websocket
 Connection: Upgrade
@@ -170,17 +165,14 @@ Upgrade: websocket
 Connection: Upgrade
 Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
 Sec-WebSocket-Protocol: chat 
-
-</pre>
+</code></pre>
 </div>
 <p>Both the client and the server can send messages across
 the websocket at any time.  Both the client and the
-server should be able to handle incoming messages at any time.</p>
-</div>
+server should be able to handle incoming messages at any time.</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-2' href='slides_rails_websockets.html#slide-2'>▻</a>
-<h3 id="publish-subscribe">2 Publish-Subscribe</h3>
-<p>In Rails we have to distinguish three concepts:</p>
+<h3 id="publish-subscribe"><a class="anchorlink" href="#publish-subscribe">2 Publish-Subscribe</a></h3><p>In Rails we have to distinguish three concepts:</p>
 <ul>
 <li>The websocket <strong>connection</strong> deals with authenticating a user 
 
@@ -231,160 +223,119 @@ server should be able to handle incoming messages at any time.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-3' href='slides_rails_websockets.html#slide-3'>▻</a>
-<h3 id="chat-example">3 Chat Example</h3>
-<p>In our example app several users should be able to chat with each other,
-no matter which page of the app they are currently viewing.</p>
-<p><img src="images/chat-screenshot-annotated.png" srcset='images/chat-screenshot-annotated.png 1x, images/chat-screenshot-annotated@2x.png 2x' alt="Screenshot of the Chat Area on the Homepage"></p>
-<p>We will build the app starting from the client side:</p>
-</div>
+<h3 id="chat-example"><a class="anchorlink" href="#chat-example">3 Chat Example</a></h3><p>In our example app several users should be able to chat with each other,
+no matter which page of the app they are currently viewing.</p><p><img src="images/chat-screenshot-annotated.png" alt="Screenshot of the Chat Area on the Homepage"></p><p>We will build the app starting from the client side:</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-4' href='slides_rails_websockets.html#slide-4'>▻</a>
-<h4 id="client-connects-and-subscribes">3.1 Client connects and subscribes</h4>
-<p>The javascript concerning websockets is stored in the
+<h4 id="client-connects-and-subscribes"><a class="anchorlink" href="#client-connects-and-subscribes">3.1 Client connects and subscribes</a></h4><p>The javascript concerning websockets is stored in the
 file <code>app/assets/javascripts/cabel.js</code> which was created
-by rails. It should look like this:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-//= require action_cable
-//= require_self
-//= require_tree ./channels
+by rails. It should look like this:</p><div class="code_container">
+<pre><code class="highlight javascript"><span class="c1">//= require action_cable</span>
+<span class="c1">//= require_self</span>
+<span class="c1">//= require_tree ./channels</span>
 
-(function() {
-  this.App || (this.App = {});
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">App</span> <span class="o">||</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">App</span> <span class="o">=</span> <span class="p">{});</span>
 
-  App.cable = ActionCable.createConsumer();
-}).call(this);
-
-</pre>
+  <span class="nx">App</span><span class="p">.</span><span class="nx">cable</span> <span class="o">=</span> <span class="nx">ActionCable</span><span class="p">.</span><span class="nx">createConsumer</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+</code></pre>
 </div>
 <p>and which in turn includes the folder <code>app/assets/javascripts/channels</code>
-where we will store our own javascript.  </p>
-<p>To connect each user to the chat channel, we add a new file
-<code>app/assets/javascripts/channels/chat.js</code>:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-App.chatChannel = App.cable.subscriptions.create({
-  channel: 'ChatChannel',
-  room: 'main'
-}
-
-</pre>
+where we will store our own javascript.  </p><p>To connect each user to the chat channel, we add a new file
+<code>app/assets/javascripts/channels/chat.js</code>:</p><div class="code_container">
+<pre><code class="highlight javascript"><span class="nx">App</span><span class="p">.</span><span class="nx">chatChannel</span> <span class="o">=</span> <span class="nx">App</span><span class="p">.</span><span class="nx">cable</span><span class="p">.</span><span class="nx">subscriptions</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+  <span class="na">channel</span><span class="p">:</span> <span class="dl">'</span><span class="s1">ChatChannel</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">room</span><span class="p">:</span> <span class="dl">'</span><span class="s1">main</span><span class="dl">'</span>
+<span class="p">}</span>
+</code></pre>
 </div>
-<p>This Javascript code also depends on one meta-tag being set in the webpage:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-&lt;meta name="action-cable-url" content="/cable" /&gt;
-
-</pre>
+<p>This Javascript code also depends on one meta-tag being set in the webpage:</p><div class="code_container">
+<pre><code class="highlight plaintext">&lt;meta name="action-cable-url" content="/cable" /&gt;
+</code></pre>
 </div>
 <p>Do not write this by hand, use the rails helper in the
-file <code>app/views/layouts/application.html.erb</code>:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-&lt;%= action_cable_meta_tag %&gt;
-
-</pre>
+file <code>app/views/layouts/application.html.erb</code>:</p><div class="code_container">
+<pre><code class="highlight plaintext">&lt;%= action_cable_meta_tag %&gt;
+</code></pre>
 </div>
 <p>Now the client tries to connect to the websocket at URL <code>/cable</code>
 and then subscribe to the chat channel.
 If you open your app in the browser now, you should
-see an error in the developer tools console:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-WebSocket connection to 'ws://localhost:3000/cable' failed: Error during WebSocket handshake: Unexpected response code: 500
-
-</pre>
+see an error in the developer tools console:</p><div class="code_container">
+<pre><code class="highlight plaintext">WebSocket connection to 'ws://localhost:3000/cable' failed: Error during WebSocket handshake: Unexpected response code: 500
+</code></pre>
 </div>
-<p>So the client is trying to connect, but it does not work yet.</p>
-</div>
+<p>So the client is trying to connect, but it does not work yet.</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-5' href='slides_rails_websockets.html#slide-5'>▻</a>
-<h4 id="server-accepts-and-authentication">3.2 Server accepts and Authentication</h4>
-<p>The server side code is stored in the folder <code>app/channels</code>. We first
+<h4 id="server-accepts-and-authentication"><a class="anchorlink" href="#server-accepts-and-authentication">3.2 Server accepts and Authentication</a></h4><p>The server side code is stored in the folder <code>app/channels</code>. We first
 take a look at <code>app/channels/application_cable/connection.rb</code>, which was
-created by rails:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-module ApplicationCable
-  class Connection &lt; ActionCable::Connection::Base
-  end
-end
-
-</pre>
+created by rails:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="k">module</span> <span class="nn">ApplicationCable</span>
+  <span class="k">class</span> <span class="nc">Connection</span> <span class="o">&lt;</span> <span class="no">ActionCable</span><span class="o">::</span><span class="no">Connection</span><span class="o">::</span><span class="no">Base</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
 </div>
 <p>Remember that the server side code concerning websocket is not
 called by a controller.  So even if we already built authentication
 into our app, and added code for <code>current_user</code> to <code>application_controller.rb</code>,
-the <code>current_user</code> will not be available here in the ApplicationCable.</p>
-<p>But we do have access to cookies in Actioncable:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-module ApplicationCable
-  class Connection &lt; ActionCable::Connection::Base
-    identified_by :current_user    # creates a instance variable
+the <code>current_user</code> will not be available here in the ApplicationCable.</p><p>But we do have access to cookies in Actioncable:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="k">module</span> <span class="nn">ApplicationCable</span>
+  <span class="k">class</span> <span class="nc">Connection</span> <span class="o">&lt;</span> <span class="no">ActionCable</span><span class="o">::</span><span class="no">Connection</span><span class="o">::</span><span class="no">Base</span>
+    <span class="n">identified_by</span> <span class="ss">:current_user</span>    <span class="c1"># creates a instance variable</span>
 
-    def connect
-      Rails.logger.warn("this is the info I read from the cookie:")
-      Rails.logger.warn(cookies.encrypted[Rails.application.config.session_options[:key]])
-      self.current_user = User.find(3)
-    end
+    <span class="k">def</span> <span class="nf">connect</span>
+      <span class="no">Rails</span><span class="p">.</span><span class="nf">logger</span><span class="p">.</span><span class="nf">warn</span><span class="p">(</span><span class="s2">"this is the info I read from the cookie:"</span><span class="p">)</span>
+      <span class="no">Rails</span><span class="p">.</span><span class="nf">logger</span><span class="p">.</span><span class="nf">warn</span><span class="p">(</span><span class="n">cookies</span><span class="p">.</span><span class="nf">encrypted</span><span class="p">[</span><span class="no">Rails</span><span class="p">.</span><span class="nf">application</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">session_options</span><span class="p">[</span><span class="ss">:key</span><span class="p">]])</span>
+      <span class="nb">self</span><span class="p">.</span><span class="nf">current_user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">end</span>
 
-    def disconnect
-      # Any cleanup work needed when the cable connection is cut.
-    end    
-  end
-end
-
-</pre>
+    <span class="k">def</span> <span class="nf">disconnect</span>
+      <span class="c1"># Any cleanup work needed when the cable connection is cut.</span>
+    <span class="k">end</span>    
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
 </div>
 <p>After adding this code the browser should be able to connect to
 the websocket.  In Firefox with the extension <strong>Websocket Monitor</strong> you
-can see the messages sent across the websocket in a separate tab:</p>
-<p><img src="images/ws_firefox.png" srcset='images/ws_firefox.png 1x, images/ws_firefox@2x.png 2x' alt="Websocket in Firefox with Extension Websocket Monitor"></p>
-<p>You can see that there is more going on than just the subscription
-that we initiated from the client side.</p>
-<p>On the server side you will see the connection in the log file:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-Started GET "/cable" for ::1 at 2017-01-25 17:45:09 +0100
+can see the messages sent across the websocket in a separate tab:</p><p><img src="images/ws_firefox.png" alt="Websocket in Firefox with Extension Websocket Monitor"></p><p>You can see that there is more going on than just the subscription
+that we initiated from the client side.</p><p>On the server side you will see the connection in the log file:</p><div class="code_container">
+<pre><code class="highlight plaintext">Started GET "/cable" for ::1 at 2017-01-25 17:45:09 +0100
 Started GET "/cable/" [WebSocket] for ::1 at 2017-01-25 17:45:09 +0100
 Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: keep-alive, Upgrade, HTTP_UPGRADE: websocket)
 this is the info I read from the cookie:
 {"session_id"=&gt;"b8ee74d5afe32d5", "_csrf_token"=&gt;"9mBRsEoGnRnkkW6", "user_id"=&gt;"3"}
-
-</pre>
+</code></pre>
 </div>
 <p>We successfully decoded the session data from the encrypted cookie, you can see 
-that the <code>user_id</code> is 3 in this case. We can use this to set the <code>current_user</code> correctly:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-module ApplicationCable
-  class Connection &lt; ActionCable::Connection::Base
-    identified_by :current_user    # creates a instance variable
+that the <code>user_id</code> is 3 in this case. We can use this to set the <code>current_user</code> correctly:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="k">module</span> <span class="nn">ApplicationCable</span>
+  <span class="k">class</span> <span class="nc">Connection</span> <span class="o">&lt;</span> <span class="no">ActionCable</span><span class="o">::</span><span class="no">Connection</span><span class="o">::</span><span class="no">Base</span>
+    <span class="n">identified_by</span> <span class="ss">:current_user</span>    <span class="c1"># creates a instance variable</span>
 
-    def connect
-      session_from_cookie = cookies.encrypted[Rails.application.config.session_options[:key]]
-      user_id = session_from_cookie['user_id']
-      reject_unauthorized_connection if user_id.nil?
-      self.current_user = User.find(user_id)
-      Rails.logger.warn("connection for user #{current_user}")
-      reject_unauthorized_connection if current_user.nil?
-    end
+    <span class="k">def</span> <span class="nf">connect</span>
+      <span class="n">session_from_cookie</span> <span class="o">=</span> <span class="n">cookies</span><span class="p">.</span><span class="nf">encrypted</span><span class="p">[</span><span class="no">Rails</span><span class="p">.</span><span class="nf">application</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">session_options</span><span class="p">[</span><span class="ss">:key</span><span class="p">]]</span>
+      <span class="n">user_id</span> <span class="o">=</span> <span class="n">session_from_cookie</span><span class="p">[</span><span class="s1">'user_id'</span><span class="p">]</span>
+      <span class="n">reject_unauthorized_connection</span> <span class="k">if</span> <span class="n">user_id</span><span class="p">.</span><span class="nf">nil?</span>
+      <span class="nb">self</span><span class="p">.</span><span class="nf">current_user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+      <span class="no">Rails</span><span class="p">.</span><span class="nf">logger</span><span class="p">.</span><span class="nf">warn</span><span class="p">(</span><span class="s2">"connection for user </span><span class="si">#{</span><span class="n">current_user</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+      <span class="n">reject_unauthorized_connection</span> <span class="k">if</span> <span class="n">current_user</span><span class="p">.</span><span class="nf">nil?</span>
+    <span class="k">end</span>
 
-    def disconnect
-      # Any cleanup work needed when the cable connection is cut.
-    end    
-  end
-end
-
-</pre>
+    <span class="k">def</span> <span class="nf">disconnect</span>
+      <span class="c1"># Any cleanup work needed when the cable connection is cut.</span>
+    <span class="k">end</span>    
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
 </div>
 <p>After this, a user that has logged in to the rails app
 is automatically also logged in to the websocket, as you
-can see in the log file:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-Started GET "/cable" for ::1 at 2017-01-25 17:54:51 +0100
+can see in the log file:</p><div class="code_container">
+<pre><code class="highlight plaintext">Started GET "/cable" for ::1 at 2017-01-25 17:54:51 +0100
 Started GET "/cable/" [WebSocket] for ::1 at 2017-01-25 17:54:51 +0100
 Successfully upgraded to WebSocket (REQUEST_METHOD: GET, HTTP_CONNECTION: keep-alive, Upgrade, HTTP_UPGRADE: websocket)
   User Load (0.3ms)  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2  [["id", 3], ["LIMIT", 1]]
@@ -392,18 +343,13 @@ connection for user Brigitte Jellinek
 Registered connection (Z2lkOi8vc3RlcHN0b25lcy9Vc2VyLzM)
 ChatChannel is transmitting the subscription confirmation
 ChatChannel is streaming from chat_main
-
-</pre>
+</code></pre>
 </div>
-<p>Now the server is ready to receive data from this client and send data to this client.</p>
-</div>
+<p>Now the server is ready to receive data from this client and send data to this client.</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-6' href='slides_rails_websockets.html#slide-6'>▻</a>
-<h4 id="client-sends-data">3.3 Client sends data</h4>
-<p>To implement the chat we can use the already existing HTML in application.html.erb:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-&lt;section id="chat" class="holder" style="display:none;"&gt;
+<h4 id="client-sends-data"><a class="anchorlink" href="#client-sends-data">3.3 Client sends data</a></h4><p>To implement the chat we can use the already existing HTML in application.html.erb:</p><div class="code_container">
+<pre><code class="highlight plaintext">&lt;section id="chat" class="holder" style="display:none;"&gt;
   &lt;div id="output"&gt;
     &lt;p&gt;Chat...&lt;/p&gt;
   &lt;/div&gt;
@@ -413,15 +359,12 @@ ChatChannel is streaming from chat_main
     &lt;input type="button" value="send"&gt;
   &lt;/div&gt;
 &lt;/section&gt;
-
-</pre>
+</code></pre>
 </div>
 <p>We just have to make it visible as soon as we have a websocket connection.
 We change  <code>app/assets/javascripts/channels/chat.js</code>, adding a second
-argument to subscriptions.create: an object that holds a <code>connected</code>-function:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-// create(channelName, mixin)
+argument to subscriptions.create: an object that holds a <code>connected</code>-function:</p><div class="code_container">
+<pre><code class="highlight plaintext">// create(channelName, mixin)
 App.chatChannel = App.cable.subscriptions.create({
   channel: 'ChatChannel',
   room: 'main'}, 
@@ -431,15 +374,12 @@ App.chatChannel = App.cable.subscriptions.create({
     }
   }
 );
-
-</pre>
+</code></pre>
 </div>
 <p>If a user types something into the chat-input field and
 presses enter or the send button, we want the text to
-be sent across the websocket:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-$(function() {
+be sent across the websocket:</p><div class="code_container">
+<pre><code class="highlight plaintext">$(function() {
   function send_chat() {
     var text = $('#input input[name=chat]').val();
     $('#input input[name=chat]').val('');
@@ -454,28 +394,19 @@ $(function() {
 
   $('#input input[type=button]').on('click', send_chat);
 });
-
-</pre>
+</code></pre>
 </div>
 <p>If you type in 'Hello' and send it, you can see the message
-being sent in the websocket tab of firefox developer tools:</p>
-<p><img src="images/ws_firefox_send.png" srcset='images/ws_firefox_send.png 1x, images/ws_firefox_send@2x.png 2x' alt="chat message being sent to the server"></p>
-</div>
+being sent in the websocket tab of firefox developer tools:</p><p><img src="images/ws_firefox_send.png" alt="chat message being sent to the server"></p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-7' href='slides_rails_websockets.html#slide-7'>▻</a>
-<h4 id="server-receives-data">3.4 Server receives data</h4>
-<p>Right now the server does not know how to handle the incoming data,
-in the log file you will read:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-Unable to process ChatChannel#receive({"body"=&gt;"hello"})
-
-</pre>
+<h4 id="server-receives-data"><a class="anchorlink" href="#server-receives-data">3.4 Server receives data</a></h4><p>Right now the server does not know how to handle the incoming data,
+in the log file you will read:</p><div class="code_container">
+<pre><code class="highlight plaintext">Unable to process ChatChannel#receive({"body"=&gt;"hello"})
+</code></pre>
 </div>
-<p>We implement <code>receive</code> in <code>app/channels/chat_channel.rb</code>:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-class ChatChannel &lt; ApplicationCable::Channel
+<p>We implement <code>receive</code> in <code>app/channels/chat_channel.rb</code>:</p><div class="code_container">
+<pre><code class="highlight plaintext">class ChatChannel &lt; ApplicationCable::Channel
   # Called when the consumer has successfully
   # become a subscriber of this channel.
   def subscribed
@@ -488,150 +419,109 @@ class ChatChannel &lt; ApplicationCable::Channel
     ActionCable.server.broadcast("chat_#{params[:room]}", data)
   end
 end
-
-</pre>
+</code></pre>
 </div>
 <p>Here we take the data coming in from the client
 and add some more: the name of the current user and
-the current time on the server.</p>
-<p>The <code>broadcast</code> method will send the new data to 
+the current time on the server.</p><p>The <code>broadcast</code> method will send the new data to 
 all users subscribed to the chat-channel, even
-the user who originally sent it.</p>
-</div>
+the user who originally sent it.</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-8' href='slides_rails_websockets.html#slide-8'>▻</a>
-<h4 id="chat-example-client-recieves-data">3.5 Client recieves data</h4>
-<p>In `<code>app/assets/javascripts/channels/chat.js</code>, where
+<h4 id="chat-example-client-recieves-data"><a class="anchorlink" href="#chat-example-client-recieves-data">3.5 Client recieves data</a></h4><p>In `<code>app/assets/javascripts/channels/chat.js</code>, where
 we made the subscription, we add a function to handle
-the received data:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-App.chatChannel = App.cable.subscriptions.create({
-  channel: 'ChatChannel',
-  room: 'main'}, 
-  {
-    received: function(data) {
-      $("#output").append(
-        '&lt;p&gt;' + data['user'] + ': ' + data['body'] + '&lt;/p&gt;'
-      );
-    }
-  }
-);
-
-</pre>
+the received data:</p><div class="code_container">
+<pre><code class="highlight javascript"><span class="nx">App</span><span class="p">.</span><span class="nx">chatChannel</span> <span class="o">=</span> <span class="nx">App</span><span class="p">.</span><span class="nx">cable</span><span class="p">.</span><span class="nx">subscriptions</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+  <span class="na">channel</span><span class="p">:</span> <span class="dl">'</span><span class="s1">ChatChannel</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">room</span><span class="p">:</span> <span class="dl">'</span><span class="s1">main</span><span class="dl">'</span><span class="p">},</span> 
+  <span class="p">{</span>
+    <span class="na">received</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#output</span><span class="dl">"</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span>
+        <span class="dl">'</span><span class="s1">&lt;p&gt;</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">data</span><span class="p">[</span><span class="dl">'</span><span class="s1">user</span><span class="dl">'</span><span class="p">]</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">data</span><span class="p">[</span><span class="dl">'</span><span class="s1">body</span><span class="dl">'</span><span class="p">]</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">&lt;/p&gt;</span><span class="dl">'</span>
+      <span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">);</span>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-9' href='slides_rails_websockets.html#slide-9'>▻</a>
-<h3 id="progress-example">4 Progress Example</h3>
-<p>For the second example the communication structure is a bit more complex:
-All the users <em>in one adventure</em> should see each other progress through the steps.</p>
-<p><img src="images/adventures-screenshot-annotated.png" srcset='images/adventures-screenshot-annotated.png 1x, images/adventures-screenshot-annotated@2x.png 2x' alt="Screenshot of the Adventure Page"></p>
-<p>The page displays the adventure and the three steps it consists of.</p>
-<p>The currently logged in user is 'Brigitte Jellinek'. Her progress is described
+<h3 id="progress-example"><a class="anchorlink" href="#progress-example">4 Progress Example</a></h3><p>For the second example the communication structure is a bit more complex:
+All the users <em>in one adventure</em> should see each other progress through the steps.</p><p><img src="images/adventures-screenshot-annotated.png" alt="Screenshot of the Adventure Page"></p><p>The page displays the adventure and the three steps it consists of.</p><p>The currently logged in user is 'Brigitte Jellinek'. Her progress is described
 at the top of the page (purple box) as "You are currently working on step 2.".
-A blue cursor just above step 2 also indicates this.</p>
-<p>At every step we can see the status of all users. For example at the 2nd step,
+A blue cursor just above step 2 also indicates this.</p><p>At every step we can see the status of all users. For example at the 2nd step,
 in the green box, we can see the status of four users. We can see
-that Alyssa P. Hacker is blocked.</p>
-<p>Inside the yellow box we find the interface the current user can use to change
-their status at step 2.</p>
-<p>We will use websockets to communicate changes to all users.  So if Alyssa changes
+that Alyssa P. Hacker is blocked.</p><p>Inside the yellow box we find the interface the current user can use to change
+their status at step 2.</p><p>We will use websockets to communicate changes to all users.  So if Alyssa changes
 her status from blocked to finished, the server will send websocket messages to
 all the other users currently viewing the page, and their display will change
-accordingly.</p>
-<p>Contrast this to a classic web app built with HTTP requests, where you would
-need to reload the page to get the new status. </p>
-</div>
+accordingly.</p><p>Contrast this to a classic web app built with HTTP requests, where you would
+need to reload the page to get the new status. </p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-10' href='slides_rails_websockets.html#slide-10'>▻</a>
-<h4 id="client-subscribes">4.1 Client subscribes</h4>
-<p>There is no need to change anything in <code>app/assets/javascripts/cabel.js</code>. We 
-add another file to the channels folder <code>app/assets/javascripts/channels/adventure.js</code>:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-App.cable.subscriptions.create({ channel: "AdventureChannel" })
-
-</pre>
+<h4 id="client-subscribes"><a class="anchorlink" href="#client-subscribes">4.1 Client subscribes</a></h4><p>There is no need to change anything in <code>app/assets/javascripts/cabel.js</code>. We 
+add another file to the channels folder <code>app/assets/javascripts/channels/adventure.js</code>:</p><div class="code_container">
+<pre><code class="highlight plaintext">App.cable.subscriptions.create({ channel: "AdventureChannel" })
+</code></pre>
 </div>
 <p>In <code>channels/chat.js</code> we also set a room when creating the subscription,
 and we used the same room for all users. This time we want to treat users
-who are working on different adventures differently.</p>
-<p>One simple way of doing this is to supply the URL of the current page
-as a parameter when creating the subscription:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-App.adventureChannel = App.cable.subscriptions.create({
+who are working on different adventures differently.</p><p>One simple way of doing this is to supply the URL of the current page
+as a parameter when creating the subscription:</p><div class="code_container">
+<pre><code class="highlight plaintext">App.adventureChannel = App.cable.subscriptions.create({
   channel: "AdventureChannel",  
   url_path: document.location.pathname
 });
-
-</pre>
+</code></pre>
 </div>
-<p>The path is communicated via websocket:</p>
-<p><img src="images/subscribe_adventure.png" srcset='images/subscribe_adventure.png 1x, images/subscribe_adventure@2x.png 2x' alt="Websocket in Firefox with Extension Websocket Monitor"></p>
-</div>
+<p>The path is communicated via websocket:</p><p><img src="images/subscribe_adventure.png" alt="Websocket in Firefox with Extension Websocket Monitor"></p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-11' href='slides_rails_websockets.html#slide-11'>▻</a>
-<h4 id="server-accepts">4.2 Server accepts</h4>
-<p>On the server side we create a new file <code>app/channels/adventure_channel.rb</code>:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-class AdventureChannel &lt; ApplicationCable::Channel
+<h4 id="server-accepts"><a class="anchorlink" href="#server-accepts">4.2 Server accepts</a></h4><p>On the server side we create a new file <code>app/channels/adventure_channel.rb</code>:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">AdventureChannel</span> <span class="o">&lt;</span> <span class="no">ApplicationCable</span><span class="o">::</span><span class="no">Channel</span>
 
-  def subscribed
-    stream_from '/adventures/4'   # TODO: read param url_path
-  end
+  <span class="k">def</span> <span class="nf">subscribed</span>
+    <span class="n">stream_from</span> <span class="s1">'/adventures/4'</span>   <span class="c1"># TODO: read param url_path</span>
+  <span class="k">end</span>
 
-end
-
-</pre>
+<span class="k">end</span>
+</code></pre>
 </div>
 <p>We only want to send out messages to users who are viewing on
 of the adventure-pages, not to people who are on the homepage or anywhere
-else.</p>
-<p>So we analyze the <code>url_path</code> parameter we recive from the client,
-and only <code>stream_from</code> if the path fits:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-def subscribed
-  if params[:url_path] =~ %r{^/adventures/\d+$}
-    stream_from params[:url_path]
-  end
-end
-
-</pre>
+else.</p><p>So we analyze the <code>url_path</code> parameter we recive from the client,
+and only <code>stream_from</code> if the path fits:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="k">def</span> <span class="nf">subscribed</span>
+  <span class="k">if</span> <span class="n">params</span><span class="p">[</span><span class="ss">:url_path</span><span class="p">]</span> <span class="o">=~</span> <span class="sr">%r{^/adventures/</span><span class="se">\d</span><span class="sr">+$}</span>
+    <span class="n">stream_from</span> <span class="n">params</span><span class="p">[</span><span class="ss">:url_path</span><span class="p">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-12' href='slides_rails_websockets.html#slide-12'>▻</a>
-<h4 id="progress-example-client-recieves-data">4.3 Client recieves data</h4>
-<p>To help with debugging the channel while we are building it,
-we will copy over any data recived by the client to the chat window:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-App.adventureChannel = App.cable.subscriptions.create({
-  channel: "AdventureChannel",  
-  url_path: document.location.pathname
-},
-{ 
-  received: function(data) {
-    $("#output").append('&lt;p&gt;' + data.description + '&lt;/p&gt;');
-  }
-});
-
-</pre>
+<h4 id="progress-example-client-recieves-data"><a class="anchorlink" href="#progress-example-client-recieves-data">4.3 Client recieves data</a></h4><p>To help with debugging the channel while we are building it,
+we will copy over any data recived by the client to the chat window:</p><div class="code_container">
+<pre><code class="highlight javascript"><span class="nx">App</span><span class="p">.</span><span class="nx">adventureChannel</span> <span class="o">=</span> <span class="nx">App</span><span class="p">.</span><span class="nx">cable</span><span class="p">.</span><span class="nx">subscriptions</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+  <span class="na">channel</span><span class="p">:</span> <span class="dl">"</span><span class="s2">AdventureChannel</span><span class="dl">"</span><span class="p">,</span>  
+  <span class="na">url_path</span><span class="p">:</span> <span class="nb">document</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">pathname</span>
+<span class="p">},</span>
+<span class="p">{</span> 
+  <span class="na">received</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#output</span><span class="dl">"</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="dl">'</span><span class="s1">&lt;p&gt;</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">data</span><span class="p">.</span><span class="nx">description</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">&lt;/p&gt;</span><span class="dl">'</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-13' href='slides_rails_websockets.html#slide-13'>▻</a>
-<h4 id="server-sends-data-if-status-changes">4.4 Server sends data if status changes</h4>
-<p>Every time a user changes their status we want the server
+<h4 id="server-sends-data-if-status-changes"><a class="anchorlink" href="#server-sends-data-if-status-changes">4.4 Server sends data if status changes</a></h4><p>Every time a user changes their status we want the server
 to send out messages.  The model where the status is stored
-is <code>Step</code>. ActiveRecord supplies hooks for <a href="https://guides.rubyonrails.org/active_record_callbacks.html#transaction-callbacks">callbacks</a> we can use here:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-class Step &lt; ApplicationRecord
+is <code>Step</code>. ActiveRecord supplies hooks for <a href="https://guides.rubyonrails.org/active_record_callbacks.html#transaction-callbacks">callbacks</a> we can use here:</p><div class="code_container">
+<pre><code class="highlight plaintext">class Step &lt; ApplicationRecord
 
   delegate :url_helpers, to: 'Rails.application.routes' 
 
@@ -644,28 +534,20 @@ class Step &lt; ApplicationRecord
       description: describe_new_state
     )
   end
-
-</pre>
+</code></pre>
 </div>
 <p>The <code>ActionCable.server.broadcast</code> methods takes one string argument
 for identifying the stream to broadcast on. We used the
 path to the adventure page, for example <code>"/adventure/3"</code>. Here
 we use a helper to contruct this string, we could also have
-done it directly with <code>"/adventure/#{stepstone.adventure_id}"</code>.</p>
-<p>With these pieces in place a change in status should already
-appear in the chat window.</p>
-</div>
+done it directly with <code>"/adventure/#{stepstone.adventure_id}"</code>.</p><p>With these pieces in place a change in status should already
+appear in the chat window.</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-14' href='slides_rails_websockets.html#slide-14'>▻</a>
-<h4 id="client-recieves-data-partial-as-html">4.5 Client recieves data: partial as html</h4>
-<p>The display of all the users status involves a lot of html and
-additional resources.</p>
-<p><img src="images/adventures-screenshot-show-status.png" srcset='images/adventures-screenshot-show-status.png 1x, images/adventures-screenshot-show-status@2x.png 2x' alt="partial show_status"></p>
-<p>There is already a separate partial to handle this, it is 
-called in the <code>adventures/show.html.erb</code> view repeatedly:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-&lt;% @stepstones.each_with_index do |stepstone, i| %&gt;
+<h4 id="client-recieves-data-partial-as-html"><a class="anchorlink" href="#client-recieves-data-partial-as-html">4.5 Client recieves data: partial as html</a></h4><p>The display of all the users status involves a lot of html and
+additional resources.</p><p><img src="images/adventures-screenshot-show-status.png" alt="partial show_status"></p><p>There is already a separate partial to handle this, it is 
+called in the <code>adventures/show.html.erb</code> view repeatedly:</p><div class="code_container">
+<pre><code class="highlight plaintext">&lt;% @stepstones.each_with_index do |stepstone, i| %&gt;
   &lt;div id="step_&lt;%= i %&gt;"&gt;
     &lt;h2&gt;
       &lt;span class="number"&gt;&lt;%= (i + 1).ordinalize %&gt;.&lt;/span&gt; Step   
@@ -679,28 +561,21 @@ called in the <code>adventures/show.html.erb</code> view repeatedly:</p>
     &lt;/article&gt;
   &lt;/div&gt;
 &lt;% end %&gt;
-
-</pre>
+</code></pre>
 </div>
 <p>We can reuse the <code>stepstones/show_status</code> partial on the server side,
 when we send the message to the websocket.  And we can reuse the
 <code>div</code> with id <code>step_3</code> on the client side, when we incorpoarte the
-recieved html into the page. </p>
-<p>We will add two new keys to the message, which now looks like this:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-{
+recieved html into the page. </p><p>We will add two new keys to the message, which now looks like this:</p><div class="code_container">
+<pre><code class="highlight plaintext">{
   "description": "Alyssa P. Hacker is now blocked at the 2nd step.", 
   "selector": "#step_1_show_status", 
   "html" : "&lt;div class=\"user blocked\"&gt;&lt;span&gt;&lt;img...&gt; ....&lt;/div&gt;\n"
 }
-
-</pre>
+</code></pre>
 </div>
-<p>On the server we add another key/value pair to message:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-  def notify_adventure_channel
+<p>On the server we add another key/value pair to message:</p><div class="code_container">
+<pre><code class="highlight plaintext">  def notify_adventure_channel
     ActionCable.server.broadcast(
       url_helpers.adventure_path(stepstone.adventure),
       description: describe_new_state,
@@ -712,35 +587,29 @@ recieved html into the page. </p>
         )
     )
   end
-
-</pre>
+</code></pre>
 </div>
 <p>on the client we just use jQuery to replace the html inside
-the div:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-received: function(data) {
+the div:</p><div class="code_container">
+<pre><code class="highlight plaintext">received: function(data) {
   $(data.selector).html(data.html);
   $("#output").append('&lt;p&gt;' + data.description + '&lt;/p&gt;');
 }
-
-</pre>
+</code></pre>
 </div>
-<p>Now the status-display with all the users should work!</p>
-</div>
+<p>Now the status-display with all the users should work!</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-15' href='slides_rails_websockets.html#slide-15'>▻</a>
-<h3 id="deployment">5 Deployment</h3>
-</div>
+<h3 id="deployment"><a class="anchorlink" href="#deployment">5 Deployment</a></h3></div>
 <div class='slide'>
 <a class='slide_break' id='slide-16' href='slides_rails_websockets.html#slide-16'>▻</a>
-<h3 id="see-also">6 See Also</h3>
+<h3 id="see-also"><a class="anchorlink" href="#see-also">6 See Also</a></h3>
 <ul>
 <li><a href="https://tools.ietf.org/html/rfc6455">RFC 6455</a></li>
 <li>
 <a href="https://blog.ably.io/rails-5-actioncable-the-good-and-bad-parts-1b56c3b31404#.nhzs3q1qd">O'Riordan(2016) Rails ActionCable — The good and bad parts</a> - a good overview of the uses and limitation of ActionCable</li>
 </ul>
-</div>        
+</div>
       </div>
     </div>
   </div>
@@ -750,19 +619,12 @@ received: function(data) {
     <div class="wrapper">
       <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2021 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
       </p><p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
-        and edit <a href="https://github.com/backend-development/backend-development-textbook/blob/master/source/rails_websockets.md">rails_websockets.md</a>
       </p>
     </div>
   </div>
 
   <script src="javascripts/jquery.min.js"></script>
-  <script src="javascripts/responsive-tables.js"></script>
   <script src="javascripts/guides.js"></script>
-  <script src="javascripts/syntaxhighlighter/shCore.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>
   <script>
     SyntaxHighlighter.all()
     $(guidesIndex.bind);

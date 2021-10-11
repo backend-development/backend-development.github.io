@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=1024, user-scalable=no">
     <title>Slides for
         Backend Development Textbook
@@ -20,8 +20,7 @@
     <!-- Transition theme. More available in /themes/transition/ or create your own. -->
     <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
     <!-- syntax highlighter -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />    
+    <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
 
 
     <!-- Basic black and white print styles -->
@@ -36,11 +35,9 @@
 </div>
 <div class='slide'>
 <a class='slide_break' href='rails_webpack_frontend.html#slide-1'>▻</a>
-<h2>Building the Frontend with webpacker</h2>
-<p>While the asset pipeline is rails' traditional way of preparing
+<h2>Building the Frontend with webpacker</h2><p>While the asset pipeline is rails' traditional way of preparing
 files for the frontend, in recent years a completely
-different toolchain was developed in the frontend community.</p>
-<p>In this guide you will learn how to integrate webpack
+different toolchain was developed in the frontend community.</p><p>In this guide you will learn how to integrate webpack
 and a current frontend framework with your rails app.
 You will be able to:</p>
 <ul>
@@ -55,35 +52,25 @@ You will be able to:</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='rails_webpack_frontend.html#slide-3'>▻</a>
-<h3 id="frontend-pipelines">1 Frontend Pipelines</h3>
-<p>When the rails asset pipeline was published with Rails 3.1 in 2011, node.js
+<h3 id="frontend-pipelines"><a class="anchorlink" href="#frontend-pipelines">1 Frontend Pipelines</a></h3><p>When the rails asset pipeline was published with Rails 3.1 in 2011, node.js
 was only 2 years old and version 1.0 of npm was just released.<br>
-In the years since, the frontend community developed, released (and dropped) a lot of new tools: bower, grunt, gulp, yarn, webpack.</p>
-<p>Since Rails 5.1 the webpacker gem is officialy part of Rails. It integrates webpack
+In the years since, the frontend community developed, released (and dropped) a lot of new tools: bower, grunt, gulp, yarn, webpack.</p><p>Since Rails 5.1 the webpacker gem is officialy part of Rails. It integrates webpack
 into rails, and makes developing with svelte, react, vue, angular or other frontend frameworks
-easy.</p>
-<p>Webpacker coexists with the asset pipeline. You can start using webpacker for
+easy.</p><p>Webpacker coexists with the asset pipeline. You can start using webpacker for
 certain aspects of your Rails app, for example just one page with very complex, UI,
-and still continue using the asset pipeline for the rest.</p>
-</div>
+and still continue using the asset pipeline for the rest.</p></div>
 <div class='slide'>
 <a class='slide_break' href='rails_webpack_frontend.html#slide-4'>▻</a>
-<h3 id="files">2 Files</h3>
-<p>Webpacker creates a new folder <code>app/javascript</code> and a folder structure.</p>
-<p>The folder <code>app/javascript/packs</code> is reserved for
+<h3 id="files"><a class="anchorlink" href="#files">2 Files</a></h3><p>Webpacker creates a new folder <code>app/javascript</code> and a folder structure.</p><p>The folder <code>app/javascript/packs</code> is reserved for
 webpack entry files, with
-<code>app/javascript/packs/application.js</code> being the default file.</p>
-<p><img src="images/javascript-folder.png" srcset='images/javascript-folder.png 1x, images/javascript-folder@2x.png 2x' alt=""></p>
-<p>The bundle created by webpacker is included in the rails app
-with</p>
-</div>
+<code>app/javascript/packs/application.js</code> being the default file.</p><p><img src="images/javascript-folder.png" alt=""></p><p>The bundle created by webpacker is included in the rails app
+with</p></div>
 <div class='slide'>
 <a class='slide_break' href='rails_webpack_frontend.html#slide-5'>▻</a>
-<h3 id="to-be-continued">3 To be Continued</h3>
-</div>
+<h3 id="to-be-continued"><a class="anchorlink" href="#to-be-continued">3 To be Continued</a></h3></div>
 <div class='slide'>
 <a class='slide_break' href='rails_webpack_frontend.html#slide-6'>▻</a>
-<h3 id="further-reading">4 Further Reading</h3></div>
+<h3 id="further-reading"><a class="anchorlink" href="#further-reading">4 Further Reading</a></h3></div>
     </div>
     <!-- End slides. -->
     <!-- Begin extension snippets. Add or remove as needed. -->
@@ -106,7 +93,6 @@ with</p>
         <input type="submit" value="Go">
     </form>
     <!-- End extension snippets. -->
-    </div>
     <!-- Required JS files. -->
     <script src="javascripts/jquery.min.js"></script>
     <script src="javascripts/deck.core.js"></script>
@@ -116,15 +102,9 @@ with</p>
     <script src="javascripts/deck.status.js"></script>
     <script src="javascripts/deck.navigation.js"></script>
     <script src="javascripts/deck.escape.js"></script>
-    <!--  Syntax highlighter -->
-    <script src="javascripts/syntaxhighlighter/shCore.js"></script>
-    <script src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
-    <script src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
-    <script src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
-    <script src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>    
+
     <!-- Initialize the deck. You can put this in an external file if desired. -->
     <script>
-    SyntaxHighlighter.all()      
     $(function() {
       $.deck('.slide');
     });

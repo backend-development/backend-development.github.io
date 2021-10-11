@@ -8,9 +8,8 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />
-
+  <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+  
   <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
 
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
@@ -70,14 +69,14 @@
                 <dd><a href="caching.html">Caching</a></dd>
                 <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
                 <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
-              </dl>
-              <dl class="R">
                 <dt>Nodes.js</dt>
                 <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
                 <dd><a href="node_basics.html">Node Basics</a></dd>
                 <dd><a href="node_websockets.html">Node Websockets</a></dd>
                 <dd><a href="node_express.html">Node Web App</a></dd>
                 <dd><a href="node_cluster.html">Scaling Node</a></dd>
+              </dl>
+              <dl class="R">
               </dl>
           </div>
         </li>
@@ -116,13 +115,11 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <div class='slide'><a id='slide-1'></a>
+        <div class='slide'><a id='slide-0'></a>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-1' href='slides_ruby_oo.html#slide-1'>▻</a>
-<h2>Ruby Object Orientation</h2>
-<p>This guide will take a closer look at objects, classes and modules in Ruby.</p>
-<p>After finishing this guide you will</p>
+<h2>Ruby Object Orientation</h2><p>This guide will take a closer look at objects, classes and modules in Ruby.</p><p>After finishing this guide you will</p>
 <ul>
 <li>know how to write object methods and use object variables (properties)</li>
 <li>know how to write class methods and use class variables (properties)</li>
@@ -135,126 +132,111 @@
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-3' href='slides_ruby_oo.html#slide-3'>▻</a>
-<h3 id="to-be-written">1 To Be Written</h3>
-</div>
+<h3 id="to-be-written"><a class="anchorlink" href="#to-be-written">1 To Be Written</a></h3></div>
 <div class='slide'>
 <a class='slide_break' id='slide-4' href='slides_ruby_oo.html#slide-4'>▻</a>
-<h3 id="an-investigation-into-declarations">2 An investigation into Declarations:</h3>
-<p>In <a href="rails_associations_and_validations.html">Rails: Associations and Validations</a> we learned that Validation are declared in the model:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-class Tweet &lt; ApplicationRecord
-  validates_presence_of :status
-end
-
-</pre>
+<h3 id="an-investigation-into-declarations"><a class="anchorlink" href="#an-investigation-into-declarations">2 An investigation into Declarations:</a></h3><p>In <a href="rails_associations_and_validations.html">Rails: Associations and Validations</a> we learned that Validation are declared in the model:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">Tweet</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
+  <span class="n">validates_presence_of</span> <span class="ss">:status</span>
+<span class="k">end</span>
+</code></pre>
 </div>
-<p>But what is really happening here?</p>
-<p><code>validates_presence_of</code> is called when the class is defined. it is called only once.</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-class Ruby
-  def validates_presence_of x
-    puts "I should really check for property #{x}"
-  end
+<p>But what is really happening here?</p><p><code>validates_presence_of</code> is called when the class is defined. it is called only once.</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">Ruby</span>
+  <span class="k">def</span> <span class="nf">validates_presence_of</span> <span class="n">x</span>
+    <span class="nb">puts</span> <span class="s2">"I should really check for property </span><span class="si">#{</span><span class="n">x</span><span class="si">}</span><span class="s2">"</span>
+  <span class="k">end</span>
 
-  validates_presence_of :color
-end
+  <span class="n">validates_presence_of</span> <span class="ss">:color</span>
+<span class="k">end</span>
 
-# in `&lt;class:Ruby&gt;': undefined method `validates_presence_of' for Ruby:Class (NoMethodError)
-
-</pre>
+<span class="c1"># in `&lt;class:Ruby&gt;': undefined method `validates_presence_of' for Ruby:Class (NoMethodError)</span>
+</code></pre>
 </div>
 <p><code>validates_presence_of</code> cannot be a normal method, because such a method is not defined yet
-when the class is defined. so it needs to be a class method.</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-class Ruby
-  def self.validates_presence_of x
-    puts "I should really check for property #{x}"
-  end
+when the class is defined. so it needs to be a class method.</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">Ruby</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">validates_presence_of</span> <span class="n">x</span>
+    <span class="nb">puts</span> <span class="s2">"I should really check for property </span><span class="si">#{</span><span class="n">x</span><span class="si">}</span><span class="s2">"</span>
+  <span class="k">end</span>
 
-  validates_presence_of :color
-end
-
-</pre>
+  <span class="n">validates_presence_of</span> <span class="ss">:color</span>
+<span class="k">end</span>
+</code></pre>
 </div>
-<p>....</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-class ValidatableStuff
-  attr_accessor :data
-  attr_accessor :errors
-  def self.validates_presence_of x
-    puts "the class #{self} should really check for #{x} - but how?"
-    @@validator_for = x
-  end
+<p>....</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">ValidatableStuff</span>
+  <span class="nb">attr_accessor</span> <span class="ss">:data</span>
+  <span class="nb">attr_accessor</span> <span class="ss">:errors</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">validates_presence_of</span> <span class="n">x</span>
+    <span class="nb">puts</span> <span class="s2">"the class </span><span class="si">#{</span><span class="nb">self</span><span class="si">}</span><span class="s2"> should really check for </span><span class="si">#{</span><span class="n">x</span><span class="si">}</span><span class="s2"> - but how?"</span>
+    <span class="vc">@@validator_for</span> <span class="o">=</span> <span class="n">x</span>
+  <span class="k">end</span>
 
-  def initialize(**data)
-    @data = data
-  end
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+    <span class="vi">@data</span> <span class="o">=</span> <span class="n">data</span>
+  <span class="k">end</span>
 
-  def save
-    puts "I am trying to save the data of a #{self.class} Object. the data is #{self.data}"
-    if self.data.keys.include?( @@validator_for )
-      puts "this is ok, #{@@validator_for} is set"
-      return true
-    else
-      puts "this is not ok, #{@@validator_for} needs to be set"
-      self.errors = "#{@@validator_for} needs to be set"
-      return false
-    end
+  <span class="k">def</span> <span class="nf">save</span>
+    <span class="nb">puts</span> <span class="s2">"I am trying to save the data of a </span><span class="si">#{</span><span class="nb">self</span><span class="p">.</span><span class="nf">class</span><span class="si">}</span><span class="s2"> Object. the data is </span><span class="si">#{</span><span class="nb">self</span><span class="p">.</span><span class="nf">data</span><span class="si">}</span><span class="s2">"</span>
+    <span class="k">if</span> <span class="nb">self</span><span class="p">.</span><span class="nf">data</span><span class="p">.</span><span class="nf">keys</span><span class="p">.</span><span class="nf">include?</span><span class="p">(</span> <span class="vc">@@validator_for</span> <span class="p">)</span>
+      <span class="nb">puts</span> <span class="s2">"this is ok, </span><span class="si">#{</span><span class="vc">@@validator_for</span><span class="si">}</span><span class="s2"> is set"</span>
+      <span class="k">return</span> <span class="kp">true</span>
+    <span class="k">else</span>
+      <span class="nb">puts</span> <span class="s2">"this is not ok, </span><span class="si">#{</span><span class="vc">@@validator_for</span><span class="si">}</span><span class="s2"> needs to be set"</span>
+      <span class="nb">self</span><span class="p">.</span><span class="nf">errors</span> <span class="o">=</span> <span class="s2">"</span><span class="si">#{</span><span class="vc">@@validator_for</span><span class="si">}</span><span class="s2"> needs to be set"</span>
+      <span class="k">return</span> <span class="kp">false</span>
+    <span class="k">end</span>
 
-  end
-end
+  <span class="k">end</span>
+<span class="k">end</span>
 
 
-class Ruby &lt; ValidatableStuff
-  def x
-  end
+<span class="k">class</span> <span class="nc">Ruby</span> <span class="o">&lt;</span> <span class="no">ValidatableStuff</span>
+  <span class="k">def</span> <span class="nf">x</span>
+  <span class="k">end</span>
 
-  x
-  validates_presence_of :color
-end
+  <span class="n">x</span>
+  <span class="n">validates_presence_of</span> <span class="ss">:color</span>
+<span class="k">end</span>
 
 
-class Diamond &lt; ValidatableStuff
-  validates_presence_of :carat
-end
+<span class="k">class</span> <span class="nc">Diamond</span> <span class="o">&lt;</span> <span class="no">ValidatableStuff</span>
+  <span class="n">validates_presence_of</span> <span class="ss">:carat</span>
+<span class="k">end</span>
 
-r1 = Ruby.new
-if r1.save
-  puts "saved"
-else
-  puts "errors: #{r1.errors}"
-end
+<span class="n">r1</span> <span class="o">=</span> <span class="no">Ruby</span><span class="p">.</span><span class="nf">new</span>
+<span class="k">if</span> <span class="n">r1</span><span class="p">.</span><span class="nf">save</span>
+  <span class="nb">puts</span> <span class="s2">"saved"</span>
+<span class="k">else</span>
+  <span class="nb">puts</span> <span class="s2">"errors: </span><span class="si">#{</span><span class="n">r1</span><span class="p">.</span><span class="nf">errors</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
 
-r2 = Ruby.new(color: 'yellow')
-r2.save
+<span class="n">r2</span> <span class="o">=</span> <span class="no">Ruby</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">color: </span><span class="s1">'yellow'</span><span class="p">)</span>
+<span class="n">r2</span><span class="p">.</span><span class="nf">save</span>
 
-d1 = Diamond.new
-d1.save
+<span class="n">d1</span> <span class="o">=</span> <span class="no">Diamond</span><span class="p">.</span><span class="nf">new</span>
+<span class="n">d1</span><span class="p">.</span><span class="nf">save</span>
 
-d2 = Diamond.new(carat: 10)
-d2.save
-
-</pre>
+<span class="n">d2</span> <span class="o">=</span> <span class="no">Diamond</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">carat: </span><span class="mi">10</span><span class="p">)</span>
+<span class="n">d2</span><span class="p">.</span><span class="nf">save</span>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-5' href='slides_ruby_oo.html#slide-5'>▻</a>
-<h4 id="online-resources">2.1 Online Resources</h4>
+<h4 id="online-resources"><a class="anchorlink" href="#online-resources">2.1 Online Resources</a></h4>
 <ul>
 <li><a href="http://rubylearning.com/satishtalim/tutorial.html">learningruby.com tutorial</a></li>
 </ul>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-6' href='slides_ruby_oo.html#slide-6'>▻</a>
-<h4 id="books">2.2 Books</h4>
+<h4 id="books"><a class="anchorlink" href="#books">2.2 Books</a></h4>
 <ul>
 <li><a href="https://www.poodr.com/">Metz, Sandy(2017): Practical Object-Oriented Design in Ruby</a></li>
 </ul>
-</div>        
+</div>
       </div>
     </div>
   </div>
@@ -264,19 +246,12 @@ d2.save
     <div class="wrapper">
       <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2021 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
       </p><p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
-        and edit <a href="https://github.com/backend-development/backend-development-textbook/blob/master/source/ruby_oo.md">ruby_oo.md</a>
       </p>
     </div>
   </div>
 
   <script src="javascripts/jquery.min.js"></script>
-  <script src="javascripts/responsive-tables.js"></script>
   <script src="javascripts/guides.js"></script>
-  <script src="javascripts/syntaxhighlighter/shCore.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>
   <script>
     SyntaxHighlighter.all()
     $(guidesIndex.bind);

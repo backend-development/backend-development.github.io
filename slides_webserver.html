@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=1024, user-scalable=no">
     <title>Slides for
         Backend Development Textbook
@@ -20,8 +20,7 @@
     <!-- Transition theme. More available in /themes/transition/ or create your own. -->
     <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
     <!-- syntax highlighter -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />    
+    <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
 
 
     <!-- Basic black and white print styles -->
@@ -36,8 +35,7 @@
 </div>
 <div class='slide'>
 <a class='slide_break' href='webserver.html#slide-1'>▻</a>
-<h2>Webserver</h2>
-<p>This guide will give you an overview
+<h2>Webserver</h2><p>This guide will give you an overview
 of the web server infrastucture behind
 your Ruby on Rails app.
 After reading it you should be familiar with:</p>
@@ -53,14 +51,11 @@ After reading it you should be familiar with:</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='webserver.html#slide-3'>▻</a>
-<h3 id="the-stack">1 The Stack</h3>
-<p>Rack is an interface between webservers and the Ruby and Ruby framework - or
-other ruby-based web apps.</p>
-<p><img src="images/rack-logo.png" alt="rack"></p>
-</div>
+<h3 id="the-stack"><a class="anchorlink" href="#the-stack">1 The Stack</a></h3><p>Rack is an interface between webservers and the Ruby and Ruby framework - or
+other ruby-based web apps.</p><p><img src="images/rack-logo.png" alt="rack"></p></div>
 <div class='slide'>
 <a class='slide_break' href='webserver.html#slide-4'>▻</a>
-<h3 id="see-also">2 See Also</h3>
+<h3 id="see-also"><a class="anchorlink" href="#see-also">2 See Also</a></h3>
 <ul>
 <li><a href="https://rack.github.io/">Rack: a Ruby Webserver Interface</a></li>
 <li><a href="https://guides.rubyonrails.org/rails_on_rack.html">Rails Guide: Rails on Rack</a></li>
@@ -88,7 +83,6 @@ other ruby-based web apps.</p>
         <input type="submit" value="Go">
     </form>
     <!-- End extension snippets. -->
-    </div>
     <!-- Required JS files. -->
     <script src="javascripts/jquery.min.js"></script>
     <script src="javascripts/deck.core.js"></script>
@@ -98,15 +92,9 @@ other ruby-based web apps.</p>
     <script src="javascripts/deck.status.js"></script>
     <script src="javascripts/deck.navigation.js"></script>
     <script src="javascripts/deck.escape.js"></script>
-    <!--  Syntax highlighter -->
-    <script src="javascripts/syntaxhighlighter/shCore.js"></script>
-    <script src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
-    <script src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
-    <script src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
-    <script src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>    
+
     <!-- Initialize the deck. You can put this in an external file if desired. -->
     <script>
-    SyntaxHighlighter.all()      
     $(function() {
       $.deck('.slide');
     });

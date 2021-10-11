@@ -8,9 +8,8 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
   <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />
-
+  <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+  
   <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
 
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
@@ -70,14 +69,14 @@
                 <dd><a href="caching.html">Caching</a></dd>
                 <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
                 <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
-              </dl>
-              <dl class="R">
                 <dt>Nodes.js</dt>
                 <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
                 <dd><a href="node_basics.html">Node Basics</a></dd>
                 <dd><a href="node_websockets.html">Node Websockets</a></dd>
                 <dd><a href="node_express.html">Node Web App</a></dd>
                 <dd><a href="node_cluster.html">Scaling Node</a></dd>
+              </dl>
+              <dl class="R">
               </dl>
           </div>
         </li>
@@ -119,15 +118,13 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <div class='slide'><a id='slide-1'></a>
+        <div class='slide'><a id='slide-0'></a>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-1' href='slides_node_basics.html#slide-1'>▻</a>
-<h2>Node.js Basics</h2>
-<p>Node.js is just a javascript interpreter
+<h2>Node.js Basics</h2><p>Node.js is just a javascript interpreter
 with a very small library added. With node
-you build your web server from scratch.</p>
-<p>After working through this guide you should</p>
+you build your web server from scratch.</p><p>After working through this guide you should</p>
 <ul>
 <li>know how to install libraries for node.js with npm</li>
 <li>be able to write a simple web server</li>
@@ -140,8 +137,7 @@ you build your web server from scratch.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-3' href='slides_node_basics.html#slide-3'>▻</a>
-<h3 id="what-is-node-js-questionmark">1 What is node.js?</h3>
-<p>Node.js was originally written by Ryan Dahl in 2009
+<h3 id="what-is-node-js-questionmark"><a class="anchorlink" href="#what-is-node-js-questionmark">1 What is node.js?</a></h3><p>Node.js was originally written by Ryan Dahl in 2009
 as a combination of two pieces of software that
 already existed:</p>
 <ul>
@@ -150,70 +146,51 @@ already existed:</p>
 </ul>
 <p>To this he added a library written in Javascript.
 In 2010 npm was added as a package manager for
-Javascript Libraries.</p>
-<p>In 2017, according to <a href="https://www.openhub.net/p/node/analyses/latest/languages_summary">openhub</a> the node projects consist of:</p>
+Javascript Libraries.</p><p>In 2017, according to <a href="https://www.openhub.net/p/node/analyses/latest/languages_summary">openhub</a> the node projects consist of:</p>
 <ul>
 <li>v8: 2 millions lines of code written in c++</li>
 <li>libuv: 50.000 lines of C code</li>
 <li>node bindings: 450.000 lines of C code</li>
 <li>the node library: 1 million lines of Javascript code</li>
 </ul>
-<p>So v8 is the biggest part of node:</p>
-<p><img src="images/what-is-node.svg" alt=""></p>
-</div>
+<p>So v8 is the biggest part of node:</p><p><img src="images/what-is-node.svg" alt=""></p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-4' href='slides_node_basics.html#slide-4'>▻</a>
-<h3 id="hello-world">2 Hello World</h3>
-<p>You write your program in Javascript:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-console.log("Hello World");
-
-</pre>
+<h3 id="hello-world"><a class="anchorlink" href="#hello-world">2 Hello World</a></h3><p>You write your program in Javascript:</p><div class="code_container">
+<pre><code class="highlight javascript"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hello World</span><span class="dl">"</span><span class="p">);</span>
+</code></pre>
 </div>
-<p>and run it with the <code>node</code> command:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-$ node hello.js
+<p>and run it with the <code>node</code> command:</p><div class="code_container">
+<pre><code class="highlight shell"><span class="nv">$ </span><span class="nb">node </span>hello.js
 Hello World
-
-</pre>
+</code></pre>
 </div>
-<p>You can also use node interactively:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-$ node
-&gt; console.log("Hello World");
+<p>You can also use node interactively:</p><div class="code_container">
+<pre><code class="highlight shell"><span class="nv">$ </span><span class="nb">node</span>
+<span class="o">&gt;</span> console.log<span class="o">(</span><span class="s2">"Hello World"</span><span class="o">)</span><span class="p">;</span>
 Hello World
 undefined
-&gt; 1+2
+<span class="o">&gt;</span> 1+2
 3
-&gt; [CTRL]-[D]
-
-</pre>
+<span class="o">&gt;</span> <span class="o">[</span>CTRL]-[D]
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-5' href='slides_node_basics.html#slide-5'>▻</a>
-<h3 id="node-version-manager">3 Node Version Manager</h3>
-<p>Node Versions change fast. The node version manager (nvm) makes
-it easy to switch between versions:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-$ nvm use 6.10
-Now using node v6.10.3 (npm v3.10.10)
-$ nvm use default
-Now using node v7.9.0 (npm v4.2.0)
-
-</pre>
+<h3 id="node-version-manager"><a class="anchorlink" href="#node-version-manager">3 Node Version Manager</a></h3><p>Node Versions change fast. The node version manager (nvm) makes
+it easy to switch between versions:</p><div class="code_container">
+<pre><code class="highlight shell"><span class="nv">$ </span>nvm use 6.10
+Now using <span class="nb">node </span>v6.10.3 <span class="o">(</span>npm v3.10.10<span class="o">)</span>
+<span class="nv">$ </span>nvm use default
+Now using <span class="nb">node </span>v7.9.0 <span class="o">(</span>npm v4.2.0<span class="o">)</span>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-6' href='slides_node_basics.html#slide-6'>▻</a>
-<h3 id="hello-web">4 Hello Web</h3>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-const http = require('http');
+<h3 id="hello-web"><a class="anchorlink" href="#hello-web">4 Hello Web</a></h3><div class="code_container">
+<pre><code class="highlight plaintext">const http = require('http');
 const hostname = '127.0.0.1';
 const port = 3000;
 
@@ -226,69 +203,54 @@ const server = http.createServer((req, res) =&gt; {
 server.listen(port, hostname, () =&gt; {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
-
-</pre>
+</code></pre>
 </div>
 <div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-$ node app.js 
+<pre><code class="highlight shell"><span class="nv">$ </span><span class="nb">node </span>app.js 
 Server running at http://127.0.0.1:3000/
-
-</pre>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-7' href='slides_node_basics.html#slide-7'>▻</a>
-<h3 id="packages">5 Packages</h3>
-<p>Node does not use ES6 modules! node packages are
+<h3 id="packages"><a class="anchorlink" href="#packages">5 Packages</a></h3><p>Node does not use ES6 modules! node packages are
 installed by npm into a folder node_modules. You can
-also write your own:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-// File foo.js:
-const http = require("http");
-const app = { hello: "World" };
-exports = module.exports = app;
-
-</pre>
+also write your own:</p><div class="code_container">
+<pre><code class="highlight javascript"><span class="c1">// File foo.js:</span>
+<span class="kd">const</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">http</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="p">{</span> <span class="na">hello</span><span class="p">:</span> <span class="dl">"</span><span class="s2">World</span><span class="dl">"</span> <span class="p">};</span>
+<span class="nx">exports</span> <span class="o">=</span> <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">app</span><span class="p">;</span>
+</code></pre>
 </div>
 <div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-Other file:
-const app = require('./foo');
-console.log(app);
-
-</pre>
+<pre><code class="highlight javascript"><span class="nx">Other</span> <span class="nx">file</span><span class="p">:</span>
+<span class="kd">const</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./foo</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">app</span><span class="p">);</span>
+</code></pre>
 </div>
 <div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-$ node bar.js
-{ hello: 'World' }
-
-</pre>
+<pre><code class="highlight shell"><span class="nv">$ </span><span class="nb">node </span>bar.js
+<span class="o">{</span> hello: <span class="s1">'World'</span> <span class="o">}</span>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-8' href='slides_node_basics.html#slide-8'>▻</a>
-<h3 id="the-javascript-event-loop">6 The javascript Event Loop</h3>
-<p>You have worked with Javascript and asyncronous programming before.</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-function f() {
-  console.log("foo");
-  setTimeout(g, 0);
-  console.log("baz");
-  h();
-}
-function g() {
-  console.log("bar");
-}
-function h() {
-  console.log("blix");
-}
-el.addEventListener("click", f);
-
-</pre>
+<h3 id="the-javascript-event-loop"><a class="anchorlink" href="#the-javascript-event-loop">6 The javascript Event Loop</a></h3><p>You have worked with Javascript and asyncronous programming before.</p><div class="code_container">
+<pre><code class="highlight javascript"><span class="kd">function</span> <span class="nx">f</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">foo</span><span class="dl">"</span><span class="p">);</span>
+  <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">g</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">baz</span><span class="dl">"</span><span class="p">);</span>
+  <span class="nx">h</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="kd">function</span> <span class="nx">g</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">bar</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kd">function</span> <span class="nx">h</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">blix</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">el</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nx">f</span><span class="p">);</span>
+</code></pre>
 </div>
 <p>If this code runs in the browser, the output on the console will be:</p>
 <ol>
@@ -300,8 +262,7 @@ el.addEventListener("click", f);
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-9' href='slides_node_basics.html#slide-9'>▻</a>
-<h3 id="processing-model">7 Processing Model</h3>
-<p>PHP and Ruby on Rails have the same basic processing model. It is either
+<h3 id="processing-model"><a class="anchorlink" href="#processing-model">7 Processing Model</a></h3><p>PHP and Ruby on Rails have the same basic processing model. It is either
 implemented with threads or with processes.</p>
 <ul>
 <li>when the webserver first starts, a number of threads are started</li>
@@ -313,28 +274,19 @@ implemented with threads or with processes.</p>
 </li>
 </ul>
 <p>Apache comes with a module <code>server_status</code> that displays the
-processes/threads and their status on a webpage. Here an example:</p>
-<p><img src="/images/apache-server-status.png" srcset='/images/apache-server-status.png 1x, /images/apache-server-status@2x.png 2x' alt="Apache Server Status"></p>
-<p>As you can see the server is running in <code>prefork</code> mode: when
+processes/threads and their status on a webpage. Here an example:</p><p><img src="/images/apache-server-status.png" alt="Apache Server Status"></p><p>As you can see the server is running in <code>prefork</code> mode: when
 the server is started it forks a certain number of worker processes,
-but it can also fork additional worker process later on.</p>
-<p>Currently 56 requests are being processed, 8 worker processes are
+but it can also fork additional worker process later on.</p><p>Currently 56 requests are being processed, 8 worker processes are
 idle, and there are a lot of additional slots for additional worker
-processes.</p>
-<p>If your server runs into trouble you can use the <code>server_status</code>
-for debugging.</p>
-</div>
+processes.</p><p>If your server runs into trouble you can use the <code>server_status</code>
+for debugging.</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-10' href='slides_node_basics.html#slide-10'>▻</a>
-
-<p>Using syncronous I/O the program code will look something like this:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-file = File.open(file_name, "r")    # takes a long time, thread has to wait
-data = file.read                    # takes a very long time, thread has to wait
-file.close
-
-</pre>
+<p>Using syncronous I/O the program code will look something like this:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">file</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span>    <span class="c1"># takes a long time, thread has to wait</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">file</span><span class="p">.</span><span class="nf">read</span>                    <span class="c1"># takes a very long time, thread has to wait</span>
+<span class="n">file</span><span class="p">.</span><span class="nf">close</span>
+</code></pre>
 </div>
 <p>As each thread comes with a fixed overhead of memory demand, you
 can only start so many threads on a given machine. You configure this
@@ -353,67 +305,52 @@ in the web server configuration, e.g.</p>
 <li>after starting an asynchronos thread, the main thread immediately contious working</li>
 </ul>
 <p>Doing asyncronous I/O is implemented using callbacks in Javascript, and will look
-something like this:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-console.log("first");
-fs.readFile(file_name, (err, data) =&gt; {
-  if (err) throw err;
-  console.log("... much later, third");
-  console.log(data);
-});
-console.log("second");
-
-</pre>
+something like this:</p><div class="code_container">
+<pre><code class="highlight javascript"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">first</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">file_name</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">... much later, third</span><span class="dl">"</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">second</span><span class="dl">"</span><span class="p">);</span>
+</code></pre>
 </div>
 <p>If this is the whole program, the main thread will become free after
 printing out <code>second</code>. It will pick up something else to do from
 the event queue. Much later, when the data from the file has been
 loaded, it will find the callback funktion on the event queue, and
-finally reach <code>third</code>.</p>
-</div>
+finally reach <code>third</code>.</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-11' href='slides_node_basics.html#slide-11'>▻</a>
-<h3 id="example-code">8 Example Code</h3>
-<p><img src="images/node-example-code.png" alt=""></p>
-<p><img src="images/node-example-diagram.png" alt=""></p>
-</div>
+<h3 id="example-code"><a class="anchorlink" href="#example-code">8 Example Code</a></h3><p><img src="images/node-example-code.png" alt=""></p><p><img src="images/node-example-diagram.png" alt=""></p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-12' href='slides_node_basics.html#slide-12'>▻</a>
-<h3 id="io-bound-vs-cpu-bound">9 IO-bound vs. CPU-bound</h3>
-<p>Describes two kinds of performance bottlenecks</p>
+<h3 id="io-bound-vs-cpu-bound"><a class="anchorlink" href="#io-bound-vs-cpu-bound">9 IO-bound vs. CPU-bound</a></h3><p>Describes two kinds of performance bottlenecks</p>
 <ul>
 <li>An I/O-bound application waits most of the time for network, filesystem and database.
 Running on a faster CPU would not help.</li>
 <li>A CPU-bound application spends most of the time using the CPU, running on a faster CPU would help.</li>
 </ul>
-<p>The node process model helps with I/O-bound applications: If your app is I/O-bound, the event loop will be able to serve many requests, while other threads handling the acutal I/O will run on other kernels</p>
-<p>If one aspect of your app is CPU-bound it will monopolize that kernel,
+<p>The node process model helps with I/O-bound applications: If your app is I/O-bound, the event loop will be able to serve many requests, while other threads handling the acutal I/O will run on other kernels</p><p>If one aspect of your app is CPU-bound it will monopolize that kernel,
 (other) requests cannot be served. Therefore node and is not well suited for CPU
-bound applications.</p>
-</div>
+bound applications.</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-13' href='slides_node_basics.html#slide-13'>▻</a>
-<h3 id="writing-asyncronous-code">10 Writing asyncronous code</h3>
-<p>A Node app by necessety contains a lot of asyncronous code.
-The traditional way of writing it, is the "callback" style:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-fs = require("fs");
-console.log("first");
-fs.readFile(file_name, "utf8", (err, data) =&gt; {
-  if (err) throw err;
-  console.log("... much later, third");
-  console.log(data);
-});
-console.log("second");
-
-</pre>
+<h3 id="writing-asyncronous-code"><a class="anchorlink" href="#writing-asyncronous-code">10 Writing asyncronous code</a></h3><p>A Node app by necessety contains a lot of asyncronous code.
+The traditional way of writing it, is the "callback" style:</p><div class="code_container">
+<pre><code class="highlight javascript"><span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">fs</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">first</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">file_name</span><span class="p">,</span> <span class="dl">"</span><span class="s2">utf8</span><span class="dl">"</span><span class="p">,</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">... much later, third</span><span class="dl">"</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">second</span><span class="dl">"</span><span class="p">);</span>
+</code></pre>
 </div>
 <p>This leads to "callback hell", when callbacks have to be
 nested deepply, and the order of the code lines is in no way
-connected with the order they are executed in.</p>
-<p>There have been several attempts to find a more readable alternative:</p>
+connected with the order they are executed in.</p><p>There have been several attempts to find a more readable alternative:</p>
 <ul>
 <li>Fibers</li>
 <li>Generators</li>
@@ -424,48 +361,39 @@ connected with the order they are executed in.</p>
 <p>The last two optinos seem to be the winners (in 2017): <a href="https://caniuse.com/#feat=promises">promises</a>
 are a part of ES6, and are available in both browsers and node now.
 In node you can use a "promisified" version of the node standard library
-with <code>mz</code>:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-fs = require("mz/fs");
-console.log("1.");
-fs.readFile("this.txt", "utf8")
-  .then(data =&gt; {
-    console.log("... much later: 3.");
-    console.log(data);
-  })
-  .catch(err =&gt; {
-    console.log("in case of an error: 3.");
-    throw err;
-  });
-console.log("2.");
-
-</pre>
+with <code>mz</code>:</p><div class="code_container">
+<pre><code class="highlight javascript"><span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">mz/fs</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">1.</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="dl">"</span><span class="s2">this.txt</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">utf8</span><span class="dl">"</span><span class="p">)</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">data</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">... much later: 3.</span><span class="dl">"</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">err</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">in case of an error: 3.</span><span class="dl">"</span><span class="p">);</span>
+    <span class="k">throw</span> <span class="nx">err</span><span class="p">;</span>
+  <span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">2.</span><span class="dl">"</span><span class="p">);</span>
+</code></pre>
 </div>
 <p><a href="https://caniuse.com/#feat=async-functions">Async functions</a> are defined in ES8 and
-are usable in browsers, but not in node yet. There Syntax will be something like:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-const fs = require("mz/fs");
-console.log("1.");
+are usable in browsers, but not in node yet. There Syntax will be something like:</p><div class="code_container">
+<pre><code class="highlight javascript"><span class="kd">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">mz/fs</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">1.</span><span class="dl">"</span><span class="p">);</span>
 
-async function read_text(file_name) {
-  data = await fs.readFile("this.txt", "utf8");
-  return data;
-}
+<span class="k">async</span> <span class="kd">function</span> <span class="nx">read_text</span><span class="p">(</span><span class="nx">file_name</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">data</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="dl">"</span><span class="s2">this.txt</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">utf8</span><span class="dl">"</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">data</span><span class="p">;</span>
+<span class="p">}</span>
 
-console.log(read_text("this.txt"));
-
-</pre>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">read_text</span><span class="p">(</span><span class="dl">"</span><span class="s2">this.txt</span><span class="dl">"</span><span class="p">));</span>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-14' href='slides_node_basics.html#slide-14'>▻</a>
-<h3 id="streams">11 Streams</h3>
-<p>Read the file. After the whole file has been read, send it:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-var http = require('http');
+<h3 id="streams"><a class="anchorlink" href="#streams">11 Streams</a></h3><p>Read the file. After the whole file has been read, send it:</p><div class="code_container">
+<pre><code class="highlight plaintext">var http = require('http');
 var fs = require('fs');
  
 var server = http.createServer(function (req, res) {
@@ -474,14 +402,11 @@ var server = http.createServer(function (req, res) {
     });
 });
 server.listen(8000);
-
-</pre>
+</code></pre>
 </div>
 <p>Better: connect a stream reading the file to the stream
-that is the HTTP response:</p>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-var http = require('http');
+that is the HTTP response:</p><div class="code_container">
+<pre><code class="highlight plaintext">var http = require('http');
 var fs = require('fs');
  
 var server = http.createServer(function (req, res) {
@@ -490,16 +415,12 @@ var server = http.createServer(function (req, res) {
 });
 server.listen(8000);
 
-
-</pre>
+</code></pre>
 </div>
-<p>.pipe() takes care of listening for 'data' and 'end' events from the fs.createReadStream(). This code is not only cleaner, but now the data.txt file will be written to clients one chunk at a time immediately as they are received from the disk.</p>
-<p>Using .pipe() has other benefits too, like handling backpressure automatically so that node won't buffer chunks into memory needlessly when the remote client is on a really slow or high-latency connection.</p>
-<p>From <a href="https://github.com/substack/stream-handbook#why-you-should-use-streams">the stream handbook</a></p>
-</div>
+<p>.pipe() takes care of listening for 'data' and 'end' events from the fs.createReadStream(). This code is not only cleaner, but now the data.txt file will be written to clients one chunk at a time immediately as they are received from the disk.</p><p>Using .pipe() has other benefits too, like handling backpressure automatically so that node won't buffer chunks into memory needlessly when the remote client is on a really slow or high-latency connection.</p><p>From <a href="https://github.com/substack/stream-handbook#why-you-should-use-streams">the stream handbook</a></p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-15' href='slides_node_basics.html#slide-15'>▻</a>
-<h3 id="see-also">12 See Also</h3>
+<h3 id="see-also"><a class="anchorlink" href="#see-also">12 See Also</a></h3>
 <ul>
 <li><a href="https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/">Node Guide: HTTP</a></li>
 <li><a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/">nexttick</a></li>
@@ -509,7 +430,7 @@ server.listen(8000);
 <li><a href="https://www.future-processing.pl/blog/on-problems-with-threads-in-node-js/">On problems with threads in node.js</a></li>
 <li><a href="https://thecodebarbarian.com/common-async-await-design-patterns-in-node.js.html">Karpov(2017): Async Await Patterns</a></li>
 </ul>
-</div>        
+</div>
       </div>
     </div>
   </div>
@@ -519,19 +440,12 @@ server.listen(8000);
     <div class="wrapper">
       <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2021 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
       </p><p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
-        and edit <a href="https://github.com/backend-development/backend-development-textbook/blob/master/source/node_basics.md">node_basics.md</a>
       </p>
     </div>
   </div>
 
   <script src="javascripts/jquery.min.js"></script>
-  <script src="javascripts/responsive-tables.js"></script>
   <script src="javascripts/guides.js"></script>
-  <script src="javascripts/syntaxhighlighter/shCore.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
-  <script src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>
   <script>
     SyntaxHighlighter.all()
     $(guidesIndex.bind);

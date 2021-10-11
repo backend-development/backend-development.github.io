@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=1024, user-scalable=no">
     <title>Slides for
         Backend Development Textbook
@@ -20,8 +20,7 @@
     <!-- Transition theme. More available in /themes/transition/ or create your own. -->
     <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
     <!-- syntax highlighter -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />    
+    <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
 
 
     <!-- Basic black and white print styles -->
@@ -36,8 +35,7 @@
 </div>
 <div class='slide'>
 <a class='slide_break' href='advanced_testing.html#slide-1'>▻</a>
-<h2>Advanced Testing</h2>
-<p>This guide will show you new ways of testing.
+<h2>Advanced Testing</h2><p>This guide will show you new ways of testing.
 By referring to this guide, you will be able to:</p>
 <ul>
 <li>Understand test doubles</li>
@@ -55,120 +53,96 @@ By referring to this guide, you will be able to:</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='advanced_testing.html#slide-3'>▻</a>
-<h3 id="rspec">1 rspec</h3>
-<p>Rspec is the second testing framework that is commonly used
+<h3 id="rspec"><a class="anchorlink" href="#rspec">1 rspec</a></h3><p>Rspec is the second testing framework that is commonly used
 with Ruby on Rails projects. According to <a href="https://www.ruby-toolbox.com/categories/testing_frameworks">ruby-toolbox.com</a>
-it is used more often than the (built in) Minitest.</p>
-<p>Rspec replaces minitest in all aspects of rails, including in scaffolds.</p>
-<p>The first things you hav to know to get started:</p>
+it is used more often than the (built in) Minitest.</p><p>Rspec replaces minitest in all aspects of rails, including in scaffolds.</p><p>The first things you hav to know to get started:</p>
 <ul>
 <li>tests are found in <code>spec/*</code> (not <code>test/*</code>)</li>
 <li>to run one test use <code>rspec &lt;filename&gt;</code> or <code>rspec &lt;filename&gt;:&lt;linenumber&gt;</code> on the command line</li>
 <li>to run all tests use <code>rake spec</code>
 </li>
 </ul>
-<p>(yes, sometimes you need the <code>r</code> in rspec, and other times you leave it out.)</p>
-</div>
+<p>(yes, sometimes you need the <code>r</code> in rspec, and other times you leave it out.)</p></div>
 <div class='slide'>
 <a class='slide_break' href='advanced_testing.html#slide-4'>▻</a>
-<h4 id="a-simple-spec">1.1 A simple spec</h4>
-<p>A file can contain multiple test. You use <code>describe</code> and <code>it</code> to
+<h4 id="a-simple-spec"><a class="anchorlink" href="#a-simple-spec">1.1 A simple spec</a></h4><p>A file can contain multiple test. You use <code>describe</code> and <code>it</code> to
 structure the file. The arguments for <code>describe</code> and <code>it</code> are
-used to describe the test in case of failure:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-describe Game do
-  describe "#score" do
-    it "returns 0 for all gutter games" do
-      game = Game.new
-      20.times { game.roll(0) }
-      game.score.should == 0
-    end
-  end
-end
-
-</pre>
+used to describe the test in case of failure:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">describe</span> <span class="no">Game</span> <span class="k">do</span>
+  <span class="n">describe</span> <span class="s2">"#score"</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="s2">"returns 0 for all gutter games"</span> <span class="k">do</span>
+      <span class="n">game</span> <span class="o">=</span> <span class="no">Game</span><span class="p">.</span><span class="nf">new</span>
+      <span class="mi">20</span><span class="p">.</span><span class="nf">times</span> <span class="p">{</span> <span class="n">game</span><span class="p">.</span><span class="nf">roll</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">}</span>
+      <span class="n">game</span><span class="p">.</span><span class="nf">score</span><span class="p">.</span><span class="nf">should</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
 </div>
-<p>The message when this test fails reads:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-Failures:
+<p>The message when this test fails reads:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="no">Failures</span><span class="p">:</span>
 
-  1) Game#score returns 0 for all gutter games
-     Failure/Error: game.score.should == 0
-       expected: 0
-            got: 1 (using ==)
-     # ./x_spec.rb:15:in `block (3 levels) in &lt;top (required)&gt;'
-
-</pre>
+  <span class="mi">1</span><span class="p">)</span> <span class="no">Game</span><span class="c1">#score returns 0 for all gutter games</span>
+     <span class="no">Failure</span><span class="o">/</span><span class="no">Error</span><span class="p">:</span> <span class="n">game</span><span class="p">.</span><span class="nf">score</span><span class="p">.</span><span class="nf">should</span> <span class="o">==</span> <span class="mi">0</span>
+       <span class="ss">expected: </span><span class="mi">0</span>
+            <span class="ss">got: </span><span class="mi">1</span> <span class="p">(</span><span class="n">using</span> <span class="o">==</span><span class="p">)</span>
+     <span class="c1"># ./x_spec.rb:15:in `block (3 levels) in &lt;top (required)&gt;'</span>
+</code></pre>
 </div>
 <p>It is a convention to actually use the Class under test as
-the argument of <code>describe</code>.</p>
-<p>Inside the test you can use ruby and rails. Instead of minitest's assertions
-you formulate expectations with "should" (outdated) or "expect" (current):</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-game.score.should == 0
-expect(game.score).to eq(0)
-
-</pre>
+the argument of <code>describe</code>.</p><p>Inside the test you can use ruby and rails. Instead of minitest's assertions
+you formulate expectations with "should" (outdated) or "expect" (current):</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">game</span><span class="p">.</span><span class="nf">score</span><span class="p">.</span><span class="nf">should</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">game</span><span class="p">.</span><span class="nf">score</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre>
 </div>
-<p>There are two ways of writing matchers:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-foo.should == bar
-foo.should eq(bar)       expect(foo).to eq(bar)
-foo.should_not eq(bar)   expect(foo).not_to eq(bar)
-foo.should be &lt; 10       expect(foo).to be &lt; 10
+<p>There are two ways of writing matchers:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">foo</span><span class="p">.</span><span class="nf">should</span> <span class="o">==</span> <span class="n">bar</span>
+<span class="n">foo</span><span class="p">.</span><span class="nf">should</span> <span class="n">eq</span><span class="p">(</span><span class="n">bar</span><span class="p">)</span>       <span class="n">expect</span><span class="p">(</span><span class="n">foo</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="n">bar</span><span class="p">)</span>
+<span class="n">foo</span><span class="p">.</span><span class="nf">should_not</span> <span class="n">eq</span><span class="p">(</span><span class="n">bar</span><span class="p">)</span>   <span class="n">expect</span><span class="p">(</span><span class="n">foo</span><span class="p">).</span><span class="nf">not_to</span> <span class="n">eq</span><span class="p">(</span><span class="n">bar</span><span class="p">)</span>
+<span class="n">foo</span><span class="p">.</span><span class="nf">should</span> <span class="n">be</span> <span class="o">&lt;</span> <span class="mi">10</span>       <span class="n">expect</span><span class="p">(</span><span class="n">foo</span><span class="p">).</span><span class="nf">to</span> <span class="n">be</span> <span class="o">&lt;</span> <span class="mi">10</span>
 
-"a string".should_not =~ /a regex/
-expect("a string").not_to match(/a regex/)
+<span class="s2">"a string"</span><span class="p">.</span><span class="nf">should_not</span> <span class="o">=~</span> <span class="sr">/a regex/</span>
+<span class="n">expect</span><span class="p">(</span><span class="s2">"a string"</span><span class="p">).</span><span class="nf">not_to</span> <span class="n">match</span><span class="p">(</span><span class="sr">/a regex/</span><span class="p">)</span>
 
-lambda { do_something }.should raise_error(SomeError)
-expect { something }.to raise_error(SomeError)
-
-</pre>
+<span class="nb">lambda</span> <span class="p">{</span> <span class="n">do_something</span> <span class="p">}.</span><span class="nf">should</span> <span class="n">raise_error</span><span class="p">(</span><span class="no">SomeError</span><span class="p">)</span>
+<span class="n">expect</span> <span class="p">{</span> <span class="n">something</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">raise_error</span><span class="p">(</span><span class="no">SomeError</span><span class="p">)</span>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' href='advanced_testing.html#slide-5'>▻</a>
-<h4 id="example-model-spec">1.2 Example Model Spec</h4>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-describe Post do
-  context "with 2 or more comments" do
-    it "orders them in reverse chronologically" do
-      post = Post.create!
-      comment1 = post.comments.create!(:body =&gt; "first comment")
-      comment2 = post.comments.create!(:body =&gt; "second comment")
-      post.reload.comments.should == [comment2, comment1]
-    end
-  end
-end
-
-</pre>
+<h4 id="example-model-spec"><a class="anchorlink" href="#example-model-spec">1.2 Example Model Spec</a></h4><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">describe</span> <span class="no">Post</span> <span class="k">do</span>
+  <span class="n">context</span> <span class="s2">"with 2 or more comments"</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="s2">"orders them in reverse chronologically"</span> <span class="k">do</span>
+      <span class="n">post</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span><span class="nf">create!</span>
+      <span class="n">comment1</span> <span class="o">=</span> <span class="n">post</span><span class="p">.</span><span class="nf">comments</span><span class="p">.</span><span class="nf">create!</span><span class="p">(</span><span class="ss">:body</span> <span class="o">=&gt;</span> <span class="s2">"first comment"</span><span class="p">)</span>
+      <span class="n">comment2</span> <span class="o">=</span> <span class="n">post</span><span class="p">.</span><span class="nf">comments</span><span class="p">.</span><span class="nf">create!</span><span class="p">(</span><span class="ss">:body</span> <span class="o">=&gt;</span> <span class="s2">"second comment"</span><span class="p">)</span>
+      <span class="n">post</span><span class="p">.</span><span class="nf">reload</span><span class="p">.</span><span class="nf">comments</span><span class="p">.</span><span class="nf">should</span> <span class="o">==</span> <span class="p">[</span><span class="n">comment2</span><span class="p">,</span> <span class="n">comment1</span><span class="p">]</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' href='advanced_testing.html#slide-6'>▻</a>
-<h4 id="example-feature-spec">1.3 Example Feature Spec</h4>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-feature "Widget management" do
-  scenario "User creates a new widget" do
-    visit "/widgets/new"
-    fill_in "Name", :with =&gt; "My Widget"
-    click_button "Create Widget"
-    page.should have_text("Widget was created.")
-  end
-end
-
-</pre>
+<h4 id="example-feature-spec"><a class="anchorlink" href="#example-feature-spec">1.3 Example Feature Spec</a></h4><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">feature</span> <span class="s2">"Widget management"</span> <span class="k">do</span>
+  <span class="n">scenario</span> <span class="s2">"User creates a new widget"</span> <span class="k">do</span>
+    <span class="n">visit</span> <span class="s2">"/widgets/new"</span>
+    <span class="n">fill_in</span> <span class="s2">"Name"</span><span class="p">,</span> <span class="ss">:with</span> <span class="o">=&gt;</span> <span class="s2">"My Widget"</span>
+    <span class="n">click_button</span> <span class="s2">"Create Widget"</span>
+    <span class="n">page</span><span class="p">.</span><span class="nf">should</span> <span class="n">have_text</span><span class="p">(</span><span class="s2">"Widget was created."</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' href='advanced_testing.html#slide-7'>▻</a>
-<h4 id="kinds-of-tests">1.4 Kinds of Tests</h4>
+<h4 id="kinds-of-tests"><a class="anchorlink" href="#kinds-of-tests">1.4 Kinds of Tests</a></h4>
 <ul>
 <li>Model specs</li>
 <li>Controller specs</li>
@@ -182,34 +156,26 @@ end
 </div>
 <div class='slide'>
 <a class='slide_break' href='advanced_testing.html#slide-8'>▻</a>
-<h3 id="cucumber">2 Cucumber</h3>
-<p><img src="images/cucumber-1.png" alt=""></p>
-<p><img src="images/cucumber-2.png" alt=""></p>
-</div>
+<h3 id="cucumber"><a class="anchorlink" href="#cucumber">2 Cucumber</a></h3><p><img src="images/cucumber-1.png" alt=""></p><p><img src="images/cucumber-2.png" alt=""></p></div>
 <div class='slide'>
 <a class='slide_break' href='advanced_testing.html#slide-9'>▻</a>
-<h4 id="step-definitions">2.1 Step Definitions</h4>
-<p>the magic behind cucumber:</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-Given /the following movies exist/ do |movies_table|
-  movies_table.hashes.each do |movie|
-    Movie.create( movie )
-  end
-end
-Then /^the director of "([^"]*)" should be "([^"]*)"$/ do |title, director|
-  m = Movie.find_by_title( title )
-  m.should_not be_nil
-  m.director.should == director
-end
-
-</pre>
+<h4 id="step-definitions"><a class="anchorlink" href="#step-definitions">2.1 Step Definitions</a></h4><p>the magic behind cucumber:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="no">Given</span> <span class="sr">/the following movies exist/</span> <span class="k">do</span> <span class="o">|</span><span class="n">movies_table</span><span class="o">|</span>
+  <span class="n">movies_table</span><span class="p">.</span><span class="nf">hashes</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">movie</span><span class="o">|</span>
+    <span class="no">Movie</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span> <span class="n">movie</span> <span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="no">Then</span> <span class="sr">/^the director of "([^"]*)" should be "([^"]*)"$/</span> <span class="k">do</span> <span class="o">|</span><span class="n">title</span><span class="p">,</span> <span class="n">director</span><span class="o">|</span>
+  <span class="n">m</span> <span class="o">=</span> <span class="no">Movie</span><span class="p">.</span><span class="nf">find_by_title</span><span class="p">(</span> <span class="n">title</span> <span class="p">)</span>
+  <span class="n">m</span><span class="p">.</span><span class="nf">should_not</span> <span class="n">be_nil</span>
+  <span class="n">m</span><span class="p">.</span><span class="nf">director</span><span class="p">.</span><span class="nf">should</span> <span class="o">==</span> <span class="n">director</span>
+<span class="k">end</span>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' href='advanced_testing.html#slide-10'>▻</a>
-<h3 id="test-doubles">3 Test Doubles</h3>
-<p>According to Meszaros(2007)</p>
+<h3 id="test-doubles"><a class="anchorlink" href="#test-doubles">3 Test Doubles</a></h3><p>According to Meszaros(2007)</p>
 <ul>
 <li>
 <strong>Test stub</strong> provide canned answers to calls made during the test</li>
@@ -223,117 +189,91 @@ end
 </div>
 <div class='slide'>
 <a class='slide_break' href='advanced_testing.html#slide-11'>▻</a>
-<h3 id="testing-web-servcies">4 Testing Web Servcies</h3>
-<p>VCR</p>
-</div>
+<h3 id="testing-web-servcies"><a class="anchorlink" href="#testing-web-servcies">4 Testing Web Servcies</a></h3><p>VCR</p></div>
 <div class='slide'>
 <a class='slide_break' href='advanced_testing.html#slide-12'>▻</a>
-<h3 id="testing-time">5 Testing Time</h3>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-describe "sets done_at" do
-  t = Todoitem.create!( :text =&gt; "write" )
-  t.done = true
-  t.save!
-  t.reload
-  t.done_at.should == Time.now
-end
-
-</pre>
+<h3 id="testing-time"><a class="anchorlink" href="#testing-time">5 Testing Time</a></h3><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">describe</span> <span class="s2">"sets done_at"</span> <span class="k">do</span>
+  <span class="n">t</span> <span class="o">=</span> <span class="no">Todoitem</span><span class="p">.</span><span class="nf">create!</span><span class="p">(</span> <span class="ss">:text</span> <span class="o">=&gt;</span> <span class="s2">"write"</span> <span class="p">)</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">done</span> <span class="o">=</span> <span class="kp">true</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">save!</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">reload</span>
+  <span class="n">t</span><span class="p">.</span><span class="nf">done_at</span><span class="p">.</span><span class="nf">should</span> <span class="o">==</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span>
+<span class="k">end</span>
+</code></pre>
 </div>
-<p><img src="images/timefail-1.png" alt="time fail"></p>
-<p><img src="images/timefail-2.png" alt="time fail"></p>
-</div>
+<p><img src="images/timefail-1.png" alt="time fail"></p><p><img src="images/timefail-2.png" alt="time fail"></p></div>
 <div class='slide'>
 <a class='slide_break' href='advanced_testing.html#slide-13'>▻</a>
-<h4 id="first-solution-write-your-own-matcher">5.1 First solution: write your own matcher:</h4>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-# in your test:
-t.done_at.should be_the_same_time_as( Time.zone.now )
+<h4 id="first-solution-write-your-own-matcher"><a class="anchorlink" href="#first-solution-write-your-own-matcher">5.1 First solution: write your own matcher:</a></h4><div class="code_container">
+<pre><code class="highlight ruby"><span class="c1"># in your test:</span>
+<span class="n">t</span><span class="p">.</span><span class="nf">done_at</span><span class="p">.</span><span class="nf">should</span> <span class="n">be_the_same_time_as</span><span class="p">(</span> <span class="no">Time</span><span class="p">.</span><span class="nf">zone</span><span class="p">.</span><span class="nf">now</span> <span class="p">)</span>
 
-# in spec_helper.rb:
-RSpec::Matchers.define :be_the_same_time_as do |expected|
-  match do |actual|
-    expected.to_i == actual.to_i
-  end
-  failure_message_for_should do |actual|
-    "expected that #{actual} (#{actual.to_i} in seconds) would be a the same as #{expected}  (#{expected.to_i} in seconds)"
-  end
-end
-
-</pre>
+<span class="c1"># in spec_helper.rb:</span>
+<span class="no">RSpec</span><span class="o">::</span><span class="no">Matchers</span><span class="p">.</span><span class="nf">define</span> <span class="ss">:be_the_same_time_as</span> <span class="k">do</span> <span class="o">|</span><span class="n">expected</span><span class="o">|</span>
+  <span class="n">match</span> <span class="k">do</span> <span class="o">|</span><span class="n">actual</span><span class="o">|</span>
+    <span class="n">expected</span><span class="p">.</span><span class="nf">to_i</span> <span class="o">==</span> <span class="n">actual</span><span class="p">.</span><span class="nf">to_i</span>
+  <span class="k">end</span>
+  <span class="n">failure_message_for_should</span> <span class="k">do</span> <span class="o">|</span><span class="n">actual</span><span class="o">|</span>
+    <span class="s2">"expected that </span><span class="si">#{</span><span class="n">actual</span><span class="si">}</span><span class="s2"> (</span><span class="si">#{</span><span class="n">actual</span><span class="p">.</span><span class="nf">to_i</span><span class="si">}</span><span class="s2"> in seconds) would be a the same as </span><span class="si">#{</span><span class="n">expected</span><span class="si">}</span><span class="s2">  (</span><span class="si">#{</span><span class="n">expected</span><span class="p">.</span><span class="nf">to_i</span><span class="si">}</span><span class="s2"> in seconds)"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
 </div>
-<p><img src="images/timefail-3.png" alt=""></p>
-</div>
+<p><img src="images/timefail-3.png" alt=""></p></div>
 <div class='slide'>
 <a class='slide_break' href='advanced_testing.html#slide-14'>▻</a>
-<h4 id="second-solution-timecop">5.2 Second Solution: Timecop</h4>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-it "sets done_at" do
-    t = Todoitem.create!( :text =&gt; "write" )
-       Timecop.freeze do
-       t.done = true
-       t.save!
-       t.reload
-       t.done_at.should == Time.now
-    end
-end
-
-</pre>
+<h4 id="second-solution-timecop"><a class="anchorlink" href="#second-solution-timecop">5.2 Second Solution: Timecop</a></h4><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">it</span> <span class="s2">"sets done_at"</span> <span class="k">do</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="no">Todoitem</span><span class="p">.</span><span class="nf">create!</span><span class="p">(</span> <span class="ss">:text</span> <span class="o">=&gt;</span> <span class="s2">"write"</span> <span class="p">)</span>
+       <span class="no">Timecop</span><span class="p">.</span><span class="nf">freeze</span> <span class="k">do</span>
+       <span class="n">t</span><span class="p">.</span><span class="nf">done</span> <span class="o">=</span> <span class="kp">true</span>
+       <span class="n">t</span><span class="p">.</span><span class="nf">save!</span>
+       <span class="n">t</span><span class="p">.</span><span class="nf">reload</span>
+       <span class="n">t</span><span class="p">.</span><span class="nf">done_at</span><span class="p">.</span><span class="nf">should</span> <span class="o">==</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' href='advanced_testing.html#slide-15'>▻</a>
-<h3 id="testing-javascript">6 Testing Javascript</h3>
-<p><img src="images/jasmine.png" alt=""></p>
-<p><img src="images/phantomjs.png" alt=""></p>
-</div>
+<h3 id="testing-javascript"><a class="anchorlink" href="#testing-javascript">6 Testing Javascript</a></h3><p><img src="images/jasmine.png" alt=""></p><p><img src="images/phantomjs.png" alt=""></p></div>
 <div class='slide'>
 <a class='slide_break' href='advanced_testing.html#slide-16'>▻</a>
-<h4 id="phantom-example">6.1 Phantom Example</h4>
-<div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-var page;
-page = require("webpage").create();
-page.open("http://localhost:3000", function(status) {
-  var string;
-  string = page.evaluate(function() {
-    return $("h1").text();
-  });
-  console.log("Title: " + string);
-  return phantom.exit();
-});
-
-</pre>
+<h4 id="phantom-example"><a class="anchorlink" href="#phantom-example">6.1 Phantom Example</a></h4><div class="code_container">
+<pre><code class="highlight javascript"><span class="kd">var</span> <span class="nx">page</span><span class="p">;</span>
+<span class="nx">page</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">webpage</span><span class="dl">"</span><span class="p">).</span><span class="nx">create</span><span class="p">();</span>
+<span class="nx">page</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">"</span><span class="s2">http://localhost:3000</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">status</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nx">string</span> <span class="o">=</span> <span class="nx">page</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">h1</span><span class="dl">"</span><span class="p">).</span><span class="nx">text</span><span class="p">();</span>
+  <span class="p">});</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Title: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">string</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">phantom</span><span class="p">.</span><span class="nx">exit</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre>
 </div>
 <div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-var page;
-page = require("webpage").create();
-page.open("http://localhost:3000", function(status) {
-  var string;
-  string = page.evaluate(function() {
-    return $("h1").text();
-  });
-  console.log("Title: " + string);
-  return phantom.exit();
-});
-
-</pre>
+<pre><code class="highlight javascript"><span class="kd">var</span> <span class="nx">page</span><span class="p">;</span>
+<span class="nx">page</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">webpage</span><span class="dl">"</span><span class="p">).</span><span class="nx">create</span><span class="p">();</span>
+<span class="nx">page</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">"</span><span class="s2">http://localhost:3000</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">status</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">string</span><span class="p">;</span>
+  <span class="nx">string</span> <span class="o">=</span> <span class="nx">page</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">h1</span><span class="dl">"</span><span class="p">).</span><span class="nx">text</span><span class="p">();</span>
+  <span class="p">});</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Title: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">string</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">phantom</span><span class="p">.</span><span class="nx">exit</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' href='advanced_testing.html#slide-17'>▻</a>
-<h4 id="phantom-in-rspec">6.2 Phantom in rspec</h4>
-<p>with capybara and poltergeist</p>
-</div>
+<h4 id="phantom-in-rspec"><a class="anchorlink" href="#phantom-in-rspec">6.2 Phantom in rspec</a></h4><p>with capybara and poltergeist</p></div>
 <div class='slide'>
 <a class='slide_break' href='advanced_testing.html#slide-18'>▻</a>
-<h3 id="example-app">7 Example App</h3>
-<p>Clone <a href="https://github.com/web-engineering/rails-example-test-the-todo">this app</a> and try out your new testing strategies!</p>
-<p><img src="images/sample-app-todolist.png" alt="screenshot example app"></p></div>
+<h3 id="example-app"><a class="anchorlink" href="#example-app">7 Example App</a></h3><p>Clone <a href="https://github.com/web-engineering/rails-example-test-the-todo">this app</a> and try out your new testing strategies!</p><p><img src="images/sample-app-todolist.png" alt="screenshot example app"></p></div>
     </div>
     <!-- End slides. -->
     <!-- Begin extension snippets. Add or remove as needed. -->
@@ -356,7 +296,6 @@ page.open("http://localhost:3000", function(status) {
         <input type="submit" value="Go">
     </form>
     <!-- End extension snippets. -->
-    </div>
     <!-- Required JS files. -->
     <script src="javascripts/jquery.min.js"></script>
     <script src="javascripts/deck.core.js"></script>
@@ -366,15 +305,9 @@ page.open("http://localhost:3000", function(status) {
     <script src="javascripts/deck.status.js"></script>
     <script src="javascripts/deck.navigation.js"></script>
     <script src="javascripts/deck.escape.js"></script>
-    <!--  Syntax highlighter -->
-    <script src="javascripts/syntaxhighlighter/shCore.js"></script>
-    <script src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
-    <script src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
-    <script src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
-    <script src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>    
+
     <!-- Initialize the deck. You can put this in an external file if desired. -->
     <script>
-    SyntaxHighlighter.all()      
     $(function() {
       $.deck('.slide');
     });
