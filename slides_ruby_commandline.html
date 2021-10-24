@@ -220,6 +220,9 @@ between numeric types.</p><div class="code_container">
 
 <span class="o">&gt;&gt;</span> <span class="mi">42</span> <span class="o">+</span> <span class="mf">3.141</span>
 <span class="o">=&gt;</span> <span class="mf">45.141</span>
+
+<span class="o">&gt;&gt;</span> <span class="s2">":-)"</span> <span class="o">*</span> <span class="mi">4</span>
+<span class="o">=&gt;</span> <span class="s2">":-):-):-):-)"</span>
 </code></pre>
 </div>
 </div>
@@ -240,6 +243,12 @@ but only if it's alone on a line all by itself:
   with %Q you can chose any character als string delimiters.
   opening brackets go with closing brackets.
 }</span>
+<span class="n">s</span> <span class="o">=</span> <span class="s1">'aBC'</span>
+<span class="nb">puts</span> <span class="n">s</span><span class="p">.</span><span class="nf">upcase</span>      <span class="c1"># ABC</span>
+<span class="nb">puts</span> <span class="n">s</span><span class="p">.</span><span class="nf">downcase</span>    <span class="c1"># abc</span>
+<span class="nb">puts</span> <span class="n">s</span><span class="p">.</span><span class="nf">capitalize</span>  <span class="c1"># Abc</span>
+<span class="nb">puts</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>          <span class="c1"># a    (index of character)</span>
+<span class="nb">puts</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>        <span class="c1"># aB   (start + length)</span>
 </code></pre>
 </div>
 </div>
@@ -561,6 +570,9 @@ the Block on several lines, ending with <code>end</code></p><div class="code_con
 <ul>
 <li>
 <code>map {|x|</code> new value computed from x <code>}</code>
+</li>
+<li>
+<code>map.with_index {|x, i|</code> new value computed from x and i, the position in the array <code>}</code>
 </li>
 <li>
 <code>select {|x|</code> should x be selected? <code>}</code>
