@@ -219,11 +219,12 @@ landscape of web performance! These rules and their priority will change!</p></d
 <h3 id="how-rails-helps-with-performance"><a class="anchorlink" href="#how-rails-helps-with-performance">2 How Rails helps with Performance</a></h3></div>
 <div class='slide'>
 <a class='slide_break' id='slide-9' href='slides_assets_and_webpacker.html#slide-9'>▻</a>
-<h4 id="static-files-are-fastest"><a class="anchorlink" href="#static-files-are-fastest">2.1 Static files are fastest</a></h4><p>The first think to know is that assets do not need to be
+<h4 id="static-files-are-fastest"><a class="anchorlink" href="#static-files-are-fastest">2.1 Static files are fastest</a></h4><p>The first thing to know, is that assets do not need to be
 served through the rails stack, but should be served by the
 web server directly.  In the following diagram they are
-called 'static files':</p><p><img src="images/rails-mvc.svg" alt="MVC in Rails"></p><p>In production these should be static files.</p><p>In development we will write other files, that need to be compiled, optimized and / or concatenated to
-create these static files.</p>
+called 'static files':</p><p><img src="images/rails-mvc.svg" alt="MVC in Rails"></p><p>In production these  static css, js, svg, gif, webp, ... files are found in the <code>public</code> folder.</p><p>In development we will write other files
+that need to be compiled, optimized and / or concatenated to
+create the static files.</p>
 <ul>
 <li>Compile to JavaScript (e.g. typescript, coffeescript,...)</li>
 <li>Compile to CSS (e.g. LESS, SASS)</li>

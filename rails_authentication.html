@@ -122,6 +122,16 @@
 </ul>
 </li>
 <li><a href="#better-login-ux">Better Login UX</a></li>
+<li>
+<a href="#oauth">OAuth</a>
+
+<ul>
+<li><a href="#rails-and-oauth">Rails and OAuth</a></li>
+<li><a href="#providers">Providers</a></li>
+<li><a href="#models">Models</a></li>
+<li><a href="#login-and-logout">Login and Logout</a></li>
+</ul>
+</li>
 <li><a href="#see-also">See Also</a></li>
 <li><a href="#further-reading">Further Reading</a></li>
 </ol>
@@ -514,13 +524,219 @@ cancel_user_registration GET    /users/cancel            devise/registrations#ca
 a new user.</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-25' href='slides_rails_authentication.html#slide-25'>▻</a>
-<h3 id="see-also"><a class="anchorlink" href="#see-also">5 See Also</a></h3><p>This authenticaiton with cookie is just one of many
-possible Authentication Methods you could use for your App.
-See <a href="/adv_authentictation.html">Advanced Authentication</a> for an
-overview of other methods.</p></div>
+<h3 id="oauth"><a class="anchorlink" href="#oauth">5 OAuth</a></h3><p>In many scenarios it might be more convenient for your users
+to not have to register on your site, but to use another service
+to authenticate. That way they don't have to remember another password.
+And you might not have to handle passwords at all.</p><p>You can achieve this with Open Authentication, 
+or <a href="https://en.wikipedia.org/wiki/OAuth">OAuth</a> for short. It is a 
+standard for requesting Authentication and Authorization from
+a priovider. If you only use OAuth for Authentication, not Authorization, then
+you can use <a href="https://openid.net/connect/">OpenID Connect</a> on top of OAuth.</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-26' href='slides_rails_authentication.html#slide-26'>▻</a>
-<h3 id="further-reading"><a class="anchorlink" href="#further-reading">6 Further Reading</a></h3>
+<h4 id="rails-and-oauth"><a class="anchorlink" href="#rails-and-oauth">5.1 Rails and OAuth</a></h4><p>The gem <code>omniauth</code> helps you deal with OAuth2, OpenID, LDAP, and many
+other authentication providers. 
+The <a href="https://github.com/intridea/omniauth/wiki/List-of-Strategies">list of strategies</a>
+is quite impressive. Think carefully about what services your users
+are using, and which services might be useful to your app: could
+you use Dropbox to authenticate, and also to deliver data directly
+to your user's dropbox? Would it make sense to use Facebook or Twitter and also
+send out messages that way? Or are your users very privacy conscious and
+want to avoid Facebook and Google?</p></div>
+<div class='slide'>
+<a class='slide_break' id='slide-27' href='slides_rails_authentication.html#slide-27'>▻</a>
+<h4 id="providers"><a class="anchorlink" href="#providers">5.2 Providers</a></h4><p>You will need the Gem <code>omniauth</code> and
+additional gems for each provider. For example if you
+want to use both Github and Stackoverflow for your web app geared
+towards developers, you would need three gems:</p><div class="code_container">
+<pre><code class="highlight plaintext">gem 'omniauth'
+gem 'omniauth-github'
+gem 'omniauth-stackoverflow'
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-28' href='slides_rails_authentication.html#slide-28'>▻</a>
+<p>You need to register your app with the authentication
+provider, eg. at <a href="https://developers.facebook.com/apps/">https://developers.facebook.com/apps/</a>
+or <a href="https://apps.twitter.com/">https://apps.twitter.com/</a>.
+You have to specify the URL of your web app, and a callback URL:</p><p><img src="images/oauth-app-config.png" alt="oauth app configuration"></p><p>There might also be a review process involved which might take
+a few business days to go through.</p></div>
+<div class='slide'>
+<a class='slide_break' id='slide-29' href='slides_rails_authentication.html#slide-29'>▻</a>
+<p>You get back two pieces of information: a key and a secret.
+In Twitter this looks like this:</p><p><img src="images/oauth-app-secret.png" alt="facebook app configuration"></p><p>(A word of warning: if you change the configuration in <code>developers.facebook.com</code> then
+you will get a new key and secret!)</p><p>You need to add the key and the secret to the configuration of omniauth:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="c1"># config/initializers/omniauth.rb:</span>
+
+<span class="no">Rails</span><span class="p">.</span><span class="nf">application</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">middleware</span><span class="p">.</span><span class="nf">use</span> <span class="no">OmniAuth</span><span class="o">::</span><span class="no">Builder</span> <span class="k">do</span>
+  <span class="n">provider</span> <span class="ss">:twitter</span><span class="p">,</span> <span class="s1">'TWITTER_KEY'</span><span class="p">,</span> <span class="s1">'TWITTER_SECRET'</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-30' href='slides_rails_authentication.html#slide-30'>▻</a>
+<p>If you plan on publishing your source code
+you might want to set these values in a way that is NOT saved to the repository.
+You could use environment variables for that:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="c1"># config/initializers/omniauth.rb:</span>
+
+<span class="no">Rails</span><span class="p">.</span><span class="nf">application</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">middleware</span><span class="p">.</span><span class="nf">use</span> <span class="no">OmniAuth</span><span class="o">::</span><span class="no">Builder</span> <span class="k">do</span>
+  <span class="n">provider</span> <span class="ss">:twitter</span><span class="p">,</span> <span class="no">ENV</span><span class="p">[</span><span class="s1">'TWITTER_KEY'</span><span class="p">],</span> <span class="no">ENV</span><span class="p">[</span><span class="s1">'TWITTER_SECRET'</span><span class="p">]</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+<p>Then you can set the environment variables locally on the command line:</p><div class="code_container">
+<pre><code class="highlight sh"><span class="nv">TWITTER_KEY</span><span class="o">=</span>abc
+<span class="nv">TWITTER_SECRET</span><span class="o">=</span>123
+</code></pre>
+</div>
+<p>If you deploy to heroku or dokku, use the command line interface to set
+the variables there:</p><div class="code_container">
+<pre><code class="highlight sh">heroku config:set <span class="nv">TWITTER_KEY</span><span class="o">=</span>abc
+heroku config:set <span class="nv">TWITTER_SECRET</span><span class="o">=</span>123
+
+dokku config:set <span class="nv">TWITTER_KEY</span><span class="o">=</span>abc
+dokku config:set <span class="nv">TWITTER_SECRET</span><span class="o">=</span>123
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-31' href='slides_rails_authentication.html#slide-31'>▻</a>
+<h4 id="models"><a class="anchorlink" href="#models">5.3 Models</a></h4><p>For authentication you need to save at least the provider name and the uid in your database
+somewhere. In the simplest case you just save them in a user model:</p><div class="code_container">
+<pre><code class="highlight shell"><span class="nb">rails </span>g model user provider uid
+</code></pre>
+</div>
+<p>To use additional services and get additional info from the provider
+you also need to save a per-user token and secret:</p><div class="code_container">
+<pre><code class="highlight shell"><span class="nb">rails </span>g model user provider uid token secret
+</code></pre>
+</div>
+<p>If you want to enable that one user can log in via different
+providers and still be recognised as the same user, you need to
+create a user model with a has_many relationship to an authentiation model
+that stores provider and uid.</p><p>But we will stick to the simple version:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">CreateUsers</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span><span class="p">[</span><span class="mf">5.0</span><span class="p">]</span>
+  <span class="k">def</span> <span class="nf">change</span>
+    <span class="n">create_table</span> <span class="ss">:users</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+      <span class="n">t</span><span class="p">.</span><span class="nf">string</span> <span class="ss">:provider</span>
+      <span class="n">t</span><span class="p">.</span><span class="nf">string</span> <span class="ss">:uid</span>
+      <span class="n">t</span><span class="p">.</span><span class="nf">timestamps</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-32' href='slides_rails_authentication.html#slide-32'>▻</a>
+<h4 id="login-and-logout"><a class="anchorlink" href="#login-and-logout">5.4 Login and Logout</a></h4><p>Omniauth is a "Rack Middleware". That means it is somewhat independent
+of the Rails app you are building. It has access to the HTTP request, will
+analyze that, and pass on data to your Rails app through the
+environment variable <code>omniauth.auth</code>.</p><p>To log in you send the user to <code>/auth/:provider</code> (e.g. <code>/auth/facebook</code>).</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="o">&lt;!--</span> <span class="n">app</span><span class="o">/</span><span class="n">views</span><span class="o">/</span><span class="n">layouts</span><span class="o">/</span><span class="n">application</span><span class="p">.</span><span class="nf">html</span><span class="p">.</span><span class="nf">erb</span> <span class="o">--&gt;</span>
+  <span class="o">&lt;</span><span class="sx">% if </span><span class="n">current_user</span> <span class="sx">%&gt;
+    Logged in as &lt;%= current_user.name %&gt;</span>
+    <span class="o">&lt;</span><span class="sx">%= link_to "log out", logout_path %&gt;
+  &lt;% else %&gt;
+    log in with &lt;%=</span> <span class="n">link_to</span> <span class="s2">"twitter"</span><span class="p">,</span> <span class="s2">"/auth/twitter"</span> <span class="o">%&gt;</span>
+  <span class="o">&lt;</span><span class="sx">% end </span><span class="o">%&gt;</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-33' href='slides_rails_authentication.html#slide-33'>▻</a>
+<p>This URL is handled by omniauth, not by your Rails app. Omniauth will send
+the user's browser on to a URL at the provider. There the user can log in. After
+that the browser is redirected to your app again, to <code>/auth/:provider/callback</code></p><p>This URL you need to map to a session controller:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="c1"># config/routes.rb:</span>
+<span class="n">match</span> <span class="s1">'/auth/:provider/callback'</span><span class="p">,</span> <span class="ss">to: </span><span class="s1">'sessions#create'</span><span class="p">,</span>  <span class="ss">via: </span><span class="p">[</span><span class="ss">:get</span><span class="p">,</span> <span class="ss">:post</span><span class="p">]</span>
+<span class="n">match</span> <span class="s1">'/auth/failure'</span><span class="p">,</span>            <span class="ss">to: </span><span class="s1">'sessions#failure'</span><span class="p">,</span> <span class="ss">via: </span><span class="p">[</span><span class="ss">:get</span><span class="p">,</span> <span class="ss">:post</span><span class="p">]</span>
+</code></pre>
+</div>
+<p>In the session controller you can now read the data that omniauth provides
+from the environment variable.</p></div>
+<div class='slide'>
+<a class='slide_break' id='slide-34' href='slides_rails_authentication.html#slide-34'>▻</a>
+<p>As a first step you could just print it out,
+to see what data is provided:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="k">def</span> <span class="nf">create</span>
+  <span class="n">render</span> <span class="ss">text: </span><span class="s2">"&lt;pre&gt;"</span> <span class="o">+</span> <span class="n">env</span><span class="p">[</span><span class="s2">"omniauth.auth"</span><span class="p">].</span><span class="nf">to_yaml</span> <span class="n">and</span> <span class="k">return</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+<p>The data always contains values for <code>provider</code> and <code>uid</code> at the
+top level. There may be a lot more data.</p></div>
+<div class='slide'>
+<a class='slide_break' id='slide-35' href='slides_rails_authentication.html#slide-35'>▻</a>
+<p>Here some example data from a twitter login:</p><div class="code_container">
+<pre><code class="highlight plaintext">provider: twitter
+uid: '8506142'
+info:
+  nickname: bjelline
+  name: Brigitte Jellinek
+  ...
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-36' href='slides_rails_authentication.html#slide-36'>▻</a>
+<p>Now let's look at <code>session#create</code>:
+There are two basic cases to consider: either the user has logged in using
+this authorisation method before (then we should find them in our database),
+or they are logging in for the first time.</p><p>This can get quite involved, so we hide it away inside the user model:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="k">def</span> <span class="nf">create</span>
+  <span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">find_or_create_with_omniauth</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="nf">env</span><span class="p">[</span><span class="s1">'omniauth.auth'</span><span class="p">])</span>
+
+  <span class="k">if</span> <span class="n">user</span>
+    <span class="n">session</span><span class="p">[</span><span class="ss">:user_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">user</span><span class="p">.</span><span class="nf">id</span>
+    <span class="n">redirect_to</span> <span class="n">root_path</span><span class="p">,</span> <span class="ss">notice: </span><span class="s1">'Logged in'</span>
+  <span class="k">else</span>
+    <span class="n">redirect_to</span> <span class="n">login_path</span><span class="p">,</span> <span class="ss">alert: </span><span class="s1">'Log in failed'</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-37' href='slides_rails_authentication.html#slide-37'>▻</a>
+<p>In the model we pick apart the information from omniauth:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="c1"># app/model/user.rb</span>
+
+<span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">find_or_create_with_omniauth</span><span class="p">(</span><span class="n">auth</span><span class="p">)</span>
+  <span class="c1"># look for an existing authorisation</span>
+  <span class="c1"># provider + uid uniquely identify a user</span>
+  <span class="no">User</span><span class="p">.</span><span class="nf">find_or_create_by!</span><span class="p">(</span>
+    <span class="ss">provider: </span><span class="n">auth</span><span class="p">[</span><span class="s1">'provider'</span><span class="p">],</span>
+    <span class="ss">uid:      </span><span class="n">auth</span><span class="p">[</span><span class="s1">'uid'</span><span class="p">]</span>
+  <span class="p">)</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+<p>The ActiveRecord method <code>find_or_create_by</code> handles both cases in one: either it
+finds an existing user or it creates a new one.</p></div>
+<div class='slide'>
+<a class='slide_break' id='slide-38' href='slides_rails_authentication.html#slide-38'>▻</a>
+<p>We don't really have a name for each user, but
+we can fake that in the model:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="c1"># app/model/user.rb</span>
+<span class="k">def</span> <span class="nf">name</span>
+  <span class="s2">"</span><span class="si">#{</span><span class="n">uid</span><span class="si">}</span><span class="s2">@</span><span class="si">#{</span><span class="n">provider</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-39' href='slides_rails_authentication.html#slide-39'>▻</a>
+<h3 id="see-also"><a class="anchorlink" href="#see-also">6 See Also</a></h3><p>This authenticaiton with cookie is just one of many
+possible Authentication Methods you could use for your App.
+See <a href="/adv_authentication.html">Advanced Authentication</a> for an
+overview of other methods.</p></div>
+<div class='slide'>
+<a class='slide_break' id='slide-40' href='slides_rails_authentication.html#slide-40'>▻</a>
+<h3 id="further-reading"><a class="anchorlink" href="#further-reading">7 Further Reading</a></h3>
 <ul>
 <li>Devise <a href="https://github.com/plataformatec/devise">github page</a>
 </li>
