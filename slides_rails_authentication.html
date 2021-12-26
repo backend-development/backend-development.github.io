@@ -524,7 +524,7 @@ environment variable <code>omniauth.auth</code>.</p><p>To log in you send the us
     Logged in as &lt;%= current_user.name %&gt;</span>
     <span class="o">&lt;</span><span class="sx">%= link_to "log out", logout_path %&gt;
   &lt;% else %&gt;
-    log in with &lt;%=</span> <span class="n">link_to</span> <span class="s2">"twitter"</span><span class="p">,</span> <span class="s2">"/auth/twitter"</span> <span class="o">%&gt;</span>
+    log in with &lt;%=</span> <span class="n">button_to</span> <span class="s2">"twitter"</span><span class="p">,</span> <span class="s2">"/auth/twitter"</span><span class="p">,</span> <span class="ss">method: :post</span><span class="p">,</span> <span class="ss">data: </span><span class="p">{</span><span class="ss">turbo: </span><span class="s2">"false"</span><span class="p">}</span> <span class="o">%&gt;</span>
   <span class="o">&lt;</span><span class="sx">% end </span><span class="o">%&gt;</span>
 </code></pre>
 </div>
