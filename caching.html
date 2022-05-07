@@ -185,7 +185,7 @@ because it's already there in a cache.</p><p>After working through this guide:</
 <a class='slide_break' id='slide-3' href='slides_caching.html#slide-3'>▻</a>
 <h3 id="what-is-caching"><a class="anchorlink" href="#what-is-caching">1 What is Caching</a></h3><p>In general english usage a cache is <a href="https://en.wiktionary.org/wiki/cache#Noun">A store of things that may be required in the future, which can be retrieved rapidly, protected or hidden in some way</a>.
 But in computing the cache is not proteced or hidden, the important part
-it that data stored in a cache can be retrieved rapidly. </p><p><img src="images/caching.svg" alt="what is caching"></p><p>The basic algorithm is very simple:  is the data I need already in the cache?
+it that data stored in a cache can be retrieved rapidly.</p><p><img src="images/caching.svg" alt="what is caching"></p><p>The basic algorithm is very simple:  is the data I need already in the cache?
 then retrieve it from there.  If not, retrieve the original data and store
 it in the cache.</p></div>
 <div class='slide'>
@@ -218,7 +218,7 @@ in the frontend for storing the result of api requests.</p><p>And in all the com
 <li>
 <a href="https://en.wikipedia.org/wiki/CPU_cache">CPU Cache</a> reading a cache line from memory, even if the CPU only needs one byte</li>
 <li>
-<a href="https://en.wikipedia.org/wiki/File_system">File Systems</a> reading (+caching) whole blocks of data, when only a byte is requested </li>
+<a href="https://en.wikipedia.org/wiki/File_system">File Systems</a> reading (+caching) whole blocks of data, when only a byte is requested</li>
 </ul>
 </div>
 <div class='slide'>
@@ -233,7 +233,7 @@ it will keep the resource in the cache.</p><p>The Server can send the <code>Cach
 <li>
 <code>Cache-Control: no-cache</code> - The cache will send the request to the origin server for validation before releasing a cached copy.</li>
 <li>
-<code>Cache-Control: public</code> - that the response may be cached by any cache. </li>
+<code>Cache-Control: public</code> - that the response may be cached by any cache.</li>
 <li>
 <code>Cache-Control: private</code> - the response is intended for a single user only and must not be stored by a shared cache. A private browser cache may store the response.</li>
 </ul>
@@ -530,11 +530,20 @@ different methods. You should be able to:</p>
 <h3 id="activerecord-and-db"><a class="anchorlink" href="#activerecord-and-db">6 ActiveRecord and DB</a></h3><p>Accessing the database takes a long time - compared to all
 the computation that is done in ruby code itself. So looking
 at the Database, and the ORM we use to access the database, might
-make sense for performance optimisation.</p><p>Before you start working on the Database, 
+make sense for performance optimisation.</p><p>Before you start working on the Database,
 make sure to switch off caching in development:</p><div class="code_container">
 <pre><code class="highlight plaintext"># on the command line
 $ rails dev:cache
 Development mode is no longer being cached.
+</code></pre>
+</div>
+<p>In <code>config/environments/development.rb</code> you can
+set cache_classes to true, to get rid of extra sql requests:</p><div class="code_container">
+<pre><code class="highlight plaintext">  # In the development environment your application's code is reloaded any time
+  # it changes. This slows down response time but is perfect for development
+  # since you don't have to restart the web server when you make code changes.
+  # config.cache_classes = false
+  config.cache_classes = true
 </code></pre>
 </div>
 </div>
