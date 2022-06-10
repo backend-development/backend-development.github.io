@@ -309,20 +309,19 @@ the whole view.</p><p>add this around the whole project view:</p><div class="cod
 <h5 id="how-caching-works"><a class="anchorlink" href="#how-caching-works">5.2.1 How caching works</a></h5><p>So what happens here? When the view is rendered for the <strong>first time</strong>,
 it will be rendered normally and still take around 450ms.
 In the log file you will see a message like this:</p><div class="code_container">
-<pre><code class="highlight plaintext">Write fragment views/projects/1679-20140722193808000000000/0db0955317bafa37cc34ffcb7567a874 (19.1ms)
+<pre><code class="highlight plaintext">Write fragment views/projects/show:0db0955317bafa37cc34ffcb7567a8/projects/741679-20140722193808000000000 (1.1ms)
 </code></pre>
 </div>
 <p>This shows the <strong>key</strong> that is used for the fragment.</p><p>The key depends
 on both the object we specified (here <code>@project</code>), and on the view fragment.
-In this example '1679' is the id of <code>@project</code>, and '20140722193808000000000' is
-the current value of its <code>updated_at</code> attribute. The last part
-of the key is a hash of the view fragment inside the <code>cache</code> block.</p><p>So if either the object or the view changes, a new key will be generated,
+The first part of the key the name of the view plus a hash of the view fragment inside the <code>cache</code> block.
+After the colon you can see the class of the model, the id '741679', and the value of the  <code>updated_at</code> attribute  - in this example '20140722193808000000000'.</p><p>So if either the object or the view changes, a new key will be generated,
 and nothing will be found in the cache. The view will be rendered from scratch.</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-15' href='slides_caching.html#slide-15'>▻</a>
 <p>When the view is rendered for the <strong>second time</strong>,
 you find the following message in the log file:</p><div class="code_container">
-<pre><code class="highlight plaintext">Read fragment views/projects/1679-20140722193808000000000/0db0955317bafa37cc34ffcb7567a874 (1.9ms)
+<pre><code class="highlight plaintext">Read fragment views/projects/show:0db0955317bafa37cc34ffcb7567a8/projects/741679-20140722193808000000000 (0.9ms)
 </code></pre>
 </div>
 <p>Here the cache is read out, which is a lot faster then rendering.</p></div>
@@ -538,7 +537,8 @@ Development mode is no longer being cached.
 </code></pre>
 </div>
 <p>In <code>config/environments/development.rb</code> you can
-set cache_classes to true, to get rid of extra sql requests:</p><div class="code_container">
+set cache_classes to true, to get rid of extra sql requests.
+But beware: now you have to restart the rails server after changing the source code!</p><div class="code_container">
 <pre><code class="highlight plaintext">  # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
