@@ -502,30 +502,8 @@ is not accessed through the conventional route</p><div class="code_container">
 <pre><code class="highlight plaintext">SELECT * FROM projects WHERE slug='2014-anton-eine-multimediale-inszenierung'
 </code></pre>
 </div>
-<p>There should be an index on columns <code>slug</code>!</p><p>We can check if this is the case in the database console:</p><div class="code_container">
-<pre><code class="highlight plaintext">mysql&gt; DESCRIBE SELECT * FROM projects WHERE slug='2014-anton-eine-multimediale-inszenierung'
-    -&gt; ;
-+----+-------------+----------+------------+-------+------------------------+------------------------+---------+-------+------+----------+-------+
-| id | select_type | table    | partitions | type  | possible_keys          | key                    | key_len | ref   | rows | filtered | Extra |
-+----+-------------+----------+------------+-------+------------------------+------------------------+---------+-------+------+----------+-------+
-|  1 | SIMPLE      | projects | NULL       | const | index_projects_on_slug | index_projects_on_slug | 768     | const |    1 |   100.00 | NULL  |
-+----+-------------+----------+------------+-------+------------------------+------------------------+---------+-------+------+----------+-------+
-1 row in set, 1 warning (0,12 sec)
-</code></pre>
-</div>
-<p>Yes, there is an index that is used for this query. Contrast this with the output
-of <code>DESCRIBE</code> when there is no index:</p><div class="code_container">
-<pre><code class="highlight plaintext">
-mysql&gt; DESCRIBE SELECT * FROM projects WHERE publicationdate='2014-07-22';
-+----+-------------+----------+------------+------+---------------+------+---------+------+------+----------+-------------+
-| id | select_type | table    | partitions | type | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |
-+----+-------------+----------+------------+------+---------------+------+---------+------+------+----------+-------------+
-|  1 | SIMPLE      | projects | NULL       | ALL  | NULL          | NULL | NULL    | NULL |  695 |    10.00 | Using where |
-+----+-------------+----------+------------+------+---------------+------+---------+------+------+----------+-------------+
-1 row in set, 1 warning (0,12 sec)
-</code></pre>
-</div>
-</div>
+<p>There should be an index on columns <code>slug</code>!</p><p>We can check if this is the case in the database console:</p><p><img src="images/describe-1.png" alt=""></p><p>Yes, there is an index that is used for this query. Contrast this with the output
+of <code>DESCRIBE</code> when there is no index:</p><p><img src="images/describe-2.png" alt=""></p></div>
 <div class='slide'>
 <a class='slide_break' href='caching.html#slide-42'>▻</a>
 <h4 id="n-1-queries"><a class="anchorlink" href="#n-1-queries">6.4 n+1 queries</a></h4><p>When analysing the SQL queries a rails project generates
