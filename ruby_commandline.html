@@ -9,7 +9,7 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
   <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
-  
+
   <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
 
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
@@ -29,13 +29,13 @@
       <strong class="more-info-label">More Rails: </strong>
       <ul class="more-info-links s-hidden">
         <li class="more-info"><a href="https://guides.rubyonrails.org/">Rails Guides</a></li>
-        <li class="more-info"><a href="https://curriculum.railsbridge.org/docs/">Railsbridge</a></li>
+        <li class="more-info"><a href="https://railsbridge.projects.multimediatechnology.at/docs/">Railsbridge</a></li>
         <li class="more-info"><a href="https://archive.org/details/podcast_railscasts_218282043">Railscasts</a></li>
       </ul>
       <strong class="more-info-label">Beyond Backend: </strong>
       <ul class="more-info-links s-hidden">
         <li class="more-info"><a href="https://web-engineering.github.io/">Web Engineering</a></li>
-      </ul>      
+      </ul>
     </div>
   </div>
   <div id="header">
@@ -229,13 +229,13 @@ surrounding it.</p><p>Some sites built with Rails are: <a href="https://github.c
 <div class='slide'>
 <a class='slide_break' id='slide-5' href='slides_ruby_commandline.html#slide-5'>▻</a>
 <h4 id="why-ruby-questionmark-why-rails-questionmark"><a class="anchorlink" href="#why-ruby-questionmark-why-rails-questionmark">1.2 Why Ruby? Why Rails ?</a></h4><p>Why should you use Ruby and Rails over other programming languages
-and frameworks?</p>
+and frameworks?</p><p>Because of the cool t-shirts?</p><p><img src="images/ruby-and-rails-t-shirts.png" alt="Ruby and Rails T-Shirts"></p>
 <ul>
 <li>Because you want to be a highly productive web developer?</li>
-<li>Because you want to learn from the best?</li>
-<li>Because you want try out many different languages and many frameworks?</li>
+<li>Because you want to be a well payed developer?</li>
 </ul>
-<p>All these answers are equally valid.</p><p>Also, there are cool t-shirts:</p><p><img src="images/ruby-and-rails-t-shirts.png" alt="Ruby and Rails T-Shirts"></p></div>
+<p><a href="https://survey.stackoverflow.co/2022/#work-salary">StackOverflows Survey from 2022</a> shows less Ruby jobs than JavaScript or PHP jobs,
+but they are better payed:</p><p><img src="images/salary-2022.png" alt=""></p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-6' href='slides_ruby_commandline.html#slide-6'>▻</a>
 <h3 id="ruby-basics"><a class="anchorlink" href="#ruby-basics">2 Ruby Basics</a></h3><p>To get to know Ruby you don't need to write
@@ -251,7 +251,7 @@ the result as <code>=&gt;</code>, for example:</p><div class="code_container">
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-7' href='slides_ruby_commandline.html#slide-7'>▻</a>
-<h4 id="some-code-conventions"><a class="anchorlink" href="#some-code-conventions">2.1 Some code conventions</a></h4><p>Try to stick to <a href="https://github.com/styleguide/ruby">github's style for ruby</a>.</p><p>When you choose names for your objects, classes and methods
+<h4 id="some-code-conventions"><a class="anchorlink" href="#some-code-conventions">2.1 Some code conventions</a></h4><p>Try to stick to <a href="https://rubystyle.guide/">github's style for ruby</a>.</p><p>When you choose names for your objects, classes and methods
 you should stick to the following conventions to avoid
 confusing other Ruby developers:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">the_variable</span> <span class="o">=</span> <span class="no">SomeClass</span><span class="p">.</span><span class="nf">new</span>
@@ -302,7 +302,7 @@ if no explicit <code>return</code> statement is given.</p><div class="code_conta
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-11' href='slides_ruby_commandline.html#slide-11'>▻</a>
-<h4 id="keyword-arguments"><a class="anchorlink" href="#keyword-arguments">3.3 Keyword Arguments</a></h4><p>Since ruby 2.0 keyword arguments can be used instead,
+<h4 id="keyword-arguments"><a class="anchorlink" href="#keyword-arguments">3.3 Keyword Arguments</a></h4><p>Since ruby 2.0 keyword arguments can be used,
 and can be given default values:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="k">def</span> <span class="nf">apply_the_style</span><span class="p">(</span><span class="ss">font_family: </span><span class="s1">'MS Comic Sans'</span><span class="p">,</span> <span class="ss">font_size: </span><span class="mi">16</span> <span class="p">)</span>
   <span class="o">...</span>
@@ -332,7 +332,7 @@ They have methods and properties, like other objects:</p><div class="code_contai
 <div class='slide'>
 <a class='slide_break' id='slide-13' href='slides_ruby_commandline.html#slide-13'>▻</a>
 <h4 id="the-save-navigation-operator"><a class="anchorlink" href="#the-save-navigation-operator">4.1 The 'Save Navigation' Operator</a></h4><p>Imagine you have an Object <code>a</code>, that has a property <code>b</code> containing
-another object, and <code>b</code> has a property <code>c</code>. You can access <code>c</code> through <code>a.b.c</code></p><p>But if a is <code>nil</code> then you will get an error:</p><div class="code_container">
+another object, and <code>b</code> has a property <code>c</code>. You can access <code>c</code> through <code>a.b.c</code></p><p>But if <code>a</code> is <code>nil</code> then you will get an error:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="o">&gt;</span> <span class="n">a</span><span class="p">.</span><span class="nf">b</span><span class="p">.</span><span class="nf">c</span>
 <span class="no">NoMethodError</span><span class="p">:</span> <span class="n">undefined</span> <span class="nb">method</span> <span class="sb">`b' for nil:NilClass
 </span></code></pre>
@@ -348,7 +348,8 @@ another object, and <code>b</code> has a property <code>c</code>. You can access
 <a class='slide_break' id='slide-14' href='slides_ruby_commandline.html#slide-14'>▻</a>
 <h3 id="type-system"><a class="anchorlink" href="#type-system">5 Type System</a></h3><p>All of Ruby's basic data types are Classes.</p>
 <ul>
-<li>nil</li>
+<li>nil  <code># NilClass</code>
+</li>
 <li>Numeric, Integer, Fixnum, Bignum, Float <code># are converted automatically to each other</code>
 </li>
 <li>Ranges</li>
@@ -512,7 +513,7 @@ taking an algorithms and data structure course as offered in the second
 semester of most computer science programs.)</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-23' href='slides_ruby_commandline.html#slide-23'>▻</a>
-<h5 id="implicit-form"><a class="anchorlink" href="#implicit-form">5.6.3 Implicit Form</a></h5><p>A Hash can be created with Hash.new, or by writing it in "implicit form":</p><div class="code_container">
+<h5 id="implicit-form"><a class="anchorlink" href="#implicit-form">5.6.3 Implicit Form</a></h5><p>A Hash can be created with Hash.new, or by writing it as a literal:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">roomnumber</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">"Jane Doe"</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">"Jim Doe"</span> <span class="o">=&gt;</span> <span class="mi">6</span> <span class="p">}</span>
 </code></pre>
 </div>
@@ -587,16 +588,16 @@ this line to to top of a ruby file:</p><div class="code_container">
 </div>
 <p>The <code>case</code> expression can match one value in several ways.</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="k">case</span> <span class="n">x</span>
-  <span class="k">when</span> <span class="mi">1</span><span class="o">..</span><span class="mi">5</span>
-    <span class="nb">puts</span> <span class="s2">"It's between 1 and 5"</span>
-  <span class="k">when</span> <span class="mi">6</span>
-    <span class="nb">puts</span> <span class="s2">"It's 6"</span>
-  <span class="k">when</span> <span class="s2">"foo"</span><span class="p">,</span> <span class="s2">"bar"</span>
-    <span class="nb">puts</span> <span class="s2">"It's either foo or bar"</span>
-  <span class="k">when</span> <span class="no">String</span>
-    <span class="nb">puts</span> <span class="s2">"You passed a string"</span>
-  <span class="k">else</span>
-    <span class="nb">puts</span> <span class="s2">"You gave me </span><span class="si">#{</span><span class="n">x</span><span class="si">}</span><span class="s2"> -- I have no idea what to do with that."</span>
+<span class="k">when</span> <span class="mi">1</span><span class="o">..</span><span class="mi">5</span>
+  <span class="nb">puts</span> <span class="s2">"It's between 1 and 5"</span>
+<span class="k">when</span> <span class="mi">6</span>
+  <span class="nb">puts</span> <span class="s2">"It's 6"</span>
+<span class="k">when</span> <span class="s2">"foo"</span><span class="p">,</span> <span class="s2">"bar"</span>
+  <span class="nb">puts</span> <span class="s2">"It's either foo or bar"</span>
+<span class="k">when</span> <span class="no">String</span>
+  <span class="nb">puts</span> <span class="s2">"You passed a string"</span>
+<span class="k">else</span>
+  <span class="nb">puts</span> <span class="s2">"You gave me </span><span class="si">#{</span><span class="n">x</span><span class="si">}</span><span class="s2"> -- I have no idea what to do with that."</span>
 <span class="k">end</span>
 </code></pre>
 </div>
@@ -676,7 +677,10 @@ an Array</p><div class="code_container">
 </div>
 <p>The elements of the array are piped into the sort-method, which again outputs a list
 of elements. These are piped into first, which only returns the first three and discards
-the rest. The result is a list of 3 elements.</p><p>Here are some simple methods you can use on Arrays (and other Enumerables)
+the rest. The result is a list of 3 elements.</p></div>
+<div class='slide'>
+<a class='slide_break' id='slide-34' href='slides_ruby_commandline.html#slide-34'>▻</a>
+<p>Here are some simple methods you can use on Arrays (and other Enumerables)
 that return a new Enumerable. You can connect theses methods to each other:</p>
 <ul>
 <li>sort</li>
@@ -692,6 +696,9 @@ that return a new Enumerable. You can connect theses methods to each other:</p>
 #=&gt; {"a"=&gt;1, "b"=&gt;2, "c"=&gt;1}
 </code></pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-35' href='slides_ruby_commandline.html#slide-35'>▻</a>
 <p>Some other methods return just a single value, and thus end the pipe:</p>
 <ul>
 <li>count</li>
@@ -699,6 +706,9 @@ that return a new Enumerable. You can connect theses methods to each other:</p>
 <li>max</li>
 <li>min</li>
 </ul>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-36' href='slides_ruby_commandline.html#slide-36'>▻</a>
 <p>More advanced methods take a Block (of code) as their argument.
 The method <code>map</code> applys the Block to each piece of data, and
 returns an Enumerable of the new data:</p><div class="code_container">
@@ -709,6 +719,9 @@ returns an Enumerable of the new data:</p><div class="code_container">
 <span class="o">=&gt;</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
 </code></pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-37' href='slides_ruby_commandline.html#slide-37'>▻</a>
 <p>If the computation is more complex you can write
 the Block on several lines, ending with <code>end</code></p><div class="code_container">
 <pre><code class="highlight ruby"><span class="o">&gt;&gt;</span> <span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="mi">10</span><span class="p">).</span><span class="nf">map</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
@@ -722,6 +735,9 @@ the Block on several lines, ending with <code>end</code></p><div class="code_con
 <span class="o">=&gt;</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
 </code></pre>
 </div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-38' href='slides_ruby_commandline.html#slide-38'>▻</a>
 <p>Some other methods for Enumerables that take a Block:</p>
 <ul>
 <li>
@@ -746,13 +762,13 @@ code considerably.</p><p>Read the Reference on</p>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-34' href='slides_ruby_commandline.html#slide-34'>▻</a>
+<a class='slide_break' id='slide-39' href='slides_ruby_commandline.html#slide-39'>▻</a>
 <h3 id="blocks"><a class="anchorlink" href="#blocks">9 Blocks</a></h3><p>Blocks of code are not just used in Enumerables, they are
 a basic building block of ruby. You can write functions
 that take a Block as an argument:</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-35' href='slides_ruby_commandline.html#slide-35'>▻</a>
-<h4 id="my-function-takes-a-block-of-code"><a class="anchorlink" href="#my-function-takes-a-block-of-code">9.1 My Function takes a Block of Code</a></h4><p>Any function you write can take an addictional block
+<a class='slide_break' id='slide-40' href='slides_ruby_commandline.html#slide-40'>▻</a>
+<h4 id="my-function-takes-a-block-of-code"><a class="anchorlink" href="#my-function-takes-a-block-of-code">9.1 My Function takes a Block of Code</a></h4><p>Any function you write can take an additional block
 of code as its last argument. The block is only
 called if and when you call <code>yield</code> inside the function:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="k">def</span> <span class="nf">my_function_with_block_arg</span>
@@ -779,35 +795,31 @@ of the curly braces you can use <code>do</code> and <code>end</code>:</p><div cl
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-36' href='slides_ruby_commandline.html#slide-36'>▻</a>
+<a class='slide_break' id='slide-41' href='slides_ruby_commandline.html#slide-41'>▻</a>
 <h3 id="summary"><a class="anchorlink" href="#summary">10 Summary</a></h3><p>You now know about the basic data types, about enumerables and about blocks -
-features that distinguish Ruby from other scripting languages.</p><p>If you want to get more pracitical with Ruby, you can
+features that distinguish Ruby from other scripting languages.</p><p>If you want to get more practical with Ruby, you can
 do the
 <a href="https://github.com/backend-development/learn_ruby">Learn Ruby</a> test driven Ruby exercises.</p><p>This should be a good enough basis to start with Rails.
 But do take every
 opportunity you get to learn more about Ruby itself: if you are unsure about
 a line of code, look it up in the Ruby documentation and use the
-opportunity to read a bit more than strictly necessary.</p><p>Get an offline version of the documentation
-installed on your development machine so you can look up stuff instantly.</p>
-<ul>
-<li>Mac Tool <a href="https://kapeli.com/dash">Dash</a> for keeping offline copies of documentation</li>
-</ul>
-</div>
+opportunity to read a bit more than strictly necessary.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-37' href='slides_ruby_commandline.html#slide-37'>▻</a>
+<a class='slide_break' id='slide-42' href='slides_ruby_commandline.html#slide-42'>▻</a>
 <h4 id="online-resources"><a class="anchorlink" href="#online-resources">10.1 Online Resources</a></h4>
 <ul>
 <li><a href="https://ruby.github.io/TryRuby/">try ruby</a></li>
-<li><a href="http://rubylearning.com/satishtalim/tutorial.html">learningruby.com tutorial</a></li>
-<li><a href="https://learnbyexample.github.io/learn_ruby_oneliners/one-liner-introduction.html">learn ruby onliners</a></li>
+<li><a href="https://learnbyexample.github.io/learn_ruby_oneliners/one-liner-introduction.html">learn ruby one-liners</a></li>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-38' href='slides_ruby_commandline.html#slide-38'>▻</a>
+<a class='slide_break' id='slide-43' href='slides_ruby_commandline.html#slide-43'>▻</a>
 <h4 id="books"><a class="anchorlink" href="#books">10.2 Books</a></h4>
 <ul>
 <li>Flanagan, Matsumoto(2008): <a href="https://www.amazon.com/Ruby-Programming-Language-David-Flanagan/dp/0596516177">The Ruby Programming Language</a>. O'Reilly. ISBN 0596516177.</li>
 <li>Thomas(2013): <a href="https://www.amazon.com/Programming-Ruby-1-9-2-0-Programmers/dp/1937785491/">Programming Ruby 1.9 + 2.0</a>. Pragmatic Porgrammers. ISBN 1937785491</li>
+<li>Black, Josef (2019): <a href="https://www.amazon.de/Well-Grounded-Rubyist-David-Black/dp/1617295213">The Well Grounded Rubyist</a>
+</li>
 <li>Olsen (2011): <a href="https://www.amazon.com/Eloquent-Ruby-Addison-Wesley-Professional/dp/0321584104/">Eloquent Ruby</a>. Addison-Wesley. ISBN 0321584104</li>
 <li>Tate(2010): <a href="https://www.amazon.com/Seven-Languages-Weeks-Programming-Programmers/dp/193435659X/">Seven Languages in Seven Weeks: A Pragmatic Guide to Learning Programming Languages</a>. Pragmatic Programmers. ISBN 193435659X</li>
 </ul>

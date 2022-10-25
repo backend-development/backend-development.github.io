@@ -9,7 +9,7 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
   <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
-  
+
   <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
 
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
@@ -29,13 +29,13 @@
       <strong class="more-info-label">More Rails: </strong>
       <ul class="more-info-links s-hidden">
         <li class="more-info"><a href="https://guides.rubyonrails.org/">Rails Guides</a></li>
-        <li class="more-info"><a href="https://curriculum.railsbridge.org/docs/">Railsbridge</a></li>
+        <li class="more-info"><a href="https://railsbridge.projects.multimediatechnology.at/docs/">Railsbridge</a></li>
         <li class="more-info"><a href="https://archive.org/details/podcast_railscasts_218282043">Railscasts</a></li>
       </ul>
       <strong class="more-info-label">Beyond Backend: </strong>
       <ul class="more-info-links s-hidden">
         <li class="more-info"><a href="https://web-engineering.github.io/">Web Engineering</a></li>
-      </ul>      
+      </ul>
     </div>
   </div>
   <div id="header">
@@ -132,7 +132,7 @@
         <h2>Deploying Rails</h2><p>Your &quot;Minimal Viable Product&quot; is finished, now you
 want to publish it on the web.</p><p>After working through this guide you should be able to</p>
 <ul>
-<li>deploy a rails app to heroku using git</li>
+<li>deploy a rails app to dokku (or heroku) using git</li>
 <li>deploy a rails app to any unix server using capistrano</li>
 </ul>
 
@@ -150,10 +150,10 @@ want to publish it on the web.</p><p>After working through this guide you should
 <a class='slide_break' id='slide-1' href='slides_deploying_rails.html#slide-1'>▻</a>
 <h3 id="deploying-with-git"><a class="anchorlink" href="#deploying-with-git">1 Deploying with git</a></h3><p>heroku is one "Platform as a Service" provider that offers
 to host your rails app.  Heroku uses git to push the code to
-the production server.</p><p>(See also 
-<a href="http://installfest.railsbridge.org/installfest/create_a_heroku_account">Railsbridge Installfest: Create A Heroku Account</a>
+the production server.</p><p>(See also
+<a href="http://railsbridge.projects.multimediatechnology.at/installfest/create_a_heroku_account">Railsbridge Installfest: Create A Heroku Account</a>
 and
-<a href="http://installfest.railsbridge.org/installfest/create_a_heroku_account#step7">Railsbridge Installfest: Create And Deploy A Rails App</a>
+<a href="https://railsbridge.projects.multimediatechnology.at/installfest/deploy_a_rails_app">Railsbridge Installfest: Deploy A Rails App</a>
 )</p>
 <ul>
 <li>create an account on <a href="https://heroku.com">https://heroku.com</a>
@@ -165,19 +165,17 @@ and
 <ul>
 <li>heroku create</li>
 <li>make some changes in the Gemfile (rubyracer, pg instead of sqlite)</li>
-<li>don't forget to commit all changes!<br>
-</li>
+<li>don't forget to commit all changes!</li>
 <li>git push heroku master</li>
 <li>heroku run rake db:migrate</li>
-<li>heroku open<br>
-</li>
+<li>heroku open</li>
 <li>heroku logs</li>
 </ul>
 <p>That's it.   You should now have an app with a very strange URL, like
 <a href="http://mighty-shore-1497.herokuapp.com/">http://mighty-shore-1497.herokuapp.com/</a></p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-2' href='slides_deploying_rails.html#slide-2'>▻</a>
-<h3 id="public-key-authentication-in-ssh"><a class="anchorlink" href="#public-key-authentication-in-ssh">2 Public Key Authentication in SSH</a></h3><p>(See also <a href="http://installfest.railsbridge.org/installfest/create_an_ssh_key">Railsbridge Installfest</a>)</p><p><img src="images/public_key_crypto.svg" alt="public key login"></p>
+<h3 id="public-key-authentication-in-ssh"><a class="anchorlink" href="#public-key-authentication-in-ssh">2 Public Key Authentication in SSH</a></h3><p>(See also <a href="http://railsbridge.projects.multimediatechnology.at/installfest/create_an_ssh_key">Railsbridge Installfest</a>)</p><p><img src="images/public_key_crypto.svg" alt="public key login"></p>
 <ul>
 <li><a href="https://dougvitale.wordpress.com/2012/02/20/ssh-the-secure-shell/">learn about ssh</a></li>
 <li>if you have a public + private key pair
@@ -364,14 +362,10 @@ the folders</p>
 <li>shared
 
 <ul>
-<li>assets<br>
-</li>
-<li>bundle<br>
-</li>
-<li>log<br>
-</li>
-<li>pids<br>
-</li>
+<li>assets</li>
+<li>bundle</li>
+<li>log</li>
+<li>pids</li>
 <li>system</li>
 </ul>
 </li>
