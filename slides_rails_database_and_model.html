@@ -137,10 +137,226 @@ in Rails configured to fit with your old database, and then refactor and migrate
 the Rails conventions step by step.</p></div>
 <div class='slide'>
 <a class='slide_break' href='rails_database_and_model.html#slide-9'>▻</a>
-<h3 id="database"><a class="anchorlink" href="#database">3 Database</a></h3></div>
+<h3 id="the-model"><a class="anchorlink" href="#the-model">3 The Model</a></h3><p>Look at the model generated in file <code>app/models/tweet.rb</code>. Later you will add validations, associations to other models and the business logic here.</p></div>
 <div class='slide'>
 <a class='slide_break' href='rails_database_and_model.html#slide-10'>▻</a>
-<h4 id="a-word-on-generators"><a class="anchorlink" href="#a-word-on-generators">3.1 A word on generators</a></h4><p>Rails comes with several commands for the command line.</p><div class="code_container">
+<h4 id="the-model-in-the-console"><a class="anchorlink" href="#the-model-in-the-console">3.1 The model in the console</a></h4><p>You can use the Rails console to work with
+the model interactively. This is similar to the ruby console <code>irb</code>
+but with your Rails app already loaded.
+Any changes you make are really written
+to the development database!</p>
+<ul>
+<li><code>rails console</code></li>
+</ul>
+<p>if you just want to play around and not make changes to the database use</p>
+<ul>
+<li><code>rails console --sandbox</code></li>
+</ul>
+<p>instead.</p></div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-11'>▻</a>
+<h4 id="finding-a-model"><a class="anchorlink" href="#finding-a-model">3.2 Finding a model</a></h4><p>The database table always has a primary key <code>id</code>. You can use this
+key to find a specific record:</p><p><img src="images/rails_console_find.png" alt="using find in the Rails console"></p><p>When you type in <code>Tweet.find(1)</code> into the Rails console, you get two answers:</p><p>First (in color) it shows you the SQL query sent to the database. In this case
+<code>SELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = ? LIMIT ?</code>. You can see
+that prepared statements are used, and that a limit is always placed on the number
+of answers.</p><p>After the Arrow (<code>=&gt;</code>) the Rails console shows the return value of the command
+you typed in. Here this is an object. The console prints out the details of this
+object using the <code>inspect</code> method.</p></div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-12'>▻</a>
+<p>From now on we will use this slightly shortended format to show Rails console
+input and output:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Tweet id: 1, status: "Where can I get a good bite to eat?", zombie: "Ash"&gt;</span>
+</code></pre>
+</div>
+<p>(We will leave out the SQL, and some timestamps.)</p></div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-13'>▻</a>
+<h4 id="accessing-the-properties"><a class="anchorlink" href="#accessing-the-properties">3.3 Accessing the properties</a></h4><p>You can access the properties of the model object as if it were a hash
+or through method names:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="o">=&gt;</span>  <span class="c1">#&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "Jim"&gt;</span>
+<span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">.</span><span class="nf">status</span>
+<span class="o">=&gt;</span> <span class="s2">"I just ate some delicious brains."</span>
+<span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">[</span><span class="ss">:status</span><span class="p">]</span>
+<span class="o">=&gt;</span> <span class="s2">"I just ate some delicious brains."</span>
+<span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">.</span><span class="nf">zombie</span>
+<span class="o">=&gt;</span> <span class="s2">"Jim"</span>
+<span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">[</span><span class="ss">:zombie</span><span class="p">]</span>
+<span class="o">=&gt;</span> <span class="s2">"Jim"</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-14'>▻</a>
+<h4 id="crud-create-read-update-delete"><a class="anchorlink" href="#crud-create-read-update-delete">3.4 CRUD = Create, Read, Update, Delete</a></h4><p>Let's see how ActiveRecord implements the four important
+capabilities of persistance:</p></div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-15'>▻</a>
+<h4 id="create"><a class="anchorlink" href="#create">3.5 Create</a></h4><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">new</span>
+<span class="n">t</span><span class="p">.</span><span class="nf">status</span> <span class="o">=</span> <span class="s2">"I &lt;3 brains."</span>
+<span class="n">t</span><span class="p">.</span><span class="nf">save</span>
+</code></pre>
+</div>
+<p>With <code>new</code> you create a new object just in memory. It is not stored in the
+database yet and does not have an <code>id</code> yet. You can set its properties.
+The <code>save</code> method tries to save it to the database.</p></div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-16'>▻</a>
+<p>On the Rails console you can see how the properties are <code>nil</code> in the beginning.
+After saving to the database some of the properties are set:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">new</span>
+ <span class="o">=&gt;</span> <span class="c1">#&lt;Tweet id: nil, status: nil, zombie: nil, created_at: nil, updated_at: nil&gt;</span>
+ <span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">.</span><span class="nf">status</span> <span class="o">=</span> <span class="s2">"I &lt;3 brains."</span>
+ <span class="o">=&gt;</span> <span class="s2">"I &lt;3 brains."</span>
+ <span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">.</span><span class="nf">save</span>
+   <span class="p">(</span><span class="mf">0.1</span><span class="n">ms</span><span class="p">)</span>  <span class="k">begin</span> <span class="n">transaction</span>
+  <span class="no">Tweet</span> <span class="no">Create</span> <span class="p">(</span><span class="mf">1.8</span><span class="n">ms</span><span class="p">)</span>  <span class="no">INSERT</span> <span class="no">INTO</span> <span class="s2">"tweets"</span> <span class="p">(</span><span class="s2">"status"</span><span class="p">,</span> <span class="s2">"created_at"</span><span class="p">,</span> <span class="s2">"updated_at"</span><span class="p">)</span> <span class="no">VALUES</span> <span class="p">(</span><span class="sc">?,</span> <span class="p">?,</span> <span class="sc">?)</span>  <span class="p">[[</span><span class="s2">"status"</span><span class="p">,</span> <span class="s2">"I &lt;3 brains."</span><span class="p">],</span> <span class="p">[</span><span class="s2">"created_at"</span><span class="p">,</span> <span class="s2">"2020-11-24 09:20:15.931090"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"updated_at"</span><span class="p">,</span> <span class="s2">"2020-11-24 09:20:15.931090"</span><span class="p">]]</span>
+   <span class="p">(</span><span class="mf">1.7</span><span class="n">ms</span><span class="p">)</span>  <span class="n">commit</span> <span class="n">transaction</span>
+ <span class="o">=&gt;</span> <span class="kp">true</span>
+<span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span>
+ <span class="o">=&gt;</span> <span class="c1">#&lt;Tweet id: 4, status: "I &lt;3 brains.", zombie: nil, created_at: "2020-11-24 09:55:37", updated_at: "2020-11-24 09:55:37"&gt;</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-17'>▻</a>
+<h4 id="read"><a class="anchorlink" href="#read">3.6 Read</a></h4><p>There are many ways to read data from the database. We already saw <code>find</code> which
+uses the primary key and always returns one object. The method <code>where</code> is used for more general <code>select - where</code> SQL statements.</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">t1</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">t2</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; '2020-10-01'"</span><span class="p">)</span>
+<span class="n">t3</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">zombie: </span><span class="s1">'Ash'</span><span class="p">)</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-18'>▻</a>
+<p>In the Rails console you can see the return values: <code>where</code> returns serveral objects in the end.</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t1</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+  <span class="no">Tweet</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">0.3</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="s2">"tweets"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"tweets"</span> <span class="no">WHERE</span> <span class="s2">"tweets"</span><span class="o">.</span><span class="s2">"id"</span> <span class="o">=</span> <span class="p">?</span> <span class="no">LIMIT</span> <span class="p">?</span>  <span class="p">[[</span><span class="s2">"id"</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="s2">"LIMIT"</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+ <span class="o">=&gt;</span> <span class="c1">#&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "Jim", created_at: "2020-11-24 09:26:48", updated_at: "2020-11-24 09:26:48"&gt;</span>
+<span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t2</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; '2020-10-01'"</span><span class="p">)</span>
+  <span class="no">Tweet</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">0.5</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="s2">"tweets"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"tweets"</span> <span class="no">WHERE</span> <span class="p">(</span><span class="n">created_at</span> <span class="o">&gt;</span> <span class="s1">'2020-10-01'</span><span class="p">)</span> <span class="no">LIMIT</span> <span class="p">?</span>  <span class="p">[[</span><span class="s2">"LIMIT"</span><span class="p">,</span> <span class="mi">11</span><span class="p">]]</span>
+ <span class="o">=&gt;</span> <span class="c1">#&lt;ActiveRecord::Relation [#&lt;Tweet id: 1, status: "I &lt;3 brains.", zombie: nil, created_at: "2020-11-24 09:20:15", updated_at: "2020-11-24 09:20:15"&gt;, #&lt;Tweet id: 2, status: "Where can I get a good bite to eat?", zombie: "Ash", created_at: "2020-11-24 09:26:26", updated_at: "2020-11-24 09:26:26"&gt;, #&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "Jim", created_at: "2020-11-24 09:26:48", updated_at: "2020-11-24 09:26:48"&gt;]&gt;</span>
+<span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t3</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">zombie: </span><span class="s1">'Ash'</span><span class="p">)</span>
+  <span class="no">Tweet</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">0.3</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="s2">"tweets"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"tweets"</span> <span class="no">WHERE</span> <span class="s2">"tweets"</span><span class="o">.</span><span class="s2">"zombie"</span> <span class="o">=</span> <span class="p">?</span> <span class="no">LIMIT</span> <span class="p">?</span>  <span class="p">[[</span><span class="s2">"zombie"</span><span class="p">,</span> <span class="s2">"Ash"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"LIMIT"</span><span class="p">,</span> <span class="mi">11</span><span class="p">]]</span>
+ <span class="o">=&gt;</span> <span class="c1">#&lt;ActiveRecord::Relation [#&lt;Tweet id: 2, status: "Where can I get a good bite to eat?", zombie: "Ash", created_at: "2020-11-24 09:26:26", updated_at: "2020-11-24 09:26:26"&gt;]&gt;</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-19'>▻</a>
+<h4 id="update"><a class="anchorlink" href="#update">3.7 Update</a></h4><p>With update - as with <code>new</code> before - we see the difference between the
+object in memory (<code>t</code>) which can be changed and the object in the database
+which is only changed when t is saved back to the database.</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">t</span><span class="p">.</span><span class="nf">zombie</span> <span class="o">=</span> <span class="s2">"EyeballChomper"</span>
+<span class="n">t</span><span class="p">.</span><span class="nf">save</span>
+</code></pre>
+</div>
+<p>In the Rails console you can see that for every change in the object
+the property <code>updated_at</code> is automatically set.</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+  <span class="no">Tweet</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">0.4</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="s2">"tweets"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"tweets"</span> <span class="no">WHERE</span> <span class="s2">"tweets"</span><span class="o">.</span><span class="s2">"id"</span> <span class="o">=</span> <span class="p">?</span> <span class="no">LIMIT</span> <span class="p">?</span>  <span class="p">[[</span><span class="s2">"id"</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="s2">"LIMIT"</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+ <span class="o">=&gt;</span> <span class="c1">#&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "Jim", created_at: "2020-11-24 09:26:48", updated_at: "2020-11-24 09:26:48"&gt;</span>
+<span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">.</span><span class="nf">zombie</span> <span class="o">=</span> <span class="s2">"EyeballChomper"</span>
+ <span class="o">=&gt;</span> <span class="s2">"EyeballChomper"</span>
+<span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">.</span><span class="nf">save</span>
+   <span class="p">(</span><span class="mf">0.2</span><span class="n">ms</span><span class="p">)</span>  <span class="k">begin</span> <span class="n">transaction</span>
+  <span class="no">Tweet</span> <span class="no">Update</span> <span class="p">(</span><span class="mf">0.6</span><span class="n">ms</span><span class="p">)</span>  <span class="no">UPDATE</span> <span class="s2">"tweets"</span> <span class="no">SET</span> <span class="s2">"zombie"</span> <span class="o">=</span> <span class="sc">?,</span> <span class="s2">"updated_at"</span> <span class="o">=</span> <span class="p">?</span> <span class="no">WHERE</span> <span class="s2">"tweets"</span><span class="o">.</span><span class="s2">"id"</span> <span class="o">=</span> <span class="p">?</span>  <span class="p">[[</span><span class="s2">"zombie"</span><span class="p">,</span> <span class="s2">"EyeballChomper"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"updated_at"</span><span class="p">,</span> <span class="s2">"2020-11-24 09:32:52.071511"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"id"</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span>
+   <span class="p">(</span><span class="mf">1.2</span><span class="n">ms</span><span class="p">)</span>  <span class="n">commit</span> <span class="n">transaction</span>
+ <span class="o">=&gt;</span> <span class="kp">true</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-20'>▻</a>
+<h4 id="delete"><a class="anchorlink" href="#delete">3.8 Delete</a></h4><p>To delete both the object in memory and in the database use <code>destroy</code>.</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">t</span><span class="p">.</span><span class="nf">destroy</span>
+</code></pre>
+</div>
+<p>On the console you can see how <code>destroy</code> is translated to <code>DELETE</code> in SQL.</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+  <span class="no">Tweet</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">0.3</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="s2">"tweets"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"tweets"</span> <span class="no">WHERE</span> <span class="s2">"tweets"</span><span class="o">.</span><span class="s2">"id"</span> <span class="o">=</span> <span class="p">?</span> <span class="no">LIMIT</span> <span class="p">?</span>  <span class="p">[[</span><span class="s2">"id"</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="s2">"LIMIT"</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+ <span class="o">=&gt;</span> <span class="c1">#&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "EyeballChomper", created_at: "2020-11-24 09:26:48", updated_at: "2020-11-24 09:32:52"&gt;</span>
+<span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">.</span><span class="nf">destroy</span>
+   <span class="p">(</span><span class="mf">0.1</span><span class="n">ms</span><span class="p">)</span>  <span class="k">begin</span> <span class="n">transaction</span>
+  <span class="no">Tweet</span> <span class="no">Destroy</span> <span class="p">(</span><span class="mf">0.7</span><span class="n">ms</span><span class="p">)</span>  <span class="no">DELETE</span> <span class="no">FROM</span> <span class="s2">"tweets"</span> <span class="no">WHERE</span> <span class="s2">"tweets"</span><span class="o">.</span><span class="s2">"id"</span> <span class="o">=</span> <span class="p">?</span>  <span class="p">[[</span><span class="s2">"id"</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span>
+   <span class="p">(</span><span class="mf">1.1</span><span class="n">ms</span><span class="p">)</span>  <span class="n">commit</span> <span class="n">transaction</span>
+ <span class="o">=&gt;</span> <span class="c1">#&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "EyeballChomper", created_at: "2020-11-24 09:26:48", updated_at: "2020-11-24 09:32:52"&gt;</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-21'>▻</a>
+<h4 id="chaining-activerecord-methods"><a class="anchorlink" href="#chaining-activerecord-methods">3.9 Chaining ActiveRecord methods</a></h4><p>Let's look at the example of using <code>where</code> again: the return value was of class <code>ActiveRecord::Relation</code>:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t3</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">zombie: </span><span class="s1">'Ash'</span><span class="p">)</span>
+  <span class="no">Tweet</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">0.3</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="s2">"tweets"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"tweets"</span> <span class="no">WHERE</span> <span class="s2">"tweets"</span><span class="o">.</span><span class="s2">"zombie"</span> <span class="o">=</span> <span class="p">?</span> <span class="no">LIMIT</span> <span class="p">?</span>  <span class="p">[[</span><span class="s2">"zombie"</span><span class="p">,</span> <span class="s2">"Ash"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"LIMIT"</span><span class="p">,</span> <span class="mi">11</span><span class="p">]]</span>
+ <span class="o">=&gt;</span> <span class="c1">#&lt;ActiveRecord::Relation [#&lt;Tweet id: 2, status: "Where can I get a good bite to eat?", zombie: "Ash", created_at: "2020-11-24 09:26:26", updated_at: "2020-11-24 09:26:26"&gt;]&gt;</span>
+</code></pre>
+</div>
+<p>This class also supports all the ActiveRecord methods. This means
+we can chain several <code>where</code>s together:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">tweets</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; '2020-10-01'"</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="ss">zombie: </span><span class="s1">'Ash'</span><span class="p">)</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-22'>▻</a>
+<p>In fact there are many more methods we might want to use for chaining:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="no">Tweet</span><span class="p">.</span><span class="nf">limit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="no">Tweet</span><span class="p">.</span><span class="nf">order</span><span class="p">(</span><span class="ss">:zombie</span><span class="p">)</span>
+<span class="no">Tweet</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="ss">:created_at</span><span class="p">,</span> <span class="ss">:zombie</span><span class="p">,</span> <span class="ss">:status</span><span class="p">)</span>
+<span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; '2020-10-01'"</span><span class="p">).</span>
+  <span class="nf">where</span><span class="p">(</span><span class="ss">zombie: </span><span class="s1">'Ash'</span><span class="p">).</span>
+  <span class="nf">order</span><span class="p">(</span><span class="ss">:zombie</span><span class="p">).</span><span class="nf">limit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</code></pre>
+</div>
+<p>(Normally the dot is placed in front of the method when chaining. Here
+it is placed at the end, to enable copy-and-paste to the Rails console)</p></div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-23'>▻</a>
+<p>You can use the method <code>to_sql</code> to see the SQL Statement produced by the chained methods:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="ss">:created_at</span><span class="p">,</span> <span class="ss">:zombie</span><span class="p">,</span> <span class="ss">:status</span><span class="p">).</span>
+  <span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; '2020-10-01'"</span><span class="p">).</span>
+  <span class="nf">where</span><span class="p">(</span><span class="ss">zombie: </span><span class="s1">'Ash'</span><span class="p">).</span>
+  <span class="nf">order</span><span class="p">(</span><span class="ss">:zombie</span><span class="p">).</span>
+  <span class="nf">limit</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="nf">to_sql</span>
+ <span class="o">=&gt;</span> <span class="no">SELECT</span>  <span class="s2">"created_at"</span><span class="p">,</span> <span class="s2">"zombie"</span><span class="p">,</span> <span class="s2">"status"</span>
+       <span class="no">FROM</span> <span class="s2">"tweets"</span>
+       <span class="no">WHERE</span> <span class="p">(</span><span class="n">created_at</span> <span class="o">&gt;</span> <span class="s1">'2020-10-01'</span><span class="p">)</span>
+       <span class="no">AND</span> <span class="s2">"zombie"</span> <span class="o">=</span> <span class="s1">'Ash'</span>
+       <span class="no">ORDER</span> <span class="no">BY</span> <span class="s2">"zombie"</span> <span class="no">ASC</span>
+       <span class="no">LIMIT</span> <span class="mi">3</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-24'>▻</a>
+<p>The order of the methods is not relevant. You can also save an intermediate step to
+a variable, and then chain more methods to that variable later on:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">query</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; '2020-10-01'"</span><span class="p">).</span>
+  <span class="nf">order</span><span class="p">(</span><span class="ss">:zombie</span><span class="p">).</span><span class="nf">limit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">query</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="ss">:created_at</span><span class="p">,</span> <span class="ss">:zombie</span><span class="p">,</span> <span class="ss">:status</span><span class="p">).</span>
+  <span class="nf">where</span><span class="p">(</span><span class="ss">zombie: </span><span class="s1">'Ash'</span><span class="p">).</span><span class="nf">to_sql</span>
+ <span class="o">=&gt;</span> <span class="no">SELECT</span>  <span class="s2">"created_at"</span><span class="p">,</span> <span class="s2">"zombie"</span><span class="p">,</span> <span class="s2">"status"</span>
+      <span class="no">FROM</span> <span class="s2">"tweets"</span>
+      <span class="no">WHERE</span> <span class="p">(</span><span class="n">created_at</span> <span class="o">&gt;</span> <span class="s1">'2020-10-01'</span><span class="p">)</span>
+      <span class="no">AND</span> <span class="s2">"zombie"</span> <span class="o">=</span> <span class="s1">'Ash'</span>
+      <span class="no">ORDER</span> <span class="no">BY</span> <span class="s2">"zombie"</span> <span class="no">ASC</span>
+      <span class="no">LIMIT</span> <span class="mi">3</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-25'>▻</a>
+<h3 id="database"><a class="anchorlink" href="#database">4 Database</a></h3></div>
+<div class='slide'>
+<a class='slide_break' href='rails_database_and_model.html#slide-26'>▻</a>
+<h4 id="a-word-on-generators"><a class="anchorlink" href="#a-word-on-generators">4.1 A word on generators</a></h4><p>Rails comes with several commands for the command line.</p><div class="code_container">
 <pre><code class="highlight plaintext">$ rails --help
 The most common rails commands are:
  generate     Generate new code (short-cut alias: "g")
@@ -155,17 +371,17 @@ The most common rails commands are:
 <p>First we will
 use a generator that will help us generate some code.</p></div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-11'>▻</a>
-<h4 id="how-to-build-a-table"><a class="anchorlink" href="#how-to-build-a-table">3.2 How to build a Table</a></h4><p>To build the first model and its corresponding database table, use the model generator:</p><p><code>rails generate model tweet status zombie</code></p><p>This will generate a Model <code>Tweet</code> and a migration to create table <code>tweets</code>.</p><p>Have a look at the migration that was generated in <code>db/migrate/*create_tweets.rb</code>.
+<a class='slide_break' href='rails_database_and_model.html#slide-27'>▻</a>
+<h4 id="how-to-build-a-table"><a class="anchorlink" href="#how-to-build-a-table">4.2 How to build a Table</a></h4><p>To build the first model and its corresponding database table, use the model generator:</p><p><code>rails generate model tweet status zombie</code></p><p>This will generate a Model <code>Tweet</code> and a migration to create table <code>tweets</code>.</p><p>Have a look at the migration that was generated in <code>db/migrate/*create_tweets.rb</code>.
 You can edit this migration now - but not later! Run the migration on the command line with <code>rails db:migrate</code>. This will run the appropriate <code>CREATE TABLE</code> statement in your database.</p><p>Look at the model generated in file <code>app/models/tweet.rb</code>. Add validations, associations to other models and the business logic here.</p></div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-12'>▻</a>
-<h4 id="database-migrations"><a class="anchorlink" href="#database-migrations">3.3 Database Migrations</a></h4><p>During Development the database schema will change just as much as
+<a class='slide_break' href='rails_database_and_model.html#slide-28'>▻</a>
+<h4 id="database-migrations"><a class="anchorlink" href="#database-migrations">4.3 Database Migrations</a></h4><p>During Development the database schema will change just as much as
 the code will change. And both changes belong together: if I push out
 a code change to my fellow developers without the db schema changes,
 they will not be able to use the code.</p><p>Rails offers "Database Migrations" to cope with this fact.</p></div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-13'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-29'>▻</a>
 <p>A "Migration" is a (small) change in the database schema. The change is
 described in Ruby and saved to a file in the folder <code>db/migrations</code>.
 The files are identified by a timestamp and a unique name, for example:</p><div class="code_container">
@@ -177,7 +393,7 @@ The files are identified by a timestamp and a unique name, for example:</p><div 
 <p>The first two of these migrations were generated by the model generator,
 the last one by <code>rails generate migration AddVideoLinkToEvent</code>.</p></div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-14'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-30'>▻</a>
 <p>The model generator creates a migration for creating a table:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">CreateEvents</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
   <span class="k">def</span> <span class="nf">change</span>
@@ -196,7 +412,7 @@ the last one by <code>rails generate migration AddVideoLinkToEvent</code>.</p></
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-15'>▻</a>
+<a class='slide_break' href='rails_database_and_model.html#slide-31'>▻</a>
 <p>Use <code>rails</code> on the commandline to apply this migration to the existing database:</p>
 <ul>
 <li>
@@ -207,8 +423,8 @@ the last one by <code>rails generate migration AddVideoLinkToEvent</code>.</p></
 <p>A word of warning: you never, ever need to change a migration after
 using, commiting and pushing it. You only ever add new migrations!</p></div>
 <div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-16'>▻</a>
-<h4 id="a-real-world-example"><a class="anchorlink" href="#a-real-world-example">3.4 a real world example:</a></h4><p>The following output is from upgrading gitlab. Gitlab
+<a class='slide_break' href='rails_database_and_model.html#slide-32'>▻</a>
+<h4 id="a-real-world-example"><a class="anchorlink" href="#a-real-world-example">4.4 a real world example:</a></h4><p>The following output is from upgrading gitlab. Gitlab
 is written in Rails. Here we can see three migrations being applied to
 the existing database:</p><div class="code_container">
 <pre><code class="highlight plaintext">== 20191120084627 AddEncryptedFieldsToApplicationSettings: migrating ==========
@@ -255,222 +471,6 @@ the existing database:</p><div class="code_container">
 -- remove_column(:application_settings, "slack_app_verification_token")
  -&gt; 0.0007s
 == 20191122135327 RemovePlaintextColumnsFromApplicationSettings: migrated (0.0045s)
-</code></pre>
-</div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-17'>▻</a>
-<h3 id="the-model"><a class="anchorlink" href="#the-model">4 The Model</a></h3><p>Look at the model generated in file <code>app/models/tweet.rb</code>. Later you will add validations, associations to other models and the business logic here.</p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-18'>▻</a>
-<h4 id="the-model-in-the-console"><a class="anchorlink" href="#the-model-in-the-console">4.1 The model in the console</a></h4><p>You can use the Rails console to work with
-the model interactively. This is similar to the ruby console <code>irb</code>
-but with your Rails app already loaded.
-Any changes you make are really written
-to the development database!</p>
-<ul>
-<li><code>rails console</code></li>
-</ul>
-<p>if you just want to play around and not make changes to the database use</p>
-<ul>
-<li><code>rails console --sandbox</code></li>
-</ul>
-<p>instead.</p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-19'>▻</a>
-<h4 id="finding-a-model"><a class="anchorlink" href="#finding-a-model">4.2 Finding a model</a></h4><p>The database table always has a primary key <code>id</code>. You can use this
-key to find a specific record:</p><p><img src="images/rails_console_find.png" alt="using find in the Rails console"></p><p>When you type in <code>Tweet.find(1)</code> into the Rails console, you get two answers:</p><p>First (in color) it shows you the SQL query sent to the database. In this case
-<code>SELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = ? LIMIT ?</code>. You can see
-that prepared statements are used, and that a limit is always placed on the number
-of answers.</p><p>After the Arrow (<code>=&gt;</code>) the Rails console shows the return value of the command
-you typed in. Here this is an object. The console prints out the details of this
-object using the <code>inspect</code> method.</p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-20'>▻</a>
-<p>From now on we will use this slightly shortended format to show Rails console
-input and output:</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="o">=&gt;</span> <span class="c1">#&lt;Tweet id: 1, status: "Where can I get a good bite to eat?", zombie: "Ash"&gt;</span>
-</code></pre>
-</div>
-<p>(We will leave out the SQL, and some timestamps.)</p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-21'>▻</a>
-<h4 id="accessing-the-properties"><a class="anchorlink" href="#accessing-the-properties">4.3 Accessing the properties</a></h4><p>You can access the properties of the model object as if it were a hash
-or through method names:</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="o">=&gt;</span>  <span class="c1">#&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "Jim"&gt;</span>
-<span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">.</span><span class="nf">status</span>
-<span class="o">=&gt;</span> <span class="s2">"I just ate some delicious brains."</span>
-<span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">[</span><span class="ss">:status</span><span class="p">]</span>
-<span class="o">=&gt;</span> <span class="s2">"I just ate some delicious brains."</span>
-<span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">.</span><span class="nf">zombie</span>
-<span class="o">=&gt;</span> <span class="s2">"Jim"</span>
-<span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">[</span><span class="ss">:zombie</span><span class="p">]</span>
-<span class="o">=&gt;</span> <span class="s2">"Jim"</span>
-</code></pre>
-</div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-22'>▻</a>
-<h4 id="crud-create-read-update-delete"><a class="anchorlink" href="#crud-create-read-update-delete">4.4 CRUD = Create, Read, Update, Delete</a></h4><p>Let's see how ActiveRecord implements the four important
-capabilities of persistance:</p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-23'>▻</a>
-<h4 id="create"><a class="anchorlink" href="#create">4.5 Create</a></h4><div class="code_container">
-<pre><code class="highlight ruby"><span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">new</span>
-<span class="n">t</span><span class="p">.</span><span class="nf">status</span> <span class="o">=</span> <span class="s2">"I &lt;3 brains."</span>
-<span class="n">t</span><span class="p">.</span><span class="nf">save</span>
-</code></pre>
-</div>
-<p>With <code>new</code> you create a new object just in memory. It is not stored in the
-database yet and does not have an <code>id</code> yet. You can set its properties.
-The <code>save</code> method tries to save it to the database.</p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-24'>▻</a>
-<p>On the Rails console you can see how the properties are <code>nil</code> in the beginning.
-After saving to the database some of the properties are set:</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">new</span>
- <span class="o">=&gt;</span> <span class="c1">#&lt;Tweet id: nil, status: nil, zombie: nil, created_at: nil, updated_at: nil&gt;</span>
- <span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">.</span><span class="nf">status</span> <span class="o">=</span> <span class="s2">"I &lt;3 brains."</span>
- <span class="o">=&gt;</span> <span class="s2">"I &lt;3 brains."</span>
- <span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">.</span><span class="nf">save</span>
-   <span class="p">(</span><span class="mf">0.1</span><span class="n">ms</span><span class="p">)</span>  <span class="k">begin</span> <span class="n">transaction</span>
-  <span class="no">Tweet</span> <span class="no">Create</span> <span class="p">(</span><span class="mf">1.8</span><span class="n">ms</span><span class="p">)</span>  <span class="no">INSERT</span> <span class="no">INTO</span> <span class="s2">"tweets"</span> <span class="p">(</span><span class="s2">"status"</span><span class="p">,</span> <span class="s2">"created_at"</span><span class="p">,</span> <span class="s2">"updated_at"</span><span class="p">)</span> <span class="no">VALUES</span> <span class="p">(</span><span class="sc">?,</span> <span class="p">?,</span> <span class="sc">?)</span>  <span class="p">[[</span><span class="s2">"status"</span><span class="p">,</span> <span class="s2">"I &lt;3 brains."</span><span class="p">],</span> <span class="p">[</span><span class="s2">"created_at"</span><span class="p">,</span> <span class="s2">"2020-11-24 09:20:15.931090"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"updated_at"</span><span class="p">,</span> <span class="s2">"2020-11-24 09:20:15.931090"</span><span class="p">]]</span>
-   <span class="p">(</span><span class="mf">1.7</span><span class="n">ms</span><span class="p">)</span>  <span class="n">commit</span> <span class="n">transaction</span>
- <span class="o">=&gt;</span> <span class="kp">true</span>
-<span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span>
- <span class="o">=&gt;</span> <span class="c1">#&lt;Tweet id: 4, status: "I &lt;3 brains.", zombie: nil, created_at: "2020-11-24 09:55:37", updated_at: "2020-11-24 09:55:37"&gt;</span>
-</code></pre>
-</div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-25'>▻</a>
-<h4 id="read"><a class="anchorlink" href="#read">4.6 Read</a></h4><p>There are many ways to read data from the database. We already saw <code>find</code> which
-uses the primary key and always returns one object. The method <code>where</code> is used for more general <code>select - where</code> SQL statements.</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="n">t1</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">t2</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; '2020-10-01'"</span><span class="p">)</span>
-<span class="n">t3</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">zombie: </span><span class="s1">'Ash'</span><span class="p">)</span>
-</code></pre>
-</div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-26'>▻</a>
-<p>In the Rails console you can see the return values: <code>where</code> returns serveral objects in the end.</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t1</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-  <span class="no">Tweet</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">0.3</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="s2">"tweets"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"tweets"</span> <span class="no">WHERE</span> <span class="s2">"tweets"</span><span class="o">.</span><span class="s2">"id"</span> <span class="o">=</span> <span class="p">?</span> <span class="no">LIMIT</span> <span class="p">?</span>  <span class="p">[[</span><span class="s2">"id"</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="s2">"LIMIT"</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
- <span class="o">=&gt;</span> <span class="c1">#&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "Jim", created_at: "2020-11-24 09:26:48", updated_at: "2020-11-24 09:26:48"&gt;</span>
-<span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t2</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; '2020-10-01'"</span><span class="p">)</span>
-  <span class="no">Tweet</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">0.5</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="s2">"tweets"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"tweets"</span> <span class="no">WHERE</span> <span class="p">(</span><span class="n">created_at</span> <span class="o">&gt;</span> <span class="s1">'2020-10-01'</span><span class="p">)</span> <span class="no">LIMIT</span> <span class="p">?</span>  <span class="p">[[</span><span class="s2">"LIMIT"</span><span class="p">,</span> <span class="mi">11</span><span class="p">]]</span>
- <span class="o">=&gt;</span> <span class="c1">#&lt;ActiveRecord::Relation [#&lt;Tweet id: 1, status: "I &lt;3 brains.", zombie: nil, created_at: "2020-11-24 09:20:15", updated_at: "2020-11-24 09:20:15"&gt;, #&lt;Tweet id: 2, status: "Where can I get a good bite to eat?", zombie: "Ash", created_at: "2020-11-24 09:26:26", updated_at: "2020-11-24 09:26:26"&gt;, #&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "Jim", created_at: "2020-11-24 09:26:48", updated_at: "2020-11-24 09:26:48"&gt;]&gt;</span>
-<span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t3</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">zombie: </span><span class="s1">'Ash'</span><span class="p">)</span>
-  <span class="no">Tweet</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">0.3</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="s2">"tweets"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"tweets"</span> <span class="no">WHERE</span> <span class="s2">"tweets"</span><span class="o">.</span><span class="s2">"zombie"</span> <span class="o">=</span> <span class="p">?</span> <span class="no">LIMIT</span> <span class="p">?</span>  <span class="p">[[</span><span class="s2">"zombie"</span><span class="p">,</span> <span class="s2">"Ash"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"LIMIT"</span><span class="p">,</span> <span class="mi">11</span><span class="p">]]</span>
- <span class="o">=&gt;</span> <span class="c1">#&lt;ActiveRecord::Relation [#&lt;Tweet id: 2, status: "Where can I get a good bite to eat?", zombie: "Ash", created_at: "2020-11-24 09:26:26", updated_at: "2020-11-24 09:26:26"&gt;]&gt;</span>
-</code></pre>
-</div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-27'>▻</a>
-<h4 id="update"><a class="anchorlink" href="#update">4.7 Update</a></h4><p>With update - as with <code>new</code> before - we see the difference between the
-object in memory (<code>t</code>) which can be changed and the object in the database
-which is only changed when t is saved back to the database.</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">t</span><span class="p">.</span><span class="nf">zombie</span> <span class="o">=</span> <span class="s2">"EyeballChomper"</span>
-<span class="n">t</span><span class="p">.</span><span class="nf">save</span>
-</code></pre>
-</div>
-<p>In the Rails console you can see that for every change in the object
-the property <code>updated_at</code> is automatically set.</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-  <span class="no">Tweet</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">0.4</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="s2">"tweets"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"tweets"</span> <span class="no">WHERE</span> <span class="s2">"tweets"</span><span class="o">.</span><span class="s2">"id"</span> <span class="o">=</span> <span class="p">?</span> <span class="no">LIMIT</span> <span class="p">?</span>  <span class="p">[[</span><span class="s2">"id"</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="s2">"LIMIT"</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
- <span class="o">=&gt;</span> <span class="c1">#&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "Jim", created_at: "2020-11-24 09:26:48", updated_at: "2020-11-24 09:26:48"&gt;</span>
-<span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">.</span><span class="nf">zombie</span> <span class="o">=</span> <span class="s2">"EyeballChomper"</span>
- <span class="o">=&gt;</span> <span class="s2">"EyeballChomper"</span>
-<span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">.</span><span class="nf">save</span>
-   <span class="p">(</span><span class="mf">0.2</span><span class="n">ms</span><span class="p">)</span>  <span class="k">begin</span> <span class="n">transaction</span>
-  <span class="no">Tweet</span> <span class="no">Update</span> <span class="p">(</span><span class="mf">0.6</span><span class="n">ms</span><span class="p">)</span>  <span class="no">UPDATE</span> <span class="s2">"tweets"</span> <span class="no">SET</span> <span class="s2">"zombie"</span> <span class="o">=</span> <span class="sc">?,</span> <span class="s2">"updated_at"</span> <span class="o">=</span> <span class="p">?</span> <span class="no">WHERE</span> <span class="s2">"tweets"</span><span class="o">.</span><span class="s2">"id"</span> <span class="o">=</span> <span class="p">?</span>  <span class="p">[[</span><span class="s2">"zombie"</span><span class="p">,</span> <span class="s2">"EyeballChomper"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"updated_at"</span><span class="p">,</span> <span class="s2">"2020-11-24 09:32:52.071511"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"id"</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span>
-   <span class="p">(</span><span class="mf">1.2</span><span class="n">ms</span><span class="p">)</span>  <span class="n">commit</span> <span class="n">transaction</span>
- <span class="o">=&gt;</span> <span class="kp">true</span>
-</code></pre>
-</div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-28'>▻</a>
-<h4 id="delete"><a class="anchorlink" href="#delete">4.8 Delete</a></h4><p>To delete both the object in memory and in the database use <code>destroy</code>.</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">t</span><span class="p">.</span><span class="nf">destroy</span>
-</code></pre>
-</div>
-<p>On the console you can see how <code>destroy</code> is translated to <code>DELETE</code> in SQL.</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-  <span class="no">Tweet</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">0.3</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="s2">"tweets"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"tweets"</span> <span class="no">WHERE</span> <span class="s2">"tweets"</span><span class="o">.</span><span class="s2">"id"</span> <span class="o">=</span> <span class="p">?</span> <span class="no">LIMIT</span> <span class="p">?</span>  <span class="p">[[</span><span class="s2">"id"</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="s2">"LIMIT"</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
- <span class="o">=&gt;</span> <span class="c1">#&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "EyeballChomper", created_at: "2020-11-24 09:26:48", updated_at: "2020-11-24 09:32:52"&gt;</span>
-<span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">.</span><span class="nf">destroy</span>
-   <span class="p">(</span><span class="mf">0.1</span><span class="n">ms</span><span class="p">)</span>  <span class="k">begin</span> <span class="n">transaction</span>
-  <span class="no">Tweet</span> <span class="no">Destroy</span> <span class="p">(</span><span class="mf">0.7</span><span class="n">ms</span><span class="p">)</span>  <span class="no">DELETE</span> <span class="no">FROM</span> <span class="s2">"tweets"</span> <span class="no">WHERE</span> <span class="s2">"tweets"</span><span class="o">.</span><span class="s2">"id"</span> <span class="o">=</span> <span class="p">?</span>  <span class="p">[[</span><span class="s2">"id"</span><span class="p">,</span> <span class="mi">3</span><span class="p">]]</span>
-   <span class="p">(</span><span class="mf">1.1</span><span class="n">ms</span><span class="p">)</span>  <span class="n">commit</span> <span class="n">transaction</span>
- <span class="o">=&gt;</span> <span class="c1">#&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "EyeballChomper", created_at: "2020-11-24 09:26:48", updated_at: "2020-11-24 09:32:52"&gt;</span>
-</code></pre>
-</div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-29'>▻</a>
-<h4 id="chaining-activerecord-methods"><a class="anchorlink" href="#chaining-activerecord-methods">4.9 Chaining ActiveRecord methods</a></h4><p>Let's look at the example of using <code>where</code> again: the return value was of class <code>ActiveRecord::Relation</code>:</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t3</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">zombie: </span><span class="s1">'Ash'</span><span class="p">)</span>
-  <span class="no">Tweet</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">0.3</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span>  <span class="s2">"tweets"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"tweets"</span> <span class="no">WHERE</span> <span class="s2">"tweets"</span><span class="o">.</span><span class="s2">"zombie"</span> <span class="o">=</span> <span class="p">?</span> <span class="no">LIMIT</span> <span class="p">?</span>  <span class="p">[[</span><span class="s2">"zombie"</span><span class="p">,</span> <span class="s2">"Ash"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"LIMIT"</span><span class="p">,</span> <span class="mi">11</span><span class="p">]]</span>
- <span class="o">=&gt;</span> <span class="c1">#&lt;ActiveRecord::Relation [#&lt;Tweet id: 2, status: "Where can I get a good bite to eat?", zombie: "Ash", created_at: "2020-11-24 09:26:26", updated_at: "2020-11-24 09:26:26"&gt;]&gt;</span>
-</code></pre>
-</div>
-<p>This class also supports all the ActiveRecord methods. This means
-we can chain several <code>where</code>s together:</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="n">tweets</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; '2020-10-01'"</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="ss">zombie: </span><span class="s1">'Ash'</span><span class="p">)</span>
-</code></pre>
-</div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-30'>▻</a>
-<p>In fact there are many more methods we might want to use for chaining:</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="no">Tweet</span><span class="p">.</span><span class="nf">limit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="no">Tweet</span><span class="p">.</span><span class="nf">order</span><span class="p">(</span><span class="ss">:zombie</span><span class="p">)</span>
-<span class="no">Tweet</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="ss">:created_at</span><span class="p">,</span> <span class="ss">:zombie</span><span class="p">,</span> <span class="ss">:status</span><span class="p">)</span>
-<span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; '2020-10-01'"</span><span class="p">).</span>
-  <span class="nf">where</span><span class="p">(</span><span class="ss">zombie: </span><span class="s1">'Ash'</span><span class="p">).</span>
-  <span class="nf">order</span><span class="p">(</span><span class="ss">:zombie</span><span class="p">).</span><span class="nf">limit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-</code></pre>
-</div>
-<p>(Normally the dot is placed in front of the method when chaining. Here
-it is placed at the end, to enable copy-and-paste to the Rails console)</p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-31'>▻</a>
-<p>You can use the method <code>to_sql</code> to see the SQL Statement produced by the chained methods:</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="ss">:created_at</span><span class="p">,</span> <span class="ss">:zombie</span><span class="p">,</span> <span class="ss">:status</span><span class="p">).</span>
-  <span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; '2020-10-01'"</span><span class="p">).</span>
-  <span class="nf">where</span><span class="p">(</span><span class="ss">zombie: </span><span class="s1">'Ash'</span><span class="p">).</span>
-  <span class="nf">order</span><span class="p">(</span><span class="ss">:zombie</span><span class="p">).</span>
-  <span class="nf">limit</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="nf">to_sql</span>
- <span class="o">=&gt;</span> <span class="no">SELECT</span>  <span class="s2">"created_at"</span><span class="p">,</span> <span class="s2">"zombie"</span><span class="p">,</span> <span class="s2">"status"</span>
-       <span class="no">FROM</span> <span class="s2">"tweets"</span>
-       <span class="no">WHERE</span> <span class="p">(</span><span class="n">created_at</span> <span class="o">&gt;</span> <span class="s1">'2020-10-01'</span><span class="p">)</span>
-       <span class="no">AND</span> <span class="s2">"zombie"</span> <span class="o">=</span> <span class="s1">'Ash'</span>
-       <span class="no">ORDER</span> <span class="no">BY</span> <span class="s2">"zombie"</span> <span class="no">ASC</span>
-       <span class="no">LIMIT</span> <span class="mi">3</span>
-</code></pre>
-</div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='rails_database_and_model.html#slide-32'>▻</a>
-<p>The order of the methods is not relevant. You can also save an intermediate step to
-a variable, and then chain more methods to that variable later on:</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">query</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; '2020-10-01'"</span><span class="p">).</span>
-  <span class="nf">order</span><span class="p">(</span><span class="ss">:zombie</span><span class="p">).</span><span class="nf">limit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">query</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="ss">:created_at</span><span class="p">,</span> <span class="ss">:zombie</span><span class="p">,</span> <span class="ss">:status</span><span class="p">).</span>
-  <span class="nf">where</span><span class="p">(</span><span class="ss">zombie: </span><span class="s1">'Ash'</span><span class="p">).</span><span class="nf">to_sql</span>
- <span class="o">=&gt;</span> <span class="no">SELECT</span>  <span class="s2">"created_at"</span><span class="p">,</span> <span class="s2">"zombie"</span><span class="p">,</span> <span class="s2">"status"</span>
-      <span class="no">FROM</span> <span class="s2">"tweets"</span>
-      <span class="no">WHERE</span> <span class="p">(</span><span class="n">created_at</span> <span class="o">&gt;</span> <span class="s1">'2020-10-01'</span><span class="p">)</span>
-      <span class="no">AND</span> <span class="s2">"zombie"</span> <span class="o">=</span> <span class="s1">'Ash'</span>
-      <span class="no">ORDER</span> <span class="no">BY</span> <span class="s2">"zombie"</span> <span class="no">ASC</span>
-      <span class="no">LIMIT</span> <span class="mi">3</span>
 </code></pre>
 </div>
 </div>
