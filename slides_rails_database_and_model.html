@@ -68,7 +68,18 @@ and has been discussed since the early 1980s.</p></div>
 <h4 id="orms"><a class="anchorlink" href="#orms">1.1 ORMs</a></h4><p>Today there exist several Design Patterns and Libraries for solving this.
 The solution is called an Object Relational Mapper or ORM.</p><p>Two Patterns used in Rails for this problem are ActiveRecord and ObjectMapper, both
 described by Fowler in his 2003 book <a href="https://martinfowler.com/books/eaa.html">Patterns of Enterprise Application Architecture</a>.
-ActiveRecord is the default solution used in Rails, we will look into it in detail here.</p></div>
+ActiveRecord is the default solution used in Rails, we will look into it in detail here.</p><p>Some example-ORMs in other Languages:</p>
+<ul>
+<li>PHP: <a href="https://www.doctrine-project.org/">Doctrine</a> and <a href="https://propelorm.org/">Propel</a>
+</li>
+<li>Java: <a href="https://hibernate.org/">Hibernate</a>
+</li>
+<li>Python: <a href="https://www.sqlalchemy.org/">SQL Alchemy</a> and <a href="https://www.fullstackpython.com/object-relational-mappers-orms.html">many more</a>
+</li>
+<li>JavaScript+Typescript: <a href="https://sequelize.org/">Sequelize</a>, <a href="https://typeorm.io/">TypeORM</a>, <a href="https://www.prisma.io/">prisma</a> and <a href="https://blog.logrocket.com/best-typescript-orms/#picking-best-typescript-orms">many more</a>
+</li>
+</ul>
+</div>
 <div class='slide'>
 <a class='slide_break' href='rails_database_and_model.html#slide-5'>▻</a>
 <h3 id="activerecord-basics"><a class="anchorlink" href="#activerecord-basics">2 ActiveRecord Basics</a></h3><p>Rails implements the Active Record pattern in a class called <code>ActiveRecord</code>.
