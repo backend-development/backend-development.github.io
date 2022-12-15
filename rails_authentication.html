@@ -159,7 +159,7 @@
 <li>be able to build a rails app with simple login and logout</li>
 <li>be able to offer password reminders to your users</li>
 </ul>
-<p>REPO: You can study the <a href="https://github.com/backend-development/rails-example-kanban-board-login">code</a> and try out <a href="https://kanban-1.herokuapp.com/">the demos</a> for the authentication examples described here.</p>
+<p>REPO: You can study the <a href="https://github.com/backend-development/rails-example-kanban-board-login">code</a> and try out <a href="https://kanban-1.projects.multimediatechnology.at/">the demos</a> for the authentication examples described here.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-2' href='slides_rails_authentication.html#slide-2'>▻</a>
@@ -426,7 +426,7 @@ from the database.</p><p>app/app/controllers/sessions_controller.rb:</p><div cla
 <span class="kp">private</span>
 
   <span class="k">def</span> <span class="nf">login_params</span>
-    <span class="n">params</span><span class="p">.</span><span class="nf">permit</span><span class="p">(</span><span class="ss">:username</span><span class="p">,</span> <span class="ss">:password</span><span class="p">)</span>
+    <span class="n">params</span><span class="p">.</span><span class="nf">permit</span><span class="p">(</span><span class="ss">:username</span><span class="p">,</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">:password_confirmation</span><span class="p">)</span>
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre>
@@ -455,7 +455,7 @@ nobody is logged in we can also use it in the view
 to display different things for logged in users and non logged in visitors:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="o">&lt;!--</span> <span class="n">app</span><span class="o">/</span><span class="n">views</span><span class="o">/</span><span class="n">layouts</span><span class="o">/</span><span class="n">application</span><span class="p">.</span><span class="nf">html</span><span class="p">.</span><span class="nf">erb</span> <span class="o">--&gt;</span>
 <span class="o">&lt;</span><span class="sx">% if </span><span class="n">current_user</span> <span class="sx">%&gt;
-  Logged in as &lt;%= current_user.name %&gt;</span>
+  Logged in as &lt;%= current_user.username %&gt;</span>
   <span class="o">&lt;</span><span class="sx">%= link_to "log out", logout_path %&gt;
 &lt;% else %&gt;
   &lt;%=</span> <span class="n">link_to</span> <span class="s2">"log in"</span><span class="p">,</span> <span class="n">login_path</span> <span class="sx">%&gt;
@@ -466,6 +466,16 @@ to display different things for logged in users and non logged in visitors:</p><
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-23' href='slides_rails_authentication.html#slide-23'>▻</a>
+<p>To register a user - to create a new user - we can
+create a full scaffold for the user model, or build
+the controller and views by hand.</p><p>We really only need two actions:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="c1"># routes.rb</span>
+<span class="n">resources</span> <span class="ss">:users</span><span class="p">,</span> <span class="ss">only: </span><span class="sx">%i[new create]</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-24' href='slides_rails_authentication.html#slide-24'>▻</a>
 <h3 id="better-login-ux"><a class="anchorlink" href="#better-login-ux">4 Better Login UX</a></h3><p>If your app deals with more than just one or two users
 that you set up "by hand", the gem <code>devise</code> can help you a lot.
 It can makes your logins ...</p>
@@ -489,7 +499,7 @@ It can makes your logins ...</p>
 </ul>
 <p>See the <a href="https://github.com/plataformatec/devise#getting-started">devise documentation</a> on how to set it up.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-24' href='slides_rails_authentication.html#slide-24'>▻</a>
+<a class='slide_break' id='slide-25' href='slides_rails_authentication.html#slide-25'>▻</a>
 <p>When set up correctly devise gives you helper methods to use in your controllers and views:</p>
 <ul>
 <li><code>current_user</code></li>
@@ -524,19 +534,19 @@ cancel_user_registration GET    /users/cancel            devise/registrations#ca
 <code>destroy_user_session</code> for logout and <code>new_user_registration</code> for registering
 a new user.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-25' href='slides_rails_authentication.html#slide-25'>▻</a>
+<a class='slide_break' id='slide-26' href='slides_rails_authentication.html#slide-26'>▻</a>
 <h3 id="oauth"><a class="anchorlink" href="#oauth">5 OAuth</a></h3><p>In many scenarios it might be more convenient for your users
 to not have to register on your site, but to use another service
 to authenticate. That way they don't have to remember another password.
-And you might not have to handle passwords at all.</p><p>You can achieve this with Open Authentication, 
-or <a href="https://en.wikipedia.org/wiki/OAuth">OAuth</a> for short. It is a 
+And you might not have to handle passwords at all.</p><p>You can achieve this with Open Authentication,
+or <a href="https://en.wikipedia.org/wiki/OAuth">OAuth</a> for short. It is a
 standard for requesting Authentication and Authorization from
 a priovider. If you only use OAuth for Authentication, not Authorization, then
 you can use <a href="https://openid.net/connect/">OpenID Connect</a> on top of OAuth.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-26' href='slides_rails_authentication.html#slide-26'>▻</a>
+<a class='slide_break' id='slide-27' href='slides_rails_authentication.html#slide-27'>▻</a>
 <h4 id="rails-and-oauth"><a class="anchorlink" href="#rails-and-oauth">5.1 Rails and OAuth</a></h4><p>The gem <code>omniauth</code> helps you deal with OAuth2, OpenID, LDAP, and many
-other authentication providers. 
+other authentication providers.
 The <a href="https://github.com/intridea/omniauth/wiki/List-of-Strategies">list of strategies</a>
 is quite impressive. Think carefully about what services your users
 are using, and which services might be useful to your app: could
@@ -545,7 +555,7 @@ to your user's dropbox? Would it make sense to use Facebook or Twitter and also
 send out messages that way? Or are your users very privacy conscious and
 want to avoid Facebook and Google?</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-27' href='slides_rails_authentication.html#slide-27'>▻</a>
+<a class='slide_break' id='slide-28' href='slides_rails_authentication.html#slide-28'>▻</a>
 <h4 id="providers"><a class="anchorlink" href="#providers">5.2 Providers</a></h4><p>You will need the Gem <code>omniauth</code> and
 additional gems for each provider. For example if you
 want to use both Github and Stackoverflow for your web app geared
@@ -557,14 +567,14 @@ gem 'omniauth-stackoverflow'
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-28' href='slides_rails_authentication.html#slide-28'>▻</a>
+<a class='slide_break' id='slide-29' href='slides_rails_authentication.html#slide-29'>▻</a>
 <p>You need to register your app with the authentication
 provider, eg. at <a href="https://developers.facebook.com/apps/">https://developers.facebook.com/apps/</a>
 or <a href="https://apps.twitter.com/">https://apps.twitter.com/</a>.
 You have to specify the URL of your web app, and a callback URL:</p><p><img src="images/oauth-app-config.png" alt="oauth app configuration"></p><p>There might also be a review process involved which might take
 a few business days to go through.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-29' href='slides_rails_authentication.html#slide-29'>▻</a>
+<a class='slide_break' id='slide-30' href='slides_rails_authentication.html#slide-30'>▻</a>
 <p>You get back two pieces of information: a key and a secret.
 In Twitter this looks like this:</p><p><img src="images/oauth-app-secret.png" alt="facebook app configuration"></p><p>(A word of warning: if you change the configuration in <code>developers.facebook.com</code> then
 you will get a new key and secret!)</p><p>You need to add the key and the secret to the configuration of omniauth:</p><div class="code_container">
@@ -577,7 +587,7 @@ you will get a new key and secret!)</p><p>You need to add the key and the secret
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-30' href='slides_rails_authentication.html#slide-30'>▻</a>
+<a class='slide_break' id='slide-31' href='slides_rails_authentication.html#slide-31'>▻</a>
 <p>If you plan on publishing your source code
 you might want to set these values in a way that is NOT saved to the repository.
 You could use environment variables for that:</p><div class="code_container">
@@ -604,7 +614,7 @@ dokku config:set <span class="nv">TWITTER_SECRET</span><span class="o">=</span>1
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-31' href='slides_rails_authentication.html#slide-31'>▻</a>
+<a class='slide_break' id='slide-32' href='slides_rails_authentication.html#slide-32'>▻</a>
 <h4 id="models"><a class="anchorlink" href="#models">5.3 Models</a></h4><p>For authentication you need to save at least the provider name and the uid in your database
 somewhere. In the simplest case you just save them in a user model:</p><div class="code_container">
 <pre><code class="highlight shell"><span class="nb">rails </span>g model user provider uid
@@ -632,7 +642,7 @@ that stores provider and uid.</p><p>But we will stick to the simple version:</p>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-32' href='slides_rails_authentication.html#slide-32'>▻</a>
+<a class='slide_break' id='slide-33' href='slides_rails_authentication.html#slide-33'>▻</a>
 <h4 id="login-and-logout"><a class="anchorlink" href="#login-and-logout">5.4 Login and Logout</a></h4><p>Omniauth is a "Rack Middleware". That means it is somewhat independent
 of the Rails app you are building. It has access to the HTTP request, will
 analyze that, and pass on data to your Rails app through the
@@ -648,7 +658,7 @@ environment variable <code>omniauth.auth</code>.</p><p>To log in you send the us
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-33' href='slides_rails_authentication.html#slide-33'>▻</a>
+<a class='slide_break' id='slide-34' href='slides_rails_authentication.html#slide-34'>▻</a>
 <p>This URL is handled by omniauth, not by your Rails app. Omniauth will send
 the user's browser on to a URL at the provider. There the user can log in. After
 that the browser is redirected to your app again, to <code>/auth/:provider/callback</code></p><p>This URL you need to map to a session controller:</p><div class="code_container">
@@ -660,7 +670,7 @@ that the browser is redirected to your app again, to <code>/auth/:provider/callb
 <p>In the session controller you can now read the data that omniauth provides
 from the environment variable.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-34' href='slides_rails_authentication.html#slide-34'>▻</a>
+<a class='slide_break' id='slide-35' href='slides_rails_authentication.html#slide-35'>▻</a>
 <p>As a first step you could just print it out,
 to see what data is provided:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="k">def</span> <span class="nf">create</span>
@@ -671,7 +681,7 @@ to see what data is provided:</p><div class="code_container">
 <p>The data always contains values for <code>provider</code> and <code>uid</code> at the
 top level. There may be a lot more data.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-35' href='slides_rails_authentication.html#slide-35'>▻</a>
+<a class='slide_break' id='slide-36' href='slides_rails_authentication.html#slide-36'>▻</a>
 <p>Here some example data from a twitter login:</p><div class="code_container">
 <pre><code class="highlight plaintext">provider: twitter
 uid: '8506142'
@@ -683,7 +693,7 @@ info:
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-36' href='slides_rails_authentication.html#slide-36'>▻</a>
+<a class='slide_break' id='slide-37' href='slides_rails_authentication.html#slide-37'>▻</a>
 <p>Now let's look at <code>session#create</code>:
 There are two basic cases to consider: either the user has logged in using
 this authorisation method before (then we should find them in our database),
@@ -702,7 +712,7 @@ or they are logging in for the first time.</p><p>This can get quite involved, so
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-37' href='slides_rails_authentication.html#slide-37'>▻</a>
+<a class='slide_break' id='slide-38' href='slides_rails_authentication.html#slide-38'>▻</a>
 <p>In the model we pick apart the information from omniauth:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="c1"># app/model/user.rb</span>
 
@@ -719,7 +729,7 @@ or they are logging in for the first time.</p><p>This can get quite involved, so
 <p>The ActiveRecord method <code>find_or_create_by</code> handles both cases in one: either it
 finds an existing user or it creates a new one.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-38' href='slides_rails_authentication.html#slide-38'>▻</a>
+<a class='slide_break' id='slide-39' href='slides_rails_authentication.html#slide-39'>▻</a>
 <p>We don't really have a name for each user, but
 we can fake that in the model:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="c1"># app/model/user.rb</span>
@@ -730,13 +740,13 @@ we can fake that in the model:</p><div class="code_container">
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-39' href='slides_rails_authentication.html#slide-39'>▻</a>
+<a class='slide_break' id='slide-40' href='slides_rails_authentication.html#slide-40'>▻</a>
 <h3 id="see-also"><a class="anchorlink" href="#see-also">6 See Also</a></h3><p>This authenticaiton with cookie is just one of many
 possible Authentication Methods you could use for your App.
 See <a href="/adv_authentication.html">Advanced Authentication</a> for an
 overview of other methods.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-40' href='slides_rails_authentication.html#slide-40'>▻</a>
+<a class='slide_break' id='slide-41' href='slides_rails_authentication.html#slide-41'>▻</a>
 <h3 id="further-reading"><a class="anchorlink" href="#further-reading">7 Further Reading</a></h3>
 <ul>
 <li>Devise <a href="https://github.com/plataformatec/devise">github page</a>
