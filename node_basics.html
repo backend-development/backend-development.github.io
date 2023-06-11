@@ -94,12 +94,13 @@
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <ol class="chapters">
 <li><a href="#what-is-node-js-questionmark">What is node.js?</a></li>
+<li><a href="#how-big-is-node-js-questionmark">How big is node.js?</a></li>
 <li><a href="#hello-world">Hello World</a></li>
 <li><a href="#node-version-manager">Node Version Manager</a></li>
 <li><a href="#hello-web">Hello Web</a></li>
 <li><a href="#packages">Packages</a></li>
 <li><a href="#the-javascript-event-loop">The javascript Event Loop</a></li>
-<li><a href="#processing-model">Processing Model</a></li>
+<li><a href="#a-different-processing-model">A different Processing Model</a></li>
 <li><a href="#example-code">Example Code</a></li>
 <li><a href="#io-bound-vs-cpu-bound">IO-bound vs. CPU-bound</a></li>
 <li><a href="#streams">Streams</a></li>
@@ -148,18 +149,21 @@ already existed:</p>
 </ul>
 <p>To this he added a library written in Javascript.
 In 2010 npm was added as a package manager for
-Javascript Libraries.</p><p><img src="images/what-is-node.svg" alt=""></p><p>In 2023, according to <a href="https://www.openhub.net/p/node/analyses/latest/languages_summary">openhub</a>
-the node projects consist of:</p>
-<ul>
-<li>v8: 2,3 millions lines of code written in c++</li>
-<li>libuv: 100.000 lines of C code</li>
-<li>node bindings: 2,5 millions lines of C code</li>
-<li>the node library: 1,6 millions lines of Javascript code</li>
-</ul>
-<p>So v8 is the biggest part of node:</p></div>
+Javascript Libraries.</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-4' href='slides_node_basics.html#slide-4'>▻</a>
-<h3 id="hello-world"><a class="anchorlink" href="#hello-world">2 Hello World</a></h3><p>You write your program in Javascript:</p><div class="code_container">
+<h3 id="how-big-is-node-js-questionmark"><a class="anchorlink" href="#how-big-is-node-js-questionmark">2 How big is node.js?</a></h3><p><img src="images/what-is-node.svg" alt=""></p><p>In 2023, according to <a href="https://www.openhub.net/p/node/analyses/latest/languages_summary">openhub</a>
+the node projects consist of:</p>
+<ul>
+<li>the node library: 1,6 millions lines of Javascript code</li>
+<li>node bindings: 2,5 millions lines of C code</li>
+<li>v8: 2,3 millions lines of code written in c++</li>
+<li>libuv: 100.000 lines of C code</li>
+</ul>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-5' href='slides_node_basics.html#slide-5'>▻</a>
+<h3 id="hello-world"><a class="anchorlink" href="#hello-world">3 Hello World</a></h3><p>You write your program in Javascript:</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hello World</span><span class="dl">"</span><span class="p">);</span>
 </code></pre>
 </div>
@@ -180,8 +184,8 @@ undefined
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-5' href='slides_node_basics.html#slide-5'>▻</a>
-<h3 id="node-version-manager"><a class="anchorlink" href="#node-version-manager">3 Node Version Manager</a></h3><p>Node Versions change fast. The node version manager (nvm) makes
+<a class='slide_break' id='slide-6' href='slides_node_basics.html#slide-6'>▻</a>
+<h3 id="node-version-manager"><a class="anchorlink" href="#node-version-manager">4 Node Version Manager</a></h3><p>Node Versions change fast. The node version manager (nvm) makes
 it easy to switch between versions:</p><div class="code_container">
 <pre><code class="highlight shell"><span class="nv">$ </span>nvm use 16.19
 Now using <span class="nb">node </span>v16.19.0 <span class="o">(</span>npm v8.19.3<span class="o">)</span>
@@ -189,10 +193,11 @@ Now using <span class="nb">node </span>v16.19.0 <span class="o">(</span>npm v8.1
 Now using <span class="nb">node </span>v20.2.0 <span class="o">(</span>npm v9.6.6
 </code></pre>
 </div>
-</div>
+<p>An alternative would be to use <a href="https://github.com/jdxcode/rtx">rtx</a>, which
+can also handle other languages like ruby, php, python.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-6' href='slides_node_basics.html#slide-6'>▻</a>
-<h3 id="hello-web"><a class="anchorlink" href="#hello-web">4 Hello Web</a></h3><div class="code_container">
+<a class='slide_break' id='slide-7' href='slides_node_basics.html#slide-7'>▻</a>
+<h3 id="hello-web"><a class="anchorlink" href="#hello-web">5 Hello Web</a></h3><p>To create a very simple Webserver we can use the package <code>http</code>:</p><div class="code_container">
 <pre><code class="highlight plaintext">import * as http from 'http';
 
 const hostname = '127.0.0.1';
@@ -216,9 +221,10 @@ Server running at http://127.0.0.1:3000/
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-7' href='slides_node_basics.html#slide-7'>▻</a>
-<h3 id="packages"><a class="anchorlink" href="#packages">5 Packages</a></h3><p>Node had it's own package system called CommonJS, using the keyword <code>require</code>.
-Since node 13 you can also use  ECMAScript modules with the keyword <code>import</code>.</p><p>Use the type field in <code>package.json</code> to switch to ECMAScript modules:</p><div class="code_container">
+<a class='slide_break' id='slide-8' href='slides_node_basics.html#slide-8'>▻</a>
+<h3 id="packages"><a class="anchorlink" href="#packages">6 Packages</a></h3><p>Node had it's own package system called CommonJS, using the keyword <code>require</code>.
+Since node 13 you can also use ECMAScript modules with the keyword <code>import</code>.</p><p>Use the type field in <code>package.json</code> to switch to ECMAScript modules,
+or use extension <code>.cjs</code> for CommonJS and <code>.mjs</code> for modules.</p><div class="code_container">
 <pre><code class="highlight plaintext">// package.json
 {
   "type": "module"
@@ -234,8 +240,8 @@ import * as config from './config/index.js`;
 <p><code>npm</code> was the first package manager for node.js.  Today
 there are many alternatives, from <code>yarn</code> to <code>pnpm</code>.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-8' href='slides_node_basics.html#slide-8'>▻</a>
-<h3 id="the-javascript-event-loop"><a class="anchorlink" href="#the-javascript-event-loop">6 The javascript Event Loop</a></h3><p>You have worked with Javascript and asyncronous programming before.</p><div class="code_container">
+<a class='slide_break' id='slide-9' href='slides_node_basics.html#slide-9'>▻</a>
+<h3 id="the-javascript-event-loop"><a class="anchorlink" href="#the-javascript-event-loop">7 The javascript Event Loop</a></h3><p>You have worked with Javascript and asyncronous programming before.</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="kd">function</span> <span class="nx">f</span><span class="p">()</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">foo</span><span class="dl">"</span><span class="p">);</span>
   <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">g</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
@@ -260,8 +266,8 @@ there are many alternatives, from <code>yarn</code> to <code>pnpm</code>.</p></d
 </ol>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-9' href='slides_node_basics.html#slide-9'>▻</a>
-<h3 id="processing-model"><a class="anchorlink" href="#processing-model">7 Processing Model</a></h3><p>PHP and Ruby on Rails have the same basic processing model. It is either
+<a class='slide_break' id='slide-10' href='slides_node_basics.html#slide-10'>▻</a>
+<h3 id="a-different-processing-model"><a class="anchorlink" href="#a-different-processing-model">8 A different Processing Model</a></h3><p>PHP and Ruby on Rails have the same basic processing model. It is either
 implemented with threads or with processes.</p>
 <ul>
 <li>when the webserver first starts, a number of threads are started</li>
@@ -280,7 +286,7 @@ idle, and there are a lot of additional slots for additional worker
 processes.</p><p>If your server runs into trouble you can use the <code>server_status</code>
 for debugging.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-10' href='slides_node_basics.html#slide-10'>▻</a>
+<a class='slide_break' id='slide-11' href='slides_node_basics.html#slide-11'>▻</a>
 <p>Using syncronous I/O the program code will look something like this:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">file</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span>    <span class="c1"># takes a long time, thread has to wait</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">file</span><span class="p">.</span><span class="nf">read</span>                    <span class="c1"># takes a very long time, thread has to wait</span>
@@ -330,11 +336,11 @@ finally reach <code>third</code>.</p><p>Node also offers the use of promises or 
 the event queue. Much later, when the data from the file has been
 loaded, the program will continue with assigning the data to the constant <code>contents</code>.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-11' href='slides_node_basics.html#slide-11'>▻</a>
-<h3 id="example-code"><a class="anchorlink" href="#example-code">8 Example Code</a></h3><p><img src="images/node-example-code.png" alt=""></p><p><img src="images/node-example-diagram.png" alt=""></p></div>
-<div class='slide'>
 <a class='slide_break' id='slide-12' href='slides_node_basics.html#slide-12'>▻</a>
-<h3 id="io-bound-vs-cpu-bound"><a class="anchorlink" href="#io-bound-vs-cpu-bound">9 IO-bound vs. CPU-bound</a></h3><p>Describes two kinds of performance bottlenecks</p>
+<h3 id="example-code"><a class="anchorlink" href="#example-code">9 Example Code</a></h3><p><img src="images/node-example-code.png" alt=""></p><p><img src="images/node-example-diagram.png" alt=""></p></div>
+<div class='slide'>
+<a class='slide_break' id='slide-13' href='slides_node_basics.html#slide-13'>▻</a>
+<h3 id="io-bound-vs-cpu-bound"><a class="anchorlink" href="#io-bound-vs-cpu-bound">10 IO-bound vs. CPU-bound</a></h3><p>Describes two kinds of performance bottlenecks</p>
 <ul>
 <li>An I/O-bound application waits most of the time for network, filesystem and database.
 Running on a faster CPU would not help.</li>
@@ -344,8 +350,8 @@ Running on a faster CPU would not help.</li>
 (other) requests cannot be served. Therefore node and is not well suited for CPU
 bound applications.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-13' href='slides_node_basics.html#slide-13'>▻</a>
-<h3 id="streams"><a class="anchorlink" href="#streams">10 Streams</a></h3><p>Streams are a basic bilding block of a node application.
+<a class='slide_break' id='slide-14' href='slides_node_basics.html#slide-14'>▻</a>
+<h3 id="streams"><a class="anchorlink" href="#streams">11 Streams</a></h3><p>Streams are a basic bilding block of a node application.
 Without streams, you have to read the whole file before
 you can send it:</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="k">import</span> <span class="p">{</span> <span class="nx">readFile</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">node:fs/promises</span><span class="dl">'</span><span class="p">;</span>
@@ -371,8 +377,8 @@ that is the HTTP response:</p><div class="code_container">
 </div>
 <p><code>.pipe()</code> takes care of listening for 'data' and 'end' events from the fs.createReadStream(). This code is not only cleaner, but now the data.txt file will be written to clients one chunk at a time immediately as they are received from the disk.</p><p>Using <code>.pipe()</code> has other benefits too, like handling backpressure automatically so that node won't buffer chunks into memory needlessly when the remote client is on a really slow or high-latency connection.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-14' href='slides_node_basics.html#slide-14'>▻</a>
-<h3 id="see-also"><a class="anchorlink" href="#see-also">11 See Also</a></h3>
+<a class='slide_break' id='slide-15' href='slides_node_basics.html#slide-15'>▻</a>
+<h3 id="see-also"><a class="anchorlink" href="#see-also">12 See Also</a></h3>
 <ul>
 <li><a href="https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/">Node Guide: HTTP</a></li>
 <li><a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/">nexttick</a></li>
