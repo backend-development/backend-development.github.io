@@ -100,10 +100,30 @@
 <li><a href="#hello-web">Hello Web</a></li>
 <li><a href="#packages">Packages</a></li>
 <li><a href="#the-javascript-event-loop">The javascript Event Loop</a></li>
-<li><a href="#a-different-processing-model">A different Processing Model</a></li>
-<li><a href="#example-code">Example Code</a></li>
+<li>
+<a href="#classic-processing-model">Classic Processing Model</a>
+
+<ul>
+<li><a href="#syncronous-processing">Syncronous Processing</a></li>
+</ul>
+</li>
+<li>
+<a href="#node-js-processing-model">Node.js processing model</a>
+
+<ul>
+<li><a href="#asyncronous-with-callbacks">Asyncronous with callbacks</a></li>
+<li><a href="#asyncronous-with-async-await">Asyncronous with async await</a></li>
+<li><a href="#complex-example">Complex Example</a></li>
+</ul>
+</li>
 <li><a href="#io-bound-vs-cpu-bound">IO-bound vs. CPU-bound</a></li>
-<li><a href="#streams">Streams</a></li>
+<li>
+<a href="#streams">Streams</a>
+
+<ul>
+<li><a href="#using-streams">Using Streams</a></li>
+</ul>
+</li>
 <li><a href="#see-also">See Also</a></li>
 </ol>
 
@@ -267,7 +287,7 @@ there are many alternatives, from <code>yarn</code> to <code>pnpm</code>.</p></d
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-10' href='slides_node_basics.html#slide-10'>▻</a>
-<h3 id="a-different-processing-model"><a class="anchorlink" href="#a-different-processing-model">8 A different Processing Model</a></h3><p>PHP and Ruby on Rails have the same basic processing model. It is either
+<h3 id="classic-processing-model"><a class="anchorlink" href="#classic-processing-model">8 Classic Processing Model</a></h3><p>PHP and Ruby on Rails have the same basic processing model. It is either
 implemented with threads or with processes.</p>
 <ul>
 <li>when the webserver first starts, a number of threads are started</li>
@@ -283,11 +303,10 @@ processes/threads and their status on a webpage. Here an example:</p><p><img src
 the server is started it forks a certain number of worker processes,
 but it can also fork additional worker process later on.</p><p>Currently 56 requests are being processed, 8 worker processes are
 idle, and there are a lot of additional slots for additional worker
-processes.</p><p>If your server runs into trouble you can use the <code>server_status</code>
-for debugging.</p></div>
+processes.</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-11' href='slides_node_basics.html#slide-11'>▻</a>
-<p>Using syncronous I/O the program code will look something like this:</p><div class="code_container">
+<h4 id="syncronous-processing"><a class="anchorlink" href="#syncronous-processing">8.1 Syncronous Processing</a></h4><p>Using syncronous I/O the program code will look something like this:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">file</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span>    <span class="c1"># takes a long time, thread has to wait</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">file</span><span class="p">.</span><span class="nf">read</span>                    <span class="c1"># takes a very long time, thread has to wait</span>
 <span class="n">file</span><span class="p">.</span><span class="nf">close</span>
@@ -302,14 +321,20 @@ in the web server configuration, e.g.</p>
 <li>when running Rails with Passenger with the configuration directives <code>PassengerMinInstances</code> und <code>PassengerMaxPoolSize</code>, see <a href="https://www.phusionpassenger.com/library/config/apache/optimization/">phusionpassenger.com</a>
 </li>
 </ul>
-<p>Node has a completely different model:</p>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-12' href='slides_node_basics.html#slide-12'>▻</a>
+<h3 id="node-js-processing-model"><a class="anchorlink" href="#node-js-processing-model">9 Node.js processing model</a></h3><p>Node has a completely different model:</p>
 <ul>
 <li>there is one thread running the javascript event loop</li>
 <li>if the thread is free, it picks up the next event from the event queue. this might be a new http request</li>
 <li>all I/O is done asynchronosly: the main thread hands off the request to the database to a new, separate thread from a thread pool. When the request is done, and the data is available, this is added as a new event to the event queue</li>
 <li>after starting an asynchronos thread, the main thread immediately contious working</li>
 </ul>
-<p>Doing asyncronous I/O is implemented using callbacks in Javascript, and will look
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-13' href='slides_node_basics.html#slide-13'>▻</a>
+<h4 id="asyncronous-with-callbacks"><a class="anchorlink" href="#asyncronous-with-callbacks">9.1 Asyncronous with callbacks</a></h4><p>Doing asyncronous I/O is implemented using callbacks in Javascript, and will look
 something like this:</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="k">import</span> <span class="p">{</span> <span class="nx">readFile</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">node:fs</span><span class="dl">'</span><span class="p">;</span>
 
@@ -326,7 +351,10 @@ something like this:</p><div class="code_container">
 printing out <code>second</code>. It will pick up something else to do from
 the event queue. Much later, when the data from the file has been
 loaded, it will find the callback funktion on the event queue, and
-finally reach <code>third</code>.</p><p>Node also offers the use of promises or async await:</p><div class="code_container">
+finally reach <code>third</code>.</p></div>
+<div class='slide'>
+<a class='slide_break' id='slide-14' href='slides_node_basics.html#slide-14'>▻</a>
+<h4 id="asyncronous-with-async-await"><a class="anchorlink" href="#asyncronous-with-async-await">9.2 Asyncronous with async await</a></h4><p>Node also offers the use of promises or async await:</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="k">import</span> <span class="p">{</span> <span class="nx">readFile</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">node:fs/promises</span><span class="dl">'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">filePath</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">package.json</span><span class="dl">'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">contents</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">readFile</span><span class="p">(</span><span class="nx">filePath</span><span class="p">,</span> <span class="p">{</span> <span class="na">encoding</span><span class="p">:</span> <span class="dl">'</span><span class="s1">utf8</span><span class="dl">'</span> <span class="p">});</span>
@@ -336,10 +364,10 @@ finally reach <code>third</code>.</p><p>Node also offers the use of promises or 
 the event queue. Much later, when the data from the file has been
 loaded, the program will continue with assigning the data to the constant <code>contents</code>.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-12' href='slides_node_basics.html#slide-12'>▻</a>
-<h3 id="example-code"><a class="anchorlink" href="#example-code">9 Example Code</a></h3><p><img src="images/node-example-code.png" alt=""></p><p><img src="images/node-example-diagram.png" alt=""></p></div>
+<a class='slide_break' id='slide-15' href='slides_node_basics.html#slide-15'>▻</a>
+<h4 id="complex-example"><a class="anchorlink" href="#complex-example">9.3 Complex Example</a></h4><p><img src="images/node-example-code.png" alt=""></p><p><img src="images/node-example-diagram.png" alt=""></p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-13' href='slides_node_basics.html#slide-13'>▻</a>
+<a class='slide_break' id='slide-16' href='slides_node_basics.html#slide-16'>▻</a>
 <h3 id="io-bound-vs-cpu-bound"><a class="anchorlink" href="#io-bound-vs-cpu-bound">10 IO-bound vs. CPU-bound</a></h3><p>Describes two kinds of performance bottlenecks</p>
 <ul>
 <li>An I/O-bound application waits most of the time for network, filesystem and database.
@@ -350,7 +378,7 @@ Running on a faster CPU would not help.</li>
 (other) requests cannot be served. Therefore node and is not well suited for CPU
 bound applications.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-14' href='slides_node_basics.html#slide-14'>▻</a>
+<a class='slide_break' id='slide-17' href='slides_node_basics.html#slide-17'>▻</a>
 <h3 id="streams"><a class="anchorlink" href="#streams">11 Streams</a></h3><p>Streams are a basic bilding block of a node application.
 Without streams, you have to read the whole file before
 you can send it:</p><div class="code_container">
@@ -364,7 +392,10 @@ you can send it:</p><div class="code_container">
 <span class="p">});</span>
 </code></pre>
 </div>
-<p>Better: connect a stream reading the file to the stream
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-18' href='slides_node_basics.html#slide-18'>▻</a>
+<h4 id="using-streams"><a class="anchorlink" href="#using-streams">11.1 Using Streams</a></h4><p>Better: connect a stream reading the file to the stream
 that is the HTTP response:</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="k">import</span> <span class="p">{</span> <span class="nx">createReadStream</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">node:fs</span><span class="dl">'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
@@ -377,7 +408,7 @@ that is the HTTP response:</p><div class="code_container">
 </div>
 <p><code>.pipe()</code> takes care of listening for 'data' and 'end' events from the fs.createReadStream(). This code is not only cleaner, but now the data.txt file will be written to clients one chunk at a time immediately as they are received from the disk.</p><p>Using <code>.pipe()</code> has other benefits too, like handling backpressure automatically so that node won't buffer chunks into memory needlessly when the remote client is on a really slow or high-latency connection.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-15' href='slides_node_basics.html#slide-15'>▻</a>
+<a class='slide_break' id='slide-19' href='slides_node_basics.html#slide-19'>▻</a>
 <h3 id="see-also"><a class="anchorlink" href="#see-also">12 See Also</a></h3>
 <ul>
 <li><a href="https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/">Node Guide: HTTP</a></li>
