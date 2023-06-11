@@ -93,10 +93,28 @@
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <ol class="chapters">
-<li><a href="#http">HTTP</a></li>
 <li><a href="#connect">Connect</a></li>
+<li><a href="#write-you-own-middleware">Write you own middleware</a></li>
 <li>
 <a href="#express">Express</a>
+
+<ul>
+<li><a href="#setup">Setup</a></li>
+</ul>
+</li>
+<li>
+<a href="#building-an-api">Building an API</a>
+
+<ul>
+<li><a href="#serving-static-assets">Serving static assets</a></li>
+<li><a href="#routes">Routes</a></li>
+<li><a href="#serving-json">Serving JSON</a></li>
+<li><a href="#more-routing">More Routing</a></li>
+<li><a href="#set-up-cors-for-a-frontend">Set up CORS for a frontend</a></li>
+</ul>
+</li>
+<li>
+<a href="#server-rendered-html">Server rendered HTML</a>
 
 <ul>
 <li><a href="#views-with-jade">Views with JADE</a></li>
@@ -113,6 +131,7 @@
 <ul>
 <li>set up and program a web project with express</li>
 <li>understand the role of connect middleware</li>
+<li>build a REST API with node.js</li>
 </ul>
 
       </div>
@@ -124,73 +143,84 @@
     <div class="wrapper">
       <div id="mainCol">
         <div class='slide'><a id='slide-0'></a>
-</div>
-<div class='slide'>
-<a class='slide_break' id='slide-1' href='slides_node_express.html#slide-1'>▻</a>
-<h3 id="http"><a class="anchorlink" href="#http">1 HTTP</a></h3><div class="code_container">
-<pre><code class="highlight plaintext">const http = require('http');
+<p>We have already seen a very basic web server in node.js:</p><div class="code_container">
+<pre><code class="highlight plaintext">import * as http from 'http';
+
 const hostname = '127.0.0.1';
 const port = 3000;
 
 const server = http.createServer((req, res) =&gt; {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World\n');
+  res.end('Hello Web\n');
 });
+
 server.listen(port, hostname, () =&gt; {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
 </code></pre>
 </div>
-</div>
+<p>Not let's look at connect and express, two libraries
+that make web projects easier.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-2' href='slides_node_express.html#slide-2'>▻</a>
-<h3 id="connect"><a class="anchorlink" href="#connect">2 Connect</a></h3><p>Connect is a middleware framework for node
+<a class='slide_break' id='slide-1' href='slides_node_express.html#slide-1'>▻</a>
+<h3 id="connect"><a class="anchorlink" href="#connect">1 Connect</a></h3><p>Connect is a middleware framework for node
 Built on top of node’s Http Server</p><div class="code_container">
 <pre><code class="highlight plaintext">var connect = require('connect');
 var app = connect()
-  .use(connect.logger('dev'))
-  .use(connect.static('public'))
   .use(function(req, res){
     res.end('hello world\n');
   })
-http.createServer(app).listen(3000);
+  .listen(3000);
+console.log("server listening on port 3000");
 </code></pre>
 </div>
-<p><img src="images/connect.svg" alt=""></p><div class="code_container">
-<pre><code class="highlight plaintext">var connect = require('connect'),
-    util = require('util');
-var interceptorFunction = function(request, response, next) {
-    console.log(util.format('Request for %s with method %s',
-        request.url, request.method));
-    next();
-};
+<p><img src="images/connect.svg" alt=""></p></div>
+<div class='slide'>
+<a class='slide_break' id='slide-2' href='slides_node_express.html#slide-2'>▻</a>
+<h3 id="write-you-own-middleware"><a class="anchorlink" href="#write-you-own-middleware">2 Write you own middleware</a></h3><p>Write a function that recieves the arguments
+request, response and next.  This function can
+read from and also manipulate request and response.
+After it is done, it must call <code>next()</code> to hand
+over control to the next middleware.</p><div class="code_container">
+<pre><code class="highlight plaintext">var connect = require('connect');
+
 var app = connect()
-    .use(interceptorFunction)
+    // my middleware
+    .use(function(request, response, next) {
+        console.log(`Request for ${request.url} with method ${request.method}`);
+        next();
+    })
+    // handle all requests
     .use(function onRequest(request, response) {
-        response.end('Hello from Connect!');
-    }).listen(3001);
+        response.end('Hello from connect with middleware!');
+    })
+    .listen(3000);
+console.log("Server listening on port 3000");
 </code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-3' href='slides_node_express.html#slide-3'>▻</a>
-<h3 id="express"><a class="anchorlink" href="#express">3 Express</a></h3>
+<h3 id="express"><a class="anchorlink" href="#express">3 Express</a></h3><p>Express is a minimalist framework for building
+APIs and server rendered web apps with node.js.
+It offers:</p>
 <ul>
-<li>Project Generator</li>
-<li>Request / Response enhancements</li>
-<li>Routing</li>
-<li>View Support</li>
-<li>HTML Helpers</li>
-<li>Content Negotiation</li>
-<li>(all on top of connect)</li>
+<li>a project generator</li>
+<li>request / response enhancements</li>
+<li>routing</li>
+<li>view support</li>
+<li>HTML helpers</li>
+<li>content negotiation</li>
 </ul>
-<div class="code_container">
-<pre><code class="highlight plaintext">express projectname
+<p>it is built on top of <code>connect</code>.</p></div>
+<div class='slide'>
+<a class='slide_break' id='slide-4' href='slides_node_express.html#slide-4'>▻</a>
+<h4 id="setup"><a class="anchorlink" href="#setup">3.1 Setup</a></h4><div class="code_container">
+<pre><code class="highlight plaintext">npx express-generator --git projectname
 </code></pre>
 </div>
-<p>Creates your project with all the necessary packages
-Creates package.json has the dependencies listed</p><div class="code_container">
+<p>Creates your project with all the necessary packages.</p><div class="code_container">
 <pre><code class="highlight plaintext">cd projectname
 npm install
 </code></pre>
@@ -201,8 +231,124 @@ npm install
 </div>
 <p>has your project up and running</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-4' href='slides_node_express.html#slide-4'>▻</a>
-<h4 id="views-with-jade"><a class="anchorlink" href="#views-with-jade">3.1 Views with JADE</a></h4><div class="code_container">
+<a class='slide_break' id='slide-5' href='slides_node_express.html#slide-5'>▻</a>
+<h3 id="building-an-api"><a class="anchorlink" href="#building-an-api">4 Building an API</a></h3><p>If you want to use express for an API only, you can
+set it up without views:</p><div class="code_container">
+<pre><code class="highlight plaintext">npx express-generator --no-view --git restproject
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-6' href='slides_node_express.html#slide-6'>▻</a>
+<h4 id="serving-static-assets"><a class="anchorlink" href="#serving-static-assets">4.1 Serving static assets</a></h4><p>The generator  created a folder public/ with some files
+and subfolders:</p><div class="code_container">
+<pre><code class="highlight plaintext">   create : restproject/
+   create : restproject/public/
+   create : restproject/public/javascripts/
+   create : restproject/public/images/
+   create : restproject/public/stylesheets/
+   create : restproject/public/stylesheets/style.css
+   create : restproject/public/index.html
+</code></pre>
+</div>
+<p>the <code>express.static</code> middleware is used to
+serve these files. It will look for  <code>index.html</code> if
+a folder is requested.</p><div class="code_container">
+<pre><code class="highlight javascript"><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="kd">static</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">public</span><span class="dl">'</span><span class="p">)));</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-7' href='slides_node_express.html#slide-7'>▻</a>
+<h4 id="routes"><a class="anchorlink" href="#routes">4.2 Routes</a></h4><p>In more complex MVC (Model-View-Controller) frameworks, controllers and routing are treated as separate entities.
+However, in Express.js, both of these tasks are managed by routes.</p><p>It's common practice to divide routing into multiple files.</p><div class="code_container">
+<pre><code class="highlight javascript"><span class="c1">// in file app.js</span>
+<span class="kd">var</span> <span class="nx">indexRouter</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./routes/index</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">usersRouter</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./routes/users</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="nx">indexRouter</span><span class="p">);</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="dl">'</span><span class="s1">/users</span><span class="dl">'</span><span class="p">,</span> <span class="nx">usersRouter</span><span class="p">);</span>
+</code></pre>
+</div>
+<div class="code_container">
+<pre><code class="highlight javascript"><span class="c1">// in ./routes/users.js</span>
+<span class="kd">var</span> <span class="nx">express</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">router</span> <span class="o">=</span> <span class="nx">express</span><span class="p">.</span><span class="nx">Router</span><span class="p">();</span>
+
+<span class="cm">/* GET users listing. */</span>
+<span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="dl">'</span><span class="s1">respond with a resource</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">router</span><span class="p">;</span>
+</code></pre>
+</div>
+<p>The routes in file users.js are relative to the
+base-route set in app.js.</p></div>
+<div class='slide'>
+<a class='slide_break' id='slide-8' href='slides_node_express.html#slide-8'>▻</a>
+<h4 id="serving-json"><a class="anchorlink" href="#serving-json">4.3 Serving JSON</a></h4><p>The express.json middleware will convert
+a javascript data structure into JSON and
+serve it with the appropriate content type:</p><div class="code_container">
+<pre><code class="highlight javascript"><span class="c1">// in file app.js</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="nx">json</span><span class="p">());</span>
+
+<span class="c1">// in ./routes/users.js</span>
+<span class="kd">var</span> <span class="nx">users</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">konsti</span><span class="dl">'</span> <span class="p">}</span>
+  <span class="p">,</span> <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">johannes</span><span class="dl">'</span> <span class="p">}</span>
+  <span class="p">,</span> <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">lara</span><span class="dl">'</span> <span class="p">}</span>
+  <span class="p">,</span> <span class="p">{</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">tanja</span><span class="dl">'</span> <span class="p">}</span>
+<span class="p">];</span>
+
+<span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">users</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// result in browser:</span>
+<span class="p">[{</span><span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">konsti</span><span class="dl">"</span><span class="p">},{</span><span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">johannes</span><span class="dl">"</span><span class="p">},{</span><span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">lara</span><span class="dl">"</span><span class="p">},{</span><span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">tanja</span><span class="dl">"</span><span class="p">}]</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-9' href='slides_node_express.html#slide-9'>▻</a>
+<h4 id="more-routing"><a class="anchorlink" href="#more-routing">4.4 More Routing</a></h4><p>URLs can contain parameters in two ways: as query parameters:</p><p><a href="http://localhost:3000/users?name=Jin">http://localhost:3000/users?name=Jin</a></p><div class="code_container">
+<pre><code class="highlight javascript"><span class="c1">// in ./routes/users.js</span>
+<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>  <span class="c1">// Jin</span>
+    <span class="c1">// ...</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+<p>Sometimes we want to identify parts of the URL:</p><p><a href="http://localhost:3000/users/3">http://localhost:3000/users/3</a></p><p>Here we can use express route parameters:</p><div class="code_container">
+<pre><code class="highlight javascript"><span class="c1">// in ./routes/users.js</span>
+<span class="cm">/* GET one users  - use :id in the path, and read req.params.id */</span>
+<span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/:id</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">user</span> <span class="o">=</span> <span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="nx">u</span> <span class="o">=&gt;</span> <span class="nx">u</span><span class="p">.</span><span class="nx">id</span> <span class="o">==</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">user</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+<p>Use the http methods as function names, or use <code>all</code> to catch
+all methods:</p><div class="code_container">
+<pre><code class="highlight javascript"><span class="c1">// in ./routes/users.js</span>
+<span class="cm">/* POST one users  - use :id in the path, and read req.params.id */</span>
+<span class="nx">router</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="dl">'</span><span class="s1">/:id</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">user</span> <span class="o">=</span> <span class="nx">users</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span> <span class="nx">u</span> <span class="o">=&gt;</span> <span class="nx">u</span><span class="p">.</span><span class="nx">id</span> <span class="o">==</span> <span class="nx">req</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">user</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-10' href='slides_node_express.html#slide-10'>▻</a>
+<h4 id="set-up-cors-for-a-frontend"><a class="anchorlink" href="#set-up-cors-for-a-frontend">4.5 Set up CORS for a frontend</a></h4></div>
+<div class='slide'>
+<a class='slide_break' id='slide-11' href='slides_node_express.html#slide-11'>▻</a>
+<h3 id="server-rendered-html"><a class="anchorlink" href="#server-rendered-html">5 Server rendered HTML</a></h3><p>express supports several different templating engines.</p></div>
+<div class='slide'>
+<a class='slide_break' id='slide-12' href='slides_node_express.html#slide-12'>▻</a>
+<h4 id="views-with-jade"><a class="anchorlink" href="#views-with-jade">5.1 Views with JADE</a></h4><div class="code_container">
 <pre><code class="highlight plaintext">app.get('/', function (req, res) {
     res.render('index', {user: 'Welt'});
 });
@@ -214,24 +360,24 @@ npm install
 block content
     h1 Hallo #{user}
     a(href='https://google.com') Google
-    ul 
+    ul
       - for (var x = 0; x &lt; 3; x++)
         li bla
 </code></pre>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-5' href='slides_node_express.html#slide-5'>▻</a>
-<h4 id="working-with-data"><a class="anchorlink" href="#working-with-data">3.2 Working with data</a></h4><p>Pass data to the views</p><div class="code_container">
+<a class='slide_break' id='slide-13' href='slides_node_express.html#slide-13'>▻</a>
+<h4 id="working-with-data"><a class="anchorlink" href="#working-with-data">5.2 Working with data</a></h4><p>Pass data to the views</p><div class="code_container">
 <pre><code class="highlight plaintext">res.render('index', { title: 'Customer List' });
 </code></pre>
 </div>
-<p>Read data from form </p><div class="code_container">
+<p>Read data from form</p><div class="code_container">
 <pre><code class="highlight plaintext">app.use(bodyParser.urlencoded({ extended: false }));
-app.post('/', function(req, res){  
-  var userName = req.body.username;   
+app.post('/', function(req, res){
+  var userName = req.body.username;
   res.send(`Hello ${username}&lt;br&gt;&lt;a href="/"&gt;Try again.&lt;/a&gt;`);
-}); 
+});
 </code></pre>
 </div>
 <p>Read and send files</p><div class="code_container">
@@ -250,8 +396,8 @@ res.sendfile(filePath); // also: sets Content-Type from ext
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-6' href='slides_node_express.html#slide-6'>▻</a>
-<h3 id="see-also"><a class="anchorlink" href="#see-also">4 See Also</a></h3>
+<a class='slide_break' id='slide-14' href='slides_node_express.html#slide-14'>▻</a>
+<h3 id="see-also"><a class="anchorlink" href="#see-also">6 See Also</a></h3>
 <ul>
 <li><a href="https://expressjs.com/en/resources/frameworks.html">frameworks recommended by express</a></li>
 </ul>
