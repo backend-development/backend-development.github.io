@@ -93,11 +93,16 @@
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <ol class="chapters">
-<li><a href="#what-is-node-js-questionmark">What is node.js?</a></li>
+<li>
+<a href="#what-is-node-js-questionmark">What is node.js?</a>
+
+<ul>
 <li><a href="#how-big-is-node-js-questionmark">How big is node.js?</a></li>
-<li><a href="#hello-world">Hello World</a></li>
 <li><a href="#node-version-manager">Node Version Manager</a></li>
+<li><a href="#hello-node">Hello Node</a></li>
 <li><a href="#hello-web">Hello Web</a></li>
+</ul>
+</li>
 <li><a href="#packages">Packages</a></li>
 <li><a href="#the-javascript-event-loop">The javascript Event Loop</a></li>
 <li>
@@ -114,9 +119,9 @@
 <li><a href="#asyncronous-with-callbacks">Asyncronous with callbacks</a></li>
 <li><a href="#asyncronous-with-async-await">Asyncronous with async await</a></li>
 <li><a href="#complex-example">Complex Example</a></li>
+<li><a href="#io-bound-vs-cpu-bound">IO-bound vs. CPU-bound</a></li>
 </ul>
 </li>
-<li><a href="#io-bound-vs-cpu-bound">IO-bound vs. CPU-bound</a></li>
 <li>
 <a href="#streams">Streams</a>
 
@@ -172,7 +177,7 @@ In 2010 npm was added as a package manager for
 Javascript Libraries.</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-4' href='slides_node_basics.html#slide-4'>▻</a>
-<h3 id="how-big-is-node-js-questionmark"><a class="anchorlink" href="#how-big-is-node-js-questionmark">2 How big is node.js?</a></h3><p><img src="images/what-is-node.svg" alt=""></p><p>In 2023, according to <a href="https://www.openhub.net/p/node/analyses/latest/languages_summary">openhub</a>
+<h4 id="how-big-is-node-js-questionmark"><a class="anchorlink" href="#how-big-is-node-js-questionmark">1.1 How big is node.js?</a></h4><p><img src="images/what-is-node.svg" alt=""></p><p>In 2023, according to <a href="https://www.openhub.net/p/node/analyses/latest/languages_summary">openhub</a>
 the node projects consist of:</p>
 <ul>
 <li>the node library: 1,6 millions lines of Javascript code</li>
@@ -183,29 +188,7 @@ the node projects consist of:</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-5' href='slides_node_basics.html#slide-5'>▻</a>
-<h3 id="hello-world"><a class="anchorlink" href="#hello-world">3 Hello World</a></h3><p>You write your program in Javascript:</p><div class="code_container">
-<pre><code class="highlight javascript"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hello World</span><span class="dl">"</span><span class="p">);</span>
-</code></pre>
-</div>
-<p>and run it with the <code>node</code> command:</p><div class="code_container">
-<pre><code class="highlight shell"><span class="nv">$ </span><span class="nb">node </span>hello.js
-Hello World
-</code></pre>
-</div>
-<p>You can also use node interactively:</p><div class="code_container">
-<pre><code class="highlight shell"><span class="nv">$ </span><span class="nb">node</span>
-<span class="o">&gt;</span> console.log<span class="o">(</span><span class="s2">"Hello World"</span><span class="o">)</span><span class="p">;</span>
-Hello World
-undefined
-<span class="o">&gt;</span> 1+2
-3
-<span class="o">&gt;</span> <span class="o">[</span>CTRL]-[D]
-</code></pre>
-</div>
-</div>
-<div class='slide'>
-<a class='slide_break' id='slide-6' href='slides_node_basics.html#slide-6'>▻</a>
-<h3 id="node-version-manager"><a class="anchorlink" href="#node-version-manager">4 Node Version Manager</a></h3><p>Node Versions change fast. The node version manager (nvm) makes
+<h4 id="node-version-manager"><a class="anchorlink" href="#node-version-manager">1.2 Node Version Manager</a></h4><p>Node Versions change fast. The node version manager (nvm) makes
 it easy to switch between versions:</p><div class="code_container">
 <pre><code class="highlight shell"><span class="nv">$ </span>nvm use 16.19
 Now using <span class="nb">node </span>v16.19.0 <span class="o">(</span>npm v8.19.3<span class="o">)</span>
@@ -216,8 +199,30 @@ Now using <span class="nb">node </span>v20.2.0 <span class="o">(</span>npm v9.6.
 <p>An alternative would be to use <a href="https://github.com/jdxcode/rtx">rtx</a>, which
 can also handle other languages like ruby, php, python.</p></div>
 <div class='slide'>
+<a class='slide_break' id='slide-6' href='slides_node_basics.html#slide-6'>▻</a>
+<h4 id="hello-node"><a class="anchorlink" href="#hello-node">1.3 Hello Node</a></h4><p>You write your program in Javascript:</p><div class="code_container">
+<pre><code class="highlight javascript"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hello Node</span><span class="dl">"</span><span class="p">);</span>
+</code></pre>
+</div>
+<p>and run it with the <code>node</code> command:</p><div class="code_container">
+<pre><code class="highlight shell"><span class="nv">$ </span><span class="nb">node </span>hello.js
+Hello Node
+</code></pre>
+</div>
+<p>You can also use node interactively:</p><div class="code_container">
+<pre><code class="highlight shell"><span class="nv">$ </span><span class="nb">node</span>
+<span class="o">&gt;</span> console.log<span class="o">(</span><span class="s2">"Hello Node"</span><span class="o">)</span><span class="p">;</span>
+Hello Node
+undefined
+<span class="o">&gt;</span> 1+2
+3
+<span class="o">&gt;</span> <span class="o">[</span>CTRL]-[D]
+</code></pre>
+</div>
+</div>
+<div class='slide'>
 <a class='slide_break' id='slide-7' href='slides_node_basics.html#slide-7'>▻</a>
-<h3 id="hello-web"><a class="anchorlink" href="#hello-web">5 Hello Web</a></h3><p>To create a very simple Webserver we can use the package <code>http</code>:</p><div class="code_container">
+<h4 id="hello-web"><a class="anchorlink" href="#hello-web">1.4 Hello Web</a></h4><p>To create a very simple Webserver we can use the package <code>http</code>:</p><div class="code_container">
 <pre><code class="highlight plaintext">import * as http from 'http';
 
 const hostname = '127.0.0.1';
@@ -242,7 +247,7 @@ Server running at http://127.0.0.1:3000/
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-8' href='slides_node_basics.html#slide-8'>▻</a>
-<h3 id="packages"><a class="anchorlink" href="#packages">6 Packages</a></h3><p>Node had it's own package system called CommonJS, using the keyword <code>require</code>.
+<h3 id="packages"><a class="anchorlink" href="#packages">2 Packages</a></h3><p>Node had it's own package system called CommonJS, using the keyword <code>require</code>.
 Since node 13 you can also use ECMAScript modules with the keyword <code>import</code>.</p><p>Use the type field in <code>package.json</code> to switch to ECMAScript modules,
 or use extension <code>.cjs</code> for CommonJS and <code>.mjs</code> for modules.</p><div class="code_container">
 <pre><code class="highlight plaintext">// package.json
@@ -261,7 +266,7 @@ import * as config from './config/index.js`;
 there are many alternatives, from <code>yarn</code> to <code>pnpm</code>.</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-9' href='slides_node_basics.html#slide-9'>▻</a>
-<h3 id="the-javascript-event-loop"><a class="anchorlink" href="#the-javascript-event-loop">7 The javascript Event Loop</a></h3><p>You have worked with Javascript and asyncronous programming before.</p><div class="code_container">
+<h3 id="the-javascript-event-loop"><a class="anchorlink" href="#the-javascript-event-loop">3 The javascript Event Loop</a></h3><p>You have worked with Javascript and asyncronous programming before.</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="kd">function</span> <span class="nx">f</span><span class="p">()</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">foo</span><span class="dl">"</span><span class="p">);</span>
   <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">g</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
@@ -287,7 +292,7 @@ there are many alternatives, from <code>yarn</code> to <code>pnpm</code>.</p></d
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-10' href='slides_node_basics.html#slide-10'>▻</a>
-<h3 id="classic-processing-model"><a class="anchorlink" href="#classic-processing-model">8 Classic Processing Model</a></h3><p>PHP and Ruby on Rails have the same basic processing model. It is either
+<h3 id="classic-processing-model"><a class="anchorlink" href="#classic-processing-model">4 Classic Processing Model</a></h3><p>PHP and Ruby on Rails have the same basic processing model. It is either
 implemented with threads or with processes.</p>
 <ul>
 <li>when the webserver first starts, a number of threads are started</li>
@@ -306,7 +311,7 @@ idle, and there are a lot of additional slots for additional worker
 processes.</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-11' href='slides_node_basics.html#slide-11'>▻</a>
-<h4 id="syncronous-processing"><a class="anchorlink" href="#syncronous-processing">8.1 Syncronous Processing</a></h4><p>Using syncronous I/O the program code will look something like this:</p><div class="code_container">
+<h4 id="syncronous-processing"><a class="anchorlink" href="#syncronous-processing">4.1 Syncronous Processing</a></h4><p>Using syncronous I/O the program code will look something like this:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">file</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span>    <span class="c1"># takes a long time, thread has to wait</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">file</span><span class="p">.</span><span class="nf">read</span>                    <span class="c1"># takes a very long time, thread has to wait</span>
 <span class="n">file</span><span class="p">.</span><span class="nf">close</span>
@@ -324,7 +329,7 @@ in the web server configuration, e.g.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-12' href='slides_node_basics.html#slide-12'>▻</a>
-<h3 id="node-js-processing-model"><a class="anchorlink" href="#node-js-processing-model">9 Node.js processing model</a></h3><p>Node has a completely different model:</p>
+<h3 id="node-js-processing-model"><a class="anchorlink" href="#node-js-processing-model">5 Node.js processing model</a></h3><p>Node has a completely different model:</p>
 <ul>
 <li>there is one thread running the javascript event loop</li>
 <li>if the thread is free, it picks up the next event from the event queue. this might be a new http request</li>
@@ -334,7 +339,7 @@ in the web server configuration, e.g.</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-13' href='slides_node_basics.html#slide-13'>▻</a>
-<h4 id="asyncronous-with-callbacks"><a class="anchorlink" href="#asyncronous-with-callbacks">9.1 Asyncronous with callbacks</a></h4><p>Doing asyncronous I/O is implemented using callbacks in Javascript, and will look
+<h4 id="asyncronous-with-callbacks"><a class="anchorlink" href="#asyncronous-with-callbacks">5.1 Asyncronous with callbacks</a></h4><p>Doing asyncronous I/O is implemented using callbacks in Javascript, and will look
 something like this:</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="k">import</span> <span class="p">{</span> <span class="nx">readFile</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">node:fs</span><span class="dl">'</span><span class="p">;</span>
 
@@ -354,7 +359,7 @@ loaded, it will find the callback funktion on the event queue, and
 finally reach <code>third</code>.</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-14' href='slides_node_basics.html#slide-14'>▻</a>
-<h4 id="asyncronous-with-async-await"><a class="anchorlink" href="#asyncronous-with-async-await">9.2 Asyncronous with async await</a></h4><p>Node also offers the use of promises or async await:</p><div class="code_container">
+<h4 id="asyncronous-with-async-await"><a class="anchorlink" href="#asyncronous-with-async-await">5.2 Asyncronous with async await</a></h4><p>Node also offers the use of promises or async await:</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="k">import</span> <span class="p">{</span> <span class="nx">readFile</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">node:fs/promises</span><span class="dl">'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">filePath</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">package.json</span><span class="dl">'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">contents</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">readFile</span><span class="p">(</span><span class="nx">filePath</span><span class="p">,</span> <span class="p">{</span> <span class="na">encoding</span><span class="p">:</span> <span class="dl">'</span><span class="s1">utf8</span><span class="dl">'</span> <span class="p">});</span>
@@ -365,10 +370,10 @@ the event queue. Much later, when the data from the file has been
 loaded, the program will continue with assigning the data to the constant <code>contents</code>.</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-15' href='slides_node_basics.html#slide-15'>▻</a>
-<h4 id="complex-example"><a class="anchorlink" href="#complex-example">9.3 Complex Example</a></h4><p><img src="images/node-example-code.png" alt=""></p><p><img src="images/node-example-diagram.png" alt=""></p></div>
+<h4 id="complex-example"><a class="anchorlink" href="#complex-example">5.3 Complex Example</a></h4><p><img src="images/node-example-code@2x.png" alt=""></p><p><a href="https://gitlab.mediacube.at/-/snippets/66">source</a></p><p><img src="images/node-example-diagram.png" alt=""></p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-16' href='slides_node_basics.html#slide-16'>▻</a>
-<h3 id="io-bound-vs-cpu-bound"><a class="anchorlink" href="#io-bound-vs-cpu-bound">10 IO-bound vs. CPU-bound</a></h3><p>Describes two kinds of performance bottlenecks</p>
+<h4 id="io-bound-vs-cpu-bound"><a class="anchorlink" href="#io-bound-vs-cpu-bound">5.4 IO-bound vs. CPU-bound</a></h4><p>Describes two kinds of performance bottlenecks</p>
 <ul>
 <li>An I/O-bound application waits most of the time for network, filesystem and database.
 Running on a faster CPU would not help.</li>
@@ -379,37 +384,39 @@ Running on a faster CPU would not help.</li>
 bound applications.</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-17' href='slides_node_basics.html#slide-17'>▻</a>
-<h3 id="streams"><a class="anchorlink" href="#streams">11 Streams</a></h3><p>Streams are a basic bilding block of a node application.
+<h3 id="streams"><a class="anchorlink" href="#streams">6 Streams</a></h3><p>Streams are a basic bilding block of a node application.
 Without streams, you have to read the whole file before
 you can send it:</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="k">import</span> <span class="p">{</span> <span class="nx">readFile</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">node:fs/promises</span><span class="dl">'</span><span class="p">;</span>
-<span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="k">async</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-  <span class="kd">const</span> <span class="nx">filePath</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">package.json</span><span class="dl">'</span><span class="p">;</span>
-  <span class="kd">const</span> <span class="nx">contents</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">readFile</span><span class="p">(</span><span class="nx">filePath</span><span class="p">,</span> <span class="p">{</span> <span class="na">encoding</span><span class="p">:</span> <span class="dl">'</span><span class="s1">utf8</span><span class="dl">'</span> <span class="p">});</span>
+<span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/all</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">contents</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">readFile</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">../giant.html</span><span class="dl">'</span><span class="p">),</span> <span class="p">{</span> <span class="na">encoding</span><span class="p">:</span> <span class="dl">'</span><span class="s1">utf8</span><span class="dl">'</span> <span class="p">});</span>
   <span class="nx">res</span><span class="p">.</span><span class="nx">statusCode</span> <span class="o">=</span> <span class="mi">200</span><span class="p">;</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">text/plain</span><span class="dl">'</span><span class="p">);</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hello Web: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">contents</span><span class="p">);</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">text/html</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">contents</span><span class="p">);</span>
 <span class="p">});</span>
 </code></pre>
 </div>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-18' href='slides_node_basics.html#slide-18'>▻</a>
-<h4 id="using-streams"><a class="anchorlink" href="#using-streams">11.1 Using Streams</a></h4><p>Better: connect a stream reading the file to the stream
+<h4 id="using-streams"><a class="anchorlink" href="#using-streams">6.1 Using Streams</a></h4><p>Better: connect a stream reading the file to the stream
 that is the HTTP response:</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="k">import</span> <span class="p">{</span> <span class="nx">createReadStream</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">node:fs</span><span class="dl">'</span><span class="p">;</span>
-<span class="kd">const</span> <span class="nx">server</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createServer</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">const</span> <span class="nx">filePath</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">package.json</span><span class="dl">'</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">readStream</span> <span class="o">=</span> <span class="nx">createReadStream</span><span class="p">(</span><span class="nx">filePath</span><span class="p">);</span>
-    <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span><span class="p">);</span>
-    <span class="nx">readStream</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
-<span class="p">})</span>
+<span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/stream</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">let</span> <span class="nx">readStream</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">createReadStream</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">../giant.html</span><span class="dl">'</span><span class="p">));</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">setHeader</span><span class="p">(</span><span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">text/html</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nx">readStream</span><span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+<span class="p">});</span>
 </code></pre>
 </div>
-<p><code>.pipe()</code> takes care of listening for 'data' and 'end' events from the fs.createReadStream(). This code is not only cleaner, but now the data.txt file will be written to clients one chunk at a time immediately as they are received from the disk.</p><p>Using <code>.pipe()</code> has other benefits too, like handling backpressure automatically so that node won't buffer chunks into memory needlessly when the remote client is on a really slow or high-latency connection.</p></div>
+<p><code>.pipe()</code> takes care of listening for 'data' and 'end' events from the fs.createReadStream().
+This code is not only cleaner, but now the giant.html file will be written to clients one chunk
+at a time immediately as they are received from the disk.</p><p>Using <code>.pipe()</code> has other benefits too, like handling backpressure automatically
+so that node won't buffer chunks into memory needlessly when the remote
+client is on a really slow or high-latency connection.</p><p>You can also stream <a href="https://github.com/brianc/node-postgres/tree/master/packages/pg-query-stream#pg-query-stream">data from the database</a>.</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-19' href='slides_node_basics.html#slide-19'>▻</a>
-<h3 id="see-also"><a class="anchorlink" href="#see-also">12 See Also</a></h3>
+<h3 id="see-also"><a class="anchorlink" href="#see-also">7 See Also</a></h3>
 <ul>
 <li><a href="https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/">Node Guide: HTTP</a></li>
 <li><a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/">nexttick</a></li>
