@@ -113,11 +113,11 @@ then be served by a minimal webserver without backend capabilities.</p><p>This i
 </div>
 <div class='slide'>
 <a class='slide_break' href='nextjs.html#slide-8'>▻</a>
-<h4 id="next-config-js-for-static-site-generation"><a class="anchorlink" href="#next-config-js-for-static-site-generation">5.1 next.config.js for static site generation</a></h4><p>We must set <code>output</code> to <code>export</code> to enable static site generations.
-If the site will be hosted in a subfolder, for example at <a href="http://bjelline.pages.mediacube.at/statixnextjs/">http://bjelline.pages.mediacube.at/statixnextjs/</a>
+<h4 id="next-config-js-for-static-site-generation"><a class="anchorlink" href="#next-config-js-for-static-site-generation">5.1 next.config.js for static site generation</a></h4><p>We must set <code>output</code> to <code>export</code> to enable static site generations.</p><p>For most Webserver for static pages we need to set <code>trailingSlash</code> to <code>true</code>.</p><p>If the site will be hosted in a subfolder, for example at <a href="http://bjelline.pages.mediacube.at/statixnextjs/">http://bjelline.pages.mediacube.at/statixnextjs/</a>
 we must configure this as the basepath:</p><div class="code_container">
 <pre><code class="highlight plaintext">const nextConfig = {
   output: 'export',
+  trailingSlash: true,
   basePath: '/foldername',
 }
 </code></pre>
