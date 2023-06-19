@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <title>Slides for
+        Backend Development Textbook
+    </title>
+    <!-- Required stylesheet -->
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
+    <!-- Extension CSS files go here. Remove or add as needed. -->
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
+    <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
+    <!-- Style theme. More available in /themes/style/ or create your own. -->
+    <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
+    <!-- Transition theme. More available in /themes/transition/ or create your own. -->
+    <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
+    <!-- syntax highlighter -->
+    <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+
+
+    <!-- Basic black and white print styles -->
+    <link rel="stylesheet" media="print" href="stylesheets/print.css">
+    <!-- Required Modernizr file -->
+    <script src="javascripts/modernizr.custom.js"></script>
+</head>
+
+<body>
+    <div class="deck-container">
+        <div class='slide'>
+</div>
+<div class='slide'>
+<a class='slide_break' href='nextjs.html#slide-1'>▻</a>
+<h2>Next.js</h2><p>Next.js is a framework for react
+that also includes backend functionality.</p><p>After working through this guide you should</p>
+<ul>
+<li>know how to build server rendered pages in next.js</li>
+<li>know how to build api endpoints in next.js</li>
+</ul>
+
+</div>
+<div class='slide'>
+<a class='slide_break' href='nextjs.html#slide-2'>▻</a>
+<hr>
+</div>
+<div class='slide'>
+<a class='slide_break' href='nextjs.html#slide-3'>▻</a>
+<h3 id="what-is-next-js-questionmark"><a class="anchorlink" href="#what-is-next-js-questionmark">1 What is next.js?</a></h3><p>Next.js is an open source framework, but it is mainly developed by Vercel.
+Vercels business is platform a service. They published next.js in 2016.
+React documentation mentions Next.js among "Recommended Toolchains"
+since at least 2021.</p></div>
+<div class='slide'>
+<a class='slide_break' href='nextjs.html#slide-4'>▻</a>
+<h3 id="what-does-it-offer-questionmark"><a class="anchorlink" href="#what-does-it-offer-questionmark">2 What does it offer?</a></h3><p>Next.js gives you a folder structure for you application,
+and several different ways to render webpages:</p>
+<ul>
+<li>statics webpages that are rendered once, server side.</li>
+<li>api endpoints</li>
+<li>server render pages that are served as HTML, but can be refreshed.</li>
+<li>React Server Components, where you can mix client and server side components in a tree</li>
+</ul>
+</div>
+<div class='slide'>
+<a class='slide_break' href='nextjs.html#slide-5'>▻</a>
+<h3 id="the-missing-persistance-layer"><a class="anchorlink" href="#the-missing-persistance-layer">3 The missing persistance layer</a></h3><p>Next.js is not a full backend framework. For example it does not offer
+ORM or another persistance layer.  There is good documentation for
+combining nextjs with</p>
+<ul>
+<li>
+<a href="https://supabase.com/docs/guides/getting-started/quickstarts/nextjs">superbase</a>, which offers postgres as a service</li>
+<li>
+<a href="https://www.apollographql.com/blog/apollo-client/next-js/how-to-use-apollo-client-with-next-js-13/">apollo</a>, which offers graphql</li>
+<li>
+<a href="https://www.prisma.io/nextjs">prisma</a>, a ORM for typescript or javascript</li>
+</ul>
+</div>
+<div class='slide'>
+<a class='slide_break' href='nextjs.html#slide-6'>▻</a>
+<h3 id="next-js-routing"><a class="anchorlink" href="#next-js-routing">4 next.js routing</a></h3><p>From <code>next.js</code> 13 onwards the routes are created in the <code>app/</code> directory.
+<code>page.js</code> is the default (like index.html used to be), folders and
+filenames can contain parameters in brackets:</p><div class="code_container">
+<pre><code class="highlight plaintext">app/page.js          --&gt;   /
+app/otherpage.js     --&gt;   /otherpage
+app/users/page.js    --&gt;   /users/
+app/users/[:id].js   --&gt;   /users/42/
+</code></pre>
+</div>
+<p>There are special files:</p>
+<ul>
+<li>
+<code>layout.js</code> for <a href="https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts#nesting-layouts">nested layouts</a>
+</li>
+<li>
+<code>error.js</code>  for <a href="https://nextjs.org/docs/app/building-your-application/routing/error-handling">error handling</a> with error boundaries</li>
+</ul>
+<p><img src="images/nested-layouts-ui.png" alt=""></p></div>
+<div class='slide'>
+<a class='slide_break' href='nextjs.html#slide-7'>▻</a>
+<h3 id="next-js-as-a-static-site-generator"><a class="anchorlink" href="#next-js-as-a-static-site-generator">5 next.js as a Static Site Generator</a></h3><p>You can use <code>next.js</code> like <code>jekyll</code>, <code>eleventy</code> or <code>gatsby</code> as a <a href="https://jamstack.org/generators/">static
+site generator</a>: during build time, html files are generated and can
+then be served by a minimal webserver without backend capabilities.</p><p>This is the classic <a href="https://jamstack.org/">Jamstack</a> (where JAM stands for JavaScript, API and Markup).</p><p>See <a href="https://nextjs.org/docs/pages/building-your-application/rendering/static-site-generation">Static Site Generation (SSG)</a></p>
+<ul>
+<li>create a nextjs app</li>
+<li>in next.config.js change the value for <code>output</code> to <code>export</code>
+</li>
+<li><code>npm run build</code></li>
+<li>find the static files in folder <code>out/</code>
+</li>
+</ul>
+<p>You can use this for example on gitlab pages with the following configuration:</p><div class="code_container">
+<pre><code class="highlight plaintext">image: node
+
+before_script:
+  - npm install
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+    - .next/cache/
+
+pages:
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - out
+  only:
+    - main
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='nextjs.html#slide-8'>▻</a>
+<h3 id="next-js-for-api-endpoints"><a class="anchorlink" href="#next-js-for-api-endpoints">6 next.js for API endpoints</a></h3><p>Use files called <code>route.js</code> as <a href="https://nextjs.org/docs/app/building-your-application/routing/router-handlers">route handlers</a> to implement the endpoints.</p><div class="code_container">
+<pre><code class="highlight js"><span class="c1">// file /app/greeting/route.js</span>
+
+<span class="k">import</span> <span class="p">{</span> <span class="nx">NextResponse</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">next/server</span><span class="dl">'</span>
+
+<span class="k">export</span> <span class="k">async</span> <span class="kd">function</span> <span class="nx">GET</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span> <span class="dl">"</span><span class="s2">hello</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">world</span><span class="dl">"</span> <span class="p">})</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='nextjs.html#slide-9'>▻</a>
+<h3 id="react-server-components"><a class="anchorlink" href="#react-server-components">7 React Server Components</a></h3><p><a href="https://www.plasmic.app/blog/how-react-server-components-work">How Server Components Work</a></p><p><img src="images/react-server-components.png" alt=""></p></div>
+<div class='slide'>
+<a class='slide_break' href='nextjs.html#slide-10'>▻</a>
+<h3 id="see-also"><a class="anchorlink" href="#see-also">8 See Also</a></h3>
+<ul>
+<li><a href="https://nextjs.org/docs">Next.js Documentation</a></li>
+<li><a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/">nexttick</a></li>
+<li><a href="https://stackoverflow.com/questions/19822668/what-exactly-is-a-node-js-event-loop-tick">Event Loop Implementation</a></li>
+<li><a href="http://docs.libuv.org/en/v1.x/threadpool.html">set the event pool size process.env.UV_THREADPOOL_SIZE</a></li>
+<li><a href="https://github.com/nodejs/node/blob/278a9267ec41f37e6b7dda876c417945d7725973/src/node.cc#L3964-L3965">V8 needs 4 threads</a></li>
+</ul>
+</div>
+    </div>
+    <!-- End slides. -->
+    <!-- Begin extension snippets. Add or remove as needed. -->
+    <!-- deck.navigation snippet -->
+    <div aria-role="navigation">
+        <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+        <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+    </div>
+    <!-- deck.status snippet -->
+    <p class="deck-status" aria-role="status">
+        <span class="deck-status-current"></span>
+        /
+        <span class="deck-status-total"></span>
+    </p>
+    <!-- deck.goto snippet -->
+    <form action="." method="get" class="goto-form">
+        <label for="goto-slide">Go to slide:</label>
+        <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+        <datalist id="goto-datalist"></datalist>
+        <input type="submit" value="Go">
+    </form>
+    <!-- End extension snippets. -->
+    <!-- Required JS files. -->
+    <script src="javascripts/jquery.min.js"></script>
+    <script src="javascripts/deck.core.js"></script>
+    <!-- Extension JS files. Add or remove as needed. -->
+    <script src="javascripts/deck.menu.js"></script>
+    <script src="javascripts/deck.goto.js"></script>
+    <script src="javascripts/deck.status.js"></script>
+    <script src="javascripts/deck.navigation.js"></script>
+    <script src="javascripts/deck.escape.js"></script>
+
+    <!-- Initialize the deck. You can put this in an external file if desired. -->
+    <script>
+    $(function() {
+      $.deck('.slide');
+    });
+
+    var $d = $(document);    
+
+    $d.bind('deck.change', function(event, from, to) {
+      // console.log('Moving from slide ' + from + ' to ' + to);
+    });   
+    $d.bind('deck.beforeInit', function() {
+      // console.log('Deck.beforeInit. hash is ' + document.location.hash);
+    });     
+    $d.bind('deck.init', function() {
+      // console.log('Deck.init is done. hash was ' + document.location.hash);
+    }); 
+    </script>
+</body>
+
+</html>

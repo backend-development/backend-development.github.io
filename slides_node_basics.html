@@ -223,7 +223,7 @@ in the web server configuration, e.g.</p>
 <li>all I/O is done asynchronosly: the main thread hands off the request to the database to a new, separate thread from a thread pool. When the request is done, and the data is available, this is added as a new event to the event queue</li>
 <li>after starting an asynchronos thread, the main thread immediately contious working</li>
 </ul>
-</div>
+<p><img src="images/nodejs-eventloop.jpg" alt="node.js event loop"></p><p>(diagram by <a href="https://twitter.com/RichOnTheWeb/status/494959181871316992">@RichOnTheWeb</a>)</p></div>
 <div class='slide'>
 <a class='slide_break' href='node_basics.html#slide-13'>▻</a>
 <h4 id="asyncronous-with-callbacks"><a class="anchorlink" href="#asyncronous-with-callbacks">5.1 Asyncronous with callbacks</a></h4><p>Doing asyncronous I/O is implemented using callbacks in Javascript, and will look
