@@ -99,7 +99,14 @@
 <li><a href="#what-does-it-offer-questionmark">What does it offer?</a></li>
 <li><a href="#the-missing-persistance-layer">The missing persistance layer</a></li>
 <li><a href="#next-js-routing">next.js routing</a></li>
-<li><a href="#next-js-as-a-static-site-generator">next.js as a Static Site Generator</a></li>
+<li>
+<a href="#next-js-as-a-static-site-generator">next.js as a Static Site Generator</a>
+
+<ul>
+<li><a href="#next-config-js-for-static-site-generation">next.config.js for static site generation</a></li>
+<li><a href="#using-github-or-gitlab-pages">using github or gitlab pages</a></li>
+</ul>
+</li>
 <li><a href="#next-js-for-api-endpoints">next.js for API endpoints</a></li>
 <li><a href="#react-server-components">React Server Components</a></li>
 <li><a href="#see-also">See Also</a></li>
@@ -191,13 +198,30 @@ site generator</a>: during build time, html files are generated and can
 then be served by a minimal webserver without backend capabilities.</p><p>This is the classic <a href="https://jamstack.org/">Jamstack</a> (where JAM stands for JavaScript, API and Markup).</p><p>See <a href="https://nextjs.org/docs/pages/building-your-application/rendering/static-site-generation">Static Site Generation (SSG)</a></p>
 <ul>
 <li>create a nextjs app</li>
-<li>in next.config.js change the value for <code>output</code> to <code>export</code>
-</li>
+<li>in next.config.js add one or two values (see below)</li>
 <li><code>npm run build</code></li>
 <li>find the static files in folder <code>out/</code>
 </li>
 </ul>
-<p>You can use this for example on gitlab pages with the following configuration:</p><div class="code_container">
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-8' href='slides_nextjs.html#slide-8'>▻</a>
+<h4 id="next-config-js-for-static-site-generation"><a class="anchorlink" href="#next-config-js-for-static-site-generation">5.1 next.config.js for static site generation</a></h4><p>We must set <code>output</code> to <code>export</code> to enable static site generations.
+If the site will be hosted in a subfolder, for example at <a href="http://bjelline.pages.mediacube.at/statixnextjs/">http://bjelline.pages.mediacube.at/statixnextjs/</a>
+we must configure this as the basepath:</p><div class="code_container">
+<pre><code class="highlight plaintext">const nextConfig = {
+  output: 'export',
+  basePath: '/foldername',
+}
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-9' href='slides_nextjs.html#slide-9'>▻</a>
+<h4 id="using-github-or-gitlab-pages"><a class="anchorlink" href="#using-github-or-gitlab-pages">5.2 using github or gitlab pages</a></h4><p>You can host your static files gitlab pages with the following configuration:
+gitlab CI is used to build the pages, and the resulting folder <code>out</code> is declared
+as an artifact.  Gitlab will pick up this artifact and serve it through its
+pages webserver.</p><div class="code_container">
 <pre><code class="highlight plaintext">image: node
 
 before_script:
@@ -212,16 +236,18 @@ cache:
 pages:
   script:
     - npm run build
+    - mv public old_republic
+    - mv out public
   artifacts:
     paths:
-      - out
+      - public
   only:
     - main
 </code></pre>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-8' href='slides_nextjs.html#slide-8'>▻</a>
+<a class='slide_break' id='slide-10' href='slides_nextjs.html#slide-10'>▻</a>
 <h3 id="next-js-for-api-endpoints"><a class="anchorlink" href="#next-js-for-api-endpoints">6 next.js for API endpoints</a></h3><p>Use files called <code>route.js</code> as <a href="https://nextjs.org/docs/app/building-your-application/routing/router-handlers">route handlers</a> to implement the endpoints.</p><div class="code_container">
 <pre><code class="highlight js"><span class="c1">// file /app/greeting/route.js</span>
 
@@ -234,10 +260,10 @@ pages:
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-9' href='slides_nextjs.html#slide-9'>▻</a>
+<a class='slide_break' id='slide-11' href='slides_nextjs.html#slide-11'>▻</a>
 <h3 id="react-server-components"><a class="anchorlink" href="#react-server-components">7 React Server Components</a></h3><p><a href="https://www.plasmic.app/blog/how-react-server-components-work">How Server Components Work</a></p><p><img src="images/react-server-components.png" alt=""></p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-10' href='slides_nextjs.html#slide-10'>▻</a>
+<a class='slide_break' id='slide-12' href='slides_nextjs.html#slide-12'>▻</a>
 <h3 id="see-also"><a class="anchorlink" href="#see-also">8 See Also</a></h3>
 <ul>
 <li><a href="https://nextjs.org/docs">Next.js Documentation</a></li>
