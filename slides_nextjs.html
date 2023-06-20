@@ -168,16 +168,94 @@ pages:
 </div>
 <div class='slide'>
 <a class='slide_break' href='nextjs.html#slide-11'>▻</a>
-<h3 id="react-server-components"><a class="anchorlink" href="#react-server-components">7 React Server Components</a></h3><p><a href="https://www.plasmic.app/blog/how-react-server-components-work">How Server Components Work</a></p><p><img src="images/react-server-components.png" alt=""></p></div>
+<h3 id="server-side-rendering-ssr"><a class="anchorlink" href="#server-side-rendering-ssr">7 Server Side Rendering (SSR)</a></h3><p>With server side rendering, a HTML document is shipped to the browser.
+Then the browser loads the necessary JavaScript, and
+<a href="https://react.dev/reference/react-dom/hydrate#hydrating-server-rendered-html">hydrates</a> the HTML
+into a client side React App.</p></div>
 <div class='slide'>
 <a class='slide_break' href='nextjs.html#slide-12'>▻</a>
-<h3 id="see-also"><a class="anchorlink" href="#see-also">8 See Also</a></h3>
+<h3 id="react-server-components"><a class="anchorlink" href="#react-server-components">8 React Server Components</a></h3><p>The react render tree is composed from server and client components.  In next.js 13 all components
+are server components by default.  You have to add <code>"use client";</code> on top of a component to turn
+it into a client component.</p><p><img src="images/react-server-components.png" alt=""></p></div>
+<div class='slide'>
+<a class='slide_break' href='nextjs.html#slide-13'>▻</a>
+<h4 id="how-to-use-rsc"><a class="anchorlink" href="#how-to-use-rsc">8.1 How to use RSC</a></h4><p>Simple rules for client and server components:</p>
+<ul>
+<li>Use <code>.server.js</code> and <code>.client.js</code> as filename extensions.</li>
+<li>Server Components can contain client components.</li>
+<li>Client Components cannot contain server components.</li>
+<li>Server Components can instantiate both client and server components, and pass in a Server Component as the children prop to a ClientComponent.</li>
+<li>Server Components cannot pass functions as props to its descendents, only data.</li>
+</ul>
+</div>
+<div class='slide'>
+<a class='slide_break' href='nextjs.html#slide-14'>▻</a>
+<h4 id="server-components-can-contain-client-components"><a class="anchorlink" href="#server-components-can-contain-client-components">8.2 Server Components can contain client components:</a></h4><div class="code_container">
+<pre><code class="highlight js"><span class="c1">// this is server_component.server.js</span>
+<span class="k">import</span> <span class="nx">ClientComponent</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./ClientComponent.client</span><span class="dl">'</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">ServerComponent</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;&gt;</span>
+      <span class="o">&lt;</span><span class="nx">ClientComponent</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="sr">/</span><span class="err">&gt;
+</span>  <span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='nextjs.html#slide-15'>▻</a>
+<h4 id="client-components-cannot-contain-server-components"><a class="anchorlink" href="#client-components-cannot-contain-server-components">8.3 Client Components cannot contain server components:</a></h4><div class="code_container">
+<pre><code class="highlight js"><span class="c1">// this is client_component.client.js</span>
+<span class="c1">// ERROR !!!!</span>
+<span class="k">import</span> <span class="nx">ServerComponent</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./ServerComponent.server</span><span class="dl">'</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">ClientComponent</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">ServerComponent</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
+</span>  <span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='nextjs.html#slide-16'>▻</a>
+<h4 id="you-can-pass-in-server-components-to-a-clientcomponent"><a class="anchorlink" href="#you-can-pass-in-server-components-to-a-clientcomponent">8.4 You can pass in Server Components to a ClientComponent</a></h4><div class="code_container">
+<pre><code class="highlight js"><span class="c1">// this is outer_server_component.server.js</span>
+<span class="k">import</span> <span class="nx">ClientComponent</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./ClientComponent.client</span><span class="dl">'</span>
+<span class="k">import</span> <span class="nx">ServerComponent</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./ServerComponent.server</span><span class="dl">'</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">OuterServerComponent</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">ClientComponent</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">ServerComponent</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="sr">/ClientComponent</span><span class="err">&gt;
+</span>  <span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='nextjs.html#slide-17'>▻</a>
+<h4 id="server-comopnents-cannot-pass-functions-to-its-descendents"><a class="anchorlink" href="#server-comopnents-cannot-pass-functions-to-its-descendents">8.5 Server Comopnents cannot pass functions to its descendents</a></h4><p>Because props are serialized into JSON, and functions cannot be serialized into JSON,
+Server Components cannot pass functions as props to its descendents.</p><div class="code_container">
+<pre><code class="highlight js"><span class="c1">// ERROR !!!!</span>
+<span class="kd">function</span> <span class="nx">SomeServerComponent</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">OHHAI</span><span class="dl">'</span><span class="p">)}</span><span class="o">&gt;</span><span class="nx">Click</span> <span class="nx">me</span><span class="o">!&lt;</span><span class="sr">/button</span><span class="err">&gt;
+</span><span class="p">}</span>
+<span class="c1">// ERROR !!!!</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='nextjs.html#slide-18'>▻</a>
+<h4 id="how-rsc-works"><a class="anchorlink" href="#how-rsc-works">8.6 How RSC Works</a></h4><p>its complicated</p><p><a href="https://github.com/reactwg/server-components/discussions/5">RSC Components from Scratch</a></p><p><a href="https://www.plasmic.app/blog/how-react-server-components-work">How Server Components Work</a></p></div>
+<div class='slide'>
+<a class='slide_break' href='nextjs.html#slide-19'>▻</a>
+<h3 id="see-also"><a class="anchorlink" href="#see-also">9 See Also</a></h3>
 <ul>
 <li><a href="https://nextjs.org/docs">Next.js Documentation</a></li>
-<li><a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/">nexttick</a></li>
-<li><a href="https://stackoverflow.com/questions/19822668/what-exactly-is-a-node-js-event-loop-tick">Event Loop Implementation</a></li>
-<li><a href="http://docs.libuv.org/en/v1.x/threadpool.html">set the event pool size process.env.UV_THREADPOOL_SIZE</a></li>
-<li><a href="https://github.com/nodejs/node/blob/278a9267ec41f37e6b7dda876c417945d7725973/src/node.cc#L3964-L3965">V8 needs 4 threads</a></li>
+<li><a href="https://nextjsweekly.com/">Next.js Newsletter</a></li>
 </ul>
 </div>
     </div>
