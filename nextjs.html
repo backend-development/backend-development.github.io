@@ -164,15 +164,15 @@ since at least 2021.</p></div>
 <h3 id="what-does-it-offer-questionmark"><a class="anchorlink" href="#what-does-it-offer-questionmark">2 What does it offer?</a></h3><p>Next.js gives you a folder structure for you application,
 and several different ways to render webpages:</p>
 <ul>
-<li>statics webpages that are rendered once, server side.</li>
+<li>static webpages that are rendered once, at build time.</li>
 <li>api endpoints</li>
-<li>server render pages that are served as HTML, but can be refreshed.</li>
-<li>React Server Components, where you can mix client and server side components in a tree</li>
+<li>server rendered pages that are served as HTML, but can be refreshed.</li>
+<li>React Server Components, where you can mix client and server side components in one react tree</li>
 </ul>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-5' href='slides_nextjs.html#slide-5'>▻</a>
-<h3 id="the-missing-persistance-layer"><a class="anchorlink" href="#the-missing-persistance-layer">3 The missing persistance layer</a></h3><p>Next.js is not a full backend framework. For example it does not offer
+<h3 id="the-missing-persistance-layer"><a class="anchorlink" href="#the-missing-persistance-layer">3 The missing persistance layer</a></h3><p>Next.js is not a full backend framework. For example it does not offer an
 ORM or another persistance layer.  There is good documentation for
 combining nextjs with</p>
 <ul>
@@ -187,12 +187,11 @@ combining nextjs with</p>
 <div class='slide'>
 <a class='slide_break' id='slide-6' href='slides_nextjs.html#slide-6'>▻</a>
 <h3 id="next-js-routing"><a class="anchorlink" href="#next-js-routing">4 next.js routing</a></h3><p>From <code>next.js</code> 13 onwards the routes are created in the <code>app/</code> directory.
-<code>page.js</code> is the default (like index.html used to be), folders and
-filenames can contain parameters in brackets:</p><div class="code_container">
+<code>page.js</code> is the default (like index.html used to be), folders can contain parameters in brackets:</p><div class="code_container">
 <pre><code class="highlight plaintext">app/page.js          --&gt;   /
-app/otherpage.js     --&gt;   /otherpage
+app/otherpage/page.js     --&gt;   /otherpage
 app/users/page.js    --&gt;   /users/
-app/users/[:id].js   --&gt;   /users/42/
+app/users/[:id]/page.js   --&gt;   /users/42/
 </code></pre>
 </div>
 <p>There are special files:</p>
