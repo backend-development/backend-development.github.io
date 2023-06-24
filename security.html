@@ -726,6 +726,11 @@ see <a href="https://guides.rubyonrails.org/security.html#adding-a-nonce">the Ra
 <blockquote>
 <p>Components, such as libraries, frameworks, and other software modules, run with the same privileges as the application. If a vulnerable component is exploited, such an attack can facilitate serious data loss or server takeover. Applications and APIs using components with known vulnerabilities may undermine application defenses and enable various attacks and impacts. <a href="https://www.owasp.org/index.php/Top_10-2017_A9-Using_Components_with_Known_Vulnerabilities">OWASP Wiki</a></p>
 </blockquote>
+<p>In the last years security features have been incorporated in gem, npm, ....
+Many, many malware packages are submitted to the repositories. Here an Example:</p>
+<ul>
+<li><a href="https://socket.dev/npm/package/segment-bundle/files/6.6.9/package.json">security audit of a npm package</a></li>
+</ul>
 <p>Before using a gem, look it up in the <a href="https://www.ruby-toolbox.com/">ruby-toolbox</a>
 and check if it is actively maintained and if there are better alternatives.</p><p>There are several tools that check for vulnerabilities in dependencies:</p>
 <ul>

@@ -36,13 +36,13 @@
 <div class='slide'>
 <a class='slide_break' href='adv_authentication.html#slide-1'>▻</a>
 <h2>Advanced Authentication</h2><p>This guide is about Authentication for Web and Mobile
-Apps. </p><p>After reading this guide you will</p>
+Apps.</p><p>After reading this guide you will</p>
 <ul>
 <li>have an overview of scenarios and authentication methods</li>
-<li>be able to build a rails app that uses other authentication providers with OAuth</li>
-<li>be able to build a rails app with JWT</li>
+<li>be able to use several authentiation methods in next.js</li>
+<li>be able to use several authentiation methods in rails</li>
 </ul>
-<p>REPO: You can study the <a href="https://github.com/backend-development/rails-example-kanban-board-login">code</a> and try out <a href="https://kanban-1.herokuapp.com/">the demos</a> for the authentication examples described here.</p>
+
 </div>
 <div class='slide'>
 <a class='slide_break' href='adv_authentication.html#slide-2'>▻</a>
@@ -50,7 +50,10 @@ Apps. </p><p>After reading this guide you will</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='adv_authentication.html#slide-3'>▻</a>
-<h3 id="authentication-authorisation-scencarios"><a class="anchorlink" href="#authentication-authorisation-scencarios">1 Authentication + Authorisation Scencarios</a></h3><p>Some questions to ask yourself:</p>
+<h3 id="concepts"><a class="anchorlink" href="#concepts">1 Concepts</a></h3></div>
+<div class='slide'>
+<a class='slide_break' href='adv_authentication.html#slide-4'>▻</a>
+<h4 id="authentication-and-authorisation-scencarios"><a class="anchorlink" href="#authentication-and-authorisation-scencarios">1.1 Authentication and Authorisation Scencarios</a></h4><p>Some questions to ask yourself:</p>
 <ul>
 <li>Do I only need authentication (Is this the user?) or also authorisation (which user may access what?)</li>
 <li>Is one factor enough?  Do I want to support 2 factor athentication?</li>
@@ -60,14 +63,19 @@ Apps. </p><p>After reading this guide you will</p>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' href='adv_authentication.html#slide-4'>▻</a>
-<h4 id="authentication-and-authorisation"><a class="anchorlink" href="#authentication-and-authorisation">1.1 Authentication and Authorisation</a></h4><p>This is epecially intresting when my app wants to access
-data in another app.  For example:  Authenticate via github, and also
-access the users private repositories.  Authenticate via google and also
-access the users photos. </p></div>
-<div class='slide'>
 <a class='slide_break' href='adv_authentication.html#slide-5'>▻</a>
-<h4 id="two-factor-authentication"><a class="anchorlink" href="#two-factor-authentication">1.2 Two Factor Authentication</a></h4><p>any combination of:</p>
+<h4 id="authentication-providers"><a class="anchorlink" href="#authentication-providers">1.2 Authentication Providers</a></h4><p>Authentication Providers like github, google ect can
+provide both Authentication and Authorisation to use
+their resources.</p><p>For example the app I am building coule</p>
+<ul>
+<li>authenticate a user via github, and also access the users private repositories,</li>
+<li>authenticate via google and also access the users photos,</li>
+<li>authenticate via instagram and create posts in their name on instagram.</li>
+</ul>
+</div>
+<div class='slide'>
+<a class='slide_break' href='adv_authentication.html#slide-6'>▻</a>
+<h4 id="two-factor-authentication"><a class="anchorlink" href="#two-factor-authentication">1.3 Two Factor Authentication</a></h4><p>any combination of:</p>
 <ul>
 <li> Something you know - a password or a pin</li>
 <li> Something you have -   mobile phone or a security token like a <a href="https://www.yubico.com/products/#yubikey-5ci">YubiKey</a>
@@ -77,60 +85,116 @@ access the users photos. </p></div>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' href='adv_authentication.html#slide-6'>▻</a>
-<h4 id="different-types-of-programs"><a class="anchorlink" href="#different-types-of-programs">1.3 Different types of programs</a></h4><p>Browsers do Cookies, other types of programs do not.</p><p>Command Line Authentication Flow:</p><p><img src="images/office-cli-1.png" alt="Command Line">
-<img src="images/cli-login-3.png" alt="Command Line">
-<img src="images/cli-login-4.png" alt="Command Line">
-<img src="images/cli-login-5.png" alt="Command Line">
-<img src="images/office-cli.png" alt="Command Line"></p></div>
-<div class='slide'>
 <a class='slide_break' href='adv_authentication.html#slide-7'>▻</a>
-<h4 id="how-to-add-state-to-http"><a class="anchorlink" href="#how-to-add-state-to-http">1.4 How to add state to HTTP</a></h4><p>When thinking about Authentication and Web Applications we
+<h4 id="different-types-of-programs"><a class="anchorlink" href="#different-types-of-programs">1.4 Different types of programs</a></h4><p>When createing commandline programs, web apps, native apps we
+have different possiblities.</p><p>You already know how to use HTTP Cookies for authentication
+in a web app. Commandline programms and native app do not use cookies
+automatically as browser do.</p><p>To illustrate this let's look at a command line program.</p></div>
+<div class='slide'>
+<a class='slide_break' href='adv_authentication.html#slide-8'>▻</a>
+<h4 id="command-line-authentication-flow"><a class="anchorlink" href="#command-line-authentication-flow">1.5 Command Line Authentication Flow:</a></h4><p>Here an example of an authentication flow for the
+office365 command line tool:</p>
+<ol>
+<li>start the process on the command line</li>
+</ol>
+<p><img src="images/office-cli-1.png" alt="Command Line"></p><p>the program opens a browser at a special microsoft login page
+and asks you to type in a short string there.</p><p><img src="images/cli-login-3.png" alt="Command Line"></p><p>go throug the usual steps of login</p><p><img src="images/cli-login-4.png" alt="Command Line"></p><p>final screen in the browser shows success</p><p><img src="images/cli-login-5.png" alt="Command Line"></p><p>back in the command line program you are now authorized.</p><p><img src="images/office-cli.png" alt="Command Line"></p></div>
+<div class='slide'>
+<a class='slide_break' href='adv_authentication.html#slide-9'>▻</a>
+<h3 id="how-to-add-state-to-http"><a class="anchorlink" href="#how-to-add-state-to-http">2 How to add state to HTTP</a></h3><p>When thinking about Authentication and Web Applications we
 first have to overcome the stateless nature of HTTP.
 There are several ways to do this:</p>
 <ol>
-<li> <strong>HTTP Basic Authentication</strong> according to <a href="https://tools.ietf.org/html/rfc1945#section-11">rfc 1945, section 11</a>: The server sends a <code>WWW-Authenticate: Basic ...</code> header in the first response. The browser asks the user for username and password, and then sends the (hashed) username and password to the server with subsequent request using the HTTP Headers <code>Authorization: Basic ...</code>.</li>
-<li> <strong>HTTP Cookies</strong> according to <a href="https://tools.ietf.org/html/rfc6265">rfc 6265</a>. The server sets the cookie (using the Header 'Set-Cookie'), the client returns the cookie automatically for every subsequent request to the server (using the HTTP Header <code>Cookie</code>).</li>
-<li> <strong>Bearer-Token</strong>, with  <code>Authorization: Bearer ...</code> and <code>WWW-Authenticate: Bearer ...</code>
+<li> <strong>HTTP Basic Authentication</strong>
+</li>
+<li> <strong>HTTP Cookies</strong>
+</li>
+<li> <strong>Bearer-Token</strong>
 </li>
 </ol>
 </div>
 <div class='slide'>
-<a class='slide_break' href='adv_authentication.html#slide-8'>▻</a>
-<h3 id="web-authentication-webauthn"><a class="anchorlink" href="#web-authentication-webauthn">2 Web Authentication "WebAuthn"</a></h3><p>A relatively new Method: the browser keeps tracks of private keys,
-uses public key to log in on server. Implemented in Browsers since 2018, 2019.
-See <a href="https://webauthn.guide/">Guide</a> and <a href="https://webauthn.io/">Demo</a>, 
-<a href="https://caniuse.com/?search=WebAuthn">caniuse</a>.</p>
-<video class="wp-video-shortcode" id="video-2462-3_html5" poster="images/webauthn-android-fennec.png" loop="1" preload="metadata" style="width: 400px; height: 710.667px;" src="images/webauthn-android-fennec-1.mp4" width="400" height="711"><source type="video/mp4" src="images/webauthn-android-fennec-1.mp4?_=3"><source type="video/webm" src="images/webauthn-android-fennec-1.webm"><a href="images/webauthn-android-fennec-1.mp4">images/webauthn-android-fennec-1.mp4</a></source></source></video>
+<a class='slide_break' href='adv_authentication.html#slide-10'>▻</a>
+<h4 id="http-basic-authentication"><a class="anchorlink" href="#http-basic-authentication">2.1 HTTP Basic Authentication</a></h4><p>This is the oldest method.  It still works in all the browser, but is not used much
+any more because the UI is very restrictive.</p><p><img src="images/chrome-basic.png" alt=""></p><p>It is specified in  <a href="https://tools.ietf.org/html/rfc1945#section-11">rfc 1945, section 11</a>.</p>
+<ol>
+<li>The Browser requests access to a resource;</li>
+<li>The server sends a <code>WWW-Authenticate: Basic ...</code> header in the response, but not the resource;</li>
+<li>The browser asks the user for username and password through a popup window</li>
+<li>The browser sends the (hashed) username and password to the server with all subsequent request using the HTTP Headers <code>Authorization: Basic ...</code>
+</li>
+</ol>
 </div>
 <div class='slide'>
-<a class='slide_break' href='adv_authentication.html#slide-9'>▻</a>
-<h3 id="oauth"><a class="anchorlink" href="#oauth">3 OAuth</a></h3><p>Standard for requesting Authentication and Authorization from
-a priovider.  Slightly different implmentations, <a href="https://openid.net/connect/">OpenID Connect</a>
-as additional specification makes using it simpler?</p></div>
+<a class='slide_break' href='adv_authentication.html#slide-11'>▻</a>
+<h4 id="http-cookies"><a class="anchorlink" href="#http-cookies">2.2 HTTP Cookies</a></h4><p>HTTP Cookies are defined in <a href="https://tools.ietf.org/html/rfc6265">rfc 6265</a>.</p>
+<ol>
+<li>The server sets the cookie (using the Header 'Set-Cookie'),</li>
+<li>the client includes the cookie automatically in every subsequent request to the server (using the HTTP Header <code>Cookie</code>).</li>
+</ol>
+<p>Cookies are often integrated into backend frameworks as a method
+to identify sessions.</p></div>
 <div class='slide'>
-<a class='slide_break' href='adv_authentication.html#slide-10'>▻</a>
-<h3 id="jwt"><a class="anchorlink" href="#jwt">4 JWT</a></h3><p>Cookies work best when the only clients are browsers (and not native apps),
-and when the frontend and the backend are hosted on the same domain.</p><p><strong>JSON-Web-Token</strong> are used for more complex scenarios.
-They offer the flexibility to use many transmission methods:</p>
+<a class='slide_break' href='adv_authentication.html#slide-12'>▻</a>
+<h4 id="bearer-token"><a class="anchorlink" href="#bearer-token">2.3 Bearer Token</a></h4><p>This method uses the same HTTP Header <code>Authorization</code> as HTTP Basic authentication,
+<a href="https://tools.ietf.org/html/rfc1945#section-11">rfc 1945, section 11</a>.</p><p>The client sends the token with the <code>Authorization: Bearer ...</code> HTTP header.</p></div>
+<div class='slide'>
+<a class='slide_break' href='adv_authentication.html#slide-13'>▻</a>
+<h3 id="web-authentication-webauthn-or-passkey"><a class="anchorlink" href="#web-authentication-webauthn-or-passkey">3 Web Authentication "WebAuthn" or Passkey</a></h3><p>Web Authentication, or short "WebAuthn" is a W3C standard
+that has been implemented  <a href="https://caniuse.com/?search=webauthn">in all Browsers since 2020</a>.</p><p>You a User you have to own an authenticator: for example a <a href="https://www.yubico.com/">Yubikey</a>, USB Token,
+or your <a href="https://www.makeuseof.com/set-up-passkey-google-account-android/">smartphone</a>.
+This Authenticator
+is a powerful "second factor": it can do cryptographic computation and it can
+store data.</p><p><img src="images/yubikey-5.png" alt=""></p><p>This diagram <a href="https://auth0.com/blog/introduction-to-web-authentication/">from auth0</a> shows the players
+in this form auf authentication:</p><p><img src="images/web-authn-entities.png" alt=""></p><p>The server you want to log into is called the "relying party".</p><p>During <strong>Registration</strong> the relying party supplies data called "challenge". The JavaScript
+in the users browser calls <code>navigator.credentials.create()</code> with this challengen. This makes
+the browser call the authenticator device with the callenge data. The device might ask the user
+for some form of consent, for example given through a fingerprint or a touch sensor.
+The result is a public/private keypair.</p><p>During <strong>Authentication</strong> (or "attestation") the same challenge from the relying party
+is given to the authenticator.</p><p>See also</p>
 <ul>
-<li>HTTP-Headers  <code>Authorization: Bearer ...</code> and <code>WWW-Authenticate: Bearer ...</code>
+<li><a href="https://webauthn.guide/">Guide</a></li>
+<li><a href="https://webauthn.io/">Demo</a></li>
+<li><a href="https://github.com/herrjemand/awesome-webauthn">awesome-webauthn collection on github</a></li>
+</ul>
+</div>
+<div class='slide'>
+<a class='slide_break' href='adv_authentication.html#slide-14'>▻</a>
+<h3 id="openid-oauth"><a class="anchorlink" href="#openid-oauth">4 OpenID + OAuth</a></h3><p>OpenID 2.0 is an open standard for Authentication.</p><p>OAuth is and open standard for API Access delegation originally published  in 2010.
+The current version is <a href="https://oauth.net/2/">OAuth 2.0</a>, published as RFC 6749 and RFC 6750 in 2012.</p><p>Both follow the same flow when used in ""</p>
+<ol>
+<li>   The user requests a resource or site login from the application.</li>
+<li> The site sees that the user is not authenticated. It formulates a request for the identity provider, encodes it, and sends it to the user as part of a redirect URL.</li>
+<li> The user's browser makes a request to the redirect URL for the identity provider, including the application's request</li>
+<li> If necessary, the identity provider authenticates the user (perhaps by asking them for their username and password)</li>
+<li> Once the identity provider is satisfied that the user is sufficiently authenticated, it processes the application's request, formulates a response, and sends that back to the user along with a redirect URL back to the application.</li>
+<li> The user's browser requests the redirect URL that goes back to the application, including the identity provider's response</li>
+<li> The application decodes the identity provider's response, and carries on accordingly.</li>
+<li> (OAuth only) The response includes an access token which the application can use to gain direct access to the identity provider's services on the user's behalf.</li>
+</ol>
+</div>
+<div class='slide'>
+<a class='slide_break' href='adv_authentication.html#slide-15'>▻</a>
+<h3 id="jwt"><a class="anchorlink" href="#jwt">5 JWT</a></h3><p><strong>JSON-Web-Token</strong> are a way to encode and sign JSON-Data. You
+can use many transmission methods to send them:</p>
+<ul>
+<li>HTTP-Headers  <code>Authorization: Bearer ...</code> or <code>Cookie</code>
 </li>
 <li>Parameter in an URL</li>
 <li>POST data</li>
 </ul>
 <p><a href="https://jwt.io/">jwt.io</a> / <a href="https://tools.ietf.org/html/rfc7519">rfc 7519</a></p></div>
 <div class='slide'>
-<a class='slide_break' href='adv_authentication.html#slide-11'>▻</a>
-<h4 id="encoding-a-token"><a class="anchorlink" href="#encoding-a-token">4.1 Encoding a Token</a></h4><p>A JWT consists of three parts: header, payload and signature.
+<a class='slide_break' href='adv_authentication.html#slide-16'>▻</a>
+<h4 id="encoding-a-token"><a class="anchorlink" href="#encoding-a-token">5.1 Encoding a Token</a></h4><p>A JWT consists of three parts: header, payload and signature.
 All three are encoded and concatenated with a dot. The result
-looks like this (if you color-code it):</p><p><img src="images/encoded-jwt3.png" alt=""></p><p>The encoding consists of two steps:  </p>
+looks like this (if you color-code it):</p><p><img src="images/encoded-jwt3.png" alt=""></p><p>The encoding consists of two steps:</p>
 <ul>
 <li>with <a href="https://en.wikipedia.org/wiki/Base64#Examples">Base64</a>
 endcoding the input string is converted to a new, longer string of only 64 characters
-that are considered "save" for transfer via (ASCII only) e-mail.  Three bytes of the original are encoded into 4 bytes in 
+that are considered "save" for transfer via (ASCII only) e-mail.  Three bytes of the original are encoded into 4 bytes in
 the resulting string.  Base64 encoded strings may contain plus signs and are
-padded with equal signs at the end. </li>
+padded with equal signs at the end.</li>
 <li>As a second step the plus signs are replaced by minus signs and
 the padding is dropped, resulting in a string that can be used in a URL without problems:</li>
 </ul>
@@ -146,24 +210,18 @@ eyAibXNnX2VuIjogIkhlbGxvIiwKICAibXNnX2pwIjogIuOBk-OCk-OBq-OBoeOBryIKICAibXNnX2Rl
 </div>
 <p>You can use the <a href="https://jwt.io/#debugger-io">JWT Debugger</a> to decode this.</p><p><img src="images/jwt-debugger.png" alt=""></p></div>
 <div class='slide'>
-<a class='slide_break' href='adv_authentication.html#slide-12'>▻</a>
-<h4 id="structure-of-a-token"><a class="anchorlink" href="#structure-of-a-token">4.2 Structure of a Token</a></h4></div>
+<a class='slide_break' href='adv_authentication.html#slide-17'>▻</a>
+<h3 id="rails"><a class="anchorlink" href="#rails">6 Rails</a></h3></div>
 <div class='slide'>
-<a class='slide_break' href='adv_authentication.html#slide-13'>▻</a>
-<h3 id="rails-and-oauth"><a class="anchorlink" href="#rails-and-oauth">5 Rails and OAuth</a></h3><p>In many scenarios it might be more convenient for your users
-to not have to register on your site, but to use another service
-to authenticate. That way they don't have to remember another password.
-And you might not have to handle passwords at all.</p><p>The gem <code>omniauth</code> helps you deal with OAuth2, OpenID, LDAP, and many
+<a class='slide_break' href='adv_authentication.html#slide-18'>▻</a>
+<h4 id="oauth"><a class="anchorlink" href="#oauth">6.1 OAuth</a></h4><p>The gem <code>omniauth</code> helps you deal with OAuth2, OpenID, LDAP, and many
 other authentication providers. The <a href="https://github.com/intridea/omniauth/wiki/List-of-Strategies">list of strategies</a>
 is quite impressive. Think carefully about what services your users
 are using, and which services might be useful to your app: could
 you use Dropbox to authenticate, and also to deliver data directly
 to your user's dropbox? Would it make sense to use Facebook or Twitter and also
 send out messages that way? Or are your users very privacy conscious and
-want to avoid Facebook and Google?</p></div>
-<div class='slide'>
-<a class='slide_break' href='adv_authentication.html#slide-14'>▻</a>
-<h4 id="providers"><a class="anchorlink" href="#providers">5.1 Providers</a></h4><p>You will need the Gem <code>omniauth</code> and
+want to avoid Facebook and Google?</p><p>You will need the Gem <code>omniauth</code> and
 additional gems for each provider. For example if you
 want to use both Github and Stackoverflow for your web app geared
 towards developers, you would need three gems:</p><div class="code_container">
@@ -174,187 +232,18 @@ gem 'omniauth-stackoverflow'
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' href='adv_authentication.html#slide-15'>▻</a>
-<p>You need to register your app with the authentication
-provider, eg. at <a href="https://developers.facebook.com/apps/">https://developers.facebook.com/apps/</a>
-or <a href="https://apps.twitter.com/">https://apps.twitter.com/</a>.
-You have to specify the URL of your web app, and a callback URL:</p><p><img src="images/oauth-app-config.png" alt="oauth app configuration"></p><p>There might also be a review process involved which might take
-a few business days to go through.</p></div>
-<div class='slide'>
-<a class='slide_break' href='adv_authentication.html#slide-16'>▻</a>
-<p>You get back two pieces of information: a key and a secret.
-In Twitter this looks like this:</p><p><img src="images/oauth-app-secret.png" alt="facebook app configuration"></p><p>(A word of warning: if you change the configuration in <code>developers.facebook.com</code> then
-you will get a new key and secret!)</p><p>You need to add the key and the secret to the configuration of omniauth:</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="c1"># config/initializers/omniauth.rb:</span>
-
-<span class="no">Rails</span><span class="p">.</span><span class="nf">application</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">middleware</span><span class="p">.</span><span class="nf">use</span> <span class="no">OmniAuth</span><span class="o">::</span><span class="no">Builder</span> <span class="k">do</span>
-  <span class="n">provider</span> <span class="ss">:twitter</span><span class="p">,</span> <span class="s1">'TWITTER_KEY'</span><span class="p">,</span> <span class="s1">'TWITTER_SECRET'</span>
-<span class="k">end</span>
-</code></pre>
-</div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='adv_authentication.html#slide-17'>▻</a>
-<p>If you plan on publishing your source code
-you might want to set these values in a way that is NOT saved to the repository.
-You could use environment variables for that:</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="c1"># config/initializers/omniauth.rb:</span>
-
-<span class="no">Rails</span><span class="p">.</span><span class="nf">application</span><span class="p">.</span><span class="nf">config</span><span class="p">.</span><span class="nf">middleware</span><span class="p">.</span><span class="nf">use</span> <span class="no">OmniAuth</span><span class="o">::</span><span class="no">Builder</span> <span class="k">do</span>
-  <span class="n">provider</span> <span class="ss">:twitter</span><span class="p">,</span> <span class="no">ENV</span><span class="p">[</span><span class="s1">'TWITTER_KEY'</span><span class="p">],</span> <span class="no">ENV</span><span class="p">[</span><span class="s1">'TWITTER_SECRET'</span><span class="p">]</span>
-<span class="k">end</span>
-</code></pre>
-</div>
-<p>Then you can set the environment variables locally on the command line:</p><div class="code_container">
-<pre><code class="highlight sh"><span class="nv">TWITTER_KEY</span><span class="o">=</span>abc
-<span class="nv">TWITTER_SECRET</span><span class="o">=</span>123
-</code></pre>
-</div>
-<p>If you deploy to heroku or dokku, use the command line interface to set
-the variables there:</p><div class="code_container">
-<pre><code class="highlight sh">heroku config:set <span class="nv">TWITTER_KEY</span><span class="o">=</span>abc
-heroku config:set <span class="nv">TWITTER_SECRET</span><span class="o">=</span>123
-
-dokku config:set <span class="nv">TWITTER_KEY</span><span class="o">=</span>abc
-dokku config:set <span class="nv">TWITTER_SECRET</span><span class="o">=</span>123
-</code></pre>
-</div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='adv_authentication.html#slide-18'>▻</a>
-<h4 id="models"><a class="anchorlink" href="#models">5.2 Models</a></h4><p>For authentication you need to save at least the provider name and the uid in your database
-somewhere. In the simplest case you just save them in a user model:</p><div class="code_container">
-<pre><code class="highlight shell"><span class="nb">rails </span>g model user provider uid
-</code></pre>
-</div>
-<p>To use additional services and get additional info from the provider
-you also need to save a per-user token and secret:</p><div class="code_container">
-<pre><code class="highlight shell"><span class="nb">rails </span>g model user provider uid token secret
-</code></pre>
-</div>
-<p>If you want to enable that one user can log in via different
-providers and still be recognised as the same user, you need to
-create a user model with a has_many relationship to an authentiation model
-that stores provider and uid.</p><p>But we will stick to the simple version:</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">CreateUsers</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span><span class="p">[</span><span class="mf">5.0</span><span class="p">]</span>
-  <span class="k">def</span> <span class="nf">change</span>
-    <span class="n">create_table</span> <span class="ss">:users</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
-      <span class="n">t</span><span class="p">.</span><span class="nf">string</span> <span class="ss">:provider</span>
-      <span class="n">t</span><span class="p">.</span><span class="nf">string</span> <span class="ss">:uid</span>
-      <span class="n">t</span><span class="p">.</span><span class="nf">timestamps</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre>
-</div>
-</div>
-<div class='slide'>
 <a class='slide_break' href='adv_authentication.html#slide-19'>▻</a>
-<h4 id="login-and-logout"><a class="anchorlink" href="#login-and-logout">5.3 Login and Logout</a></h4><p>Omniauth is a "Rack Middleware". That means it is somewhat independent
-of the Rails app you are building. It has access to the HTTP request, will
-analyze that, and pass on data to your Rails app through the
-environment variable <code>omniauth.auth</code>.</p><p>To log in you send the user to <code>/auth/:provider</code> (e.g. <code>/auth/facebook</code>).</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="o">&lt;!--</span> <span class="n">app</span><span class="o">/</span><span class="n">views</span><span class="o">/</span><span class="n">layouts</span><span class="o">/</span><span class="n">application</span><span class="p">.</span><span class="nf">html</span><span class="p">.</span><span class="nf">erb</span> <span class="o">--&gt;</span>
-  <span class="o">&lt;</span><span class="sx">% if </span><span class="n">current_user</span> <span class="sx">%&gt;
-    Logged in as &lt;%= current_user.name %&gt;</span>
-    <span class="o">&lt;</span><span class="sx">%= link_to "log out", logout_path %&gt;
-  &lt;% else %&gt;
-    log in with &lt;%=</span> <span class="n">link_to</span> <span class="s2">"twitter"</span><span class="p">,</span> <span class="s2">"/auth/twitter"</span> <span class="o">%&gt;</span>
-  <span class="o">&lt;</span><span class="sx">% end </span><span class="o">%&gt;</span>
-</code></pre>
-</div>
-</div>
+<h4 id="webauth"><a class="anchorlink" href="#webauth">6.2 WebAuth</a></h4><p>Use the gems <code>devise</code> and <a href="https://github.com/ruby-passkeys/devise-passkeys">devise-passkeys</a>
+```</p></div>
 <div class='slide'>
 <a class='slide_break' href='adv_authentication.html#slide-20'>▻</a>
-<p>This URL is handled by omniauth, not by your Rails app. Omniauth will send
-the user's browser on to a URL at the provider. There the user can log in. After
-that the browser is redirected to your app again, to <code>/auth/:provider/callback</code></p><p>This URL you need to map to a session controller:</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="c1"># config/routes.rb:</span>
-<span class="n">match</span> <span class="s1">'/auth/:provider/callback'</span><span class="p">,</span> <span class="ss">to: </span><span class="s1">'sessions#create'</span><span class="p">,</span>  <span class="ss">via: </span><span class="p">[</span><span class="ss">:get</span><span class="p">,</span> <span class="ss">:post</span><span class="p">]</span>
-<span class="n">match</span> <span class="s1">'/auth/failure'</span><span class="p">,</span>            <span class="ss">to: </span><span class="s1">'sessions#failure'</span><span class="p">,</span> <span class="ss">via: </span><span class="p">[</span><span class="ss">:get</span><span class="p">,</span> <span class="ss">:post</span><span class="p">]</span>
-</code></pre>
-</div>
-<p>In the session controller you can now read the data that omniauth provides
-from the environment variable.</p></div>
+<h4 id="json-web-tokens-jwt"><a class="anchorlink" href="#json-web-tokens-jwt">6.3 JSON Web Tokens (JWT)</a></h4><p>Use the gem <code>jwt</code></p></div>
 <div class='slide'>
 <a class='slide_break' href='adv_authentication.html#slide-21'>▻</a>
-<p>As a first step you could just print it out,
-to see what data is provided:</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="k">def</span> <span class="nf">create</span>
-  <span class="n">render</span> <span class="ss">text: </span><span class="s2">"&lt;pre&gt;"</span> <span class="o">+</span> <span class="n">env</span><span class="p">[</span><span class="s2">"omniauth.auth"</span><span class="p">].</span><span class="nf">to_yaml</span> <span class="n">and</span> <span class="k">return</span>
-<span class="k">end</span>
-</code></pre>
-</div>
-<p>The data always contains values for <code>provider</code> and <code>uid</code> at the
-top level. There may be a lot more data.</p></div>
+<h3 id="next-js"><a class="anchorlink" href="#next-js">7 next.js</a></h3></div>
 <div class='slide'>
 <a class='slide_break' href='adv_authentication.html#slide-22'>▻</a>
-<p>Here some example data from a twitter login:</p><div class="code_container">
-<pre><code class="highlight plaintext">provider: twitter
-uid: '8506142'
-info:
-  nickname: bjelline
-  name: Brigitte Jellinek
-  ...
-</code></pre>
-</div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='adv_authentication.html#slide-23'>▻</a>
-<p>Now let's look at <code>session#create</code>:
-There are two basic cases to consider: either the user has logged in using
-this authorisation method before (then we should find them in our database),
-or they are logging in for the first time.</p><p>This can get quite involved, so we hide it away inside the user model:</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="k">def</span> <span class="nf">create</span>
-  <span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">find_or_create_with_omniauth</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="nf">env</span><span class="p">[</span><span class="s1">'omniauth.auth'</span><span class="p">])</span>
-
-  <span class="k">if</span> <span class="n">user</span>
-    <span class="n">session</span><span class="p">[</span><span class="ss">:user_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">user</span><span class="p">.</span><span class="nf">id</span>
-    <span class="n">redirect_to</span> <span class="n">root_path</span><span class="p">,</span> <span class="ss">notice: </span><span class="s1">'Logged in'</span>
-  <span class="k">else</span>
-    <span class="n">redirect_to</span> <span class="n">login_path</span><span class="p">,</span> <span class="ss">alert: </span><span class="s1">'Log in failed'</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre>
-</div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='adv_authentication.html#slide-24'>▻</a>
-<p>In the model we pick apart the information from omniauth:</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="c1"># app/model/user.rb</span>
-
-<span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">find_or_create_with_omniauth</span><span class="p">(</span><span class="n">auth</span><span class="p">)</span>
-  <span class="c1"># look for an existing authorisation</span>
-  <span class="c1"># provider + uid uniquely identify a user</span>
-  <span class="no">User</span><span class="p">.</span><span class="nf">find_or_create_by!</span><span class="p">(</span>
-    <span class="ss">provider: </span><span class="n">auth</span><span class="p">[</span><span class="s1">'provider'</span><span class="p">],</span>
-    <span class="ss">uid:      </span><span class="n">auth</span><span class="p">[</span><span class="s1">'uid'</span><span class="p">]</span>
-  <span class="p">)</span>
-<span class="k">end</span>
-</code></pre>
-</div>
-<p>The ActiveRecord method <code>find_or_create_by</code> handles both cases in one: either it
-finds an existing user or it creates a new one.</p></div>
-<div class='slide'>
-<a class='slide_break' href='adv_authentication.html#slide-25'>▻</a>
-<p>We don't really have a name for each user, but
-we can fake that in the model:</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="c1"># app/model/user.rb</span>
-<span class="k">def</span> <span class="nf">name</span>
-  <span class="s2">"</span><span class="si">#{</span><span class="n">uid</span><span class="si">}</span><span class="s2">@</span><span class="si">#{</span><span class="n">provider</span><span class="si">}</span><span class="s2">"</span>
-<span class="k">end</span>
-</code></pre>
-</div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='adv_authentication.html#slide-26'>▻</a>
-<h3 id="rails-and-jwt"><a class="anchorlink" href="#rails-and-jwt">6 Rails and JWT</a></h3></div>
-<div class='slide'>
-<a class='slide_break' href='adv_authentication.html#slide-27'>▻</a>
-<h4 id="adding-jwt-to-rails"><a class="anchorlink" href="#adding-jwt-to-rails">6.1 Adding JWT to Rails</a></h4><p><code>bundler add jwt</code> and restart the server.</p></div>
-<div class='slide'>
-<a class='slide_break' href='adv_authentication.html#slide-28'>▻</a>
-<h3 id="further-reading"><a class="anchorlink" href="#further-reading">7 Further Reading</a></h3>
+<h3 id="further-reading"><a class="anchorlink" href="#further-reading">8 Further Reading</a></h3>
 <ul>
 <li>OmniAuth <a href="https://github.com/intridea/omniauth/wiki">wiki</a>
 </li>

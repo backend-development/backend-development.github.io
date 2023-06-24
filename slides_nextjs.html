@@ -251,7 +251,21 @@ Server Components cannot pass functions as props to its descendents.</p><div cla
 <h4 id="how-rsc-works"><a class="anchorlink" href="#how-rsc-works">8.6 How RSC Works</a></h4><p>its complicated</p><p><a href="https://github.com/reactwg/server-components/discussions/5">RSC Components from Scratch</a></p><p><a href="https://www.plasmic.app/blog/how-react-server-components-work">How Server Components Work</a></p></div>
 <div class='slide'>
 <a class='slide_break' href='nextjs.html#slide-19'>▻</a>
-<h3 id="see-also"><a class="anchorlink" href="#see-also">9 See Also</a></h3>
+<h3 id="hosting-next-js"><a class="anchorlink" href="#hosting-next-js">9 Hosting next.js</a></h3><p>Vercel, the company behind next.js, offers hosting on their platform. There is a free tier.</p><p>To host next.js you need:</p>
+<ul>
+<li>to run the build step to create static assets and javascript bundles</li>
+<li>to run node.js on the server</li>
+</ul>
+<p>If you are using dokku a node.js buildpack will be chosen by default,
+and do both for you. you might additionally consider:</p>
+<ul>
+<li>setting up permanent storage at <code>public/upload</code>, if you want to handle uploaded file and store them in the webspcae</li>
+<li>setting up a database</li>
+</ul>
+</div>
+<div class='slide'>
+<a class='slide_break' href='nextjs.html#slide-20'>▻</a>
+<h3 id="see-also"><a class="anchorlink" href="#see-also">10 See Also</a></h3>
 <ul>
 <li><a href="https://nextjs.org/docs">Next.js Documentation</a></li>
 <li><a href="https://nextjsweekly.com/">Next.js Newsletter</a></li>
