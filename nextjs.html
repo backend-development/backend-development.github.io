@@ -98,14 +98,14 @@
             <ol class="chapters">
 <li><a href="#what-is-next-js-questionmark">What is next.js?</a></li>
 <li><a href="#what-does-it-offer-questionmark">What does it offer?</a></li>
-<li><a href="#the-missing-persistance-layer">The missing persistance layer</a></li>
+<li><a href="#the-missing-persistence-layer">The missing persistence layer</a></li>
 <li><a href="#next-js-routing">next.js routing</a></li>
 <li>
 <a href="#next-js-as-a-static-site-generator">next.js as a Static Site Generator</a>
 
 <ul>
 <li><a href="#next-config-js-for-static-site-generation">next.config.js for static site generation</a></li>
-<li><a href="#using-github-or-gitlab-pages">using github or gitlab pages</a></li>
+<li><a href="#using-github-or-gitlab-pages">using Github or gitlab pages</a></li>
 </ul>
 </li>
 <li><a href="#next-js-for-api-endpoints">next.js for API endpoints</a></li>
@@ -123,6 +123,7 @@
 </ul>
 </li>
 <li><a href="#hosting-next-js">Hosting next.js</a></li>
+<li><a href="#telemetry">Telemetry</a></li>
 <li><a href="#see-also">See Also</a></li>
 </ol>
 
@@ -157,7 +158,7 @@ that also includes backend functionality.</p><p>After working through this guide
 <div class='slide'>
 <a class='slide_break' id='slide-3' href='slides_nextjs.html#slide-3'>▻</a>
 <h3 id="what-is-next-js-questionmark"><a class="anchorlink" href="#what-is-next-js-questionmark">1 What is next.js?</a></h3><p>Next.js is an open source framework, but it is mainly developed by Vercel.
-Vercels business is platform a service. They published next.js in 2016.
+Vercel's business is platform a service. They published next.js in 2016.
 React documentation mentions Next.js among "Recommended Toolchains"
 since at least 2021.</p></div>
 <div class='slide'>
@@ -173,21 +174,21 @@ and several different ways to render webpages:</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-5' href='slides_nextjs.html#slide-5'>▻</a>
-<h3 id="the-missing-persistance-layer"><a class="anchorlink" href="#the-missing-persistance-layer">3 The missing persistance layer</a></h3><p>Next.js is not a full backend framework. For example it does not offer an
-ORM or another persistance layer.  There is good documentation for
-combining nextjs with</p>
+<h3 id="the-missing-persistence-layer"><a class="anchorlink" href="#the-missing-persistence-layer">3 The missing persistence layer</a></h3><p>Next.js is not a full backend framework. For example it does not offer an
+ORM or another persistence layer.  There is good documentation for
+combining next.js with</p>
 <ul>
 <li>
-<a href="https://supabase.com/docs/guides/getting-started/quickstarts/nextjs">superbase</a>, which offers postgres as a service</li>
+<a href="https://supabase.com/docs/guides/getting-started/quickstarts/nextjs">superbase</a>, which offers Postgres as a service</li>
 <li>
-<a href="https://www.apollographql.com/blog/apollo-client/next-js/how-to-use-apollo-client-with-next-js-13/">apollo</a>, which offers graphql</li>
+<a href="https://www.apollographql.com/blog/apollo-client/next-js/how-to-use-apollo-client-with-next-js-13/">apollo</a>, which offers GraphQL</li>
 <li>
 <a href="https://www.prisma.io/nextjs">prisma</a>, a ORM for typescript or javascript</li>
 </ul>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-6' href='slides_nextjs.html#slide-6'>▻</a>
-<h3 id="next-js-routing"><a class="anchorlink" href="#next-js-routing">4 next.js routing</a></h3><p>From <code>next.js</code> 13 onwards the routes are created in the <code>app/</code> directory.
+<h3 id="next-js-routing"><a class="anchorlink" href="#next-js-routing">4 next.js routing</a></h3><p>From next.js 13 onwards the routes are created in the <code>app/</code> directory.
 <code>page.js</code> is the default (like index.html used to be), folders can contain parameters in brackets:</p><div class="code_container">
 <pre><code class="highlight plaintext">app/page.js          --&gt;   /
 app/otherpage/page.js     --&gt;   /otherpage
@@ -219,8 +220,8 @@ then be served by a minimal webserver without backend capabilities.</p><p>This i
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-8' href='slides_nextjs.html#slide-8'>▻</a>
-<h4 id="next-config-js-for-static-site-generation"><a class="anchorlink" href="#next-config-js-for-static-site-generation">5.1 next.config.js for static site generation</a></h4><p>We must set <code>output</code> to <code>export</code> to enable static site generations.</p><p>For most Webserver for static pages we need to set <code>trailingSlash</code> to <code>true</code>.</p><p>If the site will be hosted in a subfolder, for example at <a href="http://bjelline.pages.mediacube.at/statixnextjs/">http://bjelline.pages.mediacube.at/statixnextjs/</a>
-we must configure this as the basepath:</p><div class="code_container">
+<h4 id="next-config-js-for-static-site-generation"><a class="anchorlink" href="#next-config-js-for-static-site-generation">5.1 next.config.js for static site generation</a></h4><p>We must set <code>output</code> to <code>export</code> to enable static site generations.</p><p>For static pages we need to set <code>trailingSlash</code> to <code>true</code> on most webservers.</p><p>If the site will be hosted in a subfolder, for example at <a href="http://bjelline.pages.mediacube.at/statixnextjs/">http://bjelline.pages.mediacube.at/statixnextjs/</a>
+we must configure this as the config value <code>basePath</code>:</p><div class="code_container">
 <pre><code class="highlight plaintext">const nextConfig = {
   output: 'export',
   trailingSlash: true,
@@ -231,7 +232,7 @@ we must configure this as the basepath:</p><div class="code_container">
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-9' href='slides_nextjs.html#slide-9'>▻</a>
-<h4 id="using-github-or-gitlab-pages"><a class="anchorlink" href="#using-github-or-gitlab-pages">5.2 using github or gitlab pages</a></h4><p>You can host your static files gitlab pages with the following configuration:
+<h4 id="using-github-or-gitlab-pages"><a class="anchorlink" href="#using-github-or-gitlab-pages">5.2 using Github or gitlab pages</a></h4><p>You can host your static files gitlab pages with the following configuration:
 gitlab CI is used to build the pages, and the resulting folder <code>out</code> is declared
 as an artifact.  Gitlab will pick up this artifact and serve it through its
 pages webserver.</p><div class="code_container">
@@ -292,6 +293,7 @@ it into a client component.</p><p><img src="images/react-server-components.png" 
 <li>Client Components cannot contain server components.</li>
 <li>Server Components can instantiate both client and server components, and pass in a Server Component as the children prop to a ClientComponent.</li>
 <li>Server Components cannot pass functions as props to its descendents, only data.</li>
+<li>Use modules to share data in server components, use <a href="https://nextjs.org/docs/getting-started/react-essentials#context">context</a> to share data in client components.</li>
 </ul>
 </div>
 <div class='slide'>
@@ -372,7 +374,499 @@ and do both for you. you might additionally consider:</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-20' href='slides_nextjs.html#slide-20'>▻</a>
-<h3 id="see-also"><a class="anchorlink" href="#see-also">10 See Also</a></h3>
+<h3 id="telemetry"><a class="anchorlink" href="#telemetry">10 Telemetry</a></h3><p>A next.js app sends at least 500 lines of information to Vercel.
+See <a href="https://nextjs.org/telemetry">Telemetry</a>
+to learn what information is sent and how to switch it off.</p><div class="code_container">
+<pre><code class="highlight plaintext">[telemetry] {
+  "eventName": "NEXT_CLI_SESSION_STARTED",
+  "payload": {
+    "nextVersion": "13.4.7",
+    "nodeVersion": "v18.16.1",
+    "cliCommand": "build",
+    "isSrcDir": false,
+    "hasNowJson": false,
+    "isCustomServer": null,
+    "hasNextConfig": true,
+    "buildTarget": "default",
+    "hasWebpackConfig": false,
+    "hasBabelConfig": false,
+    "imageEnabled": true,
+    "imageFutureEnabled": true,
+    "basePathEnabled": false,
+    "i18nEnabled": false,
+    "locales": null,
+    "localeDomainsCount": null,
+    "localeDetectionEnabled": null,
+    "imageDomainsCount": 0,
+    "imageRemotePatternsCount": 0,
+    "imageSizes": "16,32,48,64,96,128,256,384",
+    "imageLoader": "default",
+    "imageFormats": "image/webp",
+    "nextConfigOutput": null,
+    "trailingSlashEnabled": false,
+    "reactStrictMode": false,
+    "webpackVersion": 5,
+    "turboFlag": false,
+    "appDir": true,
+    "pagesDir": false
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "build-lint",
+    "invocationCount": 1
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_PACKAGE_DETECTED",
+  "payload": {
+    "packageName": "@auth/prisma-adapter",
+    "packageVersion": "^1.0.0"
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_PACKAGE_DETECTED",
+  "payload": {
+    "packageName": "@prisma/client",
+    "packageVersion": "^4.16.1"
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_PACKAGE_DETECTED",
+  "payload": {
+    "packageName": "autoprefixer",
+    "packageVersion": "10.4.14"
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_PACKAGE_DETECTED",
+  "payload": {
+    "packageName": "date-fns",
+    "packageVersion": "^2.30.0"
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_PACKAGE_DETECTED",
+  "payload": {
+    "packageName": "eslint",
+    "packageVersion": "8.43.0"
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_PACKAGE_DETECTED",
+  "payload": {
+    "packageName": "eslint-config-next",
+    "packageVersion": "13.4.7"
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_PACKAGE_DETECTED",
+  "payload": {
+    "packageName": "next",
+    "packageVersion": "13.4.7"
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_PACKAGE_DETECTED",
+  "payload": {
+    "packageName": "next-auth",
+    "packageVersion": "^4.22.1"
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_PACKAGE_DETECTED",
+  "payload": {
+    "packageName": "postcss",
+    "packageVersion": "8.4.24"
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_PACKAGE_DETECTED",
+  "payload": {
+    "packageName": "prisma",
+    "packageVersion": "^4.16.1"
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_PACKAGE_DETECTED",
+  "payload": {
+    "packageName": "react",
+    "packageVersion": "18.2.0"
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_PACKAGE_DETECTED",
+  "payload": {
+    "packageName": "react-dom",
+    "packageVersion": "18.2.0"
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_PACKAGE_DETECTED",
+  "payload": {
+    "packageName": "tailwindcss",
+    "packageVersion": "3.3.2"
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_COMPLETED",
+  "payload": {
+    "durationInSeconds": 10,
+    "totalAppPagesCount": 4,
+    "totalPageCount": 0,
+    "hasDunderPages": false,
+    "hasTestPages": false
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_LINT_CHECK_COMPLETED",
+  "payload": {
+    "durationInSeconds": 0,
+    "eslintVersion": "8.43.0",
+    "lintedFilesCount": 14,
+    "lintFix": false,
+    "nextEslintPluginVersion": "13.4.7",
+    "nextEslintPluginErrorsCount": 0,
+    "nextEslintPluginWarningsCount": 0,
+    "nextRulesEnabled": {
+      "@next/next/no-html-link-for-pages": "error",
+      "@next/next/no-sync-scripts": "error",
+      "@next/next/google-font-display": "warn",
+      "@next/next/google-font-preconnect": "warn",
+      "@next/next/next-script-for-ga": "warn",
+      "@next/next/no-before-interactive-script-outside-document": "warn",
+      "@next/next/no-css-tags": "warn",
+      "@next/next/no-head-element": "warn",
+      "@next/next/no-img-element": "warn",
+      "@next/next/no-page-custom-font": "warn",
+      "@next/next/no-styled-jsx-in-document": "warn",
+      "@next/next/no-title-in-document-head": "warn",
+      "@next/next/no-typos": "warn",
+      "@next/next/no-unwanted-polyfillio": "warn",
+      "@next/next/inline-script-id": "error",
+      "@next/next/no-assign-module-variable": "error",
+      "@next/next/no-document-import-in-page": "error",
+      "@next/next/no-duplicate-head": "error",
+      "@next/next/no-head-import-in-document": "error",
+      "@next/next/no-script-component-in-head": "error"
+    },
+    "buildLint": true
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_TYPE_CHECK_COMPLETED",
+  "payload": {
+    "durationInSeconds": 0,
+    "typescriptVersion": null
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "experimental/optimizeCss",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "experimental/nextScriptWorkers",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "optimizeFonts",
+    "invocationCount": 1
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_OPTIMIZED",
+  "payload": {
+    "durationInSeconds": 13,
+    "staticPageCount": 0,
+    "staticPropsPageCount": 0,
+    "serverPropsPageCount": 0,
+    "ssrPageCount": 0,
+    "hasStatic404": true,
+    "hasReportWebVitals": false,
+    "rewritesCount": 0,
+    "headersCount": 0,
+    "redirectsCount": 0,
+    "headersWithHasCount": 0,
+    "rewritesWithHasCount": 0,
+    "redirectsWithHasCount": 0,
+    "middlewareCount": 0,
+    "totalAppPagesCount": 4,
+    "staticAppPagesCount": 2,
+    "serverAppPagesCount": 2,
+    "edgeRuntimeAppCount": 0,
+    "edgeRuntimePagesCount": 0,
+    "totalPageCount": 0,
+    "hasDunderPages": false,
+    "hasTestPages": false
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "swcLoader",
+    "invocationCount": 1
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "swcMinify",
+    "invocationCount": 1
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "swcRelay",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "swcStyledComponents",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "swcReactRemoveProperties",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "swcExperimentalDecorators",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "swcRemoveConsole",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "swcImportSource",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "swcEmotion",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "swc/target/x86_64-apple-darwin",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "swc/target/x86_64-unknown-linux-gnu",
+    "invocationCount": 1
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "swc/target/x86_64-pc-windows-msvc",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "swc/target/i686-pc-windows-msvc",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "swc/target/aarch64-unknown-linux-gnu",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "swc/target/armv7-unknown-linux-gnueabihf",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "swc/target/aarch64-apple-darwin",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "swc/target/aarch64-linux-android",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "swc/target/arm-linux-androideabi",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "swc/target/x86_64-unknown-freebsd",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "swc/target/x86_64-unknown-linux-musl",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "swc/target/aarch64-unknown-linux-musl",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "swc/target/aarch64-pc-windows-msvc",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "turbotrace",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "transpilePackages",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "skipMiddlewareUrlNormalize",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "skipTrailingSlashRedirect",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "modularizeImports",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "next/image",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "next/future/image",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "next/legacy/image",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "next/script",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "next/dynamic",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "@next/font/google",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "@next/font/local",
+    "invocationCount": 0
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "next/font/google",
+    "invocationCount": 1
+  }
+}
+[telemetry] {
+  "eventName": "NEXT_BUILD_FEATURE_USAGE",
+  "payload": {
+    "featureName": "next/font/local",
+    "invocationCount": 0
+  }
+}
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-21' href='slides_nextjs.html#slide-21'>▻</a>
+<h3 id="see-also"><a class="anchorlink" href="#see-also">11 See Also</a></h3>
 <ul>
 <li><a href="https://nextjs.org/docs">Next.js Documentation</a></li>
 <li><a href="https://nextjsweekly.com/">Next.js Newsletter</a></li>

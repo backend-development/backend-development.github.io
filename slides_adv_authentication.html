@@ -39,8 +39,8 @@
 Apps.</p><p>After reading this guide you will</p>
 <ul>
 <li>have an overview of scenarios and authentication methods</li>
-<li>be able to use several authentiation methods in next.js</li>
-<li>be able to use several authentiation methods in rails</li>
+<li>be able to use several authentication methods in next.js</li>
+<li>be able to use several authentication methods in rails</li>
 </ul>
 
 </div>
@@ -55,8 +55,9 @@ Apps.</p><p>After reading this guide you will</p>
 <a class='slide_break' href='adv_authentication.html#slide-4'>▻</a>
 <h4 id="authentication-and-authorisation-scencarios"><a class="anchorlink" href="#authentication-and-authorisation-scencarios">1.1 Authentication and Authorisation Scencarios</a></h4><p>Some questions to ask yourself:</p>
 <ul>
-<li>Do I only need authentication (Is this the user?) or also authorisation (which user may access what?)</li>
-<li>Is one factor enough?  Do I want to support 2 factor athentication?</li>
+<li>Do I only need authentication (is this the user?)</li>
+<li>Do I need authorisation to access resources on other servers in the users name?</li>
+<li>Is one factor enough?  Do I want to support 2 factor authentication?</li>
 <li>Who does the authentication? My own app or another "authentication provider"?</li>
 <li>Which programs need to authenticate? Browsers? Native apps? Command line programs?</li>
 <li>Are users expecting a "single sign on"?</li>
@@ -64,11 +65,11 @@ Apps.</p><p>After reading this guide you will</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='adv_authentication.html#slide-5'>▻</a>
-<h4 id="authentication-providers"><a class="anchorlink" href="#authentication-providers">1.2 Authentication Providers</a></h4><p>Authentication Providers like github, google ect can
+<h4 id="authentication-providers"><a class="anchorlink" href="#authentication-providers">1.2 Authentication Providers</a></h4><p>Authentication Providers like Github, Google ect. can
 provide both Authentication and Authorisation to use
-their resources.</p><p>For example the app I am building coule</p>
+their resources.</p><p>For example the app I am building could</p>
 <ul>
-<li>authenticate a user via github, and also access the users private repositories,</li>
+<li>authenticate a user via Github, and also access the users private repositories,</li>
 <li>authenticate via google and also access the users photos,</li>
 <li>authenticate via instagram and create posts in their name on instagram.</li>
 </ul>
@@ -86,9 +87,9 @@ their resources.</p><p>For example the app I am building coule</p>
 </div>
 <div class='slide'>
 <a class='slide_break' href='adv_authentication.html#slide-7'>▻</a>
-<h4 id="different-types-of-programs"><a class="anchorlink" href="#different-types-of-programs">1.4 Different types of programs</a></h4><p>When createing commandline programs, web apps, native apps we
-have different possiblities.</p><p>You already know how to use HTTP Cookies for authentication
-in a web app. Commandline programms and native app do not use cookies
+<h4 id="different-types-of-programs"><a class="anchorlink" href="#different-types-of-programs">1.4 Different types of programs</a></h4><p>When creating command line programs, web apps, native apps we
+have different possibilities.</p><p>You already know how to use HTTP Cookies for authentication
+in a web app. Command line programs and native app do not use cookies
 automatically as browser do.</p><p>To illustrate this let's look at a command line program.</p></div>
 <div class='slide'>
 <a class='slide_break' href='adv_authentication.html#slide-8'>▻</a>
@@ -97,7 +98,7 @@ office365 command line tool:</p>
 <ol>
 <li>start the process on the command line</li>
 </ol>
-<p><img src="images/office-cli-1.png" alt="Command Line"></p><p>the program opens a browser at a special microsoft login page
+<p><img src="images/office-cli-1.png" alt="Command Line"></p><p>the program opens a browser at a special Microsoft login page
 and asks you to type in a short string there.</p><p><img src="images/cli-login-3.png" alt="Command Line"></p><p>go throug the usual steps of login</p><p><img src="images/cli-login-4.png" alt="Command Line"></p><p>final screen in the browser shows success</p><p><img src="images/cli-login-5.png" alt="Command Line"></p><p>back in the command line program you are now authorized.</p><p><img src="images/office-cli.png" alt="Command Line"></p></div>
 <div class='slide'>
 <a class='slide_break' href='adv_authentication.html#slide-9'>▻</a>
@@ -116,7 +117,7 @@ There are several ways to do this:</p>
 <div class='slide'>
 <a class='slide_break' href='adv_authentication.html#slide-10'>▻</a>
 <h4 id="http-basic-authentication"><a class="anchorlink" href="#http-basic-authentication">2.1 HTTP Basic Authentication</a></h4><p>This is the oldest method.  It still works in all the browser, but is not used much
-any more because the UI is very restrictive.</p><p><img src="images/chrome-basic.png" alt=""></p><p>It is specified in  <a href="https://tools.ietf.org/html/rfc1945#section-11">rfc 1945, section 11</a>.</p>
+any more because the UI is very restrictive.</p><p><img src="images/chrome-basic.png" alt=""></p><p>It is specified in  <a href="https://tools.ietf.org/html/rfc1945#section-11">RFC 1945, section 11</a>.</p>
 <ol>
 <li>The Browser requests access to a resource;</li>
 <li>The server sends a <code>WWW-Authenticate: Basic ...</code> header in the response, but not the resource;</li>
@@ -127,7 +128,7 @@ any more because the UI is very restrictive.</p><p><img src="images/chrome-basic
 </div>
 <div class='slide'>
 <a class='slide_break' href='adv_authentication.html#slide-11'>▻</a>
-<h4 id="http-cookies"><a class="anchorlink" href="#http-cookies">2.2 HTTP Cookies</a></h4><p>HTTP Cookies are defined in <a href="https://tools.ietf.org/html/rfc6265">rfc 6265</a>.</p>
+<h4 id="http-cookies"><a class="anchorlink" href="#http-cookies">2.2 HTTP Cookies</a></h4><p>HTTP Cookies are defined in <a href="https://tools.ietf.org/html/rfc6265">RFC 6265</a>.</p>
 <ol>
 <li>The server sets the cookie (using the Header 'Set-Cookie'),</li>
 <li>the client includes the cookie automatically in every subsequent request to the server (using the HTTP Header <code>Cookie</code>).</li>
@@ -141,21 +142,21 @@ to identify sessions.</p></div>
 <div class='slide'>
 <a class='slide_break' href='adv_authentication.html#slide-13'>▻</a>
 <h3 id="web-authentication-webauthn-or-passkey"><a class="anchorlink" href="#web-authentication-webauthn-or-passkey">3 Web Authentication "WebAuthn" or Passkey</a></h3><p>Web Authentication, or short "WebAuthn" is a W3C standard
-that has been implemented  <a href="https://caniuse.com/?search=webauthn">in all Browsers since 2020</a>.</p><p>You a User you have to own an authenticator: for example a <a href="https://www.yubico.com/">Yubikey</a>, USB Token,
+that has been implemented  <a href="https://caniuse.com/?search=webauthn">in all Browsers since 2020</a>.</p><p>You a User you have to own an authenticator: for example a <a href="https://www.yubico.com/">YubiKey</a>, USB Token,
 or your <a href="https://www.makeuseof.com/set-up-passkey-google-account-android/">smartphone</a>.
 This Authenticator
 is a powerful "second factor": it can do cryptographic computation and it can
 store data.</p><p><img src="images/yubikey-5.png" alt=""></p><p>This diagram <a href="https://auth0.com/blog/introduction-to-web-authentication/">from auth0</a> shows the players
 in this form auf authentication:</p><p><img src="images/web-authn-entities.png" alt=""></p><p>The server you want to log into is called the "relying party".</p><p>During <strong>Registration</strong> the relying party supplies data called "challenge". The JavaScript
-in the users browser calls <code>navigator.credentials.create()</code> with this challengen. This makes
-the browser call the authenticator device with the callenge data. The device might ask the user
+in the users browser calls <code>navigator.credentials.create()</code> with this challenge. This makes
+the browser call the authenticator device with the challenge data. The device might ask the user
 for some form of consent, for example given through a fingerprint or a touch sensor.
-The result is a public/private keypair.</p><p>During <strong>Authentication</strong> (or "attestation") the same challenge from the relying party
+The result is a public/private key pair.</p><p>During <strong>Authentication</strong> (or "attestation") the same challenge from the relying party
 is given to the authenticator.</p><p>See also</p>
 <ul>
 <li><a href="https://webauthn.guide/">Guide</a></li>
 <li><a href="https://webauthn.io/">Demo</a></li>
-<li><a href="https://github.com/herrjemand/awesome-webauthn">awesome-webauthn collection on github</a></li>
+<li><a href="https://github.com/herrjemand/awesome-webauthn">awesome-webauthn collection on Github</a></li>
 </ul>
 </div>
 <div class='slide'>
@@ -240,9 +241,94 @@ gem 'omniauth-stackoverflow'
 <h4 id="json-web-tokens-jwt"><a class="anchorlink" href="#json-web-tokens-jwt">6.3 JSON Web Tokens (JWT)</a></h4><p>Use the gem <code>jwt</code></p></div>
 <div class='slide'>
 <a class='slide_break' href='adv_authentication.html#slide-21'>▻</a>
-<h3 id="next-js"><a class="anchorlink" href="#next-js">7 next.js</a></h3></div>
+<h3 id="next-js"><a class="anchorlink" href="#next-js">7 next.js</a></h3><p>The package <code>next-auth</code> provides several authentication methods.</p>
+<ul>
+<li>OAuth2</li>
+<li>
+<a href="https://next-auth.js.org/providers/email">E-Mail</a> "magic links"</li>
+</ul>
+<p>And it can save information to a database through an <a href="https://authjs.dev/reference/adapters">adapter</a>.</p><p>When you install the package you also need to set several
+environment variables (for example through <code>.env</code>):</p><p>The URL of the application - this is needed to construct callback urls
+for OAuth2.  And a secret that will be used to sign certain tokens.
+You can use <code>openssl rand -base64 32</code> to create a random string.</p><div class="code_container">
+<pre><code class="highlight plaintext">NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=...
+</code></pre>
+</div>
+</div>
 <div class='slide'>
 <a class='slide_break' href='adv_authentication.html#slide-22'>▻</a>
+<h4 id="oauth2"><a class="anchorlink" href="#oauth2">7.1 OAuth2</a></h4><p>For OAuth2 you have to configure two parties at the same time:</p>
+<ul>
+<li>the "authentication provider"</li>
+<li>your own web app</li>
+</ul>
+</div>
+<div class='slide'>
+<a class='slide_break' href='adv_authentication.html#slide-23'>▻</a>
+<h4 id="configuring-the-authentication-provider"><a class="anchorlink" href="#configuring-the-authentication-provider">7.2 configuring the authentication provider</a></h4><p>You need to finde the right webpage that let's you configure the authentication provider.
+For example at Github you find it under Settings, "for Developers", "create App".</p><p>You need to supply the following information:</p>
+<ul>
+<li>The URL of your app, for example <code>https://myapp.at</code>
+</li>
+<li>The callback URL for OAuth2, for example <code>https://myapp.at/api/auth/callback/github</code>
+</li>
+</ul>
+<p>In the <a href="https://next-auth.js.org/getting-started/rest-api#getpost-apiauthcallbackprovider">documentation for auth-next</a>
+you can see that the callback URL has the form <code>/api/auth/callback/:provider</code>`</p></div>
+<div class='slide'>
+<a class='slide_break' href='adv_authentication.html#slide-24'>▻</a>
+<h4 id="configuring-the-callback"><a class="anchorlink" href="#configuring-the-callback">7.3 configuring the callback</a></h4><p>When using the app router, you need to create the file <code>app/api/auth/\[...nextauth\]/route.js</code></p><p>Here you need to import and configure one or several authentication providers.
+This example shows github.  See <code>node_modules/next-auth/providers/*.js</code> for a
+list of the available providers.</p><div class="code_container">
+<pre><code class="highlight javascript"><span class="k">import</span> <span class="nx">NextAuth</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">next-auth</span><span class="dl">'</span><span class="p">;</span>
+<span class="k">import</span> <span class="nx">GithubProvider</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">next-auth/providers/github</span><span class="dl">'</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="kd">const</span> <span class="nx">authOptions</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="na">providers</span><span class="p">:</span> <span class="p">[</span>
+    <span class="nx">GithubProvider</span><span class="p">({</span>
+      <span class="na">clientId</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">GITHUB_CLIENT_ID</span><span class="p">,</span>
+      <span class="na">clientSecret</span><span class="p">:</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">GITHUB_CLIENT_SECRET</span><span class="p">,</span>
+    <span class="p">})</span>
+  <span class="p">]</span>
+<span class="p">};</span>
+
+<span class="kd">const</span> <span class="nx">handler</span> <span class="o">=</span> <span class="nx">NextAuth</span><span class="p">(</span><span class="nx">authOptions</span><span class="p">);</span>
+
+<span class="k">export</span> <span class="p">{</span>
+  <span class="nx">handler</span> <span class="k">as</span> <span class="nx">GET</span><span class="p">,</span>
+  <span class="nx">handler</span> <span class="k">as</span> <span class="nx">POST</span>
+<span class="p">};</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='adv_authentication.html#slide-25'>▻</a>
+<h4 id="link-to-sign-in-and-sign-out"><a class="anchorlink" href="#link-to-sign-in-and-sign-out">7.4 link to sign in and sign out</a></h4><div class="code_container">
+<pre><code class="highlight javascript"><span class="k">import</span> <span class="p">{</span><span class="nx">authOptions</span><span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">@/app/api/auth/[...nextauth]/route.js</span><span class="dl">"</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">getServerSession</span><span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">next-auth/next</span><span class="dl">"</span>
+<span class="k">import</span> <span class="nx">Link</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">next/link</span><span class="dl">"</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="k">async</span> <span class="kd">function</span> <span class="nx">SignInStatus</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">session</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">getServerSession</span><span class="p">(</span><span class="nx">authOptions</span><span class="p">)</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="nx">session</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="o">&lt;&gt;</span>
+      <span class="nx">Signed</span> <span class="k">in</span> <span class="k">as</span> <span class="p">{</span><span class="nx">session</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">email</span><span class="p">}</span> <span class="o">&lt;</span><span class="nx">br</span><span class="o">/&gt;</span>
+      <span class="o">&lt;</span><span class="nx">Link</span> <span class="nx">href</span><span class="o">=</span><span class="dl">"</span><span class="s2">/api/auth/signout</span><span class="dl">"</span><span class="o">&gt;</span><span class="nx">Sign</span> <span class="nx">out</span><span class="o">&lt;</span><span class="sr">/Link</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;</span><span class="p">{</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">session</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">2</span><span class="p">)}</span><span class="o">&lt;</span><span class="sr">/pre</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/</span><span class="err">&gt;
+</span>  <span class="p">}</span>
+  <span class="k">return</span> <span class="o">&lt;&gt;</span>
+    <span class="nx">Not</span> <span class="nx">signed</span> <span class="k">in</span> <span class="o">&lt;</span><span class="nx">br</span><span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nx">Link</span> <span class="nx">href</span><span class="o">=</span><span class="dl">"</span><span class="s2">/api/auth/signin</span><span class="dl">"</span><span class="o">&gt;</span><span class="nx">Sign</span> <span class="k">in</span><span class="o">&lt;</span><span class="sr">/Link</span><span class="err">&gt;
+</span>  <span class="o">&lt;</span><span class="sr">/</span><span class="err">&gt;
+</span><span class="p">}</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' href='adv_authentication.html#slide-26'>▻</a>
 <h3 id="further-reading"><a class="anchorlink" href="#further-reading">8 Further Reading</a></h3>
 <ul>
 <li>OmniAuth <a href="https://github.com/intridea/omniauth/wiki">wiki</a>
