@@ -142,6 +142,8 @@
 <li><a href="#configuring-the-authentication-provider">configuring the authentication provider</a></li>
 <li><a href="#configuring-the-callback">configuring the callback</a></li>
 <li><a href="#link-to-sign-in-and-sign-out">link to sign in and sign out</a></li>
+<li><a href="#in-server-components">in server components</a></li>
+<li><a href="#in-client-components">in client components</a></li>
 </ul>
 </li>
 <li><a href="#further-reading">Further Reading</a></li>
@@ -458,6 +460,78 @@ list of the available providers.</p><div class="code_container">
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-26' href='slides_adv_authentication.html#slide-26'>▻</a>
+<h4 id="in-server-components"><a class="anchorlink" href="#in-server-components">7.5 in server components</a></h4><div class="code_container">
+<pre><code class="highlight javascript"><span class="c1">// in a server component - no access to state</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">authOptions</span><span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">@/app/api/auth/[...nextauth]/route.js</span><span class="dl">"</span>
+<span class="k">import</span> <span class="p">{</span><span class="nx">getServerSession</span><span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">next-auth/next</span><span class="dl">"</span>
+
+
+<span class="k">export</span> <span class="k">default</span> <span class="k">async</span> <span class="kd">function</span> <span class="nx">ServerComponent</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">session</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">getServerSession</span><span class="p">(</span><span class="nx">authOptions</span><span class="p">)</span>
+
+  <span class="p">...</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-27' href='slides_adv_authentication.html#slide-27'>▻</a>
+<h4 id="in-client-components"><a class="anchorlink" href="#in-client-components">7.6 in client components</a></h4><p>To have the session available in client components, we first
+have to wrap the whole app in a <code>SessionProvider</code>. This needs
+to happen in a client component.  But how can we use
+server components inside this client component?</p><p>We start off in <code>layout.js</code> in the main <code>app</code> folder, and use
+the method of wrapping server components inside a client component
+inside a server component mentioned <a href="https://backend-development.github.io/nextjs.html#you-can-pass-in-server-components-to-a-clientcomponent">before</a>.</p><div class="code_container">
+<pre><code class="highlight javascript"><span class="c1">// app/layout.js</span>
+<span class="k">import</span> <span class="nx">ClientSessionProvider</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">@/components/ClientSessionProvider.client.js</span><span class="dl">'</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">RootLayout</span><span class="p">({</span> <span class="nx">children</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">html</span> <span class="nx">lang</span><span class="o">=</span><span class="dl">"</span><span class="s2">en</span><span class="dl">"</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="nx">ClientSessionProvider</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">body</span> <span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="nx">inter</span><span class="p">.</span><span class="nx">className</span><span class="p">}</span><span class="o">&gt;</span>
+          <span class="p">{</span><span class="nx">children</span><span class="p">}</span>
+        <span class="o">&lt;</span><span class="sr">/body</span><span class="err">&gt;
+</span>      <span class="o">&lt;</span><span class="sr">/ClientSessionProvider</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/html</span><span class="err">&gt;
+</span>  <span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+<p>Then inside the client component we use the session provider:</p><div class="code_container">
+<pre><code class="highlight javascript"><span class="c1">// components/ClientSessionProvider.client.js</span>
+
+<span class="dl">"</span><span class="s2">use client</span><span class="dl">"</span>
+
+<span class="k">import</span> <span class="p">{</span> <span class="nx">SessionProvider</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">next-auth/react</span><span class="dl">"</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">ClientSessionProvider</span><span class="p">({</span> <span class="nx">children</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;</span><span class="nx">SessionProvider</span><span class="o">&gt;</span>
+      <span class="p">{</span><span class="nx">children</span><span class="p">}</span>
+    <span class="o">&lt;</span><span class="sr">/SessionProvider</span><span class="err">&gt;
+</span>  <span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+<p>Now we can use the session in any client component:</p><div class="code_container">
+<pre><code class="highlight javascript"><span class="c1">// components/SomeComponent.client.js</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">useSession</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">next-auth/react</span><span class="dl">"</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">SomeComponent</span><span class="p">({})</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="p">{</span> <span class="na">data</span><span class="p">:</span> <span class="nx">session</span><span class="p">,</span> <span class="nx">status</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useSession</span><span class="p">();</span>
+  <span class="p">...</span>
+    <span class="k">return</span> <span class="p">(</span>
+    <span class="o">&lt;&gt;</span>
+      <span class="o">&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="p">{</span> <span class="nx">status</span>  <span class="o">!==</span> <span class="dl">"</span><span class="s2">authenticated</span><span class="dl">"</span>  <span class="p">?</span> <span class="nx">status</span> <span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">session</span><span class="p">)}</span><span class="o">&lt;</span><span class="sr">/h1</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="sr">/</span><span class="err">&gt;
+</span>    <span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-28' href='slides_adv_authentication.html#slide-28'>▻</a>
 <h3 id="further-reading"><a class="anchorlink" href="#further-reading">8 Further Reading</a></h3>
 <ul>
 <li>OmniAuth <a href="https://github.com/intridea/omniauth/wiki">wiki</a>
