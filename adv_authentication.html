@@ -479,7 +479,13 @@ list of the available providers.</p><div class="code_container">
 <h4 id="in-client-components"><a class="anchorlink" href="#in-client-components">7.6 in client components</a></h4><p>To have the session available in client components, we first
 have to wrap the whole app in a <code>SessionProvider</code>. This needs
 to happen in a client component.  But how can we use
-server components inside this client component?</p><p>We start off in <code>layout.js</code> in the main <code>app</code> folder, and use
+server components inside this client component?</p><p>We need three steps to get there:</p>
+<ol>
+<li><code>layout.js</code></li>
+<li><code>ClientSessionProvider.client.js</code></li>
+<li>code for a client component that needs to use the session</li>
+</ol>
+<p>We start off in <code>layout.js</code> in the main <code>app</code> folder, and use
 the method of wrapping server components inside a client component
 inside a server component mentioned <a href="https://backend-development.github.io/nextjs.html#you-can-pass-in-server-components-to-a-clientcomponent">before</a>.</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="c1">// app/layout.js</span>
