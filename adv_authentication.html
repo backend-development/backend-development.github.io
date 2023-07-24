@@ -101,7 +101,6 @@
 
 <ul>
 <li><a href="#authentication-and-authorisation-scencarios">Authentication and Authorisation Scencarios</a></li>
-<li><a href="#authentication-providers">Authentication Providers</a></li>
 <li><a href="#two-factor-authentication">Two Factor Authentication</a></li>
 <li><a href="#different-types-of-programs">Different types of programs</a></li>
 <li><a href="#command-line-authentication-flow">Command Line Authentication Flow:</a></li>
@@ -116,7 +115,13 @@
 <li><a href="#bearer-token">Bearer Token</a></li>
 </ul>
 </li>
-<li><a href="#web-authentication-webauthn-or-passkey">Web Authentication "WebAuthn" or Passkey</a></li>
+<li>
+<a href="#web-authentication-webauthn">Web Authentication "WebAuthn"</a>
+
+<ul>
+<li><a href="#passkey">Passkey</a></li>
+</ul>
+</li>
 <li><a href="#openid-oauth">OpenID + OAuth</a></li>
 <li>
 <a href="#jwt">JWT</a>
@@ -195,18 +200,7 @@ Apps.</p><p>After reading this guide you will</p>
 </div>
 <div class='slide'>
 <a class='slide_break' id='slide-5' href='slides_adv_authentication.html#slide-5'>▻</a>
-<h4 id="authentication-providers"><a class="anchorlink" href="#authentication-providers">1.2 Authentication Providers</a></h4><p>Authentication Providers like Github, Google ect. can
-provide both Authentication and Authorisation to use
-their resources.</p><p>For example the app I am building could</p>
-<ul>
-<li>authenticate a user via Github, and also access the users private repositories,</li>
-<li>authenticate via google and also access the users photos,</li>
-<li>authenticate via instagram and create posts in their name on instagram.</li>
-</ul>
-</div>
-<div class='slide'>
-<a class='slide_break' id='slide-6' href='slides_adv_authentication.html#slide-6'>▻</a>
-<h4 id="two-factor-authentication"><a class="anchorlink" href="#two-factor-authentication">1.3 Two Factor Authentication</a></h4><p>any combination of:</p>
+<h4 id="two-factor-authentication"><a class="anchorlink" href="#two-factor-authentication">1.2 Two Factor Authentication</a></h4><p>any combination of:</p>
 <ul>
 <li> Something you know - a password or a pin</li>
 <li> Something you have -   mobile phone or a security token like a <a href="https://www.yubico.com/products/#yubikey-5ci">YubiKey</a>
@@ -216,14 +210,14 @@ their resources.</p><p>For example the app I am building could</p>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-7' href='slides_adv_authentication.html#slide-7'>▻</a>
-<h4 id="different-types-of-programs"><a class="anchorlink" href="#different-types-of-programs">1.4 Different types of programs</a></h4><p>When creating command line programs, web apps, native apps we
+<a class='slide_break' id='slide-6' href='slides_adv_authentication.html#slide-6'>▻</a>
+<h4 id="different-types-of-programs"><a class="anchorlink" href="#different-types-of-programs">1.3 Different types of programs</a></h4><p>When creating command line programs, web apps, native apps we
 have different possibilities.</p><p>You already know how to use HTTP Cookies for authentication
 in a web app. Command line programs and native app do not use cookies
 automatically as browser do.</p><p>To illustrate this let's look at a command line program.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-8' href='slides_adv_authentication.html#slide-8'>▻</a>
-<h4 id="command-line-authentication-flow"><a class="anchorlink" href="#command-line-authentication-flow">1.5 Command Line Authentication Flow:</a></h4><p>Here an example of an authentication flow for the
+<a class='slide_break' id='slide-7' href='slides_adv_authentication.html#slide-7'>▻</a>
+<h4 id="command-line-authentication-flow"><a class="anchorlink" href="#command-line-authentication-flow">1.4 Command Line Authentication Flow:</a></h4><p>Here an example of an authentication flow for the
 office365 command line tool:</p>
 <ol>
 <li>start the process on the command line</li>
@@ -231,7 +225,7 @@ office365 command line tool:</p>
 <p><img src="images/office-cli-1.png" alt="Command Line"></p><p>the program opens a browser at a special Microsoft login page
 and asks you to type in a short string there.</p><p><img src="images/cli-login-3.png" alt="Command Line"></p><p>go throug the usual steps of login</p><p><img src="images/cli-login-4.png" alt="Command Line"></p><p>final screen in the browser shows success</p><p><img src="images/cli-login-5.png" alt="Command Line"></p><p>back in the command line program you are now authorized.</p><p><img src="images/office-cli.png" alt="Command Line"></p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-9' href='slides_adv_authentication.html#slide-9'>▻</a>
+<a class='slide_break' id='slide-8' href='slides_adv_authentication.html#slide-8'>▻</a>
 <h3 id="how-to-add-state-to-http"><a class="anchorlink" href="#how-to-add-state-to-http">2 How to add state to HTTP</a></h3><p>When thinking about Authentication and Web Applications we
 first have to overcome the stateless nature of HTTP.
 There are several ways to do this:</p>
@@ -245,7 +239,7 @@ There are several ways to do this:</p>
 </ol>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-10' href='slides_adv_authentication.html#slide-10'>▻</a>
+<a class='slide_break' id='slide-9' href='slides_adv_authentication.html#slide-9'>▻</a>
 <h4 id="http-basic-authentication"><a class="anchorlink" href="#http-basic-authentication">2.1 HTTP Basic Authentication</a></h4><p>This is the oldest method.  It still works in all the browser, but is not used much
 any more because the UI is very restrictive.</p><p><img src="images/chrome-basic.png" alt=""></p><p>It is specified in  <a href="https://tools.ietf.org/html/rfc1945#section-11">RFC 1945, section 11</a>.</p>
 <ol>
@@ -257,7 +251,7 @@ any more because the UI is very restrictive.</p><p><img src="images/chrome-basic
 </ol>
 <p>This can be configured in the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#restricting_access_with_apache_and_basic_authentication">web server</a>.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-11' href='slides_adv_authentication.html#slide-11'>▻</a>
+<a class='slide_break' id='slide-10' href='slides_adv_authentication.html#slide-10'>▻</a>
 <h4 id="http-cookies"><a class="anchorlink" href="#http-cookies">2.2 HTTP Cookies</a></h4><p>HTTP Cookies are defined in <a href="https://tools.ietf.org/html/rfc6265">RFC 6265</a>.</p>
 <ol>
 <li>The server sets the cookie (using the Header 'Set-Cookie'),</li>
@@ -266,12 +260,12 @@ any more because the UI is very restrictive.</p><p><img src="images/chrome-basic
 <p>Cookies are often integrated into backend frameworks as a method
 to identify sessions.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-12' href='slides_adv_authentication.html#slide-12'>▻</a>
+<a class='slide_break' id='slide-11' href='slides_adv_authentication.html#slide-11'>▻</a>
 <h4 id="bearer-token"><a class="anchorlink" href="#bearer-token">2.3 Bearer Token</a></h4><p>This method uses the same HTTP Header <code>Authorization</code> as HTTP Basic authentication,
 <a href="https://tools.ietf.org/html/rfc1945#section-11">rfc 1945, section 11</a>.</p><p>The client sends the token with the <code>Authorization: Bearer ...</code> HTTP header.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-13' href='slides_adv_authentication.html#slide-13'>▻</a>
-<h3 id="web-authentication-webauthn-or-passkey"><a class="anchorlink" href="#web-authentication-webauthn-or-passkey">3 Web Authentication "WebAuthn" or Passkey</a></h3><p>Web Authentication, or short "WebAuthn" is a W3C standard
+<a class='slide_break' id='slide-12' href='slides_adv_authentication.html#slide-12'>▻</a>
+<h3 id="web-authentication-webauthn"><a class="anchorlink" href="#web-authentication-webauthn">3 Web Authentication "WebAuthn"</a></h3><p>Web Authentication, or short "WebAuthn" is a W3C standard
 that has been implemented  <a href="https://caniuse.com/?search=webauthn">in all Browsers since 2020</a>.</p><p>You a User you have to own an authenticator: for example a <a href="https://www.yubico.com/">YubiKey</a>, USB Token,
 or your <a href="https://www.makeuseof.com/set-up-passkey-google-account-android/">smartphone</a>.
 This Authenticator
@@ -289,6 +283,9 @@ is given to the authenticator.</p><p>See also</p>
 <li><a href="https://github.com/herrjemand/awesome-webauthn">awesome-webauthn collection on Github</a></li>
 </ul>
 </div>
+<div class='slide'>
+<a class='slide_break' id='slide-13' href='slides_adv_authentication.html#slide-13'>▻</a>
+<h4 id="passkey"><a class="anchorlink" href="#passkey">3.1 Passkey</a></h4></div>
 <div class='slide'>
 <a class='slide_break' id='slide-14' href='slides_adv_authentication.html#slide-14'>▻</a>
 <h3 id="openid-oauth"><a class="anchorlink" href="#openid-oauth">4 OpenID + OAuth</a></h3><p>OpenID 2.0 is an open standard for Authentication.</p><p>OAuth is and open standard for API Access delegation originally published  in 2010.
@@ -367,7 +364,8 @@ gem 'omniauth-stackoverflow'
 <h4 id="webauth"><a class="anchorlink" href="#webauth">6.2 WebAuth</a></h4><p>Use the gems <code>devise</code> and <a href="https://github.com/ruby-passkeys/devise-passkeys">devise-passkeys</a></p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-20' href='slides_adv_authentication.html#slide-20'>▻</a>
-<h4 id="json-web-tokens-jwt"><a class="anchorlink" href="#json-web-tokens-jwt">6.3 JSON Web Tokens (JWT)</a></h4><p>Use the gem <code>jwt</code></p></div>
+<h4 id="json-web-tokens-jwt"><a class="anchorlink" href="#json-web-tokens-jwt">6.3 JSON Web Tokens (JWT)</a></h4><p>Use the gem <code>jwt</code>
+- <a href="https://github.com/lynndylanhurley/devise_token_auth">devise_token_auth</a> for token based authentication for API only Rails apps</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-21' href='slides_adv_authentication.html#slide-21'>▻</a>
 <h3 id="next-js"><a class="anchorlink" href="#next-js">7 next.js</a></h3><p>The package <code>next-auth</code> provides several authentication methods.</p>
@@ -540,15 +538,7 @@ inside a server component mentioned <a href="https://backend-development.github.
 <a class='slide_break' id='slide-28' href='slides_adv_authentication.html#slide-28'>▻</a>
 <h3 id="further-reading"><a class="anchorlink" href="#further-reading">8 Further Reading</a></h3>
 <ul>
-<li>OmniAuth <a href="https://github.com/intridea/omniauth/wiki">wiki</a>
-</li>
-<li>Devise <a href="https://github.com/plataformatec/devise">github page</a>
-</li>
-<li>Rails Security Guide on <a href="https://guides.rubyonrails.org/security.html#user-management">User Management</a>
-</li>
-<li>
-<a href="https://github.com/lynndylanhurley/devise_token_auth">devise_token_auth</a> for token based authentication for API only Rails apps</li>
-<li><a href="https://auth0.com/blog/ten-things-you-should-know-about-tokens-and-cookies/">10 Things You Should Know about Tokens</a></li>
+<li><a href="https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/">What Are Refresh Tokens and How to Use Them Securely</a></li>
 </ul>
 </div>
       </div>
@@ -558,7 +548,7 @@ inside a server component mentioned <a href="https://backend-development.github.
   <hr class="hide" />
   <div id="footer">
     <div class="wrapper">
-      <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2022 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
+      <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2023 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
       </p><p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
       </p>
     </div>
