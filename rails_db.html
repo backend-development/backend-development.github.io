@@ -265,7 +265,8 @@ use a generator that will help us generate some code.</p></div>
 We have not specified any datatypes, therefore status and zombie will
 have the default type: string.</p><p>Look at the model generated in file <code>app/models/tweet.rb</code>. It is empty for now.
 We do not need to specify properties or their datatypes here, they will be
-derived from the database automatically.</p></div>
+derived from the database automatically.</p><p>If you ever mistype your <code>rails generate ...</code> line, you can undo it by running <code>rails destroy ...</code>. This will
+delete all the files generated.</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-10' href='slides_rails_db.html#slide-10'>▻</a>
 <h4 id="how-to-build-a-first-table-edit-migration"><a class="anchorlink" href="#how-to-build-a-first-table-edit-migration">1.7 How to build a first Table - edit migration</a></h4><p>Have a look at the migration that was generated in <code>db/migrate/*create_tweets.rb</code>.</p><div class="code_container">
@@ -498,7 +499,7 @@ status could be draft, published and archived, ... and so on.</p><p>There are se
 <li>Create a separate Table for the possible values, reference the table through a foreign key</li>
 </ol>
 <p>This next example shows the first three options:</p><div class="code_container">
-<pre><code class="highlight shell"><span class="nb">rails </span>g model comic2 name category status:integer format:enum
+<pre><code class="highlight shell"><span class="nb">rails </span>g model comic name category status:integer format:enum
 </code></pre>
 </div>
 <p>For category (just a string) and status (integer in the database) we do
