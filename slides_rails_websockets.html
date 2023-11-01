@@ -3,46 +3,30 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=1024, user-scalable=no">
+
     <title>Slides for
         Rails Websockets — Backend Development
     </title>
-    <!-- Required stylesheet -->
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
-    <!-- Extension CSS files go here. Remove or add as needed. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
-    <!-- Style theme. More available in /themes/style/ or create your own. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
-    <!-- Transition theme. More available in /themes/transition/ or create your own. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
-    <!-- syntax highlighter -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Basic black and white print styles -->
-    <link rel="stylesheet" media="print" href="stylesheets/print.css">
-    <!-- Required Modernizr file -->
-    <script src="javascripts/modernizr.custom.js"></script>
+		<link rel="stylesheet" href="stylesheets/reset.css">
+		<link rel="stylesheet" href="stylesheets/reveal.css">
+		<link rel="stylesheet" href="stylesheets/myslide.css" id="theme">
+    <link rel="stylesheet" href="stylesheets/code.css">
+
 </head>
 
 <body>
-    <div class="deck-container">
-        <div class='slide'><h2>Rails Websockets</h2><p>While HTTP only allows requests from the client sent to the server,
-websockets offer a permanent connection between client and server.
-With Actioncable you can use websockets for publish-subscribe communication.</p><p>By referring to this guide, you will be able to:</p>
-<ul>
-<li>Build a chat app in your webapp</li>
-<li>Incorporate &quot;server push&quot; functionality in your app</li>
-</ul>
-<p>REPO: You can study the <a href="https://github.com/backend-development/rails_websockets">code</a> and try out <a href="https://stepstones.herokuapp.com/">the demo</a> for the example app described here.</p>
-<p>TBD</p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_websockets.html#slide-1'>▻</a>
-<h3 id="websockets"><a class="anchorlink" href="#websockets">1 Websockets</a></h3><p>Websockets are built on top of HTTP and HTTPS:</p>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <p>TBD</p><section>
+<p><a class='slide_break' href='rails_websockets.html#slide-0'>▻</a></p>
+<h3 id="websockets">
+<a class="anchorlink" href="#websockets"></a>1 Websockets</h3><p>Websockets are built on top of HTTP and HTTPS:</p>
 <ul>
 <li>they reuse the default ports 80 and 443</li>
 <li>they start out as a normal HTTP request</li>
@@ -68,10 +52,11 @@ Sec-WebSocket-Protocol: chat
 </div>
 <p>Both the client and the server can send messages across
 the websocket at any time.  Both the client and the
-server should be able to handle incoming messages at any time.</p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_websockets.html#slide-2'>▻</a>
-<h3 id="publish-subscribe"><a class="anchorlink" href="#publish-subscribe">2 Publish-Subscribe</a></h3><p>In Rails we have to distinguish three concepts:</p>
+server should be able to handle incoming messages at any time.</p></section>
+<section>
+<p><a class='slide_break' href='rails_websockets.html#slide-1'>▻</a></p>
+<h3 id="publish-subscribe">
+<a class="anchorlink" href="#publish-subscribe"></a>2 Publish-Subscribe</h3><p>In Rails we have to distinguish three concepts:</p>
 <ul>
 <li>The websocket <strong>connection</strong> deals with authenticating a user 
 
@@ -119,14 +104,16 @@ server should be able to handle incoming messages at any time.</p></div>
 </ul>
 </li>
 </ul>
-</div>
-<div class='slide'>
-<a class='slide_break' href='rails_websockets.html#slide-3'>▻</a>
-<h3 id="chat-example"><a class="anchorlink" href="#chat-example">3 Chat Example</a></h3><p>In our example app several users should be able to chat with each other,
-no matter which page of the app they are currently viewing.</p><p><img src="images/chat-screenshot-annotated.png" alt="Screenshot of the Chat Area on the Homepage"></p><p>We will build the app starting from the client side:</p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_websockets.html#slide-4'>▻</a>
-<h4 id="client-connects-and-subscribes"><a class="anchorlink" href="#client-connects-and-subscribes">3.1 Client connects and subscribes</a></h4><p>The javascript concerning websockets is stored in the
+</section>
+<section>
+<p><a class='slide_break' href='rails_websockets.html#slide-2'>▻</a></p>
+<h3 id="chat-example">
+<a class="anchorlink" href="#chat-example"></a>3 Chat Example</h3><p>In our example app several users should be able to chat with each other,
+no matter which page of the app they are currently viewing.</p><p><img src="images/chat-screenshot-annotated.png" alt="Screenshot of the Chat Area on the Homepage"></p><p>We will build the app starting from the client side:</p></section>
+<section>
+<p><a class='slide_break' href='rails_websockets.html#slide-3'>▻</a></p>
+<h4 id="client-connects-and-subscribes">
+<a class="anchorlink" href="#client-connects-and-subscribes"></a>3.1 Client connects and subscribes</h4><p>The javascript concerning websockets is stored in the
 file <code>app/assets/javascripts/cabel.js</code> which was created
 by rails. It should look like this:</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="c1">//= require action_cable</span>
@@ -165,10 +152,11 @@ see an error in the developer tools console:</p><div class="code_container">
 <pre><code class="highlight plaintext">WebSocket connection to 'ws://localhost:3000/cable' failed: Error during WebSocket handshake: Unexpected response code: 500
 </code></pre>
 </div>
-<p>So the client is trying to connect, but it does not work yet.</p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_websockets.html#slide-5'>▻</a>
-<h4 id="server-accepts-and-authentication"><a class="anchorlink" href="#server-accepts-and-authentication">3.2 Server accepts and Authentication</a></h4><p>The server side code is stored in the folder <code>app/channels</code>. We first
+<p>So the client is trying to connect, but it does not work yet.</p></section>
+<section>
+<p><a class='slide_break' href='rails_websockets.html#slide-4'>▻</a></p>
+<h4 id="server-accepts-and-authentication">
+<a class="anchorlink" href="#server-accepts-and-authentication"></a>3.2 Server accepts and Authentication</h4><p>The server side code is stored in the folder <code>app/channels</code>. We first
 take a look at <code>app/channels/application_cable/connection.rb</code>, which was
 created by rails:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="k">module</span> <span class="nn">ApplicationCable</span>
@@ -244,10 +232,11 @@ ChatChannel is transmitting the subscription confirmation
 ChatChannel is streaming from chat_main
 </code></pre>
 </div>
-<p>Now the server is ready to receive data from this client and send data to this client.</p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_websockets.html#slide-6'>▻</a>
-<h4 id="client-sends-data"><a class="anchorlink" href="#client-sends-data">3.3 Client sends data</a></h4><p>To implement the chat we can use the already existing HTML in application.html.erb:</p><div class="code_container">
+<p>Now the server is ready to receive data from this client and send data to this client.</p></section>
+<section>
+<p><a class='slide_break' href='rails_websockets.html#slide-5'>▻</a></p>
+<h4 id="client-sends-data">
+<a class="anchorlink" href="#client-sends-data"></a>3.3 Client sends data</h4><p>To implement the chat we can use the already existing HTML in application.html.erb:</p><div class="code_container">
 <pre><code class="highlight plaintext">&lt;section id="chat" class="holder" style="display:none;"&gt;
   &lt;div id="output"&gt;
     &lt;p&gt;Chat...&lt;/p&gt;
@@ -296,10 +285,11 @@ be sent across the websocket:</p><div class="code_container">
 </code></pre>
 </div>
 <p>If you type in 'Hello' and send it, you can see the message
-being sent in the websocket tab of firefox developer tools:</p><p><img src="images/ws_firefox_send.png" alt="chat message being sent to the server"></p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_websockets.html#slide-7'>▻</a>
-<h4 id="server-receives-data"><a class="anchorlink" href="#server-receives-data">3.4 Server receives data</a></h4><p>Right now the server does not know how to handle the incoming data,
+being sent in the websocket tab of firefox developer tools:</p><p><img src="images/ws_firefox_send.png" alt="chat message being sent to the server"></p></section>
+<section>
+<p><a class='slide_break' href='rails_websockets.html#slide-6'>▻</a></p>
+<h4 id="server-receives-data">
+<a class="anchorlink" href="#server-receives-data"></a>3.4 Server receives data</h4><p>Right now the server does not know how to handle the incoming data,
 in the log file you will read:</p><div class="code_container">
 <pre><code class="highlight plaintext">Unable to process ChatChannel#receive({"body"=&gt;"hello"})
 </code></pre>
@@ -324,10 +314,11 @@ end
 and add some more: the name of the current user and
 the current time on the server.</p><p>The <code>broadcast</code> method will send the new data to 
 all users subscribed to the chat-channel, even
-the user who originally sent it.</p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_websockets.html#slide-8'>▻</a>
-<h4 id="chat-example-client-recieves-data"><a class="anchorlink" href="#chat-example-client-recieves-data">3.5 Client recieves data</a></h4><p>In `<code>app/assets/javascripts/channels/chat.js</code>, where
+the user who originally sent it.</p></section>
+<section>
+<p><a class='slide_break' href='rails_websockets.html#slide-7'>▻</a></p>
+<h4 id="chat-example-client-recieves-data">
+<a class="anchorlink" href="#chat-example-client-recieves-data"></a>3.5 Client recieves data</h4><p>In `<code>app/assets/javascripts/channels/chat.js</code>, where
 we made the subscription, we add a function to handle
 the received data:</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="nx">App</span><span class="p">.</span><span class="nx">chatChannel</span> <span class="o">=</span> <span class="nx">App</span><span class="p">.</span><span class="nx">cable</span><span class="p">.</span><span class="nx">subscriptions</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
@@ -343,10 +334,11 @@ the received data:</p><div class="code_container">
 <span class="p">);</span>
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='rails_websockets.html#slide-9'>▻</a>
-<h3 id="progress-example"><a class="anchorlink" href="#progress-example">4 Progress Example</a></h3><p>For the second example the communication structure is a bit more complex:
+</section>
+<section>
+<p><a class='slide_break' href='rails_websockets.html#slide-8'>▻</a></p>
+<h3 id="progress-example">
+<a class="anchorlink" href="#progress-example"></a>4 Progress Example</h3><p>For the second example the communication structure is a bit more complex:
 All the users <em>in one adventure</em> should see each other progress through the steps.</p><p><img src="images/adventures-screenshot-annotated.png" alt="Screenshot of the Adventure Page"></p><p>The page displays the adventure and the three steps it consists of.</p><p>The currently logged in user is 'Brigitte Jellinek'. Her progress is described
 at the top of the page (purple box) as "You are currently working on step 2.".
 A blue cursor just above step 2 also indicates this.</p><p>At every step we can see the status of all users. For example at the 2nd step,
@@ -356,10 +348,11 @@ their status at step 2.</p><p>We will use websockets to communicate changes to a
 her status from blocked to finished, the server will send websocket messages to
 all the other users currently viewing the page, and their display will change
 accordingly.</p><p>Contrast this to a classic web app built with HTTP requests, where you would
-need to reload the page to get the new status. </p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_websockets.html#slide-10'>▻</a>
-<h4 id="client-subscribes"><a class="anchorlink" href="#client-subscribes">4.1 Client subscribes</a></h4><p>There is no need to change anything in <code>app/assets/javascripts/cabel.js</code>. We 
+need to reload the page to get the new status. </p></section>
+<section>
+<p><a class='slide_break' href='rails_websockets.html#slide-9'>▻</a></p>
+<h4 id="client-subscribes">
+<a class="anchorlink" href="#client-subscribes"></a>4.1 Client subscribes</h4><p>There is no need to change anything in <code>app/assets/javascripts/cabel.js</code>. We 
 add another file to the channels folder <code>app/assets/javascripts/channels/adventure.js</code>:</p><div class="code_container">
 <pre><code class="highlight plaintext">App.cable.subscriptions.create({ channel: "AdventureChannel" })
 </code></pre>
@@ -374,10 +367,11 @@ as a parameter when creating the subscription:</p><div class="code_container">
 });
 </code></pre>
 </div>
-<p>The path is communicated via websocket:</p><p><img src="images/subscribe_adventure.png" alt="Websocket in Firefox with Extension Websocket Monitor"></p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_websockets.html#slide-11'>▻</a>
-<h4 id="server-accepts"><a class="anchorlink" href="#server-accepts">4.2 Server accepts</a></h4><p>On the server side we create a new file <code>app/channels/adventure_channel.rb</code>:</p><div class="code_container">
+<p>The path is communicated via websocket:</p><p><img src="images/subscribe_adventure.png" alt="Websocket in Firefox with Extension Websocket Monitor"></p></section>
+<section>
+<p><a class='slide_break' href='rails_websockets.html#slide-10'>▻</a></p>
+<h4 id="server-accepts">
+<a class="anchorlink" href="#server-accepts"></a>4.2 Server accepts</h4><p>On the server side we create a new file <code>app/channels/adventure_channel.rb</code>:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">AdventureChannel</span> <span class="o">&lt;</span> <span class="no">ApplicationCable</span><span class="o">::</span><span class="no">Channel</span>
 
   <span class="k">def</span> <span class="nf">subscribed</span>
@@ -398,10 +392,11 @@ and only <code>stream_from</code> if the path fits:</p><div class="code_containe
 <span class="k">end</span>
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='rails_websockets.html#slide-12'>▻</a>
-<h4 id="progress-example-client-recieves-data"><a class="anchorlink" href="#progress-example-client-recieves-data">4.3 Client recieves data</a></h4><p>To help with debugging the channel while we are building it,
+</section>
+<section>
+<p><a class='slide_break' href='rails_websockets.html#slide-11'>▻</a></p>
+<h4 id="progress-example-client-recieves-data">
+<a class="anchorlink" href="#progress-example-client-recieves-data"></a>4.3 Client recieves data</h4><p>To help with debugging the channel while we are building it,
 we will copy over any data recived by the client to the chat window:</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="nx">App</span><span class="p">.</span><span class="nx">adventureChannel</span> <span class="o">=</span> <span class="nx">App</span><span class="p">.</span><span class="nx">cable</span><span class="p">.</span><span class="nx">subscriptions</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
   <span class="na">channel</span><span class="p">:</span> <span class="dl">"</span><span class="s2">AdventureChannel</span><span class="dl">"</span><span class="p">,</span>  
@@ -414,10 +409,11 @@ we will copy over any data recived by the client to the chat window:</p><div cla
 <span class="p">});</span>
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='rails_websockets.html#slide-13'>▻</a>
-<h4 id="server-sends-data-if-status-changes"><a class="anchorlink" href="#server-sends-data-if-status-changes">4.4 Server sends data if status changes</a></h4><p>Every time a user changes their status we want the server
+</section>
+<section>
+<p><a class='slide_break' href='rails_websockets.html#slide-12'>▻</a></p>
+<h4 id="server-sends-data-if-status-changes">
+<a class="anchorlink" href="#server-sends-data-if-status-changes"></a>4.4 Server sends data if status changes</h4><p>Every time a user changes their status we want the server
 to send out messages.  The model where the status is stored
 is <code>Step</code>. ActiveRecord supplies hooks for <a href="https://guides.rubyonrails.org/active_record_callbacks.html#transaction-callbacks">callbacks</a> we can use here:</p><div class="code_container">
 <pre><code class="highlight plaintext">class Step &lt; ApplicationRecord
@@ -440,10 +436,11 @@ for identifying the stream to broadcast on. We used the
 path to the adventure page, for example <code>"/adventure/3"</code>. Here
 we use a helper to contruct this string, we could also have
 done it directly with <code>"/adventure/#{stepstone.adventure_id}"</code>.</p><p>With these pieces in place a change in status should already
-appear in the chat window.</p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_websockets.html#slide-14'>▻</a>
-<h4 id="client-recieves-data-partial-as-html"><a class="anchorlink" href="#client-recieves-data-partial-as-html">4.5 Client recieves data: partial as html</a></h4><p>The display of all the users status involves a lot of html and
+appear in the chat window.</p></section>
+<section>
+<p><a class='slide_break' href='rails_websockets.html#slide-13'>▻</a></p>
+<h4 id="client-recieves-data-partial-as-html">
+<a class="anchorlink" href="#client-recieves-data-partial-as-html"></a>4.5 Client recieves data: partial as html</h4><p>The display of all the users status involves a lot of html and
 additional resources.</p><p><img src="images/adventures-screenshot-show-status.png" alt="partial show_status"></p><p>There is already a separate partial to handle this, it is 
 called in the <code>adventures/show.html.erb</code> view repeatedly:</p><div class="code_container">
 <pre><code class="highlight plaintext">&lt;% @stepstones.each_with_index do |stepstone, i| %&gt;
@@ -496,68 +493,46 @@ the div:</p><div class="code_container">
 }
 </code></pre>
 </div>
-<p>Now the status-display with all the users should work!</p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_websockets.html#slide-15'>▻</a>
-<h3 id="deployment"><a class="anchorlink" href="#deployment">5 Deployment</a></h3></div>
-<div class='slide'>
-<a class='slide_break' href='rails_websockets.html#slide-16'>▻</a>
-<h3 id="see-also"><a class="anchorlink" href="#see-also">6 See Also</a></h3>
+<p>Now the status-display with all the users should work!</p></section>
+<section>
+<p><a class='slide_break' href='rails_websockets.html#slide-14'>▻</a></p>
+<h3 id="deployment">
+<a class="anchorlink" href="#deployment"></a>5 Deployment</h3></section>
+<section>
+<p><a class='slide_break' href='rails_websockets.html#slide-15'>▻</a></p>
+<h3 id="see-also">
+<a class="anchorlink" href="#see-also"></a>6 See Also</h3>
 <ul>
 <li><a href="https://tools.ietf.org/html/rfc6455">RFC 6455</a></li>
 <li>
 <a href="https://blog.ably.io/rails-5-actioncable-the-good-and-bad-parts-1b56c3b31404#.nhzs3q1qd">O'Riordan(2016) Rails ActionCable — The good and bad parts</a> - a good overview of the uses and limitation of ActionCable</li>
 </ul>
-</div>
+</section>
+      </div>
     </div>
     <!-- End slides. -->
-    <!-- Begin extension snippets. Add or remove as needed. -->
-    <!-- deck.navigation snippet -->
-    <div aria-role="navigation">
-        <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
-        <a href="#" class="deck-next-link" title="Next">&#8594;</a>
-    </div>
-    <!-- deck.status snippet -->
-    <p class="deck-status" aria-role="status">
-        <span class="deck-status-current"></span>
-        /
-        <span class="deck-status-total"></span>
-    </p>
-    <!-- deck.goto snippet -->
-    <form action="." method="get" class="goto-form">
-        <label for="goto-slide">Go to slide:</label>
-        <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
-        <datalist id="goto-datalist"></datalist>
-        <input type="submit" value="Go">
-    </form>
-    <!-- End extension snippets. -->
     <!-- Required JS files. -->
-    <script src="javascripts/jquery.min.js"></script>
-    <script src="javascripts/deck.core.js"></script>
-    <!-- Extension JS files. Add or remove as needed. -->
-    <script src="javascripts/deck.menu.js"></script>
-    <script src="javascripts/deck.goto.js"></script>
-    <script src="javascripts/deck.status.js"></script>
-    <script src="javascripts/deck.navigation.js"></script>
-    <script src="javascripts/deck.escape.js"></script>
+		<script src="javascripts/reveal.js"></script>
+		<script src="javascripts/search.js"></script>
+		<script src="javascripts/markdown.js"></script>
 
-    <!-- Initialize the deck. You can put this in an external file if desired. -->
     <script>
-    $(function() {
-      $.deck('.slide');
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+
+      keyboard: {
+        27: () => { console.log('esc') }, // do something custom when ESC is pressed
+        13: 'next', // go to the next slide when the ENTER key is pressed
+      },
+
+      // Learn about plugins: https://revealjs.com/plugins/
+      plugins: [ RevealSearch, RevealMarkdown ]  // RevealHighlight
     });
-
-    var $d = $(document);    
-
-    $d.bind('deck.change', function(event, from, to) {
-      // console.log('Moving from slide ' + from + ' to ' + to);
-    });   
-    $d.bind('deck.beforeInit', function() {
-      // console.log('Deck.beforeInit. hash is ' + document.location.hash);
-    });     
-    $d.bind('deck.init', function() {
-      // console.log('Deck.init is done. hash was ' + document.location.hash);
-    }); 
     </script>
 </body>
 

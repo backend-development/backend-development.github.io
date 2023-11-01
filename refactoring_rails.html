@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Refactoring Rails — Backend Development</title>
-  <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/code.css">
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css">
 
-  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
   <style>
 
     .slide img[src$=svg] {
@@ -46,7 +47,7 @@
         <li class="guides-index guides-index-large">
           <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
           <div id="guides" class="clearfix" style="display: none;">
-            <hr />
+            <hr>
               <dl class="L">
                 <dt>Ruby on Rails</dt>
                 <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
@@ -89,7 +90,7 @@
     </div>
   </div>
 
-  <hr class="hide" />
+  <hr class="hide">
 
   <div id="feature">
     <div class="wrapper">
@@ -121,11 +122,12 @@ your code.  </p><p>By referring to this guide, you will be able to:</p>
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <div class='slide'><a id='slide-0'></a>
+        <div class='slide'>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-1' href='slides_refactoring_rails.html#slide-1'>▻</a>
-<h3 id="refactoring"><a class="anchorlink" href="#refactoring">1 Refactoring</a></h3><p>Never be ashamed of making you code better.  On the contrary: recognizing code smells
+<a class='slide_break' id='slide-0' href='slides_refactoring_rails.html#/0'>▻</a>
+<h3 id="refactoring">
+<a class="anchorlink" href="#refactoring"></a>1 Refactoring</h3><p>Never be ashamed of making you code better.  On the contrary: recognizing code smells
 in your old code means that you learnt something in the meantime.
 Only very inexperienced people think that the code they wrote yesterday is
 perfect.</p><p>Refactoring is </p>
@@ -139,8 +141,9 @@ perfect.</p><p>Refactoring is </p>
 of the code we are refactoring.</p><p>A <strong>code smell</strong> is a piece of bad code that we recognize.</p><p>Read the Ruby version of Fowlers refactoring book to 
 learn both code smells and refactorings:</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-2' href='slides_refactoring_rails.html#slide-2'>▻</a>
-<h3 id="code-smells"><a class="anchorlink" href="#code-smells">2 Code Smells</a></h3><p>This is the list of code smells from 
+<a class='slide_break' id='slide-1' href='slides_refactoring_rails.html#/1'>▻</a>
+<h3 id="code-smells">
+<a class="anchorlink" href="#code-smells"></a>2 Code Smells</h3><p>This is the list of code smells from 
 Fields, Harvie, Fowler(2010): Refactoring, Ruby Edition. Addison-Wesley.
 In chapter 6 to 12 of that book they describe refactorings to handle
 all these problems and more:</p>
@@ -173,8 +176,9 @@ all these problems and more:</p>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-3' href='slides_refactoring_rails.html#slide-3'>▻</a>
-<h3 id="tools-for-code-quality"><a class="anchorlink" href="#tools-for-code-quality">3 Tools for Code Quality</a></h3><p>Recognizing code that is problematic and should be refactored
+<a class='slide_break' id='slide-2' href='slides_refactoring_rails.html#/2'>▻</a>
+<h3 id="tools-for-code-quality">
+<a class="anchorlink" href="#tools-for-code-quality"></a>3 Tools for Code Quality</h3><p>Recognizing code that is problematic and should be refactored
 is one of the main skills of a developer.  Often it is not a
 black and white situation: there might be several ways of writing
 a certain piece of code, each with it's own pros and cons.<br>
@@ -192,8 +196,9 @@ it in your <code>Gemfile</code>.  Just run <code>rails_best_practices -f html</c
 the main directory of your app.  The result will be written to 
 <code>./rails_best_practices_output.html</code>.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-4' href='slides_refactoring_rails.html#slide-4'>▻</a>
-<h3 id="futher-reading"><a class="anchorlink" href="#futher-reading">4 Futher Reading</a></h3>
+<a class='slide_break' id='slide-3' href='slides_refactoring_rails.html#/3'>▻</a>
+<h3 id="futher-reading">
+<a class="anchorlink" href="#futher-reading"></a>4 Futher Reading</h3>
 <ul>
 <li>Fowler, Beck, Brant, Opdyke, Roberts(1999). Refactoring: improving the design of existing code. Addison Wesley. ISBN: 0-201-48567-2.</li>
 <li>Fields, Harvie, Fowler(2010): Refactoring, Ruby Edition. Addison-Wesley.</li>
@@ -205,7 +210,7 @@ the main directory of your app.  The result will be written to
     </div>
   </div>
 
-  <hr class="hide" />
+  <hr class="hide">
   <div id="footer">
     <div class="wrapper">
       <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2023 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
@@ -216,14 +221,5 @@ the main directory of your app.  The result will be written to
 
   <script src="javascripts/jquery.min.js"></script>
   <script src="javascripts/guides.js"></script>
-  <script>
-    SyntaxHighlighter.all()
-    $(guidesIndex.bind);
-    $(document).ready(function(){
-      let hash = document.location.hash;
-      if(! hash) return;
-      document.getElementById(hash.substr(1)).scrollIntoView(true);
-    })
-  </script>
   </body>
 </html>

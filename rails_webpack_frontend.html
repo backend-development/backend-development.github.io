@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Backend Development Textbook</title>
-  <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+  <title>Building the Frontend with webpacker — Backend Development</title>
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/code.css">
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css">
 
-  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
   <style>
 
     .slide img[src$=svg] {
@@ -46,7 +47,7 @@
         <li class="guides-index guides-index-large">
           <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
           <div id="guides" class="clearfix" style="display: none;">
-            <hr />
+            <hr>
               <dl class="L">
                 <dt>Ruby on Rails</dt>
                 <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
@@ -89,11 +90,11 @@
     </div>
   </div>
 
-  <hr class="hide" />
+  <hr class="hide">
 
   <div id="feature">
     <div class="wrapper">
-      <h2 id="preheader">no heading</h2>
+      <h2 id="preheader">Building the Frontend with webpacker</h2>
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <ol class="chapters">
@@ -106,20 +107,7 @@
           </div>
 
       <div class="rest_header">
-        
-      </div>
-    </div>
-  </div>
-
-
-  <div id="container">
-    <div class="wrapper">
-      <div id="mainCol">
-        <div class='slide'><a id='slide-0'></a>
-</div>
-<div class='slide'>
-<a class='slide_break' id='slide-1' href='slides_rails_webpack_frontend.html#slide-1'>▻</a>
-<h2>Building the Frontend with webpacker</h2><p>While the asset pipeline is rails' traditional way of preparing
+        <h2>Building the Frontend with webpacker</h2><p>While the asset pipeline is rails&#39; traditional way of preparing
 files for the frontend, in recent years a completely
 different toolchain was developed in the frontend community.</p><p>In this guide you will learn how to integrate webpack
 and a current frontend framework with your rails app.
@@ -129,37 +117,46 @@ You will be able to:</p>
 <li>use a framework like svelte, angular, react</li>
 </ul>
 
+      </div>
+    </div>
+  </div>
+
+
+  <div id="container">
+    <div class="wrapper">
+      <div id="mainCol">
+        <div class='slide'>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-2' href='slides_rails_webpack_frontend.html#slide-2'>▻</a>
-<hr>
-</div>
-<div class='slide'>
-<a class='slide_break' id='slide-3' href='slides_rails_webpack_frontend.html#slide-3'>▻</a>
-<h3 id="frontend-pipelines"><a class="anchorlink" href="#frontend-pipelines">1 Frontend Pipelines</a></h3><p>When the rails asset pipeline was published with Rails 3.1 in 2011, node.js
-was only 2 years old and version 1.0 of npm was just released.<br>
+<a class='slide_break' id='slide-0' href='slides_rails_webpack_frontend.html#/0'>▻</a>
+<h3 id="frontend-pipelines">
+<a class="anchorlink" href="#frontend-pipelines"></a>1 Frontend Pipelines</h3><p>When the rails asset pipeline was published with Rails 3.1 in 2011, node.js
+was only 2 years old and version 1.0 of npm was just released.
 In the years since, the frontend community developed, released (and dropped) a lot of new tools: bower, grunt, gulp, yarn, webpack.</p><p>Since Rails 5.1 the webpacker gem is officialy part of Rails. It integrates webpack
 into rails, and makes developing with svelte, react, vue, angular or other frontend frameworks
 easy.</p><p>Webpacker coexists with the asset pipeline. You can start using webpacker for
 certain aspects of your Rails app, for example just one page with very complex, UI,
 and still continue using the asset pipeline for the rest.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-4' href='slides_rails_webpack_frontend.html#slide-4'>▻</a>
-<h3 id="files"><a class="anchorlink" href="#files">2 Files</a></h3><p>Webpacker creates a new folder <code>app/javascript</code> and a folder structure.</p><p>The folder <code>app/javascript/packs</code> is reserved for
+<a class='slide_break' id='slide-1' href='slides_rails_webpack_frontend.html#/1'>▻</a>
+<h3 id="files">
+<a class="anchorlink" href="#files"></a>2 Files</h3><p>Webpacker creates a new folder <code>app/javascript</code> and a folder structure.</p><p>The folder <code>app/javascript/packs</code> is reserved for
 webpack entry files, with
 <code>app/javascript/packs/application.js</code> being the default file.</p><p><img src="images/javascript-folder.png" alt=""></p><p>The bundle created by webpacker is included in the rails app
 with</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-5' href='slides_rails_webpack_frontend.html#slide-5'>▻</a>
-<h3 id="to-be-continued"><a class="anchorlink" href="#to-be-continued">3 To be Continued</a></h3></div>
+<a class='slide_break' id='slide-2' href='slides_rails_webpack_frontend.html#/2'>▻</a>
+<h3 id="to-be-continued">
+<a class="anchorlink" href="#to-be-continued"></a>3 To be Continued</h3></div>
 <div class='slide'>
-<a class='slide_break' id='slide-6' href='slides_rails_webpack_frontend.html#slide-6'>▻</a>
-<h3 id="further-reading"><a class="anchorlink" href="#further-reading">4 Further Reading</a></h3></div>
+<a class='slide_break' id='slide-3' href='slides_rails_webpack_frontend.html#/3'>▻</a>
+<h3 id="further-reading">
+<a class="anchorlink" href="#further-reading"></a>4 Further Reading</h3></div>
       </div>
     </div>
   </div>
 
-  <hr class="hide" />
+  <hr class="hide">
   <div id="footer">
     <div class="wrapper">
       <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2023 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
@@ -170,14 +167,5 @@ with</p></div>
 
   <script src="javascripts/jquery.min.js"></script>
   <script src="javascripts/guides.js"></script>
-  <script>
-    SyntaxHighlighter.all()
-    $(guidesIndex.bind);
-    $(document).ready(function(){
-      let hash = document.location.hash;
-      if(! hash) return;
-      document.getElementById(hash.substr(1)).scrollIntoView(true);
-    })
-  </script>
   </body>
 </html>

@@ -3,59 +3,37 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=1024, user-scalable=no">
+
     <title>Slides for
-        Backend Development Textbook
+        Next.js — Backend Development
     </title>
-    <!-- Required stylesheet -->
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
-    <!-- Extension CSS files go here. Remove or add as needed. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
-    <!-- Style theme. More available in /themes/style/ or create your own. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
-    <!-- Transition theme. More available in /themes/transition/ or create your own. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
-    <!-- syntax highlighter -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Basic black and white print styles -->
-    <link rel="stylesheet" media="print" href="stylesheets/print.css">
-    <!-- Required Modernizr file -->
-    <script src="javascripts/modernizr.custom.js"></script>
+		<link rel="stylesheet" href="stylesheets/reset.css">
+		<link rel="stylesheet" href="stylesheets/reveal.css">
+		<link rel="stylesheet" href="stylesheets/myslide.css" id="theme">
+    <link rel="stylesheet" href="stylesheets/code.css">
+
 </head>
 
 <body>
-    <div class="deck-container">
-        <div class='slide'>
-</div>
-<div class='slide'>
-<a class='slide_break' href='nextjs.html#slide-1'>▻</a>
-<h2>Next.js</h2><p>Next.js is a framework for react
-that also includes backend functionality.</p><p>After working through this guide you should</p>
-<ul>
-<li>know how to build server rendered pages in next.js</li>
-<li>know how to build api endpoints in next.js</li>
-</ul>
-
-</div>
-<div class='slide'>
-<a class='slide_break' href='nextjs.html#slide-2'>▻</a>
-<hr>
-</div>
-<div class='slide'>
-<a class='slide_break' href='nextjs.html#slide-3'>▻</a>
-<h3 id="what-is-next-js-questionmark"><a class="anchorlink" href="#what-is-next-js-questionmark">1 What is next.js?</a></h3><p>Next.js is an open source framework, but it is mainly developed by Vercel.
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+<p><a class='slide_break' href='nextjs.html#slide-0'>▻</a></p>
+<h3 id="what-is-next-js-questionmark">
+<a class="anchorlink" href="#what-is-next-js-questionmark"></a>1 What is next.js?</h3><p>Next.js is an open source framework, but it is mainly developed by Vercel.
 Vercel's business is platform a service. They published next.js in 2016.
 React documentation mentions Next.js among "Recommended Toolchains"
-since at least 2021.</p></div>
-<div class='slide'>
-<a class='slide_break' href='nextjs.html#slide-4'>▻</a>
-<h3 id="what-does-it-offer-questionmark"><a class="anchorlink" href="#what-does-it-offer-questionmark">2 What does it offer?</a></h3><p>Next.js gives you a folder structure for you application,
+since at least 2021.</p></section>
+<section>
+<p><a class='slide_break' href='nextjs.html#slide-1'>▻</a></p>
+<h3 id="what-does-it-offer-questionmark">
+<a class="anchorlink" href="#what-does-it-offer-questionmark"></a>2 What does it offer?</h3><p>Next.js gives you a folder structure for you application,
 and several different ways to render webpages:</p>
 <ul>
 <li>static webpages that are rendered once, at build time.</li>
@@ -63,10 +41,11 @@ and several different ways to render webpages:</p>
 <li>server rendered pages that are served as HTML, but can be refreshed.</li>
 <li>React Server Components, where you can mix client and server side components in one react tree</li>
 </ul>
-</div>
-<div class='slide'>
-<a class='slide_break' href='nextjs.html#slide-5'>▻</a>
-<h3 id="the-missing-persistence-layer"><a class="anchorlink" href="#the-missing-persistence-layer">3 The missing persistence layer</a></h3><p>Next.js is not a full backend framework. For example it does not offer an
+</section>
+<section>
+<p><a class='slide_break' href='nextjs.html#slide-2'>▻</a></p>
+<h3 id="the-missing-persistence-layer">
+<a class="anchorlink" href="#the-missing-persistence-layer"></a>3 The missing persistence layer</h3><p>Next.js is not a full backend framework. For example it does not offer an
 ORM or another persistence layer.  There is good documentation for
 combining next.js with</p>
 <ul>
@@ -77,10 +56,11 @@ combining next.js with</p>
 <li>
 <a href="https://www.prisma.io/nextjs">prisma</a>, a ORM for typescript or javascript</li>
 </ul>
-</div>
-<div class='slide'>
-<a class='slide_break' href='nextjs.html#slide-6'>▻</a>
-<h3 id="next-js-routing"><a class="anchorlink" href="#next-js-routing">4 next.js routing</a></h3><p>From next.js 13 onwards the routes are created in the <code>app/</code> directory.
+</section>
+<section>
+<p><a class='slide_break' href='nextjs.html#slide-3'>▻</a></p>
+<h3 id="next-js-routing">
+<a class="anchorlink" href="#next-js-routing"></a>4 next.js routing</h3><p>From next.js 13 onwards the routes are created in the <code>app/</code> directory.
 <code>page.js</code> is the default (like index.html used to be), folders can contain parameters in brackets:</p><div class="code_container">
 <pre><code class="highlight plaintext">app/page.js          --&gt;   /
 app/otherpage/page.js     --&gt;   /otherpage
@@ -96,10 +76,11 @@ app/users/[:id]/page.js   --&gt;   /users/42/
 <li>
 <code>error.js</code>  for <a href="https://nextjs.org/docs/app/building-your-application/routing/error-handling">error handling</a> with error boundaries</li>
 </ul>
-<p><img src="images/nested-layouts-ui.png" alt=""></p></div>
-<div class='slide'>
-<a class='slide_break' href='nextjs.html#slide-7'>▻</a>
-<h3 id="next-js-as-a-static-site-generator"><a class="anchorlink" href="#next-js-as-a-static-site-generator">5 next.js as a Static Site Generator</a></h3><p>You can use <code>next.js</code> like <code>jekyll</code>, <code>eleventy</code> or <code>gatsby</code> as a <a href="https://jamstack.org/generators/">static
+<p><img src="images/nested-layouts-ui.png" alt=""></p></section>
+<section>
+<p><a class='slide_break' href='nextjs.html#slide-4'>▻</a></p>
+<h3 id="next-js-as-a-static-site-generator">
+<a class="anchorlink" href="#next-js-as-a-static-site-generator"></a>5 next.js as a Static Site Generator</h3><p>You can use <code>next.js</code> like <code>jekyll</code>, <code>eleventy</code> or <code>gatsby</code> as a <a href="https://jamstack.org/generators/">static
 site generator</a>: during build time, html files are generated and can
 then be served by a minimal webserver without backend capabilities.</p><p>This is the classic <a href="https://jamstack.org/">Jamstack</a> (where JAM stands for JavaScript, API and Markup).</p><p>See <a href="https://nextjs.org/docs/pages/building-your-application/rendering/static-site-generation">Static Site Generation (SSG)</a></p>
 <ul>
@@ -109,10 +90,11 @@ then be served by a minimal webserver without backend capabilities.</p><p>This i
 <li>find the static files in folder <code>out/</code>
 </li>
 </ul>
-</div>
-<div class='slide'>
-<a class='slide_break' href='nextjs.html#slide-8'>▻</a>
-<h4 id="next-config-js-for-static-site-generation"><a class="anchorlink" href="#next-config-js-for-static-site-generation">5.1 next.config.js for static site generation</a></h4><p>We must set <code>output</code> to <code>export</code> to enable static site generations.</p><p>For static pages we need to set <code>trailingSlash</code> to <code>true</code> on most webservers.</p><p>If the site will be hosted in a subfolder, for example at <a href="http://bjelline.pages.mediacube.at/statixnextjs/">http://bjelline.pages.mediacube.at/statixnextjs/</a>
+</section>
+<section>
+<p><a class='slide_break' href='nextjs.html#slide-5'>▻</a></p>
+<h4 id="next-config-js-for-static-site-generation">
+<a class="anchorlink" href="#next-config-js-for-static-site-generation"></a>5.1 next.config.js for static site generation</h4><p>We must set <code>output</code> to <code>export</code> to enable static site generations.</p><p>For static pages we need to set <code>trailingSlash</code> to <code>true</code> on most webservers.</p><p>If the site will be hosted in a subfolder, for example at <a href="http://bjelline.pages.mediacube.at/statixnextjs/">http://bjelline.pages.mediacube.at/statixnextjs/</a>
 we must configure this as the config value <code>basePath</code>:</p><div class="code_container">
 <pre><code class="highlight plaintext">const nextConfig = {
   output: 'export',
@@ -121,10 +103,11 @@ we must configure this as the config value <code>basePath</code>:</p><div class=
 }
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='nextjs.html#slide-9'>▻</a>
-<h4 id="using-github-or-gitlab-pages"><a class="anchorlink" href="#using-github-or-gitlab-pages">5.2 using Github or gitlab pages</a></h4><p>You can host your static files gitlab pages with the following configuration:
+</section>
+<section>
+<p><a class='slide_break' href='nextjs.html#slide-6'>▻</a></p>
+<h4 id="using-github-or-gitlab-pages">
+<a class="anchorlink" href="#using-github-or-gitlab-pages"></a>5.2 using Github or gitlab pages</h4><p>You can host your static files gitlab pages with the following configuration:
 gitlab CI is used to build the pages, and the resulting folder <code>out</code> is declared
 as an artifact.  Gitlab will pick up this artifact and serve it through its
 pages webserver.</p><div class="code_container">
@@ -151,10 +134,11 @@ pages:
     - main
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='nextjs.html#slide-10'>▻</a>
-<h3 id="next-js-for-api-endpoints"><a class="anchorlink" href="#next-js-for-api-endpoints">6 next.js for API endpoints</a></h3><p>Use files called <code>route.js</code> as <a href="https://nextjs.org/docs/app/building-your-application/routing/router-handlers">route handlers</a> to implement the endpoints.</p><div class="code_container">
+</section>
+<section>
+<p><a class='slide_break' href='nextjs.html#slide-7'>▻</a></p>
+<h3 id="next-js-for-api-endpoints">
+<a class="anchorlink" href="#next-js-for-api-endpoints"></a>6 next.js for API endpoints</h3><p>Use files called <code>route.js</code> as <a href="https://nextjs.org/docs/app/building-your-application/routing/router-handlers">route handlers</a> to implement the endpoints.</p><div class="code_container">
 <pre><code class="highlight js"><span class="c1">// file /app/greeting/route.js</span>
 
 <span class="k">import</span> <span class="p">{</span> <span class="nx">NextResponse</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">next/server</span><span class="dl">'</span>
@@ -164,21 +148,24 @@ pages:
 <span class="p">}</span>
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='nextjs.html#slide-11'>▻</a>
-<h3 id="server-side-rendering-ssr"><a class="anchorlink" href="#server-side-rendering-ssr">7 Server Side Rendering (SSR)</a></h3><p>With server side rendering, a HTML document is shipped to the browser.
+</section>
+<section>
+<p><a class='slide_break' href='nextjs.html#slide-8'>▻</a></p>
+<h3 id="server-side-rendering-ssr">
+<a class="anchorlink" href="#server-side-rendering-ssr"></a>7 Server Side Rendering (SSR)</h3><p>With server side rendering, a HTML document is shipped to the browser.
 Then the browser loads the necessary JavaScript, and
 <a href="https://react.dev/reference/react-dom/hydrate#hydrating-server-rendered-html">hydrates</a> the HTML
-into a client side React App.</p></div>
-<div class='slide'>
-<a class='slide_break' href='nextjs.html#slide-12'>▻</a>
-<h3 id="react-server-components"><a class="anchorlink" href="#react-server-components">8 React Server Components</a></h3><p>The react render tree is composed from server and client components.  In next.js 13 all components
+into a client side React App.</p></section>
+<section>
+<p><a class='slide_break' href='nextjs.html#slide-9'>▻</a></p>
+<h3 id="react-server-components">
+<a class="anchorlink" href="#react-server-components"></a>8 React Server Components</h3><p>The react render tree is composed from server and client components.  In next.js 13 all components
 are server components by default.  You have to add <code>"use client";</code> on top of a component to turn
-it into a client component.</p><p><img src="images/react-server-components.png" alt=""></p></div>
-<div class='slide'>
-<a class='slide_break' href='nextjs.html#slide-13'>▻</a>
-<h4 id="how-to-use-rsc"><a class="anchorlink" href="#how-to-use-rsc">8.1 How to use RSC</a></h4><p>Simple rules for client and server components:</p>
+it into a client component.</p><p><img src="images/react-server-components.png" alt=""></p></section>
+<section>
+<p><a class='slide_break' href='nextjs.html#slide-10'>▻</a></p>
+<h4 id="how-to-use-rsc">
+<a class="anchorlink" href="#how-to-use-rsc"></a>8.1 How to use RSC</h4><p>Simple rules for client and server components:</p>
 <ul>
 <li>Use <code>.server.js</code> and <code>.client.js</code> as filename extensions.</li>
 <li>Server Components can contain client components.</li>
@@ -187,10 +174,11 @@ it into a client component.</p><p><img src="images/react-server-components.png" 
 <li>Server Components cannot pass functions as props to its descendents, only data.</li>
 <li>Use modules to share data in server components, use <a href="https://nextjs.org/docs/getting-started/react-essentials#context">context</a> to share data in client components.</li>
 </ul>
-</div>
-<div class='slide'>
-<a class='slide_break' href='nextjs.html#slide-14'>▻</a>
-<h4 id="server-components-can-contain-client-components"><a class="anchorlink" href="#server-components-can-contain-client-components">8.2 Server Components can contain client components:</a></h4><div class="code_container">
+</section>
+<section>
+<p><a class='slide_break' href='nextjs.html#slide-11'>▻</a></p>
+<h4 id="server-components-can-contain-client-components">
+<a class="anchorlink" href="#server-components-can-contain-client-components"></a>8.2 Server Components can contain client components:</h4><div class="code_container">
 <pre><code class="highlight js"><span class="c1">// this is server_component.server.js</span>
 <span class="k">import</span> <span class="nx">ClientComponent</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./ClientComponent.client</span><span class="dl">'</span>
 <span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">ServerComponent</span><span class="p">()</span> <span class="p">{</span>
@@ -202,10 +190,11 @@ it into a client component.</p><p><img src="images/react-server-components.png" 
 <span class="p">}</span>
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='nextjs.html#slide-15'>▻</a>
-<h4 id="client-components-cannot-contain-server-components"><a class="anchorlink" href="#client-components-cannot-contain-server-components">8.3 Client Components cannot contain server components:</a></h4><div class="code_container">
+</section>
+<section>
+<p><a class='slide_break' href='nextjs.html#slide-12'>▻</a></p>
+<h4 id="client-components-cannot-contain-server-components">
+<a class="anchorlink" href="#client-components-cannot-contain-server-components"></a>8.3 Client Components cannot contain server components:</h4><div class="code_container">
 <pre><code class="highlight js"><span class="c1">// this is client_component.client.js</span>
 <span class="c1">// ERROR !!!!</span>
 <span class="k">import</span> <span class="nx">ServerComponent</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./ServerComponent.server</span><span class="dl">'</span>
@@ -218,10 +207,11 @@ it into a client component.</p><p><img src="images/react-server-components.png" 
 <span class="p">}</span>
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='nextjs.html#slide-16'>▻</a>
-<h4 id="you-can-pass-in-server-components-to-a-clientcomponent"><a class="anchorlink" href="#you-can-pass-in-server-components-to-a-clientcomponent">8.4 You can pass in Server Components to a ClientComponent</a></h4><div class="code_container">
+</section>
+<section>
+<p><a class='slide_break' href='nextjs.html#slide-13'>▻</a></p>
+<h4 id="you-can-pass-in-server-components-to-a-clientcomponent">
+<a class="anchorlink" href="#you-can-pass-in-server-components-to-a-clientcomponent"></a>8.4 You can pass in Server Components to a ClientComponent</h4><div class="code_container">
 <pre><code class="highlight js"><span class="c1">// this is outer_server_component.server.js</span>
 <span class="k">import</span> <span class="nx">ClientComponent</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./ClientComponent.client</span><span class="dl">'</span>
 <span class="k">import</span> <span class="nx">ServerComponent</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./ServerComponent.server</span><span class="dl">'</span>
@@ -234,10 +224,11 @@ it into a client component.</p><p><img src="images/react-server-components.png" 
 <span class="p">}</span>
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='nextjs.html#slide-17'>▻</a>
-<h4 id="server-comopnents-cannot-pass-functions-to-its-descendents"><a class="anchorlink" href="#server-comopnents-cannot-pass-functions-to-its-descendents">8.5 Server Comopnents cannot pass functions to its descendents</a></h4><p>Because props are serialized into JSON, and functions cannot be serialized into JSON,
+</section>
+<section>
+<p><a class='slide_break' href='nextjs.html#slide-14'>▻</a></p>
+<h4 id="server-comopnents-cannot-pass-functions-to-its-descendents">
+<a class="anchorlink" href="#server-comopnents-cannot-pass-functions-to-its-descendents"></a>8.5 Server Comopnents cannot pass functions to its descendents</h4><p>Because props are serialized into JSON, and functions cannot be serialized into JSON,
 Server Components cannot pass functions as props to its descendents.</p><div class="code_container">
 <pre><code class="highlight js"><span class="c1">// ERROR !!!!</span>
 <span class="kd">function</span> <span class="nx">SomeServerComponent</span><span class="p">()</span> <span class="p">{</span>
@@ -246,13 +237,15 @@ Server Components cannot pass functions as props to its descendents.</p><div cla
 <span class="c1">// ERROR !!!!</span>
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='nextjs.html#slide-18'>▻</a>
-<h4 id="how-rsc-works"><a class="anchorlink" href="#how-rsc-works">8.6 How RSC Works</a></h4><p>its complicated</p><p><a href="https://github.com/reactwg/server-components/discussions/5">RSC Components from Scratch</a></p><p><a href="https://www.plasmic.app/blog/how-react-server-components-work">How Server Components Work</a></p></div>
-<div class='slide'>
-<a class='slide_break' href='nextjs.html#slide-19'>▻</a>
-<h3 id="hosting-next-js"><a class="anchorlink" href="#hosting-next-js">9 Hosting next.js</a></h3><p>Vercel, the company behind next.js, offers hosting on their platform. There is a free tier.</p><p>To host next.js you need:</p>
+</section>
+<section>
+<p><a class='slide_break' href='nextjs.html#slide-15'>▻</a></p>
+<h4 id="how-rsc-works">
+<a class="anchorlink" href="#how-rsc-works"></a>8.6 How RSC Works</h4><p>its complicated</p><p><a href="https://github.com/reactwg/server-components/discussions/5">RSC Components from Scratch</a></p><p><a href="https://www.plasmic.app/blog/how-react-server-components-work">How Server Components Work</a></p></section>
+<section>
+<p><a class='slide_break' href='nextjs.html#slide-16'>▻</a></p>
+<h3 id="hosting-next-js">
+<a class="anchorlink" href="#hosting-next-js"></a>9 Hosting next.js</h3><p>Vercel, the company behind next.js, offers hosting on their platform. There is a free tier.</p><p>To host next.js you need:</p>
 <ul>
 <li>to run the build step to create static assets and javascript bundles</li>
 <li>to run node.js on the server</li>
@@ -263,10 +256,11 @@ and do both for you. you might additionally consider:</p>
 <li>setting up permanent storage at <code>public/upload</code>, if you want to handle uploaded file and store them in the webspcae</li>
 <li>setting up a database</li>
 </ul>
-</div>
-<div class='slide'>
-<a class='slide_break' href='nextjs.html#slide-20'>▻</a>
-<h3 id="telemetry"><a class="anchorlink" href="#telemetry">10 Telemetry</a></h3><p>A next.js app sends at least 500 lines of information to Vercel.
+</section>
+<section>
+<p><a class='slide_break' href='nextjs.html#slide-17'>▻</a></p>
+<h3 id="telemetry">
+<a class="anchorlink" href="#telemetry"></a>10 Telemetry</h3><p>A next.js app sends at least 500 lines of information to Vercel.
 See <a href="https://nextjs.org/telemetry">Telemetry</a>
 to learn what information is sent and how to switch it off.</p><div class="code_container">
 <pre><code class="highlight plaintext">[telemetry] {
@@ -755,64 +749,41 @@ to learn what information is sent and how to switch it off.</p><div class="code_
 }
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='nextjs.html#slide-21'>▻</a>
-<h3 id="see-also"><a class="anchorlink" href="#see-also">11 See Also</a></h3>
+</section>
+<section>
+<p><a class='slide_break' href='nextjs.html#slide-18'>▻</a></p>
+<h3 id="see-also">
+<a class="anchorlink" href="#see-also"></a>11 See Also</h3>
 <ul>
 <li><a href="https://nextjs.org/docs">Next.js Documentation</a></li>
 <li><a href="https://nextjsweekly.com/">Next.js Newsletter</a></li>
 </ul>
-</div>
+</section>
+      </div>
     </div>
     <!-- End slides. -->
-    <!-- Begin extension snippets. Add or remove as needed. -->
-    <!-- deck.navigation snippet -->
-    <div aria-role="navigation">
-        <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
-        <a href="#" class="deck-next-link" title="Next">&#8594;</a>
-    </div>
-    <!-- deck.status snippet -->
-    <p class="deck-status" aria-role="status">
-        <span class="deck-status-current"></span>
-        /
-        <span class="deck-status-total"></span>
-    </p>
-    <!-- deck.goto snippet -->
-    <form action="." method="get" class="goto-form">
-        <label for="goto-slide">Go to slide:</label>
-        <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
-        <datalist id="goto-datalist"></datalist>
-        <input type="submit" value="Go">
-    </form>
-    <!-- End extension snippets. -->
     <!-- Required JS files. -->
-    <script src="javascripts/jquery.min.js"></script>
-    <script src="javascripts/deck.core.js"></script>
-    <!-- Extension JS files. Add or remove as needed. -->
-    <script src="javascripts/deck.menu.js"></script>
-    <script src="javascripts/deck.goto.js"></script>
-    <script src="javascripts/deck.status.js"></script>
-    <script src="javascripts/deck.navigation.js"></script>
-    <script src="javascripts/deck.escape.js"></script>
+		<script src="javascripts/reveal.js"></script>
+		<script src="javascripts/search.js"></script>
+		<script src="javascripts/markdown.js"></script>
 
-    <!-- Initialize the deck. You can put this in an external file if desired. -->
     <script>
-    $(function() {
-      $.deck('.slide');
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+
+      keyboard: {
+        27: () => { console.log('esc') }, // do something custom when ESC is pressed
+        13: 'next', // go to the next slide when the ENTER key is pressed
+      },
+
+      // Learn about plugins: https://revealjs.com/plugins/
+      plugins: [ RevealSearch, RevealMarkdown ]  // RevealHighlight
     });
-
-    var $d = $(document);    
-
-    $d.bind('deck.change', function(event, from, to) {
-      // console.log('Moving from slide ' + from + ' to ' + to);
-    });   
-    $d.bind('deck.beforeInit', function() {
-      // console.log('Deck.beforeInit. hash is ' + document.location.hash);
-    });     
-    $d.bind('deck.init', function() {
-      // console.log('Deck.init is done. hash was ' + document.location.hash);
-    }); 
     </script>
 </body>
 

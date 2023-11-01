@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Backend Development Textbook</title>
-  <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+  <title>APIs — Backend Development</title>
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/code.css">
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css">
 
-  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
   <style>
 
     .slide img[src$=svg] {
@@ -46,7 +47,7 @@
         <li class="guides-index guides-index-large">
           <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
           <div id="guides" class="clearfix" style="display: none;">
-            <hr />
+            <hr>
               <dl class="L">
                 <dt>Ruby on Rails</dt>
                 <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
@@ -89,11 +90,11 @@
     </div>
   </div>
 
-  <hr class="hide" />
+  <hr class="hide">
 
   <div id="feature">
     <div class="wrapper">
-      <h2 id="preheader">no heading</h2>
+      <h2 id="preheader">APIs</h2>
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <ol class="chapters">
@@ -153,7 +154,13 @@
           </div>
 
       <div class="rest_header">
-        
+        <h2>APIs</h2><p>After working through this guide you will:</p>
+<ul>
+<li>know about the thinking behind REST APIs and JSON API</li>
+<li>be able to configure your existing controllers to offer resources as JSON</li>
+<li>be able to set up an API for your rails app that is separate from existing controllers</li>
+</ul>
+<p>REPO: You can study the <a href="https://github.com/backend-development/api_sample_app">code</a> and try out <a href="https://dry-cove-38472.herokuapp.com/">the demo</a> for the example described here.</p>
       </div>
     </div>
   </div>
@@ -162,32 +169,20 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <div class='slide'><a id='slide-0'></a>
+        <div class='slide'>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-1' href='slides_apis.html#slide-1'>▻</a>
-<h2>APIs</h2><p>After working through this guide you will:</p>
-<ul>
-<li>know about the thinking behind REST APIs and JSON API</li>
-<li>be able to configure your existing controllers to offer resources as JSON</li>
-<li>be able to set up an API for your rails app that is separate from existing controllers</li>
-</ul>
-<p>REPO: You can study the <a href="https://github.com/backend-development/api_sample_app">code</a> and try out <a href="https://dry-cove-38472.herokuapp.com/">the demo</a> for the example described here.</p>
-</div>
-<div class='slide'>
-<a class='slide_break' id='slide-2' href='slides_apis.html#slide-2'>▻</a>
-<hr>
-</div>
-<div class='slide'>
-<a class='slide_break' id='slide-3' href='slides_apis.html#slide-3'>▻</a>
-<h3 id="what-is-an-api"><a class="anchorlink" href="#what-is-an-api">1 What is an API</a></h3><p>API stands for "Application Programming Interface". It is a set of clearly defined methods
+<a class='slide_break' id='slide-0' href='slides_apis.html#/0'>▻</a>
+<h3 id="what-is-an-api">
+<a class="anchorlink" href="#what-is-an-api"></a>1 What is an API</h3><p>API stands for "Application Programming Interface". It is a set of clearly defined methods
 of communication with a software component. So the objects and methods exposed by a library
 form an API.</p><p>In Web development the acronym API is most
 commonly used when the software component in question runs on a different server on the
 Internet and is accessed via the network.</p><p>This Guide is concerned with APIs that you build and run using Ruby on Rails.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-4' href='slides_apis.html#slide-4'>▻</a>
-<h3 id="rest"><a class="anchorlink" href="#rest">2 REST</a></h3><p>The acronym REST was coined by Roy Fielding in his dissertation. When describing
+<a class='slide_break' id='slide-1' href='slides_apis.html#/1'>▻</a>
+<h3 id="rest">
+<a class="anchorlink" href="#rest"></a>2 REST</h3><p>The acronym REST was coined by Roy Fielding in his dissertation. When describing
 the architecture of the web, and what made it so successfull on a technical level,
 he desribed this architecture as "Representational State Transfer" (REST).</p><p>This Acronym was later picked up to describe a certain style of API,
 and to distiguish such APIs from SOAP APIs.</p><p>A REST API allows to access and manipulate textual representations of Web resources using HTTP Methods and stateless operations.</p><p>"Web resources" were first defined on the World Wide Web as documents or files identified by their URLs, but today they have a much more generic and abstract definition encompassing every thing or entity that can be identified, named, addressed or handled, in any way whatsoever, on the Web.</p><p><a href="https://www.infoq.com/articles/rest-introduction">Tilkov(2007)</a> gives a brief introduction to REST. The main points are:</p>
@@ -200,11 +195,13 @@ and to distiguish such APIs from SOAP APIs.</p><p>A REST API allows to access an
 </ol>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-5' href='slides_apis.html#slide-5'>▻</a>
-<h4 id="exploring-a-rest-api-with-postman"><a class="anchorlink" href="#exploring-a-rest-api-with-postman">2.1 Exploring a REST API with postman</a></h4><p>TODO</p></div>
+<a class='slide_break' id='slide-2' href='slides_apis.html#/2'>▻</a>
+<h4 id="exploring-a-rest-api-with-postman">
+<a class="anchorlink" href="#exploring-a-rest-api-with-postman"></a>2.1 Exploring a REST API with postman</h4><p>TODO</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-6' href='slides_apis.html#slide-6'>▻</a>
-<h4 id="urls"><a class="anchorlink" href="#urls">2.2 URLS</a></h4><p>Give every resource a unique URL.
+<a class='slide_break' id='slide-3' href='slides_apis.html#/3'>▻</a>
+<h4 id="urls">
+<a class="anchorlink" href="#urls"></a>2.2 URLS</h4><p>Give every resource a unique URL.
 Please note that REST does not demand a certain form of URL.
 While URLs with no parameters are often used:</p><div class="code_container">
 <pre><code class="highlight plaintext">https://example.com/users/
@@ -227,8 +224,9 @@ This is a difference to SOAP, there there is typically just one endpoint:</p><di
 </div>
 <p>Through this endpoint you can access methods like <code>getUserData()</code> or <code>deleteUser()</code>.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-7' href='slides_apis.html#slide-7'>▻</a>
-<h4 id="hateoas"><a class="anchorlink" href="#hateoas">2.3 HATEOAS</a></h4><p>“Hypermedia as the engine of application state” means that a client interacts with a network application entirely through hypermedia, and needs no prior knowledge of URLs.</p><p>If an API returns the following JSON:</p><div class="code_container">
+<a class='slide_break' id='slide-4' href='slides_apis.html#/4'>▻</a>
+<h4 id="hateoas">
+<a class="anchorlink" href="#hateoas"></a>2.3 HATEOAS</h4><p>“Hypermedia as the engine of application state” means that a client interacts with a network application entirely through hypermedia, and needs no prior knowledge of URLs.</p><p>If an API returns the following JSON:</p><div class="code_container">
 <pre><code class="highlight plaintext">{
     "id": "1",
     "name": "Example User",
@@ -252,8 +250,9 @@ For example because the developer read the docs.</p><p>HATEOAS demands that the 
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-8' href='slides_apis.html#slide-8'>▻</a>
-<h4 id="http-methods-and-status-codes"><a class="anchorlink" href="#http-methods-and-status-codes">2.4 HTTP Methods and Status Codes</a></h4><p>Use HTTP Methods (and Status Codes) as intended.</p><p>Regarding the HTTP Methods there are two important distinctions:</p>
+<a class='slide_break' id='slide-5' href='slides_apis.html#/5'>▻</a>
+<h4 id="http-methods-and-status-codes">
+<a class="anchorlink" href="#http-methods-and-status-codes"></a>2.4 HTTP Methods and Status Codes</h4><p>Use HTTP Methods (and Status Codes) as intended.</p><p>Regarding the HTTP Methods there are two important distinctions:</p>
 <ul>
 <li>the GET and HEAD methods should take no other action than retrieval. These methods ought to be considered <strong>safe</strong>.</li>
 <li>The methods GET, HEAD, PUT and DELETE are idempotent: repeating the request will not change the end result (aside from error or expiration issues)</li>
@@ -268,8 +267,9 @@ about that API. There is no need to come up with a way to delete
 a resource, or to indicate failure. HTTP already offers the DELETE method
 and status codes that indicate errors.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-9' href='slides_apis.html#slide-9'>▻</a>
-<h4 id="multiple-representations"><a class="anchorlink" href="#multiple-representations">2.5 Multiple Representations</a></h4><p>The same resource can be available in different formats.
+<a class='slide_break' id='slide-6' href='slides_apis.html#/6'>▻</a>
+<h4 id="multiple-representations">
+<a class="anchorlink" href="#multiple-representations"></a>2.5 Multiple Representations</h4><p>The same resource can be available in different formats.
 There are two common ways of requesting different formats:</p><p>With the HTTP Header <code>Accept</code>:</p><div class="code_container">
 <pre><code class="highlight plaintext">GET /mini/person/83 HTTP/1.1
 Host: example.com
@@ -328,20 +328,23 @@ Er hat den Usernamen fhs14287.&lt;/p&gt;
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-10' href='slides_apis.html#slide-10'>▻</a>
-<h4 id="statelessness"><a class="anchorlink" href="#statelessness">2.6 Statelessness</a></h4><p>Tilkov wirtes: "REST mandates that state be either turned into resource state, or kept on the client. In other words, a server should not have to retain some sort of communication state for any of the clients it communicates with beyond a single request."</p><p>This is important for performance and scalability and performance.<br>
+<a class='slide_break' id='slide-7' href='slides_apis.html#/7'>▻</a>
+<h4 id="statelessness">
+<a class="anchorlink" href="#statelessness"></a>2.6 Statelessness</h4><p>Tilkov wirtes: "REST mandates that state be either turned into resource state, or kept on the client. In other words, a server should not have to retain some sort of communication state for any of the clients it communicates with beyond a single request."</p><p>This is important for performance and scalability and performance.
  Statelessness makes caching easy. And in a scenario with serveral
 servers behind a load balancer, not having state on the server means
 the application will work if the requests bei one client are routest
 to different servers.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-11' href='slides_apis.html#slide-11'>▻</a>
-<h4 id="json-api"><a class="anchorlink" href="#json-api">2.7 JSON API</a></h4><p>When an API returns JSON data this could take many forms.
+<a class='slide_break' id='slide-8' href='slides_apis.html#/8'>▻</a>
+<h4 id="json-api">
+<a class="anchorlink" href="#json-api"></a>2.7 JSON API</h4><p>When an API returns JSON data this could take many forms.
 The <a href="https://jsonapi.org/">json:api specification</a> is a well thought out
 convention for this.</p><p>It is especially good with the HATEOS aspect of REST, the json:api specification adhers to this principle.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-12' href='slides_apis.html#slide-12'>▻</a>
-<h3 id="graphql"><a class="anchorlink" href="#graphql">3 GraphQL</a></h3><p>GraphQL is different way of writing APIs. GraphQL is less
+<a class='slide_break' id='slide-9' href='slides_apis.html#/9'>▻</a>
+<h3 id="graphql">
+<a class="anchorlink" href="#graphql"></a>3 GraphQL</h3><p>GraphQL is different way of writing APIs. GraphQL is less
 concerned with HTTP, it just uses the POST method for all requests.</p><p>see</p>
 <ul>
 <li><a href="https://rmosolgo.github.io/talks">author of graphql gem</a></li>
@@ -350,14 +353,17 @@ concerned with HTTP, it just uses the POST method for all requests.</p><p>see</p
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-13' href='slides_apis.html#slide-13'>▻</a>
-<h4 id="exploring-graphql-with-playground"><a class="anchorlink" href="#exploring-graphql-with-playground">3.1 exploring GraphQL with Playground</a></h4><p>GraphQL Playground</p></div>
+<a class='slide_break' id='slide-10' href='slides_apis.html#/10'>▻</a>
+<h4 id="exploring-graphql-with-playground">
+<a class="anchorlink" href="#exploring-graphql-with-playground"></a>3.1 exploring GraphQL with Playground</h4><p>GraphQL Playground</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-14' href='slides_apis.html#slide-14'>▻</a>
-<h4 id="types"><a class="anchorlink" href="#types">3.2 types</a></h4></div>
+<a class='slide_break' id='slide-11' href='slides_apis.html#/11'>▻</a>
+<h4 id="types">
+<a class="anchorlink" href="#types"></a>3.2 types</h4></div>
 <div class='slide'>
-<a class='slide_break' id='slide-15' href='slides_apis.html#slide-15'>▻</a>
-<h4 id="basic-example"><a class="anchorlink" href="#basic-example">3.3 basic example</a></h4><p>example query:</p><div class="code_container">
+<a class='slide_break' id='slide-12' href='slides_apis.html#/12'>▻</a>
+<h4 id="basic-example">
+<a class="anchorlink" href="#basic-example"></a>3.3 basic example</h4><p>example query:</p><div class="code_container">
 <pre><code class="highlight plaintext">{
   cityZone(id: "2349ksj0342" ) {
     id
@@ -379,8 +385,9 @@ concerned with HTTP, it just uses the POST method for all requests.</p><p>see</p
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-16' href='slides_apis.html#slide-16'>▻</a>
-<h4 id="how-the-server-handles-the-request"><a class="anchorlink" href="#how-the-server-handles-the-request">3.4 how the server handles the request</a></h4>
+<a class='slide_break' id='slide-13' href='slides_apis.html#/13'>▻</a>
+<h4 id="how-the-server-handles-the-request">
+<a class="anchorlink" href="#how-the-server-handles-the-request"></a>3.4 how the server handles the request</h4>
 <ul>
 <li>parse query</li>
 <li>validate with schema</li>
@@ -389,23 +396,29 @@ concerned with HTTP, it just uses the POST method for all requests.</p><p>see</p
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-17' href='slides_apis.html#slide-17'>▻</a>
-<h4 id="aggragate"><a class="anchorlink" href="#aggragate">3.5 aggragate</a></h4></div>
+<a class='slide_break' id='slide-14' href='slides_apis.html#/14'>▻</a>
+<h4 id="aggragate">
+<a class="anchorlink" href="#aggragate"></a>3.5 aggragate</h4></div>
 <div class='slide'>
-<a class='slide_break' id='slide-18' href='slides_apis.html#slide-18'>▻</a>
-<h4 id="pagination"><a class="anchorlink" href="#pagination">3.6 pagination</a></h4></div>
+<a class='slide_break' id='slide-15' href='slides_apis.html#/15'>▻</a>
+<h4 id="pagination">
+<a class="anchorlink" href="#pagination"></a>3.6 pagination</h4></div>
 <div class='slide'>
-<a class='slide_break' id='slide-19' href='slides_apis.html#slide-19'>▻</a>
-<h4 id="mutation-and-response"><a class="anchorlink" href="#mutation-and-response">3.7 mutation and response</a></h4></div>
+<a class='slide_break' id='slide-16' href='slides_apis.html#/16'>▻</a>
+<h4 id="mutation-and-response">
+<a class="anchorlink" href="#mutation-and-response"></a>3.7 mutation and response</h4></div>
 <div class='slide'>
-<a class='slide_break' id='slide-20' href='slides_apis.html#slide-20'>▻</a>
-<h4 id="errors"><a class="anchorlink" href="#errors">3.8 errors</a></h4></div>
+<a class='slide_break' id='slide-17' href='slides_apis.html#/17'>▻</a>
+<h4 id="errors">
+<a class="anchorlink" href="#errors"></a>3.8 errors</h4></div>
 <div class='slide'>
-<a class='slide_break' id='slide-21' href='slides_apis.html#slide-21'>▻</a>
-<h4 id="versioning-deprecation"><a class="anchorlink" href="#versioning-deprecation">3.9 versioning, deprecation</a></h4></div>
+<a class='slide_break' id='slide-18' href='slides_apis.html#/18'>▻</a>
+<h4 id="versioning-deprecation">
+<a class="anchorlink" href="#versioning-deprecation"></a>3.9 versioning, deprecation</h4></div>
 <div class='slide'>
-<a class='slide_break' id='slide-22' href='slides_apis.html#slide-22'>▻</a>
-<h3 id="using-rails-to-build-a-basic-rest-api"><a class="anchorlink" href="#using-rails-to-build-a-basic-rest-api">4 Using Rails to build a basic REST API</a></h3><p>Rails is equipped to not just create HTML as output, but to easily
+<a class='slide_break' id='slide-19' href='slides_apis.html#/19'>▻</a>
+<h3 id="using-rails-to-build-a-basic-rest-api">
+<a class="anchorlink" href="#using-rails-to-build-a-basic-rest-api"></a>4 Using Rails to build a basic REST API</h3><p>Rails is equipped to not just create HTML as output, but to easily
 offer other representations as well.</p><p>When you look at <code>rails routes</code> you can see that the routes created by
 <code>resource :user</code> could contain an optional <code>format</code>:</p><div class="code_container">
 <pre><code class="highlight plaintext">                 Prefix Verb   URI Pattern                           Controller#Action
@@ -436,8 +449,9 @@ Content-Type: application/json; charset=utf-8
 client expecting JSON data. It uses both the HTTP status code
 and the JSON to indicate the error.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-23' href='slides_apis.html#slide-23'>▻</a>
-<h4 id="api-for-the-sample-app"><a class="anchorlink" href="#api-for-the-sample-app">4.1 API for the sample app</a></h4><p>The "Frontend 1" in the example app expects a very simple JSON structure:</p><p>To display one user, it loads from <code>/user/1.json</code> and expects
+<a class='slide_break' id='slide-20' href='slides_apis.html#/20'>▻</a>
+<h4 id="api-for-the-sample-app">
+<a class="anchorlink" href="#api-for-the-sample-app"></a>4.1 API for the sample app</h4><p>The "Frontend 1" in the example app expects a very simple JSON structure:</p><p>To display one user, it loads from <code>/user/1.json</code> and expects
 a single JSON object with three attributes:</p><div class="code_container">
 <pre><code class="highlight plaintext">{
    "id":1,
@@ -464,8 +478,9 @@ expects a JSON array of objects like above:</p><div class="code_container">
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-24' href='slides_apis.html#slide-24'>▻</a>
-<h4 id="creating-an-api-with-existing-controllers"><a class="anchorlink" href="#creating-an-api-with-existing-controllers">4.2 creating an API with existing controllers</a></h4><p>The scaffold generator always adds handling JSON responses
+<a class='slide_break' id='slide-21' href='slides_apis.html#/21'>▻</a>
+<h4 id="creating-an-api-with-existing-controllers">
+<a class="anchorlink" href="#creating-an-api-with-existing-controllers"></a>4.2 creating an API with existing controllers</h4><p>The scaffold generator always adds handling JSON responses
 to the actions of a controller.</p><p>For handling just HTML only this code would be needed in the
 create action:</p><div class="code_container">
 <pre><code class="highlight plaintext">  # POST /users
@@ -509,8 +524,9 @@ to handle json differently from html:</p><div class="code_container">
 <p>so in the controller we might not need to change anything to add the
 API, only in the view.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-25' href='slides_apis.html#slide-25'>▻</a>
-<h4 id="creating-json-with-erb-not-a-good-idea"><a class="anchorlink" href="#creating-json-with-erb-not-a-good-idea">4.3 creating JSON with erb - not a good idea</a></h4><p>We could create views using erb in <code>app/views/users/show.json.erb</code>:</p><div class="code_container">
+<a class='slide_break' id='slide-22' href='slides_apis.html#/22'>▻</a>
+<h4 id="creating-json-with-erb-not-a-good-idea">
+<a class="anchorlink" href="#creating-json-with-erb-not-a-good-idea"></a>4.3 creating JSON with erb - not a good idea</h4><p>We could create views using erb in <code>app/views/users/show.json.erb</code>:</p><div class="code_container">
 <pre><code class="highlight plaintext">{
   "id": &lt;%= @user.id %&gt;,
   "name": "&lt;%= @user.name %&gt;",
@@ -551,8 +567,9 @@ but there should be no comma after the last.</p><div class="code_container">
 if a users name contains a quote? For example <kbd>Jack "the Ripper"</kbd>.
 That would break our current view, because we don't do proper escaping.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-26' href='slides_apis.html#slide-26'>▻</a>
-<h4 id="creating-json-with-jbuilder-a-better-idea"><a class="anchorlink" href="#creating-json-with-jbuilder-a-better-idea">4.4 creating JSON with jbuilder - a better idea</a></h4><p>Rails 5 comes with the gem <code>jbuilder</code> which helps you create JSON, and
+<a class='slide_break' id='slide-23' href='slides_apis.html#/23'>▻</a>
+<h4 id="creating-json-with-jbuilder-a-better-idea">
+<a class="anchorlink" href="#creating-json-with-jbuilder-a-better-idea"></a>4.4 creating JSON with jbuilder - a better idea</h4><p>Rails 5 comes with the gem <code>jbuilder</code> which helps you create JSON, and
 which handles all the escaping and formatting correctly.</p><p>We need to name the view <code>app/views/users/show.json.jbuilder</code>,
 and then can use the the following code to extract three properties
 from the user object:</p><div class="code_container">
@@ -574,16 +591,18 @@ end
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-27' href='slides_apis.html#slide-27'>▻</a>
-<h4 id="authentication-and-the-api"><a class="anchorlink" href="#authentication-and-the-api">4.5 Authentication and the API</a></h4><p>All the authentication and access control we built into the
+<a class='slide_break' id='slide-24' href='slides_apis.html#/24'>▻</a>
+<h4 id="authentication-and-the-api">
+<a class="anchorlink" href="#authentication-and-the-api"></a>4.5 Authentication and the API</h4><p>All the authentication and access control we built into the
 rails app before is still applicable to the API and JSON views.
 If the "Frontend" that is using our API is displayed in a browser,
 the handling of cookies and the session is exactly the same as before.</p><p>If the "Frontend" is not in a browser, but is a native mobile app or
 just another server side job, we have to use an alternative to cookies.
 <a href="https://backend-development.github.io/rails_authentication.html#how-to-add-state-to-http">JSON Web Tokens</a> are a solution.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-28' href='slides_apis.html#slide-28'>▻</a>
-<h3 id="using-rails-to-build-a-stand-alone-rest-api"><a class="anchorlink" href="#using-rails-to-build-a-stand-alone-rest-api">5 Using Rails to build a stand alone REST API</a></h3><p>To create a stand alone API we define new, separate routes under <code>/api/v1</code>.</p><div class="code_container">
+<a class='slide_break' id='slide-25' href='slides_apis.html#/25'>▻</a>
+<h3 id="using-rails-to-build-a-stand-alone-rest-api">
+<a class="anchorlink" href="#using-rails-to-build-a-stand-alone-rest-api"></a>5 Using Rails to build a stand alone REST API</h3><p>To create a stand alone API we define new, separate routes under <code>/api/v1</code>.</p><div class="code_container">
 <pre><code class="highlight plaintext">namespace :api do
   namespace :v1 do
     resources :users, only: [:index, :create, :show, :update, :destroy]
@@ -598,8 +617,9 @@ end
 <p><strong>Beware</strong>: After adding a gem you
 need to restart the rails server!</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-29' href='slides_apis.html#slide-29'>▻</a>
-<h4 id="jsonapi-for-the-sample-app"><a class="anchorlink" href="#jsonapi-for-the-sample-app">5.1 JSONAPI for the sample app</a></h4><p>The "Frontend 2" in the example app expects the json to be formed
+<a class='slide_break' id='slide-26' href='slides_apis.html#/26'>▻</a>
+<h4 id="jsonapi-for-the-sample-app">
+<a class="anchorlink" href="#jsonapi-for-the-sample-app"></a>5.1 JSONAPI for the sample app</h4><p>The "Frontend 2" in the example app expects the json to be formed
 according to the json api specification.</p><p><code>/api/v1/user/1</code> will return data about one resource:</p><div class="code_container">
 <pre><code class="highlight plaintext">{
 
@@ -635,8 +655,9 @@ is an object with on attribute <code>data</code>:</p><div class="code_container"
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-30' href='slides_apis.html#slide-30'>▻</a>
-<h4 id="creating-json-with-fast-jsonapi"><a class="anchorlink" href="#creating-json-with-fast-jsonapi">5.2 creating JSON with fast_jsonapi</a></h4><p>After we defined the routes, we next need to create a controller.
+<a class='slide_break' id='slide-27' href='slides_apis.html#/27'>▻</a>
+<h4 id="creating-json-with-fast-jsonapi">
+<a class="anchorlink" href="#creating-json-with-fast-jsonapi"></a>5.2 creating JSON with fast_jsonapi</h4><p>After we defined the routes, we next need to create a controller.
 As we are setting up a new hierarchy of controllers that will only
 concerned with the API, it makes sense to inhert from <code>ActionController::API</code>,
 not from <code>ActionController::Base</code>.</p><p>All the "normal" controllers first inhert from <code>ApplicationController</code>. We
@@ -683,21 +704,24 @@ end
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-31' href='slides_apis.html#slide-31'>▻</a>
-<h3 id="using-rails-to-build-a-graphql-api"><a class="anchorlink" href="#using-rails-to-build-a-graphql-api">6 Using Rails to build a GraphQL API</a></h3>
+<a class='slide_break' id='slide-28' href='slides_apis.html#/28'>▻</a>
+<h3 id="using-rails-to-build-a-graphql-api">
+<a class="anchorlink" href="#using-rails-to-build-a-graphql-api"></a>6 Using Rails to build a GraphQL API</h3>
 <ul>
-<li>Hannes sagt gem graphql, für n+1 queries graphql-batch von shopify.  und graphiql </li>
+<li>Hannes sagt gem graphql, für n+1 queries graphql-batch von shopify.  und graphiql</li>
 <li><a href="https://github.com/eliias/concat-tv">https://github.com/eliias/concat-tv</a></li>
 <li><a href="https://www.howtographql.com/graphql-ruby/0-introduction/">https://www.howtographql.com/graphql-ruby/0-introduction/</a></li>
 <li><a href="https://github.com/ajsharp/graphql-rails-generators">https://github.com/ajsharp/graphql-rails-generators</a></li>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-32' href='slides_apis.html#slide-32'>▻</a>
-<h3 id="documenting-an-api"><a class="anchorlink" href="#documenting-an-api">7 Documenting an API</a></h3><p>See Halliday(2016): <a href="https://blog.codeship.com/producing-documentation-for-your-rails-api/">Producing Documentation for Your Rails API</a> for a discussion of automatic methods of documentation generation.</p></div>
+<a class='slide_break' id='slide-29' href='slides_apis.html#/29'>▻</a>
+<h3 id="documenting-an-api">
+<a class="anchorlink" href="#documenting-an-api"></a>7 Documenting an API</h3><p>See Halliday(2016): <a href="https://blog.codeship.com/producing-documentation-for-your-rails-api/">Producing Documentation for Your Rails API</a> for a discussion of automatic methods of documentation generation.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-33' href='slides_apis.html#slide-33'>▻</a>
-<h3 id="see-also"><a class="anchorlink" href="#see-also">8 See Also</a></h3>
+<a class='slide_break' id='slide-30' href='slides_apis.html#/30'>▻</a>
+<h3 id="see-also">
+<a class="anchorlink" href="#see-also"></a>8 See Also</h3>
 <ul>
 <li>
 <a href="https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm">Fielding, Roy(2000): Architectural Styles and the Design of Network-based Software Architectures</a>. Dissertation. University of California/Irvine, USA.</li>
@@ -718,7 +742,7 @@ end
     </div>
   </div>
 
-  <hr class="hide" />
+  <hr class="hide">
   <div id="footer">
     <div class="wrapper">
       <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2023 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
@@ -729,14 +753,5 @@ end
 
   <script src="javascripts/jquery.min.js"></script>
   <script src="javascripts/guides.js"></script>
-  <script>
-    SyntaxHighlighter.all()
-    $(guidesIndex.bind);
-    $(document).ready(function(){
-      let hash = document.location.hash;
-      if(! hash) return;
-      document.getElementById(hash.substr(1)).scrollIntoView(true);
-    })
-  </script>
   </body>
 </html>

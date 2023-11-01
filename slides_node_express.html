@@ -3,42 +3,27 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=1024, user-scalable=no">
+
     <title>Slides for
         Node Web App — Backend Development
     </title>
-    <!-- Required stylesheet -->
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
-    <!-- Extension CSS files go here. Remove or add as needed. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
-    <!-- Style theme. More available in /themes/style/ or create your own. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
-    <!-- Transition theme. More available in /themes/transition/ or create your own. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
-    <!-- syntax highlighter -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Basic black and white print styles -->
-    <link rel="stylesheet" media="print" href="stylesheets/print.css">
-    <!-- Required Modernizr file -->
-    <script src="javascripts/modernizr.custom.js"></script>
+		<link rel="stylesheet" href="stylesheets/reset.css">
+		<link rel="stylesheet" href="stylesheets/reveal.css">
+		<link rel="stylesheet" href="stylesheets/myslide.css" id="theme">
+    <link rel="stylesheet" href="stylesheets/code.css">
+
 </head>
 
 <body>
-    <div class="deck-container">
-        <div class='slide'><h2>Node Web App</h2><p>After working through this guide you should be able to</p>
-<ul>
-<li>set up and program a web project with express</li>
-<li>understand the role of connect middleware</li>
-<li>build a REST API with node.js</li>
-</ul>
-
-<p>We have already seen a very basic web server in node.js:</p><div class="code_container">
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <p>We have already seen a very basic web server in node.js:</p><div class="code_container">
 <pre><code class="highlight plaintext">import * as http from 'http';
 
 const hostname = '127.0.0.1';
@@ -56,10 +41,10 @@ server.listen(port, hostname, () =&gt; {
 </code></pre>
 </div>
 <p>Not let's look at connect and express, two libraries
-that make web projects easier.</p></div>
-<div class='slide'>
-<a class='slide_break' href='node_express.html#slide-1'>▻</a>
-<h3 id="connect"><a class="anchorlink" href="#connect">1 Connect</a></h3><p>Connect is a middleware framework for node
+that make web projects easier.</p><section>
+<p><a class='slide_break' href='node_express.html#slide-0'>▻</a></p>
+<h3 id="connect">
+<a class="anchorlink" href="#connect"></a>1 Connect</h3><p>Connect is a middleware framework for node
 Built on top of node’s Http Server</p><div class="code_container">
 <pre><code class="highlight plaintext">var connect = require('connect');
 var app = connect()
@@ -70,10 +55,11 @@ var app = connect()
 console.log("server listening on port 3000");
 </code></pre>
 </div>
-<p><img src="images/connect.svg" alt=""></p></div>
-<div class='slide'>
-<a class='slide_break' href='node_express.html#slide-2'>▻</a>
-<h3 id="write-you-own-middleware"><a class="anchorlink" href="#write-you-own-middleware">2 Write you own middleware</a></h3><p>Write a function that recieves the arguments
+<p><img src="images/connect.svg" alt=""></p></section>
+<section>
+<p><a class='slide_break' href='node_express.html#slide-1'>▻</a></p>
+<h3 id="write-you-own-middleware">
+<a class="anchorlink" href="#write-you-own-middleware"></a>2 Write you own middleware</h3><p>Write a function that recieves the arguments
 request, response and next.  This function can
 read from and also manipulate request and response.
 After it is done, it must call <code>next()</code> to hand
@@ -94,10 +80,11 @@ var app = connect()
 console.log("Server listening on port 3000");
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='node_express.html#slide-3'>▻</a>
-<h3 id="express"><a class="anchorlink" href="#express">3 Express</a></h3><p>Express is a minimalist framework for building
+</section>
+<section>
+<p><a class='slide_break' href='node_express.html#slide-2'>▻</a></p>
+<h3 id="express">
+<a class="anchorlink" href="#express"></a>3 Express</h3><p>Express is a minimalist framework for building
 APIs and server rendered web apps with node.js.
 It offers:</p>
 <ul>
@@ -108,10 +95,11 @@ It offers:</p>
 <li>HTML helpers</li>
 <li>content negotiation</li>
 </ul>
-<p>it is built on top of <code>connect</code>.</p></div>
-<div class='slide'>
-<a class='slide_break' href='node_express.html#slide-4'>▻</a>
-<h4 id="setup"><a class="anchorlink" href="#setup">3.1 Setup</a></h4><div class="code_container">
+<p>it is built on top of <code>connect</code>.</p></section>
+<section>
+<p><a class='slide_break' href='node_express.html#slide-3'>▻</a></p>
+<h4 id="setup">
+<a class="anchorlink" href="#setup"></a>3.1 Setup</h4><div class="code_container">
 <pre><code class="highlight plaintext">npx express-generator --git projectname
 </code></pre>
 </div>
@@ -124,18 +112,20 @@ npm install
 <pre><code class="highlight plaintext">DEBUG=node-express:* npm start
 </code></pre>
 </div>
-<p>has your project up and running</p></div>
-<div class='slide'>
-<a class='slide_break' href='node_express.html#slide-5'>▻</a>
-<h3 id="building-an-api"><a class="anchorlink" href="#building-an-api">4 Building an API</a></h3><p>If you want to use express for an API only, you can
+<p>has your project up and running</p></section>
+<section>
+<p><a class='slide_break' href='node_express.html#slide-4'>▻</a></p>
+<h3 id="building-an-api">
+<a class="anchorlink" href="#building-an-api"></a>4 Building an API</h3><p>If you want to use express for an API only, you can
 set it up without views:</p><div class="code_container">
 <pre><code class="highlight plaintext">npx express-generator --no-view --git restproject
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='node_express.html#slide-6'>▻</a>
-<h4 id="serving-static-assets"><a class="anchorlink" href="#serving-static-assets">4.1 Serving static assets</a></h4><p>The generator  created a folder public/ with some files
+</section>
+<section>
+<p><a class='slide_break' href='node_express.html#slide-5'>▻</a></p>
+<h4 id="serving-static-assets">
+<a class="anchorlink" href="#serving-static-assets"></a>4.1 Serving static assets</h4><p>The generator  created a folder public/ with some files
 and subfolders:</p><div class="code_container">
 <pre><code class="highlight plaintext">   create : restproject/
    create : restproject/public/
@@ -152,10 +142,11 @@ a folder is requested.</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span><span class="nx">express</span><span class="p">.</span><span class="kd">static</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="dl">'</span><span class="s1">public</span><span class="dl">'</span><span class="p">)));</span>
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='node_express.html#slide-7'>▻</a>
-<h4 id="routes"><a class="anchorlink" href="#routes">4.2 Routes</a></h4><p>In more complex MVC (Model-View-Controller) frameworks, controllers and routing are treated as separate entities.
+</section>
+<section>
+<p><a class='slide_break' href='node_express.html#slide-6'>▻</a></p>
+<h4 id="routes">
+<a class="anchorlink" href="#routes"></a>4.2 Routes</h4><p>In more complex MVC (Model-View-Controller) frameworks, controllers and routing are treated as separate entities.
 However, in Express.js, both of these tasks are managed by routes.</p><p>It's common practice to divide routing into multiple files.</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="c1">// in file app.js</span>
 <span class="kd">var</span> <span class="nx">indexRouter</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./routes/index</span><span class="dl">'</span><span class="p">);</span>
@@ -179,10 +170,11 @@ However, in Express.js, both of these tasks are managed by routes.</p><p>It's co
 </code></pre>
 </div>
 <p>The routes in file users.js are relative to the
-base-route set in app.js.</p></div>
-<div class='slide'>
-<a class='slide_break' href='node_express.html#slide-8'>▻</a>
-<h4 id="serving-json"><a class="anchorlink" href="#serving-json">4.3 Serving JSON</a></h4><p>The express.json middleware will convert
+base-route set in app.js.</p></section>
+<section>
+<p><a class='slide_break' href='node_express.html#slide-7'>▻</a></p>
+<h4 id="serving-json">
+<a class="anchorlink" href="#serving-json"></a>4.3 Serving JSON</h4><p>The express.json middleware will convert
 a javascript data structure into JSON and
 serve it with the appropriate content type:</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="c1">// in file app.js</span>
@@ -204,10 +196,11 @@ serve it with the appropriate content type:</p><div class="code_container">
 <span class="p">[{</span><span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">konsti</span><span class="dl">"</span><span class="p">},{</span><span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">johannes</span><span class="dl">"</span><span class="p">},{</span><span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">lara</span><span class="dl">"</span><span class="p">},{</span><span class="dl">"</span><span class="s2">id</span><span class="dl">"</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">:</span><span class="dl">"</span><span class="s2">tanja</span><span class="dl">"</span><span class="p">}]</span>
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='node_express.html#slide-9'>▻</a>
-<h4 id="more-routing"><a class="anchorlink" href="#more-routing">4.4 More Routing</a></h4><p>URLs can contain parameters in two ways: as query parameters:</p><p><a href="http://localhost:3000/users?name=Jin">http://localhost:3000/users?name=Jin</a></p><div class="code_container">
+</section>
+<section>
+<p><a class='slide_break' href='node_express.html#slide-8'>▻</a></p>
+<h4 id="more-routing">
+<a class="anchorlink" href="#more-routing"></a>4.4 More Routing</h4><p>URLs can contain parameters in two ways: as query parameters:</p><p><a href="http://localhost:3000/users?name=Jin">http://localhost:3000/users?name=Jin</a></p><div class="code_container">
 <pre><code class="highlight javascript"><span class="c1">// in ./routes/users.js</span>
 <span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>  <span class="c1">// Jin</span>
@@ -234,16 +227,19 @@ all methods:</p><div class="code_container">
 <span class="p">});</span>
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='node_express.html#slide-10'>▻</a>
-<h4 id="set-up-cors-for-a-frontend"><a class="anchorlink" href="#set-up-cors-for-a-frontend">4.5 Set up CORS for a frontend</a></h4></div>
-<div class='slide'>
-<a class='slide_break' href='node_express.html#slide-11'>▻</a>
-<h3 id="server-rendered-html"><a class="anchorlink" href="#server-rendered-html">5 Server rendered HTML</a></h3><p>express supports several different templating engines.</p></div>
-<div class='slide'>
-<a class='slide_break' href='node_express.html#slide-12'>▻</a>
-<h4 id="views-with-jade"><a class="anchorlink" href="#views-with-jade">5.1 Views with JADE</a></h4><div class="code_container">
+</section>
+<section>
+<p><a class='slide_break' href='node_express.html#slide-9'>▻</a></p>
+<h4 id="set-up-cors-for-a-frontend">
+<a class="anchorlink" href="#set-up-cors-for-a-frontend"></a>4.5 Set up CORS for a frontend</h4></section>
+<section>
+<p><a class='slide_break' href='node_express.html#slide-10'>▻</a></p>
+<h3 id="server-rendered-html">
+<a class="anchorlink" href="#server-rendered-html"></a>5 Server rendered HTML</h3><p>express supports several different templating engines.</p></section>
+<section>
+<p><a class='slide_break' href='node_express.html#slide-11'>▻</a></p>
+<h4 id="views-with-jade">
+<a class="anchorlink" href="#views-with-jade"></a>5.1 Views with JADE</h4><div class="code_container">
 <pre><code class="highlight plaintext">app.get('/', function (req, res) {
     res.render('index', {user: 'Welt'});
 });
@@ -260,10 +256,11 @@ block content
         li bla
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='node_express.html#slide-13'>▻</a>
-<h4 id="working-with-data"><a class="anchorlink" href="#working-with-data">5.2 Working with data</a></h4><p>Pass data to the views</p><div class="code_container">
+</section>
+<section>
+<p><a class='slide_break' href='node_express.html#slide-12'>▻</a></p>
+<h4 id="working-with-data">
+<a class="anchorlink" href="#working-with-data"></a>5.2 Working with data</h4><p>Pass data to the views</p><div class="code_container">
 <pre><code class="highlight plaintext">res.render('index', { title: 'Customer List' });
 </code></pre>
 </div>
@@ -289,63 +286,40 @@ res.sendfile(filePath); // also: sets Content-Type from ext
 <pre><code class="highlight plaintext">p This Server started at #{clock}
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='node_express.html#slide-14'>▻</a>
-<h3 id="see-also"><a class="anchorlink" href="#see-also">6 See Also</a></h3>
+</section>
+<section>
+<p><a class='slide_break' href='node_express.html#slide-13'>▻</a></p>
+<h3 id="see-also">
+<a class="anchorlink" href="#see-also"></a>6 See Also</h3>
 <ul>
 <li><a href="https://expressjs.com/en/resources/frameworks.html">frameworks recommended by express</a></li>
 </ul>
-</div>
+</section>
+      </div>
     </div>
     <!-- End slides. -->
-    <!-- Begin extension snippets. Add or remove as needed. -->
-    <!-- deck.navigation snippet -->
-    <div aria-role="navigation">
-        <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
-        <a href="#" class="deck-next-link" title="Next">&#8594;</a>
-    </div>
-    <!-- deck.status snippet -->
-    <p class="deck-status" aria-role="status">
-        <span class="deck-status-current"></span>
-        /
-        <span class="deck-status-total"></span>
-    </p>
-    <!-- deck.goto snippet -->
-    <form action="." method="get" class="goto-form">
-        <label for="goto-slide">Go to slide:</label>
-        <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
-        <datalist id="goto-datalist"></datalist>
-        <input type="submit" value="Go">
-    </form>
-    <!-- End extension snippets. -->
     <!-- Required JS files. -->
-    <script src="javascripts/jquery.min.js"></script>
-    <script src="javascripts/deck.core.js"></script>
-    <!-- Extension JS files. Add or remove as needed. -->
-    <script src="javascripts/deck.menu.js"></script>
-    <script src="javascripts/deck.goto.js"></script>
-    <script src="javascripts/deck.status.js"></script>
-    <script src="javascripts/deck.navigation.js"></script>
-    <script src="javascripts/deck.escape.js"></script>
+		<script src="javascripts/reveal.js"></script>
+		<script src="javascripts/search.js"></script>
+		<script src="javascripts/markdown.js"></script>
 
-    <!-- Initialize the deck. You can put this in an external file if desired. -->
     <script>
-    $(function() {
-      $.deck('.slide');
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+
+      keyboard: {
+        27: () => { console.log('esc') }, // do something custom when ESC is pressed
+        13: 'next', // go to the next slide when the ENTER key is pressed
+      },
+
+      // Learn about plugins: https://revealjs.com/plugins/
+      plugins: [ RevealSearch, RevealMarkdown ]  // RevealHighlight
     });
-
-    var $d = $(document);    
-
-    $d.bind('deck.change', function(event, from, to) {
-      // console.log('Moving from slide ' + from + ' to ' + to);
-    });   
-    $d.bind('deck.beforeInit', function() {
-      // console.log('Deck.beforeInit. hash is ' + document.location.hash);
-    });     
-    $d.bind('deck.init', function() {
-      // console.log('Deck.init is done. hash was ' + document.location.hash);
-    }); 
     </script>
 </body>
 

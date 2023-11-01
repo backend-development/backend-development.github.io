@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Deploying Rails — Backend Development</title>
-  <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/code.css">
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css">
 
-  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
   <style>
 
     .slide img[src$=svg] {
@@ -46,7 +47,7 @@
         <li class="guides-index guides-index-large">
           <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
           <div id="guides" class="clearfix" style="display: none;">
-            <hr />
+            <hr>
               <dl class="L">
                 <dt>Ruby on Rails</dt>
                 <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
@@ -89,7 +90,7 @@
     </div>
   </div>
 
-  <hr class="hide" />
+  <hr class="hide">
 
   <div id="feature">
     <div class="wrapper">
@@ -149,11 +150,12 @@ want to publish it on the web.</p><p>After working through this guide you should
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <div class='slide'><a id='slide-0'></a>
+        <div class='slide'>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-1' href='slides_deploying_rails.html#slide-1'>▻</a>
-<h3 id="deploying-with-git"><a class="anchorlink" href="#deploying-with-git">1 Deploying with git</a></h3><p>heroku is one "Platform as a Service" provider that offers
+<a class='slide_break' id='slide-0' href='slides_deploying_rails.html#/0'>▻</a>
+<h3 id="deploying-with-git">
+<a class="anchorlink" href="#deploying-with-git"></a>1 Deploying with git</h3><p>heroku is one "Platform as a Service" provider that offers
 to host your rails app.  Heroku uses git to push the code to
 the production server.</p><p>(See also
 <a href="http://railsbridge.projects.multimediatechnology.at/installfest/create_a_heroku_account">Railsbridge Installfest: Create A Heroku Account</a>
@@ -179,8 +181,9 @@ and
 <p>That's it.   You should now have an app with a very strange URL, like
 <a href="http://mighty-shore-1497.herokuapp.com/">http://mighty-shore-1497.herokuapp.com/</a></p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-2' href='slides_deploying_rails.html#slide-2'>▻</a>
-<h3 id="public-key-authentication-in-ssh"><a class="anchorlink" href="#public-key-authentication-in-ssh">2 Public Key Authentication in SSH</a></h3><p>(See also <a href="http://railsbridge.projects.multimediatechnology.at/installfest/create_an_ssh_key">Railsbridge Installfest</a>)</p><p><img src="images/public_key_crypto.svg" alt="public key login"></p>
+<a class='slide_break' id='slide-1' href='slides_deploying_rails.html#/1'>▻</a>
+<h3 id="public-key-authentication-in-ssh">
+<a class="anchorlink" href="#public-key-authentication-in-ssh"></a>2 Public Key Authentication in SSH</h3><p>(See also <a href="http://railsbridge.projects.multimediatechnology.at/installfest/create_an_ssh_key">Railsbridge Installfest</a>)</p><p><img src="images/public_key_crypto.svg" alt="public key login"></p>
 <ul>
 <li><a href="https://dougvitale.wordpress.com/2012/02/20/ssh-the-secure-shell/">learn about ssh</a></li>
 <li>if you have a public + private key pair
@@ -208,8 +211,9 @@ and
 </ul>
 <p><img src="images/ssh_login_with_public_key.svg" alt="public key login"></p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-3' href='slides_deploying_rails.html#slide-3'>▻</a>
-<h4 id="deploying-with-a-deploy-user"><a class="anchorlink" href="#deploying-with-a-deploy-user">2.1 deploying with a deploy-user</a></h4>
+<a class='slide_break' id='slide-2' href='slides_deploying_rails.html#/2'>▻</a>
+<h4 id="deploying-with-a-deploy-user">
+<a class="anchorlink" href="#deploying-with-a-deploy-user"></a>2.1 deploying with a deploy-user</h4>
 <ul>
 <li>alice and bob both want to deploy project x</li>
 <li>
@@ -222,16 +226,18 @@ and
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-4' href='slides_deploying_rails.html#slide-4'>▻</a>
-<h4 id="authorized-keys2"><a class="anchorlink" href="#authorized-keys2">2.2 authorized_keys2</a></h4><div class="code_container">
+<a class='slide_break' id='slide-3' href='slides_deploying_rails.html#/3'>▻</a>
+<h4 id="authorized-keys2">
+<a class="anchorlink" href="#authorized-keys2"></a>2.2 authorized_keys2</h4><div class="code_container">
 <pre><code class="highlight plaintext">ssh-rsa AAAAB3NzaC...2EAAAABI== alice@fh-salzburg.ac.at
 ssh-rsa AAAAB8NzaC...DVj3R4Ww== bob@fh-salzburg.ac.at
 </code></pre>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-5' href='slides_deploying_rails.html#slide-5'>▻</a>
-<h3 id="how-to-run-rails"><a class="anchorlink" href="#how-to-run-rails">3 How to run Rails</a></h3>
+<a class='slide_break' id='slide-4' href='slides_deploying_rails.html#/4'>▻</a>
+<h3 id="how-to-run-rails">
+<a class="anchorlink" href="#how-to-run-rails"></a>3 How to run Rails</h3>
 <ul>
 <li>WEBrick (built in web server)</li>
 <li>apache/nginx + mod_passenger</li>
@@ -239,15 +245,17 @@ ssh-rsa AAAAB8NzaC...DVj3R4Ww== bob@fh-salzburg.ac.at
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-6' href='slides_deploying_rails.html#slide-6'>▻</a>
-<h4 id="webrick"><a class="anchorlink" href="#webrick">3.1 WEBrick</a></h4>
+<a class='slide_break' id='slide-5' href='slides_deploying_rails.html#/5'>▻</a>
+<h4 id="webrick">
+<a class="anchorlink" href="#webrick"></a>3.1 WEBrick</h4>
 <ul>
 <li>rails s</li>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-7' href='slides_deploying_rails.html#slide-7'>▻</a>
-<h4 id="mod-passenger"><a class="anchorlink" href="#mod-passenger">3.2 mod_passenger</a></h4>
+<a class='slide_break' id='slide-6' href='slides_deploying_rails.html#/6'>▻</a>
+<h4 id="mod-passenger">
+<a class="anchorlink" href="#mod-passenger"></a>3.2 mod_passenger</h4>
 <ul>
 <li>install <a href="https://www.phusionpassenger.com/">mod_passenger</a>
 </li>
@@ -272,11 +280,13 @@ ssh-rsa AAAAB8NzaC...DVj3R4Ww== bob@fh-salzburg.ac.at
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-8' href='slides_deploying_rails.html#slide-8'>▻</a>
-<h3 id="deploying-with-capistrano"><a class="anchorlink" href="#deploying-with-capistrano">4 Deploying with Capistrano</a></h3><p><img src="images/capistrano-deploy.svg" alt="Deploying with Javascript"></p></div>
+<a class='slide_break' id='slide-7' href='slides_deploying_rails.html#/7'>▻</a>
+<h3 id="deploying-with-capistrano">
+<a class="anchorlink" href="#deploying-with-capistrano"></a>4 Deploying with Capistrano</h3><p><img src="images/capistrano-deploy.svg" alt="Deploying with Javascript"></p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-9' href='slides_deploying_rails.html#slide-9'>▻</a>
-<h4 id="warning"><a class="anchorlink" href="#warning">4.1 WARNING</a></h4>
+<a class='slide_break' id='slide-8' href='slides_deploying_rails.html#/8'>▻</a>
+<h4 id="warning">
+<a class="anchorlink" href="#warning"></a>4.1 WARNING</h4>
 <ul>
 <li>capistrano is a command line tool</li>
 <li>you need to read the output!</li>
@@ -285,8 +295,9 @@ ssh-rsa AAAAB8NzaC...DVj3R4Ww== bob@fh-salzburg.ac.at
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-10' href='slides_deploying_rails.html#slide-10'>▻</a>
-<h4 id="capistrano-assumptions"><a class="anchorlink" href="#capistrano-assumptions">4.2 capistrano assumptions</a></h4>
+<a class='slide_break' id='slide-9' href='slides_deploying_rails.html#/9'>▻</a>
+<h4 id="capistrano-assumptions">
+<a class="anchorlink" href="#capistrano-assumptions"></a>4.2 capistrano assumptions</h4>
 <ul>
 <li>You are using SSH to access your remote machines</li>
 <li>your remote servers have a shell called sh</li>
@@ -296,8 +307,9 @@ ssh-rsa AAAAB8NzaC...DVj3R4Ww== bob@fh-salzburg.ac.at
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-11' href='slides_deploying_rails.html#slide-11'>▻</a>
-<h4 id="how-to-install"><a class="anchorlink" href="#how-to-install">4.3 how to install</a></h4><div class="code_container">
+<a class='slide_break' id='slide-10' href='slides_deploying_rails.html#/10'>▻</a>
+<h4 id="how-to-install">
+<a class="anchorlink" href="#how-to-install"></a>4.3 how to install</h4><div class="code_container">
 <pre><code class="highlight sh"><span class="nv">$ </span><span class="nb">sudo gem install </span>capistrano
 Fetching: capistrano-2.13.5.gem <span class="o">(</span>100%<span class="o">)</span>
 Successfully installed capistrano-2.13.5
@@ -314,11 +326,14 @@ Capified
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-12' href='slides_deploying_rails.html#slide-12'>▻</a>
-<h4 id="configuration-in-config-deploy-rb"><a class="anchorlink" href="#configuration-in-config-deploy-rb">4.4 configuration in <code>config/deploy.rb</code></a></h4><p>local information, see our wiki</p></div>
+<a class='slide_break' id='slide-11' href='slides_deploying_rails.html#/11'>▻</a>
+<h4 id="configuration-in-config-deploy-rb">
+<a class="anchorlink" href="#configuration-in-config-deploy-rb"></a>4.4 configuration in <code>config/deploy.rb</code>
+</h4><p>local information, see our wiki</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-13' href='slides_deploying_rails.html#slide-13'>▻</a>
-<h4 id="example-task-in-capfile"><a class="anchorlink" href="#example-task-in-capfile">4.5 example task in Capfile</a></h4><div class="code_container">
+<a class='slide_break' id='slide-12' href='slides_deploying_rails.html#/12'>▻</a>
+<h4 id="example-task-in-capfile">
+<a class="anchorlink" href="#example-task-in-capfile"></a>4.5 example task in Capfile</h4><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">task</span> <span class="ss">:display_free_disk_space</span> <span class="k">do</span>
   <span class="n">run</span> <span class="s2">"df -h"</span>
 <span class="k">end</span>
@@ -326,8 +341,9 @@ Capified
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-14' href='slides_deploying_rails.html#slide-14'>▻</a>
-<h4 id="prepare-capistranoe"><a class="anchorlink" href="#prepare-capistranoe">4.6 prepare capistranoe</a></h4><div class="code_container">
+<a class='slide_break' id='slide-13' href='slides_deploying_rails.html#/13'>▻</a>
+<h4 id="prepare-capistranoe">
+<a class="anchorlink" href="#prepare-capistranoe"></a>4.6 prepare capistranoe</h4><div class="code_container">
 <pre><code class="highlight sh"><span class="nv">$ </span>cap production <span class="nb">git</span>:check
 <span class="nv">$ </span>scp config/database.yml deployuser@server:/var/www/.../shared/config
 <span class="nv">$ </span>scp config/secrets.yml deployuser@server:/var/www/.../shared/config
@@ -336,8 +352,9 @@ Capified
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-15' href='slides_deploying_rails.html#slide-15'>▻</a>
-<h4 id="run-a-capistrano-task"><a class="anchorlink" href="#run-a-capistrano-task">4.7 run a capistrano task</a></h4><div class="code_container">
+<a class='slide_break' id='slide-14' href='slides_deploying_rails.html#/14'>▻</a>
+<h4 id="run-a-capistrano-task">
+<a class="anchorlink" href="#run-a-capistrano-task"></a>4.7 run a capistrano task</h4><div class="code_container">
 <pre><code class="highlight sh"><span class="nv">$ </span>cap production deploy
 <span class="nv">$ </span>cap display_free_disk_space
 <span class="k">*</span> 2012-11-29 05:34:45 executing <span class="s1">'display_free_disk_space'</span>
@@ -352,8 +369,9 @@ Capified
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-16' href='slides_deploying_rails.html#slide-16'>▻</a>
-<h4 id="capistrano-folders"><a class="anchorlink" href="#capistrano-folders">4.8 capistrano folders</a></h4><p>read the logfile, try to find out how capistrano lays out
+<a class='slide_break' id='slide-15' href='slides_deploying_rails.html#/15'>▻</a>
+<h4 id="capistrano-folders">
+<a class="anchorlink" href="#capistrano-folders"></a>4.8 capistrano folders</h4><p>read the logfile, try to find out how capistrano lays out
 the folders</p>
 <ul>
 <li>current --&gt; links to a release</li>
@@ -377,8 +395,9 @@ the folders</p>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-17' href='slides_deploying_rails.html#slide-17'>▻</a>
-<h4 id="my-first-deploy"><a class="anchorlink" href="#my-first-deploy">4.9 my first deploy</a></h4><div class="code_container">
+<a class='slide_break' id='slide-16' href='slides_deploying_rails.html#/16'>▻</a>
+<h4 id="my-first-deploy">
+<a class="anchorlink" href="#my-first-deploy"></a>4.9 my first deploy</h4><div class="code_container">
 <pre><code class="highlight sh"><span class="nv">$ </span>cap deploy:setup
 <span class="nv">$ </span>cap deploy:check
 <span class="nv">$ </span>cap deploy:cold
@@ -390,7 +409,7 @@ the folders</p>
     </div>
   </div>
 
-  <hr class="hide" />
+  <hr class="hide">
   <div id="footer">
     <div class="wrapper">
       <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2023 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
@@ -401,14 +420,5 @@ the folders</p>
 
   <script src="javascripts/jquery.min.js"></script>
   <script src="javascripts/guides.js"></script>
-  <script>
-    SyntaxHighlighter.all()
-    $(guidesIndex.bind);
-    $(document).ready(function(){
-      let hash = document.location.hash;
-      if(! hash) return;
-      document.getElementById(hash.substr(1)).scrollIntoView(true);
-    })
-  </script>
   </body>
 </html>

@@ -3,52 +3,40 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=1024, user-scalable=no">
+
     <title>Slides for
         Node.js vs Rails — Backend Development
     </title>
-    <!-- Required stylesheet -->
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
-    <!-- Extension CSS files go here. Remove or add as needed. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
-    <!-- Style theme. More available in /themes/style/ or create your own. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
-    <!-- Transition theme. More available in /themes/transition/ or create your own. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
-    <!-- syntax highlighter -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Basic black and white print styles -->
-    <link rel="stylesheet" media="print" href="stylesheets/print.css">
-    <!-- Required Modernizr file -->
-    <script src="javascripts/modernizr.custom.js"></script>
+		<link rel="stylesheet" href="stylesheets/reset.css">
+		<link rel="stylesheet" href="stylesheets/reveal.css">
+		<link rel="stylesheet" href="stylesheets/myslide.css" id="theme">
+    <link rel="stylesheet" href="stylesheets/code.css">
+
 </head>
 
 <body>
-    <div class="deck-container">
-        <div class='slide'><h2>Node.js vs Rails</h2><p>After working through this guide you should</p>
-<ul>
-<li>understand the differences and similarities of JavaScript and Ruby</li>
-<li>understand the different roles node.js and Rails have</li>
-</ul>
-
-</div>
-<div class='slide'>
-<a class='slide_break' href='node_vs_rails.html#slide-1'>▻</a>
-<h3 id="javascript-vs-ruby"><a class="anchorlink" href="#javascript-vs-ruby">1 JavaScript vs. Ruby</a></h3></div>
-<div class='slide'>
-<a class='slide_break' href='node_vs_rails.html#slide-2'>▻</a>
-<h4 id="background"><a class="anchorlink" href="#background">1.1 Background</a></h4><p>Both JavaScript and Ruby are interpreted languages with more than
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+<p><a class='slide_break' href='node_vs_rails.html#slide-0'>▻</a></p>
+<h3 id="javascript-vs-ruby">
+<a class="anchorlink" href="#javascript-vs-ruby"></a>1 JavaScript vs. Ruby</h3></section>
+<section>
+<p><a class='slide_break' href='node_vs_rails.html#slide-1'>▻</a></p>
+<h4 id="background">
+<a class="anchorlink" href="#background"></a>1.1 Background</h4><p>Both JavaScript and Ruby are interpreted languages with more than
 20 years of history. The both were influenced by object orientation
-and functional programming.</p></div>
-<div class='slide'>
-<a class='slide_break' href='node_vs_rails.html#slide-3'>▻</a>
-<h4 id="syntax"><a class="anchorlink" href="#syntax">1.2 Syntax</a></h4><p>JavaScript Syntax is inspired by the C family of languages:
+and functional programming.</p></section>
+<section>
+<p><a class='slide_break' href='node_vs_rails.html#slide-2'>▻</a></p>
+<h4 id="syntax">
+<a class="anchorlink" href="#syntax"></a>1.2 Syntax</h4><p>JavaScript Syntax is inspired by the C family of languages:
 curly braces and semicolons. But it adds it's own idiosyncrasies
 (e.g. you can leave out the semicolons).</p><div class="code_container">
 <pre><code class="highlight plaintext">// Javascript
@@ -64,10 +52,11 @@ if this
 end
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='node_vs_rails.html#slide-4'>▻</a>
-<h4 id="variables-and-types"><a class="anchorlink" href="#variables-and-types">1.3 Variables and Types</a></h4><p>Both Interpreter will check if your variables were initialized before
+</section>
+<section>
+<p><a class='slide_break' href='node_vs_rails.html#slide-3'>▻</a></p>
+<h4 id="variables-and-types">
+<a class="anchorlink" href="#variables-and-types"></a>1.3 Variables and Types</h4><p>Both Interpreter will check if your variables were initialized before
 you start using them. In both languages values are typed,
 but variables are not: you can store values of different type in the same variable:</p><div class="code_container">
 <pre><code class="highlight plaintext">a = 5
@@ -91,10 +80,11 @@ js&gt; 3 + 5   // addition!
 8
 </code></pre>
 </div>
-<p>The plus sign is both used for mathematics and for string concatenation in JavaScript.</p></div>
-<div class='slide'>
-<a class='slide_break' href='node_vs_rails.html#slide-5'>▻</a>
-<h4 id="functions-vs-blocks"><a class="anchorlink" href="#functions-vs-blocks">1.4 functions vs blocks</a></h4><p>Both languages have their ways of organizing the code that is found rarely in other languages:
+<p>The plus sign is both used for mathematics and for string concatenation in JavaScript.</p></section>
+<section>
+<p><a class='slide_break' href='node_vs_rails.html#slide-4'>▻</a></p>
+<h4 id="functions-vs-blocks">
+<a class="anchorlink" href="#functions-vs-blocks"></a>1.4 functions vs blocks</h4><p>Both languages have their ways of organizing the code that is found rarely in other languages:
 In JavaScript you will uses <strong>arrow functions</strong>  a lot.
 Here we use them for handling events:</p><div class="code_container">
 <pre><code class="highlight plaintext">window.addEventListener('DOMContentLoaded', () =&gt; {
@@ -119,21 +109,24 @@ Here the fat arrow-notation for anonymous functions is used:</p><div class="code
 });
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='node_vs_rails.html#slide-6'>▻</a>
-<h3 id="node-vs-rails"><a class="anchorlink" href="#node-vs-rails">2 Node vs Rails:</a></h3></div>
-<div class='slide'>
-<a class='slide_break' href='node_vs_rails.html#slide-7'>▻</a>
-<h4 id="apples-vs-oranges"><a class="anchorlink" href="#apples-vs-oranges">2.1 apples vs. oranges</a></h4><p>Comparing Node to Rails is not quite a fair comparison:</p><p>Rails is a complete web backend framework, with ORM, templates,
+</section>
+<section>
+<p><a class='slide_break' href='node_vs_rails.html#slide-5'>▻</a></p>
+<h3 id="node-vs-rails">
+<a class="anchorlink" href="#node-vs-rails"></a>2 Node vs Rails:</h3></section>
+<section>
+<p><a class='slide_break' href='node_vs_rails.html#slide-6'>▻</a></p>
+<h4 id="apples-vs-oranges">
+<a class="anchorlink" href="#apples-vs-oranges"></a>2.1 apples vs. oranges</h4><p>Comparing Node to Rails is not quite a fair comparison:</p><p>Rails is a complete web backend framework, with ORM, templates,
 testing setup and a lot of other features that are already decided and set up for you.</p><p>Node is a building block for a web backend. If you want an ORM, you can pick one.
 There are three templating systems to choose from. If you need testing, you have to set it up yourself.
 And you have to put all these pieces together to build your web application.</p><p>It would be more appropriate to compare Rails to nest.js (a complete node
 backend framework), or Express (a minimal Node.js backend) to Sinatra
-(a minimal Ruby backend).</p></div>
-<div class='slide'>
-<a class='slide_break' href='node_vs_rails.html#slide-8'>▻</a>
-<h4 id="processing-model-for-plain-http-rest"><a class="anchorlink" href="#processing-model-for-plain-http-rest">2.2 processing model for plain HTTP / REST</a></h4><p>Following the classic model of backend languages, Ruby on Rails
+(a minimal Ruby backend).</p></section>
+<section>
+<p><a class='slide_break' href='node_vs_rails.html#slide-7'>▻</a></p>
+<h4 id="processing-model-for-plain-http-rest">
+<a class="anchorlink" href="#processing-model-for-plain-http-rest"></a>2.2 processing model for plain HTTP / REST</h4><p>Following the classic model of backend languages, Ruby on Rails
 takes advantage of the stateless nature of HTTP: as a developer, you can
 developer, you can treat each HTTP request separately.
 Your mental model of the program might be</p>
@@ -188,10 +181,11 @@ requests. Your mental model needs to be much more complex:</p>
 </li>
 <li>I might want to respond to signals to re-read the configuration, or do some cleanup before shutdown.</li>
 </ol>
-</div>
-<div class='slide'>
-<a class='slide_break' href='node_vs_rails.html#slide-9'>▻</a>
-<h4 id="asyn-vs-sync"><a class="anchorlink" href="#asyn-vs-sync">2.3 asyn vs sync</a></h4><p>Node relies heavily on asynchronous processing. As a programmer
+</section>
+<section>
+<p><a class='slide_break' href='node_vs_rails.html#slide-8'>▻</a></p>
+<h4 id="asyn-vs-sync">
+<a class="anchorlink" href="#asyn-vs-sync"></a>2.3 asyn vs sync</h4><p>Node relies heavily on asynchronous processing. As a programmer
 you have to write asynchronous code for common actions like:</p>
 <ul>
 <li>sending a request to a database + handling the results</li>
@@ -229,65 +223,42 @@ end
 ThumbnailJob.perform_later current_user
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='node_vs_rails.html#slide-10'>▻</a>
-<h3 id="summary"><a class="anchorlink" href="#summary">3 Summary</a></h3><p>Ruby and JavaScript are similar programming languages.</p><p>node.js and Rails represent two very different approaches for programming a web backend.
+</section>
+<section>
+<p><a class='slide_break' href='node_vs_rails.html#slide-9'>▻</a></p>
+<h3 id="summary">
+<a class="anchorlink" href="#summary"></a>3 Summary</h3><p>Ruby and JavaScript are similar programming languages.</p><p>node.js and Rails represent two very different approaches for programming a web backend.
 As a developer, nodes.js will confront you with harder problems to solve,
 while Rails will try to solve the hard problems for you
 and give you a simple programming model to work with.</p><p>For beginners I would recommend Ruby and Rails in the backend and
 plain JavaScript  in the frontend.</p><p>This text was first published as <a href="https://www.quora.com/Is-Ruby-on-Rails-easier-to-learn-than-Node">an answer on quora in 2016</a>.
 The version on this website was
- updated in 2023.</p></div>
+ updated in 2023.</p></section>
+      </div>
     </div>
     <!-- End slides. -->
-    <!-- Begin extension snippets. Add or remove as needed. -->
-    <!-- deck.navigation snippet -->
-    <div aria-role="navigation">
-        <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
-        <a href="#" class="deck-next-link" title="Next">&#8594;</a>
-    </div>
-    <!-- deck.status snippet -->
-    <p class="deck-status" aria-role="status">
-        <span class="deck-status-current"></span>
-        /
-        <span class="deck-status-total"></span>
-    </p>
-    <!-- deck.goto snippet -->
-    <form action="." method="get" class="goto-form">
-        <label for="goto-slide">Go to slide:</label>
-        <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
-        <datalist id="goto-datalist"></datalist>
-        <input type="submit" value="Go">
-    </form>
-    <!-- End extension snippets. -->
     <!-- Required JS files. -->
-    <script src="javascripts/jquery.min.js"></script>
-    <script src="javascripts/deck.core.js"></script>
-    <!-- Extension JS files. Add or remove as needed. -->
-    <script src="javascripts/deck.menu.js"></script>
-    <script src="javascripts/deck.goto.js"></script>
-    <script src="javascripts/deck.status.js"></script>
-    <script src="javascripts/deck.navigation.js"></script>
-    <script src="javascripts/deck.escape.js"></script>
+		<script src="javascripts/reveal.js"></script>
+		<script src="javascripts/search.js"></script>
+		<script src="javascripts/markdown.js"></script>
 
-    <!-- Initialize the deck. You can put this in an external file if desired. -->
     <script>
-    $(function() {
-      $.deck('.slide');
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+
+      keyboard: {
+        27: () => { console.log('esc') }, // do something custom when ESC is pressed
+        13: 'next', // go to the next slide when the ENTER key is pressed
+      },
+
+      // Learn about plugins: https://revealjs.com/plugins/
+      plugins: [ RevealSearch, RevealMarkdown ]  // RevealHighlight
     });
-
-    var $d = $(document);    
-
-    $d.bind('deck.change', function(event, from, to) {
-      // console.log('Moving from slide ' + from + ' to ' + to);
-    });   
-    $d.bind('deck.beforeInit', function() {
-      // console.log('Deck.beforeInit. hash is ' + document.location.hash);
-    });     
-    $d.bind('deck.init', function() {
-      // console.log('Deck.init is done. hash was ' + document.location.hash);
-    }); 
     </script>
 </body>
 

@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Node Web App — Backend Development</title>
-  <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/code.css">
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css">
 
-  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
   <style>
 
     .slide img[src$=svg] {
@@ -46,7 +47,7 @@
         <li class="guides-index guides-index-large">
           <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
           <div id="guides" class="clearfix" style="display: none;">
-            <hr />
+            <hr>
               <dl class="L">
                 <dt>Ruby on Rails</dt>
                 <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
@@ -89,7 +90,7 @@
     </div>
   </div>
 
-  <hr class="hide" />
+  <hr class="hide">
 
   <div id="feature">
     <div class="wrapper">
@@ -146,7 +147,7 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <div class='slide'><a id='slide-0'></a>
+        <div class='slide'>
 <p>We have already seen a very basic web server in node.js:</p><div class="code_container">
 <pre><code class="highlight plaintext">import * as http from 'http';
 
@@ -167,8 +168,9 @@ server.listen(port, hostname, () =&gt; {
 <p>Not let's look at connect and express, two libraries
 that make web projects easier.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-1' href='slides_node_express.html#slide-1'>▻</a>
-<h3 id="connect"><a class="anchorlink" href="#connect">1 Connect</a></h3><p>Connect is a middleware framework for node
+<a class='slide_break' id='slide-0' href='slides_node_express.html#/0'>▻</a>
+<h3 id="connect">
+<a class="anchorlink" href="#connect"></a>1 Connect</h3><p>Connect is a middleware framework for node
 Built on top of node’s Http Server</p><div class="code_container">
 <pre><code class="highlight plaintext">var connect = require('connect');
 var app = connect()
@@ -181,8 +183,9 @@ console.log("server listening on port 3000");
 </div>
 <p><img src="images/connect.svg" alt=""></p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-2' href='slides_node_express.html#slide-2'>▻</a>
-<h3 id="write-you-own-middleware"><a class="anchorlink" href="#write-you-own-middleware">2 Write you own middleware</a></h3><p>Write a function that recieves the arguments
+<a class='slide_break' id='slide-1' href='slides_node_express.html#/1'>▻</a>
+<h3 id="write-you-own-middleware">
+<a class="anchorlink" href="#write-you-own-middleware"></a>2 Write you own middleware</h3><p>Write a function that recieves the arguments
 request, response and next.  This function can
 read from and also manipulate request and response.
 After it is done, it must call <code>next()</code> to hand
@@ -205,8 +208,9 @@ console.log("Server listening on port 3000");
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-3' href='slides_node_express.html#slide-3'>▻</a>
-<h3 id="express"><a class="anchorlink" href="#express">3 Express</a></h3><p>Express is a minimalist framework for building
+<a class='slide_break' id='slide-2' href='slides_node_express.html#/2'>▻</a>
+<h3 id="express">
+<a class="anchorlink" href="#express"></a>3 Express</h3><p>Express is a minimalist framework for building
 APIs and server rendered web apps with node.js.
 It offers:</p>
 <ul>
@@ -219,8 +223,9 @@ It offers:</p>
 </ul>
 <p>it is built on top of <code>connect</code>.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-4' href='slides_node_express.html#slide-4'>▻</a>
-<h4 id="setup"><a class="anchorlink" href="#setup">3.1 Setup</a></h4><div class="code_container">
+<a class='slide_break' id='slide-3' href='slides_node_express.html#/3'>▻</a>
+<h4 id="setup">
+<a class="anchorlink" href="#setup"></a>3.1 Setup</h4><div class="code_container">
 <pre><code class="highlight plaintext">npx express-generator --git projectname
 </code></pre>
 </div>
@@ -235,16 +240,18 @@ npm install
 </div>
 <p>has your project up and running</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-5' href='slides_node_express.html#slide-5'>▻</a>
-<h3 id="building-an-api"><a class="anchorlink" href="#building-an-api">4 Building an API</a></h3><p>If you want to use express for an API only, you can
+<a class='slide_break' id='slide-4' href='slides_node_express.html#/4'>▻</a>
+<h3 id="building-an-api">
+<a class="anchorlink" href="#building-an-api"></a>4 Building an API</h3><p>If you want to use express for an API only, you can
 set it up without views:</p><div class="code_container">
 <pre><code class="highlight plaintext">npx express-generator --no-view --git restproject
 </code></pre>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-6' href='slides_node_express.html#slide-6'>▻</a>
-<h4 id="serving-static-assets"><a class="anchorlink" href="#serving-static-assets">4.1 Serving static assets</a></h4><p>The generator  created a folder public/ with some files
+<a class='slide_break' id='slide-5' href='slides_node_express.html#/5'>▻</a>
+<h4 id="serving-static-assets">
+<a class="anchorlink" href="#serving-static-assets"></a>4.1 Serving static assets</h4><p>The generator  created a folder public/ with some files
 and subfolders:</p><div class="code_container">
 <pre><code class="highlight plaintext">   create : restproject/
    create : restproject/public/
@@ -263,8 +270,9 @@ a folder is requested.</p><div class="code_container">
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-7' href='slides_node_express.html#slide-7'>▻</a>
-<h4 id="routes"><a class="anchorlink" href="#routes">4.2 Routes</a></h4><p>In more complex MVC (Model-View-Controller) frameworks, controllers and routing are treated as separate entities.
+<a class='slide_break' id='slide-6' href='slides_node_express.html#/6'>▻</a>
+<h4 id="routes">
+<a class="anchorlink" href="#routes"></a>4.2 Routes</h4><p>In more complex MVC (Model-View-Controller) frameworks, controllers and routing are treated as separate entities.
 However, in Express.js, both of these tasks are managed by routes.</p><p>It's common practice to divide routing into multiple files.</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="c1">// in file app.js</span>
 <span class="kd">var</span> <span class="nx">indexRouter</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./routes/index</span><span class="dl">'</span><span class="p">);</span>
@@ -290,8 +298,9 @@ However, in Express.js, both of these tasks are managed by routes.</p><p>It's co
 <p>The routes in file users.js are relative to the
 base-route set in app.js.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-8' href='slides_node_express.html#slide-8'>▻</a>
-<h4 id="serving-json"><a class="anchorlink" href="#serving-json">4.3 Serving JSON</a></h4><p>The express.json middleware will convert
+<a class='slide_break' id='slide-7' href='slides_node_express.html#/7'>▻</a>
+<h4 id="serving-json">
+<a class="anchorlink" href="#serving-json"></a>4.3 Serving JSON</h4><p>The express.json middleware will convert
 a javascript data structure into JSON and
 serve it with the appropriate content type:</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="c1">// in file app.js</span>
@@ -315,8 +324,9 @@ serve it with the appropriate content type:</p><div class="code_container">
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-9' href='slides_node_express.html#slide-9'>▻</a>
-<h4 id="more-routing"><a class="anchorlink" href="#more-routing">4.4 More Routing</a></h4><p>URLs can contain parameters in two ways: as query parameters:</p><p><a href="http://localhost:3000/users?name=Jin">http://localhost:3000/users?name=Jin</a></p><div class="code_container">
+<a class='slide_break' id='slide-8' href='slides_node_express.html#/8'>▻</a>
+<h4 id="more-routing">
+<a class="anchorlink" href="#more-routing"></a>4.4 More Routing</h4><p>URLs can contain parameters in two ways: as query parameters:</p><p><a href="http://localhost:3000/users?name=Jin">http://localhost:3000/users?name=Jin</a></p><div class="code_container">
 <pre><code class="highlight javascript"><span class="c1">// in ./routes/users.js</span>
 <span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="kd">let</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">req</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>  <span class="c1">// Jin</span>
@@ -345,14 +355,17 @@ all methods:</p><div class="code_container">
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-10' href='slides_node_express.html#slide-10'>▻</a>
-<h4 id="set-up-cors-for-a-frontend"><a class="anchorlink" href="#set-up-cors-for-a-frontend">4.5 Set up CORS for a frontend</a></h4></div>
+<a class='slide_break' id='slide-9' href='slides_node_express.html#/9'>▻</a>
+<h4 id="set-up-cors-for-a-frontend">
+<a class="anchorlink" href="#set-up-cors-for-a-frontend"></a>4.5 Set up CORS for a frontend</h4></div>
 <div class='slide'>
-<a class='slide_break' id='slide-11' href='slides_node_express.html#slide-11'>▻</a>
-<h3 id="server-rendered-html"><a class="anchorlink" href="#server-rendered-html">5 Server rendered HTML</a></h3><p>express supports several different templating engines.</p></div>
+<a class='slide_break' id='slide-10' href='slides_node_express.html#/10'>▻</a>
+<h3 id="server-rendered-html">
+<a class="anchorlink" href="#server-rendered-html"></a>5 Server rendered HTML</h3><p>express supports several different templating engines.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-12' href='slides_node_express.html#slide-12'>▻</a>
-<h4 id="views-with-jade"><a class="anchorlink" href="#views-with-jade">5.1 Views with JADE</a></h4><div class="code_container">
+<a class='slide_break' id='slide-11' href='slides_node_express.html#/11'>▻</a>
+<h4 id="views-with-jade">
+<a class="anchorlink" href="#views-with-jade"></a>5.1 Views with JADE</h4><div class="code_container">
 <pre><code class="highlight plaintext">app.get('/', function (req, res) {
     res.render('index', {user: 'Welt'});
 });
@@ -371,8 +384,9 @@ block content
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-13' href='slides_node_express.html#slide-13'>▻</a>
-<h4 id="working-with-data"><a class="anchorlink" href="#working-with-data">5.2 Working with data</a></h4><p>Pass data to the views</p><div class="code_container">
+<a class='slide_break' id='slide-12' href='slides_node_express.html#/12'>▻</a>
+<h4 id="working-with-data">
+<a class="anchorlink" href="#working-with-data"></a>5.2 Working with data</h4><p>Pass data to the views</p><div class="code_container">
 <pre><code class="highlight plaintext">res.render('index', { title: 'Customer List' });
 </code></pre>
 </div>
@@ -400,8 +414,9 @@ res.sendfile(filePath); // also: sets Content-Type from ext
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-14' href='slides_node_express.html#slide-14'>▻</a>
-<h3 id="see-also"><a class="anchorlink" href="#see-also">6 See Also</a></h3>
+<a class='slide_break' id='slide-13' href='slides_node_express.html#/13'>▻</a>
+<h3 id="see-also">
+<a class="anchorlink" href="#see-also"></a>6 See Also</h3>
 <ul>
 <li><a href="https://expressjs.com/en/resources/frameworks.html">frameworks recommended by express</a></li>
 </ul>
@@ -410,7 +425,7 @@ res.sendfile(filePath); // also: sets Content-Type from ext
     </div>
   </div>
 
-  <hr class="hide" />
+  <hr class="hide">
   <div id="footer">
     <div class="wrapper">
       <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2023 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
@@ -421,14 +436,5 @@ res.sendfile(filePath); // also: sets Content-Type from ext
 
   <script src="javascripts/jquery.min.js"></script>
   <script src="javascripts/guides.js"></script>
-  <script>
-    SyntaxHighlighter.all()
-    $(guidesIndex.bind);
-    $(document).ready(function(){
-      let hash = document.location.hash;
-      if(! hash) return;
-      document.getElementById(hash.substr(1)).scrollIntoView(true);
-    })
-  </script>
   </body>
 </html>

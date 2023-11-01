@@ -3,57 +3,30 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=1024, user-scalable=no">
+
     <title>Slides for
-        Backend Development Textbook
+        Advanced Testing — Backend Development
     </title>
-    <!-- Required stylesheet -->
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
-    <!-- Extension CSS files go here. Remove or add as needed. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
-    <!-- Style theme. More available in /themes/style/ or create your own. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
-    <!-- Transition theme. More available in /themes/transition/ or create your own. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
-    <!-- syntax highlighter -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Basic black and white print styles -->
-    <link rel="stylesheet" media="print" href="stylesheets/print.css">
-    <!-- Required Modernizr file -->
-    <script src="javascripts/modernizr.custom.js"></script>
+		<link rel="stylesheet" href="stylesheets/reset.css">
+		<link rel="stylesheet" href="stylesheets/reveal.css">
+		<link rel="stylesheet" href="stylesheets/myslide.css" id="theme">
+    <link rel="stylesheet" href="stylesheets/code.css">
+
 </head>
 
 <body>
-    <div class="deck-container">
-        <div class='slide'>
-</div>
-<div class='slide'>
-<a class='slide_break' href='advanced_testing.html#slide-1'>▻</a>
-<h2>Advanced Testing</h2><p>This guide will show you new ways of testing.
-By referring to this guide, you will be able to:</p>
-<ul>
-<li>Understand test doubles</li>
-<li>Write unit tests with rspec</li>
-<li>Write integration tests with capybara</li>
-<li>Manipulate time in your tests</li>
-<li>Stub out calls to Web Services efficiently</li>
-<li>Test the javascript frontend of your app</li>
-</ul>
-
-</div>
-<div class='slide'>
-<a class='slide_break' href='advanced_testing.html#slide-2'>▻</a>
-<hr>
-</div>
-<div class='slide'>
-<a class='slide_break' href='advanced_testing.html#slide-3'>▻</a>
-<h3 id="rspec"><a class="anchorlink" href="#rspec">1 rspec</a></h3><p>Rspec is the second testing framework that is commonly used
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+<p><a class='slide_break' href='advanced_testing.html#slide-0'>▻</a></p>
+<h3 id="rspec">
+<a class="anchorlink" href="#rspec"></a>1 rspec</h3><p>Rspec is the second testing framework that is commonly used
 with Ruby on Rails projects. According to <a href="https://www.ruby-toolbox.com/categories/testing_frameworks">ruby-toolbox.com</a>
 it is used more often than the (built in) Minitest.</p><p>Rspec replaces minitest in all aspects of rails, including in scaffolds.</p><p>The first things you hav to know to get started:</p>
 <ul>
@@ -62,10 +35,11 @@ it is used more often than the (built in) Minitest.</p><p>Rspec replaces minites
 <li>to run all tests use <code>rake spec</code>
 </li>
 </ul>
-<p>(yes, sometimes you need the <code>r</code> in rspec, and other times you leave it out.)</p></div>
-<div class='slide'>
-<a class='slide_break' href='advanced_testing.html#slide-4'>▻</a>
-<h4 id="a-simple-spec"><a class="anchorlink" href="#a-simple-spec">1.1 A simple spec</a></h4><p>A file can contain multiple test. You use <code>describe</code> and <code>it</code> to
+<p>(yes, sometimes you need the <code>r</code> in rspec, and other times you leave it out.)</p></section>
+<section>
+<p><a class='slide_break' href='advanced_testing.html#slide-1'>▻</a></p>
+<h4 id="a-simple-spec">
+<a class="anchorlink" href="#a-simple-spec"></a>1.1 A simple spec</h4><p>A file can contain multiple test. You use <code>describe</code> and <code>it</code> to
 structure the file. The arguments for <code>describe</code> and <code>it</code> are
 used to describe the test in case of failure:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">describe</span> <span class="no">Game</span> <span class="k">do</span>
@@ -109,10 +83,11 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 <span class="n">expect</span> <span class="p">{</span> <span class="n">something</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">raise_error</span><span class="p">(</span><span class="no">SomeError</span><span class="p">)</span>
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='advanced_testing.html#slide-5'>▻</a>
-<h4 id="example-model-spec"><a class="anchorlink" href="#example-model-spec">1.2 Example Model Spec</a></h4><div class="code_container">
+</section>
+<section>
+<p><a class='slide_break' href='advanced_testing.html#slide-2'>▻</a></p>
+<h4 id="example-model-spec">
+<a class="anchorlink" href="#example-model-spec"></a>1.2 Example Model Spec</h4><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">describe</span> <span class="no">Post</span> <span class="k">do</span>
   <span class="n">context</span> <span class="s2">"with 2 or more comments"</span> <span class="k">do</span>
     <span class="n">it</span> <span class="s2">"orders them in reverse chronologically"</span> <span class="k">do</span>
@@ -125,10 +100,11 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 <span class="k">end</span>
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='advanced_testing.html#slide-6'>▻</a>
-<h4 id="example-feature-spec"><a class="anchorlink" href="#example-feature-spec">1.3 Example Feature Spec</a></h4><div class="code_container">
+</section>
+<section>
+<p><a class='slide_break' href='advanced_testing.html#slide-3'>▻</a></p>
+<h4 id="example-feature-spec">
+<a class="anchorlink" href="#example-feature-spec"></a>1.3 Example Feature Spec</h4><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">feature</span> <span class="s2">"Widget management"</span> <span class="k">do</span>
   <span class="n">scenario</span> <span class="s2">"User creates a new widget"</span> <span class="k">do</span>
     <span class="n">visit</span> <span class="s2">"/widgets/new"</span>
@@ -139,10 +115,11 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 <span class="k">end</span>
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='advanced_testing.html#slide-7'>▻</a>
-<h4 id="kinds-of-tests"><a class="anchorlink" href="#kinds-of-tests">1.4 Kinds of Tests</a></h4>
+</section>
+<section>
+<p><a class='slide_break' href='advanced_testing.html#slide-4'>▻</a></p>
+<h4 id="kinds-of-tests">
+<a class="anchorlink" href="#kinds-of-tests"></a>1.4 Kinds of Tests</h4>
 <ul>
 <li>Model specs</li>
 <li>Controller specs</li>
@@ -153,13 +130,15 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 <li>Request specs</li>
 <li>Feature specs</li>
 </ul>
-</div>
-<div class='slide'>
-<a class='slide_break' href='advanced_testing.html#slide-8'>▻</a>
-<h3 id="cucumber"><a class="anchorlink" href="#cucumber">2 Cucumber</a></h3><p><img src="images/cucumber-1.png" alt=""></p><p><img src="images/cucumber-2.png" alt=""></p></div>
-<div class='slide'>
-<a class='slide_break' href='advanced_testing.html#slide-9'>▻</a>
-<h4 id="step-definitions"><a class="anchorlink" href="#step-definitions">2.1 Step Definitions</a></h4><p>the magic behind cucumber:</p><div class="code_container">
+</section>
+<section>
+<p><a class='slide_break' href='advanced_testing.html#slide-5'>▻</a></p>
+<h3 id="cucumber">
+<a class="anchorlink" href="#cucumber"></a>2 Cucumber</h3><p><img src="images/cucumber-1.png" alt=""></p><p><img src="images/cucumber-2.png" alt=""></p></section>
+<section>
+<p><a class='slide_break' href='advanced_testing.html#slide-6'>▻</a></p>
+<h4 id="step-definitions">
+<a class="anchorlink" href="#step-definitions"></a>2.1 Step Definitions</h4><p>the magic behind cucumber:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="no">Given</span> <span class="sr">/the following movies exist/</span> <span class="k">do</span> <span class="o">|</span><span class="n">movies_table</span><span class="o">|</span>
   <span class="n">movies_table</span><span class="p">.</span><span class="nf">hashes</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">movie</span><span class="o">|</span>
     <span class="no">Movie</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span> <span class="n">movie</span> <span class="p">)</span>
@@ -172,10 +151,11 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 <span class="k">end</span>
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='advanced_testing.html#slide-10'>▻</a>
-<h3 id="test-doubles"><a class="anchorlink" href="#test-doubles">3 Test Doubles</a></h3><p>According to Meszaros(2007)</p>
+</section>
+<section>
+<p><a class='slide_break' href='advanced_testing.html#slide-7'>▻</a></p>
+<h3 id="test-doubles">
+<a class="anchorlink" href="#test-doubles"></a>3 Test Doubles</h3><p>According to Meszaros(2007)</p>
 <ul>
 <li>
 <strong>Test stub</strong> provide canned answers to calls made during the test</li>
@@ -186,13 +166,15 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 <li>
 <strong>Fake object</strong> used as a simpler implementation, e.g. using an in-memory database in the tests instead of doing real database access</li>
 </ul>
-</div>
-<div class='slide'>
-<a class='slide_break' href='advanced_testing.html#slide-11'>▻</a>
-<h3 id="testing-web-servcies"><a class="anchorlink" href="#testing-web-servcies">4 Testing Web Servcies</a></h3><p>VCR</p></div>
-<div class='slide'>
-<a class='slide_break' href='advanced_testing.html#slide-12'>▻</a>
-<h3 id="testing-time"><a class="anchorlink" href="#testing-time">5 Testing Time</a></h3><div class="code_container">
+</section>
+<section>
+<p><a class='slide_break' href='advanced_testing.html#slide-8'>▻</a></p>
+<h3 id="testing-web-servcies">
+<a class="anchorlink" href="#testing-web-servcies"></a>4 Testing Web Servcies</h3><p>VCR</p></section>
+<section>
+<p><a class='slide_break' href='advanced_testing.html#slide-9'>▻</a></p>
+<h3 id="testing-time">
+<a class="anchorlink" href="#testing-time"></a>5 Testing Time</h3><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">describe</span> <span class="s2">"sets done_at"</span> <span class="k">do</span>
   <span class="n">t</span> <span class="o">=</span> <span class="no">Todoitem</span><span class="p">.</span><span class="nf">create!</span><span class="p">(</span> <span class="ss">:text</span> <span class="o">=&gt;</span> <span class="s2">"write"</span> <span class="p">)</span>
   <span class="n">t</span><span class="p">.</span><span class="nf">done</span> <span class="o">=</span> <span class="kp">true</span>
@@ -202,10 +184,11 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 <span class="k">end</span>
 </code></pre>
 </div>
-<p><img src="images/timefail-1.png" alt="time fail"></p><p><img src="images/timefail-2.png" alt="time fail"></p></div>
-<div class='slide'>
-<a class='slide_break' href='advanced_testing.html#slide-13'>▻</a>
-<h4 id="first-solution-write-your-own-matcher"><a class="anchorlink" href="#first-solution-write-your-own-matcher">5.1 First solution: write your own matcher:</a></h4><div class="code_container">
+<p><img src="images/timefail-1.png" alt="time fail"></p><p><img src="images/timefail-2.png" alt="time fail"></p></section>
+<section>
+<p><a class='slide_break' href='advanced_testing.html#slide-10'>▻</a></p>
+<h4 id="first-solution-write-your-own-matcher">
+<a class="anchorlink" href="#first-solution-write-your-own-matcher"></a>5.1 First solution: write your own matcher:</h4><div class="code_container">
 <pre><code class="highlight ruby"><span class="c1"># in your test:</span>
 <span class="n">t</span><span class="p">.</span><span class="nf">done_at</span><span class="p">.</span><span class="nf">should</span> <span class="n">be_the_same_time_as</span><span class="p">(</span> <span class="no">Time</span><span class="p">.</span><span class="nf">zone</span><span class="p">.</span><span class="nf">now</span> <span class="p">)</span>
 
@@ -220,10 +203,11 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 <span class="k">end</span>
 </code></pre>
 </div>
-<p><img src="images/timefail-3.png" alt=""></p></div>
-<div class='slide'>
-<a class='slide_break' href='advanced_testing.html#slide-14'>▻</a>
-<h4 id="second-solution-timecop"><a class="anchorlink" href="#second-solution-timecop">5.2 Second Solution: Timecop</a></h4><div class="code_container">
+<p><img src="images/timefail-3.png" alt=""></p></section>
+<section>
+<p><a class='slide_break' href='advanced_testing.html#slide-11'>▻</a></p>
+<h4 id="second-solution-timecop">
+<a class="anchorlink" href="#second-solution-timecop"></a>5.2 Second Solution: Timecop</h4><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">it</span> <span class="s2">"sets done_at"</span> <span class="k">do</span>
     <span class="n">t</span> <span class="o">=</span> <span class="no">Todoitem</span><span class="p">.</span><span class="nf">create!</span><span class="p">(</span> <span class="ss">:text</span> <span class="o">=&gt;</span> <span class="s2">"write"</span> <span class="p">)</span>
        <span class="no">Timecop</span><span class="p">.</span><span class="nf">freeze</span> <span class="k">do</span>
@@ -235,13 +219,15 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 <span class="k">end</span>
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='advanced_testing.html#slide-15'>▻</a>
-<h3 id="testing-javascript"><a class="anchorlink" href="#testing-javascript">6 Testing Javascript</a></h3><p><img src="images/jasmine.png" alt=""></p><p><img src="images/phantomjs.png" alt=""></p></div>
-<div class='slide'>
-<a class='slide_break' href='advanced_testing.html#slide-16'>▻</a>
-<h4 id="phantom-example"><a class="anchorlink" href="#phantom-example">6.1 Phantom Example</a></h4><div class="code_container">
+</section>
+<section>
+<p><a class='slide_break' href='advanced_testing.html#slide-12'>▻</a></p>
+<h3 id="testing-javascript">
+<a class="anchorlink" href="#testing-javascript"></a>6 Testing Javascript</h3><p><img src="images/jasmine.png" alt=""></p><p><img src="images/phantomjs.png" alt=""></p></section>
+<section>
+<p><a class='slide_break' href='advanced_testing.html#slide-13'>▻</a></p>
+<h4 id="phantom-example">
+<a class="anchorlink" href="#phantom-example"></a>6.1 Phantom Example</h4><div class="code_container">
 <pre><code class="highlight javascript"><span class="kd">var</span> <span class="nx">page</span><span class="p">;</span>
 <span class="nx">page</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">webpage</span><span class="dl">"</span><span class="p">).</span><span class="nx">create</span><span class="p">();</span>
 <span class="nx">page</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">"</span><span class="s2">http://localhost:3000</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">status</span><span class="p">)</span> <span class="p">{</span>
@@ -267,62 +253,40 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 <span class="p">});</span>
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='advanced_testing.html#slide-17'>▻</a>
-<h4 id="phantom-in-rspec"><a class="anchorlink" href="#phantom-in-rspec">6.2 Phantom in rspec</a></h4><p>with capybara and poltergeist</p></div>
-<div class='slide'>
-<a class='slide_break' href='advanced_testing.html#slide-18'>▻</a>
-<h3 id="example-app"><a class="anchorlink" href="#example-app">7 Example App</a></h3><p>Clone <a href="https://github.com/web-engineering/rails-example-test-the-todo">this app</a> and try out your new testing strategies!</p><p><img src="images/sample-app-todolist.png" alt="screenshot example app"></p></div>
+</section>
+<section>
+<p><a class='slide_break' href='advanced_testing.html#slide-14'>▻</a></p>
+<h4 id="phantom-in-rspec">
+<a class="anchorlink" href="#phantom-in-rspec"></a>6.2 Phantom in rspec</h4><p>with capybara and poltergeist</p></section>
+<section>
+<p><a class='slide_break' href='advanced_testing.html#slide-15'>▻</a></p>
+<h3 id="example-app">
+<a class="anchorlink" href="#example-app"></a>7 Example App</h3><p>Clone <a href="https://github.com/web-engineering/rails-example-test-the-todo">this app</a> and try out your new testing strategies!</p><p><img src="images/sample-app-todolist.png" alt="screenshot example app"></p></section>
+      </div>
     </div>
     <!-- End slides. -->
-    <!-- Begin extension snippets. Add or remove as needed. -->
-    <!-- deck.navigation snippet -->
-    <div aria-role="navigation">
-        <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
-        <a href="#" class="deck-next-link" title="Next">&#8594;</a>
-    </div>
-    <!-- deck.status snippet -->
-    <p class="deck-status" aria-role="status">
-        <span class="deck-status-current"></span>
-        /
-        <span class="deck-status-total"></span>
-    </p>
-    <!-- deck.goto snippet -->
-    <form action="." method="get" class="goto-form">
-        <label for="goto-slide">Go to slide:</label>
-        <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
-        <datalist id="goto-datalist"></datalist>
-        <input type="submit" value="Go">
-    </form>
-    <!-- End extension snippets. -->
     <!-- Required JS files. -->
-    <script src="javascripts/jquery.min.js"></script>
-    <script src="javascripts/deck.core.js"></script>
-    <!-- Extension JS files. Add or remove as needed. -->
-    <script src="javascripts/deck.menu.js"></script>
-    <script src="javascripts/deck.goto.js"></script>
-    <script src="javascripts/deck.status.js"></script>
-    <script src="javascripts/deck.navigation.js"></script>
-    <script src="javascripts/deck.escape.js"></script>
+		<script src="javascripts/reveal.js"></script>
+		<script src="javascripts/search.js"></script>
+		<script src="javascripts/markdown.js"></script>
 
-    <!-- Initialize the deck. You can put this in an external file if desired. -->
     <script>
-    $(function() {
-      $.deck('.slide');
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+
+      keyboard: {
+        27: () => { console.log('esc') }, // do something custom when ESC is pressed
+        13: 'next', // go to the next slide when the ENTER key is pressed
+      },
+
+      // Learn about plugins: https://revealjs.com/plugins/
+      plugins: [ RevealSearch, RevealMarkdown ]  // RevealHighlight
     });
-
-    var $d = $(document);    
-
-    $d.bind('deck.change', function(event, from, to) {
-      // console.log('Moving from slide ' + from + ' to ' + to);
-    });   
-    $d.bind('deck.beforeInit', function() {
-      // console.log('Deck.beforeInit. hash is ' + document.location.hash);
-    });     
-    $d.bind('deck.init', function() {
-      // console.log('Deck.init is done. hash was ' + document.location.hash);
-    }); 
     </script>
 </body>
 

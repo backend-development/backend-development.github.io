@@ -3,54 +3,30 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=1024, user-scalable=no">
+
     <title>Slides for
-        Backend Development Textbook
+        Node.js Basics — Backend Development
     </title>
-    <!-- Required stylesheet -->
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
-    <!-- Extension CSS files go here. Remove or add as needed. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
-    <!-- Style theme. More available in /themes/style/ or create your own. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
-    <!-- Transition theme. More available in /themes/transition/ or create your own. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
-    <!-- syntax highlighter -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Basic black and white print styles -->
-    <link rel="stylesheet" media="print" href="stylesheets/print.css">
-    <!-- Required Modernizr file -->
-    <script src="javascripts/modernizr.custom.js"></script>
+		<link rel="stylesheet" href="stylesheets/reset.css">
+		<link rel="stylesheet" href="stylesheets/reveal.css">
+		<link rel="stylesheet" href="stylesheets/myslide.css" id="theme">
+    <link rel="stylesheet" href="stylesheets/code.css">
+
 </head>
 
 <body>
-    <div class="deck-container">
-        <div class='slide'>
-</div>
-<div class='slide'>
-<a class='slide_break' href='node_basics.html#slide-1'>▻</a>
-<h2>Node.js Basics</h2><p>Node.js is just a javascript interpreter
-with a very small library added. With node
-you build your web server from scratch.</p><p>After working through this guide you should</p>
-<ul>
-<li>know how to install libraries for node.js with npm</li>
-<li>be able to write a simple web server</li>
-</ul>
-
-</div>
-<div class='slide'>
-<a class='slide_break' href='node_basics.html#slide-2'>▻</a>
-<hr>
-</div>
-<div class='slide'>
-<a class='slide_break' href='node_basics.html#slide-3'>▻</a>
-<h3 id="what-is-node-js-questionmark"><a class="anchorlink" href="#what-is-node-js-questionmark">1 What is node.js?</a></h3><p>Node.js was originally written by Ryan Dahl in 2009
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+<p><a class='slide_break' href='node_basics.html#slide-0'>▻</a></p>
+<h3 id="what-is-node-js-questionmark">
+<a class="anchorlink" href="#what-is-node-js-questionmark"></a>1 What is node.js?</h3><p>Node.js was originally written by Ryan Dahl in 2009
 as a combination of two pieces of software that
 already existed:</p>
 <ul>
@@ -61,10 +37,11 @@ already existed:</p>
 </ul>
 <p>To this he added a library written in Javascript.
 In 2010 npm was added as a package manager for
-Javascript Libraries.</p></div>
-<div class='slide'>
-<a class='slide_break' href='node_basics.html#slide-4'>▻</a>
-<h4 id="how-big-is-node-js-questionmark"><a class="anchorlink" href="#how-big-is-node-js-questionmark">1.1 How big is node.js?</a></h4><p><img src="images/what-is-node.svg" alt=""></p><p>In 2023, according to <a href="https://www.openhub.net/p/node/analyses/latest/languages_summary">openhub</a>
+Javascript Libraries.</p></section>
+<section>
+<p><a class='slide_break' href='node_basics.html#slide-1'>▻</a></p>
+<h4 id="how-big-is-node-js-questionmark">
+<a class="anchorlink" href="#how-big-is-node-js-questionmark"></a>1.1 How big is node.js?</h4><p><img src="images/what-is-node.svg" alt=""></p><p>In 2023, according to <a href="https://www.openhub.net/p/node/analyses/latest/languages_summary">openhub</a>
 the node projects consist of:</p>
 <ul>
 <li>the node library: 1,6 millions lines of Javascript code</li>
@@ -72,10 +49,11 @@ the node projects consist of:</p>
 <li>v8: 2,3 millions lines of code written in c++</li>
 <li>libuv: 100.000 lines of C code</li>
 </ul>
-</div>
-<div class='slide'>
-<a class='slide_break' href='node_basics.html#slide-5'>▻</a>
-<h4 id="node-version-manager"><a class="anchorlink" href="#node-version-manager">1.2 Node Version Manager</a></h4><p>Node Versions change fast. The node version manager (nvm) makes
+</section>
+<section>
+<p><a class='slide_break' href='node_basics.html#slide-2'>▻</a></p>
+<h4 id="node-version-manager">
+<a class="anchorlink" href="#node-version-manager"></a>1.2 Node Version Manager</h4><p>Node Versions change fast. The node version manager (nvm) makes
 it easy to switch between versions:</p><div class="code_container">
 <pre><code class="highlight shell"><span class="nv">$ </span>nvm use 16.19
 Now using <span class="nb">node </span>v16.19.0 <span class="o">(</span>npm v8.19.3<span class="o">)</span>
@@ -84,10 +62,11 @@ Now using <span class="nb">node </span>v20.2.0 <span class="o">(</span>npm v9.6.
 </code></pre>
 </div>
 <p>An alternative would be to use <a href="https://github.com/jdxcode/rtx">rtx</a>, which
-can also handle other languages like ruby, php, python.</p></div>
-<div class='slide'>
-<a class='slide_break' href='node_basics.html#slide-6'>▻</a>
-<h4 id="hello-node"><a class="anchorlink" href="#hello-node">1.3 Hello Node</a></h4><p>You write your program in Javascript:</p><div class="code_container">
+can also handle other languages like ruby, php, python.</p></section>
+<section>
+<p><a class='slide_break' href='node_basics.html#slide-3'>▻</a></p>
+<h4 id="hello-node">
+<a class="anchorlink" href="#hello-node"></a>1.3 Hello Node</h4><p>You write your program in Javascript:</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hello Node</span><span class="dl">"</span><span class="p">);</span>
 </code></pre>
 </div>
@@ -106,10 +85,11 @@ undefined
 <span class="o">&gt;</span> <span class="o">[</span>CTRL]-[D]
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='node_basics.html#slide-7'>▻</a>
-<h4 id="hello-web"><a class="anchorlink" href="#hello-web">1.4 Hello Web</a></h4><p>To create a very simple Webserver we can use the package <code>http</code>:</p><div class="code_container">
+</section>
+<section>
+<p><a class='slide_break' href='node_basics.html#slide-4'>▻</a></p>
+<h4 id="hello-web">
+<a class="anchorlink" href="#hello-web"></a>1.4 Hello Web</h4><p>To create a very simple Webserver we can use the package <code>http</code>:</p><div class="code_container">
 <pre><code class="highlight plaintext">import * as http from 'http';
 
 const hostname = '127.0.0.1';
@@ -131,10 +111,11 @@ server.listen(port, hostname, () =&gt; {
 Server running at http://127.0.0.1:3000/
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='node_basics.html#slide-8'>▻</a>
-<h3 id="packages"><a class="anchorlink" href="#packages">2 Packages</a></h3><p>Node had it's own package system called CommonJS, using the keyword <code>require</code>.
+</section>
+<section>
+<p><a class='slide_break' href='node_basics.html#slide-5'>▻</a></p>
+<h3 id="packages">
+<a class="anchorlink" href="#packages"></a>2 Packages</h3><p>Node had it's own package system called CommonJS, using the keyword <code>require</code>.
 Since node 13 you can also use ECMAScript modules with the keyword <code>import</code>.</p><p>Use the type field in <code>package.json</code> to switch to ECMAScript modules,
 or use extension <code>.cjs</code> for CommonJS and <code>.mjs</code> for modules.</p><div class="code_container">
 <pre><code class="highlight plaintext">// package.json
@@ -150,10 +131,11 @@ import * as config from './config/index.js`;
 </code></pre>
 </div>
 <p><code>npm</code> was the first package manager for node.js.  Today
-there are many alternatives, from <code>yarn</code> to <code>pnpm</code>.</p></div>
-<div class='slide'>
-<a class='slide_break' href='node_basics.html#slide-9'>▻</a>
-<h3 id="the-javascript-event-loop"><a class="anchorlink" href="#the-javascript-event-loop">3 The javascript Event Loop</a></h3><p>You have worked with Javascript and asyncronous programming before.</p><div class="code_container">
+there are many alternatives, from <code>yarn</code> to <code>pnpm</code>.</p></section>
+<section>
+<p><a class='slide_break' href='node_basics.html#slide-6'>▻</a></p>
+<h3 id="the-javascript-event-loop">
+<a class="anchorlink" href="#the-javascript-event-loop"></a>3 The javascript Event Loop</h3><p>You have worked with Javascript and asyncronous programming before.</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="kd">function</span> <span class="nx">f</span><span class="p">()</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">foo</span><span class="dl">"</span><span class="p">);</span>
   <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">g</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
@@ -176,10 +158,11 @@ there are many alternatives, from <code>yarn</code> to <code>pnpm</code>.</p></d
 <li>blix</li>
 <li>bar</li>
 </ol>
-</div>
-<div class='slide'>
-<a class='slide_break' href='node_basics.html#slide-10'>▻</a>
-<h3 id="classic-processing-model"><a class="anchorlink" href="#classic-processing-model">4 Classic Processing Model</a></h3><p>PHP and Ruby on Rails have the same basic processing model. It is either
+</section>
+<section>
+<p><a class='slide_break' href='node_basics.html#slide-7'>▻</a></p>
+<h3 id="classic-processing-model">
+<a class="anchorlink" href="#classic-processing-model"></a>4 Classic Processing Model</h3><p>PHP and Ruby on Rails have the same basic processing model. It is either
 implemented with threads or with processes.</p>
 <ul>
 <li>when the webserver first starts, a number of threads are started</li>
@@ -195,10 +178,11 @@ processes/threads and their status on a webpage. Here an example:</p><p><img src
 the server is started it forks a certain number of worker processes,
 but it can also fork additional worker process later on.</p><p>Currently 56 requests are being processed, 8 worker processes are
 idle, and there are a lot of additional slots for additional worker
-processes.</p></div>
-<div class='slide'>
-<a class='slide_break' href='node_basics.html#slide-11'>▻</a>
-<h4 id="syncronous-processing"><a class="anchorlink" href="#syncronous-processing">4.1 Syncronous Processing</a></h4><p>Using syncronous I/O the program code will look something like this:</p><div class="code_container">
+processes.</p></section>
+<section>
+<p><a class='slide_break' href='node_basics.html#slide-8'>▻</a></p>
+<h4 id="syncronous-processing">
+<a class="anchorlink" href="#syncronous-processing"></a>4.1 Syncronous Processing</h4><p>Using syncronous I/O the program code will look something like this:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">file</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span>    <span class="c1"># takes a long time, thread has to wait</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">file</span><span class="p">.</span><span class="nf">read</span>                    <span class="c1"># takes a very long time, thread has to wait</span>
 <span class="n">file</span><span class="p">.</span><span class="nf">close</span>
@@ -213,20 +197,22 @@ in the web server configuration, e.g.</p>
 <li>when running Rails with Passenger with the configuration directives <code>PassengerMinInstances</code> und <code>PassengerMaxPoolSize</code>, see <a href="https://www.phusionpassenger.com/library/config/apache/optimization/">phusionpassenger.com</a>
 </li>
 </ul>
-</div>
-<div class='slide'>
-<a class='slide_break' href='node_basics.html#slide-12'>▻</a>
-<h3 id="node-js-processing-model"><a class="anchorlink" href="#node-js-processing-model">5 Node.js processing model</a></h3><p>Node has a completely different model:</p>
+</section>
+<section>
+<p><a class='slide_break' href='node_basics.html#slide-9'>▻</a></p>
+<h3 id="node-js-processing-model">
+<a class="anchorlink" href="#node-js-processing-model"></a>5 Node.js processing model</h3><p>Node has a completely different model:</p>
 <ul>
 <li>there is one thread running the javascript event loop</li>
 <li>if the thread is free, it picks up the next event from the event queue. this might be a new http request</li>
 <li>all I/O is done asynchronosly: the main thread hands off the request to the database to a new, separate thread from a thread pool. When the request is done, and the data is available, this is added as a new event to the event queue</li>
 <li>after starting an asynchronos thread, the main thread immediately contious working</li>
 </ul>
-<p><img src="images/nodejs-eventloop.jpg" alt="node.js event loop"></p><p>(diagram by <a href="https://twitter.com/RichOnTheWeb/status/494959181871316992">@RichOnTheWeb</a>)</p></div>
-<div class='slide'>
-<a class='slide_break' href='node_basics.html#slide-13'>▻</a>
-<h4 id="asyncronous-with-callbacks"><a class="anchorlink" href="#asyncronous-with-callbacks">5.1 Asyncronous with callbacks</a></h4><p>Doing asyncronous I/O is implemented using callbacks in Javascript, and will look
+<p><img src="images/nodejs-eventloop.jpg" alt="node.js event loop"></p><p>(diagram by <a href="https://twitter.com/RichOnTheWeb/status/494959181871316992">@RichOnTheWeb</a>)</p></section>
+<section>
+<p><a class='slide_break' href='node_basics.html#slide-10'>▻</a></p>
+<h4 id="asyncronous-with-callbacks">
+<a class="anchorlink" href="#asyncronous-with-callbacks"></a>5.1 Asyncronous with callbacks</h4><p>Doing asyncronous I/O is implemented using callbacks in Javascript, and will look
 something like this:</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="k">import</span> <span class="p">{</span> <span class="nx">readFile</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">node:fs</span><span class="dl">'</span><span class="p">;</span>
 
@@ -243,10 +229,11 @@ something like this:</p><div class="code_container">
 printing out <code>second</code>. It will pick up something else to do from
 the event queue. Much later, when the data from the file has been
 loaded, it will find the callback funktion on the event queue, and
-finally reach <code>third</code>.</p></div>
-<div class='slide'>
-<a class='slide_break' href='node_basics.html#slide-14'>▻</a>
-<h4 id="asyncronous-with-async-await"><a class="anchorlink" href="#asyncronous-with-async-await">5.2 Asyncronous with async await</a></h4><p>Node also offers the use of promises or async await:</p><div class="code_container">
+finally reach <code>third</code>.</p></section>
+<section>
+<p><a class='slide_break' href='node_basics.html#slide-11'>▻</a></p>
+<h4 id="asyncronous-with-async-await">
+<a class="anchorlink" href="#asyncronous-with-async-await"></a>5.2 Asyncronous with async await</h4><p>Node also offers the use of promises or async await:</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="k">import</span> <span class="p">{</span> <span class="nx">readFile</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">node:fs/promises</span><span class="dl">'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">filePath</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">package.json</span><span class="dl">'</span><span class="p">;</span>
 <span class="kd">const</span> <span class="nx">contents</span> <span class="o">=</span> <span class="k">await</span> <span class="nx">readFile</span><span class="p">(</span><span class="nx">filePath</span><span class="p">,</span> <span class="p">{</span> <span class="na">encoding</span><span class="p">:</span> <span class="dl">'</span><span class="s1">utf8</span><span class="dl">'</span> <span class="p">});</span>
@@ -254,13 +241,15 @@ finally reach <code>third</code>.</p></div>
 </div>
 <p>The main thread will become free at <code>await</code>. It will pick up something else to do from
 the event queue. Much later, when the data from the file has been
-loaded, the program will continue with assigning the data to the constant <code>contents</code>.</p></div>
-<div class='slide'>
-<a class='slide_break' href='node_basics.html#slide-15'>▻</a>
-<h4 id="complex-example"><a class="anchorlink" href="#complex-example">5.3 Complex Example</a></h4><p><img src="images/node-example-code@2x.png" alt=""></p><p><a href="https://gitlab.mediacube.at/-/snippets/66">source</a></p><p><img src="images/node-example-diagram.png" alt=""></p></div>
-<div class='slide'>
-<a class='slide_break' href='node_basics.html#slide-16'>▻</a>
-<h4 id="io-bound-vs-cpu-bound"><a class="anchorlink" href="#io-bound-vs-cpu-bound">5.4 IO-bound vs. CPU-bound</a></h4><p>Describes two kinds of performance bottlenecks</p>
+loaded, the program will continue with assigning the data to the constant <code>contents</code>.</p></section>
+<section>
+<p><a class='slide_break' href='node_basics.html#slide-12'>▻</a></p>
+<h4 id="complex-example">
+<a class="anchorlink" href="#complex-example"></a>5.3 Complex Example</h4><p><img src="images/node-example-code@2x.png" alt=""></p><p><a href="https://gitlab.mediacube.at/-/snippets/66">source</a></p><p><img src="images/node-example-diagram.png" alt=""></p></section>
+<section>
+<p><a class='slide_break' href='node_basics.html#slide-13'>▻</a></p>
+<h4 id="io-bound-vs-cpu-bound">
+<a class="anchorlink" href="#io-bound-vs-cpu-bound"></a>5.4 IO-bound vs. CPU-bound</h4><p>Describes two kinds of performance bottlenecks</p>
 <ul>
 <li>An I/O-bound application waits most of the time for network, filesystem and database.
 Running on a faster CPU would not help.</li>
@@ -268,10 +257,11 @@ Running on a faster CPU would not help.</li>
 </ul>
 <p>The node process model helps with I/O-bound applications: If your app is I/O-bound, the event loop will be able to serve many requests, while other threads handling the acutal I/O will run on other kernels</p><p>If one aspect of your app is CPU-bound it will monopolize that kernel,
 (other) requests cannot be served. Therefore node and is not well suited for CPU
-bound applications.</p></div>
-<div class='slide'>
-<a class='slide_break' href='node_basics.html#slide-17'>▻</a>
-<h3 id="streams"><a class="anchorlink" href="#streams">6 Streams</a></h3><p>Streams are a basic bilding block of a node application.
+bound applications.</p></section>
+<section>
+<p><a class='slide_break' href='node_basics.html#slide-14'>▻</a></p>
+<h3 id="streams">
+<a class="anchorlink" href="#streams"></a>6 Streams</h3><p>Streams are a basic bilding block of a node application.
 Without streams, you have to read the whole file before
 you can send it:</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="k">import</span> <span class="p">{</span> <span class="nx">readFile</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">node:fs/promises</span><span class="dl">'</span><span class="p">;</span>
@@ -283,10 +273,11 @@ you can send it:</p><div class="code_container">
 <span class="p">});</span>
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='node_basics.html#slide-18'>▻</a>
-<h4 id="using-streams"><a class="anchorlink" href="#using-streams">6.1 Using Streams</a></h4><p>Better: connect a stream reading the file to the stream
+</section>
+<section>
+<p><a class='slide_break' href='node_basics.html#slide-15'>▻</a></p>
+<h4 id="using-streams">
+<a class="anchorlink" href="#using-streams"></a>6.1 Using Streams</h4><p>Better: connect a stream reading the file to the stream
 that is the HTTP response:</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="k">import</span> <span class="p">{</span> <span class="nx">createReadStream</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">node:fs</span><span class="dl">'</span><span class="p">;</span>
 <span class="nx">router</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">/stream</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">req</span><span class="p">,</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
@@ -300,10 +291,11 @@ that is the HTTP response:</p><div class="code_container">
 This code is not only cleaner, but now the giant.html file will be written to clients one chunk
 at a time immediately as they are received from the disk.</p><p>Using <code>.pipe()</code> has other benefits too, like handling backpressure automatically
 so that node won't buffer chunks into memory needlessly when the remote
-client is on a really slow or high-latency connection.</p><p>You can also stream <a href="https://github.com/brianc/node-postgres/tree/master/packages/pg-query-stream#pg-query-stream">data from the database</a>.</p></div>
-<div class='slide'>
-<a class='slide_break' href='node_basics.html#slide-19'>▻</a>
-<h3 id="see-also"><a class="anchorlink" href="#see-also">7 See Also</a></h3>
+client is on a really slow or high-latency connection.</p><p>You can also stream <a href="https://github.com/brianc/node-postgres/tree/master/packages/pg-query-stream#pg-query-stream">data from the database</a>.</p></section>
+<section>
+<p><a class='slide_break' href='node_basics.html#slide-16'>▻</a></p>
+<h3 id="see-also">
+<a class="anchorlink" href="#see-also"></a>7 See Also</h3>
 <ul>
 <li><a href="https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/">Node Guide: HTTP</a></li>
 <li><a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/">nexttick</a></li>
@@ -311,56 +303,32 @@ client is on a really slow or high-latency connection.</p><p>You can also stream
 <li><a href="http://docs.libuv.org/en/v1.x/threadpool.html">set the event pool size process.env.UV_THREADPOOL_SIZE</a></li>
 <li><a href="https://github.com/nodejs/node/blob/278a9267ec41f37e6b7dda876c417945d7725973/src/node.cc#L3964-L3965">V8 needs 4 threads</a></li>
 </ul>
-</div>
+</section>
+      </div>
     </div>
     <!-- End slides. -->
-    <!-- Begin extension snippets. Add or remove as needed. -->
-    <!-- deck.navigation snippet -->
-    <div aria-role="navigation">
-        <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
-        <a href="#" class="deck-next-link" title="Next">&#8594;</a>
-    </div>
-    <!-- deck.status snippet -->
-    <p class="deck-status" aria-role="status">
-        <span class="deck-status-current"></span>
-        /
-        <span class="deck-status-total"></span>
-    </p>
-    <!-- deck.goto snippet -->
-    <form action="." method="get" class="goto-form">
-        <label for="goto-slide">Go to slide:</label>
-        <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
-        <datalist id="goto-datalist"></datalist>
-        <input type="submit" value="Go">
-    </form>
-    <!-- End extension snippets. -->
     <!-- Required JS files. -->
-    <script src="javascripts/jquery.min.js"></script>
-    <script src="javascripts/deck.core.js"></script>
-    <!-- Extension JS files. Add or remove as needed. -->
-    <script src="javascripts/deck.menu.js"></script>
-    <script src="javascripts/deck.goto.js"></script>
-    <script src="javascripts/deck.status.js"></script>
-    <script src="javascripts/deck.navigation.js"></script>
-    <script src="javascripts/deck.escape.js"></script>
+		<script src="javascripts/reveal.js"></script>
+		<script src="javascripts/search.js"></script>
+		<script src="javascripts/markdown.js"></script>
 
-    <!-- Initialize the deck. You can put this in an external file if desired. -->
     <script>
-    $(function() {
-      $.deck('.slide');
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+
+      keyboard: {
+        27: () => { console.log('esc') }, // do something custom when ESC is pressed
+        13: 'next', // go to the next slide when the ENTER key is pressed
+      },
+
+      // Learn about plugins: https://revealjs.com/plugins/
+      plugins: [ RevealSearch, RevealMarkdown ]  // RevealHighlight
     });
-
-    var $d = $(document);    
-
-    $d.bind('deck.change', function(event, from, to) {
-      // console.log('Moving from slide ' + from + ' to ' + to);
-    });   
-    $d.bind('deck.beforeInit', function() {
-      // console.log('Deck.beforeInit. hash is ' + document.location.hash);
-    });     
-    $d.bind('deck.init', function() {
-      // console.log('Deck.init is done. hash was ' + document.location.hash);
-    }); 
     </script>
 </body>
 

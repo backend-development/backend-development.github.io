@@ -3,61 +3,38 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=1024, user-scalable=no">
+
     <title>Slides for
-        Backend Development Textbook
+        Getting Started with Testing in Rails — Backend Development
     </title>
-    <!-- Required stylesheet -->
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
-    <!-- Extension CSS files go here. Remove or add as needed. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
-    <!-- Style theme. More available in /themes/style/ or create your own. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
-    <!-- Transition theme. More available in /themes/transition/ or create your own. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
-    <!-- syntax highlighter -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Basic black and white print styles -->
-    <link rel="stylesheet" media="print" href="stylesheets/print.css">
-    <!-- Required Modernizr file -->
-    <script src="javascripts/modernizr.custom.js"></script>
+		<link rel="stylesheet" href="stylesheets/reset.css">
+		<link rel="stylesheet" href="stylesheets/reveal.css">
+		<link rel="stylesheet" href="stylesheets/myslide.css" id="theme">
+    <link rel="stylesheet" href="stylesheets/code.css">
+
 </head>
 
 <body>
-    <div class="deck-container">
-        <div class='slide'>
-</div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-1'>▻</a>
-<h2>Getting Started with Testing in Rails</h2><p>This guide gives an introduction
-to built-in mechanisms in Rails for testing your application.</p><p>After reading this guide, you will know:</p>
-<ul>
-<li>Rails testing terminology.</li>
-<li>How to write unit tests for your applications models and controllers</li>
-<li>How to write system tests for your application.</li>
-</ul>
-<p>This guide is a shorter version of the offical
-<a href="https://guides.rubyonrails.org/testing.html">Guide to Testing Rails Applications</a>.</p><p>REPO: Fork the <a href="https://github.com/backend-development/rails-example-testing-for-stars">example app 'testing for stars'</a> and try out what you learn here.</p>
-</div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-2'>▻</a>
-<hr>
-</div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-3'>▻</a>
-<h3 id="why-write-tests-questionmark"><a class="anchorlink" href="#why-write-tests-questionmark">1 Why Write Tests?</a></h3><p>Rails makes it super easy to write your tests. It starts by producing skeleton test code while you are creating your models and controllers.</p><p>By running your Rails tests after every change in the code you can ensure that you did not break anything.</p><p>Rails tests can also simulate browser requests without or with javascript and thus you can test your application's response without having to test it through your browser.</p></div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-4'>▻</a>
-<h3 id="setup"><a class="anchorlink" href="#setup">2 Setup</a></h3></div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-5'>▻</a>
-<h4 id="folders-and-files"><a class="anchorlink" href="#folders-and-files">2.1 Folders and Files</a></h4><p>Rails creates a <code>test</code> directory for you. If you list the contents of this directory you will
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+<p><a class='slide_break' href='testing.html#slide-0'>▻</a></p>
+<h3 id="why-write-tests-questionmark">
+<a class="anchorlink" href="#why-write-tests-questionmark"></a>1 Why Write Tests?</h3><p>Rails makes it super easy to write your tests. It starts by producing skeleton test code while you are creating your models and controllers.</p><p>By running your Rails tests after every change in the code you can ensure that you did not break anything.</p><p>Rails tests can also simulate browser requests without or with javascript and thus you can test your application's response without having to test it through your browser.</p></section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-1'>▻</a></p>
+<h3 id="setup">
+<a class="anchorlink" href="#setup"></a>2 Setup</h3></section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-2'>▻</a></p>
+<h4 id="folders-and-files">
+<a class="anchorlink" href="#folders-and-files"></a>2.1 Folders and Files</h4><p>Rails creates a <code>test</code> directory for you. If you list the contents of this directory you will
 find two files that hold the configuration for your tests:</p>
 <ul>
 <li>
@@ -72,10 +49,11 @@ from HTTP Request through routes, controllers, down to models and back
 up to the view. The only thing left out is the client side of your app: Javascript
 cannot be tested here.</p><p>The <code>system</code> directory is meant to hold tests that test the
 whole system by accessing the app with a browser, including running
-the javascript.</p><p>Fixtures are a way of organizing test data; they reside in the <code>fixtures</code> directory.</p></div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-6'>▻</a>
-<h4 id="the-test-environment"><a class="anchorlink" href="#the-test-environment">2.2 The Test Environment</a></h4><p>By default, every Rails application has three environments: development, test, and production.</p><p>Each environment has a configuration file in <code>config/environments/</code>.
+the javascript.</p><p>Fixtures are a way of organizing test data; they reside in the <code>fixtures</code> directory.</p></section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-3'>▻</a></p>
+<h4 id="the-test-environment">
+<a class="anchorlink" href="#the-test-environment"></a>2.2 The Test Environment</h4><p>By default, every Rails application has three environments: development, test, and production.</p><p>Each environment has a configuration file in <code>config/environments/</code>.
 For the test environment the file is <code>config/environments/test.rb</code>.</p><p>In the Gemfile you can add gems that are only used in one environment
 by putting them in a section like so:</p><div class="code_container">
 <pre><code class="highlight plaintext"># Gemfile
@@ -85,10 +63,11 @@ group :test do
 end
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-7'>▻</a>
-<h4 id="write-one-test"><a class="anchorlink" href="#write-one-test">2.3 Write one Test</a></h4><p>When you use a generator it will also create
+</section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-4'>▻</a></p>
+<h4 id="write-one-test">
+<a class="anchorlink" href="#write-one-test"></a>2.3 Write one Test</h4><p>When you use a generator it will also create
 basic tests and fixtures for you:</p><div class="code_container">
 <pre><code class="highlight console"><span class="gp">$</span><span class="w"> </span><span class="nb">bin/rails </span>generate model article title:string body:text
 <span class="c">...
@@ -98,9 +77,9 @@ create  test/fixtures/articles.yml
 </span><span class="c">...
 </span></code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-8'>▻</a>
+</section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-5'>▻</a></p>
 
 The default test stub in <code>test/models/article_test.rb</code> looks like this:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'test_helper'</span>
@@ -112,24 +91,24 @@ The default test stub in <code>test/models/article_test.rb</code> looks like thi
 <span class="k">end</span>
 </code></pre>
 </div>
-<p>A line by line examination of this file will help get you oriented to Rails testing code and terminology.</p></div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-9'>▻</a>
+<p>A line by line examination of this file will help get you oriented to Rails testing code and terminology.</p></section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-6'>▻</a></p>
 <div class="code_container">
 <pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'test_helper'</span>
 </code></pre>
 </div>
-<p>By requiring the file <code>test_helper.rb</code> the default configuration to run our tests is loaded. You will include this with all the tests you write.</p></div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-10'>▻</a>
+<p>By requiring the file <code>test_helper.rb</code> the default configuration to run our tests is loaded. You will include this with all the tests you write.</p></section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-7'>▻</a></p>
 <div class="code_container">
 <pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">ArticleTest</span> <span class="o">&lt;</span> <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">TestCase</span>
 </code></pre>
 </div>
 <p>The <code>ArticleTest</code> class defines a <em>test case</em> because it inherits from <code>ActiveSupport::TestCase</code>, which
-in turn inherits from <code>Minitest::Test</code>.</p></div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-11'>▻</a>
+in turn inherits from <code>Minitest::Test</code>.</p></section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-8'>▻</a></p>
 <p>Inside this class you will define the tests, either by
 giving them a method name beginning with <code>test_</code> (case sensitive) or
 by using this syntax:</p><div class="code_container">
@@ -144,17 +123,17 @@ by using this syntax:</p><div class="code_container">
 <span class="k">end</span>
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-12'>▻</a>
+</section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-9'>▻</a></p>
 <p>Next, let's look at our first assertion:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">assert</span> <span class="kp">true</span>
 </code></pre>
 </div>
 <p>An assertion is a line of code that evaluates an expression for expected results.
-<code>assert true</code> is always satisfied, so this test always passes.</p></div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-13'>▻</a>
+<code>assert true</code> is always satisfied, so this test always passes.</p></section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-10'>▻</a></p>
 <p>In a real test an assertion can check many things:</p>
 <ul>
 <li>does this value equal that value?</li>
@@ -162,13 +141,14 @@ by using this syntax:</p><div class="code_container">
 <li>does this line of code throw an exception?</li>
 <li>is the user's password longer than 5 characters?</li>
 </ul>
-</div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-14'>▻</a>
-<p>Every test must contain at least one assertion, with no restriction as to how many assertions are allowed. Only when all the assertions are successful will the test pass.</p></div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-15'>▻</a>
-<h3 id="test-driven-development"><a class="anchorlink" href="#test-driven-development">3 Test Driven Development</a></h3><p>Here an example of a useful test, written with
+</section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-11'>▻</a></p>
+<p>Every test must contain at least one assertion, with no restriction as to how many assertions are allowed. Only when all the assertions are successful will the test pass.</p></section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-12'>▻</a></p>
+<h3 id="test-driven-development">
+<a class="anchorlink" href="#test-driven-development"></a>3 Test Driven Development</h3><p>Here an example of a useful test, written with
 <a href="http://c2.com/cgi/wiki?TestDrivenDevelopment"><em>Test-Driven Development</em> (TDD)</a>.</p><p>Test Driven Development means:</p>
 <ol>
 <li>Write a test - it fails - "RED"</li>
@@ -176,22 +156,23 @@ by using this syntax:</p><div class="code_container">
 <li>Improve your code, but make sure the test still passes - "REFACTOR"</li>
 </ol>
 <p>For this example I want to add a validation
-to my article class to forbid very short or missing titles.</p></div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-16'>▻</a>
-<h4 id="red"><a class="anchorlink" href="#red">3.1 Red</a></h4><p>I start by writing this test:</p><div class="code_container">
+to my article class to forbid very short or missing titles.</p></section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-13'>▻</a></p>
+<h4 id="red">
+<a class="anchorlink" href="#red"></a>3.1 Red</h4><p>I start by writing this test:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="nb">test</span> <span class="s2">"article title needs to be at least 3 characters long"</span> <span class="k">do</span>
   <span class="n">a</span> <span class="o">=</span> <span class="no">Article</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">title: </span><span class="s1">'x'</span><span class="p">)</span>
   <span class="n">assert_not</span> <span class="n">article</span><span class="p">.</span><span class="nf">save</span>
 <span class="k">end</span>
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-17'>▻</a>
-<p>To run all the tests for your project use <code>rails test</code>.</p></div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-18'>▻</a>
+</section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-14'>▻</a></p>
+<p>To run all the tests for your project use <code>rails test</code>.</p></section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-15'>▻</a></p>
 <p>If you run the test above the result might look like this:</p><div class="code_container">
 <pre><code class="highlight console"><span class="gp">$</span><span class="w"> </span><span class="nb">rails test</span>
 <span class="go">Run options: --seed 33837
@@ -209,10 +190,11 @@ Finished in 0.492655s, 18.2684 runs/s, 30.4473 assertions/s.
 9 runs, 15 assertions, 1 failures, 0 errors, 0 skips
 </span></code></pre>
 </div>
-<p>In the output, <code>F</code> denotes a failure. You can see the corresponding trace shown under <code>1)</code> along with the name of the failing test. The next few lines contain the stack trace followed by a message that mentions the actual value and the expected value by the assertion. The default assertion messages provide just enough information to help pinpoint the error.</p></div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-19'>▻</a>
-<h4 id="green"><a class="anchorlink" href="#green">3.2 Green</a></h4><p>Now to get this test to pass we can add a model level validation for the <em>title</em> field.</p><div class="code_container">
+<p>In the output, <code>F</code> denotes a failure. You can see the corresponding trace shown under <code>1)</code> along with the name of the failing test. The next few lines contain the stack trace followed by a message that mentions the actual value and the expected value by the assertion. The default assertion messages provide just enough information to help pinpoint the error.</p></section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-16'>▻</a></p>
+<h4 id="green">
+<a class="anchorlink" href="#green"></a>3.2 Green</h4><p>Now to get this test to pass we can add a model level validation for the <em>title</em> field.</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">Article</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
   <span class="n">validates</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">length: </span><span class="p">{</span> <span class="ss">minimum: </span><span class="mi">3</span> <span class="p">}</span>
 <span class="k">end</span>
@@ -231,13 +213,15 @@ Finished in 0.498780s, 16.0391 runs/s, 28.0685 assertions/s.
 8 runs, 14 assertions, 0 failures, 0 errors, 0 skips
 </span></code></pre>
 </div>
-<p>Every dot stands for one test that ran through sucessfully.</p></div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-20'>▻</a>
-<h3 id="unit-tests"><a class="anchorlink" href="#unit-tests">4 Unit Tests</a></h3></div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-21'>▻</a>
-<h4 id="what-an-error-in-you-test-looks-like"><a class="anchorlink" href="#what-an-error-in-you-test-looks-like">4.1 What an error in you test looks like</a></h4><p>An error is different from a failing test. An error
+<p>Every dot stands for one test that ran through sucessfully.</p></section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-17'>▻</a></p>
+<h3 id="unit-tests">
+<a class="anchorlink" href="#unit-tests"></a>4 Unit Tests</h3></section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-18'>▻</a></p>
+<h4 id="what-an-error-in-you-test-looks-like">
+<a class="anchorlink" href="#what-an-error-in-you-test-looks-like"></a>4.1 What an error in you test looks like</h4><p>An error is different from a failing test. An error
 is a problem in your test code, not your application code.
 To see how an error gets reported, here's a test containing an error:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="nb">test</span> <span class="s2">"should report error"</span> <span class="k">do</span>
@@ -265,10 +249,11 @@ test_should_report_error(ArticleTest):
 assertion failure is encountered. But the test suite continues with the next
 test. All test methods are executed in random order.</p></div><p>When a test fails you are presented with the corresponding backtrace. By default
 Rails filters that backtrace and will only print lines relevant to your
-application. Read the backtrace!</p></div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-22'>▻</a>
-<h5 id="how-to-catch-exceptions-from-your-application-code"><a class="anchorlink" href="#how-to-catch-exceptions-from-your-application-code">4.1.1 How to catch exceptions from your application code</a></h5><p>If you want to ensure that an exception is raised
+application. Read the backtrace!</p></section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-19'>▻</a></p>
+<h5 id="how-to-catch-exceptions-from-your-application-code">
+<a class="anchorlink" href="#how-to-catch-exceptions-from-your-application-code"></a>4.1.1 How to catch exceptions from your application code</h5><p>If you want to ensure that an exception is raised
 by your application code
 you can use <code>assert_raises</code> like so:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="nb">test</span> <span class="s2">"MyClass no longer implements @@counter, raises error"</span> <span class="k">do</span>
@@ -278,10 +263,11 @@ you can use <code>assert_raises</code> like so:</p><div class="code_container">
 <span class="k">end</span>
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-23'>▻</a>
-<h4 id="available-assertions"><a class="anchorlink" href="#available-assertions">4.2 Available Assertions</a></h4><p>You have seen some assertions above.</p><p>Here's an extract of the assertions you can use with
+</section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-20'>▻</a></p>
+<h4 id="available-assertions">
+<a class="anchorlink" href="#available-assertions"></a>4.2 Available Assertions</h4><p>You have seen some assertions above.</p><p>Here's an extract of the assertions you can use with
 <a href="https://github.com/seattlerb/minitest"><code>Minitest</code></a>, the default testing library
 used by Rails. The <code>[msg]</code> parameter is an optional string message that is only
 displayed if the test fails. It is available in all assertions, but only shown in
@@ -356,13 +342,15 @@ the first one here. For most assertions there is a simple negation <code>assert<
 <p>The above are a subset of assertions that minitest supports. For an exhaustive &amp;
 more up-to-date list, please check
 <a href="https://github.com/seattlerb/minitest#user-content-description">Minitest API documentation</a>, specifically
-<a href="https://docs.ruby-lang.org/en/2.1.0/MiniTest/Assertions.html"><code>Minitest::Assertions</code></a>.</p><p>Because of the modular nature of the testing framework, it is possible to create your own assertions. In fact, that's exactly what Rails does. It includes some specialized assertions to make your life easier.</p></div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-24'>▻</a>
-<h4 id="better-asserstion"><a class="anchorlink" href="#better-asserstion">4.3 Better Asserstion</a></h4><p><a href="https://github.com/hamcrest/ramcrest">better assertion with ramcrest</a></p></div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-25'>▻</a>
-<h4 id="testing-a-model"><a class="anchorlink" href="#testing-a-model">4.4 Testing a Model</a></h4><p>Models are easy to test separately because they do not depend on
+<a href="https://docs.ruby-lang.org/en/2.1.0/MiniTest/Assertions.html"><code>Minitest::Assertions</code></a>.</p><p>Because of the modular nature of the testing framework, it is possible to create your own assertions. In fact, that's exactly what Rails does. It includes some specialized assertions to make your life easier.</p></section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-21'>▻</a></p>
+<h4 id="better-asserstion">
+<a class="anchorlink" href="#better-asserstion"></a>4.3 Better Asserstion</h4><p><a href="https://github.com/hamcrest/ramcrest">better assertion with ramcrest</a></p></section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-22'>▻</a></p>
+<h4 id="testing-a-model">
+<a class="anchorlink" href="#testing-a-model"></a>4.4 Testing a Model</h4><p>Models are easy to test separately because they do not depend on
 other code (most of the time). In Rails the tests for a model X
 are found in <code>test/models/x_test.rb</code>.</p><p>All the examples shown so far are from model tests.
 Below you can see what the a complete model test could look like.
@@ -398,10 +386,11 @@ and the test database. So you could argue that it is more
 than just a unit test. But for now it is a near a unit test as
 we can get. We will look at more <a href="advanced_testing.html">advanced testing</a>
 later one. There you will learn how to build tests that only
-test one unit of code.</p></div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-26'>▻</a>
-<h4 id="testing-a-controller"><a class="anchorlink" href="#testing-a-controller">4.5 Testing a Controller</a></h4><p>Controller tests exercise several parts of the rails stack: routing, the controller, models, the test database. But they do try to keep
+test one unit of code.</p></section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-23'>▻</a></p>
+<h4 id="testing-a-controller">
+<a class="anchorlink" href="#testing-a-controller"></a>4.5 Testing a Controller</h4><p>Controller tests exercise several parts of the rails stack: routing, the controller, models, the test database. But they do try to keep
 views out of the mix.</p><p>To activate controller test add to your Gemfile:</p><div class="code_container">
 <pre><code class="highlight plaintext">group :development, :test do
   gem 'rails-controller-testing'
@@ -475,35 +464,39 @@ a HTTP redirect header to the appropriate url:</p><div class="code_container">
 end
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-27'>▻</a>
-<h3 id="test-data"><a class="anchorlink" href="#test-data">5 Test Data</a></h3><p>Just about every Rails application interacts heavily with a database and,
+</section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-24'>▻</a></p>
+<h3 id="test-data">
+<a class="anchorlink" href="#test-data"></a>5 Test Data</h3><p>Just about every Rails application interacts heavily with a database and,
 as a result, your tests will need a database to interact with as well.
 To write efficient tests, you'll need to understand how to set up
 this database and populate it with sample data.</p><p>The database for each environment is configured in <code>config/database.yml</code>.</p><p>A dedicated test database allows you to set up and interact with test data in
 isolation. This way your tests can mangle test data with confidence,
-without worrying about the data in the development or production databases.</p></div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-28'>▻</a>
-<h4 id="maintaining-the-test-database-schema"><a class="anchorlink" href="#maintaining-the-test-database-schema">5.1 Maintaining the test database schema</a></h4><p>In order to run your tests, your test database will need to have the current
+without worrying about the data in the development or production databases.</p></section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-25'>▻</a></p>
+<h4 id="maintaining-the-test-database-schema">
+<a class="anchorlink" href="#maintaining-the-test-database-schema"></a>5.1 Maintaining the test database schema</h4><p>In order to run your tests, your test database will need to have the current
 structure. The test helper checks whether your test database has any pending
 migrations. If so, it will try to load <code>db/schema.rb</code>
 into the test database. If migrations are still pending, an error will be
 raised. Usually this indicates that your schema is not fully migrated. Running
 the migrations against the development database (<code>rails db:migrate</code>) will
 bring the schema up to date.</p><div class="note"><p>If existing migrations required modifications, the test database needs to
-be rebuilt. This can be done by executing <code>rails db:test:prepare</code>.</p></div></div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-29'>▻</a>
-<h4 id="test-data-with-fixtures"><a class="anchorlink" href="#test-data-with-fixtures">5.2 Test Data with Fixtures</a></h4><p>For good tests, you'll need to give some thought to setting up test data.
+be rebuilt. This can be done by executing <code>rails db:test:prepare</code>.</p></div></section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-26'>▻</a></p>
+<h4 id="test-data-with-fixtures">
+<a class="anchorlink" href="#test-data-with-fixtures"></a>5.2 Test Data with Fixtures</h4><p>For good tests, you'll need to give some thought to setting up test data.
 In Rails, the most simple way of doing this is by defining and customizing fixtures.
 Fixtures are database independent and written in YAML. There is one file per model.</p><p>You'll find fixtures under your <code>test/fixtures</code> directory. When you run
 <code>rails generate model</code> to create a new model,
-Rails automatically creates fixture stubs in this directory.</p></div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-30'>▻</a>
-<h5 id="yaml"><a class="anchorlink" href="#yaml">5.2.1 YAML</a></h5><p>YAML-formatted fixtures are a human-friendly way to describe
+Rails automatically creates fixture stubs in this directory.</p></section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-27'>▻</a></p>
+<h5 id="yaml">
+<a class="anchorlink" href="#yaml"></a>5.2.1 YAML</h5><p>YAML-formatted fixtures are a human-friendly way to describe
 your sample data. These types of fixtures have the <strong>.yml</strong> file extension (as in <code>users.yml</code>).</p><p>Here's a sample YAML fixture file:</p><div class="code_container">
 <pre><code class="highlight yaml"><span class="c1"># I am a YAML comment</span>
 <span class="na">david</span><span class="pi">:</span>
@@ -539,10 +532,11 @@ has a value of <code>about</code>. This tells Rails to load the
 category <code>about</code> found in <code>fixtures/categories.yml</code>.</p><div class="note"><p>Do not specify the <code>id:</code> attribute in fixtures.
 Rails will auto assign a primary key to be consistent between runs.
 For more information on this association behavior please read
-the <a href="https://edgeapi.rubyonrails.org/classes/ActiveRecord/FixtureSet.html">Fixtures API documentation</a>.</p></div></div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-31'>▻</a>
-<h5 id="fixtures-with-erb"><a class="anchorlink" href="#fixtures-with-erb">5.2.2 Fixtures with ERB</a></h5><p>ERB allows you to embed Ruby code. The YAML fixture format is pre-processed with
+the <a href="https://edgeapi.rubyonrails.org/classes/ActiveRecord/FixtureSet.html">Fixtures API documentation</a>.</p></div></section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-28'>▻</a></p>
+<h5 id="fixtures-with-erb">
+<a class="anchorlink" href="#fixtures-with-erb"></a>5.2.2 Fixtures with ERB</h5><p>ERB allows you to embed Ruby code. The YAML fixture format is pre-processed with
 ERB when Rails loads fixtures. This allows you to use Ruby to help you generate
 some sample data. For example, the following code generates a thousand users:</p><div class="code_container">
 <pre><code class="highlight erb"><span class="cp">&lt;%</span> <span class="mi">1000</span><span class="p">.</span><span class="nf">times</span> <span class="k">do</span> <span class="o">|</span><span class="n">n</span><span class="o">|</span> <span class="cp">%&gt;</span>
@@ -552,10 +546,11 @@ user_<span class="cp">&lt;%=</span> <span class="n">n</span> <span class="cp">%&
 <span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span>
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-32'>▻</a>
-<h5 id="using-fixtures-in-tests"><a class="anchorlink" href="#using-fixtures-in-tests">5.2.3 Using fixtures in Tests</a></h5><p>The data defined by the fixture files will be available
+</section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-29'>▻</a></p>
+<h5 id="using-fixtures-in-tests">
+<a class="anchorlink" href="#using-fixtures-in-tests"></a>5.2.3 Using fixtures in Tests</h5><p>The data defined by the fixture files will be available
 in your tests as Active Record objects. For example:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="c1"># in test/models/user_test.rb</span>
 <span class="c1"># the User object for the fixture named david</span>
@@ -573,10 +568,11 @@ in your tests as Active Record objects. For example:</p><div class="code_contain
 <span class="n">users</span><span class="p">(</span><span class="ss">:david</span><span class="p">,</span> <span class="ss">:steve</span><span class="p">)</span>
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-33'>▻</a>
-<h3 id="integration-tests"><a class="anchorlink" href="#integration-tests">6 Integration Tests</a></h3><p>Integration tests are used to test that the various parts of your application interact correctly to implement features. Integration tests do not include the client side.</p><p>Here is a first example of an integration test:</p><div class="code_container">
+</section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-30'>▻</a></p>
+<h3 id="integration-tests">
+<a class="anchorlink" href="#integration-tests"></a>6 Integration Tests</h3><p>Integration tests are used to test that the various parts of your application interact correctly to implement features. Integration tests do not include the client side.</p><p>Here is a first example of an integration test:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">PublicTest</span> <span class="o">&lt;</span> <span class="no">ActionDispatch</span><span class="o">::</span><span class="no">IntegrationTest</span>
   <span class="n">setup</span> <span class="k">do</span>
     <span class="vi">@course</span> <span class="o">=</span> <span class="n">courses</span><span class="p">(</span><span class="ss">:one</span><span class="p">)</span>
@@ -636,10 +632,11 @@ You can also access it directly as <code>document_root_element</code>.</p><p>Lea
 <li><a href="https://guides.rubyonrails.org/testing.html#integration-testing">Rails Guide on Testing</a></li>
 <li><a href="https://api.rubyonrails.org/v5.2.1/classes/ActionDispatch/IntegrationTest.html">Rails API Documentation ActionDispatch::IntegrationTest</a></li>
 </ul>
-</div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-34'>▻</a>
-<h3 id="system-tests-with-selenium-and-a-headless-browser"><a class="anchorlink" href="#system-tests-with-selenium-and-a-headless-browser">7 System Tests with Selenium and a headless Browser</a></h3><p>System test are used to test that the various parts of your application interact correctly
+</section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-31'>▻</a></p>
+<h3 id="system-tests-with-selenium-and-a-headless-browser">
+<a class="anchorlink" href="#system-tests-with-selenium-and-a-headless-browser"></a>7 System Tests with Selenium and a headless Browser</h3><p>System test are used to test that the various parts of your application interact correctly
 to implement features. You can use a real browser to test your app, including the client side javascript.</p><p>Rails 5 comes
 with built in system tests. These
 are stored in the folder <code>test/system/</code></p><p>These tests take a lot more time to run than the unit test
@@ -679,10 +676,11 @@ brew install chromedriver # for chrome
 <span class="k">end</span>
 </code></pre>
 </div>
-<p><code>visit</code> is capybaras method for making a HTTP request just as the browser would.</p></div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-35'>▻</a>
-<h5 id="testing-a-form"><a class="anchorlink" href="#testing-a-form">7.1 Testing a form</a></h5><p>System tests are black box tests: we only interact with the
+<p><code>visit</code> is capybaras method for making a HTTP request just as the browser would.</p></section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-32'>▻</a></p>
+<h5 id="testing-a-form">
+<a class="anchorlink" href="#testing-a-form"></a>7.1 Testing a form</h5><p>System tests are black box tests: we only interact with the
 app through the web browser, and have no "inside knowledge" about the app.</p><p>Some helper methods:</p><div class="code_container">
 <pre><code class="highlight plaintext">click_link('id-of-link')
 click_link('Link Text')
@@ -715,10 +713,11 @@ assert_checked_field('newsletter')
 assert_link('more')
 </code></pre>
 </div>
-</div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-36'>▻</a>
-<h5 id="testing-javascript"><a class="anchorlink" href="#testing-javascript">7.1.1 Testing Javascript</a></h5><p>Testing with an embedded browser like webkit makes
+</section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-33'>▻</a></p>
+<h5 id="testing-javascript">
+<a class="anchorlink" href="#testing-javascript"></a>7.1.1 Testing Javascript</h5><p>Testing with an embedded browser like webkit makes
 it possible to test javascript and AJAX behaviour.</p><div class="code_container">
 <pre><code class="highlight plaintext">test "page contains text generated by JavaScript" do
   Capybara.current_driver = Capybara.javascript_driver
@@ -737,10 +736,11 @@ You can save a screenshot to a file automatically:</p><div class="code_container
 to see if anything was written to the javascript console.
 The console is available through <code>page.driver.console_messages</code>.
 But it is probably best not to write tests that expect certain
-console output.</p></div>
-<div class='slide'>
-<a class='slide_break' href='testing.html#slide-37'>▻</a>
-<h3 id="further-reading"><a class="anchorlink" href="#further-reading">8 Further Reading</a></h3>
+console output.</p></section>
+<section>
+<p><a class='slide_break' href='testing.html#slide-34'>▻</a></p>
+<h3 id="further-reading">
+<a class="anchorlink" href="#further-reading"></a>8 Further Reading</h3>
 <ul>
 <li><a href="https://github.com/hamcrest/ramcrest">better assertion with ramcrest</a></li>
 <li>
@@ -748,56 +748,32 @@ console output.</p></div>
 <li><a href="https://edgeapi.rubyonrails.org/classes/ActiveRecord/FixtureSet.html">Fixtures API documentation</a></li>
 <li><a href="https://news.ycombinator.com/item?id=17233371">Observations running 2M headless Chrome sessions</a></li>
 </ul>
-</div>
+</section>
+      </div>
     </div>
     <!-- End slides. -->
-    <!-- Begin extension snippets. Add or remove as needed. -->
-    <!-- deck.navigation snippet -->
-    <div aria-role="navigation">
-        <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
-        <a href="#" class="deck-next-link" title="Next">&#8594;</a>
-    </div>
-    <!-- deck.status snippet -->
-    <p class="deck-status" aria-role="status">
-        <span class="deck-status-current"></span>
-        /
-        <span class="deck-status-total"></span>
-    </p>
-    <!-- deck.goto snippet -->
-    <form action="." method="get" class="goto-form">
-        <label for="goto-slide">Go to slide:</label>
-        <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
-        <datalist id="goto-datalist"></datalist>
-        <input type="submit" value="Go">
-    </form>
-    <!-- End extension snippets. -->
     <!-- Required JS files. -->
-    <script src="javascripts/jquery.min.js"></script>
-    <script src="javascripts/deck.core.js"></script>
-    <!-- Extension JS files. Add or remove as needed. -->
-    <script src="javascripts/deck.menu.js"></script>
-    <script src="javascripts/deck.goto.js"></script>
-    <script src="javascripts/deck.status.js"></script>
-    <script src="javascripts/deck.navigation.js"></script>
-    <script src="javascripts/deck.escape.js"></script>
+		<script src="javascripts/reveal.js"></script>
+		<script src="javascripts/search.js"></script>
+		<script src="javascripts/markdown.js"></script>
 
-    <!-- Initialize the deck. You can put this in an external file if desired. -->
     <script>
-    $(function() {
-      $.deck('.slide');
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+
+      keyboard: {
+        27: () => { console.log('esc') }, // do something custom when ESC is pressed
+        13: 'next', // go to the next slide when the ENTER key is pressed
+      },
+
+      // Learn about plugins: https://revealjs.com/plugins/
+      plugins: [ RevealSearch, RevealMarkdown ]  // RevealHighlight
     });
-
-    var $d = $(document);    
-
-    $d.bind('deck.change', function(event, from, to) {
-      // console.log('Moving from slide ' + from + ' to ' + to);
-    });   
-    $d.bind('deck.beforeInit', function() {
-      // console.log('Deck.beforeInit. hash is ' + document.location.hash);
-    });     
-    $d.bind('deck.init', function() {
-      // console.log('Deck.init is done. hash was ' + document.location.hash);
-    }); 
     </script>
 </body>
 

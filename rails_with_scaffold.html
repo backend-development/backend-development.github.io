@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Backend Development Textbook</title>
-  <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+  <title>Rails with Scaffold — Backend Development</title>
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/code.css">
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css">
 
-  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
   <style>
 
     .slide img[src$=svg] {
@@ -46,7 +47,7 @@
         <li class="guides-index guides-index-large">
           <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
           <div id="guides" class="clearfix" style="display: none;">
-            <hr />
+            <hr>
               <dl class="L">
                 <dt>Ruby on Rails</dt>
                 <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
@@ -89,11 +90,11 @@
     </div>
   </div>
 
-  <hr class="hide" />
+  <hr class="hide">
 
   <div id="feature">
     <div class="wrapper">
-      <h2 id="preheader">no heading</h2>
+      <h2 id="preheader">Rails with Scaffold</h2>
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <ol class="chapters">
@@ -123,7 +124,15 @@
           </div>
 
       <div class="rest_header">
-        
+        <h2>Rails with Scaffold</h2><p>We will build our first rails project but we will not really understand
+everything - that comes later.</p><p>After finishing this guide you will</p>
+<ul>
+<li>have finished your first rails project</li>
+<li>know how to use the scaffold generator</li>
+<li>know about the main folders of a rails project: <code>config</code>, <code>db</code>, <code>app</code></li>
+<li>have an overview of what model, view, controller (MVC) means in rails</li>
+</ul>
+
       </div>
     </div>
   </div>
@@ -132,28 +141,12 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <div class='slide'><a id='slide-0'></a>
+        <div class='slide'>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-1' href='slides_rails_with_scaffold.html#slide-1'>▻</a>
-<h2>Rails with Scaffold</h2><p>We will build our first rails project but we will not really understand
-everything - that comes later.</p><p>After finishing this guide you will</p>
-<ul>
-<li>have finished your first rails project</li>
-<li>know how to use the scaffold generator</li>
-<li>know about the main folders of a rails project: <code>config</code>, <code>db</code>, <code>app</code>
-</li>
-<li>have an overview of what model, view, controller (MVC) means in rails</li>
-</ul>
-
-</div>
-<div class='slide'>
-<a class='slide_break' id='slide-2' href='slides_rails_with_scaffold.html#slide-2'>▻</a>
-<hr>
-</div>
-<div class='slide'>
-<a class='slide_break' id='slide-3' href='slides_rails_with_scaffold.html#slide-3'>▻</a>
-<h3 id="rails-from-the-outside-in"><a class="anchorlink" href="#rails-from-the-outside-in">1 Rails from the Outside In</a></h3><p>Let's look at a fairly complex web application - the course
+<a class='slide_break' id='slide-0' href='slides_rails_with_scaffold.html#/0'>▻</a>
+<h3 id="rails-from-the-outside-in">
+<a class="anchorlink" href="#rails-from-the-outside-in"></a>1 Rails from the Outside In</h3><p>Let's look at a fairly complex web application - the course
 management system for a university. How would the code for this
 app be organized, if it is written in Ruby on Rails?</p><p>The course management system surely deals with courses in some
 way.</p><p>Rails is organized along the distinction of model - view - controller (MVC).
@@ -186,8 +179,9 @@ it will make your work as a programmer a lot easier.
 And you will profit from this convention
 every time you look at a new project - you'll instantly know your way around.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-4' href='slides_rails_with_scaffold.html#slide-4'>▻</a>
-<h4 id="start-a-rails-project"><a class="anchorlink" href="#start-a-rails-project">1.1 Start a Rails Project</a></h4><p>Before you can start your first rails project you have
+<a class='slide_break' id='slide-1' href='slides_rails_with_scaffold.html#/1'>▻</a>
+<h4 id="start-a-rails-project">
+<a class="anchorlink" href="#start-a-rails-project"></a>1.1 Start a Rails Project</h4><p>Before you can start your first rails project you have
 to install ruby and the rails gem on your computer.</p><p>A word of warning: Ruby and Rails will work on any Unix, including Mac OS.
 To use them on a windows system you need a lot more patience and troubleshooting
 ability. So if you are a windows user you might consider running
@@ -213,8 +207,9 @@ This will try to look up gems on the internet - if you are not connected
 to the internet you will be stuck here. You could try <code>bundle install --local</code> instead,
 that might help if the gems are installed on your computer already.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-5' href='slides_rails_with_scaffold.html#slide-5'>▻</a>
-<h4 id="rails-directory-structure"><a class="anchorlink" href="#rails-directory-structure">1.2 Rails Directory Structure</a></h4><p>Rails will create a directory structure and about 40 files for you.
+<a class='slide_break' id='slide-2' href='slides_rails_with_scaffold.html#/2'>▻</a>
+<h4 id="rails-directory-structure">
+<a class="anchorlink" href="#rails-directory-structure"></a>1.2 Rails Directory Structure</h4><p>Rails will create a directory structure and about 40 files for you.
 Let's start to look at a few of them:</p>
 <ul>
 <li>
@@ -249,8 +244,9 @@ to haven an editor that not only helps you edit a single file, but that
 will also display the directories and files. For example vim with NERDtree
 or submline or RubyMine:</p><p><img src="images/directory-structure-editors.png" alt="Screenshot of editor vim with NERDtree and rubymine"></p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-6' href='slides_rails_with_scaffold.html#slide-6'>▻</a>
-<h4 id="start-the-webserver"><a class="anchorlink" href="#start-the-webserver">1.3 Start the Webserver</a></h4><p>Rails comes with a tiny webserver called <code>puma</code>. You start
+<a class='slide_break' id='slide-3' href='slides_rails_with_scaffold.html#/3'>▻</a>
+<h4 id="start-the-webserver">
+<a class="anchorlink" href="#start-the-webserver"></a>1.3 Start the Webserver</h4><p>Rails comes with a tiny webserver called <code>puma</code>. You start
 it in your terminal window (and then you need another window to go on working)</p><div class="code_container">
 <pre><code class="highlight sh"><span class="nv">$ </span><span class="nb">rails </span>server
 </code></pre>
@@ -259,8 +255,9 @@ it in your terminal window (and then you need another window to go on working)</
 webpage of your app. It's just a dummy page that will vanish once
 you add your own pages.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-7' href='slides_rails_with_scaffold.html#slide-7'>▻</a>
-<h3 id="make-it-a-git-repository"><a class="anchorlink" href="#make-it-a-git-repository">2 Make it a Git Repository</a></h3><p>A new rails project is already prepared to be turned
+<a class='slide_break' id='slide-4' href='slides_rails_with_scaffold.html#/4'>▻</a>
+<h3 id="make-it-a-git-repository">
+<a class="anchorlink" href="#make-it-a-git-repository"></a>2 Make it a Git Repository</h3><p>A new rails project is already prepared to be turned
 into a git repository: there is a <code>.gitignore</code> file in the main
 folder. (If you are using rubymine you could add <code>/.idea</code> to
 your <code>.gitignore</code> - that's the directory where rubymine stores
@@ -282,8 +279,9 @@ Initialized empty Git repository <span class="k">in</span> /Developer/alljokes/.
 <p>From now on you should <code>commit</code> your changes after every
 finished step of programming.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-8' href='slides_rails_with_scaffold.html#slide-8'>▻</a>
-<h3 id="scaffold"><a class="anchorlink" href="#scaffold">3 Scaffold</a></h3><p>A scaffold helps you build something. In Rails a scaffold
+<a class='slide_break' id='slide-5' href='slides_rails_with_scaffold.html#/5'>▻</a>
+<h3 id="scaffold">
+<a class="anchorlink" href="#scaffold"></a>3 Scaffold</h3><p>A scaffold helps you build something. In Rails a scaffold
 helps you generate code according to the conventions.</p><p>In our application we want to store jokes. Let's generate
 the scaffold for that: We want a model called <code>joke</code> with
 two attributes: a (short) title and a (longer) fulltext.</p><p>When we call the scaffold generator on the commandline
@@ -298,8 +296,9 @@ of the attributes. short strings / varchars do not need a type at all.</p><div c
 <p>This will generate about 30 lines of output, and create 15 new files.
 We will work through the files we need step by step:</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-9' href='slides_rails_with_scaffold.html#slide-9'>▻</a>
-<h4 id="migration"><a class="anchorlink" href="#migration">3.1 Migration</a></h4><p>The first file we have to look at is stored in <code>db/migrate</code>. The filename
+<a class='slide_break' id='slide-6' href='slides_rails_with_scaffold.html#/6'>▻</a>
+<h4 id="migration">
+<a class="anchorlink" href="#migration"></a>3.1 Migration</h4><p>The first file we have to look at is stored in <code>db/migrate</code>. The filename
 will be different from the one shown above, because it contains a timestamp.</p><p>Inside the file you will find</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">CreateJokes</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span><span class="p">[</span><span class="mf">5.0</span><span class="p">]</span>
   <span class="k">def</span> <span class="nf">change</span>
@@ -331,8 +330,9 @@ typing in <code>rails db:migrate</code> on the command line:</p><div class="code
 database schema into <code>db/schema.rb</code> and created a two extra tables
 <code>schema_migrations</code> and <code>ar_internal_metadata</code>.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-10' href='slides_rails_with_scaffold.html#slide-10'>▻</a>
-<h4 id="use-your-app"><a class="anchorlink" href="#use-your-app">3.2 Use your app</a></h4><p>After running the migration your app is ready to be used:
+<a class='slide_break' id='slide-7' href='slides_rails_with_scaffold.html#/7'>▻</a>
+<h4 id="use-your-app">
+<a class="anchorlink" href="#use-your-app"></a>3.2 Use your app</h4><p>After running the migration your app is ready to be used:
 point your browser at <code>http://localhost:3000/jokes/</code> to start.</p><p>The scaffold generated four webpages that you can visit, to
 list, show, create, edit and destroy jokes:</p><p><img src="images/scaffold-with-arrows.png?viewbox=0;0;900;820" alt="webpages created by the scaffold"></p>
 <ul>
@@ -347,8 +347,9 @@ list, show, create, edit and destroy jokes:</p><p><img src="images/scaffold-with
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-11' href='slides_rails_with_scaffold.html#slide-11'>▻</a>
-<h4 id="view"><a class="anchorlink" href="#view">3.3 View</a></h4><p>You can find the views that correspond to the webpages in <code>app/views/jokes</code>. Try to add a bit
+<a class='slide_break' id='slide-8' href='slides_rails_with_scaffold.html#/8'>▻</a>
+<h4 id="view">
+<a class="anchorlink" href="#view"></a>3.3 View</h4><p>You can find the views that correspond to the webpages in <code>app/views/jokes</code>. Try to add a bit
 of html to the following two views:</p>
 <ul>
 <li>
@@ -358,8 +359,9 @@ of html to the following two views:</p>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-12' href='slides_rails_with_scaffold.html#slide-12'>▻</a>
-<h4 id="model"><a class="anchorlink" href="#model">3.4 Model</a></h4><p>The model is stored in <code>app/models</code>. Add the following validation:</p><div class="code_container">
+<a class='slide_break' id='slide-9' href='slides_rails_with_scaffold.html#/9'>▻</a>
+<h4 id="model">
+<a class="anchorlink" href="#model"></a>3.4 Model</h4><p>The model is stored in <code>app/models</code>. Add the following validation:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">Joke</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
   <span class="n">validates</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">presence: </span><span class="kp">true</span>
 <span class="k">end</span>
@@ -368,8 +370,9 @@ of html to the following two views:</p>
 <p>This tell the model not only accept jokes that have a title.</p><p>Now try to enter a new joke without a title, you should get a
 error message:</p><p><img src="images/error-validation.png" alt="Error message caused by unfullfilled validation"></p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-13' href='slides_rails_with_scaffold.html#slide-13'>▻</a>
-<h4 id="summary"><a class="anchorlink" href="#summary">3.5 Summary</a></h4><p>We built a first rails app and ran it locally on our own machine.
+<a class='slide_break' id='slide-10' href='slides_rails_with_scaffold.html#/10'>▻</a>
+<h4 id="summary">
+<a class="anchorlink" href="#summary"></a>3.5 Summary</h4><p>We built a first rails app and ran it locally on our own machine.
 You should now have an overview over the most important files
 and a first impression of ruby code (used in controllers, models)
 and embedded ruby (erb) used in the views.</p><p>Congratulations on your first step!</p></div>
@@ -377,7 +380,7 @@ and embedded ruby (erb) used in the views.</p><p>Congratulations on your first s
     </div>
   </div>
 
-  <hr class="hide" />
+  <hr class="hide">
   <div id="footer">
     <div class="wrapper">
       <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2023 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
@@ -388,14 +391,5 @@ and embedded ruby (erb) used in the views.</p><p>Congratulations on your first s
 
   <script src="javascripts/jquery.min.js"></script>
   <script src="javascripts/guides.js"></script>
-  <script>
-    SyntaxHighlighter.all()
-    $(guidesIndex.bind);
-    $(document).ready(function(){
-      let hash = document.location.hash;
-      if(! hash) return;
-      document.getElementById(hash.substr(1)).scrollIntoView(true);
-    })
-  </script>
   </body>
 </html>

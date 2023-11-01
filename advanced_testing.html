@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Backend Development Textbook</title>
-  <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+  <title>Advanced Testing — Backend Development</title>
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/code.css">
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css">
 
-  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
   <style>
 
     .slide img[src$=svg] {
@@ -46,7 +47,7 @@
         <li class="guides-index guides-index-large">
           <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
           <div id="guides" class="clearfix" style="display: none;">
-            <hr />
+            <hr>
               <dl class="L">
                 <dt>Ruby on Rails</dt>
                 <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
@@ -89,11 +90,11 @@
     </div>
   </div>
 
-  <hr class="hide" />
+  <hr class="hide">
 
   <div id="feature">
     <div class="wrapper">
-      <h2 id="preheader">no heading</h2>
+      <h2 id="preheader">Advanced Testing</h2>
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <ol class="chapters">
@@ -138,20 +139,7 @@
           </div>
 
       <div class="rest_header">
-        
-      </div>
-    </div>
-  </div>
-
-
-  <div id="container">
-    <div class="wrapper">
-      <div id="mainCol">
-        <div class='slide'><a id='slide-0'></a>
-</div>
-<div class='slide'>
-<a class='slide_break' id='slide-1' href='slides_advanced_testing.html#slide-1'>▻</a>
-<h2>Advanced Testing</h2><p>This guide will show you new ways of testing.
+        <h2>Advanced Testing</h2><p>This guide will show you new ways of testing.
 By referring to this guide, you will be able to:</p>
 <ul>
 <li>Understand test doubles</li>
@@ -162,14 +150,20 @@ By referring to this guide, you will be able to:</p>
 <li>Test the javascript frontend of your app</li>
 </ul>
 
+      </div>
+    </div>
+  </div>
+
+
+  <div id="container">
+    <div class="wrapper">
+      <div id="mainCol">
+        <div class='slide'>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-2' href='slides_advanced_testing.html#slide-2'>▻</a>
-<hr>
-</div>
-<div class='slide'>
-<a class='slide_break' id='slide-3' href='slides_advanced_testing.html#slide-3'>▻</a>
-<h3 id="rspec"><a class="anchorlink" href="#rspec">1 rspec</a></h3><p>Rspec is the second testing framework that is commonly used
+<a class='slide_break' id='slide-0' href='slides_advanced_testing.html#/0'>▻</a>
+<h3 id="rspec">
+<a class="anchorlink" href="#rspec"></a>1 rspec</h3><p>Rspec is the second testing framework that is commonly used
 with Ruby on Rails projects. According to <a href="https://www.ruby-toolbox.com/categories/testing_frameworks">ruby-toolbox.com</a>
 it is used more often than the (built in) Minitest.</p><p>Rspec replaces minitest in all aspects of rails, including in scaffolds.</p><p>The first things you hav to know to get started:</p>
 <ul>
@@ -180,8 +174,9 @@ it is used more often than the (built in) Minitest.</p><p>Rspec replaces minites
 </ul>
 <p>(yes, sometimes you need the <code>r</code> in rspec, and other times you leave it out.)</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-4' href='slides_advanced_testing.html#slide-4'>▻</a>
-<h4 id="a-simple-spec"><a class="anchorlink" href="#a-simple-spec">1.1 A simple spec</a></h4><p>A file can contain multiple test. You use <code>describe</code> and <code>it</code> to
+<a class='slide_break' id='slide-1' href='slides_advanced_testing.html#/1'>▻</a>
+<h4 id="a-simple-spec">
+<a class="anchorlink" href="#a-simple-spec"></a>1.1 A simple spec</h4><p>A file can contain multiple test. You use <code>describe</code> and <code>it</code> to
 structure the file. The arguments for <code>describe</code> and <code>it</code> are
 used to describe the test in case of failure:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">describe</span> <span class="no">Game</span> <span class="k">do</span>
@@ -227,8 +222,9 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-5' href='slides_advanced_testing.html#slide-5'>▻</a>
-<h4 id="example-model-spec"><a class="anchorlink" href="#example-model-spec">1.2 Example Model Spec</a></h4><div class="code_container">
+<a class='slide_break' id='slide-2' href='slides_advanced_testing.html#/2'>▻</a>
+<h4 id="example-model-spec">
+<a class="anchorlink" href="#example-model-spec"></a>1.2 Example Model Spec</h4><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">describe</span> <span class="no">Post</span> <span class="k">do</span>
   <span class="n">context</span> <span class="s2">"with 2 or more comments"</span> <span class="k">do</span>
     <span class="n">it</span> <span class="s2">"orders them in reverse chronologically"</span> <span class="k">do</span>
@@ -243,8 +239,9 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-6' href='slides_advanced_testing.html#slide-6'>▻</a>
-<h4 id="example-feature-spec"><a class="anchorlink" href="#example-feature-spec">1.3 Example Feature Spec</a></h4><div class="code_container">
+<a class='slide_break' id='slide-3' href='slides_advanced_testing.html#/3'>▻</a>
+<h4 id="example-feature-spec">
+<a class="anchorlink" href="#example-feature-spec"></a>1.3 Example Feature Spec</h4><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">feature</span> <span class="s2">"Widget management"</span> <span class="k">do</span>
   <span class="n">scenario</span> <span class="s2">"User creates a new widget"</span> <span class="k">do</span>
     <span class="n">visit</span> <span class="s2">"/widgets/new"</span>
@@ -257,8 +254,9 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-7' href='slides_advanced_testing.html#slide-7'>▻</a>
-<h4 id="kinds-of-tests"><a class="anchorlink" href="#kinds-of-tests">1.4 Kinds of Tests</a></h4>
+<a class='slide_break' id='slide-4' href='slides_advanced_testing.html#/4'>▻</a>
+<h4 id="kinds-of-tests">
+<a class="anchorlink" href="#kinds-of-tests"></a>1.4 Kinds of Tests</h4>
 <ul>
 <li>Model specs</li>
 <li>Controller specs</li>
@@ -271,11 +269,13 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-8' href='slides_advanced_testing.html#slide-8'>▻</a>
-<h3 id="cucumber"><a class="anchorlink" href="#cucumber">2 Cucumber</a></h3><p><img src="images/cucumber-1.png" alt=""></p><p><img src="images/cucumber-2.png" alt=""></p></div>
+<a class='slide_break' id='slide-5' href='slides_advanced_testing.html#/5'>▻</a>
+<h3 id="cucumber">
+<a class="anchorlink" href="#cucumber"></a>2 Cucumber</h3><p><img src="images/cucumber-1.png" alt=""></p><p><img src="images/cucumber-2.png" alt=""></p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-9' href='slides_advanced_testing.html#slide-9'>▻</a>
-<h4 id="step-definitions"><a class="anchorlink" href="#step-definitions">2.1 Step Definitions</a></h4><p>the magic behind cucumber:</p><div class="code_container">
+<a class='slide_break' id='slide-6' href='slides_advanced_testing.html#/6'>▻</a>
+<h4 id="step-definitions">
+<a class="anchorlink" href="#step-definitions"></a>2.1 Step Definitions</h4><p>the magic behind cucumber:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="no">Given</span> <span class="sr">/the following movies exist/</span> <span class="k">do</span> <span class="o">|</span><span class="n">movies_table</span><span class="o">|</span>
   <span class="n">movies_table</span><span class="p">.</span><span class="nf">hashes</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">movie</span><span class="o">|</span>
     <span class="no">Movie</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span> <span class="n">movie</span> <span class="p">)</span>
@@ -290,8 +290,9 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-10' href='slides_advanced_testing.html#slide-10'>▻</a>
-<h3 id="test-doubles"><a class="anchorlink" href="#test-doubles">3 Test Doubles</a></h3><p>According to Meszaros(2007)</p>
+<a class='slide_break' id='slide-7' href='slides_advanced_testing.html#/7'>▻</a>
+<h3 id="test-doubles">
+<a class="anchorlink" href="#test-doubles"></a>3 Test Doubles</h3><p>According to Meszaros(2007)</p>
 <ul>
 <li>
 <strong>Test stub</strong> provide canned answers to calls made during the test</li>
@@ -304,11 +305,13 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-11' href='slides_advanced_testing.html#slide-11'>▻</a>
-<h3 id="testing-web-servcies"><a class="anchorlink" href="#testing-web-servcies">4 Testing Web Servcies</a></h3><p>VCR</p></div>
+<a class='slide_break' id='slide-8' href='slides_advanced_testing.html#/8'>▻</a>
+<h3 id="testing-web-servcies">
+<a class="anchorlink" href="#testing-web-servcies"></a>4 Testing Web Servcies</h3><p>VCR</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-12' href='slides_advanced_testing.html#slide-12'>▻</a>
-<h3 id="testing-time"><a class="anchorlink" href="#testing-time">5 Testing Time</a></h3><div class="code_container">
+<a class='slide_break' id='slide-9' href='slides_advanced_testing.html#/9'>▻</a>
+<h3 id="testing-time">
+<a class="anchorlink" href="#testing-time"></a>5 Testing Time</h3><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">describe</span> <span class="s2">"sets done_at"</span> <span class="k">do</span>
   <span class="n">t</span> <span class="o">=</span> <span class="no">Todoitem</span><span class="p">.</span><span class="nf">create!</span><span class="p">(</span> <span class="ss">:text</span> <span class="o">=&gt;</span> <span class="s2">"write"</span> <span class="p">)</span>
   <span class="n">t</span><span class="p">.</span><span class="nf">done</span> <span class="o">=</span> <span class="kp">true</span>
@@ -320,8 +323,9 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 </div>
 <p><img src="images/timefail-1.png" alt="time fail"></p><p><img src="images/timefail-2.png" alt="time fail"></p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-13' href='slides_advanced_testing.html#slide-13'>▻</a>
-<h4 id="first-solution-write-your-own-matcher"><a class="anchorlink" href="#first-solution-write-your-own-matcher">5.1 First solution: write your own matcher:</a></h4><div class="code_container">
+<a class='slide_break' id='slide-10' href='slides_advanced_testing.html#/10'>▻</a>
+<h4 id="first-solution-write-your-own-matcher">
+<a class="anchorlink" href="#first-solution-write-your-own-matcher"></a>5.1 First solution: write your own matcher:</h4><div class="code_container">
 <pre><code class="highlight ruby"><span class="c1"># in your test:</span>
 <span class="n">t</span><span class="p">.</span><span class="nf">done_at</span><span class="p">.</span><span class="nf">should</span> <span class="n">be_the_same_time_as</span><span class="p">(</span> <span class="no">Time</span><span class="p">.</span><span class="nf">zone</span><span class="p">.</span><span class="nf">now</span> <span class="p">)</span>
 
@@ -338,8 +342,9 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 </div>
 <p><img src="images/timefail-3.png" alt=""></p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-14' href='slides_advanced_testing.html#slide-14'>▻</a>
-<h4 id="second-solution-timecop"><a class="anchorlink" href="#second-solution-timecop">5.2 Second Solution: Timecop</a></h4><div class="code_container">
+<a class='slide_break' id='slide-11' href='slides_advanced_testing.html#/11'>▻</a>
+<h4 id="second-solution-timecop">
+<a class="anchorlink" href="#second-solution-timecop"></a>5.2 Second Solution: Timecop</h4><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">it</span> <span class="s2">"sets done_at"</span> <span class="k">do</span>
     <span class="n">t</span> <span class="o">=</span> <span class="no">Todoitem</span><span class="p">.</span><span class="nf">create!</span><span class="p">(</span> <span class="ss">:text</span> <span class="o">=&gt;</span> <span class="s2">"write"</span> <span class="p">)</span>
        <span class="no">Timecop</span><span class="p">.</span><span class="nf">freeze</span> <span class="k">do</span>
@@ -353,11 +358,13 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-15' href='slides_advanced_testing.html#slide-15'>▻</a>
-<h3 id="testing-javascript"><a class="anchorlink" href="#testing-javascript">6 Testing Javascript</a></h3><p><img src="images/jasmine.png" alt=""></p><p><img src="images/phantomjs.png" alt=""></p></div>
+<a class='slide_break' id='slide-12' href='slides_advanced_testing.html#/12'>▻</a>
+<h3 id="testing-javascript">
+<a class="anchorlink" href="#testing-javascript"></a>6 Testing Javascript</h3><p><img src="images/jasmine.png" alt=""></p><p><img src="images/phantomjs.png" alt=""></p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-16' href='slides_advanced_testing.html#slide-16'>▻</a>
-<h4 id="phantom-example"><a class="anchorlink" href="#phantom-example">6.1 Phantom Example</a></h4><div class="code_container">
+<a class='slide_break' id='slide-13' href='slides_advanced_testing.html#/13'>▻</a>
+<h4 id="phantom-example">
+<a class="anchorlink" href="#phantom-example"></a>6.1 Phantom Example</h4><div class="code_container">
 <pre><code class="highlight javascript"><span class="kd">var</span> <span class="nx">page</span><span class="p">;</span>
 <span class="nx">page</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">webpage</span><span class="dl">"</span><span class="p">).</span><span class="nx">create</span><span class="p">();</span>
 <span class="nx">page</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">"</span><span class="s2">http://localhost:3000</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">status</span><span class="p">)</span> <span class="p">{</span>
@@ -385,16 +392,18 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-17' href='slides_advanced_testing.html#slide-17'>▻</a>
-<h4 id="phantom-in-rspec"><a class="anchorlink" href="#phantom-in-rspec">6.2 Phantom in rspec</a></h4><p>with capybara and poltergeist</p></div>
+<a class='slide_break' id='slide-14' href='slides_advanced_testing.html#/14'>▻</a>
+<h4 id="phantom-in-rspec">
+<a class="anchorlink" href="#phantom-in-rspec"></a>6.2 Phantom in rspec</h4><p>with capybara and poltergeist</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-18' href='slides_advanced_testing.html#slide-18'>▻</a>
-<h3 id="example-app"><a class="anchorlink" href="#example-app">7 Example App</a></h3><p>Clone <a href="https://github.com/web-engineering/rails-example-test-the-todo">this app</a> and try out your new testing strategies!</p><p><img src="images/sample-app-todolist.png" alt="screenshot example app"></p></div>
+<a class='slide_break' id='slide-15' href='slides_advanced_testing.html#/15'>▻</a>
+<h3 id="example-app">
+<a class="anchorlink" href="#example-app"></a>7 Example App</h3><p>Clone <a href="https://github.com/web-engineering/rails-example-test-the-todo">this app</a> and try out your new testing strategies!</p><p><img src="images/sample-app-todolist.png" alt="screenshot example app"></p></div>
       </div>
     </div>
   </div>
 
-  <hr class="hide" />
+  <hr class="hide">
   <div id="footer">
     <div class="wrapper">
       <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2023 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
@@ -405,14 +414,5 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 
   <script src="javascripts/jquery.min.js"></script>
   <script src="javascripts/guides.js"></script>
-  <script>
-    SyntaxHighlighter.all()
-    $(guidesIndex.bind);
-    $(document).ready(function(){
-      let hash = document.location.hash;
-      if(! hash) return;
-      document.getElementById(hash.substr(1)).scrollIntoView(true);
-    })
-  </script>
   </body>
 </html>

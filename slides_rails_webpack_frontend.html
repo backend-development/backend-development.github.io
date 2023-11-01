@@ -3,123 +3,76 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=1024, user-scalable=no">
+
     <title>Slides for
-        Backend Development Textbook
+        Building the Frontend with webpacker — Backend Development
     </title>
-    <!-- Required stylesheet -->
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
-    <!-- Extension CSS files go here. Remove or add as needed. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
-    <!-- Style theme. More available in /themes/style/ or create your own. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
-    <!-- Transition theme. More available in /themes/transition/ or create your own. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
-    <!-- syntax highlighter -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Basic black and white print styles -->
-    <link rel="stylesheet" media="print" href="stylesheets/print.css">
-    <!-- Required Modernizr file -->
-    <script src="javascripts/modernizr.custom.js"></script>
+		<link rel="stylesheet" href="stylesheets/reset.css">
+		<link rel="stylesheet" href="stylesheets/reveal.css">
+		<link rel="stylesheet" href="stylesheets/myslide.css" id="theme">
+    <link rel="stylesheet" href="stylesheets/code.css">
+
 </head>
 
 <body>
-    <div class="deck-container">
-        <div class='slide'>
-</div>
-<div class='slide'>
-<a class='slide_break' href='rails_webpack_frontend.html#slide-1'>▻</a>
-<h2>Building the Frontend with webpacker</h2><p>While the asset pipeline is rails' traditional way of preparing
-files for the frontend, in recent years a completely
-different toolchain was developed in the frontend community.</p><p>In this guide you will learn how to integrate webpack
-and a current frontend framework with your rails app.
-You will be able to:</p>
-<ul>
-<li>use webpack to prepare your javascript files</li>
-<li>use a framework like svelte, angular, react</li>
-</ul>
-
-</div>
-<div class='slide'>
-<a class='slide_break' href='rails_webpack_frontend.html#slide-2'>▻</a>
-<hr>
-</div>
-<div class='slide'>
-<a class='slide_break' href='rails_webpack_frontend.html#slide-3'>▻</a>
-<h3 id="frontend-pipelines"><a class="anchorlink" href="#frontend-pipelines">1 Frontend Pipelines</a></h3><p>When the rails asset pipeline was published with Rails 3.1 in 2011, node.js
-was only 2 years old and version 1.0 of npm was just released.<br>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+<p><a class='slide_break' href='rails_webpack_frontend.html#slide-0'>▻</a></p>
+<h3 id="frontend-pipelines">
+<a class="anchorlink" href="#frontend-pipelines"></a>1 Frontend Pipelines</h3><p>When the rails asset pipeline was published with Rails 3.1 in 2011, node.js
+was only 2 years old and version 1.0 of npm was just released.
 In the years since, the frontend community developed, released (and dropped) a lot of new tools: bower, grunt, gulp, yarn, webpack.</p><p>Since Rails 5.1 the webpacker gem is officialy part of Rails. It integrates webpack
 into rails, and makes developing with svelte, react, vue, angular or other frontend frameworks
 easy.</p><p>Webpacker coexists with the asset pipeline. You can start using webpacker for
 certain aspects of your Rails app, for example just one page with very complex, UI,
-and still continue using the asset pipeline for the rest.</p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_webpack_frontend.html#slide-4'>▻</a>
-<h3 id="files"><a class="anchorlink" href="#files">2 Files</a></h3><p>Webpacker creates a new folder <code>app/javascript</code> and a folder structure.</p><p>The folder <code>app/javascript/packs</code> is reserved for
+and still continue using the asset pipeline for the rest.</p></section>
+<section>
+<p><a class='slide_break' href='rails_webpack_frontend.html#slide-1'>▻</a></p>
+<h3 id="files">
+<a class="anchorlink" href="#files"></a>2 Files</h3><p>Webpacker creates a new folder <code>app/javascript</code> and a folder structure.</p><p>The folder <code>app/javascript/packs</code> is reserved for
 webpack entry files, with
 <code>app/javascript/packs/application.js</code> being the default file.</p><p><img src="images/javascript-folder.png" alt=""></p><p>The bundle created by webpacker is included in the rails app
-with</p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_webpack_frontend.html#slide-5'>▻</a>
-<h3 id="to-be-continued"><a class="anchorlink" href="#to-be-continued">3 To be Continued</a></h3></div>
-<div class='slide'>
-<a class='slide_break' href='rails_webpack_frontend.html#slide-6'>▻</a>
-<h3 id="further-reading"><a class="anchorlink" href="#further-reading">4 Further Reading</a></h3></div>
+with</p></section>
+<section>
+<p><a class='slide_break' href='rails_webpack_frontend.html#slide-2'>▻</a></p>
+<h3 id="to-be-continued">
+<a class="anchorlink" href="#to-be-continued"></a>3 To be Continued</h3></section>
+<section>
+<p><a class='slide_break' href='rails_webpack_frontend.html#slide-3'>▻</a></p>
+<h3 id="further-reading">
+<a class="anchorlink" href="#further-reading"></a>4 Further Reading</h3></section>
+      </div>
     </div>
     <!-- End slides. -->
-    <!-- Begin extension snippets. Add or remove as needed. -->
-    <!-- deck.navigation snippet -->
-    <div aria-role="navigation">
-        <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
-        <a href="#" class="deck-next-link" title="Next">&#8594;</a>
-    </div>
-    <!-- deck.status snippet -->
-    <p class="deck-status" aria-role="status">
-        <span class="deck-status-current"></span>
-        /
-        <span class="deck-status-total"></span>
-    </p>
-    <!-- deck.goto snippet -->
-    <form action="." method="get" class="goto-form">
-        <label for="goto-slide">Go to slide:</label>
-        <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
-        <datalist id="goto-datalist"></datalist>
-        <input type="submit" value="Go">
-    </form>
-    <!-- End extension snippets. -->
     <!-- Required JS files. -->
-    <script src="javascripts/jquery.min.js"></script>
-    <script src="javascripts/deck.core.js"></script>
-    <!-- Extension JS files. Add or remove as needed. -->
-    <script src="javascripts/deck.menu.js"></script>
-    <script src="javascripts/deck.goto.js"></script>
-    <script src="javascripts/deck.status.js"></script>
-    <script src="javascripts/deck.navigation.js"></script>
-    <script src="javascripts/deck.escape.js"></script>
+		<script src="javascripts/reveal.js"></script>
+		<script src="javascripts/search.js"></script>
+		<script src="javascripts/markdown.js"></script>
 
-    <!-- Initialize the deck. You can put this in an external file if desired. -->
     <script>
-    $(function() {
-      $.deck('.slide');
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+
+      keyboard: {
+        27: () => { console.log('esc') }, // do something custom when ESC is pressed
+        13: 'next', // go to the next slide when the ENTER key is pressed
+      },
+
+      // Learn about plugins: https://revealjs.com/plugins/
+      plugins: [ RevealSearch, RevealMarkdown ]  // RevealHighlight
     });
-
-    var $d = $(document);    
-
-    $d.bind('deck.change', function(event, from, to) {
-      // console.log('Moving from slide ' + from + ' to ' + to);
-    });   
-    $d.bind('deck.beforeInit', function() {
-      // console.log('Deck.beforeInit. hash is ' + document.location.hash);
-    });     
-    $d.bind('deck.init', function() {
-      // console.log('Deck.init is done. hash was ' + document.location.hash);
-    }); 
     </script>
 </body>
 

@@ -3,56 +3,30 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=1024, user-scalable=no">
+
     <title>Slides for
-        Backend Development Textbook
+        Rails with Scaffold — Backend Development
     </title>
-    <!-- Required stylesheet -->
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.core.css">
-    <!-- Extension CSS files go here. Remove or add as needed. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.goto.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.menu.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.navigation.css">
-    <link rel="stylesheet" media="screen" href="stylesheets/deck.status.css">
-    <!-- Style theme. More available in /themes/style/ or create your own. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/web-2.0.css">
-    <!-- Transition theme. More available in /themes/transition/ or create your own. -->
-    <link rel="stylesheet" media="screen" href="stylesheets/horizontal-slide.css">
-    <!-- syntax highlighter -->
-    <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Basic black and white print styles -->
-    <link rel="stylesheet" media="print" href="stylesheets/print.css">
-    <!-- Required Modernizr file -->
-    <script src="javascripts/modernizr.custom.js"></script>
+		<link rel="stylesheet" href="stylesheets/reset.css">
+		<link rel="stylesheet" href="stylesheets/reveal.css">
+		<link rel="stylesheet" href="stylesheets/myslide.css" id="theme">
+    <link rel="stylesheet" href="stylesheets/code.css">
+
 </head>
 
 <body>
-    <div class="deck-container">
-        <div class='slide'>
-</div>
-<div class='slide'>
-<a class='slide_break' href='rails_with_scaffold.html#slide-1'>▻</a>
-<h2>Rails with Scaffold</h2><p>We will build our first rails project but we will not really understand
-everything - that comes later.</p><p>After finishing this guide you will</p>
-<ul>
-<li>have finished your first rails project</li>
-<li>know how to use the scaffold generator</li>
-<li>know about the main folders of a rails project: <code>config</code>, <code>db</code>, <code>app</code>
-</li>
-<li>have an overview of what model, view, controller (MVC) means in rails</li>
-</ul>
-
-</div>
-<div class='slide'>
-<a class='slide_break' href='rails_with_scaffold.html#slide-2'>▻</a>
-<hr>
-</div>
-<div class='slide'>
-<a class='slide_break' href='rails_with_scaffold.html#slide-3'>▻</a>
-<h3 id="rails-from-the-outside-in"><a class="anchorlink" href="#rails-from-the-outside-in">1 Rails from the Outside In</a></h3><p>Let's look at a fairly complex web application - the course
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+<p><a class='slide_break' href='rails_with_scaffold.html#slide-0'>▻</a></p>
+<h3 id="rails-from-the-outside-in">
+<a class="anchorlink" href="#rails-from-the-outside-in"></a>1 Rails from the Outside In</h3><p>Let's look at a fairly complex web application - the course
 management system for a university. How would the code for this
 app be organized, if it is written in Ruby on Rails?</p><p>The course management system surely deals with courses in some
 way.</p><p>Rails is organized along the distinction of model - view - controller (MVC).
@@ -83,10 +57,11 @@ beginning: you can't just make up filenames any way you want, there is a
 <strong>convention</strong> for everything.</p><p>You have to stick to the convention if you want to profit from the framework,
 it will make your work as a programmer a lot easier.
 And you will profit from this convention
-every time you look at a new project - you'll instantly know your way around.</p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_with_scaffold.html#slide-4'>▻</a>
-<h4 id="start-a-rails-project"><a class="anchorlink" href="#start-a-rails-project">1.1 Start a Rails Project</a></h4><p>Before you can start your first rails project you have
+every time you look at a new project - you'll instantly know your way around.</p></section>
+<section>
+<p><a class='slide_break' href='rails_with_scaffold.html#slide-1'>▻</a></p>
+<h4 id="start-a-rails-project">
+<a class="anchorlink" href="#start-a-rails-project"></a>1.1 Start a Rails Project</h4><p>Before you can start your first rails project you have
 to install ruby and the rails gem on your computer.</p><p>A word of warning: Ruby and Rails will work on any Unix, including Mac OS.
 To use them on a windows system you need a lot more patience and troubleshooting
 ability. So if you are a windows user you might consider running
@@ -110,10 +85,11 @@ afterwards! In the following example we create an app called 'alljokes':</p><div
 <p>The last step that was run automatically when creating a new rails project is <code>bundle install</code>.
 This will try to look up gems on the internet - if you are not connected
 to the internet you will be stuck here. You could try <code>bundle install --local</code> instead,
-that might help if the gems are installed on your computer already.</p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_with_scaffold.html#slide-5'>▻</a>
-<h4 id="rails-directory-structure"><a class="anchorlink" href="#rails-directory-structure">1.2 Rails Directory Structure</a></h4><p>Rails will create a directory structure and about 40 files for you.
+that might help if the gems are installed on your computer already.</p></section>
+<section>
+<p><a class='slide_break' href='rails_with_scaffold.html#slide-2'>▻</a></p>
+<h4 id="rails-directory-structure">
+<a class="anchorlink" href="#rails-directory-structure"></a>1.2 Rails Directory Structure</h4><p>Rails will create a directory structure and about 40 files for you.
 Let's start to look at a few of them:</p>
 <ul>
 <li>
@@ -146,20 +122,22 @@ Let's start to look at a few of them:</p>
 <p>With your code split up into so many different files it is really useful
 to haven an editor that not only helps you edit a single file, but that
 will also display the directories and files. For example vim with NERDtree
-or submline or RubyMine:</p><p><img src="images/directory-structure-editors.png" alt="Screenshot of editor vim with NERDtree and rubymine"></p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_with_scaffold.html#slide-6'>▻</a>
-<h4 id="start-the-webserver"><a class="anchorlink" href="#start-the-webserver">1.3 Start the Webserver</a></h4><p>Rails comes with a tiny webserver called <code>puma</code>. You start
+or submline or RubyMine:</p><p><img src="images/directory-structure-editors.png" alt="Screenshot of editor vim with NERDtree and rubymine"></p></section>
+<section>
+<p><a class='slide_break' href='rails_with_scaffold.html#slide-3'>▻</a></p>
+<h4 id="start-the-webserver">
+<a class="anchorlink" href="#start-the-webserver"></a>1.3 Start the Webserver</h4><p>Rails comes with a tiny webserver called <code>puma</code>. You start
 it in your terminal window (and then you need another window to go on working)</p><div class="code_container">
 <pre><code class="highlight sh"><span class="nv">$ </span><span class="nb">rails </span>server
 </code></pre>
 </div>
 <p>Now you can point your browser at <code>http://localhost:3000/</code> to find the first
 webpage of your app. It's just a dummy page that will vanish once
-you add your own pages.</p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_with_scaffold.html#slide-7'>▻</a>
-<h3 id="make-it-a-git-repository"><a class="anchorlink" href="#make-it-a-git-repository">2 Make it a Git Repository</a></h3><p>A new rails project is already prepared to be turned
+you add your own pages.</p></section>
+<section>
+<p><a class='slide_break' href='rails_with_scaffold.html#slide-4'>▻</a></p>
+<h3 id="make-it-a-git-repository">
+<a class="anchorlink" href="#make-it-a-git-repository"></a>2 Make it a Git Repository</h3><p>A new rails project is already prepared to be turned
 into a git repository: there is a <code>.gitignore</code> file in the main
 folder. (If you are using rubymine you could add <code>/.idea</code> to
 your <code>.gitignore</code> - that's the directory where rubymine stores
@@ -179,10 +157,11 @@ Initialized empty Git repository <span class="k">in</span> /Developer/alljokes/.
 </code></pre>
 </div>
 <p>From now on you should <code>commit</code> your changes after every
-finished step of programming.</p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_with_scaffold.html#slide-8'>▻</a>
-<h3 id="scaffold"><a class="anchorlink" href="#scaffold">3 Scaffold</a></h3><p>A scaffold helps you build something. In Rails a scaffold
+finished step of programming.</p></section>
+<section>
+<p><a class='slide_break' href='rails_with_scaffold.html#slide-5'>▻</a></p>
+<h3 id="scaffold">
+<a class="anchorlink" href="#scaffold"></a>3 Scaffold</h3><p>A scaffold helps you build something. In Rails a scaffold
 helps you generate code according to the conventions.</p><p>In our application we want to store jokes. Let's generate
 the scaffold for that: We want a model called <code>joke</code> with
 two attributes: a (short) title and a (longer) fulltext.</p><p>When we call the scaffold generator on the commandline
@@ -195,10 +174,11 @@ of the attributes. short strings / varchars do not need a type at all.</p><div c
 </code></pre>
 </div>
 <p>This will generate about 30 lines of output, and create 15 new files.
-We will work through the files we need step by step:</p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_with_scaffold.html#slide-9'>▻</a>
-<h4 id="migration"><a class="anchorlink" href="#migration">3.1 Migration</a></h4><p>The first file we have to look at is stored in <code>db/migrate</code>. The filename
+We will work through the files we need step by step:</p></section>
+<section>
+<p><a class='slide_break' href='rails_with_scaffold.html#slide-6'>▻</a></p>
+<h4 id="migration">
+<a class="anchorlink" href="#migration"></a>3.1 Migration</h4><p>The first file we have to look at is stored in <code>db/migrate</code>. The filename
 will be different from the one shown above, because it contains a timestamp.</p><p>Inside the file you will find</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">CreateJokes</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span><span class="p">[</span><span class="mf">5.0</span><span class="p">]</span>
   <span class="k">def</span> <span class="nf">change</span>
@@ -228,10 +208,11 @@ typing in <code>rails db:migrate</code> on the command line:</p><div class="code
 <p>This actually created the table in a sqlite3 database called
 <code>db/development.sqlite3</code>. As a side effect it also dumped the current
 database schema into <code>db/schema.rb</code> and created a two extra tables
-<code>schema_migrations</code> and <code>ar_internal_metadata</code>.</p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_with_scaffold.html#slide-10'>▻</a>
-<h4 id="use-your-app"><a class="anchorlink" href="#use-your-app">3.2 Use your app</a></h4><p>After running the migration your app is ready to be used:
+<code>schema_migrations</code> and <code>ar_internal_metadata</code>.</p></section>
+<section>
+<p><a class='slide_break' href='rails_with_scaffold.html#slide-7'>▻</a></p>
+<h4 id="use-your-app">
+<a class="anchorlink" href="#use-your-app"></a>3.2 Use your app</h4><p>After running the migration your app is ready to be used:
 point your browser at <code>http://localhost:3000/jokes/</code> to start.</p><p>The scaffold generated four webpages that you can visit, to
 list, show, create, edit and destroy jokes:</p><p><img src="images/scaffold-with-arrows.png?viewbox=0;0;900;820" alt="webpages created by the scaffold"></p>
 <ul>
@@ -244,10 +225,11 @@ list, show, create, edit and destroy jokes:</p><p><img src="images/scaffold-with
 <li>
 <code>/jokes/1/edit</code> shows a form to edit a joke, in this case the joke with id=1</li>
 </ul>
-</div>
-<div class='slide'>
-<a class='slide_break' href='rails_with_scaffold.html#slide-11'>▻</a>
-<h4 id="view"><a class="anchorlink" href="#view">3.3 View</a></h4><p>You can find the views that correspond to the webpages in <code>app/views/jokes</code>. Try to add a bit
+</section>
+<section>
+<p><a class='slide_break' href='rails_with_scaffold.html#slide-8'>▻</a></p>
+<h4 id="view">
+<a class="anchorlink" href="#view"></a>3.3 View</h4><p>You can find the views that correspond to the webpages in <code>app/views/jokes</code>. Try to add a bit
 of html to the following two views:</p>
 <ul>
 <li>
@@ -255,72 +237,50 @@ of html to the following two views:</p>
 <li>
 <code>show.html.erb</code> shows a single joke</li>
 </ul>
-</div>
-<div class='slide'>
-<a class='slide_break' href='rails_with_scaffold.html#slide-12'>▻</a>
-<h4 id="model"><a class="anchorlink" href="#model">3.4 Model</a></h4><p>The model is stored in <code>app/models</code>. Add the following validation:</p><div class="code_container">
+</section>
+<section>
+<p><a class='slide_break' href='rails_with_scaffold.html#slide-9'>▻</a></p>
+<h4 id="model">
+<a class="anchorlink" href="#model"></a>3.4 Model</h4><p>The model is stored in <code>app/models</code>. Add the following validation:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">Joke</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
   <span class="n">validates</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">presence: </span><span class="kp">true</span>
 <span class="k">end</span>
 </code></pre>
 </div>
 <p>This tell the model not only accept jokes that have a title.</p><p>Now try to enter a new joke without a title, you should get a
-error message:</p><p><img src="images/error-validation.png" alt="Error message caused by unfullfilled validation"></p></div>
-<div class='slide'>
-<a class='slide_break' href='rails_with_scaffold.html#slide-13'>▻</a>
-<h4 id="summary"><a class="anchorlink" href="#summary">3.5 Summary</a></h4><p>We built a first rails app and ran it locally on our own machine.
+error message:</p><p><img src="images/error-validation.png" alt="Error message caused by unfullfilled validation"></p></section>
+<section>
+<p><a class='slide_break' href='rails_with_scaffold.html#slide-10'>▻</a></p>
+<h4 id="summary">
+<a class="anchorlink" href="#summary"></a>3.5 Summary</h4><p>We built a first rails app and ran it locally on our own machine.
 You should now have an overview over the most important files
 and a first impression of ruby code (used in controllers, models)
-and embedded ruby (erb) used in the views.</p><p>Congratulations on your first step!</p></div>
+and embedded ruby (erb) used in the views.</p><p>Congratulations on your first step!</p></section>
+      </div>
     </div>
     <!-- End slides. -->
-    <!-- Begin extension snippets. Add or remove as needed. -->
-    <!-- deck.navigation snippet -->
-    <div aria-role="navigation">
-        <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
-        <a href="#" class="deck-next-link" title="Next">&#8594;</a>
-    </div>
-    <!-- deck.status snippet -->
-    <p class="deck-status" aria-role="status">
-        <span class="deck-status-current"></span>
-        /
-        <span class="deck-status-total"></span>
-    </p>
-    <!-- deck.goto snippet -->
-    <form action="." method="get" class="goto-form">
-        <label for="goto-slide">Go to slide:</label>
-        <input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
-        <datalist id="goto-datalist"></datalist>
-        <input type="submit" value="Go">
-    </form>
-    <!-- End extension snippets. -->
     <!-- Required JS files. -->
-    <script src="javascripts/jquery.min.js"></script>
-    <script src="javascripts/deck.core.js"></script>
-    <!-- Extension JS files. Add or remove as needed. -->
-    <script src="javascripts/deck.menu.js"></script>
-    <script src="javascripts/deck.goto.js"></script>
-    <script src="javascripts/deck.status.js"></script>
-    <script src="javascripts/deck.navigation.js"></script>
-    <script src="javascripts/deck.escape.js"></script>
+		<script src="javascripts/reveal.js"></script>
+		<script src="javascripts/search.js"></script>
+		<script src="javascripts/markdown.js"></script>
 
-    <!-- Initialize the deck. You can put this in an external file if desired. -->
     <script>
-    $(function() {
-      $.deck('.slide');
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      center: true,
+      hash: true,
+
+      keyboard: {
+        27: () => { console.log('esc') }, // do something custom when ESC is pressed
+        13: 'next', // go to the next slide when the ENTER key is pressed
+      },
+
+      // Learn about plugins: https://revealjs.com/plugins/
+      plugins: [ RevealSearch, RevealMarkdown ]  // RevealHighlight
     });
-
-    var $d = $(document);    
-
-    $d.bind('deck.change', function(event, from, to) {
-      // console.log('Moving from slide ' + from + ' to ' + to);
-    });   
-    $d.bind('deck.beforeInit', function() {
-      // console.log('Deck.beforeInit. hash is ' + document.location.hash);
-    });     
-    $d.bind('deck.init', function() {
-      // console.log('Deck.init is done. hash was ' + document.location.hash);
-    }); 
     </script>
 </body>
 

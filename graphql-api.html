@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Backend Development Textbook</title>
-  <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+  <title>APIs — Backend Development</title>
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/code.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/code.css">
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css">
 
-  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
   <style>
 
     .slide img[src$=svg] {
@@ -46,7 +47,7 @@
         <li class="guides-index guides-index-large">
           <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
           <div id="guides" class="clearfix" style="display: none;">
-            <hr />
+            <hr>
               <dl class="L">
                 <dt>Ruby on Rails</dt>
                 <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
@@ -89,11 +90,11 @@
     </div>
   </div>
 
-  <hr class="hide" />
+  <hr class="hide">
 
   <div id="feature">
     <div class="wrapper">
-      <h2 id="preheader">no heading</h2>
+      <h2 id="preheader">APIs</h2>
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <ol class="chapters">
@@ -139,7 +140,12 @@
           </div>
 
       <div class="rest_header">
-        
+        <h2>APIs</h2><p>After working through this guide you will:</p>
+<ul>
+<li>know about the thinking behind GraphQL APIs</li>
+<li>be able to configure your existing Rails App to offer a GraphQL API</li>
+</ul>
+
       </div>
     </div>
   </div>
@@ -148,34 +154,24 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <div class='slide'><a id='slide-0'></a>
+        <div class='slide'>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-1' href='slides_graphql-api.html#slide-1'>▻</a>
-<h2>APIs</h2><p>After working through this guide you will:</p>
-<ul>
-<li>know about the thinking behind GraphQL APIs</li>
-<li>be able to configure your existing Rails App to offer a GraphQL API</li>
-</ul>
-
-</div>
+<a class='slide_break' id='slide-0' href='slides_graphql-api.html#/0'>▻</a>
+<h3 id="api-styles">
+<a class="anchorlink" href="#api-styles"></a>1 API Styles</h3></div>
 <div class='slide'>
-<a class='slide_break' id='slide-2' href='slides_graphql-api.html#slide-2'>▻</a>
-<hr>
-</div>
-<div class='slide'>
-<a class='slide_break' id='slide-3' href='slides_graphql-api.html#slide-3'>▻</a>
-<h3 id="api-styles"><a class="anchorlink" href="#api-styles">1 API Styles</a></h3></div>
-<div class='slide'>
-<a class='slide_break' id='slide-4' href='slides_graphql-api.html#slide-4'>▻</a>
-<h4 id="what-is-an-api-questionmark"><a class="anchorlink" href="#what-is-an-api-questionmark">1.1 What is an API?</a></h4><p>API stands for "Application Programming Interface". It is a set of clearly defined methods
+<a class='slide_break' id='slide-1' href='slides_graphql-api.html#/1'>▻</a>
+<h4 id="what-is-an-api-questionmark">
+<a class="anchorlink" href="#what-is-an-api-questionmark"></a>1.1 What is an API?</h4><p>API stands for "Application Programming Interface". It is a set of clearly defined methods
 of communication with a software component. So the objects and methods exposed by a library
 form an API.</p><p>In Web development the acronym API is most
 commonly used when the software component in question runs on a different server on the
 Internet and is accessed via HTTP.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-5' href='slides_graphql-api.html#slide-5'>▻</a>
-<h4 id="soap-rest-and-graphql"><a class="anchorlink" href="#soap-rest-and-graphql">1.2 SOAP, REST and GraphQL</a></h4><p>Currently three main API styles are used on the Web:</p>
+<a class='slide_break' id='slide-2' href='slides_graphql-api.html#/2'>▻</a>
+<h4 id="soap-rest-and-graphql">
+<a class="anchorlink" href="#soap-rest-and-graphql"></a>1.2 SOAP, REST and GraphQL</h4><p>Currently three main API styles are used on the Web:</p>
 <ul>
 <li>SOAP, designed 1998 at Microsoft, uses XML and POST requests to make "remote procedure calls"</li>
 <li>REST, described in 2000, uses different HTTP Methods and Status Messages to access "resources"</li>
@@ -185,49 +181,55 @@ Internet and is accessed via HTTP.</p></div>
 is rearely offered with Rails, but there is a <a href="https://github.com/savonrb/savon">soap client</a> in
 ruby.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-6' href='slides_graphql-api.html#slide-6'>▻</a>
-<h4 id="api-layer-is-a-separate-layer"><a class="anchorlink" href="#api-layer-is-a-separate-layer">1.3 API layer is a separate layer</a></h4><p>Please note that any of the API styles can be used
-with any backend, frontend, persistance layers: </p>
+<a class='slide_break' id='slide-3' href='slides_graphql-api.html#/3'>▻</a>
+<h4 id="api-layer-is-a-separate-layer">
+<a class="anchorlink" href="#api-layer-is-a-separate-layer"></a>1.3 API layer is a separate layer</h4><p>Please note that any of the API styles can be used
+with any backend, frontend, persistance layers:</p>
 <ul>
-<li>You can build a REST in front of a PHP backend using MongoDB as the database and use it from a frontend written with jQuery. </li>
+<li>You can build a REST in front of a PHP backend using MongoDB as the database and use it from a frontend written with jQuery.</li>
 <li>You can build a GraphQL API for a Rails backend using MySQL as the database and build the frontend with React.</li>
 </ul>
 <p>That's kind of the point of an API: to allow different technologies
 on both sides of the API.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-7' href='slides_graphql-api.html#slide-7'>▻</a>
-<h3 id="graphql"><a class="anchorlink" href="#graphql">2 GraphQL</a></h3><p>REST and SOAP APIs are fixed interfaces: each api call has a fixed set of
+<a class='slide_break' id='slide-4' href='slides_graphql-api.html#/4'>▻</a>
+<h3 id="graphql">
+<a class="anchorlink" href="#graphql"></a>2 GraphQL</h3><p>REST and SOAP APIs are fixed interfaces: each api call has a fixed set of
 arguments and returns a fixed data structure.  All decisions are made when
 specifying the API.</p><p>GraphQL shifts some decisions to the client: through a Query Language the client
 can request data in the specific shape it needs, within the limits that the
-API sets. </p></div>
+API sets.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-8' href='slides_graphql-api.html#slide-8'>▻</a>
-<h4 id="query-language"><a class="anchorlink" href="#query-language">2.1 Query Language</a></h4><p>A simple example with two models: a project has many URLs. when querying
+<a class='slide_break' id='slide-5' href='slides_graphql-api.html#/5'>▻</a>
+<h4 id="query-language">
+<a class="anchorlink" href="#query-language"></a>2.1 Query Language</h4><p>A simple example with two models: a project has many URLs. when querying
 through GraphQL you can request different attributes of both models:</p><p><img src="images/two-queries.gif" alt="1:n relationship in the database"></p><p>Notice how the resulting JSON data mirrors the structure of the query.
 The query language is used for both Queries (getting data) and Mutations (changing
 data).</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-9' href='slides_graphql-api.html#slide-9'>▻</a>
-<h4 id="introspection-and-playground"><a class="anchorlink" href="#introspection-and-playground">2.2 Introspection and Playground</a></h4><p>A GraphQL API can always be queried to give information
+<a class='slide_break' id='slide-6' href='slides_graphql-api.html#/6'>▻</a>
+<h4 id="introspection-and-playground">
+<a class="anchorlink" href="#introspection-and-playground"></a>2.2 Introspection and Playground</h4><p>A GraphQL API can always be queried to give information
 about the possible queries, mutations and types.  This is called
 introspection.</p><p>The GraphQL Playground is a Web App that enables you to
 make Queries and Mutations.  It uses introspection to display
 documentation and to offer autocompletion:</p>
 <video controls autoplay>
   <source src="images/autocomplete.mov" type="video/quicktime"></source>
-  <source src="images/autocomplete.mp4" type="video/mp4"></source>  
+  <source src="images/autocomplete.mp4" type="video/mp4"></source>
   ![GraphQL Playground](images/graphql-playground.png)
 </video>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-10' href='slides_graphql-api.html#slide-10'>▻</a>
-<h4 id="types"><a class="anchorlink" href="#types">2.3 Types</a></h4><p>A GraphQL delivers JSON, which only has objects, arrays, strings, numbers and null 
+<a class='slide_break' id='slide-7' href='slides_graphql-api.html#/7'>▻</a>
+<h4 id="types">
+<a class="anchorlink" href="#types"></a>2.3 Types</h4><p>A GraphQL delivers JSON, which only has objects, arrays, strings, numbers and null
 as types.  But GraphQL itself can build a more detailed type system and check
 these types in queries and mutations.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-11' href='slides_graphql-api.html#slide-11'>▻</a>
-<h4 id="how-the-server-handles-the-request"><a class="anchorlink" href="#how-the-server-handles-the-request">2.4 How the server handles the request</a></h4>
+<a class='slide_break' id='slide-8' href='slides_graphql-api.html#/8'>▻</a>
+<h4 id="how-the-server-handles-the-request">
+<a class="anchorlink" href="#how-the-server-handles-the-request"></a>2.4 How the server handles the request</h4>
 <ul>
 <li>parse the query</li>
 <li>validate with schema</li>
@@ -236,11 +238,13 @@ these types in queries and mutations.</p></div>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-12' href='slides_graphql-api.html#slide-12'>▻</a>
-<h3 id="using-rails-to-build-a-graphql-api"><a class="anchorlink" href="#using-rails-to-build-a-graphql-api">3 Using Rails to build a GraphQL API</a></h3></div>
+<a class='slide_break' id='slide-9' href='slides_graphql-api.html#/9'>▻</a>
+<h3 id="using-rails-to-build-a-graphql-api">
+<a class="anchorlink" href="#using-rails-to-build-a-graphql-api"></a>3 Using Rails to build a GraphQL API</h3></div>
 <div class='slide'>
-<a class='slide_break' id='slide-13' href='slides_graphql-api.html#slide-13'>▻</a>
-<h4 id="setup"><a class="anchorlink" href="#setup">3.1 Setup</a></h4><p>To add a GraphQL API to an existing Rails app you need just two gems:</p><div class="code_container">
+<a class='slide_break' id='slide-10' href='slides_graphql-api.html#/10'>▻</a>
+<h4 id="setup">
+<a class="anchorlink" href="#setup"></a>3.1 Setup</h4><p>To add a GraphQL API to an existing Rails app you need just two gems:</p><div class="code_container">
 <pre><code class="highlight plaintext">gem 'graphql'
 group :development do
   gem 'graphql-rails-generators'
@@ -249,8 +253,9 @@ end
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-14' href='slides_graphql-api.html#slide-14'>▻</a>
-<h5 id="generator"><a class="anchorlink" href="#generator">3.1.1 generator</a></h5><p>The rest of the setup is handled by a generator added by the <code>graphql</code> gem:</p><div class="code_container">
+<a class='slide_break' id='slide-11' href='slides_graphql-api.html#/11'>▻</a>
+<h5 id="generator">
+<a class="anchorlink" href="#generator"></a>3.1.1 generator</h5><p>The rest of the setup is handled by a generator added by the <code>graphql</code> gem:</p><div class="code_container">
 <pre><code class="highlight plaintext">rails generate graphql:install
        exist  app/graphql/types
       create  app/graphql/types/.keep
@@ -279,15 +284,17 @@ Gemfile has been modified, make sure you `bundle install`
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-15' href='slides_graphql-api.html#slide-15'>▻</a>
-<h5 id="playground-is-available"><a class="anchorlink" href="#playground-is-available">3.1.2 playground is available</a></h5><p>After running bundle and restarting the server you can
+<a class='slide_break' id='slide-12' href='slides_graphql-api.html#/12'>▻</a>
+<h5 id="playground-is-available">
+<a class="anchorlink" href="#playground-is-available"></a>3.1.2 playground is available</h5><p>After running bundle and restarting the server you can
 access the graphql playground at <code>http://localhost:3000/graphiql</code>:
 in the left pane you can enter a query, run it, and see the
 result in the middle pane.  The right pane contains documentation
-that was created automatically.</p><p><img src="images/graphql-playground.png" alt="GraphQL Playground"></p><p>We have no Queries to run yet.  </p></div>
+that was created automatically.</p><p><img src="images/graphql-playground.png" alt="GraphQL Playground"></p><p>We have no Queries to run yet.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-16' href='slides_graphql-api.html#slide-16'>▻</a>
-<h4 id="generating-a-type-from-a-model"><a class="anchorlink" href="#generating-a-type-from-a-model">3.2 Generating a Type from a Model</a></h4><p>As a first step we can
+<a class='slide_break' id='slide-13' href='slides_graphql-api.html#/13'>▻</a>
+<h4 id="generating-a-type-from-a-model">
+<a class="anchorlink" href="#generating-a-type-from-a-model"></a>3.2 Generating a Type from a Model</h4><p>As a first step we can
 use a generator to create a type from an existing model:</p><div class="code_container">
 <pre><code class="highlight plaintext">rails generate gql:model_type Project
       create  app/graphql/types/project_type.rb
@@ -310,8 +317,9 @@ end
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-17' href='slides_graphql-api.html#slide-17'>▻</a>
-<h4 id="defining-a-query"><a class="anchorlink" href="#defining-a-query">3.3 Defining a Query</a></h4><p>The next level up we come to the query.  There is already
+<a class='slide_break' id='slide-14' href='slides_graphql-api.html#/14'>▻</a>
+<h4 id="defining-a-query">
+<a class="anchorlink" href="#defining-a-query"></a>3.3 Defining a Query</h4><p>The next level up we come to the query.  There is already
 a dummy Query in <code>app/graphql/types/query_type.rb</code></p><div class="code_container">
 <pre><code class="highlight plaintext">module Types
   class QueryType &lt; Types::BaseObject
@@ -330,11 +338,12 @@ end
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-18' href='slides_graphql-api.html#slide-18'>▻</a>
-<h5 id="declare-the-query-and-implement-the-resolver"><a class="anchorlink" href="#declare-the-query-and-implement-the-resolver">3.3.1 Declare the Query and implement the resolver</a></h5><p>We can replace this with a query that returns a list of all projects:</p><div class="code_container">
+<a class='slide_break' id='slide-15' href='slides_graphql-api.html#/15'>▻</a>
+<h5 id="declare-the-query-and-implement-the-resolver">
+<a class="anchorlink" href="#declare-the-query-and-implement-the-resolver"></a>3.3.1 Declare the Query and implement the resolver</h5><p>We can replace this with a query that returns a list of all projects:</p><div class="code_container">
 <pre><code class="highlight plaintext">module Types
   class QueryType &lt; Types::BaseObject
-    field :all_projects, [ProjectType], 
+    field :all_projects, [ProjectType],
       null: false,
       description: "a list of all publicly visible projects"
     def all_projects
@@ -347,13 +356,14 @@ end
 <p>We can now run the query in the playground. Your query will be autocompleted.</p>
 <video controls autoplay>
   <source src="images/autocomplete.mov" type="video/quicktime"></source>
-  <source src="images/autocomplete.mp4" type="video/mp4"></source>  
+  <source src="images/autocomplete.mp4" type="video/mp4"></source>
   ![GraphQL Playground](images/graphql-playground.png)
 </video>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-19' href='slides_graphql-api.html#slide-19'>▻</a>
-<h5 id="queries-with-arguments"><a class="anchorlink" href="#queries-with-arguments">3.3.2 Queries with arguments</a></h5><p>If a query needs arguments you have do declare
+<a class='slide_break' id='slide-16' href='slides_graphql-api.html#/16'>▻</a>
+<h5 id="queries-with-arguments">
+<a class="anchorlink" href="#queries-with-arguments"></a>3.3.2 Queries with arguments</h5><p>If a query needs arguments you have do declare
 them in the <code>fields</code> declaration and then handle
 them in the method:</p><div class="code_container">
 <pre><code class="highlight plaintext">    field :project, ProjectType, null: true do
@@ -366,11 +376,13 @@ them in the method:</p><div class="code_container">
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-20' href='slides_graphql-api.html#slide-20'>▻</a>
-<h4 id="relationships-between-models"><a class="anchorlink" href="#relationships-between-models">3.4 Relationships between models</a></h4></div>
+<a class='slide_break' id='slide-17' href='slides_graphql-api.html#/17'>▻</a>
+<h4 id="relationships-between-models">
+<a class="anchorlink" href="#relationships-between-models"></a>3.4 Relationships between models</h4></div>
 <div class='slide'>
-<a class='slide_break' id='slide-21' href='slides_graphql-api.html#slide-21'>▻</a>
-<h5 id="create-type-for-a-second-model"><a class="anchorlink" href="#create-type-for-a-second-model">3.4.1 Create type for a second model</a></h5><p><img src="images/graphql-project-has-many-urls.png" alt="1:n relationship in the database"></p><p>generate the UrlType automatically from the model:</p><div class="code_container">
+<a class='slide_break' id='slide-18' href='slides_graphql-api.html#/18'>▻</a>
+<h5 id="create-type-for-a-second-model">
+<a class="anchorlink" href="#create-type-for-a-second-model"></a>3.4.1 Create type for a second model</h5><p><img src="images/graphql-project-has-many-urls.png" alt="1:n relationship in the database"></p><p>generate the UrlType automatically from the model:</p><div class="code_container">
 <pre><code class="highlight plaintext">module Types
   class UrlType &lt; Types::BaseObject
     field :id, GraphQL::Types::ID, null: false
@@ -385,11 +397,13 @@ end
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-22' href='slides_graphql-api.html#slide-22'>▻</a>
-<h5 id="create-queries-for-the-second-model"><a class="anchorlink" href="#create-queries-for-the-second-model">3.4.2 create queries for the second model</a></h5><p>add the queries <code>all_urls</code> and <code>url</code> to  <code>app/graphql/types/query_type.rb</code></p><p>now you can use those queries in the playground</p></div>
+<a class='slide_break' id='slide-19' href='slides_graphql-api.html#/19'>▻</a>
+<h5 id="create-queries-for-the-second-model">
+<a class="anchorlink" href="#create-queries-for-the-second-model"></a>3.4.2 create queries for the second model</h5><p>add the queries <code>all_urls</code> and <code>url</code> to  <code>app/graphql/types/query_type.rb</code></p><p>now you can use those queries in the playground</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-23' href='slides_graphql-api.html#slide-23'>▻</a>
-<h5 id="add-field-for-relationship-to-type"><a class="anchorlink" href="#add-field-for-relationship-to-type">3.4.3 add field for relationship to type</a></h5><p>add the field <code>urls</code> to <code>app/graphql/types/project_type.rb</code>:</p><div class="code_container">
+<a class='slide_break' id='slide-20' href='slides_graphql-api.html#/20'>▻</a>
+<h5 id="add-field-for-relationship-to-type">
+<a class="anchorlink" href="#add-field-for-relationship-to-type"></a>3.4.3 add field for relationship to type</h5><p>add the field <code>urls</code> to <code>app/graphql/types/project_type.rb</code>:</p><div class="code_container">
 <pre><code class="highlight plaintext">module Types
   class ProjectType &lt; Types::BaseObject
     field :id, GraphQL::Types::ID, null: false
@@ -406,8 +420,9 @@ end
 </div>
 <p>now you can query for Urls through their project:</p><p><img src="images/graphql-query-relationship.png" alt="query a 1:n relationship with graphql"></p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-24' href='slides_graphql-api.html#slide-24'>▻</a>
-<h5 id="inverse-relationship"><a class="anchorlink" href="#inverse-relationship">3.4.4 inverse relationship</a></h5><p>what would you need to do, to make a query 
+<a class='slide_break' id='slide-21' href='slides_graphql-api.html#/21'>▻</a>
+<h5 id="inverse-relationship">
+<a class="anchorlink" href="#inverse-relationship"></a>3.4.4 inverse relationship</h5><p>what would you need to do, to make a query
 from Url to Project possible?</p><div class="code_container">
 <pre><code class="highlight plaintext">{
   url(id:2077){
@@ -424,8 +439,9 @@ from Url to Project possible?</p><div class="code_container">
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-25' href='slides_graphql-api.html#slide-25'>▻</a>
-<h5 id="implementation-of-the-inverse-relationship"><a class="anchorlink" href="#implementation-of-the-inverse-relationship">3.4.5 implementation of the inverse relationship</a></h5><p>Answer: add a field project to UrlType:</p><div class="code_container">
+<a class='slide_break' id='slide-22' href='slides_graphql-api.html#/22'>▻</a>
+<h5 id="implementation-of-the-inverse-relationship">
+<a class="anchorlink" href="#implementation-of-the-inverse-relationship"></a>3.4.5 implementation of the inverse relationship</h5><p>Answer: add a field project to UrlType:</p><div class="code_container">
 <pre><code class="highlight plaintext">module Types
   class UrlType &lt; Types::BaseObject
     field :id, GraphQL::Types::ID, null: false
@@ -441,13 +457,15 @@ end
 </div>
 <p><img src="images/graphql-query-belongs-to.png" alt="query a 1:n relationship with graphql (reverse)"></p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-26' href='slides_graphql-api.html#slide-26'>▻</a>
-<h4 id="more-types"><a class="anchorlink" href="#more-types">3.5 More Types</a></h4><p>In Ruby and JavaScript we often use Strings to store all
+<a class='slide_break' id='slide-23' href='slides_graphql-api.html#/23'>▻</a>
+<h4 id="more-types">
+<a class="anchorlink" href="#more-types"></a>3.5 More Types</h4><p>In Ruby and JavaScript we often use Strings to store all
 kinds of values.   In the example
 above, <code>Url.url_type</code> only has three possible values: 'Link','Repository','Award'.</p><p>GraphQL comes with an Enum Type that we can use for that</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-27' href='slides_graphql-api.html#slide-27'>▻</a>
-<h5 id="define-the-enum-type"><a class="anchorlink" href="#define-the-enum-type">3.5.1 define the Enum Type:</a></h5><div class="code_container">
+<a class='slide_break' id='slide-24' href='slides_graphql-api.html#/24'>▻</a>
+<h5 id="define-the-enum-type">
+<a class="anchorlink" href="#define-the-enum-type"></a>3.5.1 define the Enum Type:</h5><div class="code_container">
 <pre><code class="highlight plaintext">rails g graphql:enum UrlTypeEnum Link Repository Award
       create  app/graphql/types/url_type_enum_type.rb
 </code></pre>
@@ -464,8 +482,9 @@ end
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-28' href='slides_graphql-api.html#slide-28'>▻</a>
-<h5 id="using-the-enum-type"><a class="anchorlink" href="#using-the-enum-type">3.5.2 using the Enum Type</a></h5><p>This can now be used in <code>UrlType</code>:</p><div class="code_container">
+<a class='slide_break' id='slide-25' href='slides_graphql-api.html#/25'>▻</a>
+<h5 id="using-the-enum-type">
+<a class="anchorlink" href="#using-the-enum-type"></a>3.5.2 using the Enum Type</h5><p>This can now be used in <code>UrlType</code>:</p><div class="code_container">
 <pre><code class="highlight plaintext">module Types
   class UrlType &lt; Types::BaseObject
     field :id, GraphQL::Types::ID, null: false
@@ -481,14 +500,16 @@ end
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-29' href='slides_graphql-api.html#slide-29'>▻</a>
-<h5 id="types-uses-and-limitations"><a class="anchorlink" href="#types-uses-and-limitations">3.5.3 Types: uses and limitations</a></h5><p>The data returned by a query is still JSON, and cannot contain
-enums, only Strings. </p><p><img src="images/graphql-enum.png" alt="querying an enum gives a string"></p><p>In the documentation you can see that
-only three Strings are valid.  The GraphQL API will 
+<a class='slide_break' id='slide-26' href='slides_graphql-api.html#/26'>▻</a>
+<h5 id="types-uses-and-limitations">
+<a class="anchorlink" href="#types-uses-and-limitations"></a>3.5.3 Types: uses and limitations</h5><p>The data returned by a query is still JSON, and cannot contain
+enums, only Strings.</p><p><img src="images/graphql-enum.png" alt="querying an enum gives a string"></p><p>In the documentation you can see that
+only three Strings are valid.  The GraphQL API will
 validate this both in Queries and in Mutations.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-30' href='slides_graphql-api.html#slide-30'>▻</a>
-<h3 id="a-lot-more-to-learn"><a class="anchorlink" href="#a-lot-more-to-learn">4 A lot more to learn</a></h3><p>This guide has not touched on:</p>
+<a class='slide_break' id='slide-27' href='slides_graphql-api.html#/27'>▻</a>
+<h3 id="a-lot-more-to-learn">
+<a class="anchorlink" href="#a-lot-more-to-learn"></a>4 A lot more to learn</h3><p>This guide has not touched on:</p>
 <ul>
 <li>mutations</li>
 <li>filtering, searching</li>
@@ -498,8 +519,9 @@ validate this both in Queries and in Mutations.</p></div>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-31' href='slides_graphql-api.html#slide-31'>▻</a>
-<h4 id="see-also"><a class="anchorlink" href="#see-also">4.1 See Also</a></h4>
+<a class='slide_break' id='slide-28' href='slides_graphql-api.html#/28'>▻</a>
+<h4 id="see-also">
+<a class="anchorlink" href="#see-also"></a>4.1 See Also</h4>
 <ul>
 <li><a href="https://www.howtographql.com/graphql-ruby/0-introduction/">GraphQL Guides: Ruby </a></li>
 <li>
@@ -515,7 +537,7 @@ validate this both in Queries and in Mutations.</p></div>
     </div>
   </div>
 
-  <hr class="hide" />
+  <hr class="hide">
   <div id="footer">
     <div class="wrapper">
       <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2023 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
@@ -526,14 +548,5 @@ validate this both in Queries and in Mutations.</p></div>
 
   <script src="javascripts/jquery.min.js"></script>
   <script src="javascripts/guides.js"></script>
-  <script>
-    SyntaxHighlighter.all()
-    $(guidesIndex.bind);
-    $(document).ready(function(){
-      let hash = document.location.hash;
-      if(! hash) return;
-      document.getElementById(hash.substr(1)).scrollIntoView(true);
-    })
-  </script>
   </body>
 </html>
