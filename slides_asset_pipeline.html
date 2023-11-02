@@ -23,8 +23,7 @@
     <div class="reveal">
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
-        <section>
-<p><a class='slide_break' href='asset_pipeline.html#slide-0'>▻</a></p>
+        <section><a class='slide_break' href='asset_pipeline.html#slide-0'>▻</a>
 <h3 id="web-performance">
 <a class="anchorlink" href="#web-performance"></a>1 Web Performance</h3><p>What do we mean by 'web performance'? From the viewpoint of one user,
 the crucial value is the time it takes from requesting a page (by clicking a link
@@ -34,8 +33,7 @@ how many users you can serve (with acceptable response time) on a given
 server. If you look at the question of how to serve more users in case
 of more demand you enter the realm of 'scalability'. This is a more advanced
 question that goes beyond the scope of this guide.</p></section>
-<section>
-<p><a class='slide_break' href='asset_pipeline.html#slide-1'>▻</a></p>
+<section><a class='slide_break' href='asset_pipeline.html#slide-1'>▻</a>
 <h4 id="myths-about-performance">
 <a class="anchorlink" href="#myths-about-performance"></a>1.1 Myths About Performance</h4><p>If you have never studied this subject you might still have
 an intuition about where performance problems come from.
@@ -47,15 +45,13 @@ hosting service you will have no trouble serving hundreds
 of users a day and achieving adequate performance for all of them.</p><p>Trying to 'optimize' you code if there is no problem, or
 if you don't know where the problem is,
 will make your code worse, not better.</p></section>
-<section>
-<p><a class='slide_break' href='asset_pipeline.html#slide-2'>▻</a></p>
+<section><a class='slide_break' href='asset_pipeline.html#slide-2'>▻</a>
 <p>Donald Knuth stated this quite forcefully:</p><p>"The real problem is that programmers have spent far too much time worrying about efficiency in the wrong places and at the wrong times; <strong>premature optimization is the root of all evil</strong>" -- <a href="https://en.wikiquote.org/wiki/Donald_Knuth#Computer_Programming_as_an_Art_.281974.29">Donald Knuth</a></p><p>Only after you have measured the performance factors that are
 relevant to your project, and only after you have found out
 which part of the system is causing theses factors to go over
 the threshold of acceptable values, only then can you truly
 start to 'optimize'.</p></section>
-<section>
-<p><a class='slide_break' href='asset_pipeline.html#slide-3'>▻</a></p>
+<section><a class='slide_break' href='asset_pipeline.html#slide-3'>▻</a>
 <h4 id="measuring-web-performance">
 <a class="anchorlink" href="#measuring-web-performance"></a>1.2 Measuring Web Performance</h4><p>The "exceptional performance group" at Yahoo published the browser addon
 <code>yslow</code> in 2007. It measures performance and displays the timing
@@ -64,12 +60,10 @@ is a common timeline for all. The most striking result you can read from
 this graph: the backend is only responsible for 5% of the time in this
 example! 95% of time is spent loading and parsing javascript and css files
 and loading and displaying images!</p></section>
-<section>
-<p><a class='slide_break' href='asset_pipeline.html#slide-4'>▻</a></p>
+<section><a class='slide_break' href='asset_pipeline.html#slide-4'>▻</a>
 <p>This graph was later integrated into the built in developer tools
 of several browsers, and into the online tool <a href="https://webpagetest.org/">webpagetest</a>.</p><p><strong>Firefox</strong></p><p><img src="images/network-view-firefox.png" alt="network view in firefox"></p><p><strong>Chrome</strong></p><p><img src="images/network-view-chrome.png" alt="network view in chrom"></p></section>
-<section>
-<p><a class='slide_break' href='asset_pipeline.html#slide-5'>▻</a></p>
+<section><a class='slide_break' href='asset_pipeline.html#slide-5'>▻</a>
 <h4 id="rules">
 <a class="anchorlink" href="#rules"></a>1.3 Rules...</h4><p>Yahoo first published 14 rules for web performance in 2007, based
 on the measurements back then:</p>
@@ -92,8 +86,7 @@ on the measurements back then:</p>
 protocols some of these are still very valid today.
 But as a web developer you should always keep an eye on the changing
 landscape of web performance! These rules and their priority will change!</p></section>
-<section>
-<p><a class='slide_break' href='asset_pipeline.html#slide-6'>▻</a></p>
+<section><a class='slide_break' href='asset_pipeline.html#slide-6'>▻</a>
 <h4 id="less-http-requests-questionmark">
 <a class="anchorlink" href="#less-http-requests-questionmark"></a>1.4 Less HTTP Requests?</h4><p>Making less HTTP Requests was a main goal in performance optimization for many years.
 Many JavaScript files were combined into one, the same for CSS.  Icon Fonts were used
@@ -106,8 +99,7 @@ to make repeated requests to the same server "cheaper":</p>
 <a href="https://en.wikipedia.org/wiki/HTTP/3">HTTP/3</a> uses UDP instead of TCP</li>
 </ul>
 <p>In 2022 HTTP/3 is <a href="https://caniuse.com/http3">supported by</a> all common browsers except safari and use by <a href="https://w3techs.com/technologies/details/ce-http3">about a quater</a> of the top 10 million websites.</p><p>So today this "first rule" for avoiding HTTP requests can be relaxed.</p></section>
-<section>
-<p><a class='slide_break' href='asset_pipeline.html#slide-7'>▻</a></p>
+<section><a class='slide_break' href='asset_pipeline.html#slide-7'>▻</a>
 <h3 id="how-rails-helps-with-performance">
 <a class="anchorlink" href="#how-rails-helps-with-performance"></a>2 How Rails helps with Performance</h3><p>The Rails asset pipeline was introduced in Rails 3.1 in the year 2011.
 It automates handling static assets:</p>
@@ -131,8 +123,7 @@ It automates handling static assets:</p>
 </ul>
 <p>The second folder will be served by the web server directly, without going through the Rails stack.
 The expires header for these files is set to a far future date.</p></section>
-<section>
-<p><a class='slide_break' href='asset_pipeline.html#slide-8'>▻</a></p>
+<section><a class='slide_break' href='asset_pipeline.html#slide-8'>▻</a>
 <h4 id="rails-environments">
 <a class="anchorlink" href="#rails-environments"></a>2.1 Rails Environments</h4><p>The Asset Pipeline works differently in different Rails Environments.
 There are three environments that exist by default:</p>
@@ -163,8 +154,7 @@ There are three environments that exist by default:</p>
 </ul>
 <p>How each envirnoments behaves is configured in files in <code>config/environments/*.rb</code>.</p><p>The development environment is used by default on your machine. If you deploy
 to heroku or to another hosting server, production will be used there.</p></section>
-<section>
-<p><a class='slide_break' href='asset_pipeline.html#slide-9'>▻</a></p>
+<section><a class='slide_break' href='asset_pipeline.html#slide-9'>▻</a>
 <h4 id="development-environment-and-the-asset-pipeline">
 <a class="anchorlink" href="#development-environment-and-the-asset-pipeline"></a>2.2 development Environment and the Asset Pipeline</h4><p>In <code>development</code> the asset pipeline will not write files to <code>public/assets</code>. Instead
 these files will be created on the fly, and not be conactenated. The two lines
@@ -191,8 +181,7 @@ in your Layout:</p><div class="code_container">
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='asset_pipeline.html#slide-10'>▻</a></p>
+<section><a class='slide_break' href='asset_pipeline.html#slide-10'>▻</a>
 <h4 id="production-environment-and-the-asset-pipeline">
 <a class="anchorlink" href="#production-environment-and-the-asset-pipeline"></a>2.3 production Environment and the Asset Pipeline</h4><p>When you deploy to production, you deployment process will run <code>rake assets:precompile</code>,
 which generates the files in <code>public/assets</code>, including <code>public/assets/manifest-md5hash.json</code>.</p><p>If you look at the generated HTML code on the production server,
@@ -215,8 +204,7 @@ all JavaScript files have been concatenated into one <code>application*.js</code
 <li>other rails commands: add <code>RAILS_ENV=production</code> at the beginning or the end of the command.</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='asset_pipeline.html#slide-11'>▻</a></p>
+<section><a class='slide_break' href='asset_pipeline.html#slide-11'>▻</a>
 <h4 id="fingerprinting-for-better-expiry">
 <a class="anchorlink" href="#fingerprinting-for-better-expiry"></a>2.4 Fingerprinting for better Expiry</h4><p>The filenames mentioned in the last chapter all contain a part that seems random:</p>
 <ul>
@@ -231,8 +219,7 @@ be different.</p><p>This enables a neat trick with the expiry of the file: You c
 to infinite, every browser can save the file forever and never try to reload it.
 If the contents of the file change, a new file with a new fingerprint in the name will
 be generated, and the HTML-page will link to that file.</p><p>This way we avoid one the the <a href="https://twitter.com/codinghorror/status/506010907021828096">two hard problems in computer science</a>: cache invalidation.</p></section>
-<section>
-<p><a class='slide_break' href='asset_pipeline.html#slide-12'>▻</a></p>
+<section><a class='slide_break' href='asset_pipeline.html#slide-12'>▻</a>
 <h3 id="live-reloading">
 <a class="anchorlink" href="#live-reloading"></a>3 Live Reloading</h3><p>When you are working on the frontend of your app, fiddling
 around in views and stylsheets, it may be helpful to immediatly
@@ -261,15 +248,13 @@ end
 </div>
 <p>Now stop and start your webserver, reload your app in the browser, and change
 a stylesheet or view to see it in action.</p><p>The window with <code>guard</code> running needs to stay open, it will look like this:</p><p><img src="images/guard.png" alt="guard"></p></section>
-<section>
-<p><a class='slide_break' href='asset_pipeline.html#slide-13'>▻</a></p>
+<section><a class='slide_break' href='asset_pipeline.html#slide-13'>▻</a>
 <h3 id="user-generated-content">
 <a class="anchorlink" href="#user-generated-content"></a>4 User Generated Content</h3><p>The asset pipeline handles assets that are
 added by developers during development.
 Images uploaded by users in production
 are handled by <a href="https://edgeguides.rubyonrails.org/active_storage_overview.html">activestorage</a>.</p></section>
-<section>
-<p><a class='slide_break' href='asset_pipeline.html#slide-14'>▻</a></p>
+<section><a class='slide_break' href='asset_pipeline.html#slide-14'>▻</a>
 <h3 id="further-reading">
 <a class="anchorlink" href="#further-reading"></a>5 Further Reading</h3>
 <ul>
@@ -278,7 +263,7 @@ are handled by <a href="https://edgeguides.rubyonrails.org/active_storage_overvi
 <li>
 <a href="https://calendar.perfplanet.com/2018/">The Web Performance (Advent) Calendar</a> new every year</li>
 </ul>
-</section>
+</div></section>
       </div>
     </div>
     <!-- End slides. -->
@@ -293,18 +278,18 @@ are handled by <a href="https://edgeguides.rubyonrails.org/active_storage_overvi
     Reveal.initialize({
       controls: false,
       progress: true,
-      center: true,
+      center: false,
       hash: true,
 
       // The "normal" size of the presentation, aspect ratio will
       // be preserved when the presentation is scaled to fit different
       // resolutions. Can be specified using percentage units.
-      width: 1300,
-      height: 900,
+      width: 800,
+      height: 600,
 
       // Factor of the display size that should remain empty around
       // the content
-      margin: 0.01,
+      margin: 0.05,
 
       // Bounds for smallest/largest possible scale to apply to content
       minScale: 0.2,

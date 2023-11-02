@@ -23,8 +23,7 @@
     <div class="reveal">
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
-        <section>
-<p><a class='slide_break' href='advanced_testing.html#slide-0'>▻</a></p>
+        <section><a class='slide_break' href='advanced_testing.html#slide-0'>▻</a>
 <h3 id="rspec">
 <a class="anchorlink" href="#rspec"></a>1 rspec</h3><p>Rspec is the second testing framework that is commonly used
 with Ruby on Rails projects. According to <a href="https://www.ruby-toolbox.com/categories/testing_frameworks">ruby-toolbox.com</a>
@@ -36,8 +35,7 @@ it is used more often than the (built in) Minitest.</p><p>Rspec replaces minites
 </li>
 </ul>
 <p>(yes, sometimes you need the <code>r</code> in rspec, and other times you leave it out.)</p></section>
-<section>
-<p><a class='slide_break' href='advanced_testing.html#slide-1'>▻</a></p>
+<section><a class='slide_break' href='advanced_testing.html#slide-1'>▻</a>
 <h4 id="a-simple-spec">
 <a class="anchorlink" href="#a-simple-spec"></a>1.1 A simple spec</h4><p>A file can contain multiple test. You use <code>describe</code> and <code>it</code> to
 structure the file. The arguments for <code>describe</code> and <code>it</code> are
@@ -84,8 +82,7 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='advanced_testing.html#slide-2'>▻</a></p>
+<section><a class='slide_break' href='advanced_testing.html#slide-2'>▻</a>
 <h4 id="example-model-spec">
 <a class="anchorlink" href="#example-model-spec"></a>1.2 Example Model Spec</h4><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">describe</span> <span class="no">Post</span> <span class="k">do</span>
@@ -101,8 +98,7 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='advanced_testing.html#slide-3'>▻</a></p>
+<section><a class='slide_break' href='advanced_testing.html#slide-3'>▻</a>
 <h4 id="example-feature-spec">
 <a class="anchorlink" href="#example-feature-spec"></a>1.3 Example Feature Spec</h4><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">feature</span> <span class="s2">"Widget management"</span> <span class="k">do</span>
@@ -116,8 +112,7 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='advanced_testing.html#slide-4'>▻</a></p>
+<section><a class='slide_break' href='advanced_testing.html#slide-4'>▻</a>
 <h4 id="kinds-of-tests">
 <a class="anchorlink" href="#kinds-of-tests"></a>1.4 Kinds of Tests</h4>
 <ul>
@@ -131,12 +126,10 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 <li>Feature specs</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='advanced_testing.html#slide-5'>▻</a></p>
+<section><a class='slide_break' href='advanced_testing.html#slide-5'>▻</a>
 <h3 id="cucumber">
 <a class="anchorlink" href="#cucumber"></a>2 Cucumber</h3><p><img src="images/cucumber-1.png" alt=""></p><p><img src="images/cucumber-2.png" alt=""></p></section>
-<section>
-<p><a class='slide_break' href='advanced_testing.html#slide-6'>▻</a></p>
+<section><a class='slide_break' href='advanced_testing.html#slide-6'>▻</a>
 <h4 id="step-definitions">
 <a class="anchorlink" href="#step-definitions"></a>2.1 Step Definitions</h4><p>the magic behind cucumber:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="no">Given</span> <span class="sr">/the following movies exist/</span> <span class="k">do</span> <span class="o">|</span><span class="n">movies_table</span><span class="o">|</span>
@@ -152,8 +145,7 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='advanced_testing.html#slide-7'>▻</a></p>
+<section><a class='slide_break' href='advanced_testing.html#slide-7'>▻</a>
 <h3 id="test-doubles">
 <a class="anchorlink" href="#test-doubles"></a>3 Test Doubles</h3><p>According to Meszaros(2007)</p>
 <ul>
@@ -167,12 +159,10 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 <strong>Fake object</strong> used as a simpler implementation, e.g. using an in-memory database in the tests instead of doing real database access</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='advanced_testing.html#slide-8'>▻</a></p>
+<section><a class='slide_break' href='advanced_testing.html#slide-8'>▻</a>
 <h3 id="testing-web-servcies">
 <a class="anchorlink" href="#testing-web-servcies"></a>4 Testing Web Servcies</h3><p>VCR</p></section>
-<section>
-<p><a class='slide_break' href='advanced_testing.html#slide-9'>▻</a></p>
+<section><a class='slide_break' href='advanced_testing.html#slide-9'>▻</a>
 <h3 id="testing-time">
 <a class="anchorlink" href="#testing-time"></a>5 Testing Time</h3><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">describe</span> <span class="s2">"sets done_at"</span> <span class="k">do</span>
@@ -185,8 +175,7 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 </code></pre>
 </div>
 <p><img src="images/timefail-1.png" alt="time fail"></p><p><img src="images/timefail-2.png" alt="time fail"></p></section>
-<section>
-<p><a class='slide_break' href='advanced_testing.html#slide-10'>▻</a></p>
+<section><a class='slide_break' href='advanced_testing.html#slide-10'>▻</a>
 <h4 id="first-solution-write-your-own-matcher">
 <a class="anchorlink" href="#first-solution-write-your-own-matcher"></a>5.1 First solution: write your own matcher:</h4><div class="code_container">
 <pre><code class="highlight ruby"><span class="c1"># in your test:</span>
@@ -204,8 +193,7 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 </code></pre>
 </div>
 <p><img src="images/timefail-3.png" alt=""></p></section>
-<section>
-<p><a class='slide_break' href='advanced_testing.html#slide-11'>▻</a></p>
+<section><a class='slide_break' href='advanced_testing.html#slide-11'>▻</a>
 <h4 id="second-solution-timecop">
 <a class="anchorlink" href="#second-solution-timecop"></a>5.2 Second Solution: Timecop</h4><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">it</span> <span class="s2">"sets done_at"</span> <span class="k">do</span>
@@ -220,12 +208,10 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='advanced_testing.html#slide-12'>▻</a></p>
+<section><a class='slide_break' href='advanced_testing.html#slide-12'>▻</a>
 <h3 id="testing-javascript">
 <a class="anchorlink" href="#testing-javascript"></a>6 Testing Javascript</h3><p><img src="images/jasmine.png" alt=""></p><p><img src="images/phantomjs.png" alt=""></p></section>
-<section>
-<p><a class='slide_break' href='advanced_testing.html#slide-13'>▻</a></p>
+<section><a class='slide_break' href='advanced_testing.html#slide-13'>▻</a>
 <h4 id="phantom-example">
 <a class="anchorlink" href="#phantom-example"></a>6.1 Phantom Example</h4><div class="code_container">
 <pre><code class="highlight javascript"><span class="kd">var</span> <span class="nx">page</span><span class="p">;</span>
@@ -254,14 +240,12 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='advanced_testing.html#slide-14'>▻</a></p>
+<section><a class='slide_break' href='advanced_testing.html#slide-14'>▻</a>
 <h4 id="phantom-in-rspec">
 <a class="anchorlink" href="#phantom-in-rspec"></a>6.2 Phantom in rspec</h4><p>with capybara and poltergeist</p></section>
-<section>
-<p><a class='slide_break' href='advanced_testing.html#slide-15'>▻</a></p>
+<section><a class='slide_break' href='advanced_testing.html#slide-15'>▻</a>
 <h3 id="example-app">
-<a class="anchorlink" href="#example-app"></a>7 Example App</h3><p>Clone <a href="https://github.com/web-engineering/rails-example-test-the-todo">this app</a> and try out your new testing strategies!</p><p><img src="images/sample-app-todolist.png" alt="screenshot example app"></p></section>
+<a class="anchorlink" href="#example-app"></a>7 Example App</h3><p>Clone <a href="https://github.com/web-engineering/rails-example-test-the-todo">this app</a> and try out your new testing strategies!</p><p><img src="images/sample-app-todolist.png" alt="screenshot example app"></p></div></section>
       </div>
     </div>
     <!-- End slides. -->
@@ -276,18 +260,18 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
     Reveal.initialize({
       controls: false,
       progress: true,
-      center: true,
+      center: false,
       hash: true,
 
       // The "normal" size of the presentation, aspect ratio will
       // be preserved when the presentation is scaled to fit different
       // resolutions. Can be specified using percentage units.
-      width: 1300,
-      height: 900,
+      width: 800,
+      height: 600,
 
       // Factor of the display size that should remain empty around
       // the content
-      margin: 0.01,
+      margin: 0.05,
 
       // Bounds for smallest/largest possible scale to apply to content
       minScale: 0.2,

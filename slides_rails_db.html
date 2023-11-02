@@ -23,8 +23,7 @@
     <div class="reveal">
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
-        <section>
-<p><a class='slide_break' href='rails_db.html#slide-0'>▻</a></p>
+        <section><a class='slide_break' href='rails_db.html#slide-0'>▻</a>
 <h3 id="models-and-databases">
 <a class="anchorlink" href="#models-and-databases"></a>1 Models and Databases</h3><p>In an object-oriented programming language like Ruby we represent
 things in the real world with objects in our program. For example if you are
@@ -39,8 +38,7 @@ objects into a relational database does not work all that well.
 This problem is called the
 <a href="https://en.wikipedia.org/wiki/Object-relational_impedance_mismatch">Object-relational impedance mismatch</a>
 and has been discussed since the early 1980s.</p></section>
-<section>
-<p><a class='slide_break' href='rails_db.html#slide-1'>▻</a></p>
+<section><a class='slide_break' href='rails_db.html#slide-1'>▻</a>
 <h4 id="orms">
 <a class="anchorlink" href="#orms"></a>1.1 ORMs</h4><p>Today there exist several Design Patterns and Libraries for solving this.
 The solution is called an Object Relational Mapper or ORM.</p><p>Two Patterns used in Rails for this problem are ActiveRecord and ObjectMapper, both
@@ -57,8 +55,7 @@ ActiveRecord is the default solution used in Rails, we will look into it in deta
 </li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_db.html#slide-2'>▻</a></p>
+<section><a class='slide_break' href='rails_db.html#slide-2'>▻</a>
 <h4 id="the-mapping">
 <a class="anchorlink" href="#the-mapping"></a>1.2 The Mapping</h4><p>A quick overview of how Objects and Database relate when using
 ActiveRecord in Rails:</p><div class="code_container">
@@ -72,8 +69,7 @@ SELECT * FROM courses WHERE id=7   Course.find(7)
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_db.html#slide-3'>▻</a></p>
+<section><a class='slide_break' href='rails_db.html#slide-3'>▻</a>
 <h4 id="conventions">
 <a class="anchorlink" href="#conventions"></a>1.3 Conventions</h4><p>Rails has several conventions regarding ActiveRecord and the database:</p>
 <ul>
@@ -86,8 +82,7 @@ SELECT * FROM courses WHERE id=7   Course.find(7)
 <li>Two extra properties are added: <code>created_at</code> and <code>updated_at</code>.</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_db.html#slide-4'>▻</a></p>
+<section><a class='slide_break' href='rails_db.html#slide-4'>▻</a>
 <p>If there's an 1:n relationship between two models, the table on the "one" side will contain a foreign key like so:</p>
 <ul>
 <li>table <code>users</code> and table <code>phones</code> (one user has many phones)</li>
@@ -101,16 +96,14 @@ SELECT * FROM courses WHERE id=7   Course.find(7)
 <li>there is no class in Rails to represent the join table</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_db.html#slide-5'>▻</a></p>
+<section><a class='slide_break' href='rails_db.html#slide-5'>▻</a>
 <h4 id="not-following-conventions">
 <a class="anchorlink" href="#not-following-conventions"></a>1.4 Not following Conventions</h4><p>If you stick to these conventions, building the web app will be very easy.</p><p>You can deviate from these conventions, but this takes some extra configuration and programming work.</p><p>Here is one scenario where deviating from the conventions might make sense:
 You are building a Rails app to replace an old php app, but you want to
 keep using the same database. You can start with the models
 in Rails configured to fit with your old database, and then refactor and migrate towards
 the Rails conventions step by step.</p></section>
-<section>
-<p><a class='slide_break' href='rails_db.html#slide-6'>▻</a></p>
+<section><a class='slide_break' href='rails_db.html#slide-6'>▻</a>
 <h4 id="a-word-on-generators">
 <a class="anchorlink" href="#a-word-on-generators"></a>1.5 A word on generators</h4><p>Rails comes with several commands for the command line.</p><div class="code_container">
 <pre><code class="highlight shell"><span class="nv">$ </span><span class="nb">rails</span> <span class="nt">--help</span>
@@ -126,8 +119,7 @@ The most common <span class="nb">rails </span>commands are:
 </div>
 <p>First we will
 use a generator that will help us generate some code.</p></section>
-<section>
-<p><a class='slide_break' href='rails_db.html#slide-7'>▻</a></p>
+<section><a class='slide_break' href='rails_db.html#slide-7'>▻</a>
 <h4 id="how-to-build-a-first-table-generate">
 <a class="anchorlink" href="#how-to-build-a-first-table-generate"></a>1.6 How to build a first Table - generate</h4><p>To build the first model and its corresponding database table, use the model generator:</p><div class="code_container">
 <pre><code class="highlight shell"><span class="nb">rails </span>generate model tweet status zombie
@@ -139,8 +131,7 @@ have the default type: string.</p><p>Look at the model generated in file <code>a
 We do not need to specify properties or their datatypes here, they will be
 derived from the database automatically.</p><p>If you ever mistype your <code>rails generate ...</code> line, you can undo it by running <code>rails destroy ...</code>. This will
 delete all the files generated.</p></section>
-<section>
-<p><a class='slide_break' href='rails_db.html#slide-8'>▻</a></p>
+<section><a class='slide_break' href='rails_db.html#slide-8'>▻</a>
 <h4 id="how-to-build-a-first-table-edit-migration">
 <a class="anchorlink" href="#how-to-build-a-first-table-edit-migration"></a>1.7 How to build a first Table - edit migration</h4><p>Have a look at the migration that was generated in <code>db/migrate/*create_tweets.rb</code>.</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">CreateTweets</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span><span class="p">[</span><span class="mf">7.0</span><span class="p">]</span>
@@ -156,8 +147,7 @@ delete all the files generated.</p></section>
 </code></pre>
 </div>
 <p>You can edit this migration now.</p></section>
-<section>
-<p><a class='slide_break' href='rails_db.html#slide-9'>▻</a></p>
+<section><a class='slide_break' href='rails_db.html#slide-9'>▻</a>
 <p>For example you could add some more
 columns, with other datatypes:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">CreateTweets</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span><span class="p">[</span><span class="mf">7.0</span><span class="p">]</span>
@@ -179,13 +169,11 @@ columns, with other datatypes:</p><div class="code_container">
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_db.html#slide-10'>▻</a></p>
+<section><a class='slide_break' href='rails_db.html#slide-10'>▻</a>
 <h4 id="how-to-build-a-first-table-run-migration">
 <a class="anchorlink" href="#how-to-build-a-first-table-run-migration"></a>1.8 How to build a first Table - run migration</h4><p>Run the migration on the command line with <code>rails db:migrate</code>. This will run the appropriate <code>CREATE TABLE</code> statement in your database.</p><p>After that, the current schema of the database will be saved to
 a file <code>db/schema.rb</code>. You never need to edit this file directly.</p></section>
-<section>
-<p><a class='slide_break' href='rails_db.html#slide-11'>▻</a></p>
+<section><a class='slide_break' href='rails_db.html#slide-11'>▻</a>
 <h3 id="database-migrations">
 <a class="anchorlink" href="#database-migrations"></a>2 Database Migrations</h3><p>You just saw how you can build a database table and a model
 file using <code>generate model</code>.  But why is the database table not
@@ -195,8 +183,7 @@ a web project.</p><p>During months and years of development the database schema 
 the code will change. And both changes belong together: if I push out
 a code change to my fellow developers without the database changes,
 they will not be able to use the code.</p><p>Database Migrations are a way to communicate database changes.</p></section>
-<section>
-<p><a class='slide_break' href='rails_db.html#slide-12'>▻</a></p>
+<section><a class='slide_break' href='rails_db.html#slide-12'>▻</a>
 <h4 id="one-migration">
 <a class="anchorlink" href="#one-migration"></a>2.1 One Migration</h4><p>A "Migration" is a (small) change in the database schema. The change is
 described in Ruby and saved to a file in the folder <code>db/migrations</code>.
@@ -208,8 +195,7 @@ The files are identified by a timestamp and a unique name, for example:</p><div 
 </div>
 <p>The first two of these migrations were generated by the model generator,
 the last one by <code>rails generate migration AddVideoLinkToEvent</code>.</p></section>
-<section>
-<p><a class='slide_break' href='rails_db.html#slide-13'>▻</a></p>
+<section><a class='slide_break' href='rails_db.html#slide-13'>▻</a>
 <h4 id="a-first-example">
 <a class="anchorlink" href="#a-first-example"></a>2.2 A First Example</h4><p>Here you see a first example of a migration file.  It was created
 by the model generator.  When it is run, it  creates  a table from scratch.
@@ -231,8 +217,7 @@ are specified:</p><div class="code_container">
 </code></pre>
 </div>
 <p>Use <code>rails db:migrate</code> on the commandline to apply this migration to the existing database.</p></section>
-<section>
-<p><a class='slide_break' href='rails_db.html#slide-14'>▻</a></p>
+<section><a class='slide_break' href='rails_db.html#slide-14'>▻</a>
 <h4 id="rollback">
 <a class="anchorlink" href="#rollback"></a>2.3 Rollback</h4><p>You can think of the migration as a small step forward in changing the
 database.  If you want, you can also go backward with <code>rails db:rollback</code>.
@@ -243,8 +228,7 @@ migration, apply it again... until you are happy with it.</p><p>But beware: once
 no going back any more: as soon as other developers have started using
 your migration, you cannot roll it back anymore.  You can only add more
 migration files, with newer timestamps.</p></section>
-<section>
-<p><a class='slide_break' href='rails_db.html#slide-15'>▻</a></p>
+<section><a class='slide_break' href='rails_db.html#slide-15'>▻</a>
 <h4 id="a-real-world-example">
 <a class="anchorlink" href="#a-real-world-example"></a>2.4 a real world example:</h4><p>The following output is from upgrading GitLab. GitLab
 is written in Rails. Here we can see three migrations being applied to
@@ -296,8 +280,7 @@ the existing database.</p><div class="code_container">
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_db.html#slide-16'>▻</a></p>
+<section><a class='slide_break' href='rails_db.html#slide-16'>▻</a>
 <h3 id="data-types">
 <a class="anchorlink" href="#data-types"></a>3 Data Types</h3><p>You can specify the data type when running the generator.
 <code>string</code> is the default Datatype, so these two lines give the same result:</p><div class="code_container">
@@ -327,8 +310,7 @@ the existing database.</p><div class="code_container">
 <code>:binary</code>, <code>:blob</code>  for raw binary data</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_db.html#slide-17'>▻</a></p>
+<section><a class='slide_break' href='rails_db.html#slide-17'>▻</a>
 <h4 id="details-for-types">
 <a class="anchorlink" href="#details-for-types"></a>3.1 Details for types</h4><p>The generator will give you a good first draft of the migration, but sometimes
 you will have to edit the migration to add details. For example: say you want to store
@@ -372,8 +354,7 @@ this format, and always retrieved in the right format:</p><div class="code_conta
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_db.html#slide-18'>▻</a></p>
+<section><a class='slide_break' href='rails_db.html#slide-18'>▻</a>
 <h4 id="enums">
 <a class="anchorlink" href="#enums"></a>3.2 Enums</h4><p>Often we want to store a restricted set of possible values. Size could be small, medium or large,
 status could be draft, published and archived, ... and so on.</p><p>There are several ways to store such a value in the database and use it in Rails.</p>
@@ -451,16 +432,14 @@ railsconsole&gt; c.status_published!
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_db.html#slide-19'>▻</a></p>
+<section><a class='slide_break' href='rails_db.html#slide-19'>▻</a>
 <h3 id="on-documentation">
 <a class="anchorlink" href="#on-documentation"></a>4 On Documentation</h3><p>You could have learned all this and more from
 the Rails Guides: <a href="https://guides.rubyonrails.org/active_record_basics.html">ActiveRecord Basics</a>, <a href="https://guides.rubyonrails.org/active_record_querying.html">Active Record Query Interface</a> and .
 Set a bookmark for the guides now! Use them as a reference from now on!</p><p>If you are offline now and again you should have the Ruby and Rails documentation available
 locally on your computer. A handy tool for this on mac os x is
 <a href="https://kapeli.com/dash">Dash</a>. This is what a Rails Guide looks like in Dash:</p><p><img src="images/dash-rails-guide.png" alt="Dash"></p></section>
-<section>
-<p><a class='slide_break' href='rails_db.html#slide-20'>▻</a></p>
+<section><a class='slide_break' href='rails_db.html#slide-20'>▻</a>
 <h4 id="further-reading">
 <a class="anchorlink" href="#further-reading"></a>4.1 Further reading</h4>
 <ul>
@@ -481,7 +460,7 @@ locally on your computer. A handy tool for this on mac os x is
 </ul>
 </li>
 </ul>
-</section>
+</div></section>
       </div>
     </div>
     <!-- End slides. -->
@@ -496,18 +475,18 @@ locally on your computer. A handy tool for this on mac os x is
     Reveal.initialize({
       controls: false,
       progress: true,
-      center: true,
+      center: false,
       hash: true,
 
       // The "normal" size of the presentation, aspect ratio will
       // be preserved when the presentation is scaled to fit different
       // resolutions. Can be specified using percentage units.
-      width: 1300,
-      height: 900,
+      width: 800,
+      height: 600,
 
       // Factor of the display size that should remain empty around
       // the content
-      margin: 0.01,
+      margin: 0.05,
 
       // Bounds for smallest/largest possible scale to apply to content
       minScale: 0.2,

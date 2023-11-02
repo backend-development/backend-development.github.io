@@ -23,12 +23,10 @@
     <div class="reveal">
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
-        <section>
-<p><a class='slide_break' href='node_cluster.html#slide-0'>▻</a></p>
+        <section><a class='slide_break' href='node_cluster.html#slide-0'>▻</a>
 <h3 id="node-and-the-command-line">
 <a class="anchorlink" href="#node-and-the-command-line"></a>1 Node and the Command Line</h3></section>
-<section>
-<p><a class='slide_break' href='node_cluster.html#slide-1'>▻</a></p>
+<section><a class='slide_break' href='node_cluster.html#slide-1'>▻</a>
 <h3 id="arguments">
 <a class="anchorlink" href="#arguments"></a>2 Arguments</h3><p>The array <code>process.argv</code> contains information about how the program
 was started:</p><div class="code_container">
@@ -40,8 +38,7 @@ was started:</p><div class="code_container">
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='node_cluster.html#slide-2'>▻</a></p>
+<section><a class='slide_break' href='node_cluster.html#slide-2'>▻</a>
 <h3 id="standard-input-and-standard-output-channels">
 <a class="anchorlink" href="#standard-input-and-standard-output-channels"></a>3 Standard Input and Standard Output channels</h3><p>are streams in node:</p><div class="code_container">
 <pre><code class="highlight javascript"><span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hello World</span><span class="se">\n</span><span class="dl">"</span><span class="p">);</span>
@@ -54,12 +51,10 @@ was started:</p><div class="code_container">
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='node_cluster.html#slide-3'>▻</a></p>
+<section><a class='slide_break' href='node_cluster.html#slide-3'>▻</a>
 <h3 id="environment-variables">
 <a class="anchorlink" href="#environment-variables"></a>4 environment variables</h3></section>
-<section>
-<p><a class='slide_break' href='node_cluster.html#slide-4'>▻</a></p>
+<section><a class='slide_break' href='node_cluster.html#slide-4'>▻</a>
 <h3 id="process-id">
 <a class="anchorlink" href="#process-id"></a>5 process id</h3><div class="code_container">
 <pre><code class="highlight javascript"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`process </span><span class="p">${</span><span class="nx">process</span><span class="p">.</span><span class="nx">pid</span><span class="p">}</span><span class="s2">`</span><span class="p">)</span>
@@ -73,8 +68,7 @@ was started:</p><div class="code_container">
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='node_cluster.html#slide-5'>▻</a></p>
+<section><a class='slide_break' href='node_cluster.html#slide-5'>▻</a>
 <h3 id="sending-and-reacting-to-signals">
 <a class="anchorlink" href="#sending-and-reacting-to-signals"></a>6 Sending and reacting to signals</h3><div class="code_container">
 <pre><code class="highlight javascript"><span class="nx">process</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span> <span class="dl">"</span><span class="s2">SIGINT</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -104,8 +98,7 @@ process.on( "SIGHUP", function() {
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='node_cluster.html#slide-6'>▻</a></p>
+<section><a class='slide_break' href='node_cluster.html#slide-6'>▻</a>
 <h3 id="scaling-node-with-cluster-js">
 <a class="anchorlink" href="#scaling-node-with-cluster-js"></a>7 Scaling Node with cluster.js</h3><p>V8 has a default memory limit of ~1.5GB
 If your server has more memory
@@ -179,15 +172,14 @@ are the same as for PHP, Rails, etc:</p>
 <li>by sending messages</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='node_cluster.html#slide-7'>▻</a></p>
+<section><a class='slide_break' href='node_cluster.html#slide-7'>▻</a>
 <h3 id="see-also">
 <a class="anchorlink" href="#see-also"></a>8 See Also</h3>
 <ul>
 <li><a href="https://nodejs.org/api/cluster.html">cluster.js documentation</a></li>
 <li><a href="https://pm2.io/doc/en/runtime/overview/">pm2 - process manager for Node.js</a></li>
 </ul>
-</section>
+</div></section>
       </div>
     </div>
     <!-- End slides. -->
@@ -202,18 +194,18 @@ are the same as for PHP, Rails, etc:</p>
     Reveal.initialize({
       controls: false,
       progress: true,
-      center: true,
+      center: false,
       hash: true,
 
       // The "normal" size of the presentation, aspect ratio will
       // be preserved when the presentation is scaled to fit different
       // resolutions. Can be specified using percentage units.
-      width: 1300,
-      height: 900,
+      width: 800,
+      height: 600,
 
       // Factor of the display size that should remain empty around
       // the content
-      margin: 0.01,
+      margin: 0.05,
 
       // Bounds for smallest/largest possible scale to apply to content
       minScale: 0.2,

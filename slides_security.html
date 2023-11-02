@@ -23,8 +23,7 @@
     <div class="reveal">
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
-        <section>
-<p><a class='slide_break' href='security.html#slide-0'>▻</a></p>
+        <section><a class='slide_break' href='security.html#slide-0'>▻</a>
 <h3 id="where-to-learn-about-security">
 <a class="anchorlink" href="#where-to-learn-about-security"></a>1 Where to learn about security</h3>
 <ul>
@@ -34,8 +33,7 @@
 </li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='security.html#slide-1'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-1'>▻</a>
 <h3 id="injection">
 <a class="anchorlink" href="#injection"></a>2 Injection</h3>
 <blockquote>
@@ -43,8 +41,7 @@
 </blockquote>
 <p>If you use your ORM correctly you should be save. But make sure to find out
 what you ORM does or does not do!</p></section>
-<section>
-<p><a class='slide_break' href='security.html#slide-2'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-2'>▻</a>
 <h4 id="sql-injection-and-activerecord">
 <a class="anchorlink" href="#sql-injection-and-activerecord"></a>2.1 SQL Injection and ActiveRecord</h4><p>A good ORM like ActiveRecord will protect against SQL-Injection if used correctly.
 For ActiveRecord: if you use the methods <code>find</code> or <code>where</code> without string interpolation
@@ -63,8 +60,7 @@ bound values are supplied separately:</p><div class="code_container">
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='security.html#slide-3'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-3'>▻</a>
 <p>But if you use string interpolation to build up SQL queries,
 you open up your application to injection attacks. An example that is vunerable:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="vi">@projects</span> <span class="o">=</span> <span class="no">Project</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"title = '</span><span class="si">#{</span><span class="n">params</span><span class="p">[</span><span class="ss">:title</span><span class="p">]</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
@@ -78,8 +74,7 @@ you open up your application to injection attacks. An example that is vunerable:
 <p>As you can see the SQL Fragment was incorporated into the SQL query before
 the string was handed to ActiveRecord. The resulting query returns all records from the projects table.
 This is because the condition is true for all records.</p></section>
-<section>
-<p><a class='slide_break' href='security.html#slide-4'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-4'>▻</a>
 <h4 id="links">
 <a class="anchorlink" href="#links"></a>2.2 Links</h4>
 <ul>
@@ -89,8 +84,7 @@ This is because the condition is true for all records.</p></section>
 <li><a href="https://brakemanscanner.org/docs/warning_types/sql_injection/">brakeman will warn about possible sql injections</a></li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='security.html#slide-5'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-5'>▻</a>
 <h3 id="broken-authentication">
 <a class="anchorlink" href="#broken-authentication"></a>3 Broken Authentication</h3>
 <blockquote>
@@ -108,8 +102,7 @@ or if you need to add them through packages.</p>
 </li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='security.html#slide-6'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-6'>▻</a>
 <h4 id="authentication-in-rails">
 <a class="anchorlink" href="#authentication-in-rails"></a>3.1 Authentication in Rails</h4><p>Rails comes with basic built in functionality to handle authentication:</p>
 <ul>
@@ -124,8 +117,7 @@ or if you need to add them through packages.</p>
 <a href="https://github.com/omniauth/omniauth/wiki/List-of-Strategies">omniauth</a> to use other authentication providers</li>
 </ul>
 <p>We discussed using this in the chapter on <a href="rails_authentication.html">Rails Authentication</a>.</p></section>
-<section>
-<p><a class='slide_break' href='security.html#slide-7'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-7'>▻</a>
 <h4 id="well-known-passwords">
 <a class="anchorlink" href="#well-known-passwords"></a>3.2 well known passwords</h4><p>Use the gem <code>pwned</code> to access an API that will tell you if a password is too common and has
 been featured in password lists:</p><div class="code_container">
@@ -143,8 +135,7 @@ been featured in password lists:</p><div class="code_container">
 </code></pre>
 </div>
 <p><a href="https://www.twilio.com/blog/2018/03/better-passwords-in-ruby-applications-pwned-passwords-api.html">Blog article on pwned gem</a></p></section>
-<section>
-<p><a class='slide_break' href='security.html#slide-8'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-8'>▻</a>
 <h4 id="testing">
 <a class="anchorlink" href="#testing"></a>3.3 Testing</h4><p>When implementing these features you can write integration tests to make
 sure they actually work.</p><div class="code_container">
@@ -170,16 +161,14 @@ sure they actually work.</p><div class="code_container">
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='security.html#slide-9'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-9'>▻</a>
 <h3 id="sensitive-data-exposure">
 <a class="anchorlink" href="#sensitive-data-exposure"></a>4 Sensitive Data Exposure</h3>
 <blockquote>
 <p>Many web applications and APIs do not properly protect sensitive data, such as financial, healthcare, and Peronally Identifiable Information ... Sensitive data may be compromised without extra protection, such as encryption at rest or in transit, and requires special precautions when exchanged with the browser. <a href="https://www.owasp.org/index.php/Top_10-2017_A3-Sensitive_Data_Exposure">OWASP Wiki</a></p>
 </blockquote>
 </section>
-<section>
-<p><a class='slide_break' href='security.html#slide-10'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-10'>▻</a>
 <p>The OWASP advises: Determine the protection needs of data <strong>in transit</strong> and <strong>at rest</strong>. For example, passwords, credit card numbers, health records, personal information and business secrets require extra protection, particularly if that data falls under privacy laws, e.g. EU's General Data Protection Regulation (GDPR), or regulations, e.g. financial data protection such as PCI Data Security Standard (PCI DSS).</p><p>You should check if your backend framework has the following features,
 or if you need to add them through packages.</p>
 <ul>
@@ -188,12 +177,10 @@ or if you need to add them through packages.</p>
 <li>ensuring that https is used</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='security.html#slide-11'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-11'>▻</a>
 <h4 id="encryption-in-the-database">
 <a class="anchorlink" href="#encryption-in-the-database"></a>4.1 Encryption in the Database</h4><p>From Rails version 7 on <a href="https://edgeguides.rubyonrails.org/active_record_encryption.html">ActiveRecord offers encryption</a>. For older versions  you can use the <a href="https://github.com/attr-encrypted/attr_encrypted">attr_encrypted gem</a> to encrypt certain attributes in the database transparently.</p><p>While choosing to encrypt at the attribute level is the most secure solution, it is not without drawbacks. Namely, you cannot search the encrypted data, and because you can't search it, you can't index it either. You also can't use joins on the encrypted data.</p></section>
-<section>
-<p><a class='slide_break' href='security.html#slide-12'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-12'>▻</a>
 <h4 id="removing-from-the-logfile">
 <a class="anchorlink" href="#removing-from-the-logfile"></a>4.2 Removing from the Logfile</h4><p>By default, Rails logs all requests being made to the web application.  You can <em>filter certain request parameters from your log files</em> by appending them to <code>config.filter_parameters</code> in the application configuration. These parameters will be replaced by "[FILTERED]" in the log.</p><div class="code_container">
 <pre><code class="highlight plaintext">Started POST "/user/sign_in" for 127.0.0.1 at 2021-01-05 08:46:01 +0100
@@ -208,8 +195,7 @@ In"}
 </code></pre>
 </div>
 <p>Provided parameters will be filtered out by partial matching regular expression. Rails adds default <code>:password</code> in the appropriate initializer, which will take care of <code>password</code> and <code>password_confirmation</code>.</p></section>
-<section>
-<p><a class='slide_break' href='security.html#slide-13'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-13'>▻</a>
 <h4 id="ensuring-that-https-is-used">
 <a class="anchorlink" href="#ensuring-that-https-is-used"></a>4.3 Ensuring that HTTPS is used</h4><p>In the appropriate environment(s) force ssl:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="c1"># in config/environments/production.rb</span>
@@ -227,8 +213,7 @@ In"}
 </li>
 </ol>
 <p>See <a href="https://blog.bigbinary.com/2016/08/24/rails-5-adds-more-control-to-fine-tuning-ssl-usage.html">this blog article</a> for more details on configuring this</p></section>
-<section>
-<p><a class='slide_break' href='security.html#slide-14'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-14'>▻</a>
 <h3 id="broken-access-control">
 <a class="anchorlink" href="#broken-access-control"></a>5 Broken Access Control</h3>
 <blockquote>
@@ -242,12 +227,10 @@ In"}
 <li>set CORS to restrict access to your API</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='security.html#slide-15'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-15'>▻</a>
 <h4 id="remove-unused-routes">
 <a class="anchorlink" href="#remove-unused-routes"></a>5.1 remove unused routes</h4><p><a href="https://rails-bestpractices.com/posts/2011/08/19/restrict-auto-generated-routes/">rails_best_practices: Restrict auto-generated routes</a></p></section>
-<section>
-<p><a class='slide_break' href='security.html#slide-16'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-16'>▻</a>
 <h4 id="check-user-roles-and-permissions-in-every-controller">
 <a class="anchorlink" href="#check-user-roles-and-permissions-in-every-controller"></a>5.2 check user roles and permissions in every controller</h4><p>The simplest way is to use <code>current_user</code> to control access to models.
 Instead of simply loading data:</p><div class="code_container">
@@ -265,8 +248,7 @@ use a gem like <code>cancancan</code> which will let you <a href="https://github
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='security.html#slide-17'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-17'>▻</a>
 <h4 id="use-uuids-instead-of-bigint-as-id">
 <a class="anchorlink" href="#use-uuids-instead-of-bigint-as-id"></a>5.3 use UUIDs instead of bigint as id</h4><p>In some circumstances you need to have a resource that is available
 to anyone with the URL - think google docs or doodle.</p><p>But you do not want users to be able to enumerate all possible URLs:</p><div class="code_container">
@@ -283,8 +265,7 @@ https://my-schedule.at/calendar/a3240e9e-1209-4e95-9fd0-a712035c8ad4 ...
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='security.html#slide-18'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-18'>▻</a>
 <p>In postgresql you can use the extentions <strong>pgcrypto</strong> or <strong>uuid-ossp</strong></p><div class="code_container">
 <pre><code class="highlight sql"><span class="k">CREATE</span> <span class="n">EXTENSION</span> <span class="n">pgcrypto</span><span class="p">;</span><span class="err"> </span>
 <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">calendar</span><span class="p">(</span> <span class="n">id</span> <span class="n">UUID</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="k">DEFAULT</span> <span class="n">gen_random_uuid</span><span class="p">(),</span> <span class="n">name</span> <span class="nb">TEXT</span> <span class="p">);</span>
@@ -299,8 +280,7 @@ https://my-schedule.at/calendar/a3240e9e-1209-4e95-9fd0-a712035c8ad4 ...
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='security.html#slide-19'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-19'>▻</a>
 <p>Rails can handle all this for you:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="c1"># in config/application.rb</span>
 <span class="n">config</span><span class="p">.</span><span class="nf">generators</span> <span class="k">do</span> <span class="o">|</span><span class="n">g</span><span class="o">|</span>
@@ -309,12 +289,10 @@ https://my-schedule.at/calendar/a3240e9e-1209-4e95-9fd0-a712035c8ad4 ...
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='security.html#slide-20'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-20'>▻</a>
 <h4 id="set-cors-for-your-api">
 <a class="anchorlink" href="#set-cors-for-your-api"></a>5.4 set CORS for your API</h4><p>Browsers restrict cross-origin HTTP requests initiated by scripts. For example, <strong>XMLHttpRequest</strong> and the <strong>Fetch API</strong> follow the same-origin policy. This means that a web application using those APIs can only request HTTP resources from the same origin the application was loaded from, unless the response <strong>from the other origin</strong> includes the right CORS headers.</p><p><img src="images/cors_principle.png" alt="cors principle"></p><p>(Text and Image originally from <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">MDN</a> by <a href="https://wiki.developer.mozilla.org/en-US/docs/Web/HTTP/CORS%24history">many contributres</a> is licensed under <a href="https://creativecommons.org/licenses/by-sa/2.5/">CC BY-SA 2.5</a></p></section>
-<section>
-<p><a class='slide_break' href='security.html#slide-21'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-21'>▻</a>
 <p>In the most simple case, when doing a cross-origin request:</p>
 <ul>
 <li>the client send a <code>Origin</code> header</li>
@@ -331,8 +309,7 @@ Content-Type: application/json
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='security.html#slide-22'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-22'>▻</a>
 <p>If a scripts tries to fetch a ressource cross-origin from server X and no
 <code>Access-Control-Allow-Origin</code> Header
 is set on server X, then the browser will throw an error and not
@@ -347,8 +324,7 @@ continue with the script:</p><div class="code_container">
 </code></pre>
 </div>
 <p><img src="images/cors-error.png" alt=""></p></section>
-<section>
-<p><a class='slide_break' href='security.html#slide-23'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-23'>▻</a>
 <p>After setting the right Headers for the HTTP Response,
 the request goes through:</p><div class="code_container">
 <pre><code class="highlight plaintext">HTTP/1.1 200 OK
@@ -357,8 +333,7 @@ Access-Control-Allow-Methods: GET
 </code></pre>
 </div>
 <p><img src="images/cors-ok.png" alt=""></p></section>
-<section>
-<p><a class='slide_break' href='security.html#slide-24'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-24'>▻</a>
 <p>In Rails you
 can use the <code>rack-cors</code> gem to set the Header in middleware:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="c1"># Gemfile</span>
@@ -383,16 +358,14 @@ can use the <code>rack-cors</code> gem to set the Header in middleware:</p><div 
 </div>
 <p>In this example get-requests are allowed for all origins,
 while using the full api is only allowed for three specific domains.</p></section>
-<section>
-<p><a class='slide_break' href='security.html#slide-25'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-25'>▻</a>
 
 <ul>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS">MDN: CORS</a></li>
 <li><a href="https://github.com/cyu/rack-cors">rack-cors</a></li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='security.html#slide-26'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-26'>▻</a>
 <h3 id="security-misconfiguration">
 <a class="anchorlink" href="#security-misconfiguration"></a>6 Security Misconfiguration</h3>
 <blockquote>
@@ -412,8 +385,7 @@ or if you need to add them through packages:</p>
 <li>Storing Secrets in an encrypted file</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='security.html#slide-27'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-27'>▻</a>
 <h4 id="use-environment-variables">
 <a class="anchorlink" href="#use-environment-variables"></a>6.1 Use Environment Variables</h4><p>The files <code>config/database.yml</code> and <code>config/secrets.yml</code> should not be added
 to the repository - unless you extract out all the secrets into environment
@@ -441,8 +413,7 @@ production:
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='security.html#slide-28'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-28'>▻</a>
 <h4 id="storing-secrets-in-an-encrypted-file">
 <a class="anchorlink" href="#storing-secrets-in-an-encrypted-file"></a>6.2 Storing Secrets in an encrypted file</h4><p>Rails 5.2 and later generates two files to handle credentials (passwords, api keys, ...):</p>
 <ul>
@@ -454,8 +425,7 @@ production:
 <p>The master key is never stored in the repo.</p><p>To edit stored credentials use <code>rails credentials:edit</code>.</p><p>By default, this file contains the application's
 <code>secret_key_base</code>, but it could also be used to store other credentials such as
 access keys for external APIs.</p></section>
-<section>
-<p><a class='slide_break' href='security.html#slide-29'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-29'>▻</a>
 <p>The credentials are accessible in
 the running Rails app via <code>Rails.application.credentials</code>.</p><p>For example, with the following decrypted <code>config/credentials.yml.enc</code>:</p><div class="code_container">
 <pre><code class="highlight plaintext">secret_key_base: 3b7cd727ee24e8444053437c36cc66c3
@@ -469,16 +439,14 @@ version:</p><div class="code_container">
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='security.html#slide-30'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-30'>▻</a>
 <h3 id="cross-site-scripting-xss">
 <a class="anchorlink" href="#cross-site-scripting-xss"></a>7 Cross-Site Scripting (XSS)</h3>
 <blockquote>
 <p>XSS flaws occur whenever an application includes untrusted data in a new web page without proper validation or escaping, or updates an existing web page with user-supplied data using a browser API that can create HTML or JavaScript. XSS allows attackers to execute scripts in the victim's browser which can hijack user sessions, deface web sites, or redirect the user to malicious sites. <a href="https://www.owasp.org/index.php/Top_10-2017_A7-Cross-Site_Scripting_(XSS)">OWASP Wiki</a></p>
 </blockquote>
 <p>You already know about escaping data when using it in HTML.</p><p>Your view layer probably does this automatically</p><p>The modern solution to XSS ist a <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">Content Security Policy</a>(CSP)</p></section>
-<section>
-<p><a class='slide_break' href='security.html#slide-31'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-31'>▻</a>
 <h4 id="escape-for-the-correct-context-in-ruby-on-rails">
 <a class="anchorlink" href="#escape-for-the-correct-context-in-ruby-on-rails"></a>7.1 Escape for the correct context in Ruby on Rails</h4><p>erb automatically escapes for HTML:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="o">&lt;</span><span class="sx">%= @article.title %&gt;
@@ -511,13 +479,11 @@ option</p><div class="code_container">
 </span></code></pre>
 </div>
 <p>See <a href="https://brakemanscanner.org/docs/warning_types/cross_site_scripting_to_json/">brakeman</a> for the rationale.</p><p>When building a JSON API use <code>jbuilder</code> or <code>active_model_serializers</code> as described in <a href="/apis.html#rendering-json">chapter APIs</a>.</p></section>
-<section>
-<p><a class='slide_break' href='security.html#slide-32'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-32'>▻</a>
 <h4 id="escape-for-the-correct-context-in-react">
 <a class="anchorlink" href="#escape-for-the-correct-context-in-react"></a>7.2 Escape for the correct context in React</h4><p>JSX automatically escapes for html:</p><p>If you want to output a string that should be interpreted as HTML you need to use
 <a href="https://react.dev/reference/react-dom/components/common#common-props">dangerouslySetInnerHTML</a></p></section>
-<section>
-<p><a class='slide_break' href='security.html#slide-33'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-33'>▻</a>
 <h4 id="content-security-policy">
 <a class="anchorlink" href="#content-security-policy"></a>7.3 Content Security Policy</h4><p>It is either defined with the HTTP Header <code>Content-Security-Policy</code> or through
 the <code>meta</code> tag.</p><div class="code_container">
@@ -539,8 +505,7 @@ the <code>meta</code> tag.</p><div class="code_container">
 <p>The first point is explicitly set by the directive. Point 2 and 3 are always in effect
 when using CSP. You can explicitly allow <code>unsave-inline</code> and <code>unsave-eval</code>, if you want to
 disable 2 and 3.</p></section>
-<section>
-<p><a class='slide_break' href='security.html#slide-34'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-34'>▻</a>
 <h4 id="configuring-policy-for-different-resources">
 <a class="anchorlink" href="#configuring-policy-for-different-resources"></a>7.4 configuring Policy for different resources</h4>
 <ul>
@@ -550,8 +515,7 @@ disable 2 and 3.</p></section>
 <li>font-src</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='security.html#slide-35'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-35'>▻</a>
 <h4 id="content-security-policy-in-rails">
 <a class="anchorlink" href="#content-security-policy-in-rails"></a>7.5 Content Security Policy in Rails</h4><p>In Rails you can configure the Content Security Policy
 for your application in an initializer.</p><p>Example global policy:</p><div class="code_container">
@@ -583,8 +547,7 @@ them a "nonce":</p><div class="code_container">
 </div>
 <p>Rails can generate separate nonces for separate sessions automatically,
 see <a href="https://guides.rubyonrails.org/security.html#adding-a-nonce">the Rails Security Guide</a>.</p><p>If you want to handle violation reports, you need to set up a model, controller and route <a href="https://bauland42.com/ruby-on-rails-content-security-policy-csp/#cspviolationreports">as described here</a>.</p></section>
-<section>
-<p><a class='slide_break' href='security.html#slide-36'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-36'>▻</a>
 <h3 id="using-components-with-known-vulnerabilities">
 <a class="anchorlink" href="#using-components-with-known-vulnerabilities"></a>8 Using Components with Known Vulnerabilities</h3>
 <blockquote>
@@ -621,16 +584,14 @@ This way no user credentials will every be sent to <code>code.jquery.com</code>)
 </li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='security.html#slide-37'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-37'>▻</a>
 <h3 id="cross-site-request-forgery-csrf">
 <a class="anchorlink" href="#cross-site-request-forgery-csrf"></a>9 Cross Site Request Forgery (CSRF)</h3><p>This security problem used to be No 8 on the list, but was no longer listed in the 2017.</p>
 <blockquote>
 <p>A CSRF attack forces a logged-on victim’s browser to send a forged HTTP request, including the victim’s session cookie and any other automatically included authentication information, to a vulnerable web application. This allows the attacker to force the victim’s browser to generate requests the vulnerable application thinks are legitimate requests from the victim. <a href="https://owasp.org/www-community/attacks/csrf">OWASP</a></p>
 </blockquote>
 <p>First use GET and POST appropriately. Secondly, a security token in non-GET requests will protect your application from CSRF.</p></section>
-<section>
-<p><a class='slide_break' href='security.html#slide-38'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-38'>▻</a>
 <h4 id="csrf-and-rails">
 <a class="anchorlink" href="#csrf-and-rails"></a>9.1 CSRF and Rails</h4><p>Rails can handle this for you</p><p>To protect against all other forged requests, we introduce a <em>required security token</em> that our site knows but other sites don't know. We include the security token in requests and verify it on the server. This is a one-liner in your application controller, and is the default for newly created Rails applications:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="c1"># in app/controller/application_controller.rb</span>
@@ -643,8 +604,7 @@ which adds a header called <code>X-CSRF-Token</code> with the security token on 
 Ajax call. Without this header, non-GET Ajax requests won't be accepted by Rails.
 When using another library to make Ajax calls, it is necessary to add the security
 token as a default header for Ajax calls in your library.</p><p>Note that cross-site scripting (XSS) vulnerabilities bypass all CSRF protections. XSS gives the attacker access to all elements on a page, so they can read the CSRF security token from a form or directly submit the form.</p></section>
-<section>
-<p><a class='slide_break' href='security.html#slide-39'>▻</a></p>
+<section><a class='slide_break' href='security.html#slide-39'>▻</a>
 <h3 id="see-also">
 <a class="anchorlink" href="#see-also"></a>10 See Also</h3>
 <ul>
@@ -654,7 +614,7 @@ token as a default header for Ajax calls in your library.</p><p>Note that cross-
 <li>Tool: <a href="https://github.com/presidentbeef/brakeman">brakeman</a>
 </li>
 </ul>
-</section>
+</div></section>
       </div>
     </div>
     <!-- End slides. -->
@@ -669,18 +629,18 @@ token as a default header for Ajax calls in your library.</p><p>Note that cross-
     Reveal.initialize({
       controls: false,
       progress: true,
-      center: true,
+      center: false,
       hash: true,
 
       // The "normal" size of the presentation, aspect ratio will
       // be preserved when the presentation is scaled to fit different
       // resolutions. Can be specified using percentage units.
-      width: 1300,
-      height: 900,
+      width: 800,
+      height: 600,
 
       // Factor of the display size that should remain empty around
       // the content
-      margin: 0.01,
+      margin: 0.05,
 
       // Bounds for smallest/largest possible scale to apply to content
       minScale: 0.2,

@@ -23,8 +23,7 @@
     <div class="reveal">
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
-        <section>
-<p><a class='slide_break' href='rails_view_and_controller.html#slide-0'>▻</a></p>
+        <section><a class='slide_break' href='rails_view_and_controller.html#slide-0'>▻</a>
 <h3 id="mvc-in-rails">
 <a class="anchorlink" href="#mvc-in-rails"></a>1 MVC in Rails</h3><p>The Pattern "Model-View-Controller" has a long history. It has been used in building Graphical User Interfaces (GUIs) since the 1990ies. The general idea is simple:</p>
 <ul>
@@ -33,11 +32,9 @@
 <li>The controller binds the two together</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_view_and_controller.html#slide-1'>▻</a></p>
+<section><a class='slide_break' href='rails_view_and_controller.html#slide-1'>▻</a>
 <p>In Ruby on Rails we already encounterd the model, or, to be more specific: the models. Several classes that together represent the state of our application.</p><p>Typically we will have one controller per model, and many views per model.</p><p>The controller is concerned with handling HTTP requests for certain URLs. It will set cookies, return HTTP Status Codes for redirection, or call a View to render HTML, XML, JSON, and return that in the HTTP response.</p><p><img src="images/rails-mvc.svg" alt="MVC in Rails"></p></section>
-<section>
-<p><a class='slide_break' href='rails_view_and_controller.html#slide-2'>▻</a></p>
+<section><a class='slide_break' href='rails_view_and_controller.html#slide-2'>▻</a>
 <h3 id="the-view">
 <a class="anchorlink" href="#the-view"></a>2 The View</h3><p>The View in the Model-View-Controller pattern
 is responsible for generating output that will be
@@ -45,8 +42,7 @@ displayed to the user in various ways. This means generating
 HTML that will later be displayed by a browser, or generating
 XML or JSON that will be loaded by another program.</p><p>We will focus on HTML for now. Views that generate XML or JSON
 are covered in the chapter on <a href="apis.html">APIs</a>.</p></section>
-<section>
-<p><a class='slide_break' href='rails_view_and_controller.html#slide-3'>▻</a></p>
+<section><a class='slide_break' href='rails_view_and_controller.html#slide-3'>▻</a>
 <p>In Ruby on Rails <strong>Embedded Ruby</strong> (ERB) is normally used
 as the templating language for HTML. This will
 be familiar to you if you have
@@ -59,22 +55,19 @@ used templates in other languages or have used PHP embedded in HTML.</p><p>In ER
 </div>
 <p>Both Designers and Frontend Developers might want to edit
 the HTML templates.</p></section>
-<section>
-<p><a class='slide_break' href='rails_view_and_controller.html#slide-4'>▻</a></p>
+<section><a class='slide_break' href='rails_view_and_controller.html#slide-4'>▻</a>
 <h4 id="layouts-and-views">
 <a class="anchorlink" href="#layouts-and-views"></a>2.1 Layouts and Views</h4><p>The view file itself (e.g. <code>app/views/controller/action.html.erb</code>) will only
 contain the HTML that is specific to this view. There is
 another file <code>app/views/layouts/application.html.erb</code> that contains
 the surrounding code, that stays the same for every page in the app:
 head, main navigation, footer.</p><p><img src="images/layout_view.svg" alt="Layouts and Views"></p></section>
-<section>
-<p><a class='slide_break' href='rails_view_and_controller.html#slide-5'>▻</a></p>
+<section><a class='slide_break' href='rails_view_and_controller.html#slide-5'>▻</a>
 <p>If you find other parts of your code that you want to reuse
 in several views you can extract it into a "partial". An example
 is the <code>_form.html.erb</code> partial created by the scaffold: it is
 used both by the <code>new.html.erb</code> and the <code>edit.html.erb</code> view.</p><p><img src="images/layout_view_partial.svg" alt="Layouts, Views and Partials"></p></section>
-<section>
-<p><a class='slide_break' href='rails_view_and_controller.html#slide-6'>▻</a></p>
+<section><a class='slide_break' href='rails_view_and_controller.html#slide-6'>▻</a>
 <h4 id="views-with-erb">
 <a class="anchorlink" href="#views-with-erb"></a>2.2 Views with ERB</h4><p>When it comes to templating systems there are two competing
 schools of thought: on the one side there are minimal <strong>logic-less</strong>
@@ -90,8 +83,7 @@ available inside the template:</p>
 <code>&lt;%= ruby code here %&gt;</code> evaluates the code and includes the result</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_view_and_controller.html#slide-7'>▻</a></p>
+<section><a class='slide_break' href='rails_view_and_controller.html#slide-7'>▻</a>
 <p>You can use all the usual ruby constructs for iteration, conditions, blocks.
 Here's an example of a loop:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="o">&lt;</span><span class="n">ul</span><span class="o">&gt;</span>
@@ -102,8 +94,7 @@ Here's an example of a loop:</p><div class="code_container">
 </span></code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_view_and_controller.html#slide-8'>▻</a></p>
+<section><a class='slide_break' href='rails_view_and_controller.html#slide-8'>▻</a>
 <h4 id="links">
 <a class="anchorlink" href="#links"></a>2.3 Links</h4><p>In Rails you do not write links to your own app "by hand". Use helper methods to get the right URLs.
 Use <code>rails routes</code> on the command line do find out which URLs exist and helper methods exist:</p><div class="code_container">
@@ -130,15 +121,13 @@ action.</p>
 <code>&lt;%= link_to "Show the Object", object %&gt;</code> links to the show action of the object</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_view_and_controller.html#slide-9'>▻</a></p>
+<section><a class='slide_break' href='rails_view_and_controller.html#slide-9'>▻</a>
 <h3 id="the-controller">
 <a class="anchorlink" href="#the-controller"></a>3 The Controller</h3><p>The controller is the central part of MVC. An incoming HTTP request
 is routed to exactly one controller action that will respond to the request.
 The controller then uses the model(s) to load and manipulate the right data,
 and finally displays the resulting page by rendering a view.</p></section>
-<section>
-<p><a class='slide_break' href='rails_view_and_controller.html#slide-10'>▻</a></p>
+<section><a class='slide_break' href='rails_view_and_controller.html#slide-10'>▻</a>
 <h4 id="restful-resources">
 <a class="anchorlink" href="#restful-resources"></a>3.1 Restful Resources</h4><p>Rails uses <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">REST</a> as
 a convention for which actions should be available. For example
@@ -159,8 +148,7 @@ DELETE /zombies/:id      zombies_controller  def destroy
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_view_and_controller.html#slide-11'>▻</a></p>
+<section><a class='slide_break' href='rails_view_and_controller.html#slide-11'>▻</a>
 <p>You have already used the scaffold generator which also
 adds the necessary views. This way we end up with full CRUD (create, read, update, delete)
 capability. For this example:</p><div class="code_container">
@@ -170,14 +158,12 @@ capability. For this example:</p><div class="code_container">
 <p>we end up with 4 web pages and the following connections:</p><p><img src="images/rest.png" alt="scaffold"></p><p>The scaffold is only meant as a starting point. Always change
 the view to better fit your user's needs. But
 try to keep the underlying routes the same.</p></section>
-<section>
-<p><a class='slide_break' href='rails_view_and_controller.html#slide-12'>▻</a></p>
+<section><a class='slide_break' href='rails_view_and_controller.html#slide-12'>▻</a>
 <h3 id="form-helpers">
 <a class="anchorlink" href="#form-helpers"></a>4 Form Helpers</h3><p>When you write a Rails App, you never write <code>form</code>- or <code>input</code>-tags by hand.
 You always use form helpers to contruct the HTML for you. You gain a lot of
 functionality by using the helpers, but you also need to understand how they work.</p></section>
-<section>
-<p><a class='slide_break' href='rails_view_and_controller.html#slide-13'>▻</a></p>
+<section><a class='slide_break' href='rails_view_and_controller.html#slide-13'>▻</a>
 <h4 id="creating-the-form-tag">
 <a class="anchorlink" href="#creating-the-form-tag"></a>4.1 Creating the Form Tag</h4><p>Let's look at a very simple edit-form for a resource called user:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="o">&lt;</span><span class="sx">%= form_for(@user) do |f| %&gt;
@@ -210,8 +196,7 @@ resource, but this is not available in html forms currently. Current browsers
 only support Html forms using <code>GET</code> or <code>POST</code> methods. Rails gets around
 this restriction by using a hidden field and some javascript to actually send the HTTP
 request with the correct method.</p></section>
-<section>
-<p><a class='slide_break' href='rails_view_and_controller.html#slide-14'>▻</a></p>
+<section><a class='slide_break' href='rails_view_and_controller.html#slide-14'>▻</a>
 <h4 id="creating-input-elements">
 <a class="anchorlink" href="#creating-input-elements"></a>4.2 Creating Input Elements</h4><div class="code_container">
 <pre><code class="highlight ruby"><span class="o">&lt;</span><span class="sx">%= form_for(@user) do |f| %&gt;
@@ -234,8 +219,7 @@ sent in. For example <code>&lt;%= f.text_field :name %&gt;</code> might be displ
 <p>To turn the validation you defined in the model
 into html5 <code>require</code> attributes on the form fields
 you can install the gem <code>html5_validators</code>.</p></section>
-<section>
-<p><a class='slide_break' href='rails_view_and_controller.html#slide-15'>▻</a></p>
+<section><a class='slide_break' href='rails_view_and_controller.html#slide-15'>▻</a>
 <h4 id="sending-the-data">
 <a class="anchorlink" href="#sending-the-data"></a>4.3 Sending the Data</h4><p>When you press the submit-button, the data from the form is sent via a HTTP request.
 In the development-log file on the server you can see the request coming in and being
@@ -259,8 +243,7 @@ Observe the URI Pattern in the output of <code>rails routes</code>:</p><div clas
 </div>
 <p>Because the pattern is <code>/users/:id</code> a request to <code>/users/16</code> will also
 set the id to 16.</p></section>
-<section>
-<p><a class='slide_break' href='rails_view_and_controller.html#slide-16'>▻</a></p>
+<section><a class='slide_break' href='rails_view_and_controller.html#slide-16'>▻</a>
 <h4 id="processing-the-data">
 <a class="anchorlink" href="#processing-the-data"></a>4.4 Processing the Data</h4><p>The parameters from the HTTP request can be used
 directly in the controller via the <code>params</code> Hash:</p><div class="code_container">
@@ -273,8 +256,7 @@ end
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_view_and_controller.html#slide-17'>▻</a></p>
+<section><a class='slide_break' href='rails_view_and_controller.html#slide-17'>▻</a>
 <p>For mass-assignments (update, create) rails offers an easy
 way to filter out only the parameters you really want to be changed / created,
 and ignore all others. The following code will look for a key <code>user</code> in the
@@ -306,8 +288,7 @@ end
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_view_and_controller.html#slide-18'>▻</a></p>
+<section><a class='slide_break' href='rails_view_and_controller.html#slide-18'>▻</a>
 <h4 id="handling-and-displaying-errors">
 <a class="anchorlink" href="#handling-and-displaying-errors"></a>4.5 Handling and Displaying Errors</h4><p>When displaying the form we always display errors that are
 available throught the <code>errors</code> attribute of the user object:</p><div class="code_container">
@@ -328,8 +309,7 @@ available throught the <code>errors</code> attribute of the user object:</p><div
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_view_and_controller.html#slide-19'>▻</a></p>
+<section><a class='slide_break' href='rails_view_and_controller.html#slide-19'>▻</a>
 <h4 id="using-view-helpers-in-the-console">
 <a class="anchorlink" href="#using-view-helpers-in-the-console"></a>4.6 Using View Helpers in the console</h4><p>You already know that
 the rails console is great for working with models.
@@ -396,8 +376,7 @@ Another change is needed in the form for editing or creating a card:
 
 -->
 </section>
-<section>
-<p><a class='slide_break' href='rails_view_and_controller.html#slide-20'>▻</a></p>
+<section><a class='slide_break' href='rails_view_and_controller.html#slide-20'>▻</a>
 <h3 id="further-reading">
 <a class="anchorlink" href="#further-reading"></a>5 Further reading</h3>
 <ul>
@@ -422,7 +401,7 @@ Another change is needed in the form for editing or creating a card:
 </li>
 <li>Alternative to ERB: <a href="http://haml.info/tutorial.html">HAML</a> similar to SASS</li>
 </ul>
-</section>
+</div></section>
       </div>
     </div>
     <!-- End slides. -->
@@ -437,18 +416,18 @@ Another change is needed in the form for editing or creating a card:
     Reveal.initialize({
       controls: false,
       progress: true,
-      center: true,
+      center: false,
       hash: true,
 
       // The "normal" size of the presentation, aspect ratio will
       // be preserved when the presentation is scaled to fit different
       // resolutions. Can be specified using percentage units.
-      width: 1300,
-      height: 900,
+      width: 800,
+      height: 600,
 
       // Factor of the display size that should remain empty around
       // the content
-      margin: 0.01,
+      margin: 0.05,
 
       // Bounds for smallest/largest possible scale to apply to content
       minScale: 0.2,

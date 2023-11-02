@@ -41,8 +41,7 @@ server.listen(port, hostname, () =&gt; {
 </code></pre>
 </div>
 <p>Not let's look at connect and express, two libraries
-that make web projects easier.</p><section>
-<p><a class='slide_break' href='node_express.html#slide-0'>▻</a></p>
+that make web projects easier.</p><section><a class='slide_break' href='node_express.html#slide-0'>▻</a>
 <h3 id="connect">
 <a class="anchorlink" href="#connect"></a>1 Connect</h3><p>Connect is a middleware framework for node
 Built on top of node’s Http Server</p><div class="code_container">
@@ -56,8 +55,7 @@ console.log("server listening on port 3000");
 </code></pre>
 </div>
 <p><img src="images/connect.svg" alt=""></p></section>
-<section>
-<p><a class='slide_break' href='node_express.html#slide-1'>▻</a></p>
+<section><a class='slide_break' href='node_express.html#slide-1'>▻</a>
 <h3 id="write-you-own-middleware">
 <a class="anchorlink" href="#write-you-own-middleware"></a>2 Write you own middleware</h3><p>Write a function that recieves the arguments
 request, response and next.  This function can
@@ -81,8 +79,7 @@ console.log("Server listening on port 3000");
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='node_express.html#slide-2'>▻</a></p>
+<section><a class='slide_break' href='node_express.html#slide-2'>▻</a>
 <h3 id="express">
 <a class="anchorlink" href="#express"></a>3 Express</h3><p>Express is a minimalist framework for building
 APIs and server rendered web apps with node.js.
@@ -96,8 +93,7 @@ It offers:</p>
 <li>content negotiation</li>
 </ul>
 <p>it is built on top of <code>connect</code>.</p></section>
-<section>
-<p><a class='slide_break' href='node_express.html#slide-3'>▻</a></p>
+<section><a class='slide_break' href='node_express.html#slide-3'>▻</a>
 <h4 id="setup">
 <a class="anchorlink" href="#setup"></a>3.1 Setup</h4><div class="code_container">
 <pre><code class="highlight plaintext">npx express-generator --git projectname
@@ -113,8 +109,7 @@ npm install
 </code></pre>
 </div>
 <p>has your project up and running</p></section>
-<section>
-<p><a class='slide_break' href='node_express.html#slide-4'>▻</a></p>
+<section><a class='slide_break' href='node_express.html#slide-4'>▻</a>
 <h3 id="building-an-api">
 <a class="anchorlink" href="#building-an-api"></a>4 Building an API</h3><p>If you want to use express for an API only, you can
 set it up without views:</p><div class="code_container">
@@ -122,8 +117,7 @@ set it up without views:</p><div class="code_container">
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='node_express.html#slide-5'>▻</a></p>
+<section><a class='slide_break' href='node_express.html#slide-5'>▻</a>
 <h4 id="serving-static-assets">
 <a class="anchorlink" href="#serving-static-assets"></a>4.1 Serving static assets</h4><p>The generator  created a folder public/ with some files
 and subfolders:</p><div class="code_container">
@@ -143,8 +137,7 @@ a folder is requested.</p><div class="code_container">
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='node_express.html#slide-6'>▻</a></p>
+<section><a class='slide_break' href='node_express.html#slide-6'>▻</a>
 <h4 id="routes">
 <a class="anchorlink" href="#routes"></a>4.2 Routes</h4><p>In more complex MVC (Model-View-Controller) frameworks, controllers and routing are treated as separate entities.
 However, in Express.js, both of these tasks are managed by routes.</p><p>It's common practice to divide routing into multiple files.</p><div class="code_container">
@@ -171,8 +164,7 @@ However, in Express.js, both of these tasks are managed by routes.</p><p>It's co
 </div>
 <p>The routes in file users.js are relative to the
 base-route set in app.js.</p></section>
-<section>
-<p><a class='slide_break' href='node_express.html#slide-7'>▻</a></p>
+<section><a class='slide_break' href='node_express.html#slide-7'>▻</a>
 <h4 id="serving-json">
 <a class="anchorlink" href="#serving-json"></a>4.3 Serving JSON</h4><p>The express.json middleware will convert
 a javascript data structure into JSON and
@@ -197,8 +189,7 @@ serve it with the appropriate content type:</p><div class="code_container">
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='node_express.html#slide-8'>▻</a></p>
+<section><a class='slide_break' href='node_express.html#slide-8'>▻</a>
 <h4 id="more-routing">
 <a class="anchorlink" href="#more-routing"></a>4.4 More Routing</h4><p>URLs can contain parameters in two ways: as query parameters:</p><p><a href="http://localhost:3000/users?name=Jin">http://localhost:3000/users?name=Jin</a></p><div class="code_container">
 <pre><code class="highlight javascript"><span class="c1">// in ./routes/users.js</span>
@@ -228,16 +219,13 @@ all methods:</p><div class="code_container">
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='node_express.html#slide-9'>▻</a></p>
+<section><a class='slide_break' href='node_express.html#slide-9'>▻</a>
 <h4 id="set-up-cors-for-a-frontend">
 <a class="anchorlink" href="#set-up-cors-for-a-frontend"></a>4.5 Set up CORS for a frontend</h4></section>
-<section>
-<p><a class='slide_break' href='node_express.html#slide-10'>▻</a></p>
+<section><a class='slide_break' href='node_express.html#slide-10'>▻</a>
 <h3 id="server-rendered-html">
 <a class="anchorlink" href="#server-rendered-html"></a>5 Server rendered HTML</h3><p>express supports several different templating engines.</p></section>
-<section>
-<p><a class='slide_break' href='node_express.html#slide-11'>▻</a></p>
+<section><a class='slide_break' href='node_express.html#slide-11'>▻</a>
 <h4 id="views-with-jade">
 <a class="anchorlink" href="#views-with-jade"></a>5.1 Views with JADE</h4><div class="code_container">
 <pre><code class="highlight plaintext">app.get('/', function (req, res) {
@@ -257,8 +245,7 @@ block content
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='node_express.html#slide-12'>▻</a></p>
+<section><a class='slide_break' href='node_express.html#slide-12'>▻</a>
 <h4 id="working-with-data">
 <a class="anchorlink" href="#working-with-data"></a>5.2 Working with data</h4><p>Pass data to the views</p><div class="code_container">
 <pre><code class="highlight plaintext">res.render('index', { title: 'Customer List' });
@@ -287,14 +274,13 @@ res.sendfile(filePath); // also: sets Content-Type from ext
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='node_express.html#slide-13'>▻</a></p>
+<section><a class='slide_break' href='node_express.html#slide-13'>▻</a>
 <h3 id="see-also">
 <a class="anchorlink" href="#see-also"></a>6 See Also</h3>
 <ul>
 <li><a href="https://expressjs.com/en/resources/frameworks.html">frameworks recommended by express</a></li>
 </ul>
-</section>
+</div></section>
       </div>
     </div>
     <!-- End slides. -->
@@ -309,18 +295,18 @@ res.sendfile(filePath); // also: sets Content-Type from ext
     Reveal.initialize({
       controls: false,
       progress: true,
-      center: true,
+      center: false,
       hash: true,
 
       // The "normal" size of the presentation, aspect ratio will
       // be preserved when the presentation is scaled to fit different
       // resolutions. Can be specified using percentage units.
-      width: 1300,
-      height: 900,
+      width: 800,
+      height: 600,
 
       // Factor of the display size that should remain empty around
       // the content
-      margin: 0.01,
+      margin: 0.05,
 
       // Bounds for smallest/largest possible scale to apply to content
       minScale: 0.2,

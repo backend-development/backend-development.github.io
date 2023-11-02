@@ -23,8 +23,7 @@
     <div class="reveal">
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
-        <section>
-<p><a class='slide_break' href='refactoring_rails.html#slide-0'>▻</a></p>
+        <section><a class='slide_break' href='refactoring_rails.html#slide-0'>▻</a>
 <h3 id="refactoring">
 <a class="anchorlink" href="#refactoring"></a>1 Refactoring</h3><p>Never be ashamed of making you code better.  On the contrary: recognizing code smells
 in your old code means that you learnt something in the meantime.
@@ -39,8 +38,7 @@ perfect.</p><p>Refactoring is </p>
 <p>We will use <strong>tests</strong> to ensure that we do not change the external behavior 
 of the code we are refactoring.</p><p>A <strong>code smell</strong> is a piece of bad code that we recognize.</p><p>Read the Ruby version of Fowlers refactoring book to 
 learn both code smells and refactorings:</p></section>
-<section>
-<p><a class='slide_break' href='refactoring_rails.html#slide-1'>▻</a></p>
+<section><a class='slide_break' href='refactoring_rails.html#slide-1'>▻</a>
 <h3 id="code-smells">
 <a class="anchorlink" href="#code-smells"></a>2 Code Smells</h3><p>This is the list of code smells from 
 Fields, Harvie, Fowler(2010): Refactoring, Ruby Edition. Addison-Wesley.
@@ -74,8 +72,7 @@ all these problems and more:</p>
 <li>Repetitive Boilerplate</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='refactoring_rails.html#slide-2'>▻</a></p>
+<section><a class='slide_break' href='refactoring_rails.html#slide-2'>▻</a>
 <h3 id="tools-for-code-quality">
 <a class="anchorlink" href="#tools-for-code-quality"></a>3 Tools for Code Quality</h3><p>Recognizing code that is problematic and should be refactored
 is one of the main skills of a developer.  Often it is not a
@@ -94,8 +91,7 @@ your code is <code>rails_best_practices</code>.  Install the gem, but don't put
 it in your <code>Gemfile</code>.  Just run <code>rails_best_practices -f html</code> in
 the main directory of your app.  The result will be written to 
 <code>./rails_best_practices_output.html</code>.</p></section>
-<section>
-<p><a class='slide_break' href='refactoring_rails.html#slide-3'>▻</a></p>
+<section><a class='slide_break' href='refactoring_rails.html#slide-3'>▻</a>
 <h3 id="futher-reading">
 <a class="anchorlink" href="#futher-reading"></a>4 Futher Reading</h3>
 <ul>
@@ -104,7 +100,7 @@ the main directory of your app.  The result will be written to
 <li>
 <a href="https://github.com/facebook/codemod">codemod</a> a python script</li>
 </ul>
-</section>
+</div></section>
       </div>
     </div>
     <!-- End slides. -->
@@ -119,18 +115,18 @@ the main directory of your app.  The result will be written to
     Reveal.initialize({
       controls: false,
       progress: true,
-      center: true,
+      center: false,
       hash: true,
 
       // The "normal" size of the presentation, aspect ratio will
       // be preserved when the presentation is scaled to fit different
       // resolutions. Can be specified using percentage units.
-      width: 1300,
-      height: 900,
+      width: 800,
+      height: 600,
 
       // Factor of the display size that should remain empty around
       // the content
-      margin: 0.01,
+      margin: 0.05,
 
       // Bounds for smallest/largest possible scale to apply to content
       minScale: 0.2,

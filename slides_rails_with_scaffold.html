@@ -23,8 +23,7 @@
     <div class="reveal">
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
-        <section>
-<p><a class='slide_break' href='rails_with_scaffold.html#slide-0'>▻</a></p>
+        <section><a class='slide_break' href='rails_with_scaffold.html#slide-0'>▻</a>
 <h3 id="rails-from-the-outside-in">
 <a class="anchorlink" href="#rails-from-the-outside-in"></a>1 Rails from the Outside In</h3><p>Let's look at a fairly complex web application - the course
 management system for a university. How would the code for this
@@ -58,8 +57,7 @@ beginning: you can't just make up filenames any way you want, there is a
 it will make your work as a programmer a lot easier.
 And you will profit from this convention
 every time you look at a new project - you'll instantly know your way around.</p></section>
-<section>
-<p><a class='slide_break' href='rails_with_scaffold.html#slide-1'>▻</a></p>
+<section><a class='slide_break' href='rails_with_scaffold.html#slide-1'>▻</a>
 <h4 id="start-a-rails-project">
 <a class="anchorlink" href="#start-a-rails-project"></a>1.1 Start a Rails Project</h4><p>Before you can start your first rails project you have
 to install ruby and the rails gem on your computer.</p><p>A word of warning: Ruby and Rails will work on any Unix, including Mac OS.
@@ -86,8 +84,7 @@ afterwards! In the following example we create an app called 'alljokes':</p><div
 This will try to look up gems on the internet - if you are not connected
 to the internet you will be stuck here. You could try <code>bundle install --local</code> instead,
 that might help if the gems are installed on your computer already.</p></section>
-<section>
-<p><a class='slide_break' href='rails_with_scaffold.html#slide-2'>▻</a></p>
+<section><a class='slide_break' href='rails_with_scaffold.html#slide-2'>▻</a>
 <h4 id="rails-directory-structure">
 <a class="anchorlink" href="#rails-directory-structure"></a>1.2 Rails Directory Structure</h4><p>Rails will create a directory structure and about 40 files for you.
 Let's start to look at a few of them:</p>
@@ -123,8 +120,7 @@ Let's start to look at a few of them:</p>
 to haven an editor that not only helps you edit a single file, but that
 will also display the directories and files. For example vim with NERDtree
 or submline or RubyMine:</p><p><img src="images/directory-structure-editors.png" alt="Screenshot of editor vim with NERDtree and rubymine"></p></section>
-<section>
-<p><a class='slide_break' href='rails_with_scaffold.html#slide-3'>▻</a></p>
+<section><a class='slide_break' href='rails_with_scaffold.html#slide-3'>▻</a>
 <h4 id="start-the-webserver">
 <a class="anchorlink" href="#start-the-webserver"></a>1.3 Start the Webserver</h4><p>Rails comes with a tiny webserver called <code>puma</code>. You start
 it in your terminal window (and then you need another window to go on working)</p><div class="code_container">
@@ -134,8 +130,7 @@ it in your terminal window (and then you need another window to go on working)</
 <p>Now you can point your browser at <code>http://localhost:3000/</code> to find the first
 webpage of your app. It's just a dummy page that will vanish once
 you add your own pages.</p></section>
-<section>
-<p><a class='slide_break' href='rails_with_scaffold.html#slide-4'>▻</a></p>
+<section><a class='slide_break' href='rails_with_scaffold.html#slide-4'>▻</a>
 <h3 id="make-it-a-git-repository">
 <a class="anchorlink" href="#make-it-a-git-repository"></a>2 Make it a Git Repository</h3><p>A new rails project is already prepared to be turned
 into a git repository: there is a <code>.gitignore</code> file in the main
@@ -158,8 +153,7 @@ Initialized empty Git repository <span class="k">in</span> /Developer/alljokes/.
 </div>
 <p>From now on you should <code>commit</code> your changes after every
 finished step of programming.</p></section>
-<section>
-<p><a class='slide_break' href='rails_with_scaffold.html#slide-5'>▻</a></p>
+<section><a class='slide_break' href='rails_with_scaffold.html#slide-5'>▻</a>
 <h3 id="scaffold">
 <a class="anchorlink" href="#scaffold"></a>3 Scaffold</h3><p>A scaffold helps you build something. In Rails a scaffold
 helps you generate code according to the conventions.</p><p>In our application we want to store jokes. Let's generate
@@ -175,8 +169,7 @@ of the attributes. short strings / varchars do not need a type at all.</p><div c
 </div>
 <p>This will generate about 30 lines of output, and create 15 new files.
 We will work through the files we need step by step:</p></section>
-<section>
-<p><a class='slide_break' href='rails_with_scaffold.html#slide-6'>▻</a></p>
+<section><a class='slide_break' href='rails_with_scaffold.html#slide-6'>▻</a>
 <h4 id="migration">
 <a class="anchorlink" href="#migration"></a>3.1 Migration</h4><p>The first file we have to look at is stored in <code>db/migrate</code>. The filename
 will be different from the one shown above, because it contains a timestamp.</p><p>Inside the file you will find</p><div class="code_container">
@@ -209,8 +202,7 @@ typing in <code>rails db:migrate</code> on the command line:</p><div class="code
 <code>db/development.sqlite3</code>. As a side effect it also dumped the current
 database schema into <code>db/schema.rb</code> and created a two extra tables
 <code>schema_migrations</code> and <code>ar_internal_metadata</code>.</p></section>
-<section>
-<p><a class='slide_break' href='rails_with_scaffold.html#slide-7'>▻</a></p>
+<section><a class='slide_break' href='rails_with_scaffold.html#slide-7'>▻</a>
 <h4 id="use-your-app">
 <a class="anchorlink" href="#use-your-app"></a>3.2 Use your app</h4><p>After running the migration your app is ready to be used:
 point your browser at <code>http://localhost:3000/jokes/</code> to start.</p><p>The scaffold generated four webpages that you can visit, to
@@ -226,8 +218,7 @@ list, show, create, edit and destroy jokes:</p><p><img src="images/scaffold-with
 <code>/jokes/1/edit</code> shows a form to edit a joke, in this case the joke with id=1</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_with_scaffold.html#slide-8'>▻</a></p>
+<section><a class='slide_break' href='rails_with_scaffold.html#slide-8'>▻</a>
 <h4 id="view">
 <a class="anchorlink" href="#view"></a>3.3 View</h4><p>You can find the views that correspond to the webpages in <code>app/views/jokes</code>. Try to add a bit
 of html to the following two views:</p>
@@ -238,8 +229,7 @@ of html to the following two views:</p>
 <code>show.html.erb</code> shows a single joke</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_with_scaffold.html#slide-9'>▻</a></p>
+<section><a class='slide_break' href='rails_with_scaffold.html#slide-9'>▻</a>
 <h4 id="model">
 <a class="anchorlink" href="#model"></a>3.4 Model</h4><p>The model is stored in <code>app/models</code>. Add the following validation:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">Joke</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
@@ -249,13 +239,12 @@ of html to the following two views:</p>
 </div>
 <p>This tell the model not only accept jokes that have a title.</p><p>Now try to enter a new joke without a title, you should get a
 error message:</p><p><img src="images/error-validation.png" alt="Error message caused by unfullfilled validation"></p></section>
-<section>
-<p><a class='slide_break' href='rails_with_scaffold.html#slide-10'>▻</a></p>
+<section><a class='slide_break' href='rails_with_scaffold.html#slide-10'>▻</a>
 <h4 id="summary">
 <a class="anchorlink" href="#summary"></a>3.5 Summary</h4><p>We built a first rails app and ran it locally on our own machine.
 You should now have an overview over the most important files
 and a first impression of ruby code (used in controllers, models)
-and embedded ruby (erb) used in the views.</p><p>Congratulations on your first step!</p></section>
+and embedded ruby (erb) used in the views.</p><p>Congratulations on your first step!</p></div></section>
       </div>
     </div>
     <!-- End slides. -->
@@ -270,18 +259,18 @@ and embedded ruby (erb) used in the views.</p><p>Congratulations on your first s
     Reveal.initialize({
       controls: false,
       progress: true,
-      center: true,
+      center: false,
       hash: true,
 
       // The "normal" size of the presentation, aspect ratio will
       // be preserved when the presentation is scaled to fit different
       // resolutions. Can be specified using percentage units.
-      width: 1300,
-      height: 900,
+      width: 800,
+      height: 600,
 
       // Factor of the display size that should remain empty around
       // the content
-      margin: 0.01,
+      margin: 0.05,
 
       // Bounds for smallest/largest possible scale to apply to content
       minScale: 0.2,

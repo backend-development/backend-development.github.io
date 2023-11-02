@@ -23,18 +23,15 @@
     <div class="reveal">
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
-        <section>
-<p><a class='slide_break' href='rails_gems.html#slide-0'>▻</a></p>
+        <section><a class='slide_break' href='rails_gems.html#slide-0'>▻</a>
 <h3 id="gems-and-bundler">
 <a class="anchorlink" href="#gems-and-bundler"></a>1 Gems and Bundler</h3></section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-1'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-1'>▻</a>
 <h4 id="dependencies">
 <a class="anchorlink" href="#dependencies"></a>1.1 dependencies</h4><p>Reusing code is a determining factor when it comes to the productivity of a programmer.
 We refer to other people's code we reuse as a "dependency" since
 our program depends on it.</p><p>Using a dependency always carries a risk.</p><p><img src="images/dependency.png" alt=""></p><p>Visualisation of modern software development in <a href="https://xkcd.com/2347/">xkcd</a></p></section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-2'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-2'>▻</a>
 <h4 id="gems">
 <a class="anchorlink" href="#gems"></a>1.2 gems</h4><p>In Ruby the unit of reuse is called a <code>gem</code>. <code>rubygems</code> is the package manager for ruby,
 it let's you install gems on your system.</p><p>A gem has a name (e.g. <code>rake</code>) and a version number (e.g. <code>10.4.2</code>).
@@ -85,8 +82,7 @@ you can be sure that it can also be reinstalled by bundler.</p><p>See also:</p>
 </li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-3'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-3'>▻</a>
 <h4 id="dependency-hell">
 <a class="anchorlink" href="#dependency-hell"></a>1.3 dependency hell</h4><p>For a rails project you will be using a lot of gems. This will lead
 to two problems:</p>
@@ -95,8 +91,7 @@ to two problems:</p>
 <li>different installation: when deploying to a production server, or even just when shareing code with other developers you need to make sure that the same constellation of gems and versions is used on every machine</li>
 </ol>
 </section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-4'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-4'>▻</a>
 <h4 id="bundler-saves-us">
 <a class="anchorlink" href="#bundler-saves-us"></a>1.4 bundler saves us</h4><p><img src="images/bundler-small.png" alt="bundler"></p><p>Bundler is the name of the tool that saves us from dependency hell.
 Bundler is itself a gem, so you install it with <code>gem install bundler</code>.
@@ -114,8 +109,7 @@ When you run <code>bundle install</code> bundler will:</p>
 your project, and their version numbers. These are now locked down,
 and will not change!</p><p>When deploying to a new development machine or the production server,
 you run <code>bundle install</code> and the exact same versions are now installed.</p></section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-5'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-5'>▻</a>
 <h4 id="defining-versions">
 <a class="anchorlink" href="#defining-versions"></a>1.5 defining versions</h4><p>In the Gemfile you can specify which versions should be used.
 But don't overdo it! Bundler does a good job picking versions,
@@ -134,19 +128,16 @@ if you specify every version number by hand you are doing too much work.</p><p>S
 last (right most) number, so <code>~&gt; 5.0.0</code> does allow <code>5.0.0.7</code> but not <code>5.0.1</code> or <code>5.1</code>.
 This is called a pessimistic version constraint, read more about
 it in <a href="https://guides.rubygems.org/patterns/#pessimistic-version-constraint">the rubygem documentation</a>.</p></section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-6'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-6'>▻</a>
 <h4 id="gems-and-rails">
 <a class="anchorlink" href="#gems-and-rails"></a>1.6 gems and rails</h4><p>The configuration for a gem is found in the initializer directory,
 for example for <code>devise</code> the configuration file would be <code>config/initializers/devise.rb</code>.</p><p>A gem may install new generators for rails, run <code>rails generate</code> to see a list
 of available generators.</p><p>A gem may install rake tasks, run <code>rails -T</code> to see a list.</p></section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-7'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-7'>▻</a>
 <h3 id="some-gems">
 <a class="anchorlink" href="#some-gems"></a>2 Some Gems</h3><p>This list was inspired by the <a href="https://blog.railsrumble.com/2016/01/15/gem-teardown/">Rails Rumble gem teardown</a> and
 <a href="http://www.codebeerstartups.com/2013/04/must-have-gems-for-development-machine-in-ruby-on-rails">coodbeerstartups "Must Have Gems for Development Machine in Ruby on Rails "</a>.</p></section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-8'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-8'>▻</a>
 <h4 id="file-upload">
 <a class="anchorlink" href="#file-upload"></a>2.1 File Upload</h4><p>File Upload has been integrated into Rails 5 with
 <a href="https://edgeguides.rubyonrails.org/active_storage_overview.html">ActiveStorage</a>, there is no need to use
@@ -173,8 +164,7 @@ the libraries <a href="https://www.imagemagick.org/">ImageMagick</a>  or
 <li>command line tool <a href="https://www.imagemagick.org/script/mogrify.php">mogrify</a> to resize, blur, crop, draw on, flip, join, ... an image and overwrite it.</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-9'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-9'>▻</a>
 <h4 id="authentication">
 <a class="anchorlink" href="#authentication"></a>2.2 Authentication</h4>
 <ul>
@@ -185,8 +175,7 @@ the libraries <a href="https://www.imagemagick.org/">ImageMagick</a>  or
 <li><p>gem <a href="https://github.com/michaelbanfield/devise-pwned_password">devise-pwned_password</a></p></li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-10'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-10'>▻</a>
 <h4 id="permalinks">
 <a class="anchorlink" href="#permalinks"></a>2.3 Permalinks</h4><p>You don't want the database keys to be visible in your URLs? Use Friendly IDs instead:</p>
 <ul>
@@ -194,8 +183,7 @@ the libraries <a href="https://www.imagemagick.org/">ImageMagick</a>  or
 </li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-11'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-11'>▻</a>
 <h4 id="parsing-xml-and-html">
 <a class="anchorlink" href="#parsing-xml-and-html"></a>2.4 Parsing xml and html</h4>
 <ul>
@@ -203,8 +191,7 @@ the libraries <a href="https://www.imagemagick.org/">ImageMagick</a>  or
 </li>
 </ul>
 <p>(this is also used by capybara)</p></section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-12'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-12'>▻</a>
 <h4 id="let-users-format-their-texts">
 <a class="anchorlink" href="#let-users-format-their-texts"></a>2.5 Let Users format their Texts</h4><p>Letting users enter HTML is a dangerous idea - it's really hard to
 avoid the security problems. An alternative is to let them enter
@@ -219,8 +206,7 @@ You store the markdown in your database, and convert it to HTML when displayed u
 <li><a href="https://edgeguides.rubyonrails.org/action_text_overview.html">ActionText</a></li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-13'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-13'>▻</a>
 <h4 id="pagination">
 <a class="anchorlink" href="#pagination"></a>2.6 Pagination</h4><p>Do you need to displaying a lot of items? Use a pagination gem
 to go through them page by page:</p>
@@ -230,16 +216,14 @@ to go through them page by page:</p>
 <li>other gems in <a href="https://www.ruby-toolbox.com/categories/pagination">category pagination</a> of the ruby toolbox</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-14'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-14'>▻</a>
 <h4 id="filter">
 <a class="anchorlink" href="#filter"></a>2.7 Filter</h4><p>You need to filter objects shown by the index action?</p>
 <ul>
 <li>gem <a href="https://github.com/procore/sift">sift</a> can be used in APIs and full rails apps</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-15'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-15'>▻</a>
 <h4 id="ordered-lists">
 <a class="anchorlink" href="#ordered-lists"></a>2.8 Ordered Lists</h4>
 <ul>
@@ -249,8 +233,7 @@ to go through them page by page:</p>
 </li>
 </ul>
 <p>are the two active gems in <a href="https://www.ruby-toolbox.com/categories/Active_Record_Sortables">Active Record Sortables</a> of the ruby toolbox</p></section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-16'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-16'>▻</a>
 <h4 id="workflows">
 <a class="anchorlink" href="#workflows"></a>2.9 Workflows</h4><p>state machines are an importante pattern for
 representing workflows:</p>
@@ -265,8 +248,7 @@ representing workflows:</p>
 <li><a href="https://github.com/paper-trail-gem/paper_trail">paper trail</a></li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-17'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-17'>▻</a>
 <h4 id="search">
 <a class="anchorlink" href="#search"></a>2.10 Search</h4><p>You need to search in more than just one attribute of your
 model? use a search gem:</p>
@@ -277,8 +259,7 @@ model? use a search gem:</p>
 <li>other gems in <a href="https://www.ruby-toolbox.com/categories/rails_search">category rails_search</a> of the ruby toolbox</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-18'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-18'>▻</a>
 <h4 id="activity-stream">
 <a class="anchorlink" href="#activity-stream"></a>2.11 Activity Stream</h4><p>If you want to give users an overview of what happened recently
 you can use an activity stream, similar to what you see in facebook.</p><p><img src="images/gem-activity.png" alt="activity stream example"></p>
@@ -287,12 +268,10 @@ you can use an activity stream, similar to what you see in facebook.</p><p><img 
 </li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-19'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-19'>▻</a>
 <h4 id="payment">
 <a class="anchorlink" href="#payment"></a>2.12 Payment</h4><p>Recieve Money with <a href="https://github.com/activemerchant/active_merchant">ActiveMerchant</a></p></section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-20'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-20'>▻</a>
 <h4 id="admin-backend">
 <a class="anchorlink" href="#admin-backend"></a>2.13 Admin Backend</h4><p>Quickly create a Backend for editing the data in your database:</p><p><img src="images/avo.jpg" alt="Avo Screenshot"></p>
 <ul>
@@ -304,20 +283,17 @@ you can use an activity stream, similar to what you see in facebook.</p><p><img 
 </li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-21'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-21'>▻</a>
 <h4 id="sending-mail-and-other-notifications">
 <a class="anchorlink" href="#sending-mail-and-other-notifications"></a>2.14 Sending Mail and other Notifications</h4><p>To send mail from Rails use <a href="https://guides.rubyonrails.org/action_mailer_basics.html">ActionMailer</a>.</p><p>To see the generated mails in your web browser <em>instead</em> of sending them, use the gem <a href="https://github.com/ryanb/letter_opener">letter_opener</a></p><p>To receive Mail use <a href="https://edgeguides.rubyonrails.org/action_mailbox_basics.html">ActionMailbox</a></p><p>To send Mail and other types of notification (Websockets/ActionCable channels, Slack, Microsoft Teams, Twilio (SMS), Vonage / Nexmo (SMS)) use <a href="https://github.com/excid3/noticed">noticed</a></p></section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-22'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-22'>▻</a>
 <h4 id="http-requests">
 <a class="anchorlink" href="#http-requests"></a>2.15 HTTP Requests</h4><p>This might be handy for downloading from Webpages or APIs</p>
 <ul>
 <li>gem <a href="https://github.com/taf2/curb">curb</a> - the http library curl for ruby</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-23'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-23'>▻</a>
 <h4 id="using-apis">
 <a class="anchorlink" href="#using-apis"></a>2.16 Using APIs</h4>
 <ul>
@@ -332,8 +308,7 @@ you can use an activity stream, similar to what you see in facebook.</p><p><img 
 </li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-24'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-24'>▻</a>
 <h4 id="geo-information-geocoding">
 <a class="anchorlink" href="#geo-information-geocoding"></a>2.17 Geo Information, Geocoding</h4><p>sometimes you want to convert longitude/latitude coordinates
 to street addresses, or the reverse</p>
@@ -347,8 +322,7 @@ to street addresses, or the reverse</p>
 </li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-25'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-25'>▻</a>
 <h4 id="pdf-excel-csv">
 <a class="anchorlink" href="#pdf-excel-csv"></a>2.18 PDF, Excel, csv, ...</h4>
 <ul>
@@ -362,8 +336,7 @@ to street addresses, or the reverse</p>
 </li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-26'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-26'>▻</a>
 <h4 id="one-rails-code-for-many-sites-tenants">
 <a class="anchorlink" href="#one-rails-code-for-many-sites-tenants"></a>2.19 One Rails Code for Many Sites ("Tenants")</h4>
 <ul>
@@ -371,8 +344,7 @@ to street addresses, or the reverse</p>
 </li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-27'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-27'>▻</a>
 <h4 id="tracking-users">
 <a class="anchorlink" href="#tracking-users"></a>2.20 Tracking Users</h4>
 <ul>
@@ -380,8 +352,7 @@ to street addresses, or the reverse</p>
 </li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-28'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-28'>▻</a>
 <h4 id="testing">
 <a class="anchorlink" href="#testing"></a>2.21 Testing</h4>
 <ul>
@@ -390,8 +361,7 @@ to street addresses, or the reverse</p>
 <li>gem <a href="https://github.com/thoughtbot/capybara-webkit">capybara-webkit</a> for testing client side javascript.</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-29'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-29'>▻</a>
 <h4 id="understanding-your-code-better">
 <a class="anchorlink" href="#understanding-your-code-better"></a>2.22 Understanding your Code better</h4><p><img src="images/gem-better_errors.png" alt="better_errors screenshot"></p>
 <ul>
@@ -412,8 +382,7 @@ to street addresses, or the reverse</p>
 <li>gem <a href="https://github.com/MainShayne233/happy_gemfile#happygemfile">happy_gemfile</a> - keep your Gemfile sorted</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='rails_gems.html#slide-30'>▻</a></p>
+<section><a class='slide_break' href='rails_gems.html#slide-30'>▻</a>
 <h3 id="ressources">
 <a class="anchorlink" href="#ressources"></a>3 Ressources</h3>
 <ul>
@@ -424,7 +393,7 @@ to street addresses, or the reverse</p>
 <li>
 <a href="https://www.youtube.com/watch?v=4DqzaqeeMgY">How does Bundler work, anyway?</a> talk by Andre Arko at RubyConf 2015</li>
 </ul>
-</section>
+</div></section>
       </div>
     </div>
     <!-- End slides. -->
@@ -439,18 +408,18 @@ to street addresses, or the reverse</p>
     Reveal.initialize({
       controls: false,
       progress: true,
-      center: true,
+      center: false,
       hash: true,
 
       // The "normal" size of the presentation, aspect ratio will
       // be preserved when the presentation is scaled to fit different
       // resolutions. Can be specified using percentage units.
-      width: 1300,
-      height: 900,
+      width: 800,
+      height: 600,
 
       // Factor of the display size that should remain empty around
       // the content
-      margin: 0.01,
+      margin: 0.05,
 
       // Bounds for smallest/largest possible scale to apply to content
       minScale: 0.2,

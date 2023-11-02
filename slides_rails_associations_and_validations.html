@@ -23,12 +23,10 @@
     <div class="reveal">
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
-        <section>
-<p><a class='slide_break' href='rails_associations_and_validations.html#slide-0'>▻</a></p>
+        <section><a class='slide_break' href='rails_associations_and_validations.html#slide-0'>▻</a>
 <h3 id="validations">
 <a class="anchorlink" href="#validations"></a>1 Validations</h3><p>Validations are rules you want to enforce on the data in your models.</p><p>Validations are declared on the model. They are checked every time data is <strong>saved to the database</strong>. If the data does not conform to the validation, it is not saved, a false value is returned, and the error messages are available through the object.</p></section>
-<section>
-<p><a class='slide_break' href='rails_associations_and_validations.html#slide-1'>▻</a></p>
+<section><a class='slide_break' href='rails_associations_and_validations.html#slide-1'>▻</a>
 <p>An example on the rails console: I try to create a new tweet and save it,
 but it can't be saved because a validation is in place:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">new</span>
@@ -44,8 +42,7 @@ but it can't be saved because a validation is in place:</p><div class="code_cont
 <p>Notice that the <code>save</code> method does not raise an exception,
 but rather just returns a <code>false</code>. It is up to the calling
 code to handle the error!</p></section>
-<section>
-<p><a class='slide_break' href='rails_associations_and_validations.html#slide-2'>▻</a></p>
+<section><a class='slide_break' href='rails_associations_and_validations.html#slide-2'>▻</a>
 <h4 id="defining-a-validation">
 <a class="anchorlink" href="#defining-a-validation"></a>1.1 Defining a Validation</h4><p>Validation are declared in the model:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">Tweet</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
@@ -54,8 +51,7 @@ code to handle the error!</p></section>
 </code></pre>
 </div>
 <p>The presence validator calls the method <a href="https://edgeapi.rubyonrails.org/classes/Object.html#method-i-blank-3F"><code>blank?</code></a> on each of the value to check if they are present.</p></section>
-<section>
-<p><a class='slide_break' href='rails_associations_and_validations.html#slide-3'>▻</a></p>
+<section><a class='slide_break' href='rails_associations_and_validations.html#slide-3'>▻</a>
 <h4 id="other-validations">
 <a class="anchorlink" href="#other-validations"></a>1.2 Other Validations</h4><p>There are many more helpers to create validations:</p><div class="code_container">
 <pre><code class="highlight ruby">  <span class="n">validates</span> <span class="ss">:terms_of_service</span><span class="p">,</span>
@@ -86,8 +82,7 @@ code to handle the error!</p></section>
 <p>The confirmation validator checks that there are two properties: in the example
 this will be the <code>email</code> property and the <code>email_confirmation</code> property. Both
 need to be equal.</p></section>
-<section>
-<p><a class='slide_break' href='rails_associations_and_validations.html#slide-4'>▻</a></p>
+<section><a class='slide_break' href='rails_associations_and_validations.html#slide-4'>▻</a>
 <h4 id="combining-validations">
 <a class="anchorlink" href="#combining-validations"></a>1.3 Combining Validations</h4><p>You can combine several properties that should be checked:</p><div class="code_container">
 <pre><code class="highlight ruby">  <span class="n">validates</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">:login</span><span class="p">,</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">presence: </span><span class="kp">true</span>
@@ -100,8 +95,7 @@ need to be equal.</p></section>
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_associations_and_validations.html#slide-5'>▻</a></p>
+<section><a class='slide_break' href='rails_associations_and_validations.html#slide-5'>▻</a>
 <h4 id="checking-uniqueness-in-activerecord">
 <a class="anchorlink" href="#checking-uniqueness-in-activerecord"></a>1.4 Checking Uniqueness in ActiveRecord</h4><p>Validations are checked by Ruby code <strong>before</strong> data is inserted
 in the database. If you want to ensure that the e-mails of your users
@@ -120,8 +114,7 @@ returning a false value from <code>save</code> and setting the <code>errors</cod
 </code></pre>
 </div>
 <p>We can see a transaction from <code>BEGIN</code> to <code>COMMIT</code>.</p></section>
-<section>
-<p><a class='slide_break' href='rails_associations_and_validations.html#slide-6'>▻</a></p>
+<section><a class='slide_break' href='rails_associations_and_validations.html#slide-6'>▻</a>
 <h4 id="checking-uniqueness-in-the-database">
 <a class="anchorlink" href="#checking-uniqueness-in-the-database"></a>1.5 Checking Uniqueness in the Database</h4><p>You could also achieve the same effect using a <a href="https://www.postgresql.org/docs/current/ddl-constraints.html#DDL-CONSTRAINTS-UNIQUE-CONSTRAINTS">UNIQUE CONSTRAINT</a> in your database:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">AddUniqConstraint</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span><span class="p">[</span><span class="mf">6.0</span><span class="p">]</span>
@@ -145,19 +138,16 @@ returning a false value from <code>save</code> and setting the <code>errors</cod
 </div>
 <p>You can see that the exception is of class <code>ActiveRecord::RecordNotUnique</code> and contains
 a description "Key (email)=(<a href="mailto:b@a.com">b@a.com</a>) already exists".</p></section>
-<section>
-<p><a class='slide_break' href='rails_associations_and_validations.html#slide-7'>▻</a></p>
+<section><a class='slide_break' href='rails_associations_and_validations.html#slide-7'>▻</a>
 <h4 id="validations-and-forms">
 <a class="anchorlink" href="#validations-and-forms"></a>1.6 Validations and Forms</h4><p>Later, when we learn about Views and Forms, you will see
 that the save / validate / errors lifecycle fits perfectly with
 the way that forms are handled in Rails. See <a href="/rails_view_and_controller.html">Rails: View and Controller</a></p></section>
-<section>
-<p><a class='slide_break' href='rails_associations_and_validations.html#slide-8'>▻</a></p>
+<section><a class='slide_break' href='rails_associations_and_validations.html#slide-8'>▻</a>
 <h3 id="associations">
 <a class="anchorlink" href="#associations"></a>2 Associations</h3><p>If you have used relational databases before you are probably familiar
 with the different types of associations or relationships between database tables.</p><p>We will only look at 1:n Relationships for now.</p></section>
-<section>
-<p><a class='slide_break' href='rails_associations_and_validations.html#slide-9'>▻</a></p>
+<section><a class='slide_break' href='rails_associations_and_validations.html#slide-9'>▻</a>
 <h4 id="1-n-associations">
 <a class="anchorlink" href="#1-n-associations"></a>2.1 1:n Associations</h4><p>In this example of a 1:n ("one to n") Association, one Zombie
 has many tweets, an and one Tweet belongs to exactly one Zombie:</p><div class="code_container">
@@ -171,13 +161,11 @@ Zombie Sue ------------------------ Tweet 'gagaga'
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_associations_and_validations.html#slide-10'>▻</a></p>
+<section><a class='slide_break' href='rails_associations_and_validations.html#slide-10'>▻</a>
 <h4 id="database">
 <a class="anchorlink" href="#database"></a>2.2 Database</h4><p>In the table <code>tweets</code> there is a column <code>zombie_id</code> which references <code>zombies.id</code>.
 This column in <code>tweets</code> is called a "foreign key".</p></section>
-<section>
-<p><a class='slide_break' href='rails_associations_and_validations.html#slide-11'>▻</a></p>
+<section><a class='slide_break' href='rails_associations_and_validations.html#slide-11'>▻</a>
 <h4 id="create-the-tables">
 <a class="anchorlink" href="#create-the-tables"></a>2.3 Create the Tables</h4><p>The easiest way is to create Zombies first. Then you
 can already reference them when you create Tweets:</p><div class="code_container">
@@ -193,8 +181,7 @@ can already reference them when you create Tweets:</p><div class="code_container
 </code></pre>
 </div>
 <p>Remember: If you ever mistype your <code>rails generate ...</code> line, you can undo it by running <code>rails destroy ...</code>.</p></section>
-<section>
-<p><a class='slide_break' href='rails_associations_and_validations.html#slide-12'>▻</a></p>
+<section><a class='slide_break' href='rails_associations_and_validations.html#slide-12'>▻</a>
 <h4 id="model">
 <a class="anchorlink" href="#model"></a>2.4 Model</h4><p>You have to declare associations in both models, by
 editing the two files in <code>app/models/*.rb</code>.</p><p>1:n associations are declared with <code>belongs_to</code> and <code>has_many</code>:</p><div class="code_container">
@@ -210,8 +197,7 @@ editing the two files in <code>app/models/*.rb</code>.</p><p>1:n associations ar
 </code></pre>
 </div>
 <p>Notice the plural used with <code>has_many</code> and the singular used with <code>belongs_to</code>.</p></section>
-<section>
-<p><a class='slide_break' href='rails_associations_and_validations.html#slide-13'>▻</a></p>
+<section><a class='slide_break' href='rails_associations_and_validations.html#slide-13'>▻</a>
 <h4 id="methods">
 <a class="anchorlink" href="#methods"></a>2.5 Methods</h4><p>After running the migration there are now methods available to walk from one model to the other:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="c1"># from zweet to zombie</span>
@@ -226,8 +212,7 @@ editing the two files in <code>app/models/*.rb</code>.</p><p>1:n associations ar
 </code></pre>
 </div>
 <p>Again: notice the plural <code>tweets</code> and singular <code>zombie</code>.</p></section>
-<section>
-<p><a class='slide_break' href='rails_associations_and_validations.html#slide-14'>▻</a></p>
+<section><a class='slide_break' href='rails_associations_and_validations.html#slide-14'>▻</a>
 <p>You can also use a model to create associated models:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">z</span> <span class="o">=</span> <span class="no">Zombie</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">z</span><span class="p">.</span><span class="nf">tweets</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">status: </span><span class="s2">"I'm alive!"</span><span class="p">)</span>
@@ -238,8 +223,7 @@ editing the two files in <code>app/models/*.rb</code>.</p><p>1:n associations ar
 <p>You can find a list of all the new methods added by the
 association in the Rails Guide under <a href="https://guides.rubyonrails.org/association_basics.html#belongs-to-association-reference">Methods Added by belongs_to</a> and
 <a href="https://guides.rubyonrails.org/association_basics.html#has-many-association-reference">Methods Added by has_many</a>.</p></section>
-<section>
-<p><a class='slide_break' href='rails_associations_and_validations.html#slide-15'>▻</a></p>
+<section><a class='slide_break' href='rails_associations_and_validations.html#slide-15'>▻</a>
 <h4 id="n-m-associations">
 <a class="anchorlink" href="#n-m-associations"></a>2.6 n:m Associations</h4><p>In this next example a comic(book) has many authors, and an author has created many comic(book)s.
 In this case we first create the two models, and then add a join table with this generator:</p><div class="code_container">
@@ -249,8 +233,7 @@ In this case we first create the two models, and then add a join table with this
 <p>The identifier after "migration" is arbitrary, we could call it anything we want.  The
 two table names will be sorted alphabetically, and a table <code>authors_comics</code> will be
 created.  It will not haven an id, and just contain the two foreign keys.</p></section>
-<section>
-<p><a class='slide_break' href='rails_associations_and_validations.html#slide-16'>▻</a></p>
+<section><a class='slide_break' href='rails_associations_and_validations.html#slide-16'>▻</a>
 <h4 id="has-and-belongs-to-many">
 <a class="anchorlink" href="#has-and-belongs-to-many"></a>2.7 has_and_belongs_to_many</h4><p>In the two model Classes we need to declare the n:m association like so:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">Author</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
@@ -263,8 +246,7 @@ created.  It will not haven an id, and just contain the two foreign keys.</p></s
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_associations_and_validations.html#slide-17'>▻</a></p>
+<section><a class='slide_break' href='rails_associations_and_validations.html#slide-17'>▻</a>
 <p>Again we gain new methods for the two classes:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">a</span> <span class="o">=</span> <span class="no">Author</span><span class="p">.</span><span class="nf">first</span>
 <span class="n">a</span><span class="p">.</span><span class="nf">comics</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">name: </span><span class="s1">'Maus'</span><span class="p">)</span>
@@ -275,8 +257,7 @@ created.  It will not haven an id, and just contain the two foreign keys.</p></s
 </code></pre>
 </div>
 <p>Notice: we do not have a model that represents the join table.</p></section>
-<section>
-<p><a class='slide_break' href='rails_associations_and_validations.html#slide-18'>▻</a></p>
+<section><a class='slide_break' href='rails_associations_and_validations.html#slide-18'>▻</a>
 <h4 id="n-m-associations-with-additional-data">
 <a class="anchorlink" href="#n-m-associations-with-additional-data"></a>2.8 n:m Associations with additional Data</h4><p>Sometimes we have a n:m association with additional data.
 In the next example, a Reader can rate a Comic, by giving one to 5 stars,
@@ -294,8 +275,7 @@ Let's call it "Review":</p><div class="code_container">
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_associations_and_validations.html#slide-19'>▻</a></p>
+<section><a class='slide_break' href='rails_associations_and_validations.html#slide-19'>▻</a>
 <p>In the two other classes we will add <code>has_many</code> and <code>has many ... through</code>:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">Reader</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
   <span class="n">has_many</span> <span class="ss">:reviews</span>
@@ -309,8 +289,7 @@ Let's call it "Review":</p><div class="code_container">
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_associations_and_validations.html#slide-20'>▻</a></p>
+<section><a class='slide_break' href='rails_associations_and_validations.html#slide-20'>▻</a>
 <p>Some examples of using this:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">the_reader</span> <span class="o">=</span> <span class="no">Reader</span><span class="p">.</span><span class="nf">first</span>
 <span class="no">Review</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">comic: </span><span class="no">Comic</span><span class="p">.</span><span class="nf">last</span><span class="p">,</span> <span class="ss">reader: </span><span class="n">the_reader</span><span class="p">,</span> <span class="ss">star_rating: </span><span class="mi">1</span><span class="p">)</span>
@@ -318,18 +297,16 @@ Let's call it "Review":</p><div class="code_container">
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_associations_and_validations.html#slide-21'>▻</a></p>
-<h3 id="build-the-database-schema-migration-by-migration">
-<a class="anchorlink" href="#build-the-database-schema-migration-by-migration"></a>3 Build the Database Schema migration by migration</h3><p>When first starting on a new Rails project you might already
+<section><a class='slide_break' href='rails_associations_and_validations.html#slide-21'>▻</a>
+<h3 id="step-by-step">
+<a class="anchorlink" href="#step-by-step"></a>3 Step by Step</h3><p>When first starting on a new Rails project you might already
 have  an idea of what the database will look like.
 But to get to your ideal design, you have to break this
 down into several generation steps, several migrations.</p><p>For each Model you create you can decide if you want to use <code>generate model</code> or
 <code>generate scaffold</code>.  The scaffold will give you a full CRUD interface for the model.
 You will not need this for all models, but using it for some models will
 save you a lot of work!</p></section>
-<section>
-<p><a class='slide_break' href='rails_associations_and_validations.html#slide-22'>▻</a></p>
+<section><a class='slide_break' href='rails_associations_and_validations.html#slide-22'>▻</a>
 <h3 id="further-reading">
 <a class="anchorlink" href="#further-reading"></a>4 Further reading</h3>
 <ul>
@@ -350,7 +327,7 @@ save you a lot of work!</p></section>
 </ul>
 </li>
 </ul>
-</section>
+</div></section>
       </div>
     </div>
     <!-- End slides. -->
@@ -365,18 +342,18 @@ save you a lot of work!</p></section>
     Reveal.initialize({
       controls: false,
       progress: true,
-      center: true,
+      center: false,
       hash: true,
 
       // The "normal" size of the presentation, aspect ratio will
       // be preserved when the presentation is scaled to fit different
       // resolutions. Can be specified using percentage units.
-      width: 1300,
-      height: 900,
+      width: 800,
+      height: 600,
 
       // Factor of the display size that should remain empty around
       // the content
-      margin: 0.01,
+      margin: 0.05,
 
       // Bounds for smallest/largest possible scale to apply to content
       minScale: 0.2,

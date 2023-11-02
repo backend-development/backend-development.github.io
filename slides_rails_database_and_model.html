@@ -23,8 +23,7 @@
     <div class="reveal">
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
-        <section>
-<p><a class='slide_break' href='rails_database_and_model.html#slide-0'>▻</a></p>
+        <section><a class='slide_break' href='rails_database_and_model.html#slide-0'>▻</a>
 <h3 id="model-basics">
 <a class="anchorlink" href="#model-basics"></a>1 Model Basics</h3><p>Rails Models are classes that represent tables in the database.</p><p>Rails implements the Active Record pattern in a class called <code>ActiveRecord</code>.
 All the models in a Rails project inherit from <code>ActiveRecord</code>.</p><div class="code_container">
@@ -42,8 +41,7 @@ All the models in a Rails project inherit from <code>ActiveRecord</code>.</p><di
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_database_and_model.html#slide-1'>▻</a></p>
+<section><a class='slide_break' href='rails_database_and_model.html#slide-1'>▻</a>
 <h4 id="the-mapping">
 <a class="anchorlink" href="#the-mapping"></a>1.1 The Mapping</h4><p>A quick overview of how Objects and Database relate when using
 ActiveRecord in Rails:</p><div class="code_container">
@@ -57,12 +55,10 @@ SELECT * FROM courses WHERE id=7   Course.find(7)
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_database_and_model.html#slide-2'>▻</a></p>
+<section><a class='slide_break' href='rails_database_and_model.html#slide-2'>▻</a>
 <h3 id="the-model">
 <a class="anchorlink" href="#the-model"></a>2 The Model</h3><p>Look at the model generated in file <code>app/models/tweet.rb</code>. Later you will add validations, associations to other models and the business logic here.</p></section>
-<section>
-<p><a class='slide_break' href='rails_database_and_model.html#slide-3'>▻</a></p>
+<section><a class='slide_break' href='rails_database_and_model.html#slide-3'>▻</a>
 <h4 id="the-model-in-the-console">
 <a class="anchorlink" href="#the-model-in-the-console"></a>2.1 The model in the console</h4><p>You can use the Rails console to work with
 the model interactively. This is similar to the ruby console <code>irb</code>
@@ -77,8 +73,7 @@ to the development database!</p>
 <li><code>rails console --sandbox</code></li>
 </ul>
 <p>instead.</p></section>
-<section>
-<p><a class='slide_break' href='rails_database_and_model.html#slide-4'>▻</a></p>
+<section><a class='slide_break' href='rails_database_and_model.html#slide-4'>▻</a>
 <h4 id="finding-a-model">
 <a class="anchorlink" href="#finding-a-model"></a>2.2 Finding a model</h4><p>The database table always has a primary key <code>id</code>. You can use this
 key to find a specific record:</p><p><img src="images/rails_console_find.png" alt="using find in the Rails console"></p><p>When you type in <code>Tweet.find(1)</code> into the Rails console, you get two answers:</p><p>First (in color) it shows you the SQL query sent to the database. In this case
@@ -87,8 +82,7 @@ that prepared statements are used, and that a limit is always placed on the numb
 of answers.</p><p>After the Arrow (<code>=&gt;</code>) the Rails console shows the return value of the command
 you typed in. Here this is an object. The console prints out the details of this
 object using the <code>inspect</code> method.</p></section>
-<section>
-<p><a class='slide_break' href='rails_database_and_model.html#slide-5'>▻</a></p>
+<section><a class='slide_break' href='rails_database_and_model.html#slide-5'>▻</a>
 <p>From now on we will use this slightly shortended format to show Rails console
 input and output:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -102,8 +96,7 @@ input and output:</p><div class="code_container">
 </code></pre>
 </div>
 <p>(We will leave out the SQL, and some timestamps.)</p></section>
-<section>
-<p><a class='slide_break' href='rails_database_and_model.html#slide-6'>▻</a></p>
+<section><a class='slide_break' href='rails_database_and_model.html#slide-6'>▻</a>
 <h4 id="accessing-the-properties">
 <a class="anchorlink" href="#accessing-the-properties"></a>2.3 Accessing the properties</h4><p>You can access the properties of the model object as if it were a hash
 or through method names:</p><div class="code_container">
@@ -120,13 +113,11 @@ or through method names:</p><div class="code_container">
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_database_and_model.html#slide-7'>▻</a></p>
+<section><a class='slide_break' href='rails_database_and_model.html#slide-7'>▻</a>
 <h4 id="crud-create-read-update-delete">
 <a class="anchorlink" href="#crud-create-read-update-delete"></a>2.4 CRUD = Create, Read, Update, Delete</h4><p>Let's see how ActiveRecord implements the four important
 capabilities of persistance:</p></section>
-<section>
-<p><a class='slide_break' href='rails_database_and_model.html#slide-8'>▻</a></p>
+<section><a class='slide_break' href='rails_database_and_model.html#slide-8'>▻</a>
 <h4 id="create">
 <a class="anchorlink" href="#create"></a>2.5 Create</h4><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">new</span>
@@ -137,8 +128,7 @@ capabilities of persistance:</p></section>
 <p>With <code>new</code> you create a new object just in memory. It is not stored in the
 database yet and does not have an <code>id</code> yet. You can set its properties.
 The <code>save</code> method tries to save it to the database.</p></section>
-<section>
-<p><a class='slide_break' href='rails_database_and_model.html#slide-9'>▻</a></p>
+<section><a class='slide_break' href='rails_database_and_model.html#slide-9'>▻</a>
 <p>On the Rails console you can see how the properties are <code>nil</code> in the beginning.
 After saving to the database some of the properties are set:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">new</span>
@@ -163,8 +153,7 @@ After saving to the database some of the properties are set:</p><div class="code
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_database_and_model.html#slide-10'>▻</a></p>
+<section><a class='slide_break' href='rails_database_and_model.html#slide-10'>▻</a>
 <h4 id="read">
 <a class="anchorlink" href="#read"></a>2.6 Read</h4><p>There are many ways to read data from the database. We already saw <code>find</code> which
 uses the primary key and always returns one object. The method <code>where</code> is used for more general <code>select - where</code> SQL statements.</p><div class="code_container">
@@ -174,8 +163,7 @@ uses the primary key and always returns one object. The method <code>where</code
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_database_and_model.html#slide-11'>▻</a></p>
+<section><a class='slide_break' href='rails_database_and_model.html#slide-11'>▻</a>
 <p>In the Rails console you can see the return values: <code>where</code> returns serveral objects in the end.</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t2</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; '2023-10-21'"</span><span class="p">)</span>
   <span class="no">Tweet</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">1.0</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span> <span class="s2">"tweets"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"tweets"</span> <span class="no">WHERE</span> <span class="p">(</span><span class="n">created_at</span> <span class="o">&gt;</span> <span class="s1">'2023-10-21'</span><span class="p">)</span>
@@ -212,8 +200,7 @@ uses the primary key and always returns one object. The method <code>where</code
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_database_and_model.html#slide-12'>▻</a></p>
+<section><a class='slide_break' href='rails_database_and_model.html#slide-12'>▻</a>
 <h4 id="update">
 <a class="anchorlink" href="#update"></a>2.7 Update</h4><p>With update - as with <code>new</code> before - we see the difference between the
 object in memory (<code>t</code>) which can be changed and the object in the database
@@ -243,8 +230,7 @@ Plus the property <code>updated_at</code> is automatically set.</p><div class="c
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_database_and_model.html#slide-13'>▻</a></p>
+<section><a class='slide_break' href='rails_database_and_model.html#slide-13'>▻</a>
 <h4 id="delete">
 <a class="anchorlink" href="#delete"></a>2.8 Delete</h4><p>To delete both the object in memory and in the database use <code>destroy</code>.</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -273,8 +259,7 @@ Plus the property <code>updated_at</code> is automatically set.</p><div class="c
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_database_and_model.html#slide-14'>▻</a></p>
+<section><a class='slide_break' href='rails_database_and_model.html#slide-14'>▻</a>
 <h4 id="chaining-activerecord-methods">
 <a class="anchorlink" href="#chaining-activerecord-methods"></a>2.9 Chaining ActiveRecord methods</h4><p>Let's look at the example of using <code>where</code> again: the return value was of class <code>ActiveRecord::Relation</code>:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t3</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">zombie: </span><span class="s1">'Ash'</span><span class="p">)</span>
@@ -295,8 +280,7 @@ into a complete SQL statement:</p><div class="code_container">
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_database_and_model.html#slide-15'>▻</a></p>
+<section><a class='slide_break' href='rails_database_and_model.html#slide-15'>▻</a>
 <p>In fact there are many more methods we might want to use for chaining:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="no">Tweet</span><span class="p">.</span><span class="nf">limit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="no">Tweet</span><span class="p">.</span><span class="nf">order</span><span class="p">(</span><span class="ss">:zombie</span><span class="p">)</span>
@@ -308,8 +292,7 @@ into a complete SQL statement:</p><div class="code_container">
 </div>
 <p>For the last three lines: Normally the dot is placed in front of the method when chaining. Here
 it is placed at the end, to enable copy-and-paste to the Rails console)</p></section>
-<section>
-<p><a class='slide_break' href='rails_database_and_model.html#slide-16'>▻</a></p>
+<section><a class='slide_break' href='rails_database_and_model.html#slide-16'>▻</a>
 <p>You can use the method <code>to_sql</code> to see the SQL Statement produced by the chained methods:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="ss">:created_at</span><span class="p">,</span> <span class="ss">:zombie</span><span class="p">,</span> <span class="ss">:status</span><span class="p">).</span>
   <span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; '2020-10-01'"</span><span class="p">).</span>
@@ -325,8 +308,7 @@ it is placed at the end, to enable copy-and-paste to the Rails console)</p></sec
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_database_and_model.html#slide-17'>▻</a></p>
+<section><a class='slide_break' href='rails_database_and_model.html#slide-17'>▻</a>
 <p>The order of the methods is not relevant. You can also save an intermediate step to
 a variable, and then chain more methods to that variable later on:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">query</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; '2020-10-01'"</span><span class="p">).</span>
@@ -342,8 +324,7 @@ a variable, and then chain more methods to that variable later on:</p><div class
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='rails_database_and_model.html#slide-18'>▻</a></p>
+<section><a class='slide_break' href='rails_database_and_model.html#slide-18'>▻</a>
 <h4 id="further-reading">
 <a class="anchorlink" href="#further-reading"></a>2.10 Further reading</h4>
 <ul>
@@ -364,7 +345,7 @@ a variable, and then chain more methods to that variable later on:</p><div class
 </ul>
 </li>
 </ul>
-</section>
+</div></section>
       </div>
     </div>
     <!-- End slides. -->
@@ -379,18 +360,18 @@ a variable, and then chain more methods to that variable later on:</p><div class
     Reveal.initialize({
       controls: false,
       progress: true,
-      center: true,
+      center: false,
       hash: true,
 
       // The "normal" size of the presentation, aspect ratio will
       // be preserved when the presentation is scaled to fit different
       // resolutions. Can be specified using percentage units.
-      width: 1300,
-      height: 900,
+      width: 800,
+      height: 600,
 
       // Factor of the display size that should remain empty around
       // the content
-      margin: 0.01,
+      margin: 0.05,
 
       // Bounds for smallest/largest possible scale to apply to content
       minScale: 0.2,

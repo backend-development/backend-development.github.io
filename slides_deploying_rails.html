@@ -23,8 +23,7 @@
     <div class="reveal">
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
-        <section>
-<p><a class='slide_break' href='deploying_rails.html#slide-0'>▻</a></p>
+        <section><a class='slide_break' href='deploying_rails.html#slide-0'>▻</a>
 <h3 id="deploying-with-git">
 <a class="anchorlink" href="#deploying-with-git"></a>1 Deploying with git</h3><p>heroku is one "Platform as a Service" provider that offers
 to host your rails app.  Heroku uses git to push the code to
@@ -51,8 +50,7 @@ and
 </ul>
 <p>That's it.   You should now have an app with a very strange URL, like
 <a href="http://mighty-shore-1497.herokuapp.com/">http://mighty-shore-1497.herokuapp.com/</a></p></section>
-<section>
-<p><a class='slide_break' href='deploying_rails.html#slide-1'>▻</a></p>
+<section><a class='slide_break' href='deploying_rails.html#slide-1'>▻</a>
 <h3 id="public-key-authentication-in-ssh">
 <a class="anchorlink" href="#public-key-authentication-in-ssh"></a>2 Public Key Authentication in SSH</h3><p>(See also <a href="http://railsbridge.projects.multimediatechnology.at/installfest/create_an_ssh_key">Railsbridge Installfest</a>)</p><p><img src="images/public_key_crypto.svg" alt="public key login"></p>
 <ul>
@@ -81,8 +79,7 @@ and
 <li>then ssh will let you log in without giving a password</li>
 </ul>
 <p><img src="images/ssh_login_with_public_key.svg" alt="public key login"></p></section>
-<section>
-<p><a class='slide_break' href='deploying_rails.html#slide-2'>▻</a></p>
+<section><a class='slide_break' href='deploying_rails.html#slide-2'>▻</a>
 <h4 id="deploying-with-a-deploy-user">
 <a class="anchorlink" href="#deploying-with-a-deploy-user"></a>2.1 deploying with a deploy-user</h4>
 <ul>
@@ -96,8 +93,7 @@ and
 <li>both can deploy (from different machines) using the same capistrano setup</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='deploying_rails.html#slide-3'>▻</a></p>
+<section><a class='slide_break' href='deploying_rails.html#slide-3'>▻</a>
 <h4 id="authorized-keys2">
 <a class="anchorlink" href="#authorized-keys2"></a>2.2 authorized_keys2</h4><div class="code_container">
 <pre><code class="highlight plaintext">ssh-rsa AAAAB3NzaC...2EAAAABI== alice@fh-salzburg.ac.at
@@ -105,8 +101,7 @@ ssh-rsa AAAAB8NzaC...DVj3R4Ww== bob@fh-salzburg.ac.at
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='deploying_rails.html#slide-4'>▻</a></p>
+<section><a class='slide_break' href='deploying_rails.html#slide-4'>▻</a>
 <h3 id="how-to-run-rails">
 <a class="anchorlink" href="#how-to-run-rails"></a>3 How to run Rails</h3>
 <ul>
@@ -115,16 +110,14 @@ ssh-rsa AAAAB8NzaC...DVj3R4Ww== bob@fh-salzburg.ac.at
 <li>apache/nginx + mod_passenger + capistrano</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='deploying_rails.html#slide-5'>▻</a></p>
+<section><a class='slide_break' href='deploying_rails.html#slide-5'>▻</a>
 <h4 id="webrick">
 <a class="anchorlink" href="#webrick"></a>3.1 WEBrick</h4>
 <ul>
 <li>rails s</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='deploying_rails.html#slide-6'>▻</a></p>
+<section><a class='slide_break' href='deploying_rails.html#slide-6'>▻</a>
 <h4 id="mod-passenger">
 <a class="anchorlink" href="#mod-passenger"></a>3.2 mod_passenger</h4>
 <ul>
@@ -150,12 +143,10 @@ ssh-rsa AAAAB8NzaC...DVj3R4Ww== bob@fh-salzburg.ac.at
 </li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='deploying_rails.html#slide-7'>▻</a></p>
+<section><a class='slide_break' href='deploying_rails.html#slide-7'>▻</a>
 <h3 id="deploying-with-capistrano">
 <a class="anchorlink" href="#deploying-with-capistrano"></a>4 Deploying with Capistrano</h3><p><img src="images/capistrano-deploy.svg" alt="Deploying with Javascript"></p></section>
-<section>
-<p><a class='slide_break' href='deploying_rails.html#slide-8'>▻</a></p>
+<section><a class='slide_break' href='deploying_rails.html#slide-8'>▻</a>
 <h4 id="warning">
 <a class="anchorlink" href="#warning"></a>4.1 WARNING</h4>
 <ul>
@@ -165,8 +156,7 @@ ssh-rsa AAAAB8NzaC...DVj3R4Ww== bob@fh-salzburg.ac.at
 <li>you seriously need to read every line of the output!</li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='deploying_rails.html#slide-9'>▻</a></p>
+<section><a class='slide_break' href='deploying_rails.html#slide-9'>▻</a>
 <h4 id="capistrano-assumptions">
 <a class="anchorlink" href="#capistrano-assumptions"></a>4.2 capistrano assumptions</h4>
 <ul>
@@ -177,8 +167,7 @@ ssh-rsa AAAAB8NzaC...DVj3R4Ww== bob@fh-salzburg.ac.at
 </li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='deploying_rails.html#slide-10'>▻</a></p>
+<section><a class='slide_break' href='deploying_rails.html#slide-10'>▻</a>
 <h4 id="how-to-install">
 <a class="anchorlink" href="#how-to-install"></a>4.3 how to install</h4><div class="code_container">
 <pre><code class="highlight sh"><span class="nv">$ </span><span class="nb">sudo gem install </span>capistrano
@@ -196,13 +185,11 @@ Capified
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='deploying_rails.html#slide-11'>▻</a></p>
+<section><a class='slide_break' href='deploying_rails.html#slide-11'>▻</a>
 <h4 id="configuration-in-config-deploy-rb">
 <a class="anchorlink" href="#configuration-in-config-deploy-rb"></a>4.4 configuration in <code>config/deploy.rb</code>
 </h4><p>local information, see our wiki</p></section>
-<section>
-<p><a class='slide_break' href='deploying_rails.html#slide-12'>▻</a></p>
+<section><a class='slide_break' href='deploying_rails.html#slide-12'>▻</a>
 <h4 id="example-task-in-capfile">
 <a class="anchorlink" href="#example-task-in-capfile"></a>4.5 example task in Capfile</h4><div class="code_container">
 <pre><code class="highlight ruby"><span class="n">task</span> <span class="ss">:display_free_disk_space</span> <span class="k">do</span>
@@ -211,8 +198,7 @@ Capified
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='deploying_rails.html#slide-13'>▻</a></p>
+<section><a class='slide_break' href='deploying_rails.html#slide-13'>▻</a>
 <h4 id="prepare-capistranoe">
 <a class="anchorlink" href="#prepare-capistranoe"></a>4.6 prepare capistranoe</h4><div class="code_container">
 <pre><code class="highlight sh"><span class="nv">$ </span>cap production <span class="nb">git</span>:check
@@ -222,8 +208,7 @@ Capified
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='deploying_rails.html#slide-14'>▻</a></p>
+<section><a class='slide_break' href='deploying_rails.html#slide-14'>▻</a>
 <h4 id="run-a-capistrano-task">
 <a class="anchorlink" href="#run-a-capistrano-task"></a>4.7 run a capistrano task</h4><div class="code_container">
 <pre><code class="highlight sh"><span class="nv">$ </span>cap production deploy
@@ -239,8 +224,7 @@ Capified
 </code></pre>
 </div>
 </section>
-<section>
-<p><a class='slide_break' href='deploying_rails.html#slide-15'>▻</a></p>
+<section><a class='slide_break' href='deploying_rails.html#slide-15'>▻</a>
 <h4 id="capistrano-folders">
 <a class="anchorlink" href="#capistrano-folders"></a>4.8 capistrano folders</h4><p>read the logfile, try to find out how capistrano lays out
 the folders</p>
@@ -265,8 +249,7 @@ the folders</p>
 </li>
 </ul>
 </section>
-<section>
-<p><a class='slide_break' href='deploying_rails.html#slide-16'>▻</a></p>
+<section><a class='slide_break' href='deploying_rails.html#slide-16'>▻</a>
 <h4 id="my-first-deploy">
 <a class="anchorlink" href="#my-first-deploy"></a>4.9 my first deploy</h4><div class="code_container">
 <pre><code class="highlight sh"><span class="nv">$ </span>cap deploy:setup
@@ -275,7 +258,7 @@ the folders</p>
 <span class="nv">$ </span>cap deploy:upload <span class="nv">FILES</span><span class="o">=</span><span class="s1">'config/database.yml'</span>
 </code></pre>
 </div>
-</section>
+</div></section>
       </div>
     </div>
     <!-- End slides. -->
@@ -290,18 +273,18 @@ the folders</p>
     Reveal.initialize({
       controls: false,
       progress: true,
-      center: true,
+      center: false,
       hash: true,
 
       // The "normal" size of the presentation, aspect ratio will
       // be preserved when the presentation is scaled to fit different
       // resolutions. Can be specified using percentage units.
-      width: 1300,
-      height: 900,
+      width: 800,
+      height: 600,
 
       // Factor of the display size that should remain empty around
       // the content
-      margin: 0.01,
+      margin: 0.05,
 
       // Bounds for smallest/largest possible scale to apply to content
       minScale: 0.2,
