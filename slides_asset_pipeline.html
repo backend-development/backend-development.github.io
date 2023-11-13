@@ -220,43 +220,14 @@ to infinite, every browser can save the file forever and never try to reload it.
 If the contents of the file change, a new file with a new fingerprint in the name will
 be generated, and the HTML-page will link to that file.</p><p>This way we avoid one the the <a href="https://twitter.com/codinghorror/status/506010907021828096">two hard problems in computer science</a>: cache invalidation.</p></section>
 <section><a class='slide_break' href='asset_pipeline.html#slide-12'>▻</a>
-<h3 id="live-reloading">
-<a class="anchorlink" href="#live-reloading"></a>3 Live Reloading</h3><p>When you are working on the frontend of your app, fiddling
-around in views and stylsheets, it may be helpful to immediatly
-see the changes you make reflected in the browser.</p><p>To achieve this in Rails you can use <code>guard</code>. Add three gems to the development-section of your Gemfile:</p><div class="code_container">
-<pre><code class="highlight plaintext">group :development do
-  gem 'guard'
-  gem 'guard-livereload', '~&gt; 2.5', require: false
-  gem 'rack-livereload'
-end
-</code></pre>
-</div>
-<p>We are using two separate components here:</p>
-<ul>
-<li>
-<code>guard-livereload</code> does the actual file-watching, and runs a separate webserver on port 35729 that sends out messages when a file changes,</li>
-<li>
-<code>rack-livereload</code> adds some javascript to every webpage in your app. This javascript will connect to port 35729, listen for messages and reload the page when a message arrives.</li>
-</ul>
-<p>To configure guard run:</p><div class="code_container">
-<pre><code class="highlight plaintext">bundle exec guard init livereload
-</code></pre>
-</div>
-<p>This will create a <code>Guardfile</code> in your main directory.</p><p>Now you can start <code>bundle exec guard</code> in a separate terminal window.</p><p>To configure <code>rack-livereload</code> add the following to <code>config/environments/development.rb</code> inside the <code>Rails.application.configure</code> block:</p><div class="code_container">
-<pre><code class="highlight plaintext">config.middleware.insert_after Rack::Head, Rack::LiveReload
-</code></pre>
-</div>
-<p>Now stop and start your webserver, reload your app in the browser, and change
-a stylesheet or view to see it in action.</p><p>The window with <code>guard</code> running needs to stay open, it will look like this:</p><p><img src="images/guard.png" alt="guard"></p></section>
-<section><a class='slide_break' href='asset_pipeline.html#slide-13'>▻</a>
 <h3 id="user-generated-content">
-<a class="anchorlink" href="#user-generated-content"></a>4 User Generated Content</h3><p>The asset pipeline handles assets that are
+<a class="anchorlink" href="#user-generated-content"></a>3 User Generated Content</h3><p>The asset pipeline handles assets that are
 added by developers during development.
 Images uploaded by users in production
 are handled by <a href="https://edgeguides.rubyonrails.org/active_storage_overview.html">activestorage</a>.</p></section>
-<section><a class='slide_break' href='asset_pipeline.html#slide-14'>▻</a>
+<section><a class='slide_break' href='asset_pipeline.html#slide-13'>▻</a>
 <h3 id="further-reading">
-<a class="anchorlink" href="#further-reading"></a>5 Further Reading</h3>
+<a class="anchorlink" href="#further-reading"></a>4 Further Reading</h3>
 <ul>
 <li>Souders(2007): High Performance Web Sites. O'Reilly. ISBN-13: 978-0596529307.</li>
 <li>Souders(2009): Even Faster Web Sites. O'Reilly. ISBN-13: 978-0596522308.</li>
