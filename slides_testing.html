@@ -506,21 +506,8 @@ Rails will auto assign a primary key to be consistent between runs.
 For more information on this association behavior please read
 the <a href="https://edgeapi.rubyonrails.org/classes/ActiveRecord/FixtureSet.html">Fixtures API documentation</a>.</p></div></section>
 <section><a class='slide_break' href='testing.html#slide-28'>▻</a>
-<h5 id="fixtures-with-erb">
-<a class="anchorlink" href="#fixtures-with-erb"></a>5.2.2 Fixtures with ERB</h5><p>ERB allows you to embed Ruby code. The YAML fixture format is pre-processed with
-ERB when Rails loads fixtures. This allows you to use Ruby to help you generate
-some sample data. For example, the following code generates a thousand users:</p><div class="code_container">
-<pre><code class="highlight erb"><span class="cp">&lt;%</span> <span class="mi">1000</span><span class="p">.</span><span class="nf">times</span> <span class="k">do</span> <span class="o">|</span><span class="n">n</span><span class="o">|</span> <span class="cp">%&gt;</span>
-user_<span class="cp">&lt;%=</span> <span class="n">n</span> <span class="cp">%&gt;</span>:
-  username: <span class="cp">&lt;%=</span> <span class="s2">"user</span><span class="si">#{</span><span class="n">n</span><span class="si">}</span><span class="s2">"</span> <span class="cp">%&gt;</span>
-  email: <span class="cp">&lt;%=</span> <span class="s2">"user</span><span class="si">#{</span><span class="n">n</span><span class="si">}</span><span class="s2">@example.com"</span> <span class="cp">%&gt;</span>
-<span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span>
-</code></pre>
-</div>
-</section>
-<section><a class='slide_break' href='testing.html#slide-29'>▻</a>
 <h5 id="using-fixtures-in-tests">
-<a class="anchorlink" href="#using-fixtures-in-tests"></a>5.2.3 Using fixtures in Tests</h5><p>The data defined by the fixture files will be available
+<a class="anchorlink" href="#using-fixtures-in-tests"></a>5.2.2 Using fixtures in Tests</h5><p>The data defined by the fixture files will be available
 in your tests as Active Record objects. For example:</p><div class="code_container">
 <pre><code class="highlight ruby"><span class="c1"># in test/models/user_test.rb</span>
 <span class="c1"># the User object for the fixture named david</span>
@@ -539,92 +526,25 @@ in your tests as Active Record objects. For example:</p><div class="code_contain
 </code></pre>
 </div>
 </section>
-<section><a class='slide_break' href='testing.html#slide-30'>▻</a>
-<h3 id="integration-tests">
-<a class="anchorlink" href="#integration-tests"></a>6 Integration Tests</h3><p>Integration tests are used to test that the various parts of your application interact correctly to implement features. Integration tests do not include the client side.</p><p>Here is a first example of an integration test:</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">PublicTest</span> <span class="o">&lt;</span> <span class="no">ActionDispatch</span><span class="o">::</span><span class="no">IntegrationTest</span>
-  <span class="n">setup</span> <span class="k">do</span>
-    <span class="vi">@course</span> <span class="o">=</span> <span class="n">courses</span><span class="p">(</span><span class="ss">:one</span><span class="p">)</span>
-  <span class="k">end</span>
-
-  <span class="nb">test</span> <span class="s1">'Course page'</span> <span class="k">do</span>
-    <span class="n">get</span> <span class="n">course_path</span><span class="p">(</span><span class="vi">@course</span><span class="p">,</span> <span class="ss">locale: </span><span class="s1">'en'</span><span class="p">)</span>
-
-    <span class="n">assert_response</span> <span class="ss">:success</span>
-    <span class="n">assert_select</span> <span class="s1">'h1 span.title'</span><span class="p">,</span> <span class="ss">text: </span><span class="s2">"Course </span><span class="si">#{</span><span class="vi">@course</span><span class="p">.</span><span class="nf">title</span><span class="si">}</span><span class="s2">"</span>
-    <span class="n">assert_select</span> <span class="s1">'.calendar_section .button_to input'</span>
-    <span class="n">assert_match</span> <span class="s1">'collect'</span><span class="p">,</span> <span class="n">css_select</span><span class="p">(</span><span class="s1">'div.calendar_section'</span><span class="p">).</span><span class="nf">text</span>
-    <span class="n">assert_match</span> <span class="s1">'2 entries found'</span><span class="p">,</span> <span class="n">css_select</span><span class="p">(</span><span class="s1">'div.calendar_section p'</span><span class="p">).</span><span class="nf">text</span>
-  <span class="k">end</span>
-
-  <span class="nb">test</span> <span class="s1">'Edit a Course is not available'</span> <span class="k">do</span>
-    <span class="n">get</span> <span class="n">edit_course_path</span><span class="p">(</span><span class="vi">@course</span><span class="p">,</span> <span class="ss">locale: </span><span class="s1">'en'</span><span class="p">)</span>
-
-    <span class="n">assert_response</span> <span class="ss">:found</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre>
-</div>
-<p>The first test ensures that a course can be displayed.
-A get request is used to load the show action of the course controller.</p><p>The following five assertions concern the HTTP response and the DOM of the retuned
-html document.</p><p>The second test ensures that a certain path (here: the edit action of the course
-controller) is not available to a user who is not logged in. When getting
-the URL we expect a redirection to happen. The response contains the "found" http status code.</p><p>Here are some tests for logged in users with admin powers:</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">AdminTest</span> <span class="o">&lt;</span>  <span class="no">ActionDispatch</span><span class="o">::</span><span class="no">IntegrationTest</span>
-  <span class="n">setup</span> <span class="k">do</span>
-    <span class="vi">@course</span> <span class="o">=</span> <span class="n">courses</span><span class="p">(</span><span class="ss">:one</span><span class="p">)</span>
-    <span class="vi">@admin</span> <span class="o">=</span> <span class="n">users</span><span class="p">(</span><span class="ss">:one</span><span class="p">)</span>
-
-    <span class="n">get</span> <span class="n">root_url</span>
-
-    <span class="n">post</span> <span class="s2">"/login"</span><span class="p">,</span> <span class="ss">params: </span><span class="p">{</span> <span class="ss">username: </span><span class="vi">@admin</span><span class="p">.</span><span class="nf">name</span><span class="p">,</span>
-      <span class="ss">password: </span><span class="s1">'notneeded'</span> <span class="p">}</span>
-    <span class="n">follow_redirect!</span>
-    <span class="n">follow_redirect!</span>
-
-    <span class="n">assert_equal</span> <span class="mi">200</span><span class="p">,</span> <span class="n">status</span>
-  <span class="k">end</span>
-
-  <span class="nb">test</span> <span class="s1">'Edit a Course is available'</span> <span class="k">do</span>
-    <span class="n">get</span> <span class="n">edit_course_path</span><span class="p">(</span><span class="vi">@course</span><span class="p">,</span> <span class="ss">locale: </span><span class="s1">'en'</span><span class="p">)</span>
-
-    <span class="n">assert_response</span> <span class="ss">:success</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre>
-</div>
-<p>In the setup method the we log in as user one, who has admin powers.
-After that the edit action of the course
-controller is available.</p><p>Both <code>assert_select</code> and <code>css_select</code> access the HTML document.
-You can also access it directly as <code>document_root_element</code>.</p><p>Learn more about integration test:</p>
-<ul>
-<li><a href="https://guides.rubyonrails.org/testing.html#integration-testing">Rails Guide on Testing</a></li>
-<li><a href="https://api.rubyonrails.org/v5.2.1/classes/ActionDispatch/IntegrationTest.html">Rails API Documentation ActionDispatch::IntegrationTest</a></li>
-</ul>
-</section>
-<section><a class='slide_break' href='testing.html#slide-31'>▻</a>
-<h3 id="system-tests-with-selenium-and-a-headless-browser">
-<a class="anchorlink" href="#system-tests-with-selenium-and-a-headless-browser"></a>7 System Tests with Selenium and a headless Browser</h3><p>System test are used to test that the various parts of your application interact correctly
-to implement features. You can use a real browser to test your app, including the client side javascript.</p><p>Rails 5 comes
-with built in system tests. These
-are stored in the folder <code>test/system/</code></p><p>These tests take a lot more time to run than the unit test
-and even the integration tests
+<section><a class='slide_break' href='testing.html#slide-29'>▻</a>
+<h3 id="system-tests">
+<a class="anchorlink" href="#system-tests"></a>6 System Tests</h3><p>System test are used to test that the various parts of your application interact correctly
+to implement features. In a system test a real browser is used to test your app, including the client side javascript.</p><p>Rails comes with built in system tests. These are stored in the folder <code>test/system/</code></p><p>These tests take a lot more time to run than the unit test
 discussed earlier. They are not included if you run <code>rails test</code>, you have
-to start them separately with <code>rails test:system</code>.</p><p>We will use the gem <code>selenium-webdriver</code> and the headless browser firefox
-to write our system tests.</p><div class="code_container">
+to start them separately with <code>rails test:system</code>.</p><p>We will use the gems <code>capybara</code> and <code>selenium-webdriver</code>. they will
+enable us to sue headless browser firefox or chrome for system tests.</p><div class="code_container">
 <pre><code class="highlight plaintext"># Gemfile
-group :development, :test do
-...
+group :test do
+  gem 'capybara'
+  gem 'selenium-webdriver'
 end
 
-# test_helper.rb
-...
-</code></pre>
-</div>
-<p>You need to install the browser separately. On Mac you can do this
-by using brew:</p><div class="code_container">
-<pre><code class="highlight plaintext">brew install geckodriver # for firefox
-brew install chromedriver # for chrome
+# test/application_system_test_case.rb
+require 'test_helper'
+
+class ApplicationSystemTestCase &lt; ActionDispatch::SystemTestCase
+  driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400]
+end
 </code></pre>
 </div>
 <p>There is a generator to create a test skeleton for you.</p><div class="code_container">
@@ -633,45 +553,52 @@ brew install chromedriver # for chrome
 </span></code></pre>
 </div>
 <p>Here's what a freshly-generated system test looks like:</p><div class="code_container">
-<pre><code class="highlight ruby"><span class="nb">require</span> <span class="s1">'test_helper'</span>
+<pre><code class="highlight ruby"><span class="nb">require</span> <span class="s2">"application_system_test_case"</span>
 
-<span class="k">class</span> <span class="nc">AddAStarToAUserTest</span> <span class="o">&lt;</span> <span class="no">ApplicationSystemTestCase</span>
-  <span class="nb">test</span> <span class="s2">"sanity"</span> <span class="k">do</span>
-    <span class="n">visit</span> <span class="n">root_path</span>
-    <span class="n">assert_content</span> <span class="n">page</span><span class="p">,</span> <span class="s2">"Hello World"</span>
-    <span class="n">refute_content</span> <span class="n">page</span><span class="p">,</span> <span class="s2">"Goobye All!"</span>
-  <span class="k">end</span>
+<span class="k">class</span> <span class="nc">AddAStarToAUsersTest</span> <span class="o">&lt;</span> <span class="no">ApplicationSystemTestCase</span>
+  <span class="c1"># test "visiting the index" do</span>
+  <span class="c1">#   visit add_a_star_to_a_users_url</span>
+  <span class="c1">#</span>
+  <span class="c1">#   assert_selector "h1", text: "AddAStarToAUser"</span>
+  <span class="c1"># end</span>
 <span class="k">end</span>
 </code></pre>
 </div>
-<p><code>visit</code> is capybaras method for making a HTTP request just as the browser would.</p></section>
-<section><a class='slide_break' href='testing.html#slide-32'>▻</a>
-<h5 id="testing-a-form">
-<a class="anchorlink" href="#testing-a-form"></a>7.1 Testing a form</h5><p>System tests are black box tests: we only interact with the
-app through the web browser, and have no "inside knowledge" about the app.</p><p>Some helper methods:</p><div class="code_container">
+<p><code>visit</code> is capybaras method for making a HTTP request just as the browser would.</p><p><code>assert_selector</code> is one of the assertions implemented by capybara. this
+assertion will wait for the page to load, and then it will look
+for a <code>h1</code> tag containing the text.</p><p>Generally speaking System tests are black box tests: we only interact with the
+app through the web browser, and have no "inside knowledge" about the app.</p><p>In Rails system test you do have access to the full application including the database.</p></section>
+<section><a class='slide_break' href='testing.html#slide-30'>▻</a>
+<h4 id="some-helper-methods">
+<a class="anchorlink" href="#some-helper-methods"></a>6.1 Some helper methods</h4><div class="code_container">
 <pre><code class="highlight plaintext">click_link('id-of-link')
 click_link('Link Text')
-find('#navigation').click_link('Home')
+find('#navigation').click_link('Home')  # only look for link inside #navigation
 
 click_button('Save')
 find("#overlay").find_button('Send').click
 
-fill_in('First Name', with: 'John')
+fill_in('First Name', with: 'John')   # fill in a text input field
 choose('A Radio Button')
 check('A Checkbox')
 uncheck('A Checkbox')
-attach_file('Image', '/path/to/image.jpg')
 select('Option', :from =&gt; 'Select Box')
+attach_file('Image',  Rails.root + 'test/fixtures/files/example.png') # file upload
 
-all('a').each { |a| ... a[:href] ... }
+all('a').each { |a| ... a[:href] ... }  # loop over all the found nodes
 
-within("li#employee") do
+within("li#employee") do    # the code in the block will only use the dom inside li#employee
   fill_in 'Name', :with =&gt; 'Jimmy'
   ...
 end
+page.execute_script 'window.scrollBy(0,10000)' # run javascript to simulate user behaviour
+
 </code></pre>
 </div>
-<p>Some assertions:</p><div class="code_container">
+</section>
+<section><a class='slide_break' href='testing.html#slide-31'>▻</a>
+<h4 id="some-assertions">
+<a class="anchorlink" href="#some-assertions"></a>6.2 Some assertions</h4><div class="code_container">
 <pre><code class="highlight plaintext">assert_content('foo')
 assert_text('bar')
 assert_selector('table tr')
@@ -681,37 +608,31 @@ assert_link('more')
 </code></pre>
 </div>
 </section>
+<section><a class='slide_break' href='testing.html#slide-32'>▻</a>
+<h4 id="debugging">
+<a class="anchorlink" href="#debugging"></a>6.3 debugging</h4><p>As with all tests, you can read the log file <code>log/test.log</code> to see how you test is doing.</p><p>System tests offer two more options:</p><div class="code_container">
+<pre><code class="highlight ruby"><span class="n">take_screenshot</span>  <span class="c1"># and give it an automatic file name</span>
+<span class="n">save_screenshot</span><span class="p">(</span><span class="s1">'tmp/screenshots/book_event_step1.png'</span><span class="p">)</span>
+<span class="n">save_and_open_page</span>
+</code></pre>
+</div>
+<p>You can save a screenshot of the (invisible) browser window at any time.
+If the test fails a screenshot will also be saved automatically.</p><p>And you can save the current state of the webpage as a html file and
+open it in the browser.  The links to css and javascript will not work,
+but you will be able to use browser tools to inspect the DOM.</p></section>
 <section><a class='slide_break' href='testing.html#slide-33'>▻</a>
-<h5 id="testing-javascript">
-<a class="anchorlink" href="#testing-javascript"></a>7.1.1 Testing Javascript</h5><p>Testing with an embedded browser like webkit makes
-it possible to test javascript and AJAX behaviour.</p><div class="code_container">
-<pre><code class="highlight plaintext">test "page contains text generated by JavaScript" do
-  Capybara.current_driver = Capybara.javascript_driver
-  visit root_path
-  assert_content page, "Dynamic Text"
-end
-</code></pre>
-</div>
-<p>While developing your test it might be helpful
-to <em>see</em> what the invisible browser is doing.
-You can save a screenshot to a file automatically:</p><div class="code_container">
-<pre><code class="highlight plaintext">  save_screenshot('tmp/list_of_users_screenshot.png', :full =&gt; true)
-</code></pre>
-</div>
-<p>For debugging purposes it might also be useful
-to see if anything was written to the javascript console.
-The console is available through <code>page.driver.console_messages</code>.
-But it is probably best not to write tests that expect certain
-console output.</p></section>
+<h4 id="testing-javascript">
+<a class="anchorlink" href="#testing-javascript"></a>6.4 Testing Javascript</h4><p>Testing with an headless browser makes
+it possible to test JavaScript behaviour.</p><p>Many assertions supplied by capybara wait for the
+page to load / the JavaScript to run before checking the assertion.</p></section>
 <section><a class='slide_break' href='testing.html#slide-34'>▻</a>
 <h3 id="further-reading">
-<a class="anchorlink" href="#further-reading"></a>8 Further Reading</h3>
+<a class="anchorlink" href="#further-reading"></a>7 Further Reading</h3>
 <ul>
 <li><a href="https://github.com/hamcrest/ramcrest">better assertion with ramcrest</a></li>
 <li>
 <a href="https://guides.rubyonrails.org/testing.html">A Guide to Testing Rails Applications</a> - also contains an introduction to testing routes, mailers, helpers, jobs and more in depth information on testing controllers</li>
 <li><a href="https://edgeapi.rubyonrails.org/classes/ActiveRecord/FixtureSet.html">Fixtures API documentation</a></li>
-<li><a href="https://news.ycombinator.com/item?id=17233371">Observations running 2M headless Chrome sessions</a></li>
 </ul>
 </div></section>
       </div>
