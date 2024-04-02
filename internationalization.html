@@ -105,10 +105,25 @@
 <li><a href="#i18n-in-rails">I18n in Rails</a></li>
 <li><a href="#keys-and-translations">keys and translations</a></li>
 <li><a href="#locale-files-included-with-the-i18n-gem">locale files included with the I18n gem</a></li>
-<li><a href="#dates">Dates</a></li>
+<li><a href="#numbers">Numbers</a></li>
+<li>
+<a href="#dates">Dates</a>
+
+<ul>
+<li><a href="#format-definitions">Format definitions</a></li>
 <li><a href="#relative-dates">Relative Dates</a></li>
+</ul>
+</li>
 <li><a href="#pluralization">Pluralization</a></li>
 <li><a href="#translating-model-names-and-attributes">Translating Model Names and Attributes</a></li>
+<li>
+<a href="#text-stored-in-tables">Text stored in tables</a>
+
+<ul>
+<li><a href="#the-mobility-gem">the Mobility gem</a></li>
+</ul>
+</li>
+<li><a href="#testing">Testing</a></li>
 <li><a href="#see-also">See Also</a></li>
 </ol>
 
@@ -224,8 +239,44 @@ around the text.  The key itself will be used in place of a translation:</p><div
 to use them.</p><p>If you are following along with the demo app, do this now for english, german, danish and spanish!</p></div>
 <div class='slide'>
 <a class='slide_break' id='slide-6' href='slides_internationalization.html#/6'>▻</a>
+<h3 id="numbers">
+<a class="anchorlink" href="#numbers"></a>7 Numbers</h3><p>There are different Rules for displaying numbers in different languages.
+You may be familiar with the European Million being translated into an US Billion.
+So different words are used for numbers.</p><p>But also the numbers themselves are formatted differently:</p><div class="code_container">
+<pre><code class="highlight erb"><span class="nt">&lt;p&gt;</span><span class="cp">&lt;%=</span> <span class="n">number_with_delimiter</span><span class="p">(</span><span class="mi">100000000</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="nt">&lt;/p&gt;</span>
+</code></pre>
+</div>
+<p>In many languages this will be displayed as <code>100.000.000</code> or <code>100,000,000</code>.
+Some examples of languages with different number formats are:</p>
+<ul>
+<li>
+<a href="https://en.wikipedia.org/wiki/Indian_numbering_system">Indian Numbering System:</a> 10,00,00,000 or 10 lakh.</li>
+<li>
+<a href="https://en.wikipedia.org/wiki/Japanese_numerals#Powers_of_10">Japanese numerals</a> 1 0000 0000 or 1億.</li>
+</ul>
+<p>Rails provides several helper methods for constructing numbers:</p>
+<ul>
+<li>
+<code>number_with_delimiter</code> - for large numbers like <code>100.000.000</code>
+</li>
+<li>
+<code>number_to_currency</code> - includes the currency like <code>100.000.000,00 €</code>
+</li>
+<li>
+<code>number_with_precision</code> - like <code>100000000,00</code>
+</li>
+<li>
+<code>number_to_percentage</code> - like <code>90,00 %</code>
+</li>
+<li>
+<code>number_to_human_size</code> - for bytes, like <code>95,4 MB</code>
+</li>
+</ul>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-7' href='slides_internationalization.html#/7'>▻</a>
 <h3 id="dates">
-<a class="anchorlink" href="#dates"></a>7 Dates</h3><p>Dates are a special case for translation: there are complex and different rules
+<a class="anchorlink" href="#dates"></a>8 Dates</h3><p>Dates are a special case for translation: there are complex and different rules
 for displaying dates in different languages.</p><p>The page <code>/order_items</code> gives a list of all orders, with a timestamp when each order was placed:</p><div class="code_container">
 <pre><code class="highlight erb">  <span class="nt">&lt;p&gt;</span>
     <span class="nt">&lt;strong&gt;</span>Order Date:<span class="nt">&lt;/strong&gt;</span>
@@ -248,7 +299,11 @@ display this in a language appropriate format:</p><div class="code_container">
   <span class="nt">&lt;/p&gt;</span>
 </code></pre>
 </div>
-<p>You can find the definition for this date in <code>de.yml</code> under <code>de.time.formats.default</code>:</p><div class="code_container">
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-8' href='slides_internationalization.html#/8'>▻</a>
+<h4 id="format-definitions">
+<a class="anchorlink" href="#format-definitions"></a>8.1 Format definitions</h4><p>You can find the definition for this date in <code>de.yml</code> under <code>de.time.formats.default</code>:</p><div class="code_container">
 <pre><code class="highlight yml">  <span class="na">time</span><span class="pi">:</span>
     <span class="na">formats</span><span class="pi">:</span>
       <span class="na">default</span><span class="pi">:</span> <span class="s2">"</span><span class="s">%A,</span><span class="nv"> </span><span class="s">%d.</span><span class="nv"> </span><span class="s">%B</span><span class="nv"> </span><span class="s">%Y,</span><span class="nv"> </span><span class="s">%H:%M</span><span class="nv"> </span><span class="s">Uhr"</span>
@@ -278,9 +333,9 @@ display this in a language appropriate format:</p><div class="code_container">
 translated, but also the whole format changes from language to language.</p><p>You could add other formats than ':long' and ':short'  to your translations
 by adding to the <code>.yml</code> files.  Just make sure to keep the keys consistent through all languages!</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-7' href='slides_internationalization.html#/7'>▻</a>
-<h3 id="relative-dates">
-<a class="anchorlink" href="#relative-dates"></a>8 Relative Dates</h3><p>The helper <code>time_ago_in_words</code> is already localized, you
+<a class='slide_break' id='slide-9' href='slides_internationalization.html#/9'>▻</a>
+<h4 id="relative-dates">
+<a class="anchorlink" href="#relative-dates"></a>8.2 Relative Dates</h4><p>The helper <code>time_ago_in_words</code> is already localized, you
 can use it directly:</p><div class="code_container">
 <pre><code class="highlight erb">  <span class="nt">&lt;p&gt;</span>
     <span class="nt">&lt;strong&gt;</span>Order Date:<span class="nt">&lt;/strong&gt;</span>
@@ -290,7 +345,7 @@ can use it directly:</p><div class="code_container">
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-8' href='slides_internationalization.html#/8'>▻</a>
+<a class='slide_break' id='slide-10' href='slides_internationalization.html#/10'>▻</a>
 <h3 id="pluralization">
 <a class="anchorlink" href="#pluralization"></a>9 Pluralization</h3><p>The page <code>/order_items</code> gives a list of all orders, and also the number of orders.
 Before internationalization this looked like this:</p><div class="code_container">
@@ -316,18 +371,101 @@ to language.  Make sure to look it up in <a href="https://github.com/svenfuchs/r
     <span class="na">other</span><span class="pi">:</span> <span class="s">Es gibt %{count} Bestellungen im System</span>
 </code></pre>
 </div>
+<p>In the view you use it like this:</p><div class="code_container">
+<pre><code class="highlight erb"><span class="nt">&lt;p&gt;</span><span class="cp">&lt;%=</span><span class="n">t</span><span class="p">(</span><span class="s1">'orders_in_the_system'</span><span class="p">,</span> <span class="ss">count:  </span><span class="vi">@order_items</span><span class="p">.</span><span class="nf">length</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="nt">&lt;/p&gt;</span>
+</code></pre>
+</div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-9' href='slides_internationalization.html#/9'>▻</a>
+<a class='slide_break' id='slide-11' href='slides_internationalization.html#/11'>▻</a>
 <h3 id="translating-model-names-and-attributes">
 <a class="anchorlink" href="#translating-model-names-and-attributes"></a>10 Translating Model Names and Attributes</h3><p>The names of models and their attributes will be used
 in many places in the app: from labels for form fields
 to error messages in validation.</p><p>So it makes sense to store the names of models and their attributes
-just once and then reuse them.</p><p>In the demo app there are</p></div>
+just once and then reuse them.</p><p>In the demo app there are three models: Shirt, Statement and OrderItem.
+This is how to specify translations for shirts:</p><div class="code_container">
+<pre><code class="highlight yml">  <span class="na">activerecord</span><span class="pi">:</span>
+    <span class="na">models</span><span class="pi">:</span>
+      <span class="na">shirt</span><span class="pi">:</span>
+        <span class="na">one</span><span class="pi">:</span> <span class="s">Hemd</span>
+        <span class="na">other</span><span class="pi">:</span> <span class="s">Hemden</span>
+    <span class="na">attributes</span><span class="pi">:</span>
+      <span class="na">shirt</span><span class="pi">:</span>
+        <span class="na">sizes</span><span class="pi">:</span>
+          <span class="na">one</span><span class="pi">:</span> <span class="s">Größe</span>
+          <span class="na">other</span><span class="pi">:</span> <span class="s">Größen</span>
+        <span class="na">colors</span><span class="pi">:</span>
+          <span class="na">one</span><span class="pi">:</span> <span class="s">Farbe</span>
+          <span class="na">other</span><span class="pi">:</span> <span class="s">Farben</span>
+</code></pre>
+</div>
+<p>To refer to a model use <code>.model_name.human</code>, for example <code>Shirt.model_name.human</code>.
+To refer to an attribute use <code>human_attribute_name</code>, for example <code>Shirt.human_attribute_name("colors").
+Both methods can take an attribute</code>count` for pluralization.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-10' href='slides_internationalization.html#/10'>▻</a>
+<a class='slide_break' id='slide-12' href='slides_internationalization.html#/12'>▻</a>
+<h3 id="text-stored-in-tables">
+<a class="anchorlink" href="#text-stored-in-tables"></a>11 Text stored in tables</h3><p>The demo app is a shop for shirts with slogans printed on them.
+In the first implementation all the slogans are in english.</p><p>When we think about selling to different markets we might want
+to translate text stored and tables for different purposes:</p>
+<ul>
+<li>translate the shirts names, for example "generic t-shirt" and "fine t-shirt"</li>
+<li>keep the english slogans, but provide translation into several languages to make searching easier
+** for example when you search for "freie software" in the app, you should find the slogans related to "free software"</li>
+<li>offer slogans in different languages
+** should these be different products with different ids?  or should there be several columns for one product?</li>
+</ul>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-13' href='slides_internationalization.html#/13'>▻</a>
+<h4 id="the-mobility-gem">
+<a class="anchorlink" href="#the-mobility-gem"></a>11.1 the Mobility gem</h4><p>The gem Mobility adds translations for table data.
+In the demo app Mobility is already installed and configured.</p><p>To make the name of a shirt translatable we add the following lines to the model:</p><div class="code_container">
+<pre><code class="highlight rb">  <span class="kp">extend</span> <span class="no">Mobility</span>
+  <span class="n">translates</span> <span class="ss">:name</span><span class="p">,</span>  <span class="ss">type: :string</span>
+</code></pre>
+</div>
+<p>From now on the gem will enable us to store different names.
+For example in the seed file we could do this:</p><div class="code_container">
+<pre><code class="highlight rb"><span class="no">I18n</span><span class="p">.</span><span class="nf">locale</span> <span class="o">=</span> <span class="ss">:en</span>   <span class="c1"># switch to english</span>
+
+<span class="n">s1</span> <span class="o">=</span> <span class="no">Shirt</span><span class="p">.</span><span class="nf">create!</span><span class="p">(</span>
+  <span class="ss">name: </span><span class="s1">'Polo Shirt'</span><span class="p">,</span>
+  <span class="ss">outline: </span><span class="no">File</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="no">Rails</span><span class="p">.</span><span class="nf">root</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="s1">'db/seeds/Shirt-type_Polo-omg.svg'</span><span class="p">)),</span>
+  <span class="ss">colors: </span><span class="s1">'#e0ffcd #fdffcd #ffebbb #ffcab0 white'</span><span class="p">,</span>
+  <span class="ss">sizes: </span><span class="s1">'S M L XL XXL'</span>
+<span class="p">)</span>
+
+<span class="no">I18n</span><span class="p">.</span><span class="nf">locale</span> <span class="o">=</span> <span class="ss">:de</span>   <span class="c1"># switch to german</span>
+<span class="n">s1</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="ss">name: </span><span class="s1">'Polohemd'</span><span class="p">)</span>
+</code></pre>
+</div>
+<p>Now every time the object is read from the database and
+the name is retrieved, the locale is used. For example in the rails console
+this could look like this:</p><div class="code_container">
+<pre><code class="highlight plaintext">irb(main):001&gt; s1 = Shirt.first
+  Shirt Load (1.5ms)  SELECT "shirts".* FROM "shirts" ORDER BY "shirts"."id" ASC LIMIT $1  [["LIMIT", 1]]
+=&gt;
+#&lt;Shirt:0x00000001271fc570
+...
+irb(main):002&gt; s1.name
+  Mobility::Backends::ActiveRecord::KeyValue::StringTranslation Load (1.3ms)  SELECT "mobility_string_translations".* FROM "mobility_string_translations" WHERE "mobility_string_translations"."translatable_id" = $1 AND "mobility_string_translations"."translatable_type" = $2 AND "mobility_string_translations"."key" = $3  [["translatable_id", 1], ["translatable_type", "Shirt"], ["key", "name"]]
+=&gt; "Polo Shirt"
+irb(main):003&gt; I18n.locale = :de
+=&gt; :de
+irb(main):004&gt; s1.name
+=&gt; "Polohemd"
+</code></pre>
+</div>
+</div>
+<div class='slide'>
+<a class='slide_break' id='slide-14' href='slides_internationalization.html#/14'>▻</a>
+<h3 id="testing">
+<a class="anchorlink" href="#testing"></a>12 Testing</h3><p>See <a href="https://thoughtbot.com/blog/better-tests-through-internationalization">Better Tests Through Internationalization </a></p></div>
+<div class='slide'>
+<a class='slide_break' id='slide-15' href='slides_internationalization.html#/15'>▻</a>
 <h3 id="see-also">
-<a class="anchorlink" href="#see-also"></a>11 See Also</h3>
+<a class="anchorlink" href="#see-also"></a>13 See Also</h3>
 <ul>
 <li><a href="https://guides.rubyonrails.org/i18n.html">Rails Guide: Internationalization</a></li>
 <li><a href="https://metacpan.org/pod/distribution/Locale-Maketext/lib/Locale/Maketext/TPJ13.pod#A-Localization-Horror-Story:-It-Could-Happen-To-You">A Localization Horror Story: It Could Happen To You</a></li>
