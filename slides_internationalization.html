@@ -24,8 +24,182 @@
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
         <section><a class='slide_break' href='internationalization.html#slide-0'>▻</a>
+<h3 id="internationalization-and-localization">
+<a class="anchorlink" href="#internationalization-and-localization"></a>1 Internationalization and Localization</h3><p>Internationalization is the process of designing a software application so that it can be adapted to various languages and regions. It is often written as I18n (to avoid typing 18 letters).</p><p>Localization is the process of adapting internationalized software for a specific region or language by translating text and adding locale-specific components. It is often written as L10n (to avoid typing 10 letters).</p><p>Localization (which is potentially performed multiple times, for different locales) uses the infrastructure or flexibility provided by internationalization (which is ideally performed only once before localization, or as an integral part of ongoing development).</p></section>
+<section><a class='slide_break' href='internationalization.html#slide-1'>▻</a>
+<h3 id="the-big-picture">
+<a class="anchorlink" href="#the-big-picture"></a>2 The big picture</h3><p>When developing web applications for different countries, cultures, languages
+we are faced with many different problems:</p>
+<ul>
+<li>Different cultures will have very different ideas of what a "good" website looks like. See <a href="https://www.youtube.com/watch?v=ER3534JJucc">Jenny Shen's talk at concat</a>
+</li>
+<li>Different writing systems will use a diffrent amount of space, leading to diffrent layouts</li>
+<li>Writing direction (left-to-right, right-to-left or top-down) will need to be handled by HTML. See <a href="https://www.w3.org/International/questions/qa-html-dir">w3c</a>
+</li>
+<li>The app might need to handle different currencies and methods of payment</li>
+</ul>
+</section>
+<section><a class='slide_break' href='internationalization.html#slide-2'>▻</a>
+<h3 id="focus-on-language">
+<a class="anchorlink" href="#focus-on-language"></a>3 Focus on Language</h3><p>Internationalization is mostly concerned with language and translation.
+Even if we focus on indo-european languages we will find differences:</p>
+<ul>
+<li>Example: Plurals  in Polish <a href="https://www.tiktok.com/@stach_mat/video/7325101589084130592">Polnisch für Anfänger by stach_mat, Teil 5</a>
+</li>
+</ul>
+<p>Going from a mono-lingual to a multi-lingual app will
+add another layer of abstraction that will make both programming
+and testing harder.</p></section>
+<section><a class='slide_break' href='internationalization.html#slide-3'>▻</a>
+<h3 id="i18n-in-rails">
+<a class="anchorlink" href="#i18n-in-rails"></a>4 I18n in Rails</h3><p>Rails Apps are ready for Internationalization. To get started,
+find the file <code>config/locale/en.yml</code>.  It only contains one example
+of a translation string:</p><div class="code_container">
+<pre><code class="highlight yml"><span class="na">en</span><span class="pi">:</span>
+  <span class="na">hello</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Hello</span><span class="nv"> </span><span class="s">world"</span>
+</code></pre>
+</div>
+<p>This means, that in the <code>:en</code> locale, the key <code>hello</code> will map to the <code>Hello world</code> string</p><p>The <a href="https://gitlab.mediacube.at/bjelline/statement_shirts">Demo App</a> is already
+prepared to switch between locales through folders:</p>
+<ul>
+<li>
+<a href="http://localhost:3000/">http://localhost:3000/</a> - Home page and order page - english</li>
+<li>
+<a href="http://localhost:3000/de/">http://localhost:3000/de/</a> - Home page and order page - german</li>
+<li>
+<a href="http://localhost:3000/dk/">http://localhost:3000/dk/</a> - Home page and order page - danish</li>
+<li>
+<a href="http://localhost:3000/es/">http://localhost:3000/es/</a> - Home page and order page - spanish</li>
+<li>
+<a href="http://localhost:3000/shirts">http://localhost:3000/shirts</a> - List of all shirts - english</li>
+<li>
+<a href="http://localhost:3000/de/shirts">http://localhost:3000/de/shirts</a> - List of all shirts - english</li>
+<li>
+<a href="http://localhost:3000/dk/shirts">http://localhost:3000/dk/shirts</a> - List of all shirts - danish</li>
+<li>
+<a href="http://localhost:3000/en/shirts">http://localhost:3000/en/shirts</a> - List of all shirts - spanish</li>
+</ul>
+<p>and so on.</p></section>
+<section><a class='slide_break' href='internationalization.html#slide-4'>▻</a>
+<h3 id="keys-and-translations">
+<a class="anchorlink" href="#keys-and-translations"></a>5 keys and translations</h3><p>The method <code>I18n.translate</code> or <code>I18n.t</code> can be used to look up translation.
+In our example before the key was <code>hello</code>. In english <code>t 'hello'</code> will return "Hello World"
+and in German it would be "Hallo Welt".</p><p>In the view we can use the even short form:</p><div class="code_container">
+<pre><code class="highlight erb"><span class="cp">&lt;%=</span> <span class="n">t</span> <span class="s1">'hello'</span> <span class="cp">%&gt;</span>
+</code></pre>
+</div>
+<p>If no translation can be found - because there is no yaml file or because
+the key is missing, then a span with class <code>translation_missing</code> will be wrapped
+around the text.  The key itself will be used in place of a translation:</p><div class="code_container">
+<pre><code class="highlight html"><span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"translation_missing"</span> <span class="na">title=</span><span class="s">"translation missing: dk.hello"</span><span class="nt">&gt;</span>Hello<span class="nt">&lt;/span&gt;</span>
+</code></pre>
+</div>
+<p>Texts in views all need to be replaced by translation keys.</p></section>
+<section><a class='slide_break' href='internationalization.html#slide-5'>▻</a>
+<h3 id="locale-files-included-with-the-i18n-gem">
+<a class="anchorlink" href="#locale-files-included-with-the-i18n-gem"></a>6 locale files included with the I18n gem</h3><p>The I18n gem comes with translations for many languages in the  <a href="https://github.com/svenfuchs/rails-i18n/tree/10141c451f03d7c6b78cfdcce808c389da6b9ddd/rails/locale">locale folder</a>.</p><p>You can copy the ones you need to your own apps <code>config/locale</code> folder
+to use them.</p><p>If you are following along with the demo app, do this now for english, german, danish and spanish!</p></section>
+<section><a class='slide_break' href='internationalization.html#slide-6'>▻</a>
+<h3 id="dates">
+<a class="anchorlink" href="#dates"></a>7 Dates</h3><p>Dates are a special case for translation: there are complex and different rules
+for displaying dates in different languages.</p><p>The page <code>/order_items</code> gives a list of all orders, with a timestamp when each order was placed:</p><div class="code_container">
+<pre><code class="highlight erb">  <span class="nt">&lt;p&gt;</span>
+    <span class="nt">&lt;strong&gt;</span>Order Date:<span class="nt">&lt;/strong&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">order_item</span><span class="p">.</span><span class="nf">created_at</span> <span class="cp">%&gt;</span>
+  <span class="nt">&lt;/p&gt;</span>
+</code></pre>
+</div>
+<p>We can use the method <code>I18n.localize</code> or <code>I18n.l</code> in the view to
+display this in a language appropriate format:</p><div class="code_container">
+<pre><code class="highlight erb">  <span class="nt">&lt;p&gt;</span>
+    <span class="nt">&lt;strong&gt;</span>Order Date:<span class="nt">&lt;/strong&gt;</span>
+    <span class="cp">&lt;%=</span><span class="n">l</span> <span class="n">order_item</span><span class="p">.</span><span class="nf">created_at</span> <span class="cp">%&gt;</span>
+  <span class="nt">&lt;/p&gt;</span>
+</code></pre>
+</div>
+<p>In German this will be displayed as:</p><div class="code_container">
+<pre><code class="highlight html">  <span class="nt">&lt;p&gt;</span>
+    <span class="nt">&lt;strong&gt;</span>Order Date:<span class="nt">&lt;/strong&gt;</span>
+    Montag, 01. April 2024, 21:25 Uhr
+  <span class="nt">&lt;/p&gt;</span>
+</code></pre>
+</div>
+<p>You can find the definition for this date in <code>de.yml</code> under <code>de.time.formats.default</code>:</p><div class="code_container">
+<pre><code class="highlight yml">  <span class="na">time</span><span class="pi">:</span>
+    <span class="na">formats</span><span class="pi">:</span>
+      <span class="na">default</span><span class="pi">:</span> <span class="s2">"</span><span class="s">%A,</span><span class="nv"> </span><span class="s">%d.</span><span class="nv"> </span><span class="s">%B</span><span class="nv"> </span><span class="s">%Y,</span><span class="nv"> </span><span class="s">%H:%M</span><span class="nv"> </span><span class="s">Uhr"</span>
+      <span class="na">long</span><span class="pi">:</span> <span class="s2">"</span><span class="s">%A,</span><span class="nv"> </span><span class="s">%d.</span><span class="nv"> </span><span class="s">%B</span><span class="nv"> </span><span class="s">%Y,</span><span class="nv"> </span><span class="s">%H:%M</span><span class="nv"> </span><span class="s">Uhr"</span>
+      <span class="na">short</span><span class="pi">:</span> <span class="s2">"</span><span class="s">%d.</span><span class="nv"> </span><span class="s">%b,</span><span class="nv"> </span><span class="s">%H:%M</span><span class="nv"> </span><span class="s">Uhr"</span>
+</code></pre>
+</div>
+<p>To choose another format, you can add call <code>l</code> with the format option:</p><div class="code_container">
+<pre><code class="highlight erb">  <span class="nt">&lt;p&gt;</span>
+    <span class="nt">&lt;strong&gt;</span>Order Date:<span class="nt">&lt;/strong&gt;</span>
+    <span class="cp">&lt;%=</span><span class="n">l</span> <span class="n">order_item</span><span class="p">.</span><span class="nf">created_at</span><span class="p">,</span> <span class="ss">format: :short</span> <span class="cp">%&gt;</span>
+  <span class="nt">&lt;/p&gt;</span>
+</code></pre>
+</div>
+<p>Different languages will have different format, here a comparison of <code>:short</code>:</p><div class="code_container">
+<pre><code class="highlight yml"><span class="na">en</span><span class="pi">:</span>
+  <span class="na">short</span><span class="pi">:</span> <span class="s2">"</span><span class="s">%d</span><span class="nv"> </span><span class="s">%b</span><span class="nv"> </span><span class="s">%H:%M"</span>
+<span class="na">es</span><span class="pi">:</span>
+  <span class="na">short</span><span class="pi">:</span> <span class="s2">"</span><span class="s">%-d</span><span class="nv"> </span><span class="s">de</span><span class="nv"> </span><span class="s">%b</span><span class="nv"> </span><span class="s">%H:%M"</span>
+<span class="na">da</span><span class="pi">:</span>
+  <span class="na">short</span><span class="pi">:</span> <span class="s2">"</span><span class="s">%e.</span><span class="nv"> </span><span class="s">%b</span><span class="nv"> </span><span class="s">%Y,</span><span class="nv"> </span><span class="s">%H.%M"</span>
+<span class="na">de</span><span class="pi">:</span>
+  <span class="na">short</span><span class="pi">:</span> <span class="s2">"</span><span class="s">%d.</span><span class="nv"> </span><span class="s">%b,</span><span class="nv"> </span><span class="s">%H:%M</span><span class="nv"> </span><span class="s">Uhr"</span>
+</code></pre>
+</div>
+<p>As you can see, it is not only the names of weekdays and months that are
+translated, but also the whole format changes from language to language.</p><p>You could add other formats than ':long' and ':short'  to your translations
+by adding to the <code>.yml</code> files.  Just make sure to keep the keys consistent through all languages!</p></section>
+<section><a class='slide_break' href='internationalization.html#slide-7'>▻</a>
+<h3 id="relative-dates">
+<a class="anchorlink" href="#relative-dates"></a>8 Relative Dates</h3><p>The helper <code>time_ago_in_words</code> is already localized, you
+can use it directly:</p><div class="code_container">
+<pre><code class="highlight erb">  <span class="nt">&lt;p&gt;</span>
+    <span class="nt">&lt;strong&gt;</span>Order Date:<span class="nt">&lt;/strong&gt;</span>
+    <span class="cp">&lt;%=</span> <span class="n">time_ago_in_words</span> <span class="n">order_item</span><span class="p">.</span><span class="nf">created_at</span> <span class="cp">%&gt;</span>
+  <span class="nt">&lt;/p&gt;</span>
+</code></pre>
+</div>
+</section>
+<section><a class='slide_break' href='internationalization.html#slide-8'>▻</a>
+<h3 id="pluralization">
+<a class="anchorlink" href="#pluralization"></a>9 Pluralization</h3><p>The page <code>/order_items</code> gives a list of all orders, and also the number of orders.
+Before internationalization this looked like this:</p><div class="code_container">
+<pre><code class="highlight erb"><span class="nt">&lt;p&gt;</span>There are <span class="cp">&lt;%=</span> <span class="vi">@order_items</span><span class="p">.</span><span class="nf">length</span> <span class="cp">%&gt;</span> orders in the system.<span class="nt">&lt;/p&gt;</span>
+</code></pre>
+</div>
+<p>When translating this we also have to think about pluralization rules.
+English is simple: just add an 's' to the end of the noun for more then one order.
+Other languages follow more complex rules.</p><p>You can see how the example from polish in the video above is handled in the
+standard translation for dates:</p>
+<ul>
+<li>Rails Pluralisation Rules for Polish <a href="https://github.com/svenfuchs/rails-i18n/blob/master/rails/pluralization/pl.rb">pluralization/pl.rb</a>
+</li>
+<li>Use in <a href="https://github.com/svenfuchs/rails-i18n/blob/10141c451f03d7c6b78cfdcce808c389da6b9ddd/rails/locale/pl.yml#L63">locale/pl.rb</a>
+</li>
+</ul>
+<p>To build our own pluralisation rules we can add translations with several cases.
+How many cases there are, and what they are called, differs from language
+to language.  Make sure to look it up in <a href="https://github.com/svenfuchs/rails-i18n/blob/master/rails/pluralization/">pluralization/*</a></p><div class="code_container">
+<pre><code class="highlight yml">  <span class="na">orders_in_the_system</span><span class="pi">:</span>
+    <span class="na">zero</span><span class="pi">:</span> <span class="s">Es gibt keine Bestellungen im System</span>
+    <span class="na">one</span><span class="pi">:</span> <span class="s">Es gibt eine Bestellung im System</span>
+    <span class="na">other</span><span class="pi">:</span> <span class="s">Es gibt %{count} Bestellungen im System</span>
+</code></pre>
+</div>
+</section>
+<section><a class='slide_break' href='internationalization.html#slide-9'>▻</a>
+<h3 id="translating-model-names-and-attributes">
+<a class="anchorlink" href="#translating-model-names-and-attributes"></a>10 Translating Model Names and Attributes</h3><p>The names of models and their attributes will be used
+in many places in the app: from labels for form fields
+to error messages in validation.</p><p>So it makes sense to store the names of models and their attributes
+just once and then reuse them.</p><p>In the demo app there are</p></section>
+<section><a class='slide_break' href='internationalization.html#slide-10'>▻</a>
 <h3 id="see-also">
-<a class="anchorlink" href="#see-also"></a>1 See Also</h3>
+<a class="anchorlink" href="#see-also"></a>11 See Also</h3>
 <ul>
 <li><a href="https://guides.rubyonrails.org/i18n.html">Rails Guide: Internationalization</a></li>
 <li><a href="https://metacpan.org/pod/distribution/Locale-Maketext/lib/Locale/Maketext/TPJ13.pod#A-Localization-Horror-Story:-It-Could-Happen-To-You">A Localization Horror Story: It Could Happen To You</a></li>
