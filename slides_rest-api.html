@@ -54,6 +54,7 @@ with any backend, frontend, persistance layers:</p>
 <ul>
 <li>You can build a REST in front of a PHP backend using MongoDB as the database and use it from a frontend written with jQuery.</li>
 <li>You can build a GraphQL API for a Rails backend using MySQL as the database and build the frontend with React.</li>
+<li>You can use a CMS like Strapi through a REST API from a React frontend</li>
 </ul>
 <p>That's kind of the point of an API: to allow different technologies
 on both sides of the API.</p></section>
@@ -147,12 +148,12 @@ For example because the developer read the docs.</p><p>HATEOAS demands that the 
 <li>the GET and HEAD methods should take no other action than retrieval. These methods ought to be considered <strong>safe</strong>.</li>
 <li>The methods GET, HEAD, PUT and DELETE are idempotent: repeating the request will not change the end result (aside from error or expiration issues)</li>
 </ul>
-<p>The definition of the <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html">Methods</a> in HTTP1.0 is just a short read, and worth its while!</p><p>References for status codes:</p>
+<p>The definition of the <a href="https://www.rfc-editor.org/rfc/rfc9110.html#methods">Methods</a> in HTTP is a quick read, and well worth it!</p><p>References for status codes:</p>
 <ul>
 <li><a href="https://httpstatuses.com/422">Status codes</a></li>
 <li><a href="https://http.cat/">Status cats</a></li>
 </ul>
-<p>When buidling a REST API, the HTTP Protocol already defines a lot
+<p>When building a REST API, the HTTP Protocol already defines a lot
 about that API. There is no need to come up with a way to delete
 a resource, or to indicate failure. HTTP already offers the DELETE method
 and status codes that indicate errors.</p></section>
@@ -175,8 +176,8 @@ https://example.com/mini/person/83.json
 like this: the HTML web page:</p><div class="code_container">
 <pre><code class="highlight html"><span class="nt">&lt;h1&gt;</span>Details zu einer Person<span class="nt">&lt;/h1&gt;</span>
 <span class="nt">&lt;p&gt;&lt;img</span> <span class="na">src=</span><span class="s">"https://example.com/mini/profil/edvard_1_2.jpg"</span> <span class="nt">/&gt;</span>
-Herr Edvard Paul Beisteiner hat insgesamt 4 Werke in dieser Datenbank.
-Er hat den Usernamen fhs14287.<span class="nt">&lt;/p&gt;</span>
+Herr Edvard Paul Scissorhands hat insgesamt 4 Werke in dieser Datenbank.
+Er hat den Usernamen fhs123.<span class="nt">&lt;/p&gt;</span>
 <span class="nt">&lt;ul&gt;</span>
   <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">'https://example.com/mini/werk/24'</span><span class="nt">&gt;</span>The Thin Red Line<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
   <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">'https://example.com/mini/werk/50'</span><span class="nt">&gt;</span>Der böse Wolf<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
@@ -189,8 +190,8 @@ Er hat den Usernamen fhs14287.<span class="nt">&lt;/p&gt;</span>
 <pre><code class="highlight xml"><span class="nt">&lt;person&gt;</span>
   <span class="nt">&lt;image</span> <span class="na">ref=</span><span class="s">'https://example.com/mini/profil/edvard_1_2.jpg'</span> <span class="nt">/&gt;</span>
   <span class="nt">&lt;vorname&gt;</span>Edvard<span class="nt">&lt;/vorname&gt;</span>
-  <span class="nt">&lt;nachname&gt;</span>Beisteiner<span class="nt">&lt;/nachname&gt;</span>
-  <span class="nt">&lt;username&gt;</span>fhs14287<span class="nt">&lt;/username&gt;</span>
+  <span class="nt">&lt;nachname&gt;</span>Scissorhands<span class="nt">&lt;/nachname&gt;</span>
+  <span class="nt">&lt;username&gt;</span>fhs123<span class="nt">&lt;/username&gt;</span>
   <span class="nt">&lt;werke&gt;</span>
     <span class="nt">&lt;werk</span> <span class="na">ref=</span><span class="s">'https://example.com/mini/werk/24'</span><span class="nt">&gt;</span>The Thin Red Line<span class="nt">&lt;/werk&gt;</span>
     <span class="nt">&lt;werk</span> <span class="na">ref=</span><span class="s">'https://example.com/mini/werk/50'</span><span class="nt">&gt;</span>Der böse Wolf<span class="nt">&lt;/werk&gt;</span>
@@ -202,8 +203,8 @@ Er hat den Usernamen fhs14287.<span class="nt">&lt;/p&gt;</span>
 </div>
 <p>or as JSON:</p><div class="code_container">
 <pre><code class="highlight json"><span class="p">{</span><span class="nl">"image"</span><span class="p">:</span><span class="s2">"https://example.com/mini/profil/edvard_1_2.jpg"</span><span class="p">,</span><span class="w">
- </span><span class="nl">"vorname"</span><span class="p">:</span><span class="s2">"Eduard"</span><span class="p">,</span><span class="w">
- </span><span class="nl">"nachname"</span><span class="p">:</span><span class="s2">"Beisteiner"</span><span class="p">,</span><span class="w">
+ </span><span class="nl">"vorname"</span><span class="p">:</span><span class="s2">"Edvard"</span><span class="p">,</span><span class="w">
+ </span><span class="nl">"nachname"</span><span class="p">:</span><span class="s2">"Scissorhands"</span><span class="p">,</span><span class="w">
  </span><span class="nl">"werk"</span><span class="p">:[</span><span class="w">
     </span><span class="p">{</span><span class="nl">"titel"</span><span class="p">:</span><span class="s2">"The Thin Red Line"</span><span class="p">,</span><span class="w">
      </span><span class="nl">"url"</span><span class="p">:</span><span class="s2">"https://example.com/mini/werk/24"</span><span class="p">},</span><span class="w">
@@ -218,11 +219,8 @@ Er hat den Usernamen fhs14287.<span class="nt">&lt;/p&gt;</span>
 </section>
 <section><a class='slide_break' href='rest-api.html#slide-11'>▻</a>
 <h4 id="statelessness">
-<a class="anchorlink" href="#statelessness"></a>2.5 Statelessness</h4><p>Tilkov wirtes: "REST mandates that state be either turned into resource state, or kept on the client. In other words, a server should not have to retain some sort of communication state for any of the clients it communicates with beyond a single request."</p><p>This is important for performance and scalability and performance.
- Statelessness makes caching easy. And in a scenario with serveral
-servers behind a load balancer, not having state on the server means
-the application will work if the requests bei one client are routest
-to different servers.</p></section>
+<a class="anchorlink" href="#statelessness"></a>2.5 Statelessness</h4><p>Tilkov wirtes: "REST mandates that state be either turned into resource state, or kept on the client. In other words, a server should not have to retain some sort of communication state for any of the clients it communicates with beyond a single request."</p><p>This is important for performance and scalability.
+ Statelessness makes caching easy. And in a scenario with multiple servers behind a load balancer, having no state on the server means that the application will work when a client's requests are routed to different servers.</p></section>
 <section><a class='slide_break' href='rest-api.html#slide-12'>▻</a>
 <h4 id="json-api">
 <a class="anchorlink" href="#json-api"></a>2.6 JSON API</h4><p>When an API returns JSON data this could take many forms.
@@ -230,19 +228,29 @@ The <a href="https://jsonapi.org/">json:api specification</a> is a well thought 
 convention for this.</p><p>It is imlements the HATEOS aspect of REST and defines a way to do associations and aggregation.</p><p>For smaller projects it might be overkill.</p></section>
 <section><a class='slide_break' href='rest-api.html#slide-13'>▻</a>
 <h4 id="exploring-a-rest-api">
-<a class="anchorlink" href="#exploring-a-rest-api"></a>2.7 Exploring a REST API</h4><p>You can explor a REST with the browser or several tool:</p>
+<a class="anchorlink" href="#exploring-a-rest-api"></a>2.7 Exploring a REST API</h4><p>You can explor a REST with several tool:</p>
 <ul>
 <li>
 <a href="https://curl.haxx.se/docs/manual.html">curl</a> is a command line tool for sending HTTP requests</li>
 <li>developer tools in the browser can edit "re-send" a request, or <a href="https://developer.mozilla.org/en-US/docs/Tools/Network_Monitor/request_list#Context_menu">copy as curl</a>
 </li>
 <li>
-<a href="https://www.postman.com/downloads/">postman</a> is a stand alone app</li>
+<a href="https://hoppscotch.io/">hoppscotch</a> is a browser based REST client</li>
+<li>
+<a href="https://insomnia.rest/download">insomnia</a> is a client you install as a native app</li>
 </ul>
 </section>
 <section><a class='slide_break' href='rest-api.html#slide-14'>▻</a>
-<h3 id="rest-api-in-rails-with-existing-controllers">
-<a class="anchorlink" href="#rest-api-in-rails-with-existing-controllers"></a>3 REST API in Rails with existing Controllers</h3><p>Rails is equipped to not just create HTML as output, but to easily
+<h4 id="testing-and-documenting-a-rest-api">
+<a class="anchorlink" href="#testing-and-documenting-a-rest-api"></a>2.8 Testing and Documenting a REST API</h4><p><a href="https://swagger.io/resources/open-api/">The OpenAPI Specification</a> is a way for
+specifying and documenting REST APIs.  There are a lot of tools available around it
+for many different programming languages.</p><p>For Rails I recommend the gem <code>rswag</code>: with rswag you write tests (specs) for your
+api, and the documentation is generated from the (successful) tests.
+There is also a web-ui to read the documentation and run API requests -
+<a href="https://iou-brigitte.herokuapp.com/api-docs/index.html">Swagger Web UI in the example app</a></p></section>
+<section><a class='slide_break' href='rest-api.html#slide-15'>▻</a>
+<h3 id="rails-rest-api-in-with-existing-controllers">
+<a class="anchorlink" href="#rails-rest-api-in-with-existing-controllers"></a>3 Rails: REST API in  with existing Controllers</h3><p>Rails is equipped to not just create HTML as output, but to easily
 offer other representations as well.</p><p>When you look at <code>rails routes</code> you can see that the routes created by
 <code>resource :user</code> could contain an optional <code>format</code>:</p><div class="code_container">
 <pre><code class="highlight plaintext">                 Prefix Verb   URI Pattern                           Controller#Action
@@ -272,7 +280,7 @@ Content-Type: application/json; charset=utf-8
 <p>This error message is meant for a
 client expecting JSON data. It uses both the HTTP status code
 and the JSON to indicate the error.</p></section>
-<section><a class='slide_break' href='rest-api.html#slide-15'>▻</a>
+<section><a class='slide_break' href='rest-api.html#slide-16'>▻</a>
 <h4 id="api-for-the-sample-app">
 <a class="anchorlink" href="#api-for-the-sample-app"></a>3.1 API for the sample app</h4><p>The "Frontend 1" in the example app expects a very simple JSON structure:</p><p>To display one user, it loads from <code>/user/1.json</code> and expects
 a single JSON object with three attributes:</p><div class="code_container">
@@ -300,7 +308,7 @@ expects a JSON array of objects like above:</p><div class="code_container">
 </code></pre>
 </div>
 </section>
-<section><a class='slide_break' href='rest-api.html#slide-16'>▻</a>
+<section><a class='slide_break' href='rest-api.html#slide-17'>▻</a>
 <h4 id="creating-an-api-with-existing-controllers">
 <a class="anchorlink" href="#creating-an-api-with-existing-controllers"></a>3.2 creating an API with existing controllers</h4><p>The scaffold generator always adds handling JSON responses
 to the actions of a controller.</p><p>For handling just HTML only this code would be needed in the
@@ -345,7 +353,7 @@ to handle json differently from html:</p><div class="code_container">
 </div>
 <p>so in the controller we might not need to change anything to add the
 API, only in the view.</p></section>
-<section><a class='slide_break' href='rest-api.html#slide-17'>▻</a>
+<section><a class='slide_break' href='rest-api.html#slide-18'>▻</a>
 <h4 id="creating-json-with-erb-not-a-good-idea">
 <a class="anchorlink" href="#creating-json-with-erb-not-a-good-idea"></a>3.3 creating JSON with erb - not a good idea</h4><p>We could create views using erb in <code>app/views/users/show.json.erb</code>:</p><div class="code_container">
 <pre><code class="highlight plaintext">{
@@ -387,7 +395,7 @@ but there should be no comma after the last.</p><div class="code_container">
 <p>And wait, there's another problem: What happens
 if a users name contains a quote? For example <kbd>Jack "the Ripper"</kbd>.
 That would break our current view, because we don't do proper escaping.</p></section>
-<section><a class='slide_break' href='rest-api.html#slide-18'>▻</a>
+<section><a class='slide_break' href='rest-api.html#slide-19'>▻</a>
 <h4 id="creating-json-with-jbuilder-a-better-idea">
 <a class="anchorlink" href="#creating-json-with-jbuilder-a-better-idea"></a>3.4 creating JSON with jbuilder - a better idea</h4><p>Rails 5 comes with the gem <code>jbuilder</code> which helps you create JSON, and
 which handles all the escaping and formatting correctly.</p><p>We need to name the view <code>app/views/users/show.json.jbuilder</code>,
@@ -410,7 +418,7 @@ end
 </code></pre>
 </div>
 </section>
-<section><a class='slide_break' href='rest-api.html#slide-19'>▻</a>
+<section><a class='slide_break' href='rest-api.html#slide-20'>▻</a>
 <h4 id="authentication-and-the-api">
 <a class="anchorlink" href="#authentication-and-the-api"></a>3.5 Authentication and the API</h4><p>All the authentication and access control we built into the
 rails app before is still applicable to the API and JSON views.
@@ -418,9 +426,9 @@ If the "Frontend" that is using our API is displayed in a browser,
 the handling of cookies and the session is exactly the same as before.</p><p>If the "Frontend" is not in a browser, but is a native mobile app or
 just another server side job, we have to use an alternative to cookies.
 <a href="https://backend-development.github.io/rails_authentication.html#how-to-add-state-to-http">JSON Web Tokens</a> are a solution.</p></section>
-<section><a class='slide_break' href='rest-api.html#slide-20'>▻</a>
-<h3 id="stand-alone-rest-api-in-rails">
-<a class="anchorlink" href="#stand-alone-rest-api-in-rails"></a>4 Stand Alone REST API in Rails</h3><p>To create a stand alone API we define new, separate routes under <code>/api/v1</code>.</p><div class="code_container">
+<section><a class='slide_break' href='rest-api.html#slide-21'>▻</a>
+<h3 id="rails-stand-alone-rest-api">
+<a class="anchorlink" href="#rails-stand-alone-rest-api"></a>4 Rails: Stand Alone REST API</h3><p>To create a stand alone API we define new, separate routes under <code>/api/v1</code>.</p><div class="code_container">
 <pre><code class="highlight plaintext">namespace :api do
   namespace :v1 do
     resources :users, only: [:index, :create, :show, :update, :destroy]
@@ -435,7 +443,7 @@ the JSON-API specification, but it is fine for smaller projects.</p><div class="
 </div>
 <p><strong>Beware</strong>: After adding a gem you
 need to restart the rails server!</p></section>
-<section><a class='slide_break' href='rest-api.html#slide-21'>▻</a>
+<section><a class='slide_break' href='rest-api.html#slide-22'>▻</a>
 <h4 id="setting-up-controllers">
 <a class="anchorlink" href="#setting-up-controllers"></a>4.1 setting up controllers</h4><p>After we defined the routes, we next need to create a controller.
 As we are setting up a new hierarchy of controllers that will only
@@ -467,9 +475,9 @@ end
 </div>
 <p>The controller loads the right model, and then needs to calls a <strong>serializer</strong>  to
 do the actual rendering of the json data.  We will create this serializer next.</p></section>
-<section><a class='slide_break' href='rest-api.html#slide-22'>▻</a>
-<h3 id="creating-json-with-blueprinter">
-<a class="anchorlink" href="#creating-json-with-blueprinter"></a>5 creating JSON with blueprinter</h3><p>With the gem blueprinter the
+<section><a class='slide_break' href='rest-api.html#slide-23'>▻</a>
+<h4 id="creating-json-with-blueprinter">
+<a class="anchorlink" href="#creating-json-with-blueprinter"></a>4.2 creating JSON with blueprinter</h4><p>With the gem blueprinter the
 serializers live in the <code>/app/blueprints</code> folder.</p><div class="code_container">
 <pre><code class="highlight plaintext"># app/blueprints/user_blueprint.rb
 
@@ -497,16 +505,9 @@ end
 </code></pre>
 </div>
 </section>
-<section><a class='slide_break' href='rest-api.html#slide-23'>▻</a>
-<h3 id="testing-and-documenting-a-rest-api">
-<a class="anchorlink" href="#testing-and-documenting-a-rest-api"></a>6 Testing and Documenting a REST API</h3><p><a href="https://swagger.io/">Swagger</a> and the OpenAPI Specification is a way for
-specifying and documenting REST APIs.  There are a lot of tools available around it.</p><p>For Rails I recommend the gem <code>rswag</code>: with rswag you write tests (specs) for your
-api, and the documentation is generated from the (successful) tests.
-There is also a web-ui to read the documentation and run API requests -
-<a href="https://iou-brigitte.herokuapp.com/api-docs/index.html">Swagger Web UI in the example app</a></p></section>
 <section><a class='slide_break' href='rest-api.html#slide-24'>▻</a>
 <h3 id="see-also">
-<a class="anchorlink" href="#see-also"></a>7 See Also</h3>
+<a class="anchorlink" href="#see-also"></a>5 See Also</h3>
 <ul>
 <li>
 <a href="https://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm">Fielding, Roy(2000): Architectural Styles and the Design of Network-based Software Architectures</a>. Dissertation. University of California/Irvine, USA.</li>
