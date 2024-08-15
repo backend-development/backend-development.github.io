@@ -1,78 +1,163 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html dir="ltr" lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Internationalization — Backend Development</title>
-    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+    <title>Internationalization — Ruby on Rails Guides</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" data-turbo-track="reload">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-    <link rel="stylesheet" type="text/css" href="stylesheets/code.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css">
-    <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <style>
-      .slide img[src$=svg] {
-        width: 100%;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="stylesheets/highlight.css" data-turbo-track="reload">
+    <link rel="icon" href="images/backend-development.svg" sizes="any">
+    <script src="javascripts/@hotwired--turbo.js" data-turbo-track="reload"></script>
+    <script src="javascripts/clipboard.js" data-turbo-track="reload"></script>
+    <script src="javascripts/guides.js" data-turbo-track="reload"></script>
+    <meta property="og:title" content="Internationalization — Ruby on Rails Guides" />
+    <meta name="description" content="InternationalizationThis guide will give you an overview of the problems you face when writing an app that&#39;s used in many countries, in many languages. After reading it you should be familiar with: the concepts of Internationalization and Localisation the Rails I18n gem how Rails handles some of the most important topics handling dates handling numbers and plurals You can use the Demo App to try out the concepts step by step." />
+    <meta property="og:description" content="InternationalizationThis guide will give you an overview of the problems you face when writing an app that&#39;s used in many countries, in many languages. After reading it you should be familiar with: the concepts of Internationalization and Localisation the Rails I18n gem how Rails handles some of the most important topics handling dates handling numbers and plurals You can use the Demo App to try out the concepts step by step." />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Textbook Backend Developemnt" />
+    <meta property="og:image" content="images/backend-development.svg" />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#2e56e9">
   </head>
   <body class="guide">
-    <div id="header">
+    <header id="page_header">
       <div class="wrapper clearfix">
-        <h1><a href="index.html" title="Return to home page">Backend<span> Development</span></a></h1>
-        <ul class="nav">
-          <li class="guides-index guides-index-large">
-            <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
-            <div id="guides" class="clearfix" style="display: none;">
-              <hr>
-                <dl class="L">
-                    <dt>Ruby on Rails</dt>
-                      <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
-                      <dd><a href="rails_database_and_model.html">Models and ActiveRecord</a></dd>
-                      <dd><a href="rails_db.html">Database and Migrations</a></dd>
-                      <dd><a href="rails_associations_and_validations.html">Associations and Validations</a></dd>
-                      <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
-                      <dd><a href="rails_authentication.html">Simple Authentication</a></dd>
-                      <dd><a href="asset_pipeline.html">The Asset Pipeline</a></dd>
-                      <dd><a href="javascript_and_ajax.html">Rails and old Javascript</a></dd>
-                      <dd><a href="javascript_webpack_frontend.html">Rails and Webpack</a></dd>
-                      <dd><a href="testing.html">Getting started with Testing</a></dd>
-                      <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
-                      <dd><a href="rest-api.html">REST API</a></dd>
-                      <dd><a href="graphql-api.html">GraphQL API</a></dd>
-                      <dd><a href="rails_websockets.html">Websocket in Rails</a></dd>
-                      <dd><a href="jobs_and_tasks.html">Jobs and Tasks in Rails</a></dd>
-                      <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
-                      <dd><a href="rails_security.html">Rails Security</a></dd>
-                    <dt>Overarching Concerns</dt>
-                      <dd><a href="security.html">Security</a></dd>
-                      <dd><a href="adv_authentication.html">Advanced Authentication</a></dd>
-                      <dd><a href="caching.html">Caching</a></dd>
-                      <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
-                      <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
-                      <dd><a href="git_rebasing.html">Git Rebasing</a></dd>
-                    <dt>Nodes.js</dt>
-                      <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
-                      <dd><a href="node_basics.html">Node Basics</a></dd>
-                      <dd><a href="node_websockets.html">Node Websockets</a></dd>
-                      <dd><a href="node_express.html">Node Web App</a></dd>
-                      <dd><a href="node_cluster.html">Scaling Node</a></dd>
-                    <dt>Next.js</dt>
-                      <dd><a href="nextjs.html">Next.js</a></dd>
+        <nav id="feature_nav">
+          <div class="header-logo">
+            <a href="/">Backend Development</a>
+          </div>
+          <ul class="nav">
+            <li><a class="nav-item" id="home_nav" href="/">Home</a></li>
+            <li class="guides-index guides-index-large">
+              <a href="index.html" id="guidesMenu" class="guides-index-item nav-item">Index</a>
+              <div id="guides" class="clearfix" style="display: none;">
+                <hr />
+                <dl class="guides-section-container">
+                    <div class="guides-section">
+                      <dt>Ruby on Rails</dt>
+                        <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
+                        <dd><a href="rails_database_and_model.html">Models and ActiveRecord</a></dd>
+                        <dd><a href="rails_db.html">Database and Migrations</a></dd>
+                        <dd><a href="rails_associations_and_validations.html">Associations and Validations</a></dd>
+                        <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
+                        <dd><a href="rails_authentication.html">Simple Authentication</a></dd>
+                        <dd><a href="asset_pipeline.html">The Asset Pipeline</a></dd>
+                        <dd><a href="javascript_and_ajax.html">Rails and old Javascript</a></dd>
+                        <dd><a href="javascript_webpack_frontend.html">Rails and Webpack</a></dd>
+                        <dd><a href="testing.html">Getting started with Testing</a></dd>
+                        <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
+                        <dd><a href="rest-api.html">REST API</a></dd>
+                        <dd><a href="graphql-api.html">GraphQL API</a></dd>
+                        <dd><a href="rails_websockets.html">Websocket in Rails</a></dd>
+                        <dd><a href="jobs_and_tasks.html">Jobs and Tasks in Rails</a></dd>
+                        <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
+                        <dd><a href="rails_security.html">Rails Security</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Overarching Concerns</dt>
+                        <dd><a href="security.html">Security</a></dd>
+                        <dd><a href="adv_authentication.html">Advanced Authentication</a></dd>
+                        <dd><a href="caching.html">Caching</a></dd>
+                        <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
+                        <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
+                        <dd><a href="git_rebasing.html">Git Rebasing</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Nodes.js</dt>
+                        <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
+                        <dd><a href="node_basics.html">Node Basics</a></dd>
+                        <dd><a href="node_websockets.html">Node Websockets</a></dd>
+                        <dd><a href="node_express.html">Node Web App</a></dd>
+                        <dd><a href="node_cluster.html">Scaling Node</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Next.js</dt>
+                        <dd><a href="nextjs.html">Next.js</a></dd>
+                    </div>
                 </dl>
-                <dl class="R">
-                </dl>
-            </div>
-          </li>
-        </ul>
+              </div>
+            </li>
+            <li class="guides-index guides-index-small">
+              <select class="guides-index-item nav-item">
+                <option value="index.html">Index</option>
+                  <optgroup label="Ruby on Rails">
+                      <option value="ruby_commandline.html">Ruby Commandline</option>
+                      <option value="rails_database_and_model.html">Models and ActiveRecord</option>
+                      <option value="rails_db.html">Database and Migrations</option>
+                      <option value="rails_associations_and_validations.html">Associations and Validations</option>
+                      <option value="rails_view_and_controller.html">Routing, View and Controller</option>
+                      <option value="rails_authentication.html">Simple Authentication</option>
+                      <option value="asset_pipeline.html">The Asset Pipeline</option>
+                      <option value="javascript_and_ajax.html">Rails and old Javascript</option>
+                      <option value="javascript_webpack_frontend.html">Rails and Webpack</option>
+                      <option value="testing.html">Getting started with Testing</option>
+                      <option value="rails_gems.html">Ruby Gems for your Rails Project</option>
+                      <option value="rest-api.html">REST API</option>
+                      <option value="graphql-api.html">GraphQL API</option>
+                      <option value="rails_websockets.html">Websocket in Rails</option>
+                      <option value="jobs_and_tasks.html">Jobs and Tasks in Rails</option>
+                      <option value="refactoring_rails.html">Refactoring Rails</option>
+                      <option value="rails_security.html">Rails Security</option>
+                  </optgroup>
+                  <optgroup label="Overarching Concerns">
+                      <option value="security.html">Security</option>
+                      <option value="adv_authentication.html">Advanced Authentication</option>
+                      <option value="caching.html">Caching</option>
+                      <option value="advanced_testing.html">Advanced Testing</option>
+                      <option value="internationalization.html">Internationalization (I18n)</option>
+                      <option value="git_rebasing.html">Git Rebasing</option>
+                  </optgroup>
+                  <optgroup label="Nodes.js">
+                      <option value="node_vs_rails.html">Node vs. Rails</option>
+                      <option value="node_basics.html">Node Basics</option>
+                      <option value="node_websockets.html">Node Websockets</option>
+                      <option value="node_express.html">Node Web App</option>
+                      <option value="node_cluster.html">Scaling Node</option>
+                  </optgroup>
+                  <optgroup label="Next.js">
+                      <option value="nextjs.html">Next.js</option>
+                  </optgroup>
+              </select>
+            </li>
+          </ul>
+        </nav>
       </div>
-    </div>
-    <hr class="hide">
-    <div id="feature">
+    </header>
+    <hr class="hide" />
+    <section id="feature">
       <div class="wrapper">
-        <h2 id="preheader">Internationalization</h2>
-                  <div id="subCol">
-            <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
+        <h1>Internationalization</h1><p>This guide will give you an overview
+of the problems you face when writing an app
+that&#39;s used in many countries, in many languages.
+After reading it you should be familiar with:</p>
+<ul>
+<li>the concepts of Internationalization and Localisation</li>
+<li>the Rails I18n gem</li>
+<li>how Rails handles some of the most important topics
+
+<ul>
+<li>handling dates</li>
+<li>handling numbers and plurals</li>
+</ul></li>
+</ul>
+<p>You can use the <a href="https://gitlab.mediacube.at/bjelline/statement_shirts">Demo App</a> to try out the concepts step by step.</p>
+                  <nav id="subCol">
+            <h3 class="chapter">
+              <picture>
+                <!-- Using the `source`  HTML tag to set the dark theme image -->
+                <source
+                  srcset="images/icon_book-close-bookmark-1-wht.svg"
+                  media="(prefers-color-scheme: dark)"
+                />
+                <img src="images/icon_book-close-bookmark-1.svg" alt="Chapter Icon" />
+              </picture>
+              Chapters
+            </h3>
             <ol class="chapters">
 <li><a href="#internationalization-and-localization">Internationalization and Localization</a></li>
 <li><a href="#the-big-picture">The big picture</a></li>
@@ -81,230 +166,209 @@
 <li><a href="#keys-and-translations">keys and translations</a></li>
 <li><a href="#locale-files-included-with-the-i18n-gem">locale files included with the I18n gem</a></li>
 <li><a href="#numbers">Numbers</a></li>
-<li>
-<a href="#dates">Dates</a>
+<li><a href="#dates">Dates</a>
 
 <ul>
 <li><a href="#format-definitions">Format definitions</a></li>
 <li><a href="#relative-dates">Relative Dates</a></li>
-</ul>
-</li>
+</ul></li>
 <li><a href="#pluralization">Pluralization</a></li>
-<li>
-<a href="#translating-model-names-and-attributes">Translating Model Names and Attributes</a>
+<li><a href="#translating-model-names-and-attributes">Translating Model Names and Attributes</a>
 
 <ul>
 <li><a href="#automatic-texts-for-models">Automatic texts for models</a></li>
 <li><a href="#automatic-texts-for-validations-and-error-messages">Automatic texts for validations and error messages</a></li>
-</ul>
-</li>
-<li>
-<a href="#text-stored-in-tables">Text stored in tables</a>
+</ul></li>
+<li><a href="#text-stored-in-tables">Text stored in tables</a>
 
 <ul>
 <li><a href="#the-mobility-gem">the Mobility gem</a></li>
-</ul>
-</li>
-<li>
-<a href="#testing">Testing</a>
+</ul></li>
+<li><a href="#testing">Testing</a>
 
 <ul>
 <li><a href="#url-and-path-helpers">url and path helpers</a></li>
-</ul>
-</li>
+</ul></li>
 <li><a href="#see-also">See Also</a></li>
 </ol>
 
-          </div>
+          </nav>
 
-        <div class="rest_header">
-          <h2>Internationalization</h2><p>This guide will give you an overview
-of the problems you face when writing an app
-that&#39;s used in many countries, in many languages.
-After reading it you should be familiar with:</p>
-<ul class="checkmark">
-<li>the concepts of Internationalization and Localisation</li>
-<li>the Rails I18n gem</li>
-<li>how Rails handles some of the most important topics
-
-<ul class="checkmark">
-<li>handling dates</li>
-<li>handling numbers and plurals</li>
-</ul></li>
-</ul>
-<p>You can use the <a href="https://gitlab.mediacube.at/bjelline/statement_shirts">Demo App</a> to try out the concepts step by step.</p>
-        </div>
+        <hr>
       </div>
-    </div>
-    <div id="container">
+    </section>
+    <main id="container">
       <div class="wrapper">
         <div id="mainCol">
           <div class='slide'>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-0' href='slides_internationalization.html#/0'>▻</a>
-<h3 id="internationalization-and-localization">
-<a class="anchorlink" href="#internationalization-and-localization"></a>1 Internationalization and Localization</h3><p>Internationalization is the process of designing a software application so that it can be adapted to various languages and regions. It is often written as I18n (to avoid typing 18 letters).</p><p>Localization is the process of adapting internationalized software for a specific region or language by translating text and adding locale-specific components. It is often written as L10n (to avoid typing 10 letters).</p><p>Localization (which is potentially performed multiple times, for different locales) uses the infrastructure or flexibility provided by internationalization (which is ideally performed only once before localization, or as an integral part of ongoing development).</p></div>
+<p class='slide_break_block'><a class='slide_break' id='slide-0' href='slides_internationalization.html#/0'>◻</a></p>
+<h2 id="internationalization-and-localization"><a class="anchorlink" href="#internationalization-and-localization"><span>1</span> Internationalization and Localization</a></h2><p>Internationalization is the process of designing a software application so that it can be adapted to various languages and regions. It is often written as I18n (to avoid typing 18 letters).</p><p>Localization is the process of adapting internationalized software for a specific region or language by translating text and adding locale-specific components. It is often written as L10n (to avoid typing 10 letters).</p><p>Localization (which is potentially performed multiple times, for different locales) uses the infrastructure or flexibility provided by internationalization (which is ideally performed only once before localization, or as an integral part of ongoing development).</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-1' href='slides_internationalization.html#/1'>▻</a>
-<h3 id="the-big-picture">
-<a class="anchorlink" href="#the-big-picture"></a>2 The big picture</h3><p>When developing web applications for different countries, cultures, languages
+<p class='slide_break_block'><a class='slide_break' id='slide-1' href='slides_internationalization.html#/1'>◻</a></p>
+<h2 id="the-big-picture"><a class="anchorlink" href="#the-big-picture"><span>2</span> The big picture</a></h2><p>When developing web applications for different countries, cultures, languages
 we are faced with many different problems:</p>
 <ul>
-<li>Different cultures will have very different ideas of what a "good" website looks like. See <a href="https://www.youtube.com/watch?v=ER3534JJucc">Jenny Shen's talk at concat</a>
-</li>
+<li>Different cultures will have very different ideas of what a "good" website looks like. See <a href="https://www.youtube.com/watch?v=ER3534JJucc">Jenny Shen's talk at concat</a></li>
 <li>Different writing systems will use a diffrent amount of space, leading to diffrent layouts</li>
-<li>Writing direction (left-to-right, right-to-left or top-down) will need to be handled by HTML. See <a href="https://www.w3.org/International/questions/qa-html-dir">w3c</a>
-</li>
+<li>Writing direction (left-to-right, right-to-left or top-down) will need to be handled by HTML. See <a href="https://www.w3.org/International/questions/qa-html-dir">w3c</a></li>
 <li>The app might need to handle different currencies and methods of payment</li>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-2' href='slides_internationalization.html#/2'>▻</a>
-<h3 id="focus-on-language">
-<a class="anchorlink" href="#focus-on-language"></a>3 Focus on Language</h3><p>Internationalization is mostly concerned with language and translation.
+<p class='slide_break_block'><a class='slide_break' id='slide-2' href='slides_internationalization.html#/2'>◻</a></p>
+<h2 id="focus-on-language"><a class="anchorlink" href="#focus-on-language"><span>3</span> Focus on Language</a></h2><p>Internationalization is mostly concerned with language and translation.
 Even if we focus on indo-european languages we will find differences:</p>
 <ul>
-<li>Example: Plurals  in Polish <a href="https://www.tiktok.com/@stach_mat/video/7325101589084130592">Polnisch für Anfänger by stach_mat, Teil 5</a>
-</li>
+<li>Example: Plurals  in Polish <a href="https://www.tiktok.com/@stach_mat/video/7325101589084130592">Polnisch für Anfänger by stach_mat, Teil 5</a></li>
 </ul>
 <p>Going from a mono-lingual to a multi-lingual app will
 add another layer of abstraction that will make both programming
 and testing harder.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-3' href='slides_internationalization.html#/3'>▻</a>
-<h3 id="i18n-in-rails">
-<a class="anchorlink" href="#i18n-in-rails"></a>4 I18n in Rails</h3><p>Rails Apps are ready for Internationalization. To get started,
+<p class='slide_break_block'><a class='slide_break' id='slide-3' href='slides_internationalization.html#/3'>◻</a></p>
+<h2 id="i18n-in-rails"><a class="anchorlink" href="#i18n-in-rails"><span>4</span> I18n in Rails</a></h2><p>Rails Apps are ready for Internationalization. To get started,
 find the file <code>config/locale/en.yml</code>.  It only contains one example
-of a translation string:</p><div class="code_container">
+of a translation string:</p><div class="interstitial code">
 <pre><code class="highlight yml"><span class="na">en</span><span class="pi">:</span>
   <span class="na">hello</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Hello</span><span class="nv"> </span><span class="s">world"</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="en:
+  hello: &quot;Hello world&quot;
+">Copy</button>
 </div>
 <p>This means, that in the <code>:en</code> locale, the key <code>hello</code> will map to the <code>Hello world</code> string</p><p>The <a href="https://gitlab.mediacube.at/bjelline/statement_shirts">Demo App</a> is already
 prepared to switch between locales through folders:</p>
 <ul>
-<li>
-<a href="http://localhost:3000/">http://localhost:3000/</a> - Home page and order page - english</li>
-<li>
-<a href="http://localhost:3000/de/">http://localhost:3000/de/</a> - Home page and order page - german</li>
-<li>
-<a href="http://localhost:3000/dk/">http://localhost:3000/dk/</a> - Home page and order page - danish</li>
-<li>
-<a href="http://localhost:3000/es/">http://localhost:3000/es/</a> - Home page and order page - spanish</li>
-<li>
-<a href="http://localhost:3000/shirts">http://localhost:3000/shirts</a> - List of all shirts - english</li>
-<li>
-<a href="http://localhost:3000/de/shirts">http://localhost:3000/de/shirts</a> - List of all shirts - english</li>
-<li>
-<a href="http://localhost:3000/dk/shirts">http://localhost:3000/dk/shirts</a> - List of all shirts - danish</li>
-<li>
-<a href="http://localhost:3000/en/shirts">http://localhost:3000/en/shirts</a> - List of all shirts - spanish</li>
+<li><a href="http://localhost:3000/">http://localhost:3000/</a> - Home page and order page - english</li>
+<li><a href="http://localhost:3000/de/">http://localhost:3000/de/</a> - Home page and order page - german</li>
+<li><a href="http://localhost:3000/dk/">http://localhost:3000/dk/</a> - Home page and order page - danish</li>
+<li><a href="http://localhost:3000/es/">http://localhost:3000/es/</a> - Home page and order page - spanish</li>
+<li><a href="http://localhost:3000/shirts">http://localhost:3000/shirts</a> - List of all shirts - english</li>
+<li><a href="http://localhost:3000/de/shirts">http://localhost:3000/de/shirts</a> - List of all shirts - english</li>
+<li><a href="http://localhost:3000/dk/shirts">http://localhost:3000/dk/shirts</a> - List of all shirts - danish</li>
+<li><a href="http://localhost:3000/en/shirts">http://localhost:3000/en/shirts</a> - List of all shirts - spanish</li>
 </ul>
 <p>and so on.</p><p>Inside the app you can always read the current language from <code>I18n.locale</code>.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-4' href='slides_internationalization.html#/4'>▻</a>
-<h3 id="keys-and-translations">
-<a class="anchorlink" href="#keys-and-translations"></a>5 keys and translations</h3><p>The method <code>I18n.translate</code> or <code>I18n.t</code> can be used to look up translation.
+<p class='slide_break_block'><a class='slide_break' id='slide-4' href='slides_internationalization.html#/4'>◻</a></p>
+<h2 id="keys-and-translations"><a class="anchorlink" href="#keys-and-translations"><span>5</span> keys and translations</a></h2><p>The method <code>I18n.translate</code> or <code>I18n.t</code> can be used to look up translation.
 In our example before the key was <code>hello</code>. In english <code>t 'hello'</code> will return "Hello World"
-and in German it would be "Hallo Welt".</p><p>In the view we can use the even short form:</p><div class="code_container">
+and in German it would be "Hallo Welt".</p><p>In the view we can use the even short form:</p><div class="interstitial code">
 <pre><code class="highlight erb"><span class="cp">&lt;%=</span> <span class="n">t</span> <span class="s1">'hello'</span> <span class="cp">%&gt;</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="<%= t 'hello' %>
+">Copy</button>
 </div>
 <p>If no translation can be found - because there is no yaml file or because
 the key is missing, then a span with class <code>translation_missing</code> will be wrapped
-around the text.  The key itself will be used in place of a translation:</p><div class="code_container">
+around the text.  The key itself will be used in place of a translation:</p><div class="interstitial code">
 <pre><code class="highlight html"><span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"translation_missing"</span> <span class="na">title=</span><span class="s">"translation missing: dk.hello"</span><span class="nt">&gt;</span>Hello<span class="nt">&lt;/span&gt;</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="<span class=&quot;translation_missing&quot; title=&quot;translation missing: dk.hello&quot;>Hello</span>
+">Copy</button>
 </div>
 <p>Texts in views all need to be replaced by translation keys.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-5' href='slides_internationalization.html#/5'>▻</a>
-<h3 id="locale-files-included-with-the-i18n-gem">
-<a class="anchorlink" href="#locale-files-included-with-the-i18n-gem"></a>6 locale files included with the I18n gem</h3><p>The I18n gem comes with translations for many languages in the  <a href="https://github.com/svenfuchs/rails-i18n/tree/10141c451f03d7c6b78cfdcce808c389da6b9ddd/rails/locale">locale folder</a>.</p><p>You can copy the ones you need to your own apps <code>config/locale</code> folder
+<p class='slide_break_block'><a class='slide_break' id='slide-5' href='slides_internationalization.html#/5'>◻</a></p>
+<h2 id="locale-files-included-with-the-i18n-gem"><a class="anchorlink" href="#locale-files-included-with-the-i18n-gem"><span>6</span> locale files included with the I18n gem</a></h2><p>The I18n gem comes with translations for many languages in the  <a href="https://github.com/svenfuchs/rails-i18n/tree/10141c451f03d7c6b78cfdcce808c389da6b9ddd/rails/locale">locale folder</a>.</p><p>You can copy the ones you need to your own apps <code>config/locale</code> folder
 to use them.</p><p>If you are following along with the demo app, do this now for english, german, danish and spanish!</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-6' href='slides_internationalization.html#/6'>▻</a>
-<h3 id="numbers">
-<a class="anchorlink" href="#numbers"></a>7 Numbers</h3><p>There are different Rules for displaying numbers in different languages.
+<p class='slide_break_block'><a class='slide_break' id='slide-6' href='slides_internationalization.html#/6'>◻</a></p>
+<h2 id="numbers"><a class="anchorlink" href="#numbers"><span>7</span> Numbers</a></h2><p>There are different Rules for displaying numbers in different languages.
 You may be familiar with the European Million being translated into an US Billion.
-So different words are used for numbers.</p><p>But also the numbers themselves are formatted differently:</p><div class="code_container">
+So different words are used for numbers.</p><p>But also the numbers themselves are formatted differently:</p><div class="interstitial code">
 <pre><code class="highlight erb"><span class="nt">&lt;p&gt;</span><span class="cp">&lt;%=</span> <span class="n">number_with_delimiter</span><span class="p">(</span><span class="mi">100000000</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="nt">&lt;/p&gt;</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="<p><%= number_with_delimiter(100000000) %></p>
+">Copy</button>
 </div>
 <p>In many languages this will be displayed as <code>100.000.000</code> or <code>100,000,000</code>.
 Some examples of languages with different number formats are:</p>
 <ul>
-<li>
-<a href="https://en.wikipedia.org/wiki/Indian_numbering_system">Indian Numbering System:</a> 10,00,00,000 or 10 lakh.</li>
-<li>
-<a href="https://en.wikipedia.org/wiki/Japanese_numerals#Powers_of_10">Japanese numerals</a> 1 0000 0000 or 1億.</li>
+<li><a href="https://en.wikipedia.org/wiki/Indian_numbering_system">Indian Numbering System:</a> 10,00,00,000 or 10 lakh.</li>
+<li><a href="https://en.wikipedia.org/wiki/Japanese_numerals#Powers_of_10">Japanese numerals</a> 1 0000 0000 or 1億.</li>
 </ul>
 <p>Rails provides several helper methods for constructing numbers:</p>
 <ul>
-<li>
-<code>number_with_delimiter</code> - for large numbers like <code>100.000.000</code>
-</li>
-<li>
-<code>number_to_currency</code> - includes the currency like <code>100.000.000,00 €</code>
-</li>
-<li>
-<code>number_with_precision</code> - like <code>100000000,00</code>
-</li>
-<li>
-<code>number_to_percentage</code> - like <code>90,00 %</code>
-</li>
-<li>
-<code>number_to_human_size</code> - for bytes, like <code>95,4 MB</code>
-</li>
+<li><code>number_with_delimiter</code> - for large numbers like <code>100.000.000</code></li>
+<li><code>number_to_currency</code> - includes the currency like <code>100.000.000,00 €</code></li>
+<li><code>number_with_precision</code> - like <code>100000000,00</code></li>
+<li><code>number_to_percentage</code> - like <code>90,00 %</code></li>
+<li><code>number_to_human_size</code> - for bytes, like <code>95,4 MB</code></li>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-7' href='slides_internationalization.html#/7'>▻</a>
-<h3 id="dates">
-<a class="anchorlink" href="#dates"></a>8 Dates</h3><p>Dates are a special case for translation: there are complex and different rules
-for displaying dates in different languages.</p><p>The page <code>/order_items</code> gives a list of all orders, with a timestamp when each order was placed:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-7' href='slides_internationalization.html#/7'>◻</a></p>
+<h2 id="dates"><a class="anchorlink" href="#dates"><span>8</span> Dates</a></h2><p>Dates are a special case for translation: there are complex and different rules
+for displaying dates in different languages.</p><p>The page <code>/order_items</code> gives a list of all orders, with a timestamp when each order was placed:</p><div class="interstitial code">
 <pre><code class="highlight erb">  <span class="nt">&lt;p&gt;</span>
     <span class="nt">&lt;strong&gt;</span>Order Date:<span class="nt">&lt;/strong&gt;</span>
     <span class="cp">&lt;%=</span> <span class="n">order_item</span><span class="p">.</span><span class="nf">created_at</span> <span class="cp">%&gt;</span>
   <span class="nt">&lt;/p&gt;</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="  <p>
+    <strong>Order Date:</strong>
+    <%= order_item.created_at %>
+  </p>
+">Copy</button>
 </div>
 <p>We can use the method <code>I18n.localize</code> or <code>I18n.l</code> in the view to
-display this in a language appropriate format:</p><div class="code_container">
+display this in a language appropriate format:</p><div class="interstitial code">
 <pre><code class="highlight erb">  <span class="nt">&lt;p&gt;</span>
     <span class="nt">&lt;strong&gt;</span>Order Date:<span class="nt">&lt;/strong&gt;</span>
     <span class="cp">&lt;%=</span><span class="n">l</span> <span class="n">order_item</span><span class="p">.</span><span class="nf">created_at</span> <span class="cp">%&gt;</span>
   <span class="nt">&lt;/p&gt;</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="  <p>
+    <strong>Order Date:</strong>
+    <%=l order_item.created_at %>
+  </p>
+">Copy</button>
 </div>
-<p>In German this will be displayed as:</p><div class="code_container">
+<p>In German this will be displayed as:</p><div class="interstitial code">
 <pre><code class="highlight html">  <span class="nt">&lt;p&gt;</span>
     <span class="nt">&lt;strong&gt;</span>Order Date:<span class="nt">&lt;/strong&gt;</span>
     Montag, 01. April 2024, 21:25 Uhr
   <span class="nt">&lt;/p&gt;</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="  <p>
+    <strong>Order Date:</strong>
+    Montag, 01. April 2024, 21:25 Uhr
+  </p>
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-8' href='slides_internationalization.html#/8'>▻</a>
-<h4 id="format-definitions">
-<a class="anchorlink" href="#format-definitions"></a>8.1 Format definitions</h4><p>You can find the definition for this date in <code>de.yml</code> under <code>de.time.formats.default</code>:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-8' href='slides_internationalization.html#/8'>◻</a></p>
+<h3 id="format-definitions"><a class="anchorlink" href="#format-definitions"><span>8.1</span> Format definitions</a></h3><p>You can find the definition for this date in <code>de.yml</code> under <code>de.time.formats.default</code>:</p><div class="interstitial code">
 <pre><code class="highlight yml">  <span class="na">time</span><span class="pi">:</span>
     <span class="na">formats</span><span class="pi">:</span>
       <span class="na">default</span><span class="pi">:</span> <span class="s2">"</span><span class="s">%A,</span><span class="nv"> </span><span class="s">%d.</span><span class="nv"> </span><span class="s">%B</span><span class="nv"> </span><span class="s">%Y,</span><span class="nv"> </span><span class="s">%H:%M</span><span class="nv"> </span><span class="s">Uhr"</span>
       <span class="na">long</span><span class="pi">:</span> <span class="s2">"</span><span class="s">%A,</span><span class="nv"> </span><span class="s">%d.</span><span class="nv"> </span><span class="s">%B</span><span class="nv"> </span><span class="s">%Y,</span><span class="nv"> </span><span class="s">%H:%M</span><span class="nv"> </span><span class="s">Uhr"</span>
       <span class="na">short</span><span class="pi">:</span> <span class="s2">"</span><span class="s">%d.</span><span class="nv"> </span><span class="s">%b,</span><span class="nv"> </span><span class="s">%H:%M</span><span class="nv"> </span><span class="s">Uhr"</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="  time:
+    formats:
+      default: &quot;%A, %d. %B %Y, %H:%M Uhr&quot;
+      long: &quot;%A, %d. %B %Y, %H:%M Uhr&quot;
+      short: &quot;%d. %b, %H:%M Uhr&quot;
+">Copy</button>
 </div>
-<p>To choose another format, you can add call <code>l</code> with the format option:</p><div class="code_container">
+<p>To choose another format, you can add call <code>l</code> with the format option:</p><div class="interstitial code">
 <pre><code class="highlight erb">  <span class="nt">&lt;p&gt;</span>
     <span class="nt">&lt;strong&gt;</span>Order Date:<span class="nt">&lt;/strong&gt;</span>
     <span class="cp">&lt;%=</span><span class="n">l</span> <span class="n">order_item</span><span class="p">.</span><span class="nf">created_at</span><span class="p">,</span> <span class="ss">format: :short</span> <span class="cp">%&gt;</span>
   <span class="nt">&lt;/p&gt;</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="  <p>
+    <strong>Order Date:</strong>
+    <%=l order_item.created_at, format: :short %>
+  </p>
+">Copy</button>
 </div>
-<p>Different languages will have different format, here a comparison of <code>:short</code>:</p><div class="code_container">
+<p>Different languages will have different format, here a comparison of <code>:short</code>:</p><div class="interstitial code">
 <pre><code class="highlight yml"><span class="na">en</span><span class="pi">:</span>
   <span class="na">short</span><span class="pi">:</span> <span class="s2">"</span><span class="s">%d</span><span class="nv"> </span><span class="s">%b</span><span class="nv"> </span><span class="s">%H:%M"</span>
 <span class="na">es</span><span class="pi">:</span>
@@ -314,62 +378,80 @@ display this in a language appropriate format:</p><div class="code_container">
 <span class="na">de</span><span class="pi">:</span>
   <span class="na">short</span><span class="pi">:</span> <span class="s2">"</span><span class="s">%d.</span><span class="nv"> </span><span class="s">%b,</span><span class="nv"> </span><span class="s">%H:%M</span><span class="nv"> </span><span class="s">Uhr"</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="en:
+  short: &quot;%d %b %H:%M&quot;
+es:
+  short: &quot;%-d de %b %H:%M&quot;
+da:
+  short: &quot;%e. %b %Y, %H.%M&quot;
+de:
+  short: &quot;%d. %b, %H:%M Uhr&quot;
+">Copy</button>
 </div>
 <p>As you can see, it is not only the names of weekdays and months that are
 translated, but also the whole format changes from language to language.</p><p>You could add other formats than ':long' and ':short'  to your translations
 by adding to the <code>.yml</code> files.  Just make sure to keep the keys consistent through all languages!</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-9' href='slides_internationalization.html#/9'>▻</a>
-<h4 id="relative-dates">
-<a class="anchorlink" href="#relative-dates"></a>8.2 Relative Dates</h4><p>The helper <code>time_ago_in_words</code> is already localized, you
-can use it directly:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-9' href='slides_internationalization.html#/9'>◻</a></p>
+<h3 id="relative-dates"><a class="anchorlink" href="#relative-dates"><span>8.2</span> Relative Dates</a></h3><p>The helper <code>time_ago_in_words</code> is already localized, you
+can use it directly:</p><div class="interstitial code">
 <pre><code class="highlight erb">  <span class="nt">&lt;p&gt;</span>
     <span class="nt">&lt;strong&gt;</span>Order Date:<span class="nt">&lt;/strong&gt;</span>
     <span class="cp">&lt;%=</span> <span class="n">time_ago_in_words</span> <span class="n">order_item</span><span class="p">.</span><span class="nf">created_at</span> <span class="cp">%&gt;</span>
   <span class="nt">&lt;/p&gt;</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="  <p>
+    <strong>Order Date:</strong>
+    <%= time_ago_in_words order_item.created_at %>
+  </p>
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-10' href='slides_internationalization.html#/10'>▻</a>
-<h3 id="pluralization">
-<a class="anchorlink" href="#pluralization"></a>9 Pluralization</h3><p>The page <code>/order_items</code> gives a list of all orders, and also the number of orders.
-Before internationalization this looked like this:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-10' href='slides_internationalization.html#/10'>◻</a></p>
+<h2 id="pluralization"><a class="anchorlink" href="#pluralization"><span>9</span> Pluralization</a></h2><p>The page <code>/order_items</code> gives a list of all orders, and also the number of orders.
+Before internationalization this looked like this:</p><div class="interstitial code">
 <pre><code class="highlight erb"><span class="nt">&lt;p&gt;</span>There are <span class="cp">&lt;%=</span> <span class="vi">@order_items</span><span class="p">.</span><span class="nf">length</span> <span class="cp">%&gt;</span> orders in the system.<span class="nt">&lt;/p&gt;</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="<p>There are <%= @order_items.length %> orders in the system.</p>
+">Copy</button>
 </div>
 <p>When translating this we also have to think about pluralization rules.
 English is simple: just add an 's' to the end of the noun for more then one order.
 Other languages follow more complex rules.</p><p>You can see how the example from polish in the video above is handled in the
 standard translation for dates:</p>
 <ul>
-<li>Rails Pluralisation Rules for Polish <a href="https://github.com/svenfuchs/rails-i18n/blob/master/rails/pluralization/pl.rb">pluralization/pl.rb</a>
-</li>
-<li>Use in <a href="https://github.com/svenfuchs/rails-i18n/blob/10141c451f03d7c6b78cfdcce808c389da6b9ddd/rails/locale/pl.yml#L63">locale/pl.rb</a>
-</li>
+<li>Rails Pluralisation Rules for Polish <a href="https://github.com/svenfuchs/rails-i18n/blob/master/rails/pluralization/pl.rb">pluralization/pl.rb</a></li>
+<li>Use in <a href="https://github.com/svenfuchs/rails-i18n/blob/10141c451f03d7c6b78cfdcce808c389da6b9ddd/rails/locale/pl.yml#L63">locale/pl.rb</a></li>
 </ul>
 <p>To build our own pluralisation rules we can add translations with several cases.
 How many cases there are, and what they are called, differs from language
-to language.  Make sure to look it up in <a href="https://github.com/svenfuchs/rails-i18n/blob/master/rails/pluralization/">pluralization/*</a></p><div class="code_container">
+to language.  Make sure to look it up in <a href="https://github.com/svenfuchs/rails-i18n/blob/master/rails/pluralization/">pluralization/*</a></p><div class="interstitial code">
 <pre><code class="highlight yml">  <span class="na">orders_in_the_system</span><span class="pi">:</span>
     <span class="na">zero</span><span class="pi">:</span> <span class="s">Es gibt keine Bestellungen im System</span>
     <span class="na">one</span><span class="pi">:</span> <span class="s">Es gibt eine Bestellung im System</span>
     <span class="na">other</span><span class="pi">:</span> <span class="s">Es gibt %{count} Bestellungen im System</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="  orders_in_the_system:
+    zero: Es gibt keine Bestellungen im System
+    one: Es gibt eine Bestellung im System
+    other: Es gibt %{count} Bestellungen im System
+">Copy</button>
 </div>
-<p>In the view you use it like this:</p><div class="code_container">
+<p>In the view you use it like this:</p><div class="interstitial code">
 <pre><code class="highlight erb"><span class="nt">&lt;p&gt;</span><span class="cp">&lt;%=</span><span class="n">t</span><span class="p">(</span><span class="s1">'orders_in_the_system'</span><span class="p">,</span> <span class="ss">count:  </span><span class="vi">@order_items</span><span class="p">.</span><span class="nf">length</span><span class="p">)</span> <span class="cp">%&gt;</span><span class="nt">&lt;/p&gt;</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="<p><%=t('orders_in_the_system', count:  @order_items.length) %></p>
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-11' href='slides_internationalization.html#/11'>▻</a>
-<h3 id="translating-model-names-and-attributes">
-<a class="anchorlink" href="#translating-model-names-and-attributes"></a>10 Translating Model Names and Attributes</h3><p>The names of models and their attributes will be used
+<p class='slide_break_block'><a class='slide_break' id='slide-11' href='slides_internationalization.html#/11'>◻</a></p>
+<h2 id="translating-model-names-and-attributes"><a class="anchorlink" href="#translating-model-names-and-attributes"><span>10</span> Translating Model Names and Attributes</a></h2><p>The names of models and their attributes will be used
 in many places in the app: from labels for form fields
 to error messages in validation.</p><p>So it makes sense to store the names of models and their attributes
 just once and then reuse them.</p><p>In the demo app there are three models: Shirt, Statement and OrderItem.
-This is how to specify translations for shirts:</p><div class="code_container">
+This is how to specify translations for shirts:</p><div class="interstitial code">
 <pre><code class="highlight yml">  <span class="na">activerecord</span><span class="pi">:</span>
     <span class="na">models</span><span class="pi">:</span>
       <span class="na">shirt</span><span class="pi">:</span>
@@ -384,59 +466,88 @@ This is how to specify translations for shirts:</p><div class="code_container">
           <span class="na">one</span><span class="pi">:</span> <span class="s">Farbe</span>
           <span class="na">other</span><span class="pi">:</span> <span class="s">Farben</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="  activerecord:
+    models:
+      shirt:
+        one: Hemd
+        other: Hemden
+    attributes:
+      shirt:
+        sizes:
+          one: Größe
+          other: Größen
+        colors:
+          one: Farbe
+          other: Farben
+">Copy</button>
 </div>
 <p>To refer to a model use <code>.model_name.human</code>, for example <code>Shirt.model_name.human</code>.
 To refer to an attribute use <code>human_attribute_name</code>, for example <code>Shirt.human_attribute_name("colors").
 Both methods can take an attribute</code>count` for pluralization.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-12' href='slides_internationalization.html#/12'>▻</a>
-<h4 id="automatic-texts-for-models">
-<a class="anchorlink" href="#automatic-texts-for-models"></a>10.1 Automatic texts for models</h4><p>The combination of model names and prepared translations from the  <a href="https://github.com/svenfuchs/rails-i18n/tree/10141c451f03d7c6b78cfdcce808c389da6b9ddd/rails/locale">locale folder of the I18n gem</a> is quite powerful.</p><p>For example the helper for building labels automatically uses human_attribute_names:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-12' href='slides_internationalization.html#/12'>◻</a></p>
+<h3 id="automatic-texts-for-models"><a class="anchorlink" href="#automatic-texts-for-models"><span>10.1</span> Automatic texts for models</a></h3><p>The combination of model names and prepared translations from the  <a href="https://github.com/svenfuchs/rails-i18n/tree/10141c451f03d7c6b78cfdcce808c389da6b9ddd/rails/locale">locale folder of the I18n gem</a> is quite powerful.</p><p>For example the helper for building labels automatically uses human_attribute_names:</p><div class="interstitial code">
 <pre><code class="highlight erb">    <span class="cp">&lt;%=</span> <span class="n">form</span><span class="p">.</span><span class="nf">label</span> <span class="ss">:sizes</span> <span class="cp">%&gt;</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="    <%= form.label :sizes %>
+">Copy</button>
 </div>
-<p>When using a the submit button in a form builder:</p><div class="code_container">
+<p>When using a the submit button in a form builder:</p><div class="interstitial code">
 <pre><code class="highlight erb"><span class="cp">&lt;%=</span> <span class="n">form_for</span> <span class="vi">@shirt</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="cp">%&gt;</span>
   <span class="cp">&lt;%=</span> <span class="n">f</span><span class="p">.</span><span class="nf">submit</span> <span class="cp">%&gt;</span>
 <span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="<%= form_for @shirt do |f| %>
+  <%= f.submit %>
+<% end %>
+">Copy</button>
 </div>
-<p>The label will automatically be generated from these keys:</p><div class="code_container">
+<p>The label will automatically be generated from these keys:</p><div class="interstitial code">
 <pre><code class="highlight yml"><span class="na">en</span><span class="pi">:</span>
   <span class="na">helpers</span><span class="pi">:</span>
     <span class="na">submit</span><span class="pi">:</span>
       <span class="na">create</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Create</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">%{model}"</span>
       <span class="na">update</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Confirm</span><span class="nv"> </span><span class="s">changes</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">%{model}"</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="en:
+  helpers:
+    submit:
+      create: &quot;Create a %{model}&quot;
+      update: &quot;Confirm changes to %{model}&quot;
+">Copy</button>
 </div>
-<p>so</p><div class="code_container">
+<p>so</p><div class="interstitial code">
 <pre><code class="highlight erb">  <span class="cp">&lt;%=</span> <span class="n">f</span><span class="p">.</span><span class="nf">submit</span> <span class="cp">%&gt;</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="  <%= f.submit %>
+">Copy</button>
 </div>
-<p>is a short version for</p><div class="code_container">
+<p>is a short version for</p><div class="interstitial code">
 <pre><code class="highlight erb">    <span class="cp">&lt;%=</span> <span class="n">form</span><span class="p">.</span><span class="nf">submit</span> <span class="n">t</span><span class="p">(</span><span class="s1">'helpers.submit.create'</span><span class="p">,</span> <span class="ss">model: </span><span class="no">Shirt</span><span class="p">.</span><span class="nf">model_name</span><span class="p">.</span><span class="nf">human</span> <span class="p">)</span> <span class="cp">%&gt;</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="    <%= form.submit t('helpers.submit.create', model: Shirt.model_name.human ) %>
+">Copy</button>
 </div>
 <p>Source: <a href="https://api.rubyonrails.org/v7.1.3.2/classes/ActionView/Helpers/FormBuilder.html#method-i-submit">Ruby on Rails Documentation, Action View Form Builder</a></p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-13' href='slides_internationalization.html#/13'>▻</a>
-<h4 id="automatic-texts-for-validations-and-error-messages">
-<a class="anchorlink" href="#automatic-texts-for-validations-and-error-messages"></a>10.2 Automatic texts for validations and error messages</h4><p>Setting the name for models and attributes is enough to translate validations
-and their error messages:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-13' href='slides_internationalization.html#/13'>◻</a></p>
+<h3 id="automatic-texts-for-validations-and-error-messages"><a class="anchorlink" href="#automatic-texts-for-validations-and-error-messages"><span>10.2</span> Automatic texts for validations and error messages</a></h3><p>Setting the name for models and attributes is enough to translate validations
+and their error messages:</p><div class="interstitial code">
 <pre><code class="highlight rb"><span class="k">class</span> <span class="nc">Shirt</span>
   <span class="n">validates</span> <span class="ss">:name</span><span class="p">,</span> <span class="ss">presence: </span><span class="kp">true</span><span class="p">,</span> <span class="ss">length: </span><span class="p">{</span> <span class="ss">minimum: </span><span class="mi">3</span> <span class="p">}</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="class Shirt
+  validates :name, presence: true, length: { minimum: 3 }
+">Copy</button>
 </div>
 <p>Will automatically generate error messages like:</p>
 <blockquote>
 <p>Name muss ausgefüllt werden
-Name ist zu kurz (weniger als 3 Zeichen)</p>
-</blockquote>
+Name ist zu kurz (weniger als 3 Zeichen)</p></blockquote>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-14' href='slides_internationalization.html#/14'>▻</a>
-<h3 id="text-stored-in-tables">
-<a class="anchorlink" href="#text-stored-in-tables"></a>11 Text stored in tables</h3><p>The demo app is a shop for shirts with slogans printed on them.
+<p class='slide_break_block'><a class='slide_break' id='slide-14' href='slides_internationalization.html#/14'>◻</a></p>
+<h2 id="text-stored-in-tables"><a class="anchorlink" href="#text-stored-in-tables"><span>11</span> Text stored in tables</a></h2><p>The demo app is a shop for shirts with slogans printed on them.
 In the first implementation all the slogans are in english.</p><p>When we think about selling to different markets we might want
 to translate text stored and tables for different purposes:</p>
 <ul>
@@ -445,27 +556,27 @@ to translate text stored and tables for different purposes:</p>
 
 <ul>
 <li>for example when you search for "freie software" in the app, you should find the slogans related to "free software"</li>
-</ul>
-</li>
+</ul></li>
 <li>offer slogans in different languages
 
 <ul>
 <li>should these be different products with different ids?  or should there be several columns for one product?</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-15' href='slides_internationalization.html#/15'>▻</a>
-<h4 id="the-mobility-gem">
-<a class="anchorlink" href="#the-mobility-gem"></a>11.1 the Mobility gem</h4><p>The gem Mobility adds translations for table data.
-In the demo app Mobility is already installed and configured.</p><p>To make the name of a shirt translatable we add the following lines to the model:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-15' href='slides_internationalization.html#/15'>◻</a></p>
+<h3 id="the-mobility-gem"><a class="anchorlink" href="#the-mobility-gem"><span>11.1</span> the Mobility gem</a></h3><p>The gem Mobility adds translations for table data.
+In the demo app Mobility is already installed and configured.</p><p>To make the name of a shirt translatable we add the following lines to the model:</p><div class="interstitial code">
 <pre><code class="highlight rb">  <span class="kp">extend</span> <span class="no">Mobility</span>
   <span class="n">translates</span> <span class="ss">:name</span><span class="p">,</span>  <span class="ss">type: :string</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="  extend Mobility
+  translates :name,  type: :string
+">Copy</button>
 </div>
 <p>From now on the gem will enable us to store different names.
-For example in the seed file we could do this:</p><div class="code_container">
+For example in the seed file we could do this:</p><div class="interstitial code">
 <pre><code class="highlight rb"><span class="no">I18n</span><span class="p">.</span><span class="nf">locale</span> <span class="o">=</span> <span class="ss">:en</span>   <span class="c1"># switch to english</span>
 
 <span class="n">s1</span> <span class="o">=</span> <span class="no">Shirt</span><span class="p">.</span><span class="nf">create!</span><span class="p">(</span>
@@ -478,10 +589,22 @@ For example in the seed file we could do this:</p><div class="code_container">
 <span class="no">I18n</span><span class="p">.</span><span class="nf">locale</span> <span class="o">=</span> <span class="ss">:de</span>   <span class="c1"># switch to german</span>
 <span class="n">s1</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="ss">name: </span><span class="s1">'Polohemd'</span><span class="p">)</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="I18n.locale = :en   # switch to english
+
+s1 = Shirt.create!(
+  name: 'Polo Shirt',
+  outline: File.read(Rails.root.join('db/seeds/Shirt-type_Polo-omg.svg')),
+  colors: '#e0ffcd #fdffcd #ffebbb #ffcab0 white',
+  sizes: 'S M L XL XXL'
+)
+
+I18n.locale = :de   # switch to german
+s1.update(name: 'Polohemd')
+">Copy</button>
 </div>
 <p>Now every time the object is read from the database and
 the name is retrieved, the locale is used. For example in the rails console
-this could look like this:</p><div class="code_container">
+this could look like this:</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">001</span><span class="o">&gt;</span> <span class="n">s1</span> <span class="o">=</span> <span class="no">Shirt</span><span class="p">.</span><span class="nf">first</span>
   <span class="no">Shirt</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">1.5</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span> <span class="s2">"shirts"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"shirts"</span> <span class="no">ORDER</span> <span class="no">BY</span> <span class="s2">"shirts"</span><span class="o">.</span><span class="s2">"id"</span> <span class="no">ASC</span> <span class="no">LIMIT</span> <span class="vg">$1</span>  <span class="p">[[</span><span class="s2">"LIMIT"</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
 <span class="o">=&gt;</span>
@@ -495,18 +618,29 @@ this could look like this:</p><div class="code_container">
 <span class="n">irb</span><span class="p">(</span><span class="n">main</span><span class="p">):</span><span class="mo">004</span><span class="o">&gt;</span> <span class="n">s1</span><span class="p">.</span><span class="nf">name</span>
 <span class="o">=&gt;</span> <span class="s2">"Polohemd"</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="irb(main):001> s1 = Shirt.first
+  Shirt Load (1.5ms)  SELECT &quot;shirts&quot;.* FROM &quot;shirts&quot; ORDER BY &quot;shirts&quot;.&quot;id&quot; ASC LIMIT $1  [[&quot;LIMIT&quot;, 1]]
+=>
+#<Shirt:0x00000001271fc570
+...
+irb(main):002> s1.name
+  Mobility::Backends::ActiveRecord::KeyValue::StringTranslation Load (1.3ms)  SELECT &quot;mobility_string_translations&quot;.* FROM &quot;mobility_string_translations&quot; WHERE &quot;mobility_string_translations&quot;.&quot;translatable_id&quot; = $1 AND &quot;mobility_string_translations&quot;.&quot;translatable_type&quot; = $2 AND &quot;mobility_string_translations&quot;.&quot;key&quot; = $3  [[&quot;translatable_id&quot;, 1], [&quot;translatable_type&quot;, &quot;Shirt&quot;], [&quot;key&quot;, &quot;name&quot;]]
+=> &quot;Polo Shirt&quot;
+irb(main):003> I18n.locale = :de
+=> :de
+irb(main):004> s1.name
+=> &quot;Polohemd&quot;
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-16' href='slides_internationalization.html#/16'>▻</a>
-<h3 id="testing">
-<a class="anchorlink" href="#testing"></a>12 Testing</h3></div>
+<p class='slide_break_block'><a class='slide_break' id='slide-16' href='slides_internationalization.html#/16'>◻</a></p>
+<h2 id="testing"><a class="anchorlink" href="#testing"><span>12</span> Testing</a></h2></div>
 <div class='slide'>
-<a class='slide_break' id='slide-17' href='slides_internationalization.html#/17'>▻</a>
-<h4 id="url-and-path-helpers">
-<a class="anchorlink" href="#url-and-path-helpers"></a>12.1 url and path helpers</h4><p>A first hurdle when running your test might be generating the right
+<p class='slide_break_block'><a class='slide_break' id='slide-17' href='slides_internationalization.html#/17'>◻</a></p>
+<h3 id="url-and-path-helpers"><a class="anchorlink" href="#url-and-path-helpers"><span>12.1</span> url and path helpers</a></h3><p>A first hurdle when running your test might be generating the right
 urls and paths. This happens in both controller tests and system tests.
-The errors might look something like this:</p><div class="code_container">
+The errors might look something like this:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">Error:
 StatementsTest#test_should_destroy_Statement:
 ActionController::UrlGenerationError: No route matches {:action=&gt;"show", :controller=&gt;"statements", :locale=&gt;#&lt;Statement ...&gt;}, missing required keys: [:id]
@@ -515,12 +649,19 @@ ActionController::UrlGenerationError: No route matches {:action=&gt;"show", :con
 
 bin/rails test test/system/statements_test.rb:41
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="Error:
+StatementsTest#test_should_destroy_Statement:
+ActionController::UrlGenerationError: No route matches {:action=>&quot;show&quot;, :controller=>&quot;statements&quot;, :locale=>#<Statement ...>}, missing required keys: [:id]
+    test/system/statements_test.rb:42:in `block in <class:StatementsTest>'
+
+
+bin/rails test test/system/statements_test.rb:41
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-18' href='slides_internationalization.html#/18'>▻</a>
-<h3 id="see-also">
-<a class="anchorlink" href="#see-also"></a>13 See Also</h3>
+<p class='slide_break_block'><a class='slide_break' id='slide-18' href='slides_internationalization.html#/18'>◻</a></p>
+<h2 id="see-also"><a class="anchorlink" href="#see-also"><span>13</span> See Also</a></h2>
 <ul>
 <li><a href="https://thoughtbot.com/blog/better-tests-through-internationalization">Better Tests Through Internationalization </a></li>
 <li><a href="https://guides.rubyonrails.org/i18n.html">Rails Guide: Internationalization</a></li>
@@ -529,17 +670,17 @@ bin/rails test test/system/statements_test.rb:41
 </div>
         </div>
       </div>
-    </div>
-    <hr class="hide">
-    <div id="footer">
+    </main>
+    <hr class="hide" />
+    <footer id="page_footer">
       <div class="wrapper">
         <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2025 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
-        </p>
-        <p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
-        </p>
+</p>
+<p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
+</p>
+<p>Favicon "backend development" by Arkinasi from <a href="https://thenounproject.com/browse/icons/term/backend-development/" target="_blank" title="backend development Icons">Noun Project</a> (CC BY 3.0)</p>
+
       </div>
-    </div>
-    <script src="javascripts/jquery.min.js"></script>
-    <script src="javascripts/guides.js"></script>
+    </footer>
   </body>
 </html>

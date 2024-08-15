@@ -5,8 +5,12 @@
     <meta charset="utf-8">
 
     <title>Slides for
-        Git Rebasing — Backend Development
+        Git Rebasing — Ruby on Rails Guides
     </title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" data-turbo-track="reload">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <link rel="stylesheet" type="text/css" href="stylesheets/highlight.css" data-turbo-track="reload">
+
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
@@ -16,6 +20,8 @@
 		<link rel="stylesheet" href="stylesheets/reveal.css">
 		<link rel="stylesheet" href="stylesheets/myslide.css" id="theme">
     <link rel="stylesheet" href="stylesheets/code.css">
+    <script src="javascripts/clipboard.js" data-turbo-track="reload"></script>
+    <script src="javascripts/slides.js" data-turbo-track="reload"></script>
 
 </head>
 
@@ -23,32 +29,40 @@
     <div class="reveal">
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
+        <section>
+            <h1>Git Rebasing</h1><p>This Guide will elaborate on teamwork in git
+and using branches.</p><p>After reading this guide, you will know:</p>
+<ul>
+<li>How to rebase your branch</li>
+</ul>
+
+          <p><small>Slides - use arrow keys to navigate, esc to return to page view, f for fullscreen</small></p>
+
+        </section>
         <section><a class='slide_break' href='git_rebasing.html#slide-0'>▻</a>
-<h3 id="how-git-works">
-<a class="anchorlink" href="#how-git-works"></a>1 How git works</h3></section>
+<h2 id="how-git-works"><a class="anchorlink" href="#how-git-works"><span>1</span> How git works</a></h2></section>
 <section><a class='slide_break' href='git_rebasing.html#slide-1'>▻</a>
-<h4 id="what-is-a-commit-what-is-a-branch">
-<a class="anchorlink" href="#what-is-a-commit-what-is-a-branch"></a>1.1 What is a commit, what is a branch.</h4><p>Every commit is just a small change that
+<h3 id="what-is-a-commit-what-is-a-branch"><a class="anchorlink" href="#what-is-a-commit-what-is-a-branch"><span>1.1</span> What is a commit, what is a branch.</a></h3><p>Every commit is just a small change that
 points to the commit before.</p><p>A branch is just a pointer to a certain commit.</p><p>If you create a branch called <code>a3</code> and add
 a few commits W, X, Y, and Z to it, it might look like this:</p><p><img src="images/git_branch.svg" alt=""></p><p>If you merge back into main now everything will be fine.</p><p>But what if the main branch moves on?</p></section>
 <section><a class='slide_break' href='git_rebasing.html#slide-2'>▻</a>
-<h4 id="merging-two-branches">
-<a class="anchorlink" href="#merging-two-branches"></a>1.2 Merging two branches</h4><p>Let's say three other commits are added to the main: B, C and D:</p><p><img src="images/git_branches.svg" alt=""></p><p>If you merge this, the merge might get complicated.
+<h3 id="merging-two-branches"><a class="anchorlink" href="#merging-two-branches"><span>1.2</span> Merging two branches</a></h3><p>Let's say three other commits are added to the main: B, C and D:</p><p><img src="images/git_branches.svg" alt=""></p><p>If you merge this, the merge might get complicated.
 A new Commit is created that contains all the necessary changes:</p><p><img src="images/git_merge.svg" alt=""></p></section>
 <section><a class='slide_break' href='git_rebasing.html#slide-3'>▻</a>
-<h4 id="rebasing-a-branch">
-<a class="anchorlink" href="#rebasing-a-branch"></a>1.3 Rebasing a branch</h4><p>But there's a better approach: First you rebase your branch onto the main:</p><div class="code_container">
+<h3 id="rebasing-a-branch"><a class="anchorlink" href="#rebasing-a-branch"><span>1.3</span> Rebasing a branch</a></h3><p>But there's a better approach: First you rebase your branch onto the main:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">git checkout a3
 git rebase main
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="git checkout a3
+git rebase main
+">Copy</button>
 </div>
 <p>This will try to apply the new commits in a4 on top
 of the current state of main, leading to this situation:</p><p><img src="images/git_rebase.svg" alt=""></p><p>After the rebase a merge into main will be simple.</p></section>
 <section><a class='slide_break' href='git_rebasing.html#slide-4'>▻</a>
-<h4 id="rebase-your-feature-branch">
-<a class="anchorlink" href="#rebase-your-feature-branch"></a>1.4 Rebase your feature branch</h4><p>When working with feature branches you try to merge as fast as possible.
+<h3 id="rebase-your-feature-branch"><a class="anchorlink" href="#rebase-your-feature-branch"><span>1.4</span> Rebase your feature branch</a></h3><p>When working with feature branches you try to merge as fast as possible.
 But if the main branch moves on while you are working on your feature,
-you can use <code>git rebase</code> to catch up:</p><div class="code_container">
+you can use <code>git rebase</code> to catch up:</p><div class="interstitial code">
 <pre><code class="highlight shell"><span class="nb">git </span>fetch
 <span class="nb">git </span>checkout a3
 <span class="nb">git </span>pull origin a3
@@ -57,11 +71,18 @@ you can use <code>git rebase</code> to catch up:</p><div class="code_container">
 <span class="nb">git </span>push <span class="nt">-f</span> origin a3  <span class="c"># overwrite branch with rebased branch</span>
 <span class="c"># work on your merge request</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="git fetch
+git checkout a3
+git pull origin a3
+git rebase main
+# fix problems, run test, fix problems again
+git push -f origin a3  # overwrite branch with rebased branch
+# work on your merge request
+">Copy</button>
 </div>
 </section>
 <section><a class='slide_break' href='git_rebasing.html#slide-5'>▻</a>
-<h4 id="resources">
-<a class="anchorlink" href="#resources"></a>1.5 Resources</h4>
+<h3 id="resources"><a class="anchorlink" href="#resources"><span>1.5</span> Resources</a></h3>
 <ul>
 <li><a href="https://git-scm.com/book/en/v2/Git-Branching-Rebasing">Git Book: Chapter 3.6</a></li>
 </ul>
@@ -86,8 +107,9 @@ you can use <code>git rebase</code> to catch up:</p><div class="code_container">
       // The "normal" size of the presentation, aspect ratio will
       // be preserved when the presentation is scaled to fit different
       // resolutions. Can be specified using percentage units.
-      width: 800,
+      width: 1000,
       height: 600,
+      disableLayout: false,
 
       // Factor of the display size that should remain empty around
       // the content
@@ -100,10 +122,10 @@ you can use <code>git rebase</code> to catch up:</p><div class="code_container">
       keyboard: {
         27: () => {
           // do something custom when ESC is pressed
-          var new_url = window.location.pathname.replace('slides_', '');
-          console.log('esc to ', new_url);
+          var new_url = window.location.pathname.replace('slides_', '') + window.location.hash.replace('/','slide-');
           window.location = new_url;
         },
+        191: 'toggleHelp',
         13: 'next', // go to the next slide when the ENTER key is pressed
       },
 

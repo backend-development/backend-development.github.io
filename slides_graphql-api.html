@@ -5,8 +5,12 @@
     <meta charset="utf-8">
 
     <title>Slides for
-        APIs — Backend Development
+        APIs — Ruby on Rails Guides
     </title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" data-turbo-track="reload">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <link rel="stylesheet" type="text/css" href="stylesheets/highlight.css" data-turbo-track="reload">
+
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
@@ -16,6 +20,8 @@
 		<link rel="stylesheet" href="stylesheets/reveal.css">
 		<link rel="stylesheet" href="stylesheets/myslide.css" id="theme">
     <link rel="stylesheet" href="stylesheets/code.css">
+    <script src="javascripts/clipboard.js" data-turbo-track="reload"></script>
+    <script src="javascripts/slides.js" data-turbo-track="reload"></script>
 
 </head>
 
@@ -23,19 +29,26 @@
     <div class="reveal">
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
+        <section>
+            <h1>APIs</h1><p>After working through this guide you will:</p>
+<ul>
+<li>know about the thinking behind GraphQL APIs</li>
+<li>be able to configure your existing Rails App to offer a GraphQL API</li>
+</ul>
+
+          <p><small>Slides - use arrow keys to navigate, esc to return to page view, f for fullscreen</small></p>
+
+        </section>
         <section><a class='slide_break' href='graphql-api.html#slide-0'>▻</a>
-<h3 id="api-styles">
-<a class="anchorlink" href="#api-styles"></a>1 API Styles</h3></section>
+<h2 id="api-styles"><a class="anchorlink" href="#api-styles"><span>1</span> API Styles</a></h2></section>
 <section><a class='slide_break' href='graphql-api.html#slide-1'>▻</a>
-<h4 id="what-is-an-api-questionmark">
-<a class="anchorlink" href="#what-is-an-api-questionmark"></a>1.1 What is an API?</h4><p>API stands for "Application Programming Interface". It is a set of clearly defined methods
+<h3 id="what-is-an-api-questionmark"><a class="anchorlink" href="#what-is-an-api-questionmark"><span>1.1</span> What is an API?</a></h3><p>API stands for "Application Programming Interface". It is a set of clearly defined methods
 of communication with a software component. So the objects and methods exposed by a library
 form an API.</p><p>In Web development the acronym API is most
 commonly used when the software component in question runs on a different server on the
 Internet and is accessed via HTTP.</p></section>
 <section><a class='slide_break' href='graphql-api.html#slide-2'>▻</a>
-<h4 id="soap-rest-and-graphql">
-<a class="anchorlink" href="#soap-rest-and-graphql"></a>1.2 SOAP, REST and GraphQL</h4><p>Currently three main API styles are used on the Web:</p>
+<h3 id="soap-rest-and-graphql"><a class="anchorlink" href="#soap-rest-and-graphql"><span>1.2</span> SOAP, REST and GraphQL</a></h3><p>Currently three main API styles are used on the Web:</p>
 <ul>
 <li>SOAP, designed 1998 at Microsoft, uses XML and POST requests to make "remote procedure calls"</li>
 <li>REST, described in 2000, uses different HTTP Methods and Status Messages to access "resources"</li>
@@ -45,8 +58,7 @@ Internet and is accessed via HTTP.</p></section>
 is rearely offered with Rails, but there is a <a href="https://github.com/savonrb/savon">soap client</a> in
 ruby.</p></section>
 <section><a class='slide_break' href='graphql-api.html#slide-3'>▻</a>
-<h4 id="api-layer-is-a-separate-layer">
-<a class="anchorlink" href="#api-layer-is-a-separate-layer"></a>1.3 API layer is a separate layer</h4><p>Please note that any of the API styles can be used
+<h3 id="api-layer-is-a-separate-layer"><a class="anchorlink" href="#api-layer-is-a-separate-layer"><span>1.3</span> API layer is a separate layer</a></h3><p>Please note that any of the API styles can be used
 with any backend, frontend, persistance layers:</p>
 <ul>
 <li>You can build a REST in front of a PHP backend using MongoDB as the database and use it from a frontend written with jQuery.</li>
@@ -55,39 +67,34 @@ with any backend, frontend, persistance layers:</p>
 <p>That's kind of the point of an API: to allow different technologies
 on both sides of the API.</p></section>
 <section><a class='slide_break' href='graphql-api.html#slide-4'>▻</a>
-<h3 id="graphql">
-<a class="anchorlink" href="#graphql"></a>2 GraphQL</h3><p>REST and SOAP APIs are fixed interfaces: each api call has a fixed set of
+<h2 id="graphql"><a class="anchorlink" href="#graphql"><span>2</span> GraphQL</a></h2><p>REST and SOAP APIs are fixed interfaces: each api call has a fixed set of
 arguments and returns a fixed data structure.  All decisions are made when
 specifying the API.</p><p>GraphQL shifts some decisions to the client: through a Query Language the client
 can request data in the specific shape it needs, within the limits that the
 API sets.</p></section>
 <section><a class='slide_break' href='graphql-api.html#slide-5'>▻</a>
-<h4 id="query-language">
-<a class="anchorlink" href="#query-language"></a>2.1 Query Language</h4><p>A simple example with two models: a project has many URLs. when querying
+<h3 id="query-language"><a class="anchorlink" href="#query-language"><span>2.1</span> Query Language</a></h3><p>A simple example with two models: a project has many URLs. when querying
 through GraphQL you can request different attributes of both models:</p><p><img src="images/two-queries.gif" alt="1:n relationship in the database"></p><p>Notice how the resulting JSON data mirrors the structure of the query.
 The query language is used for both Queries (getting data) and Mutations (changing
 data).</p></section>
 <section><a class='slide_break' href='graphql-api.html#slide-6'>▻</a>
-<h4 id="introspection-and-playground">
-<a class="anchorlink" href="#introspection-and-playground"></a>2.2 Introspection and Playground</h4><p>A GraphQL API can always be queried to give information
+<h3 id="introspection-and-playground"><a class="anchorlink" href="#introspection-and-playground"><span>2.2</span> Introspection and Playground</a></h3><p>A GraphQL API can always be queried to give information
 about the possible queries, mutations and types.  This is called
 introspection.</p><p>The GraphQL Playground is a Web App that enables you to
 make Queries and Mutations.  It uses introspection to display
 documentation and to offer autocompletion:</p>
-<video controls autoplay>
-  <source src="images/autocomplete.mov" type="video/quicktime"></source>
-  <source src="images/autocomplete.mp4" type="video/mp4"></source>
+<video controls="" autoplay="">
+  <source src="images/autocomplete.mov" type="video/quicktime">
+  <source src="images/autocomplete.mp4" type="video/mp4">
   ![GraphQL Playground](images/graphql-playground.png)
 </video>
 </section>
 <section><a class='slide_break' href='graphql-api.html#slide-7'>▻</a>
-<h4 id="types">
-<a class="anchorlink" href="#types"></a>2.3 Types</h4><p>A GraphQL delivers JSON, which only has objects, arrays, strings, numbers and null
+<h3 id="types"><a class="anchorlink" href="#types"><span>2.3</span> Types</a></h3><p>A GraphQL delivers JSON, which only has objects, arrays, strings, numbers and null
 as types.  But GraphQL itself can build a more detailed type system and check
 these types in queries and mutations.</p></section>
 <section><a class='slide_break' href='graphql-api.html#slide-8'>▻</a>
-<h4 id="how-the-server-handles-the-request">
-<a class="anchorlink" href="#how-the-server-handles-the-request"></a>2.4 How the server handles the request</h4>
+<h3 id="how-the-server-handles-the-request"><a class="anchorlink" href="#how-the-server-handles-the-request"><span>2.4</span> How the server handles the request</a></h3>
 <ul>
 <li>parse the query</li>
 <li>validate with schema</li>
@@ -96,21 +103,23 @@ these types in queries and mutations.</p></section>
 </ul>
 </section>
 <section><a class='slide_break' href='graphql-api.html#slide-9'>▻</a>
-<h3 id="using-rails-to-build-a-graphql-api">
-<a class="anchorlink" href="#using-rails-to-build-a-graphql-api"></a>3 Using Rails to build a GraphQL API</h3></section>
+<h2 id="using-rails-to-build-a-graphql-api"><a class="anchorlink" href="#using-rails-to-build-a-graphql-api"><span>3</span> Using Rails to build a GraphQL API</a></h2></section>
 <section><a class='slide_break' href='graphql-api.html#slide-10'>▻</a>
-<h4 id="setup">
-<a class="anchorlink" href="#setup"></a>3.1 Setup</h4><p>To add a GraphQL API to an existing Rails app you need just two gems:</p><div class="code_container">
+<h3 id="setup"><a class="anchorlink" href="#setup"><span>3.1</span> Setup</a></h3><p>To add a GraphQL API to an existing Rails app you need just two gems:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">gem 'graphql'
 group :development do
   gem 'graphql-rails-generators'
 end
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="gem 'graphql'
+group :development do
+  gem 'graphql-rails-generators'
+end
+">Copy</button>
 </div>
 </section>
 <section><a class='slide_break' href='graphql-api.html#slide-11'>▻</a>
-<h5 id="generator">
-<a class="anchorlink" href="#generator"></a>3.1.1 generator</h5><p>The rest of the setup is handled by a generator added by the <code>graphql</code> gem:</p><div class="code_container">
+<h4 id="generator"><a class="anchorlink" href="#generator"><span>3.1.1</span> generator</a></h4><p>The rest of the setup is handled by a generator added by the <code>graphql</code> gem:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">rails generate graphql:install
        exist  app/graphql/types
       create  app/graphql/types/.keep
@@ -136,25 +145,51 @@ add_root_type  mutation
        route  graphiql-rails
 Gemfile has been modified, make sure you `bundle install`
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="rails generate graphql:install
+       exist  app/graphql/types
+      create  app/graphql/types/.keep
+      create  app/graphql/portfolio_relaunch_schema.rb
+      create  app/graphql/types/base_object.rb
+      create  app/graphql/types/base_argument.rb
+      create  app/graphql/types/base_field.rb
+      create  app/graphql/types/base_enum.rb
+      create  app/graphql/types/base_input_object.rb
+      create  app/graphql/types/base_interface.rb
+      create  app/graphql/types/base_scalar.rb
+      create  app/graphql/types/base_union.rb
+      create  app/graphql/types/query_type.rb
+add_root_type  query
+      create  app/graphql/mutations
+      create  app/graphql/mutations/.keep
+      create  app/graphql/mutations/base_mutation.rb
+      create  app/graphql/types/mutation_type.rb
+add_root_type  mutation
+      create  app/controllers/graphql_controller.rb
+       route  post &quot;/graphql&quot;, to: &quot;graphql#execute&quot;
+     gemfile  graphiql-rails
+       route  graphiql-rails
+Gemfile has been modified, make sure you `bundle install`
+">Copy</button>
 </div>
 </section>
 <section><a class='slide_break' href='graphql-api.html#slide-12'>▻</a>
-<h5 id="playground-is-available">
-<a class="anchorlink" href="#playground-is-available"></a>3.1.2 playground is available</h5><p>After running bundle and restarting the server you can
+<h4 id="playground-is-available"><a class="anchorlink" href="#playground-is-available"><span>3.1.2</span> playground is available</a></h4><p>After running bundle and restarting the server you can
 access the graphql playground at <code>http://localhost:3000/graphiql</code>:
 in the left pane you can enter a query, run it, and see the
 result in the middle pane.  The right pane contains documentation
 that was created automatically.</p><p><img src="images/graphql-playground.png" alt="GraphQL Playground"></p><p>We have no Queries to run yet.</p></section>
 <section><a class='slide_break' href='graphql-api.html#slide-13'>▻</a>
-<h4 id="generating-a-type-from-a-model">
-<a class="anchorlink" href="#generating-a-type-from-a-model"></a>3.2 Generating a Type from a Model</h4><p>As a first step we can
-use a generator to create a type from an existing model:</p><div class="code_container">
+<h3 id="generating-a-type-from-a-model"><a class="anchorlink" href="#generating-a-type-from-a-model"><span>3.2</span> Generating a Type from a Model</a></h3><p>As a first step we can
+use a generator to create a type from an existing model:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">rails generate gql:model_type Project
       create  app/graphql/types/project_type.rb
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="rails generate gql:model_type Project
+      create  app/graphql/types/project_type.rb
+">Copy</button>
 </div>
 <p>Now we can edit the type to fit our needs, for example
-we can remove attributes that should never be public:</p><div class="code_container">
+we can remove attributes that should never be public:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">module Types
   class ProjectType &lt; Types::BaseObject
     field :id, GraphQL::Types::ID, null: false
@@ -167,12 +202,23 @@ we can remove attributes that should never be public:</p><div class="code_contai
   end
 end
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="module Types
+  class ProjectType < Types::BaseObject
+    field :id, GraphQL::Types::ID, null: false
+    field :title, String, null: false
+    field :publicationdate, GraphQL::Types::ISO8601Date, null: false
+    field :membership, Int, null: true
+    field :created_at, GraphQL::Types::ISO8601DateTime, null: false
+    field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
+    field :slug, String, null: false
+  end
+end
+">Copy</button>
 </div>
 </section>
 <section><a class='slide_break' href='graphql-api.html#slide-14'>▻</a>
-<h4 id="defining-a-query">
-<a class="anchorlink" href="#defining-a-query"></a>3.3 Defining a Query</h4><p>The next level up we come to the query.  There is already
-a dummy Query in <code>app/graphql/types/query_type.rb</code></p><div class="code_container">
+<h3 id="defining-a-query"><a class="anchorlink" href="#defining-a-query"><span>3.3</span> Defining a Query</a></h3><p>The next level up we come to the query.  There is already
+a dummy Query in <code>app/graphql/types/query_type.rb</code></p><div class="interstitial code">
 <pre><code class="highlight plaintext">module Types
   class QueryType &lt; Types::BaseObject
     # Add root-level fields here.
@@ -187,11 +233,24 @@ a dummy Query in <code>app/graphql/types/query_type.rb</code></p><div class="cod
   end
 end
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="module Types
+  class QueryType < Types::BaseObject
+    # Add root-level fields here.
+    # They will be entry points for queries on your schema.
+
+    # TODO: remove me
+    field :test_field, String, null: false,
+      description: &quot;An example field added by the generator&quot;
+    def test_field
+      &quot;Hello World!&quot;
+    end
+  end
+end
+">Copy</button>
 </div>
 </section>
 <section><a class='slide_break' href='graphql-api.html#slide-15'>▻</a>
-<h5 id="declare-the-query-and-implement-the-resolver">
-<a class="anchorlink" href="#declare-the-query-and-implement-the-resolver"></a>3.3.1 Declare the Query and implement the resolver</h5><p>We can replace this with a query that returns a list of all projects:</p><div class="code_container">
+<h4 id="declare-the-query-and-implement-the-resolver"><a class="anchorlink" href="#declare-the-query-and-implement-the-resolver"><span>3.3.1</span> Declare the Query and implement the resolver</a></h4><p>We can replace this with a query that returns a list of all projects:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">module Types
   class QueryType &lt; Types::BaseObject
     field :all_projects, [ProjectType],
@@ -203,19 +262,29 @@ end
   end
 end
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="module Types
+  class QueryType < Types::BaseObject
+    field :all_projects, [ProjectType],
+      null: false,
+      description: &quot;a list of all publicly visible projects&quot;
+    def all_projects
+      Project.public.all
+    end
+  end
+end
+">Copy</button>
 </div>
 <p>We can now run the query in the playground. Your query will be autocompleted.</p>
-<video controls autoplay>
-  <source src="images/autocomplete.mov" type="video/quicktime"></source>
-  <source src="images/autocomplete.mp4" type="video/mp4"></source>
+<video controls="" autoplay="">
+  <source src="images/autocomplete.mov" type="video/quicktime">
+  <source src="images/autocomplete.mp4" type="video/mp4">
   ![GraphQL Playground](images/graphql-playground.png)
 </video>
 </section>
 <section><a class='slide_break' href='graphql-api.html#slide-16'>▻</a>
-<h5 id="queries-with-arguments">
-<a class="anchorlink" href="#queries-with-arguments"></a>3.3.2 Queries with arguments</h5><p>If a query needs arguments you have do declare
+<h4 id="queries-with-arguments"><a class="anchorlink" href="#queries-with-arguments"><span>3.3.2</span> Queries with arguments</a></h4><p>If a query needs arguments you have do declare
 them in the <code>fields</code> declaration and then handle
-them in the method:</p><div class="code_container">
+them in the method:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">    field :project, ProjectType, null: true do
       argument :id, ID, required: true
     end
@@ -223,14 +292,19 @@ them in the method:</p><div class="code_container">
       Project.visible.find(id)
     end
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="    field :project, ProjectType, null: true do
+      argument :id, ID, required: true
+    end
+    def project(id:)
+      Project.visible.find(id)
+    end
+">Copy</button>
 </div>
 </section>
 <section><a class='slide_break' href='graphql-api.html#slide-17'>▻</a>
-<h4 id="relationships-between-models">
-<a class="anchorlink" href="#relationships-between-models"></a>3.4 Relationships between models</h4></section>
+<h3 id="relationships-between-models"><a class="anchorlink" href="#relationships-between-models"><span>3.4</span> Relationships between models</a></h3></section>
 <section><a class='slide_break' href='graphql-api.html#slide-18'>▻</a>
-<h5 id="create-type-for-a-second-model">
-<a class="anchorlink" href="#create-type-for-a-second-model"></a>3.4.1 Create type for a second model</h5><p><img src="images/graphql-project-has-many-urls.png" alt="1:n relationship in the database"></p><p>generate the UrlType automatically from the model:</p><div class="code_container">
+<h4 id="create-type-for-a-second-model"><a class="anchorlink" href="#create-type-for-a-second-model"><span>3.4.1</span> Create type for a second model</a></h4><p><img src="images/graphql-project-has-many-urls.png" alt="1:n relationship in the database"></p><p>generate the UrlType automatically from the model:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">module Types
   class UrlType &lt; Types::BaseObject
     field :id, GraphQL::Types::ID, null: false
@@ -242,14 +316,23 @@ them in the method:</p><div class="code_container">
   end
 end
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="module Types
+  class UrlType < Types::BaseObject
+    field :id, GraphQL::Types::ID, null: false
+    field :title, String, null: true
+    field :url, String, null: true
+    field :url_type, String, null: true
+    field :created_at, GraphQL::Types::ISO8601DateTime, null: true
+    field :updated_at, GraphQL::Types::ISO8601DateTime, null: true
+  end
+end
+">Copy</button>
 </div>
 </section>
 <section><a class='slide_break' href='graphql-api.html#slide-19'>▻</a>
-<h5 id="create-queries-for-the-second-model">
-<a class="anchorlink" href="#create-queries-for-the-second-model"></a>3.4.2 create queries for the second model</h5><p>add the queries <code>all_urls</code> and <code>url</code> to  <code>app/graphql/types/query_type.rb</code></p><p>now you can use those queries in the playground</p></section>
+<h4 id="create-queries-for-the-second-model"><a class="anchorlink" href="#create-queries-for-the-second-model"><span>3.4.2</span> create queries for the second model</a></h4><p>add the queries <code>all_urls</code> and <code>url</code> to  <code>app/graphql/types/query_type.rb</code></p><p>now you can use those queries in the playground</p></section>
 <section><a class='slide_break' href='graphql-api.html#slide-20'>▻</a>
-<h5 id="add-field-for-relationship-to-type">
-<a class="anchorlink" href="#add-field-for-relationship-to-type"></a>3.4.3 add field for relationship to type</h5><p>add the field <code>urls</code> to <code>app/graphql/types/project_type.rb</code>:</p><div class="code_container">
+<h4 id="add-field-for-relationship-to-type"><a class="anchorlink" href="#add-field-for-relationship-to-type"><span>3.4.3</span> add field for relationship to type</a></h4><p>add the field <code>urls</code> to <code>app/graphql/types/project_type.rb</code>:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">module Types
   class ProjectType &lt; Types::BaseObject
     field :id, GraphQL::Types::ID, null: false
@@ -263,12 +346,24 @@ end
   end
 end
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="module Types
+  class ProjectType < Types::BaseObject
+    field :id, GraphQL::Types::ID, null: false
+    field :title, String, null: false
+    field :publicationdate, GraphQL::Types::ISO8601Date, null: false
+    field :membership, Int, null: true
+    field :created_at, GraphQL::Types::ISO8601DateTime, null: false
+    field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
+    field :slug, String, null: false
+    field :urls, [ UrlType ], null: false
+  end
+end
+">Copy</button>
 </div>
 <p>now you can query for Urls through their project:</p><p><img src="images/graphql-query-relationship.png" alt="query a 1:n relationship with graphql"></p></section>
 <section><a class='slide_break' href='graphql-api.html#slide-21'>▻</a>
-<h5 id="inverse-relationship">
-<a class="anchorlink" href="#inverse-relationship"></a>3.4.4 inverse relationship</h5><p>what would you need to do, to make a query
-from Url to Project possible?</p><div class="code_container">
+<h4 id="inverse-relationship"><a class="anchorlink" href="#inverse-relationship"><span>3.4.4</span> inverse relationship</a></h4><p>what would you need to do, to make a query
+from Url to Project possible?</p><div class="interstitial code">
 <pre><code class="highlight plaintext">{
   url(id:2077){
     id
@@ -281,11 +376,22 @@ from Url to Project possible?</p><div class="code_container">
   }
 }
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="{
+  url(id:2077){
+    id
+    url
+    urlType
+    title
+    project {
+      title
+    }
+  }
+}
+">Copy</button>
 </div>
 </section>
 <section><a class='slide_break' href='graphql-api.html#slide-22'>▻</a>
-<h5 id="implementation-of-the-inverse-relationship">
-<a class="anchorlink" href="#implementation-of-the-inverse-relationship"></a>3.4.5 implementation of the inverse relationship</h5><p>Answer: add a field project to UrlType:</p><div class="code_container">
+<h4 id="implementation-of-the-inverse-relationship"><a class="anchorlink" href="#implementation-of-the-inverse-relationship"><span>3.4.5</span> implementation of the inverse relationship</a></h4><p>Answer: add a field project to UrlType:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">module Types
   class UrlType &lt; Types::BaseObject
     field :id, GraphQL::Types::ID, null: false
@@ -298,21 +404,34 @@ from Url to Project possible?</p><div class="code_container">
   end
 end
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="module Types
+  class UrlType < Types::BaseObject
+    field :id, GraphQL::Types::ID, null: false
+    field :title, String, null: true
+    field :url, String, null: true
+    field :url_type, String, null: true
+    field :created_at, GraphQL::Types::ISO8601DateTime, null: true
+    field :updated_at, GraphQL::Types::ISO8601DateTime, null: true
+    field :project, ProjectType, null: false
+  end
+end
+">Copy</button>
 </div>
 <p><img src="images/graphql-query-belongs-to.png" alt="query a 1:n relationship with graphql (reverse)"></p></section>
 <section><a class='slide_break' href='graphql-api.html#slide-23'>▻</a>
-<h4 id="more-types">
-<a class="anchorlink" href="#more-types"></a>3.5 More Types</h4><p>In Ruby and JavaScript we often use Strings to store all
+<h3 id="more-types"><a class="anchorlink" href="#more-types"><span>3.5</span> More Types</a></h3><p>In Ruby and JavaScript we often use Strings to store all
 kinds of values.   In the example
 above, <code>Url.url_type</code> only has three possible values: 'Link','Repository','Award'.</p><p>GraphQL comes with an Enum Type that we can use for that</p></section>
 <section><a class='slide_break' href='graphql-api.html#slide-24'>▻</a>
-<h5 id="define-the-enum-type">
-<a class="anchorlink" href="#define-the-enum-type"></a>3.5.1 define the Enum Type:</h5><div class="code_container">
+<h4 id="define-the-enum-type"><a class="anchorlink" href="#define-the-enum-type"><span>3.5.1</span> define the Enum Type:</a></h4><div class="interstitial code">
 <pre><code class="highlight plaintext">rails g graphql:enum UrlTypeEnum Link Repository Award
       create  app/graphql/types/url_type_enum_type.rb
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="rails g graphql:enum UrlTypeEnum Link Repository Award
+      create  app/graphql/types/url_type_enum_type.rb
+">Copy</button>
 </div>
-<div class="code_container">
+<div class="interstitial code">
 <pre><code class="highlight plaintext">module Types
   class UrlTypeEnumType &lt; Types::BaseEnum
     value "Link"
@@ -321,11 +440,18 @@ above, <code>Url.url_type</code> only has three possible values: 'Link','Reposit
   end
 end
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="module Types
+  class UrlTypeEnumType < Types::BaseEnum
+    value &quot;Link&quot;
+    value &quot;Repository&quot;
+    value &quot;Award&quot;
+  end
+end
+">Copy</button>
 </div>
 </section>
 <section><a class='slide_break' href='graphql-api.html#slide-25'>▻</a>
-<h5 id="using-the-enum-type">
-<a class="anchorlink" href="#using-the-enum-type"></a>3.5.2 using the Enum Type</h5><p>This can now be used in <code>UrlType</code>:</p><div class="code_container">
+<h4 id="using-the-enum-type"><a class="anchorlink" href="#using-the-enum-type"><span>3.5.2</span> using the Enum Type</a></h4><p>This can now be used in <code>UrlType</code>:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">module Types
   class UrlType &lt; Types::BaseObject
     field :id, GraphQL::Types::ID, null: false
@@ -338,17 +464,27 @@ end
   end
 end
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="module Types
+  class UrlType < Types::BaseObject
+    field :id, GraphQL::Types::ID, null: false
+    field :title, String, null: true
+    field :url, String, null: true
+    field :url_type, UrlTypeEnumType, null: true
+    field :created_at, GraphQL::Types::ISO8601DateTime, null: true
+    field :updated_at, GraphQL::Types::ISO8601DateTime, null: true
+    field :project, ProjectType, null: false
+  end
+end
+">Copy</button>
 </div>
 </section>
 <section><a class='slide_break' href='graphql-api.html#slide-26'>▻</a>
-<h5 id="types-uses-and-limitations">
-<a class="anchorlink" href="#types-uses-and-limitations"></a>3.5.3 Types: uses and limitations</h5><p>The data returned by a query is still JSON, and cannot contain
+<h4 id="types-uses-and-limitations"><a class="anchorlink" href="#types-uses-and-limitations"><span>3.5.3</span> Types: uses and limitations</a></h4><p>The data returned by a query is still JSON, and cannot contain
 enums, only Strings.</p><p><img src="images/graphql-enum.png" alt="querying an enum gives a string"></p><p>In the documentation you can see that
 only three Strings are valid.  The GraphQL API will
 validate this both in Queries and in Mutations.</p></section>
 <section><a class='slide_break' href='graphql-api.html#slide-27'>▻</a>
-<h3 id="a-lot-more-to-learn">
-<a class="anchorlink" href="#a-lot-more-to-learn"></a>4 A lot more to learn</h3><p>This guide has not touched on:</p>
+<h2 id="a-lot-more-to-learn"><a class="anchorlink" href="#a-lot-more-to-learn"><span>4</span> A lot more to learn</a></h2><p>This guide has not touched on:</p>
 <ul>
 <li>mutations</li>
 <li>filtering, searching</li>
@@ -358,16 +494,12 @@ validate this both in Queries and in Mutations.</p></section>
 </ul>
 </section>
 <section><a class='slide_break' href='graphql-api.html#slide-28'>▻</a>
-<h4 id="see-also">
-<a class="anchorlink" href="#see-also"></a>4.1 See Also</h4>
+<h3 id="see-also"><a class="anchorlink" href="#see-also"><span>4.1</span> See Also</a></h3>
 <ul>
 <li><a href="https://www.howtographql.com/graphql-ruby/0-introduction/">GraphQL Guides: Ruby </a></li>
-<li>
-<a href="https://pragmaticstudio.com/tutorials/what-is-graphql">Pragmatic Tutorial: GraphQL?</a> (see also part 2 + 3)</li>
-<li>
-<a href="https://www.apollographql.com/">Apollo Client + Server</a> in JavaScript</li>
-<li>
-<a href="https://api-platform.com/">API Platform</a> to build REST + GraphQL APIs in PHP</li>
+<li><a href="https://pragmaticstudio.com/tutorials/what-is-graphql">Pragmatic Tutorial: GraphQL?</a> (see also part 2 + 3)</li>
+<li><a href="https://www.apollographql.com/">Apollo Client + Server</a> in JavaScript</li>
+<li><a href="https://api-platform.com/">API Platform</a> to build REST + GraphQL APIs in PHP</li>
 <li><a href="https://wundergraph.com/blog/graphql_in_production_analyzing_public_graphql_apis_1_twitch_tv">Analyzing the Twitch.tv GraphQL API</a></li>
 </ul>
 </div></section>
@@ -391,8 +523,9 @@ validate this both in Queries and in Mutations.</p></section>
       // The "normal" size of the presentation, aspect ratio will
       // be preserved when the presentation is scaled to fit different
       // resolutions. Can be specified using percentage units.
-      width: 800,
+      width: 1000,
       height: 600,
+      disableLayout: false,
 
       // Factor of the display size that should remain empty around
       // the content
@@ -405,10 +538,10 @@ validate this both in Queries and in Mutations.</p></section>
       keyboard: {
         27: () => {
           // do something custom when ESC is pressed
-          var new_url = window.location.pathname.replace('slides_', '');
-          console.log('esc to ', new_url);
+          var new_url = window.location.pathname.replace('slides_', '') + window.location.hash.replace('/','slide-');
           window.location = new_url;
         },
+        191: 'toggleHelp',
         13: 'next', // go to the next slide when the ENTER key is pressed
       },
 

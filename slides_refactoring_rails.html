@@ -5,8 +5,12 @@
     <meta charset="utf-8">
 
     <title>Slides for
-        Refactoring Rails — Backend Development
+        Refactoring Rails — Ruby on Rails Guides
     </title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" data-turbo-track="reload">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <link rel="stylesheet" type="text/css" href="stylesheets/highlight.css" data-turbo-track="reload">
+
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
@@ -16,6 +20,8 @@
 		<link rel="stylesheet" href="stylesheets/reveal.css">
 		<link rel="stylesheet" href="stylesheets/myslide.css" id="theme">
     <link rel="stylesheet" href="stylesheets/code.css">
+    <script src="javascripts/clipboard.js" data-turbo-track="reload"></script>
+    <script src="javascripts/slides.js" data-turbo-track="reload"></script>
 
 </head>
 
@@ -23,24 +29,32 @@
     <div class="reveal">
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
+        <section>
+            <h1>Refactoring Rails</h1><p>This guide will show you how to refactor
+your code.  </p><p>By referring to this guide, you will be able to:</p>
+<ul>
+<li>Get to know some tools that help you find problematic aspects of your code</li>
+<li>Learn general refactoring practice from concrete examples</li>
+</ul>
+
+          <p><small>Slides - use arrow keys to navigate, esc to return to page view, f for fullscreen</small></p>
+
+        </section>
         <section><a class='slide_break' href='refactoring_rails.html#slide-0'>▻</a>
-<h3 id="refactoring">
-<a class="anchorlink" href="#refactoring"></a>1 Refactoring</h3><p>Never be ashamed of making you code better.  On the contrary: recognizing code smells
+<h2 id="refactoring"><a class="anchorlink" href="#refactoring"><span>1</span> Refactoring</a></h2><p>Never be ashamed of making you code better.  On the contrary: recognizing code smells
 in your old code means that you learnt something in the meantime.
 Only very inexperienced people think that the code they wrote yesterday is
 perfect.</p><p>Refactoring is </p>
 <ul>
 <li>restructuring an existing body of code</li>
 <li>altering its internal structure</li>
-<li>without changing its external behavior <a href="https://en.wikipedia.org/wiki/Refactoring">wikipedia</a>
-</li>
+<li>without changing its external behavior <a href="https://en.wikipedia.org/wiki/Refactoring">wikipedia</a></li>
 </ul>
 <p>We will use <strong>tests</strong> to ensure that we do not change the external behavior 
 of the code we are refactoring.</p><p>A <strong>code smell</strong> is a piece of bad code that we recognize.</p><p>Read the Ruby version of Fowlers refactoring book to 
 learn both code smells and refactorings:</p></section>
 <section><a class='slide_break' href='refactoring_rails.html#slide-1'>▻</a>
-<h3 id="code-smells">
-<a class="anchorlink" href="#code-smells"></a>2 Code Smells</h3><p>This is the list of code smells from 
+<h2 id="code-smells"><a class="anchorlink" href="#code-smells"><span>2</span> Code Smells</a></h2><p>This is the list of code smells from 
 Fields, Harvie, Fowler(2010): Refactoring, Ruby Edition. Addison-Wesley.
 In chapter 6 to 12 of that book they describe refactorings to handle
 all these problems and more:</p>
@@ -73,8 +87,7 @@ all these problems and more:</p>
 </ul>
 </section>
 <section><a class='slide_break' href='refactoring_rails.html#slide-2'>▻</a>
-<h3 id="tools-for-code-quality">
-<a class="anchorlink" href="#tools-for-code-quality"></a>3 Tools for Code Quality</h3><p>Recognizing code that is problematic and should be refactored
+<h2 id="tools-for-code-quality"><a class="anchorlink" href="#tools-for-code-quality"><span>3</span> Tools for Code Quality</a></h2><p>Recognizing code that is problematic and should be refactored
 is one of the main skills of a developer.  Often it is not a
 black and white situation: there might be several ways of writing
 a certain piece of code, each with it's own pros and cons.<br>
@@ -92,13 +105,11 @@ it in your <code>Gemfile</code>.  Just run <code>rails_best_practices -f html</c
 the main directory of your app.  The result will be written to 
 <code>./rails_best_practices_output.html</code>.</p></section>
 <section><a class='slide_break' href='refactoring_rails.html#slide-3'>▻</a>
-<h3 id="futher-reading">
-<a class="anchorlink" href="#futher-reading"></a>4 Futher Reading</h3>
+<h2 id="futher-reading"><a class="anchorlink" href="#futher-reading"><span>4</span> Futher Reading</a></h2>
 <ul>
 <li>Fowler, Beck, Brant, Opdyke, Roberts(1999). Refactoring: improving the design of existing code. Addison Wesley. ISBN: 0-201-48567-2.</li>
 <li>Fields, Harvie, Fowler(2010): Refactoring, Ruby Edition. Addison-Wesley.</li>
-<li>
-<a href="https://github.com/facebook/codemod">codemod</a> a python script</li>
+<li><a href="https://github.com/facebook/codemod">codemod</a> a python script</li>
 </ul>
 </div></section>
       </div>
@@ -121,8 +132,9 @@ the main directory of your app.  The result will be written to
       // The "normal" size of the presentation, aspect ratio will
       // be preserved when the presentation is scaled to fit different
       // resolutions. Can be specified using percentage units.
-      width: 800,
+      width: 1000,
       height: 600,
+      disableLayout: false,
 
       // Factor of the display size that should remain empty around
       // the content
@@ -135,10 +147,10 @@ the main directory of your app.  The result will be written to
       keyboard: {
         27: () => {
           // do something custom when ESC is pressed
-          var new_url = window.location.pathname.replace('slides_', '');
-          console.log('esc to ', new_url);
+          var new_url = window.location.pathname.replace('slides_', '') + window.location.hash.replace('/','slide-');
           window.location = new_url;
         },
+        191: 'toggleHelp',
         13: 'next', // go to the next slide when the ENTER key is pressed
       },
 

@@ -1,105 +1,173 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html dir="ltr" lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Architectures — Backend Development</title>
-    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+    <title>Architectures — Ruby on Rails Guides</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" data-turbo-track="reload">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-    <link rel="stylesheet" type="text/css" href="stylesheets/code.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css">
-    <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <style>
-      .slide img[src$=svg] {
-        width: 100%;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="stylesheets/highlight.css" data-turbo-track="reload">
+    <link rel="icon" href="images/backend-development.svg" sizes="any">
+    <script src="javascripts/@hotwired--turbo.js" data-turbo-track="reload"></script>
+    <script src="javascripts/clipboard.js" data-turbo-track="reload"></script>
+    <script src="javascripts/guides.js" data-turbo-track="reload"></script>
+    <meta property="og:title" content="Architectures — Ruby on Rails Guides" />
+    <meta name="description" content="ArchitecturesWith the proliferation of frontend frameworks you get to choose between many possible architectures for your web app.After working through this guide you should have an overview of possible architecures be able to chose an architectures" />
+    <meta property="og:description" content="ArchitecturesWith the proliferation of frontend frameworks you get to choose between many possible architectures for your web app.After working through this guide you should have an overview of possible architecures be able to chose an architectures" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Textbook Backend Developemnt" />
+    <meta property="og:image" content="images/backend-development.svg" />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#2e56e9">
   </head>
   <body class="guide">
-    <div id="header">
+    <header id="page_header">
       <div class="wrapper clearfix">
-        <h1><a href="index.html" title="Return to home page">Backend<span> Development</span></a></h1>
-        <ul class="nav">
-          <li class="guides-index guides-index-large">
-            <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
-            <div id="guides" class="clearfix" style="display: none;">
-              <hr>
-                <dl class="L">
-                    <dt>Ruby on Rails</dt>
-                      <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
-                      <dd><a href="rails_database_and_model.html">Models and ActiveRecord</a></dd>
-                      <dd><a href="rails_db.html">Database and Migrations</a></dd>
-                      <dd><a href="rails_associations_and_validations.html">Associations and Validations</a></dd>
-                      <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
-                      <dd><a href="rails_authentication.html">Simple Authentication</a></dd>
-                      <dd><a href="asset_pipeline.html">The Asset Pipeline</a></dd>
-                      <dd><a href="javascript_and_ajax.html">Rails and old Javascript</a></dd>
-                      <dd><a href="javascript_webpack_frontend.html">Rails and Webpack</a></dd>
-                      <dd><a href="testing.html">Getting started with Testing</a></dd>
-                      <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
-                      <dd><a href="rest-api.html">REST API</a></dd>
-                      <dd><a href="graphql-api.html">GraphQL API</a></dd>
-                      <dd><a href="rails_websockets.html">Websocket in Rails</a></dd>
-                      <dd><a href="jobs_and_tasks.html">Jobs and Tasks in Rails</a></dd>
-                      <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
-                      <dd><a href="rails_security.html">Rails Security</a></dd>
-                    <dt>Overarching Concerns</dt>
-                      <dd><a href="security.html">Security</a></dd>
-                      <dd><a href="adv_authentication.html">Advanced Authentication</a></dd>
-                      <dd><a href="caching.html">Caching</a></dd>
-                      <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
-                      <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
-                      <dd><a href="git_rebasing.html">Git Rebasing</a></dd>
-                    <dt>Nodes.js</dt>
-                      <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
-                      <dd><a href="node_basics.html">Node Basics</a></dd>
-                      <dd><a href="node_websockets.html">Node Websockets</a></dd>
-                      <dd><a href="node_express.html">Node Web App</a></dd>
-                      <dd><a href="node_cluster.html">Scaling Node</a></dd>
-                    <dt>Next.js</dt>
-                      <dd><a href="nextjs.html">Next.js</a></dd>
-                </dl>
-                <dl class="R">
-                </dl>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <hr class="hide">
-    <div id="feature">
-      <div class="wrapper">
-        <h2 id="preheader">Architectures</h2>
-                  <div id="subCol">
-            <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
-            <ol class="chapters">
-<li><a href="#examples">Examples</a></li>
-</ol>
-
+        <nav id="feature_nav">
+          <div class="header-logo">
+            <a href="/">Backend Development</a>
           </div>
-
-        <div class="rest_header">
-          <h2>Architectures</h2><p>With the proliferation of frontend frameworks
+          <ul class="nav">
+            <li><a class="nav-item" id="home_nav" href="/">Home</a></li>
+            <li class="guides-index guides-index-large">
+              <a href="index.html" id="guidesMenu" class="guides-index-item nav-item">Index</a>
+              <div id="guides" class="clearfix" style="display: none;">
+                <hr />
+                <dl class="guides-section-container">
+                    <div class="guides-section">
+                      <dt>Ruby on Rails</dt>
+                        <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
+                        <dd><a href="rails_database_and_model.html">Models and ActiveRecord</a></dd>
+                        <dd><a href="rails_db.html">Database and Migrations</a></dd>
+                        <dd><a href="rails_associations_and_validations.html">Associations and Validations</a></dd>
+                        <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
+                        <dd><a href="rails_authentication.html">Simple Authentication</a></dd>
+                        <dd><a href="asset_pipeline.html">The Asset Pipeline</a></dd>
+                        <dd><a href="javascript_and_ajax.html">Rails and old Javascript</a></dd>
+                        <dd><a href="javascript_webpack_frontend.html">Rails and Webpack</a></dd>
+                        <dd><a href="testing.html">Getting started with Testing</a></dd>
+                        <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
+                        <dd><a href="rest-api.html">REST API</a></dd>
+                        <dd><a href="graphql-api.html">GraphQL API</a></dd>
+                        <dd><a href="rails_websockets.html">Websocket in Rails</a></dd>
+                        <dd><a href="jobs_and_tasks.html">Jobs and Tasks in Rails</a></dd>
+                        <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
+                        <dd><a href="rails_security.html">Rails Security</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Overarching Concerns</dt>
+                        <dd><a href="security.html">Security</a></dd>
+                        <dd><a href="adv_authentication.html">Advanced Authentication</a></dd>
+                        <dd><a href="caching.html">Caching</a></dd>
+                        <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
+                        <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
+                        <dd><a href="git_rebasing.html">Git Rebasing</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Nodes.js</dt>
+                        <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
+                        <dd><a href="node_basics.html">Node Basics</a></dd>
+                        <dd><a href="node_websockets.html">Node Websockets</a></dd>
+                        <dd><a href="node_express.html">Node Web App</a></dd>
+                        <dd><a href="node_cluster.html">Scaling Node</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Next.js</dt>
+                        <dd><a href="nextjs.html">Next.js</a></dd>
+                    </div>
+                </dl>
+              </div>
+            </li>
+            <li class="guides-index guides-index-small">
+              <select class="guides-index-item nav-item">
+                <option value="index.html">Index</option>
+                  <optgroup label="Ruby on Rails">
+                      <option value="ruby_commandline.html">Ruby Commandline</option>
+                      <option value="rails_database_and_model.html">Models and ActiveRecord</option>
+                      <option value="rails_db.html">Database and Migrations</option>
+                      <option value="rails_associations_and_validations.html">Associations and Validations</option>
+                      <option value="rails_view_and_controller.html">Routing, View and Controller</option>
+                      <option value="rails_authentication.html">Simple Authentication</option>
+                      <option value="asset_pipeline.html">The Asset Pipeline</option>
+                      <option value="javascript_and_ajax.html">Rails and old Javascript</option>
+                      <option value="javascript_webpack_frontend.html">Rails and Webpack</option>
+                      <option value="testing.html">Getting started with Testing</option>
+                      <option value="rails_gems.html">Ruby Gems for your Rails Project</option>
+                      <option value="rest-api.html">REST API</option>
+                      <option value="graphql-api.html">GraphQL API</option>
+                      <option value="rails_websockets.html">Websocket in Rails</option>
+                      <option value="jobs_and_tasks.html">Jobs and Tasks in Rails</option>
+                      <option value="refactoring_rails.html">Refactoring Rails</option>
+                      <option value="rails_security.html">Rails Security</option>
+                  </optgroup>
+                  <optgroup label="Overarching Concerns">
+                      <option value="security.html">Security</option>
+                      <option value="adv_authentication.html">Advanced Authentication</option>
+                      <option value="caching.html">Caching</option>
+                      <option value="advanced_testing.html">Advanced Testing</option>
+                      <option value="internationalization.html">Internationalization (I18n)</option>
+                      <option value="git_rebasing.html">Git Rebasing</option>
+                  </optgroup>
+                  <optgroup label="Nodes.js">
+                      <option value="node_vs_rails.html">Node vs. Rails</option>
+                      <option value="node_basics.html">Node Basics</option>
+                      <option value="node_websockets.html">Node Websockets</option>
+                      <option value="node_express.html">Node Web App</option>
+                      <option value="node_cluster.html">Scaling Node</option>
+                  </optgroup>
+                  <optgroup label="Next.js">
+                      <option value="nextjs.html">Next.js</option>
+                  </optgroup>
+              </select>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <hr class="hide" />
+    <section id="feature">
+      <div class="wrapper">
+        <h1>Architectures</h1><p>With the proliferation of frontend frameworks
 you get to choose between many possible architectures
 for your web app.</p><p>After working through this guide you should</p>
-<ul class="checkmark">
+<ul>
 <li>have an overview of possible architecures</li>
 <li>be able to chose an architectures</li>
 </ul>
 
-        </div>
+                  <nav id="subCol">
+            <h3 class="chapter">
+              <picture>
+                <!-- Using the `source`  HTML tag to set the dark theme image -->
+                <source
+                  srcset="images/icon_book-close-bookmark-1-wht.svg"
+                  media="(prefers-color-scheme: dark)"
+                />
+                <img src="images/icon_book-close-bookmark-1.svg" alt="Chapter Icon" />
+              </picture>
+              Chapters
+            </h3>
+            <ol class="chapters">
+<li><a href="#examples">Examples</a></li>
+</ol>
+
+          </nav>
+
+        <hr>
       </div>
-    </div>
-    <div id="container">
+    </section>
+    <main id="container">
       <div class="wrapper">
         <div id="mainCol">
           <div class='slide'>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-0' href='slides_architectures.html#/0'>▻</a>
-<h3 id="examples">
-<a class="anchorlink" href="#examples"></a>1 Examples</h3><p>Here are some possible architectures.  In all of these
+<p class='slide_break_block'><a class='slide_break' id='slide-0' href='slides_architectures.html#/0'>◻</a></p>
+<h2 id="examples"><a class="anchorlink" href="#examples"><span>1</span> Examples</a></h2><p>Here are some possible architectures.  In all of these
 scenarios Ruby on Rails  can be replaced by another web frameworks -
 be it Laravel in PHP or something based on node.js or....</p>
 <ul>
@@ -112,11 +180,9 @@ be it Laravel in PHP or something based on node.js or....</p>
 <ul>
 <li>when the html is first generated, e.g. through data attributes</li>
 <li>through separate ajax requests.  the html can be cached for all users, personalization only occurse through the ajax data</li>
-</ul>
-</li>
+</ul></li>
 <li>every frontend page can also be rendered on the backend if needed (e.g. react)</li>
-</ul>
-</li>
+</ul></li>
 <li>The frontend app is  a "one page app", rails supplies the REST API that contains the business logic and anything
 there are also many options withouth rails:</li>
 <li>the frontend app is a "one page app", the backend is mostly stupid (firebase, couchdb) except for authenticaiton and permissions</li>
@@ -125,17 +191,17 @@ there are also many options withouth rails:</li>
 </div>
         </div>
       </div>
-    </div>
-    <hr class="hide">
-    <div id="footer">
+    </main>
+    <hr class="hide" />
+    <footer id="page_footer">
       <div class="wrapper">
         <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2025 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
-        </p>
-        <p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
-        </p>
+</p>
+<p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
+</p>
+<p>Favicon "backend development" by Arkinasi from <a href="https://thenounproject.com/browse/icons/term/backend-development/" target="_blank" title="backend development Icons">Noun Project</a> (CC BY 3.0)</p>
+
       </div>
-    </div>
-    <script src="javascripts/jquery.min.js"></script>
-    <script src="javascripts/guides.js"></script>
+    </footer>
   </body>
 </html>

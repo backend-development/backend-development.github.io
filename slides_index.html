@@ -5,9 +5,12 @@
     <meta charset="utf-8">
 
     <title>Slides for
-          Backend Development - a textbook
-
+        Textbook Backend Development
     </title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" data-turbo-track="reload">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <link rel="stylesheet" type="text/css" href="stylesheets/highlight.css" data-turbo-track="reload">
+
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
@@ -17,6 +20,8 @@
 		<link rel="stylesheet" href="stylesheets/reveal.css">
 		<link rel="stylesheet" href="stylesheets/myslide.css" id="theme">
     <link rel="stylesheet" href="stylesheets/code.css">
+    <script src="javascripts/clipboard.js" data-turbo-track="reload"></script>
+    <script src="javascripts/slides.js" data-turbo-track="reload"></script>
 
 </head>
 
@@ -24,6 +29,24 @@
     <div class="reveal">
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
+        <section>
+              <h2>About this Book</h2>
+  <p>This is a textbook for the second year of a computer
+    science or "media informatics" degree program.  It builds
+    on <a href="https://web-development.github.com">Web Development</a>
+    (in german).</p>
+  <p>This book is not a self-contained work: There are great
+    resources for learning about backend development with Rails and Node
+    - this book tries to use
+    these resources, and bind them together into a coherent study plan.</p>
+  <p>It was written and published by Brigitte Jellinek
+    in the hope that it will be useful to lecturers and students
+    in educational institutions as well as to self-directed learners on the internet.
+  </p>
+
+          <p><small>Slides - use arrow keys to navigate, esc to return to page view, f for fullscreen</small></p>
+
+        </section>
         <section><a class='slide_break' href='#slide-0'>▻</a>
 <h3>On Backend Development</h3>
 <p>In this course we will learn backend development with
@@ -38,8 +61,8 @@
   ready software. In 2013 we added node.js to cover different aspects of backend development.</p>
   </section>
 <section><a class='slide_break' href='#slide-1'>▻</a>
-<h3>Ruby on Rails</h3>
-  <dl>
+<h2>Ruby on Rails</h2>
+  <dl class="guide-index-list">
       <dt><a href="ruby_commandline.html">Ruby Commandline</a></dt><dd>
         <p>The essential ruby you need to know to understand rails</p>
 </dd>      <dt><a href="rails_database_and_model.html">Models and ActiveRecord</a></dt><dd>
@@ -77,8 +100,8 @@
 </dd>  </dl>
   </section>
 <section><a class='slide_break' href='#slide-2'>▻</a>
-<h3>Overarching Concerns</h3>
-  <dl>
+<h2>Overarching Concerns</h2>
+  <dl class="guide-index-list">
       <dt><a href="security.html">Security</a></dt><dd>
         <p>Some Security Aspects of using Rails, Node and Next.js</p>
 </dd>      <dt><a href="adv_authentication.html">Advanced Authentication</a></dt><dd>
@@ -94,8 +117,8 @@
 </dd>  </dl>
   </section>
 <section><a class='slide_break' href='#slide-3'>▻</a>
-<h3>Nodes.js</h3>
-  <dl>
+<h2>Nodes.js</h2>
+  <dl class="guide-index-list">
       <dt><a href="node_vs_rails.html">Node vs. Rails</a></dt><dd>
         <p>What are the differences, and why should I learn both?</p>
 </dd>      <dt><a href="node_basics.html">Node Basics</a></dt><dd>
@@ -109,8 +132,8 @@
 </dd>  </dl>
   </section>
 <section><a class='slide_break' href='#slide-4'>▻</a>
-<h3>Next.js</h3>
-  <dl>
+<h2>Next.js</h2>
+  <dl class="guide-index-list">
       <dt><a href="nextjs.html">Next.js</a></dt><dd>
         <p>A Framework for React, including Backend Concerns</p>
 </dd>  </dl>
@@ -135,8 +158,9 @@
       // The "normal" size of the presentation, aspect ratio will
       // be preserved when the presentation is scaled to fit different
       // resolutions. Can be specified using percentage units.
-      width: 800,
+      width: 1000,
       height: 600,
+      disableLayout: false,
 
       // Factor of the display size that should remain empty around
       // the content
@@ -149,10 +173,10 @@
       keyboard: {
         27: () => {
           // do something custom when ESC is pressed
-          var new_url = window.location.pathname.replace('slides_', '');
-          console.log('esc to ', new_url);
+          var new_url = window.location.pathname.replace('slides_', '') + window.location.hash.replace('/','slide-');
           window.location = new_url;
         },
+        191: 'toggleHelp',
         13: 'next', // go to the next slide when the ENTER key is pressed
       },
 

@@ -1,222 +1,319 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html dir="ltr" lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Node.js vs Rails — Backend Development</title>
-    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+    <title>Node.js vs Rails — Ruby on Rails Guides</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" data-turbo-track="reload">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-    <link rel="stylesheet" type="text/css" href="stylesheets/code.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css">
-    <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <style>
-      .slide img[src$=svg] {
-        width: 100%;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="stylesheets/highlight.css" data-turbo-track="reload">
+    <link rel="icon" href="images/backend-development.svg" sizes="any">
+    <script src="javascripts/@hotwired--turbo.js" data-turbo-track="reload"></script>
+    <script src="javascripts/clipboard.js" data-turbo-track="reload"></script>
+    <script src="javascripts/guides.js" data-turbo-track="reload"></script>
+    <meta property="og:title" content="Node.js vs Rails — Ruby on Rails Guides" />
+    <meta name="description" content="Node.js vs RailsAfter working through this guide you should understand the differences and similarities of JavaScript and Ruby understand the different roles node.js and Rails have" />
+    <meta property="og:description" content="Node.js vs RailsAfter working through this guide you should understand the differences and similarities of JavaScript and Ruby understand the different roles node.js and Rails have" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Textbook Backend Developemnt" />
+    <meta property="og:image" content="images/backend-development.svg" />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#2e56e9">
   </head>
   <body class="guide">
-    <div id="header">
+    <header id="page_header">
       <div class="wrapper clearfix">
-        <h1><a href="index.html" title="Return to home page">Backend<span> Development</span></a></h1>
-        <ul class="nav">
-          <li class="guides-index guides-index-large">
-            <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
-            <div id="guides" class="clearfix" style="display: none;">
-              <hr>
-                <dl class="L">
-                    <dt>Ruby on Rails</dt>
-                      <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
-                      <dd><a href="rails_database_and_model.html">Models and ActiveRecord</a></dd>
-                      <dd><a href="rails_db.html">Database and Migrations</a></dd>
-                      <dd><a href="rails_associations_and_validations.html">Associations and Validations</a></dd>
-                      <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
-                      <dd><a href="rails_authentication.html">Simple Authentication</a></dd>
-                      <dd><a href="asset_pipeline.html">The Asset Pipeline</a></dd>
-                      <dd><a href="javascript_and_ajax.html">Rails and old Javascript</a></dd>
-                      <dd><a href="javascript_webpack_frontend.html">Rails and Webpack</a></dd>
-                      <dd><a href="testing.html">Getting started with Testing</a></dd>
-                      <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
-                      <dd><a href="rest-api.html">REST API</a></dd>
-                      <dd><a href="graphql-api.html">GraphQL API</a></dd>
-                      <dd><a href="rails_websockets.html">Websocket in Rails</a></dd>
-                      <dd><a href="jobs_and_tasks.html">Jobs and Tasks in Rails</a></dd>
-                      <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
-                      <dd><a href="rails_security.html">Rails Security</a></dd>
-                    <dt>Overarching Concerns</dt>
-                      <dd><a href="security.html">Security</a></dd>
-                      <dd><a href="adv_authentication.html">Advanced Authentication</a></dd>
-                      <dd><a href="caching.html">Caching</a></dd>
-                      <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
-                      <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
-                      <dd><a href="git_rebasing.html">Git Rebasing</a></dd>
-                    <dt>Nodes.js</dt>
-                      <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
-                      <dd><a href="node_basics.html">Node Basics</a></dd>
-                      <dd><a href="node_websockets.html">Node Websockets</a></dd>
-                      <dd><a href="node_express.html">Node Web App</a></dd>
-                      <dd><a href="node_cluster.html">Scaling Node</a></dd>
-                    <dt>Next.js</dt>
-                      <dd><a href="nextjs.html">Next.js</a></dd>
+        <nav id="feature_nav">
+          <div class="header-logo">
+            <a href="/">Backend Development</a>
+          </div>
+          <ul class="nav">
+            <li><a class="nav-item" id="home_nav" href="/">Home</a></li>
+            <li class="guides-index guides-index-large">
+              <a href="index.html" id="guidesMenu" class="guides-index-item nav-item">Index</a>
+              <div id="guides" class="clearfix" style="display: none;">
+                <hr />
+                <dl class="guides-section-container">
+                    <div class="guides-section">
+                      <dt>Ruby on Rails</dt>
+                        <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
+                        <dd><a href="rails_database_and_model.html">Models and ActiveRecord</a></dd>
+                        <dd><a href="rails_db.html">Database and Migrations</a></dd>
+                        <dd><a href="rails_associations_and_validations.html">Associations and Validations</a></dd>
+                        <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
+                        <dd><a href="rails_authentication.html">Simple Authentication</a></dd>
+                        <dd><a href="asset_pipeline.html">The Asset Pipeline</a></dd>
+                        <dd><a href="javascript_and_ajax.html">Rails and old Javascript</a></dd>
+                        <dd><a href="javascript_webpack_frontend.html">Rails and Webpack</a></dd>
+                        <dd><a href="testing.html">Getting started with Testing</a></dd>
+                        <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
+                        <dd><a href="rest-api.html">REST API</a></dd>
+                        <dd><a href="graphql-api.html">GraphQL API</a></dd>
+                        <dd><a href="rails_websockets.html">Websocket in Rails</a></dd>
+                        <dd><a href="jobs_and_tasks.html">Jobs and Tasks in Rails</a></dd>
+                        <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
+                        <dd><a href="rails_security.html">Rails Security</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Overarching Concerns</dt>
+                        <dd><a href="security.html">Security</a></dd>
+                        <dd><a href="adv_authentication.html">Advanced Authentication</a></dd>
+                        <dd><a href="caching.html">Caching</a></dd>
+                        <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
+                        <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
+                        <dd><a href="git_rebasing.html">Git Rebasing</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Nodes.js</dt>
+                        <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
+                        <dd><a href="node_basics.html">Node Basics</a></dd>
+                        <dd><a href="node_websockets.html">Node Websockets</a></dd>
+                        <dd><a href="node_express.html">Node Web App</a></dd>
+                        <dd><a href="node_cluster.html">Scaling Node</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Next.js</dt>
+                        <dd><a href="nextjs.html">Next.js</a></dd>
+                    </div>
                 </dl>
-                <dl class="R">
-                </dl>
-            </div>
-          </li>
-        </ul>
+              </div>
+            </li>
+            <li class="guides-index guides-index-small">
+              <select class="guides-index-item nav-item">
+                <option value="index.html">Index</option>
+                  <optgroup label="Ruby on Rails">
+                      <option value="ruby_commandline.html">Ruby Commandline</option>
+                      <option value="rails_database_and_model.html">Models and ActiveRecord</option>
+                      <option value="rails_db.html">Database and Migrations</option>
+                      <option value="rails_associations_and_validations.html">Associations and Validations</option>
+                      <option value="rails_view_and_controller.html">Routing, View and Controller</option>
+                      <option value="rails_authentication.html">Simple Authentication</option>
+                      <option value="asset_pipeline.html">The Asset Pipeline</option>
+                      <option value="javascript_and_ajax.html">Rails and old Javascript</option>
+                      <option value="javascript_webpack_frontend.html">Rails and Webpack</option>
+                      <option value="testing.html">Getting started with Testing</option>
+                      <option value="rails_gems.html">Ruby Gems for your Rails Project</option>
+                      <option value="rest-api.html">REST API</option>
+                      <option value="graphql-api.html">GraphQL API</option>
+                      <option value="rails_websockets.html">Websocket in Rails</option>
+                      <option value="jobs_and_tasks.html">Jobs and Tasks in Rails</option>
+                      <option value="refactoring_rails.html">Refactoring Rails</option>
+                      <option value="rails_security.html">Rails Security</option>
+                  </optgroup>
+                  <optgroup label="Overarching Concerns">
+                      <option value="security.html">Security</option>
+                      <option value="adv_authentication.html">Advanced Authentication</option>
+                      <option value="caching.html">Caching</option>
+                      <option value="advanced_testing.html">Advanced Testing</option>
+                      <option value="internationalization.html">Internationalization (I18n)</option>
+                      <option value="git_rebasing.html">Git Rebasing</option>
+                  </optgroup>
+                  <optgroup label="Nodes.js">
+                      <option value="node_vs_rails.html">Node vs. Rails</option>
+                      <option value="node_basics.html">Node Basics</option>
+                      <option value="node_websockets.html">Node Websockets</option>
+                      <option value="node_express.html">Node Web App</option>
+                      <option value="node_cluster.html">Scaling Node</option>
+                  </optgroup>
+                  <optgroup label="Next.js">
+                      <option value="nextjs.html">Next.js</option>
+                  </optgroup>
+              </select>
+            </li>
+          </ul>
+        </nav>
       </div>
-    </div>
-    <hr class="hide">
-    <div id="feature">
+    </header>
+    <hr class="hide" />
+    <section id="feature">
       <div class="wrapper">
-        <h2 id="preheader">Node.js vs Rails</h2>
-                  <div id="subCol">
-            <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
+        <h1>Node.js vs Rails</h1><p>After working through this guide you should</p>
+<ul>
+<li>understand the differences and similarities of JavaScript and Ruby</li>
+<li>understand the different roles node.js and Rails have</li>
+</ul>
+
+                  <nav id="subCol">
+            <h3 class="chapter">
+              <picture>
+                <!-- Using the `source`  HTML tag to set the dark theme image -->
+                <source
+                  srcset="images/icon_book-close-bookmark-1-wht.svg"
+                  media="(prefers-color-scheme: dark)"
+                />
+                <img src="images/icon_book-close-bookmark-1.svg" alt="Chapter Icon" />
+              </picture>
+              Chapters
+            </h3>
             <ol class="chapters">
-<li>
-<a href="#javascript-vs-ruby">JavaScript vs. Ruby</a>
+<li><a href="#javascript-vs-ruby">JavaScript vs. Ruby</a>
 
 <ul>
 <li><a href="#background">Background</a></li>
 <li><a href="#syntax">Syntax</a></li>
 <li><a href="#variables-and-types">Variables and Types</a></li>
 <li><a href="#functions-vs-blocks">functions vs blocks</a></li>
-</ul>
-</li>
-<li>
-<a href="#node-vs-rails">Node vs Rails:</a>
+</ul></li>
+<li><a href="#node-vs-rails">Node vs Rails:</a>
 
 <ul>
 <li><a href="#apples-vs-oranges">apples vs. oranges</a></li>
 <li><a href="#processing-model-for-plain-http-rest">processing model for plain HTTP / REST</a></li>
 <li><a href="#asyn-vs-sync">asyn vs sync</a></li>
-</ul>
-</li>
+</ul></li>
 <li><a href="#summary">Summary</a></li>
 </ol>
 
-          </div>
+          </nav>
 
-        <div class="rest_header">
-          <h2>Node.js vs Rails</h2><p>After working through this guide you should</p>
-<ul class="checkmark">
-<li>understand the differences and similarities of JavaScript and Ruby</li>
-<li>understand the different roles node.js and Rails have</li>
-</ul>
-
-        </div>
+        <hr>
       </div>
-    </div>
-    <div id="container">
+    </section>
+    <main id="container">
       <div class="wrapper">
         <div id="mainCol">
           <div class='slide'>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-0' href='slides_node_vs_rails.html#/0'>▻</a>
-<h3 id="javascript-vs-ruby">
-<a class="anchorlink" href="#javascript-vs-ruby"></a>1 JavaScript vs. Ruby</h3></div>
+<p class='slide_break_block'><a class='slide_break' id='slide-0' href='slides_node_vs_rails.html#/0'>◻</a></p>
+<h2 id="javascript-vs-ruby"><a class="anchorlink" href="#javascript-vs-ruby"><span>1</span> JavaScript vs. Ruby</a></h2></div>
 <div class='slide'>
-<a class='slide_break' id='slide-1' href='slides_node_vs_rails.html#/1'>▻</a>
-<h4 id="background">
-<a class="anchorlink" href="#background"></a>1.1 Background</h4><p>Both JavaScript and Ruby are interpreted languages with more than
+<p class='slide_break_block'><a class='slide_break' id='slide-1' href='slides_node_vs_rails.html#/1'>◻</a></p>
+<h3 id="background"><a class="anchorlink" href="#background"><span>1.1</span> Background</a></h3><p>Both JavaScript and Ruby are interpreted languages with more than
 20 years of history. The both were influenced by object orientation
 and functional programming.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-2' href='slides_node_vs_rails.html#/2'>▻</a>
-<h4 id="syntax">
-<a class="anchorlink" href="#syntax"></a>1.2 Syntax</h4><p>JavaScript Syntax is inspired by the C family of languages:
+<p class='slide_break_block'><a class='slide_break' id='slide-2' href='slides_node_vs_rails.html#/2'>◻</a></p>
+<h3 id="syntax"><a class="anchorlink" href="#syntax"><span>1.2</span> Syntax</a></h3><p>JavaScript Syntax is inspired by the C family of languages:
 curly braces and semicolons. But it adds it's own idiosyncrasies
-(e.g. you can leave out the semicolons).</p><div class="code_container">
-<pre><code class="highlight plaintext">// Javascript
+(e.g. you can leave out the semicolons).</p><div class="interstitial code">
+<pre><code class="highlight js"><span class="c1">// Javascript</span>
+<span class="k">if </span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Hello World</span><span class="dl">'</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="// Javascript
 if (this) {
   console.log('Hello World');
 }
-</code></pre>
+">Copy</button>
 </div>
-<p>Ruby mostly uses words instead of curly braces, and no Semicolons</p><div class="code_container">
-<pre><code class="highlight plaintext"># Ruby
+<p>Ruby mostly uses words instead of curly braces, and no Semicolons</p><div class="interstitial code">
+<pre><code class="highlight ruby"><span class="c1"># Ruby</span>
+<span class="k">if</span> <span class="n">this</span>
+  <span class="nb">puts</span> <span class="s1">'Hello World'</span>
+<span class="k">end</span>
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="# Ruby
 if this
   puts 'Hello World'
 end
-</code></pre>
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-3' href='slides_node_vs_rails.html#/3'>▻</a>
-<h4 id="variables-and-types">
-<a class="anchorlink" href="#variables-and-types"></a>1.3 Variables and Types</h4><p>Both Interpreter will check if your variables were initialized before
+<p class='slide_break_block'><a class='slide_break' id='slide-3' href='slides_node_vs_rails.html#/3'>◻</a></p>
+<h3 id="variables-and-types"><a class="anchorlink" href="#variables-and-types"><span>1.3</span> Variables and Types</a></h3><p>Both Interpreter will check if your variables were initialized before
 you start using them. In both languages values are typed,
-but variables are not: you can store values of different type in the same variable:</p><div class="code_container">
+but variables are not: you can store values of different type in the same variable:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">a = 5
 a = "not a problem"
 a = 3.141
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="a = 5
+a = &quot;not a problem&quot;
+a = 3.141
+">Copy</button>
 </div>
-<p>Ruby is strongly typed:</p><div class="code_container">
-<pre><code class="highlight plaintext">irb&gt; "3" + 5
+<p>Ruby is strongly typed:</p><div class="interstitial code">
+<pre><code class="highlight ruby"><span class="n">irb</span><span class="o">&gt;</span> <span class="s2">"3"</span> <span class="o">+</span> <span class="mi">5</span>
+<span class="no">TypeError</span><span class="p">:</span> <span class="n">no</span> <span class="n">implicit</span> <span class="n">conversion</span> <span class="n">of</span> <span class="no">Fixnum</span> <span class="n">into</span> <span class="no">String</span>
+<span class="n">irb</span><span class="o">&gt;</span> <span class="s2">"3"</span><span class="p">.</span><span class="nf">to_i</span> <span class="o">+</span> <span class="mi">5</span>
+<span class="mi">8</span>
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="irb> &quot;3&quot; + 5
 TypeError: no implicit conversion of Fixnum into String
-irb&gt; "3".to_i + 5
+irb> &quot;3&quot;.to_i + 5
 8
-</code></pre>
+">Copy</button>
 </div>
-<p>Javascript converts types automatically.</p><div class="code_container">
-<pre><code class="highlight plaintext">js&gt; "3" * 5
-15
-js&gt; "3" + 5   // string concatenation!
-"35"
-js&gt; 3 + 5   // addition!
-8
+<p>Javascript converts types automatically.</p><div class="interstitial code">
+<pre><code class="highlight js"><span class="nx">js</span><span class="o">&gt;</span> <span class="dl">"</span><span class="s2">3</span><span class="dl">"</span> <span class="o">*</span> <span class="mi">5</span>
+<span class="mi">15</span>
+<span class="nx">js</span><span class="o">&gt;</span> <span class="dl">"</span><span class="s2">3</span><span class="dl">"</span> <span class="o">+</span> <span class="mi">5</span>   <span class="c1">// string concatenation!</span>
+<span class="dl">"</span><span class="s2">35</span><span class="dl">"</span>
+<span class="nx">js</span><span class="o">&gt;</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">5</span>   <span class="c1">// addition!</span>
+<span class="mi">8</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="js> &quot;3&quot; * 5
+15
+js> &quot;3&quot; + 5   // string concatenation!
+&quot;35&quot;
+js> 3 + 5   // addition!
+8
+">Copy</button>
 </div>
 <p>The plus sign is both used for mathematics and for string concatenation in JavaScript.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-4' href='slides_node_vs_rails.html#/4'>▻</a>
-<h4 id="functions-vs-blocks">
-<a class="anchorlink" href="#functions-vs-blocks"></a>1.4 functions vs blocks</h4><p>Both languages have their ways of organizing the code that is found rarely in other languages:
+<p class='slide_break_block'><a class='slide_break' id='slide-4' href='slides_node_vs_rails.html#/4'>◻</a></p>
+<h3 id="functions-vs-blocks"><a class="anchorlink" href="#functions-vs-blocks"><span>1.4</span> functions vs blocks</a></h3><p>Both languages have their ways of organizing the code that is found rarely in other languages:
 In JavaScript you will uses <strong>arrow functions</strong>  a lot.
-Here we use them for handling events:</p><div class="code_container">
-<pre><code class="highlight plaintext">window.addEventListener('DOMContentLoaded', () =&gt; {
-  document.getElementById('buttonId').addEventListener("click", () =&gt; {
+Here we use them for handling events:</p><div class="interstitial code">
+<pre><code class="highlight js"><span class="nb">window</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">DOMContentLoaded</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nf">getElementById</span><span class="p">(</span><span class="dl">'</span><span class="s1">buttonId</span><span class="dl">'</span><span class="p">).</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">button clicked</span><span class="dl">'</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('buttonId').addEventListener(&quot;click&quot;, () => {
     console.log('button clicked');
   });
 });
-</code></pre>
+">Copy</button>
 </div>
 <p>But let's look at an example that is better for comparing with Ruby:
-In Ruby you will use <strong>blocks</strong>:</p><div class="code_container">
-<pre><code class="highlight plaintext">a.map{|x| x * 2}.each do |x|
-  puts "#{x} is not a prime"
-end
+In Ruby you will use <strong>blocks</strong>:</p><div class="interstitial code">
+<pre><code class="highlight ruby"><span class="n">a</span><span class="p">.</span><span class="nf">map</span><span class="p">{</span><span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">}.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
+  <span class="nb">puts</span> <span class="s2">"</span><span class="si">#{</span><span class="n">x</span><span class="si">}</span><span class="s2"> is not a prime"</span>
+<span class="k">end</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="a.map{|x| x * 2}.each do |x|
+  puts &quot;#{x} is not a prime&quot;
+end
+">Copy</button>
 </div>
 <p>This example shows a one-line-block in the curly braces and a big block
-delimited by <code>do</code>, <code>end</code>. In JavasScript (2015) you can write very simliar code.
-Here the fat arrow-notation for anonymous functions is used:</p><div class="code_container">
-<pre><code class="highlight plaintext">a.map(x =&gt; x * 2).forEach(x =&gt; {
+delimited by <code>do</code>, <code>end</code>. In JavasScript you can write very simliar code.
+Here the fat arrow-notation for anonymous functions is used:</p><div class="interstitial code">
+<pre><code class="highlight js"><span class="nx">a</span><span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nx">x</span> <span class="o">=&gt;</span> <span class="nx">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">).</span><span class="nf">forEach</span><span class="p">(</span><span class="nx">x</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">x</span><span class="p">}</span><span class="s2"> is not a prime`</span><span class="p">)</span>
+<span class="p">});</span>
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="a.map(x => x * 2).forEach(x => {
   console.log(`${x} is not a prime`)
 });
-</code></pre>
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-5' href='slides_node_vs_rails.html#/5'>▻</a>
-<h3 id="node-vs-rails">
-<a class="anchorlink" href="#node-vs-rails"></a>2 Node vs Rails:</h3></div>
+<p class='slide_break_block'><a class='slide_break' id='slide-5' href='slides_node_vs_rails.html#/5'>◻</a></p>
+<h2 id="node-vs-rails"><a class="anchorlink" href="#node-vs-rails"><span>2</span> Node vs Rails:</a></h2></div>
 <div class='slide'>
-<a class='slide_break' id='slide-6' href='slides_node_vs_rails.html#/6'>▻</a>
-<h4 id="apples-vs-oranges">
-<a class="anchorlink" href="#apples-vs-oranges"></a>2.1 apples vs. oranges</h4><p>Comparing Node to Rails is not quite a fair comparison:</p><p>Rails is a complete web backend framework, with ORM, templates,
+<p class='slide_break_block'><a class='slide_break' id='slide-6' href='slides_node_vs_rails.html#/6'>◻</a></p>
+<h3 id="apples-vs-oranges"><a class="anchorlink" href="#apples-vs-oranges"><span>2.1</span> apples vs. oranges</a></h3><p>Comparing Node to Rails is not quite a fair comparison:</p><p>Rails is a complete web backend framework, with ORM, templates,
 testing setup and a lot of other features that are already decided and set up for you.</p><p>Node is a building block for a web backend. If you want an ORM, you can pick one.
 There are three templating systems to choose from. If you need testing, you have to set it up yourself.
 And you have to put all these pieces together to build your web application.</p><p>It would be more appropriate to compare Rails to nest.js (a complete node
 backend framework), or Express (a minimal Node.js backend) to Sinatra
 (a minimal Ruby backend).</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-7' href='slides_node_vs_rails.html#/7'>▻</a>
-<h4 id="processing-model-for-plain-http-rest">
-<a class="anchorlink" href="#processing-model-for-plain-http-rest"></a>2.2 processing model for plain HTTP / REST</h4><p>Following the classic model of backend languages, Ruby on Rails
+<p class='slide_break_block'><a class='slide_break' id='slide-7' href='slides_node_vs_rails.html#/7'>◻</a></p>
+<h3 id="processing-model-for-plain-http-rest"><a class="anchorlink" href="#processing-model-for-plain-http-rest"><span>2.2</span> processing model for plain HTTP / REST</a></h3><p>Following the classic model of backend languages, Ruby on Rails
 takes advantage of the stateless nature of HTTP: as a developer, you can
 developer, you can treat each HTTP request separately.
 Your mental model of the program might be</p>
@@ -241,8 +338,7 @@ requests. Your mental model needs to be much more complex:</p>
 <li>the middleware gives me the request</li>
 <li>I can store some things in the database or in global variables to hold for the next request</li>
 <li>then I return the resulting HTML (or JSON, or whatever)</li>
-</ol>
-</li>
+</ol></li>
 <li><p>I might want to respond to signals to re-read the configuration, or do some cleanup before shutdown.
 This goes back to the stateless nature of HTTP: as a developer
 you can treat each HTTP request separately.
@@ -254,35 +350,26 @@ Your mental model of the program might be</p></li>
 <li><p>then it writes out the resulting HTML (or JSON, or whatever)</p></li>
 <li><p>and then my program exits, clearing all variables and freeing all memory.</p></li>
 </ol>
-<p>With Node, you not only write a backend program, you also write the
-web server. The variables you manipulate are shared between all HTTP
-requests. Your mental model needs to be much more complex:</p>
-<ol>
-<li>my node application starts</li>
-<li>it needs to load configuration, make database connections, organise them in a pool, prepare some global variables</li>
-<li>then I spin up a web server to handle HTTP requests</li>
-<li>for each request
-
-<ol>
-<li>the middleware gives me the request</li>
-<li>I can store some things in the database or in global variables to hold for the next request</li>
-<li>then I return the resulting HTML (or JSON, or whatever)</li>
-</ol>
-</li>
-<li>I might want to respond to signals to re-read the configuration, or do some cleanup before shutdown.</li>
-</ol>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-8' href='slides_node_vs_rails.html#/8'>▻</a>
-<h4 id="asyn-vs-sync">
-<a class="anchorlink" href="#asyn-vs-sync"></a>2.3 asyn vs sync</h4><p>Node relies heavily on asynchronous processing. As a programmer
+<p class='slide_break_block'><a class='slide_break' id='slide-8' href='slides_node_vs_rails.html#/8'>◻</a></p>
+<h3 id="asyn-vs-sync"><a class="anchorlink" href="#asyn-vs-sync"><span>2.3</span> asyn vs sync</a></h3><p>Node relies heavily on asynchronous processing. As a programmer
 you have to write asynchronous code for common actions like:</p>
 <ul>
 <li>sending a request to a database + handling the results</li>
 <li>reading from a file + handling the data that has been read</li>
 </ul>
-<div class="code_container">
-<pre><code class="highlight plaintext">db.get('users', userId, function(err, user) {
+<div class="interstitial code">
+<pre><code class="highlight js"><span class="nx">db</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">'</span><span class="s1">users</span><span class="dl">'</span><span class="p">,</span> <span class="nx">userId</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">user</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nf">readFile</span><span class="p">(</span><span class="nx">user</span><span class="p">.</span><span class="nx">profilepic</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// create thumbnail from profile pic</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="db.get('users', userId, function(err, user) {
   if(!err) {
     fs.readFile(user.profilepic, function(err,data){
       if(!err) {
@@ -290,7 +377,7 @@ you have to write asynchronous code for common actions like:</p>
       }
     });
 });
-</code></pre>
+">Copy</button>
 </div>
 <p>There are several different programming styles to handle asynchronicity,
 chaining asynchronous actions, and handling errors from asynchronous
@@ -299,8 +386,20 @@ actions in JavaScript. For many years
 were the preferred style in node. sind 2015  Promises are supported natively, and since
 2014 async await is fully supported.</p><p>In Rails you access files and databases in a synchronous fashion.
 Only actions that would take longer than the user
-is willing to wait for a response are handled by "workers":</p><div class="code_container">
-<pre><code class="highlight plaintext">class ThumbnailJob &lt; ActiveJob::Base
+is willing to wait for a response are handled by "workers":</p><div class="interstitial code">
+<pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">ThumbnailJob</span> <span class="o">&lt;</span> <span class="no">ActiveJob</span><span class="o">::</span><span class="no">Base</span>
+ <span class="n">queue_as</span> <span class="ss">:default</span>
+
+ <span class="k">def</span> <span class="nf">perform</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+   <span class="n">img</span> <span class="o">=</span> <span class="no">Magick</span><span class="o">::</span><span class="no">Image</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="nf">profilepic</span><span class="p">).</span><span class="nf">first</span>
+   <span class="c1"># create a thumbnail</span>
+ <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># in a controller somewhere:</span>
+<span class="no">ThumbnailJob</span><span class="p">.</span><span class="nf">perform_later</span> <span class="n">current_user</span>
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="class ThumbnailJob < ActiveJob::Base
  queue_as :default
 
  def perform(user)
@@ -311,13 +410,12 @@ end
 
 # in a controller somewhere:
 ThumbnailJob.perform_later current_user
-</code></pre>
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-9' href='slides_node_vs_rails.html#/9'>▻</a>
-<h3 id="summary">
-<a class="anchorlink" href="#summary"></a>3 Summary</h3><p>Ruby and JavaScript are similar programming languages.</p><p>node.js and Rails represent two very different approaches for programming a web backend.
+<p class='slide_break_block'><a class='slide_break' id='slide-9' href='slides_node_vs_rails.html#/9'>◻</a></p>
+<h2 id="summary"><a class="anchorlink" href="#summary"><span>3</span> Summary</a></h2><p>Ruby and JavaScript are similar programming languages.</p><p>node.js and Rails represent two very different approaches for programming a web backend.
 As a developer, nodes.js will confront you with harder problems to solve,
 while Rails will try to solve the hard problems for you
 and give you a simple programming model to work with.</p><p>For beginners I would recommend Ruby and Rails in the backend and
@@ -326,17 +424,17 @@ The version on this website was
  updated in 2023.</p></div>
         </div>
       </div>
-    </div>
-    <hr class="hide">
-    <div id="footer">
+    </main>
+    <hr class="hide" />
+    <footer id="page_footer">
       <div class="wrapper">
         <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2025 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
-        </p>
-        <p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
-        </p>
+</p>
+<p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
+</p>
+<p>Favicon "backend development" by Arkinasi from <a href="https://thenounproject.com/browse/icons/term/backend-development/" target="_blank" title="backend development Icons">Noun Project</a> (CC BY 3.0)</p>
+
       </div>
-    </div>
-    <script src="javascripts/jquery.min.js"></script>
-    <script src="javascripts/guides.js"></script>
+    </footer>
   </body>
 </html>

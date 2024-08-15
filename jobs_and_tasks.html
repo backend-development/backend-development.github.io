@@ -1,82 +1,158 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html dir="ltr" lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Jobs and Tasks in Rails — Backend Development</title>
-    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+    <title>Jobs and Tasks in Rails — Ruby on Rails Guides</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" data-turbo-track="reload">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-    <link rel="stylesheet" type="text/css" href="stylesheets/code.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css">
-    <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <style>
-      .slide img[src$=svg] {
-        width: 100%;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="stylesheets/highlight.css" data-turbo-track="reload">
+    <link rel="icon" href="images/backend-development.svg" sizes="any">
+    <script src="javascripts/@hotwired--turbo.js" data-turbo-track="reload"></script>
+    <script src="javascripts/clipboard.js" data-turbo-track="reload"></script>
+    <script src="javascripts/guides.js" data-turbo-track="reload"></script>
+    <meta property="og:title" content="Jobs and Tasks in Rails — Ruby on Rails Guides" />
+    <meta name="description" content="Jobs and Tasks in RailsYour web application will need code that is run outside the HTTP Request-Response cycle.By referring to this guide, you will be able to: Implement tasks that you can start from the commandline Implement jobs that are run automatically, but asyncronously" />
+    <meta property="og:description" content="Jobs and Tasks in RailsYour web application will need code that is run outside the HTTP Request-Response cycle.By referring to this guide, you will be able to: Implement tasks that you can start from the commandline Implement jobs that are run automatically, but asyncronously" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Textbook Backend Developemnt" />
+    <meta property="og:image" content="images/backend-development.svg" />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#2e56e9">
   </head>
   <body class="guide">
-    <div id="header">
+    <header id="page_header">
       <div class="wrapper clearfix">
-        <h1><a href="index.html" title="Return to home page">Backend<span> Development</span></a></h1>
-        <ul class="nav">
-          <li class="guides-index guides-index-large">
-            <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
-            <div id="guides" class="clearfix" style="display: none;">
-              <hr>
-                <dl class="L">
-                    <dt>Ruby on Rails</dt>
-                      <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
-                      <dd><a href="rails_database_and_model.html">Models and ActiveRecord</a></dd>
-                      <dd><a href="rails_db.html">Database and Migrations</a></dd>
-                      <dd><a href="rails_associations_and_validations.html">Associations and Validations</a></dd>
-                      <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
-                      <dd><a href="rails_authentication.html">Simple Authentication</a></dd>
-                      <dd><a href="asset_pipeline.html">The Asset Pipeline</a></dd>
-                      <dd><a href="javascript_and_ajax.html">Rails and old Javascript</a></dd>
-                      <dd><a href="javascript_webpack_frontend.html">Rails and Webpack</a></dd>
-                      <dd><a href="testing.html">Getting started with Testing</a></dd>
-                      <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
-                      <dd><a href="rest-api.html">REST API</a></dd>
-                      <dd><a href="graphql-api.html">GraphQL API</a></dd>
-                      <dd><a href="rails_websockets.html">Websocket in Rails</a></dd>
-                      <dd><a href="jobs_and_tasks.html">Jobs and Tasks in Rails</a></dd>
-                      <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
-                      <dd><a href="rails_security.html">Rails Security</a></dd>
-                    <dt>Overarching Concerns</dt>
-                      <dd><a href="security.html">Security</a></dd>
-                      <dd><a href="adv_authentication.html">Advanced Authentication</a></dd>
-                      <dd><a href="caching.html">Caching</a></dd>
-                      <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
-                      <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
-                      <dd><a href="git_rebasing.html">Git Rebasing</a></dd>
-                    <dt>Nodes.js</dt>
-                      <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
-                      <dd><a href="node_basics.html">Node Basics</a></dd>
-                      <dd><a href="node_websockets.html">Node Websockets</a></dd>
-                      <dd><a href="node_express.html">Node Web App</a></dd>
-                      <dd><a href="node_cluster.html">Scaling Node</a></dd>
-                    <dt>Next.js</dt>
-                      <dd><a href="nextjs.html">Next.js</a></dd>
+        <nav id="feature_nav">
+          <div class="header-logo">
+            <a href="/">Backend Development</a>
+          </div>
+          <ul class="nav">
+            <li><a class="nav-item" id="home_nav" href="/">Home</a></li>
+            <li class="guides-index guides-index-large">
+              <a href="index.html" id="guidesMenu" class="guides-index-item nav-item">Index</a>
+              <div id="guides" class="clearfix" style="display: none;">
+                <hr />
+                <dl class="guides-section-container">
+                    <div class="guides-section">
+                      <dt>Ruby on Rails</dt>
+                        <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
+                        <dd><a href="rails_database_and_model.html">Models and ActiveRecord</a></dd>
+                        <dd><a href="rails_db.html">Database and Migrations</a></dd>
+                        <dd><a href="rails_associations_and_validations.html">Associations and Validations</a></dd>
+                        <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
+                        <dd><a href="rails_authentication.html">Simple Authentication</a></dd>
+                        <dd><a href="asset_pipeline.html">The Asset Pipeline</a></dd>
+                        <dd><a href="javascript_and_ajax.html">Rails and old Javascript</a></dd>
+                        <dd><a href="javascript_webpack_frontend.html">Rails and Webpack</a></dd>
+                        <dd><a href="testing.html">Getting started with Testing</a></dd>
+                        <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
+                        <dd><a href="rest-api.html">REST API</a></dd>
+                        <dd><a href="graphql-api.html">GraphQL API</a></dd>
+                        <dd><a href="rails_websockets.html">Websocket in Rails</a></dd>
+                        <dd><a href="jobs_and_tasks.html">Jobs and Tasks in Rails</a></dd>
+                        <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
+                        <dd><a href="rails_security.html">Rails Security</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Overarching Concerns</dt>
+                        <dd><a href="security.html">Security</a></dd>
+                        <dd><a href="adv_authentication.html">Advanced Authentication</a></dd>
+                        <dd><a href="caching.html">Caching</a></dd>
+                        <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
+                        <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
+                        <dd><a href="git_rebasing.html">Git Rebasing</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Nodes.js</dt>
+                        <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
+                        <dd><a href="node_basics.html">Node Basics</a></dd>
+                        <dd><a href="node_websockets.html">Node Websockets</a></dd>
+                        <dd><a href="node_express.html">Node Web App</a></dd>
+                        <dd><a href="node_cluster.html">Scaling Node</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Next.js</dt>
+                        <dd><a href="nextjs.html">Next.js</a></dd>
+                    </div>
                 </dl>
-                <dl class="R">
-                </dl>
-            </div>
-          </li>
-        </ul>
+              </div>
+            </li>
+            <li class="guides-index guides-index-small">
+              <select class="guides-index-item nav-item">
+                <option value="index.html">Index</option>
+                  <optgroup label="Ruby on Rails">
+                      <option value="ruby_commandline.html">Ruby Commandline</option>
+                      <option value="rails_database_and_model.html">Models and ActiveRecord</option>
+                      <option value="rails_db.html">Database and Migrations</option>
+                      <option value="rails_associations_and_validations.html">Associations and Validations</option>
+                      <option value="rails_view_and_controller.html">Routing, View and Controller</option>
+                      <option value="rails_authentication.html">Simple Authentication</option>
+                      <option value="asset_pipeline.html">The Asset Pipeline</option>
+                      <option value="javascript_and_ajax.html">Rails and old Javascript</option>
+                      <option value="javascript_webpack_frontend.html">Rails and Webpack</option>
+                      <option value="testing.html">Getting started with Testing</option>
+                      <option value="rails_gems.html">Ruby Gems for your Rails Project</option>
+                      <option value="rest-api.html">REST API</option>
+                      <option value="graphql-api.html">GraphQL API</option>
+                      <option value="rails_websockets.html">Websocket in Rails</option>
+                      <option value="jobs_and_tasks.html">Jobs and Tasks in Rails</option>
+                      <option value="refactoring_rails.html">Refactoring Rails</option>
+                      <option value="rails_security.html">Rails Security</option>
+                  </optgroup>
+                  <optgroup label="Overarching Concerns">
+                      <option value="security.html">Security</option>
+                      <option value="adv_authentication.html">Advanced Authentication</option>
+                      <option value="caching.html">Caching</option>
+                      <option value="advanced_testing.html">Advanced Testing</option>
+                      <option value="internationalization.html">Internationalization (I18n)</option>
+                      <option value="git_rebasing.html">Git Rebasing</option>
+                  </optgroup>
+                  <optgroup label="Nodes.js">
+                      <option value="node_vs_rails.html">Node vs. Rails</option>
+                      <option value="node_basics.html">Node Basics</option>
+                      <option value="node_websockets.html">Node Websockets</option>
+                      <option value="node_express.html">Node Web App</option>
+                      <option value="node_cluster.html">Scaling Node</option>
+                  </optgroup>
+                  <optgroup label="Next.js">
+                      <option value="nextjs.html">Next.js</option>
+                  </optgroup>
+              </select>
+            </li>
+          </ul>
+        </nav>
       </div>
-    </div>
-    <hr class="hide">
-    <div id="feature">
+    </header>
+    <hr class="hide" />
+    <section id="feature">
       <div class="wrapper">
-        <h2 id="preheader">Jobs and Tasks in Rails</h2>
-                  <div id="subCol">
-            <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
+        <h1>Jobs and Tasks in Rails</h1><p>Your web application will need code that
+is  run outside the HTTP Request-Response cycle.</p><p>By referring to this guide, you will be able to:</p>
+<ul>
+<li>Implement tasks that you can start from the commandline</li>
+<li>Implement jobs that are run automatically, but asyncronously</li>
+</ul>
+
+                  <nav id="subCol">
+            <h3 class="chapter">
+              <picture>
+                <!-- Using the `source`  HTML tag to set the dark theme image -->
+                <source
+                  srcset="images/icon_book-close-bookmark-1-wht.svg"
+                  media="(prefers-color-scheme: dark)"
+                />
+                <img src="images/icon_book-close-bookmark-1.svg" alt="Chapter Icon" />
+              </picture>
+              Chapters
+            </h3>
             <ol class="chapters">
 <li><a href="#http-request-response-cycle">HTTP Request-Response Cycle</a></li>
-<li>
-<a href="#tasks">Tasks</a>
+<li><a href="#tasks">Tasks</a>
 
 <ul>
 <li><a href="#what-is-a-task-questionmark">What is a task?</a></li>
@@ -85,10 +161,8 @@
 <li><a href="#how-do-i-implement-my-task-questionmark">How do I implement my task?</a></li>
 <li><a href="#scheduling-tasks-on-unix">Scheduling Tasks on UNIX</a></li>
 <li><a href="#other-task-runners">Other Task Runners</a></li>
-</ul>
-</li>
-<li>
-<a href="#jobs">Jobs</a>
+</ul></li>
+<li><a href="#jobs">Jobs</a>
 
 <ul>
 <li><a href="#what-is-a-job-questionmark">What is a job?</a></li>
@@ -97,33 +171,23 @@
 <li><a href="#how-can-i-supply-arguments-questionmark">How can I supply arguments?</a></li>
 <li><a href="#how-do-i-send-e-mail-later-questionmark">How do I send E-Mail - later?</a></li>
 <li><a href="#how-do-i-configure-a-queuing-backend-questionmark">How do I configure a queuing backend?</a></li>
-</ul>
-</li>
+</ul></li>
 <li><a href="#beyond-tasks-and-jobs">Beyond Tasks and Jobs</a></li>
 </ol>
 
-          </div>
+          </nav>
 
-        <div class="rest_header">
-          <h2>Jobs and Tasks in Rails</h2><p>Your web application will need code that
-is  run outside the HTTP Request-Response cycle.</p><p>By referring to this guide, you will be able to:</p>
-<ul class="checkmark">
-<li>Implement tasks that you can start from the commandline</li>
-<li>Implement jobs that are run automatically, but asyncronously</li>
-</ul>
-
-        </div>
+        <hr>
       </div>
-    </div>
-    <div id="container">
+    </section>
+    <main id="container">
       <div class="wrapper">
         <div id="mainCol">
           <div class='slide'>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-0' href='slides_jobs_and_tasks.html#/0'>▻</a>
-<h3 id="http-request-response-cycle">
-<a class="anchorlink" href="#http-request-response-cycle"></a>1 HTTP Request-Response Cycle</h3><p>A backend web frameworks normally works within the HTTP Request-Response Cyle.
+<p class='slide_break_block'><a class='slide_break' id='slide-0' href='slides_jobs_and_tasks.html#/0'>◻</a></p>
+<h2 id="http-request-response-cycle"><a class="anchorlink" href="#http-request-response-cycle"><span>1</span> HTTP Request-Response Cycle</a></h2><p>A backend web frameworks normally works within the HTTP Request-Response Cyle.
 In a Ruby on Rails app the flow is like this:</p>
 <ol>
 <li>a HTTP Request comes in</li>
@@ -135,14 +199,13 @@ In a Ruby on Rails app the flow is like this:</p>
 <li>decides which view to call</li>
 <li>sets headers for the HTTP response</li>
 <li>renders the view</li>
-</ol>
-</li>
+</ol></li>
 <li>a HTTP Response is sent</li>
 </ol>
 <p>This should take less than 500ms from start to finish if
 we want to achive a good response time for our users.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-1' href='slides_jobs_and_tasks.html#/1'>▻</a>
+<p class='slide_break_block'><a class='slide_break' id='slide-1' href='slides_jobs_and_tasks.html#/1'>◻</a></p>
 <p>But some code we write is different:
 it might not fit within this
 timeframe.  or it might not be triggered by a HTTP request.</p><p>Some examples:</p>
@@ -154,34 +217,40 @@ timeframe.  or it might not be triggered by a HTTP request.</p><p>Some examples:
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-2' href='slides_jobs_and_tasks.html#/2'>▻</a>
-<h3 id="tasks">
-<a class="anchorlink" href="#tasks"></a>2 Tasks</h3></div>
+<p class='slide_break_block'><a class='slide_break' id='slide-2' href='slides_jobs_and_tasks.html#/2'>◻</a></p>
+<h2 id="tasks"><a class="anchorlink" href="#tasks"><span>2</span> Tasks</a></h2></div>
 <div class='slide'>
-<a class='slide_break' id='slide-3' href='slides_jobs_and_tasks.html#/3'>▻</a>
-<h4 id="what-is-a-task-questionmark">
-<a class="anchorlink" href="#what-is-a-task-questionmark"></a>2.1 What is a task?</h4><p>In a Rails App <strong>tasks</strong> are small programs you - as the developer - can start on the command line.</p><p>You have already used some predefined tasks:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-3' href='slides_jobs_and_tasks.html#/3'>◻</a></p>
+<h3 id="what-is-a-task-questionmark"><a class="anchorlink" href="#what-is-a-task-questionmark"><span>2.1</span> What is a task?</a></h3><p>In a Rails App <strong>tasks</strong> are small programs you - as the developer - can start on the command line.</p><p>You have already used some predefined tasks:</p><div class="interstitial code">
 <pre><code class="highlight shell"><span class="nv">$ </span><span class="nb">rails </span>db:migrate
 <span class="nv">$ </span><span class="nb">rails test</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="$ rails db:migrate
+$ rails test
+">Copy</button>
 </div>
 <p>You can get a list of all available tasks with <code>rails -T</code>.</p><p>When you deploy your app to a PAAS like heroku or dokku you can
-start a task on the server using the command line:</p><div class="code_container">
+start a task on the server using the command line:</p><div class="interstitial code">
 <pre><code class="highlight shell"><span class="nv">$ </span>dokku run <span class="nb">rails </span>db:migrate
 <span class="nv">$ </span>heroku run <span class="nb">rails </span>db:migrate
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="$ dokku run rails db:migrate
+$ heroku run rails db:migrate
+">Copy</button>
 </div>
 <p>A task can have access to  your application models, perform database queries, and so on.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-4' href='slides_jobs_and_tasks.html#/4'>▻</a>
-<h4 id="how-do-i-generate-a-task-questionmark">
-<a class="anchorlink" href="#how-do-i-generate-a-task-questionmark"></a>2.2 How do I generate a task?</h4><p>Use <code>rails generate</code> to start writing a task.  For example I want to write
-a task that loads user data from ActiveDirectory:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-4' href='slides_jobs_and_tasks.html#/4'>◻</a></p>
+<h3 id="how-do-i-generate-a-task-questionmark"><a class="anchorlink" href="#how-do-i-generate-a-task-questionmark"><span>2.2</span> How do I generate a task?</a></h3><p>Use <code>rails generate</code> to start writing a task.  For example I want to write
+a task that loads user data from ActiveDirectory:</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="err">$</span> <span class="n">rails</span> <span class="n">generate</span> <span class="n">task</span> <span class="n">active_directory</span> <span class="nb">load</span>
       <span class="n">create</span>  <span class="n">lib</span><span class="o">/</span><span class="n">tasks</span><span class="o">/</span><span class="n">active_directory</span><span class="p">.</span><span class="nf">rake</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="$ rails generate task active_directory load
+      create  lib/tasks/active_directory.rake
+">Copy</button>
 </div>
-<p>This will create a file <code>lib/tasks/active_directory.rake</code></p><div class="code_container">
+<p>This will create a file <code>lib/tasks/active_directory.rake</code></p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">namespace</span> <span class="ss">:active_directory</span> <span class="k">do</span>
   <span class="n">desc</span> <span class="s2">"add your description here"</span>
   <span class="n">task</span> <span class="ss">load: :environment</span> <span class="k">do</span>
@@ -190,45 +259,65 @@ a task that loads user data from ActiveDirectory:</p><div class="code_container"
 
 <span class="k">end</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="namespace :active_directory do
+  desc &quot;add your description here&quot;
+  task load: :environment do
+    # add your code here
+  end
+
+end
+">Copy</button>
 </div>
 <p>This task can be started by running <code>rails active_directory:load</code>.
 Notice how the namespace defined in the first line and the taskname defined in the
 third line are combined when you call the task on the commandline.</p><p>The description defined with <code>desc</code>  is displayed when you run <code>rails -T</code>.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-5' href='slides_jobs_and_tasks.html#/5'>▻</a>
-<h4 id="how-can-i-supply-command-line-arguments-questionmark">
-<a class="anchorlink" href="#how-can-i-supply-command-line-arguments-questionmark"></a>2.3 How can I supply command line arguments?</h4><p>The task to load data from ActiveDirectory needs arguments.</p><p>The Syntax for arguments is a bit strange: the
-arguments need to be supplied in square brackets after the taskname without any spaces:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-5' href='slides_jobs_and_tasks.html#/5'>◻</a></p>
+<h3 id="how-can-i-supply-command-line-arguments-questionmark"><a class="anchorlink" href="#how-can-i-supply-command-line-arguments-questionmark"><span>2.3</span> How can I supply command line arguments?</a></h3><p>The task to load data from ActiveDirectory needs arguments.</p><p>The Syntax for arguments is a bit strange: the
+arguments need to be supplied in square brackets after the taskname without any spaces:</p><div class="interstitial code">
 <pre><code class="highlight shell"><span class="nv">$ </span><span class="nb">rails </span>active_directory:load[username]
 <span class="nv">$ </span><span class="nb">rails </span>active_directory:load[username1,username2,username3]
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="$ rails active_directory:load[username]
+$ rails active_directory:load[username1,username2,username3]
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-6' href='slides_jobs_and_tasks.html#/6'>▻</a>
+<p class='slide_break_block'><a class='slide_break' id='slide-6' href='slides_jobs_and_tasks.html#/6'>◻</a></p>
 <p>You can give the arguments names and handle them as a hash, an array,
-or as separate values.</p><div class="code_container">
+or as separate values.</p><div class="interstitial code">
 <pre><code class="highlight ruby">  <span class="n">task</span> <span class="ss">:load</span><span class="p">,</span> <span class="p">[</span><span class="ss">:a</span><span class="p">,</span> <span class="ss">:b</span><span class="p">,</span> <span class="ss">:c</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="ss">:environment</span> <span class="k">do</span> <span class="o">|</span><span class="n">task</span><span class="p">,</span> <span class="n">args</span><span class="o">|</span>
     <span class="nb">puts</span> <span class="s2">"arguments as a hash: </span><span class="si">#{</span><span class="n">args</span><span class="p">.</span><span class="nf">to_h</span><span class="si">}</span><span class="s2">"</span>
     <span class="nb">puts</span> <span class="s2">"arguments as an array: </span><span class="si">#{</span><span class="n">args</span><span class="p">.</span><span class="nf">to_a</span><span class="si">}</span><span class="s2">"</span>
     <span class="nb">puts</span> <span class="s2">"arguments by position: </span><span class="si">#{</span><span class="n">args</span><span class="p">.</span><span class="nf">a</span><span class="si">}</span><span class="s2"> and </span><span class="si">#{</span><span class="n">args</span><span class="p">.</span><span class="nf">b</span><span class="si">}</span><span class="s2"> and </span><span class="si">#{</span><span class="n">args</span><span class="p">.</span><span class="nf">c</span><span class="si">}</span><span class="s2">"</span>
   <span class="k">end</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="  task :load, [:a, :b, :c] => :environment do |task, args|
+    puts &quot;arguments as a hash: #{args.to_h}&quot;
+    puts &quot;arguments as an array: #{args.to_a}&quot;
+    puts &quot;arguments by position: #{args.a} and #{args.b} and #{args.c}&quot;
+  end
+">Copy</button>
 </div>
-<p>The code above can be run like so:</p><div class="code_container">
+<p>The code above can be run like so:</p><div class="interstitial code">
 <pre><code class="highlight shell"><span class="nv">$ </span><span class="nb">rails </span>active_directory:load[1,2,3]
 arguments as a <span class="nb">hash</span>: <span class="o">{</span>:a<span class="o">=&gt;</span><span class="s2">"1"</span>, :b<span class="o">=&gt;</span><span class="s2">"2"</span>, :c<span class="o">=&gt;</span><span class="s2">"3"</span><span class="o">}</span>
 arguments as an array: <span class="o">[</span><span class="s2">"1"</span>, <span class="s2">"2"</span>, <span class="s2">"3"</span><span class="o">]</span>
 arguments by position: 1 and 2 and 3
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="$ rails active_directory:load[1,2,3]
+arguments as a hash: {:a=>&quot;1&quot;, :b=>&quot;2&quot;, :c=>&quot;3&quot;}
+arguments as an array: [&quot;1&quot;, &quot;2&quot;, &quot;3&quot;]
+arguments by position: 1 and 2 and 3
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-7' href='slides_jobs_and_tasks.html#/7'>▻</a>
-<h4 id="how-do-i-implement-my-task-questionmark">
-<a class="anchorlink" href="#how-do-i-implement-my-task-questionmark"></a>2.4 How do I implement my task?</h4><p>You can use all your knowledge of ruby, and all the code in your web
+<p class='slide_break_block'><a class='slide_break' id='slide-7' href='slides_jobs_and_tasks.html#/7'>◻</a></p>
+<h3 id="how-do-i-implement-my-task-questionmark"><a class="anchorlink" href="#how-do-i-implement-my-task-questionmark"><span>2.4</span> How do I implement my task?</a></h3><p>You can use all your knowledge of ruby, and all the code in your web
 application.  To finish the taks we can use an already existing
-<code>User</code> model and a <code>ActiveDirectoryLookup</code> service object.</p><div class="code_container">
+<code>User</code> model and a <code>ActiveDirectoryLookup</code> service object.</p><div class="interstitial code">
 <pre><code class="highlight ruby">  <span class="n">task</span> <span class="ss">:load</span><span class="p">,</span> <span class="p">[</span><span class="ss">:username</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="ss">:environment</span> <span class="k">do</span> <span class="o">|</span><span class="n">task</span><span class="p">,</span> <span class="n">args</span><span class="o">|</span>
     <span class="n">ad</span> <span class="o">=</span> <span class="no">ActiveDirectoryLookup</span><span class="p">.</span><span class="nf">new</span>
     <span class="n">args</span><span class="p">.</span><span class="nf">to_a</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">username</span><span class="o">|</span>
@@ -242,13 +331,25 @@ application.  To finish the taks we can use an already existing
     <span class="k">end</span>
   <span class="k">end</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="  task :load, [:username] => :environment do |task, args|
+    ad = ActiveDirectoryLookup.new
+    args.to_a.each do |username|
+      result = ad.query(username)
+      if result.nil?
+        puts &quot;Could not find user #{username} in ActiveDiretory&quot;
+      else
+        u = User.find_or_create_with_ldap(result)
+        puts &quot;user #{username} is local user #{u}&quot;
+      end
+    end
+  end
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-8' href='slides_jobs_and_tasks.html#/8'>▻</a>
-<h4 id="scheduling-tasks-on-unix">
-<a class="anchorlink" href="#scheduling-tasks-on-unix"></a>2.5 Scheduling Tasks on UNIX</h4><p>On <strong>UNIX</strong> Systems you can use <code>cron</code> to schedule tasks.</p><p>Use <code>crontab -e</code> to edit the cron table.  It is a plain text.
-The first 5 entries in the table specify the time:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-8' href='slides_jobs_and_tasks.html#/8'>◻</a></p>
+<h3 id="scheduling-tasks-on-unix"><a class="anchorlink" href="#scheduling-tasks-on-unix"><span>2.5</span> Scheduling Tasks on UNIX</a></h3><p>On <strong>UNIX</strong> Systems you can use <code>cron</code> to schedule tasks.</p><p>Use <code>crontab -e</code> to edit the cron table.  It is a plain text.
+The first 5 entries in the table specify the time:</p><div class="interstitial code">
 <pre><code class="highlight plaintext"># ┌───────────── minute (0 - 59)
 # │ ┌───────────── hour (0 - 23)
 # │ │ ┌───────────── day of the month (1 - 31)
@@ -259,47 +360,66 @@ The first 5 entries in the table specify the time:</p><div class="code_container
 # │ │ │ │ │
 # * * * * * &lt;command to execute&gt;
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="# ┌───────────── minute (0 - 59)
+# │ ┌───────────── hour (0 - 23)
+# │ │ ┌───────────── day of the month (1 - 31)
+# │ │ │ ┌───────────── month (1 - 12)
+# │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
+# │ │ │ │ │                                   7 is also Sunday on some systems)
+# │ │ │ │ │
+# │ │ │ │ │
+# * * * * * <command to execute>
+">Copy</button>
 </div>
 <p>In the following example the backup script is run at 10 past midnight
-every day:</p><div class="code_container">
+every day:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">10 0 * * * /usr/local/bin/backup_script
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="10 0 * * * /usr/local/bin/backup_script
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-9' href='slides_jobs_and_tasks.html#/9'>▻</a>
-<h4 id="other-task-runners">
-<a class="anchorlink" href="#other-task-runners"></a>2.6 Other Task Runners</h4><p>You can use <strong>npm</strong> as a task runner.
-Edit <code>package.json</code> and add your tasks under the key <code>scripts</code>:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-9' href='slides_jobs_and_tasks.html#/9'>◻</a></p>
+<h3 id="other-task-runners"><a class="anchorlink" href="#other-task-runners"><span>2.6</span> Other Task Runners</a></h3><p>You can use <strong>npm</strong> as a task runner.
+Edit <code>package.json</code> and add your tasks under the key <code>scripts</code>:</p><div class="interstitial code">
 <pre><code class="highlight json"><span class="p">{</span><span class="w">
   </span><span class="nl">"scripts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"compress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"zip -r src.zip src/"</span><span class="p">,</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
+<button class="clipboard-button" data-clipboard-text="{
+  &quot;scripts&quot;: {
+    &quot;compress&quot;: &quot;zip -r src.zip src/&quot;,
+  }
+}
+">Copy</button>
 </div>
 <p>run the task through <code>npm run compress</code>.  This works very well for starting command line scripts
 like build or cleanup steps, or running tests.</p><p>See <a href="https://docs.npmjs.com/cli/v6/using-npm/scripts">the npm documentation</a>.</p><p>In <strong>nest.js</strong> <a href="https://docs.nestjs.com/techniques/task-scheduling">task scheduling</a> is handled by node-cron.</p><p>In <strong>Laravel</strong> see <a href="https://laravel.com/docs/9.x/envoy">envoy</a>.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-10' href='slides_jobs_and_tasks.html#/10'>▻</a>
-<h3 id="jobs">
-<a class="anchorlink" href="#jobs"></a>3 Jobs</h3></div>
+<p class='slide_break_block'><a class='slide_break' id='slide-10' href='slides_jobs_and_tasks.html#/10'>◻</a></p>
+<h2 id="jobs"><a class="anchorlink" href="#jobs"><span>3</span> Jobs</a></h2></div>
 <div class='slide'>
-<a class='slide_break' id='slide-11' href='slides_jobs_and_tasks.html#/11'>▻</a>
-<h4 id="what-is-a-job-questionmark">
-<a class="anchorlink" href="#what-is-a-job-questionmark"></a>3.1 What is a job?</h4><p>In a Rails App <strong>jobs</strong> are parts of your app that are not run within the
+<p class='slide_break_block'><a class='slide_break' id='slide-11' href='slides_jobs_and_tasks.html#/11'>◻</a></p>
+<h3 id="what-is-a-job-questionmark"><a class="anchorlink" href="#what-is-a-job-questionmark"><span>3.1</span> What is a job?</a></h3><p>In a Rails App <strong>jobs</strong> are parts of your app that are not run within the
 HTTP Request-Response cycle. They are also called <strong>background jobs</strong>.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-12' href='slides_jobs_and_tasks.html#/12'>▻</a>
-<h4 id="how-do-i-generate-a-job-questionmark">
-<a class="anchorlink" href="#how-do-i-generate-a-job-questionmark"></a>3.2 How do I generate a job?</h4><p>Use <code>rails generate</code> to get started:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-12' href='slides_jobs_and_tasks.html#/12'>◻</a></p>
+<h3 id="how-do-i-generate-a-job-questionmark"><a class="anchorlink" href="#how-do-i-generate-a-job-questionmark"><span>3.2</span> How do I generate a job?</a></h3><p>Use <code>rails generate</code> to get started:</p><div class="interstitial code">
 <pre><code class="highlight shell"><span class="nv">$ </span><span class="nb">rails </span>generate job guests_cleanup
 invoke  test_unit
 create    <span class="nb">test</span>/jobs/guests_cleanup_job_test.rb
 create  app/jobs/guests_cleanup_job.rb
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="$ rails generate job guests_cleanup
+invoke  test_unit
+create    test/jobs/guests_cleanup_job_test.rb
+create  app/jobs/guests_cleanup_job.rb
+">Copy</button>
 </div>
-<p>As you can see a test is generated alongside the job itself.</p><p>Here's what a job looks like:</p><div class="code_container">
+<p>As you can see a test is generated alongside the job itself.</p><p>Here's what a job looks like:</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="k">class</span> <span class="nc">GuestsCleanupJob</span> <span class="o">&lt;</span> <span class="no">ApplicationJob</span>
   <span class="n">queue_as</span> <span class="ss">:default</span>
 
@@ -308,70 +428,84 @@ create  app/jobs/guests_cleanup_job.rb
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="class GuestsCleanupJob < ApplicationJob
+  queue_as :default
+
+  def perform(*args)
+    # Do something later
+  end
+end
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-13' href='slides_jobs_and_tasks.html#/13'>▻</a>
-<h4 id="how-can-i-start-a-job-later-questionmark">
-<a class="anchorlink" href="#how-can-i-start-a-job-later-questionmark"></a>3.3 How can I start a job - later?</h4><p>Somwehere in your rails app, for example in a controller, you can set the job up like this:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-13' href='slides_jobs_and_tasks.html#/13'>◻</a></p>
+<h3 id="how-can-i-start-a-job-later-questionmark"><a class="anchorlink" href="#how-can-i-start-a-job-later-questionmark"><span>3.3</span> How can I start a job - later?</a></h3><p>Somwehere in your rails app, for example in a controller, you can set the job up like this:</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="no">GuestsCleanupJob</span><span class="p">.</span><span class="nf">perform_later</span><span class="p">(</span><span class="n">guest</span><span class="p">)</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="GuestsCleanupJob.perform_later(guest)
+">Copy</button>
 </div>
 <p>The job will be peformed asynchronously - outside the HTTP Request-Response cycle.
-Calling <code>perform_later</code> will take up almost no time.</p><p>You can also define a time when the job should be run:</p><div class="code_container">
+Calling <code>perform_later</code> will take up almost no time.</p><p>You can also define a time when the job should be run:</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="no">GuestsCleanupJob</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="ss">wait_until: </span><span class="no">Date</span><span class="p">.</span><span class="nf">tomorrow</span><span class="p">.</span><span class="nf">noon</span><span class="p">).</span><span class="nf">perform_later</span><span class="p">(</span><span class="n">guest</span><span class="p">)</span>
 <span class="no">GuestsCleanupJob</span><span class="p">.</span><span class="nf">set</span><span class="p">(</span><span class="ss">wait: </span><span class="mi">1</span><span class="p">.</span><span class="nf">week</span><span class="p">).</span><span class="nf">perform_later</span><span class="p">(</span><span class="n">guest</span><span class="p">)</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="GuestsCleanupJob.set(wait_until: Date.tomorrow.noon).perform_later(guest)
+GuestsCleanupJob.set(wait: 1.week).perform_later(guest)
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-14' href='slides_jobs_and_tasks.html#/14'>▻</a>
-<h4 id="how-can-i-supply-arguments-questionmark">
-<a class="anchorlink" href="#how-can-i-supply-arguments-questionmark"></a>3.4 How can I supply arguments?</h4><p>You can define the argument list for <code>perform</code> any way you want.
+<p class='slide_break_block'><a class='slide_break' id='slide-14' href='slides_jobs_and_tasks.html#/14'>◻</a></p>
+<h3 id="how-can-i-supply-arguments-questionmark"><a class="anchorlink" href="#how-can-i-supply-arguments-questionmark"><span>3.4</span> How can I supply arguments?</a></h3><p>You can define the argument list for <code>perform</code> any way you want.
 The default is <code>*args</code> which captures all the arguments into an array <code>args</code>.</p><p>When calling <code>perform_later</code> you supply the arguments that will end up in <code>perform</code>.</p><p>You can only use primitive data types (Strings, Integers, Symbols, Date) as arguments for your job, but not Ruby Objects.</p><p>Why?  Because the Job is sent to a Queueing System for Storage. The data has to be serialized into a String, and deserialized again when it comes back to Rails.</p><p>The good news is: serialization and deserialization is automatically done for ActiveRecord models.
 So you can use models as arguments.  But remember to implement de/serialization for any
 other objects you want to use.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-15' href='slides_jobs_and_tasks.html#/15'>▻</a>
-<h4 id="how-do-i-send-e-mail-later-questionmark">
-<a class="anchorlink" href="#how-do-i-send-e-mail-later-questionmark"></a>3.5 How do I send E-Mail - later?</h4><p>When sending E-Mail from Rails you can specify if you want
-to do it synchronously or asynchronously:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-15' href='slides_jobs_and_tasks.html#/15'>◻</a></p>
+<h3 id="how-do-i-send-e-mail-later-questionmark"><a class="anchorlink" href="#how-do-i-send-e-mail-later-questionmark"><span>3.5</span> How do I send E-Mail - later?</a></h3><p>When sending E-Mail from Rails you can specify if you want
+to do it synchronously or asynchronously:</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="c1"># If you want to send the email now use #deliver_now</span>
 <span class="no">UserMailer</span><span class="p">.</span><span class="nf">welcome</span><span class="p">(</span><span class="vi">@user</span><span class="p">).</span><span class="nf">deliver_now</span>
 
 <span class="c1"># If you want to send the email asynchronously through a Job use #deliver_later</span>
 <span class="no">UserMailer</span><span class="p">.</span><span class="nf">welcome</span><span class="p">(</span><span class="vi">@user</span><span class="p">).</span><span class="nf">deliver_later</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="# If you want to send the email now use #deliver_now
+UserMailer.welcome(@user).deliver_now
+
+# If you want to send the email asynchronously through a Job use #deliver_later
+UserMailer.welcome(@user).deliver_later
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-16' href='slides_jobs_and_tasks.html#/16'>▻</a>
-<h4 id="how-do-i-configure-a-queuing-backend-questionmark">
-<a class="anchorlink" href="#how-do-i-configure-a-queuing-backend-questionmark"></a>3.6 How do I configure a queuing backend?</h4><p>In development you can use the default queuing system called <code>async</code>.
+<p class='slide_break_block'><a class='slide_break' id='slide-16' href='slides_jobs_and_tasks.html#/16'>◻</a></p>
+<h3 id="how-do-i-configure-a-queuing-backend-questionmark"><a class="anchorlink" href="#how-do-i-configure-a-queuing-backend-questionmark"><span>3.6</span> How do I configure a queuing backend?</a></h3><p>In development you can use the default queuing system called <code>async</code>.
 It's a poor fit for production since it drops pending jobs on restart.</p><p>For production you can chose another queuing backend, for example
 <a href="https://github.com/bensheldon/good_job#set-up">GoodJob</a> which
 uses the Postgres Database to store the jobs.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-17' href='slides_jobs_and_tasks.html#/17'>▻</a>
-<h3 id="beyond-tasks-and-jobs">
-<a class="anchorlink" href="#beyond-tasks-and-jobs"></a>4 Beyond Tasks and Jobs</h3><p>Using Jobs is a first step towards a more complex software architecture.
+<p class='slide_break_block'><a class='slide_break' id='slide-17' href='slides_jobs_and_tasks.html#/17'>◻</a></p>
+<h2 id="beyond-tasks-and-jobs"><a class="anchorlink" href="#beyond-tasks-and-jobs"><span>4</span> Beyond Tasks and Jobs</a></h2><p>Using Jobs is a first step towards a more complex software architecture.
 We have been building Web Apps from different parts that communicate through
 APIs. Both REST APIs and GraphQL APIs are synchronous.</p><p>Jobs and asynchronous work open up a new way of thinking of our application: it
 could be built from several parts that send each other messages, but don't wait
 for a response.</p></div>
         </div>
       </div>
-    </div>
-    <hr class="hide">
-    <div id="footer">
+    </main>
+    <hr class="hide" />
+    <footer id="page_footer">
       <div class="wrapper">
         <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2025 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
-        </p>
-        <p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
-        </p>
+</p>
+<p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
+</p>
+<p>Favicon "backend development" by Arkinasi from <a href="https://thenounproject.com/browse/icons/term/backend-development/" target="_blank" title="backend development Icons">Noun Project</a> (CC BY 3.0)</p>
+
       </div>
-    </div>
-    <script src="javascripts/jquery.min.js"></script>
-    <script src="javascripts/guides.js"></script>
+    </footer>
   </body>
 </html>

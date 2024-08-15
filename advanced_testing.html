@@ -1,123 +1,139 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html dir="ltr" lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Advanced Testing — Backend Development</title>
-    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+    <title>Advanced Testing — Ruby on Rails Guides</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" data-turbo-track="reload">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-    <link rel="stylesheet" type="text/css" href="stylesheets/code.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css">
-    <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <style>
-      .slide img[src$=svg] {
-        width: 100%;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="stylesheets/highlight.css" data-turbo-track="reload">
+    <link rel="icon" href="images/backend-development.svg" sizes="any">
+    <script src="javascripts/@hotwired--turbo.js" data-turbo-track="reload"></script>
+    <script src="javascripts/clipboard.js" data-turbo-track="reload"></script>
+    <script src="javascripts/guides.js" data-turbo-track="reload"></script>
+    <meta property="og:title" content="Advanced Testing — Ruby on Rails Guides" />
+    <meta name="description" content="Advanced TestingThis guide will show you new ways of testing. By referring to this guide, you will be able to: Understand test doubles Write unit tests with rspec Write integration tests with capybara Manipulate time in your tests Stub out calls to Web Services efficiently Test the javascript frontend of your app" />
+    <meta property="og:description" content="Advanced TestingThis guide will show you new ways of testing. By referring to this guide, you will be able to: Understand test doubles Write unit tests with rspec Write integration tests with capybara Manipulate time in your tests Stub out calls to Web Services efficiently Test the javascript frontend of your app" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Textbook Backend Developemnt" />
+    <meta property="og:image" content="images/backend-development.svg" />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#2e56e9">
   </head>
   <body class="guide">
-    <div id="header">
+    <header id="page_header">
       <div class="wrapper clearfix">
-        <h1><a href="index.html" title="Return to home page">Backend<span> Development</span></a></h1>
-        <ul class="nav">
-          <li class="guides-index guides-index-large">
-            <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
-            <div id="guides" class="clearfix" style="display: none;">
-              <hr>
-                <dl class="L">
-                    <dt>Ruby on Rails</dt>
-                      <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
-                      <dd><a href="rails_database_and_model.html">Models and ActiveRecord</a></dd>
-                      <dd><a href="rails_db.html">Database and Migrations</a></dd>
-                      <dd><a href="rails_associations_and_validations.html">Associations and Validations</a></dd>
-                      <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
-                      <dd><a href="rails_authentication.html">Simple Authentication</a></dd>
-                      <dd><a href="asset_pipeline.html">The Asset Pipeline</a></dd>
-                      <dd><a href="javascript_and_ajax.html">Rails and old Javascript</a></dd>
-                      <dd><a href="javascript_webpack_frontend.html">Rails and Webpack</a></dd>
-                      <dd><a href="testing.html">Getting started with Testing</a></dd>
-                      <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
-                      <dd><a href="rest-api.html">REST API</a></dd>
-                      <dd><a href="graphql-api.html">GraphQL API</a></dd>
-                      <dd><a href="rails_websockets.html">Websocket in Rails</a></dd>
-                      <dd><a href="jobs_and_tasks.html">Jobs and Tasks in Rails</a></dd>
-                      <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
-                      <dd><a href="rails_security.html">Rails Security</a></dd>
-                    <dt>Overarching Concerns</dt>
-                      <dd><a href="security.html">Security</a></dd>
-                      <dd><a href="adv_authentication.html">Advanced Authentication</a></dd>
-                      <dd><a href="caching.html">Caching</a></dd>
-                      <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
-                      <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
-                      <dd><a href="git_rebasing.html">Git Rebasing</a></dd>
-                    <dt>Nodes.js</dt>
-                      <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
-                      <dd><a href="node_basics.html">Node Basics</a></dd>
-                      <dd><a href="node_websockets.html">Node Websockets</a></dd>
-                      <dd><a href="node_express.html">Node Web App</a></dd>
-                      <dd><a href="node_cluster.html">Scaling Node</a></dd>
-                    <dt>Next.js</dt>
-                      <dd><a href="nextjs.html">Next.js</a></dd>
-                </dl>
-                <dl class="R">
-                </dl>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <hr class="hide">
-    <div id="feature">
-      <div class="wrapper">
-        <h2 id="preheader">Advanced Testing</h2>
-                  <div id="subCol">
-            <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
-            <ol class="chapters">
-<li>
-<a href="#rspec">rspec</a>
-
-<ul>
-<li><a href="#a-simple-spec">A simple spec</a></li>
-<li><a href="#example-model-spec">Example Model Spec</a></li>
-<li><a href="#example-feature-spec">Example Feature Spec</a></li>
-<li><a href="#kinds-of-tests">Kinds of Tests</a></li>
-</ul>
-</li>
-<li>
-<a href="#cucumber">Cucumber</a>
-
-<ul>
-<li><a href="#step-definitions">Step Definitions</a></li>
-</ul>
-</li>
-<li><a href="#test-doubles">Test Doubles</a></li>
-<li><a href="#testing-web-servcies">Testing Web Servcies</a></li>
-<li>
-<a href="#testing-time">Testing Time</a>
-
-<ul>
-<li><a href="#first-solution-write-your-own-matcher">First solution: write your own matcher:</a></li>
-<li><a href="#second-solution-timecop">Second Solution: Timecop</a></li>
-</ul>
-</li>
-<li>
-<a href="#testing-javascript">Testing Javascript</a>
-
-<ul>
-<li><a href="#phantom-example">Phantom Example</a></li>
-<li><a href="#phantom-in-rspec">Phantom in rspec</a></li>
-</ul>
-</li>
-<li><a href="#example-app">Example App</a></li>
-</ol>
-
+        <nav id="feature_nav">
+          <div class="header-logo">
+            <a href="/">Backend Development</a>
           </div>
-
-        <div class="rest_header">
-          <h2>Advanced Testing</h2><p>This guide will show you new ways of testing.
+          <ul class="nav">
+            <li><a class="nav-item" id="home_nav" href="/">Home</a></li>
+            <li class="guides-index guides-index-large">
+              <a href="index.html" id="guidesMenu" class="guides-index-item nav-item">Index</a>
+              <div id="guides" class="clearfix" style="display: none;">
+                <hr />
+                <dl class="guides-section-container">
+                    <div class="guides-section">
+                      <dt>Ruby on Rails</dt>
+                        <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
+                        <dd><a href="rails_database_and_model.html">Models and ActiveRecord</a></dd>
+                        <dd><a href="rails_db.html">Database and Migrations</a></dd>
+                        <dd><a href="rails_associations_and_validations.html">Associations and Validations</a></dd>
+                        <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
+                        <dd><a href="rails_authentication.html">Simple Authentication</a></dd>
+                        <dd><a href="asset_pipeline.html">The Asset Pipeline</a></dd>
+                        <dd><a href="javascript_and_ajax.html">Rails and old Javascript</a></dd>
+                        <dd><a href="javascript_webpack_frontend.html">Rails and Webpack</a></dd>
+                        <dd><a href="testing.html">Getting started with Testing</a></dd>
+                        <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
+                        <dd><a href="rest-api.html">REST API</a></dd>
+                        <dd><a href="graphql-api.html">GraphQL API</a></dd>
+                        <dd><a href="rails_websockets.html">Websocket in Rails</a></dd>
+                        <dd><a href="jobs_and_tasks.html">Jobs and Tasks in Rails</a></dd>
+                        <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
+                        <dd><a href="rails_security.html">Rails Security</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Overarching Concerns</dt>
+                        <dd><a href="security.html">Security</a></dd>
+                        <dd><a href="adv_authentication.html">Advanced Authentication</a></dd>
+                        <dd><a href="caching.html">Caching</a></dd>
+                        <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
+                        <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
+                        <dd><a href="git_rebasing.html">Git Rebasing</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Nodes.js</dt>
+                        <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
+                        <dd><a href="node_basics.html">Node Basics</a></dd>
+                        <dd><a href="node_websockets.html">Node Websockets</a></dd>
+                        <dd><a href="node_express.html">Node Web App</a></dd>
+                        <dd><a href="node_cluster.html">Scaling Node</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Next.js</dt>
+                        <dd><a href="nextjs.html">Next.js</a></dd>
+                    </div>
+                </dl>
+              </div>
+            </li>
+            <li class="guides-index guides-index-small">
+              <select class="guides-index-item nav-item">
+                <option value="index.html">Index</option>
+                  <optgroup label="Ruby on Rails">
+                      <option value="ruby_commandline.html">Ruby Commandline</option>
+                      <option value="rails_database_and_model.html">Models and ActiveRecord</option>
+                      <option value="rails_db.html">Database and Migrations</option>
+                      <option value="rails_associations_and_validations.html">Associations and Validations</option>
+                      <option value="rails_view_and_controller.html">Routing, View and Controller</option>
+                      <option value="rails_authentication.html">Simple Authentication</option>
+                      <option value="asset_pipeline.html">The Asset Pipeline</option>
+                      <option value="javascript_and_ajax.html">Rails and old Javascript</option>
+                      <option value="javascript_webpack_frontend.html">Rails and Webpack</option>
+                      <option value="testing.html">Getting started with Testing</option>
+                      <option value="rails_gems.html">Ruby Gems for your Rails Project</option>
+                      <option value="rest-api.html">REST API</option>
+                      <option value="graphql-api.html">GraphQL API</option>
+                      <option value="rails_websockets.html">Websocket in Rails</option>
+                      <option value="jobs_and_tasks.html">Jobs and Tasks in Rails</option>
+                      <option value="refactoring_rails.html">Refactoring Rails</option>
+                      <option value="rails_security.html">Rails Security</option>
+                  </optgroup>
+                  <optgroup label="Overarching Concerns">
+                      <option value="security.html">Security</option>
+                      <option value="adv_authentication.html">Advanced Authentication</option>
+                      <option value="caching.html">Caching</option>
+                      <option value="advanced_testing.html">Advanced Testing</option>
+                      <option value="internationalization.html">Internationalization (I18n)</option>
+                      <option value="git_rebasing.html">Git Rebasing</option>
+                  </optgroup>
+                  <optgroup label="Nodes.js">
+                      <option value="node_vs_rails.html">Node vs. Rails</option>
+                      <option value="node_basics.html">Node Basics</option>
+                      <option value="node_websockets.html">Node Websockets</option>
+                      <option value="node_express.html">Node Web App</option>
+                      <option value="node_cluster.html">Scaling Node</option>
+                  </optgroup>
+                  <optgroup label="Next.js">
+                      <option value="nextjs.html">Next.js</option>
+                  </optgroup>
+              </select>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <hr class="hide" />
+    <section id="feature">
+      <div class="wrapper">
+        <h1>Advanced Testing</h1><p>This guide will show you new ways of testing.
 By referring to this guide, you will be able to:</p>
-<ul class="checkmark">
+<ul>
 <li>Understand test doubles</li>
 <li>Write unit tests with rspec</li>
 <li>Write integration tests with capybara</li>
@@ -126,33 +142,75 @@ By referring to this guide, you will be able to:</p>
 <li>Test the javascript frontend of your app</li>
 </ul>
 
-        </div>
+                  <nav id="subCol">
+            <h3 class="chapter">
+              <picture>
+                <!-- Using the `source`  HTML tag to set the dark theme image -->
+                <source
+                  srcset="images/icon_book-close-bookmark-1-wht.svg"
+                  media="(prefers-color-scheme: dark)"
+                />
+                <img src="images/icon_book-close-bookmark-1.svg" alt="Chapter Icon" />
+              </picture>
+              Chapters
+            </h3>
+            <ol class="chapters">
+<li><a href="#rspec">rspec</a>
+
+<ul>
+<li><a href="#a-simple-spec">A simple spec</a></li>
+<li><a href="#example-model-spec">Example Model Spec</a></li>
+<li><a href="#example-feature-spec">Example Feature Spec</a></li>
+<li><a href="#kinds-of-tests">Kinds of Tests</a></li>
+</ul></li>
+<li><a href="#cucumber">Cucumber</a>
+
+<ul>
+<li><a href="#step-definitions">Step Definitions</a></li>
+</ul></li>
+<li><a href="#test-doubles">Test Doubles</a></li>
+<li><a href="#testing-web-servcies">Testing Web Servcies</a></li>
+<li><a href="#testing-time">Testing Time</a>
+
+<ul>
+<li><a href="#first-solution-write-your-own-matcher">First solution: write your own matcher:</a></li>
+<li><a href="#second-solution-timecop">Second Solution: Timecop</a></li>
+</ul></li>
+<li><a href="#testing-javascript">Testing Javascript</a>
+
+<ul>
+<li><a href="#phantom-example">Phantom Example</a></li>
+<li><a href="#phantom-in-rspec">Phantom in rspec</a></li>
+</ul></li>
+<li><a href="#example-app">Example App</a></li>
+</ol>
+
+          </nav>
+
+        <hr>
       </div>
-    </div>
-    <div id="container">
+    </section>
+    <main id="container">
       <div class="wrapper">
         <div id="mainCol">
           <div class='slide'>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-0' href='slides_advanced_testing.html#/0'>▻</a>
-<h3 id="rspec">
-<a class="anchorlink" href="#rspec"></a>1 rspec</h3><p>Rspec is the second testing framework that is commonly used
+<p class='slide_break_block'><a class='slide_break' id='slide-0' href='slides_advanced_testing.html#/0'>◻</a></p>
+<h2 id="rspec"><a class="anchorlink" href="#rspec"><span>1</span> rspec</a></h2><p>Rspec is the second testing framework that is commonly used
 with Ruby on Rails projects. According to <a href="https://www.ruby-toolbox.com/categories/testing_frameworks">ruby-toolbox.com</a>
 it is used more often than the (built in) Minitest.</p><p>Rspec replaces minitest in all aspects of rails, including in scaffolds.</p><p>The first things you hav to know to get started:</p>
 <ul>
 <li>tests are found in <code>spec/*</code> (not <code>test/*</code>)</li>
 <li>to run one test use <code>rspec &lt;filename&gt;</code> or <code>rspec &lt;filename&gt;:&lt;linenumber&gt;</code> on the command line</li>
-<li>to run all tests use <code>rake spec</code>
-</li>
+<li>to run all tests use <code>rake spec</code></li>
 </ul>
 <p>(yes, sometimes you need the <code>r</code> in rspec, and other times you leave it out.)</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-1' href='slides_advanced_testing.html#/1'>▻</a>
-<h4 id="a-simple-spec">
-<a class="anchorlink" href="#a-simple-spec"></a>1.1 A simple spec</h4><p>A file can contain multiple test. You use <code>describe</code> and <code>it</code> to
+<p class='slide_break_block'><a class='slide_break' id='slide-1' href='slides_advanced_testing.html#/1'>◻</a></p>
+<h3 id="a-simple-spec"><a class="anchorlink" href="#a-simple-spec"><span>1.1</span> A simple spec</a></h3><p>A file can contain multiple test. You use <code>describe</code> and <code>it</code> to
 structure the file. The arguments for <code>describe</code> and <code>it</code> are
-used to describe the test in case of failure:</p><div class="code_container">
+used to describe the test in case of failure:</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">describe</span> <span class="no">Game</span> <span class="k">do</span>
   <span class="n">describe</span> <span class="s2">"#score"</span> <span class="k">do</span>
     <span class="n">it</span> <span class="s2">"returns 0 for all gutter games"</span> <span class="k">do</span>
@@ -163,8 +221,18 @@ used to describe the test in case of failure:</p><div class="code_container">
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="describe Game do
+  describe &quot;#score&quot; do
+    it &quot;returns 0 for all gutter games&quot; do
+      game = Game.new
+      20.times { game.roll(0) }
+      game.score.should == 0
+    end
+  end
+end
+">Copy</button>
 </div>
-<p>The message when this test fails reads:</p><div class="code_container">
+<p>The message when this test fails reads:</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="no">Failures</span><span class="p">:</span>
 
   <span class="mi">1</span><span class="p">)</span> <span class="no">Game</span><span class="c1">#score returns 0 for all gutter games</span>
@@ -173,15 +241,26 @@ used to describe the test in case of failure:</p><div class="code_container">
             <span class="ss">got: </span><span class="mi">1</span> <span class="p">(</span><span class="n">using</span> <span class="o">==</span><span class="p">)</span>
      <span class="c1"># ./x_spec.rb:15:in `block (3 levels) in &lt;top (required)&gt;'</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="Failures:
+
+  1) Game#score returns 0 for all gutter games
+     Failure/Error: game.score.should == 0
+       expected: 0
+            got: 1 (using ==)
+     # ./x_spec.rb:15:in `block (3 levels) in <top (required)>'
+">Copy</button>
 </div>
 <p>It is a convention to actually use the Class under test as
 the argument of <code>describe</code>.</p><p>Inside the test you can use ruby and rails. Instead of minitest's assertions
-you formulate expectations with "should" (outdated) or "expect" (current):</p><div class="code_container">
+you formulate expectations with "should" (outdated) or "expect" (current):</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">game</span><span class="p">.</span><span class="nf">score</span><span class="p">.</span><span class="nf">should</span> <span class="o">==</span> <span class="mi">0</span>
 <span class="n">expect</span><span class="p">(</span><span class="n">game</span><span class="p">.</span><span class="nf">score</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="game.score.should == 0
+expect(game.score).to eq(0)
+">Copy</button>
 </div>
-<p>There are two ways of writing matchers:</p><div class="code_container">
+<p>There are two ways of writing matchers:</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">foo</span><span class="p">.</span><span class="nf">should</span> <span class="o">==</span> <span class="n">bar</span>
 <span class="n">foo</span><span class="p">.</span><span class="nf">should</span> <span class="n">eq</span><span class="p">(</span><span class="n">bar</span><span class="p">)</span>       <span class="n">expect</span><span class="p">(</span><span class="n">foo</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="n">bar</span><span class="p">)</span>
 <span class="n">foo</span><span class="p">.</span><span class="nf">should_not</span> <span class="n">eq</span><span class="p">(</span><span class="n">bar</span><span class="p">)</span>   <span class="n">expect</span><span class="p">(</span><span class="n">foo</span><span class="p">).</span><span class="nf">not_to</span> <span class="n">eq</span><span class="p">(</span><span class="n">bar</span><span class="p">)</span>
@@ -193,12 +272,22 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 <span class="nb">lambda</span> <span class="p">{</span> <span class="n">do_something</span> <span class="p">}.</span><span class="nf">should</span> <span class="n">raise_error</span><span class="p">(</span><span class="no">SomeError</span><span class="p">)</span>
 <span class="n">expect</span> <span class="p">{</span> <span class="n">something</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">raise_error</span><span class="p">(</span><span class="no">SomeError</span><span class="p">)</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="foo.should == bar
+foo.should eq(bar)       expect(foo).to eq(bar)
+foo.should_not eq(bar)   expect(foo).not_to eq(bar)
+foo.should be < 10       expect(foo).to be < 10
+
+&quot;a string&quot;.should_not =~ /a regex/
+expect(&quot;a string&quot;).not_to match(/a regex/)
+
+lambda { do_something }.should raise_error(SomeError)
+expect { something }.to raise_error(SomeError)
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-2' href='slides_advanced_testing.html#/2'>▻</a>
-<h4 id="example-model-spec">
-<a class="anchorlink" href="#example-model-spec"></a>1.2 Example Model Spec</h4><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-2' href='slides_advanced_testing.html#/2'>◻</a></p>
+<h3 id="example-model-spec"><a class="anchorlink" href="#example-model-spec"><span>1.2</span> Example Model Spec</a></h3><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">describe</span> <span class="no">Post</span> <span class="k">do</span>
   <span class="n">context</span> <span class="s2">"with 2 or more comments"</span> <span class="k">do</span>
     <span class="n">it</span> <span class="s2">"orders them in reverse chronologically"</span> <span class="k">do</span>
@@ -210,12 +299,22 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="describe Post do
+  context &quot;with 2 or more comments&quot; do
+    it &quot;orders them in reverse chronologically&quot; do
+      post = Post.create!
+      comment1 = post.comments.create!(:body => &quot;first comment&quot;)
+      comment2 = post.comments.create!(:body => &quot;second comment&quot;)
+      post.reload.comments.should == [comment2, comment1]
+    end
+  end
+end
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-3' href='slides_advanced_testing.html#/3'>▻</a>
-<h4 id="example-feature-spec">
-<a class="anchorlink" href="#example-feature-spec"></a>1.3 Example Feature Spec</h4><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-3' href='slides_advanced_testing.html#/3'>◻</a></p>
+<h3 id="example-feature-spec"><a class="anchorlink" href="#example-feature-spec"><span>1.3</span> Example Feature Spec</a></h3><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">feature</span> <span class="s2">"Widget management"</span> <span class="k">do</span>
   <span class="n">scenario</span> <span class="s2">"User creates a new widget"</span> <span class="k">do</span>
     <span class="n">visit</span> <span class="s2">"/widgets/new"</span>
@@ -225,12 +324,20 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="feature &quot;Widget management&quot; do
+  scenario &quot;User creates a new widget&quot; do
+    visit &quot;/widgets/new&quot;
+    fill_in &quot;Name&quot;, :with => &quot;My Widget&quot;
+    click_button &quot;Create Widget&quot;
+    page.should have_text(&quot;Widget was created.&quot;)
+  end
+end
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-4' href='slides_advanced_testing.html#/4'>▻</a>
-<h4 id="kinds-of-tests">
-<a class="anchorlink" href="#kinds-of-tests"></a>1.4 Kinds of Tests</h4>
+<p class='slide_break_block'><a class='slide_break' id='slide-4' href='slides_advanced_testing.html#/4'>◻</a></p>
+<h3 id="kinds-of-tests"><a class="anchorlink" href="#kinds-of-tests"><span>1.4</span> Kinds of Tests</a></h3>
 <ul>
 <li>Model specs</li>
 <li>Controller specs</li>
@@ -243,13 +350,11 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-5' href='slides_advanced_testing.html#/5'>▻</a>
-<h3 id="cucumber">
-<a class="anchorlink" href="#cucumber"></a>2 Cucumber</h3><p><img src="images/cucumber-1.png" alt=""></p><p><img src="images/cucumber-2.png" alt=""></p></div>
+<p class='slide_break_block'><a class='slide_break' id='slide-5' href='slides_advanced_testing.html#/5'>◻</a></p>
+<h2 id="cucumber"><a class="anchorlink" href="#cucumber"><span>2</span> Cucumber</a></h2><p><img src="images/cucumber-1.png" alt=""></p><p><img src="images/cucumber-2.png" alt=""></p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-6' href='slides_advanced_testing.html#/6'>▻</a>
-<h4 id="step-definitions">
-<a class="anchorlink" href="#step-definitions"></a>2.1 Step Definitions</h4><p>the magic behind cucumber:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-6' href='slides_advanced_testing.html#/6'>◻</a></p>
+<h3 id="step-definitions"><a class="anchorlink" href="#step-definitions"><span>2.1</span> Step Definitions</a></h3><p>the magic behind cucumber:</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="no">Given</span> <span class="sr">/the following movies exist/</span> <span class="k">do</span> <span class="o">|</span><span class="n">movies_table</span><span class="o">|</span>
   <span class="n">movies_table</span><span class="p">.</span><span class="nf">hashes</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">movie</span><span class="o">|</span>
     <span class="no">Movie</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span> <span class="n">movie</span> <span class="p">)</span>
@@ -261,31 +366,35 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
   <span class="n">m</span><span class="p">.</span><span class="nf">director</span><span class="p">.</span><span class="nf">should</span> <span class="o">==</span> <span class="n">director</span>
 <span class="k">end</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="Given /the following movies exist/ do |movies_table|
+  movies_table.hashes.each do |movie|
+    Movie.create( movie )
+  end
+end
+Then /^the director of &quot;([^&quot;]*)&quot; should be &quot;([^&quot;]*)&quot;$/ do |title, director|
+  m = Movie.find_by_title( title )
+  m.should_not be_nil
+  m.director.should == director
+end
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-7' href='slides_advanced_testing.html#/7'>▻</a>
-<h3 id="test-doubles">
-<a class="anchorlink" href="#test-doubles"></a>3 Test Doubles</h3><p>According to Meszaros(2007)</p>
+<p class='slide_break_block'><a class='slide_break' id='slide-7' href='slides_advanced_testing.html#/7'>◻</a></p>
+<h2 id="test-doubles"><a class="anchorlink" href="#test-doubles"><span>3</span> Test Doubles</a></h2><p>According to Meszaros(2007)</p>
 <ul>
-<li>
-<strong>Test stub</strong> provide canned answers to calls made during the test</li>
-<li>
-<strong>Mock object</strong> used for verifying "indirect output" of the tested code, by first defining the expectations before the tested code is executed</li>
-<li>
-<strong>Test spy</strong> used for verifying "indirect output" of the tested code, by asserting the expectations afterwards, without having defined the expectations before the tested code is executed</li>
-<li>
-<strong>Fake object</strong> used as a simpler implementation, e.g. using an in-memory database in the tests instead of doing real database access</li>
+<li><strong>Test stub</strong> provide canned answers to calls made during the test</li>
+<li><strong>Mock object</strong> used for verifying "indirect output" of the tested code, by first defining the expectations before the tested code is executed</li>
+<li><strong>Test spy</strong> used for verifying "indirect output" of the tested code, by asserting the expectations afterwards, without having defined the expectations before the tested code is executed</li>
+<li><strong>Fake object</strong> used as a simpler implementation, e.g. using an in-memory database in the tests instead of doing real database access</li>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-8' href='slides_advanced_testing.html#/8'>▻</a>
-<h3 id="testing-web-servcies">
-<a class="anchorlink" href="#testing-web-servcies"></a>4 Testing Web Servcies</h3><p>VCR</p></div>
+<p class='slide_break_block'><a class='slide_break' id='slide-8' href='slides_advanced_testing.html#/8'>◻</a></p>
+<h2 id="testing-web-servcies"><a class="anchorlink" href="#testing-web-servcies"><span>4</span> Testing Web Servcies</a></h2><p>VCR</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-9' href='slides_advanced_testing.html#/9'>▻</a>
-<h3 id="testing-time">
-<a class="anchorlink" href="#testing-time"></a>5 Testing Time</h3><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-9' href='slides_advanced_testing.html#/9'>◻</a></p>
+<h2 id="testing-time"><a class="anchorlink" href="#testing-time"><span>5</span> Testing Time</a></h2><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">describe</span> <span class="s2">"sets done_at"</span> <span class="k">do</span>
   <span class="n">t</span> <span class="o">=</span> <span class="no">Todoitem</span><span class="p">.</span><span class="nf">create!</span><span class="p">(</span> <span class="ss">:text</span> <span class="o">=&gt;</span> <span class="s2">"write"</span> <span class="p">)</span>
   <span class="n">t</span><span class="p">.</span><span class="nf">done</span> <span class="o">=</span> <span class="kp">true</span>
@@ -294,12 +403,19 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
   <span class="n">t</span><span class="p">.</span><span class="nf">done_at</span><span class="p">.</span><span class="nf">should</span> <span class="o">==</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span>
 <span class="k">end</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="describe &quot;sets done_at&quot; do
+  t = Todoitem.create!( :text => &quot;write&quot; )
+  t.done = true
+  t.save!
+  t.reload
+  t.done_at.should == Time.now
+end
+">Copy</button>
 </div>
 <p><img src="images/timefail-1.png" alt="time fail"></p><p><img src="images/timefail-2.png" alt="time fail"></p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-10' href='slides_advanced_testing.html#/10'>▻</a>
-<h4 id="first-solution-write-your-own-matcher">
-<a class="anchorlink" href="#first-solution-write-your-own-matcher"></a>5.1 First solution: write your own matcher:</h4><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-10' href='slides_advanced_testing.html#/10'>◻</a></p>
+<h3 id="first-solution-write-your-own-matcher"><a class="anchorlink" href="#first-solution-write-your-own-matcher"><span>5.1</span> First solution: write your own matcher:</a></h3><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="c1"># in your test:</span>
 <span class="n">t</span><span class="p">.</span><span class="nf">done_at</span><span class="p">.</span><span class="nf">should</span> <span class="n">be_the_same_time_as</span><span class="p">(</span> <span class="no">Time</span><span class="p">.</span><span class="nf">zone</span><span class="p">.</span><span class="nf">now</span> <span class="p">)</span>
 
@@ -309,16 +425,28 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
     <span class="n">expected</span><span class="p">.</span><span class="nf">to_i</span> <span class="o">==</span> <span class="n">actual</span><span class="p">.</span><span class="nf">to_i</span>
   <span class="k">end</span>
   <span class="n">failure_message_for_should</span> <span class="k">do</span> <span class="o">|</span><span class="n">actual</span><span class="o">|</span>
-    <span class="s2">"expected that </span><span class="si">#{</span><span class="n">actual</span><span class="si">}</span><span class="s2"> (</span><span class="si">#{</span><span class="n">actual</span><span class="p">.</span><span class="nf">to_i</span><span class="si">}</span><span class="s2"> in seconds) would be a the same as </span><span class="si">#{</span><span class="n">expected</span><span class="si">}</span><span class="s2">  (</span><span class="si">#{</span><span class="n">expected</span><span class="p">.</span><span class="nf">to_i</span><span class="si">}</span><span class="s2"> in seconds)"</span>
+    <span class="s2">"expected that </span><span class="si">#{</span><span class="n">actual</span><span class="si">}</span><span class="s2"> (</span><span class="si">#{</span><span class="n">actual</span><span class="p">.</span><span class="nf">to_i</span><span class="si">}</span><span class="s2"> in seconds)&nbsp;would be a the same as </span><span class="si">#{</span><span class="n">expected</span><span class="si">}</span><span class="s2"> &nbsp;(</span><span class="si">#{</span><span class="n">expected</span><span class="p">.</span><span class="nf">to_i</span><span class="si">}</span><span class="s2"> in seconds)"</span>
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="# in your test:
+t.done_at.should be_the_same_time_as( Time.zone.now )
+
+# in spec_helper.rb:
+RSpec::Matchers.define :be_the_same_time_as do |expected|
+  match do |actual|
+    expected.to_i == actual.to_i
+  end
+  failure_message_for_should do |actual|
+    &quot;expected that #{actual} (#{actual.to_i} in seconds)&nbsp;would be a the same as #{expected} &nbsp;(#{expected.to_i} in seconds)&quot;
+  end
+end
+">Copy</button>
 </div>
 <p><img src="images/timefail-3.png" alt=""></p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-11' href='slides_advanced_testing.html#/11'>▻</a>
-<h4 id="second-solution-timecop">
-<a class="anchorlink" href="#second-solution-timecop"></a>5.2 Second Solution: Timecop</h4><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-11' href='slides_advanced_testing.html#/11'>◻</a></p>
+<h3 id="second-solution-timecop"><a class="anchorlink" href="#second-solution-timecop"><span>5.2</span> Second Solution: Timecop</a></h3><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">it</span> <span class="s2">"sets done_at"</span> <span class="k">do</span>
     <span class="n">t</span> <span class="o">=</span> <span class="no">Todoitem</span><span class="p">.</span><span class="nf">create!</span><span class="p">(</span> <span class="ss">:text</span> <span class="o">=&gt;</span> <span class="s2">"write"</span> <span class="p">)</span>
        <span class="no">Timecop</span><span class="p">.</span><span class="nf">freeze</span> <span class="k">do</span>
@@ -329,63 +457,91 @@ you formulate expectations with "should" (outdated) or "expect" (current):</p><d
     <span class="k">end</span>
 <span class="k">end</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="it &quot;sets done_at&quot; do
+    t = Todoitem.create!( :text => &quot;write&quot; )
+       Timecop.freeze do
+       t.done = true
+       t.save!
+       t.reload
+       t.done_at.should == Time.now
+    end
+end
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-12' href='slides_advanced_testing.html#/12'>▻</a>
-<h3 id="testing-javascript">
-<a class="anchorlink" href="#testing-javascript"></a>6 Testing Javascript</h3><p><img src="images/jasmine.png" alt=""></p><p><img src="images/phantomjs.png" alt=""></p></div>
+<p class='slide_break_block'><a class='slide_break' id='slide-12' href='slides_advanced_testing.html#/12'>◻</a></p>
+<h2 id="testing-javascript"><a class="anchorlink" href="#testing-javascript"><span>6</span> Testing Javascript</a></h2><p><img src="images/jasmine.png" alt=""></p><p><img src="images/phantomjs.png" alt=""></p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-13' href='slides_advanced_testing.html#/13'>▻</a>
-<h4 id="phantom-example">
-<a class="anchorlink" href="#phantom-example"></a>6.1 Phantom Example</h4><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-13' href='slides_advanced_testing.html#/13'>◻</a></p>
+<h3 id="phantom-example"><a class="anchorlink" href="#phantom-example"><span>6.1</span> Phantom Example</a></h3><div class="interstitial code">
 <pre><code class="highlight javascript"><span class="kd">var</span> <span class="nx">page</span><span class="p">;</span>
-<span class="nx">page</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">webpage</span><span class="dl">"</span><span class="p">).</span><span class="nx">create</span><span class="p">();</span>
-<span class="nx">page</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">"</span><span class="s2">http://localhost:3000</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">status</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">page</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">webpage</span><span class="dl">"</span><span class="p">).</span><span class="nf">create</span><span class="p">();</span>
+<span class="nx">page</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="dl">"</span><span class="s2">http://localhost:3000</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">status</span><span class="p">)</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nx">string</span> <span class="o">=</span> <span class="nx">page</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">h1</span><span class="dl">"</span><span class="p">).</span><span class="nx">text</span><span class="p">();</span>
+  <span class="nx">string</span> <span class="o">=</span> <span class="nx">page</span><span class="p">.</span><span class="nf">evaluate</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">h1</span><span class="dl">"</span><span class="p">).</span><span class="nf">text</span><span class="p">();</span>
   <span class="p">});</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Title: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">string</span><span class="p">);</span>
-  <span class="k">return</span> <span class="nx">phantom</span><span class="p">.</span><span class="nx">exit</span><span class="p">();</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Title: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">string</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">phantom</span><span class="p">.</span><span class="nf">exit</span><span class="p">();</span>
 <span class="p">});</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="var page;
+page = require(&quot;webpage&quot;).create();
+page.open(&quot;http://localhost:3000&quot;, function(status) {
+  var string;
+  string = page.evaluate(function() {
+    return $(&quot;h1&quot;).text();
+  });
+  console.log(&quot;Title: &quot; + string);
+  return phantom.exit();
+});
+">Copy</button>
 </div>
-<div class="code_container">
+<div class="interstitial code">
 <pre><code class="highlight javascript"><span class="kd">var</span> <span class="nx">page</span><span class="p">;</span>
-<span class="nx">page</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">webpage</span><span class="dl">"</span><span class="p">).</span><span class="nx">create</span><span class="p">();</span>
-<span class="nx">page</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="dl">"</span><span class="s2">http://localhost:3000</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">status</span><span class="p">)</span> <span class="p">{</span>
+<span class="nx">page</span> <span class="o">=</span> <span class="nf">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">webpage</span><span class="dl">"</span><span class="p">).</span><span class="nf">create</span><span class="p">();</span>
+<span class="nx">page</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="dl">"</span><span class="s2">http://localhost:3000</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">status</span><span class="p">)</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nx">string</span> <span class="o">=</span> <span class="nx">page</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">h1</span><span class="dl">"</span><span class="p">).</span><span class="nx">text</span><span class="p">();</span>
+  <span class="nx">string</span> <span class="o">=</span> <span class="nx">page</span><span class="p">.</span><span class="nf">evaluate</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nf">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">h1</span><span class="dl">"</span><span class="p">).</span><span class="nf">text</span><span class="p">();</span>
   <span class="p">});</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Title: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">string</span><span class="p">);</span>
-  <span class="k">return</span> <span class="nx">phantom</span><span class="p">.</span><span class="nx">exit</span><span class="p">();</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Title: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">string</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">phantom</span><span class="p">.</span><span class="nf">exit</span><span class="p">();</span>
 <span class="p">});</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="var page;
+page = require(&quot;webpage&quot;).create();
+page.open(&quot;http://localhost:3000&quot;, function(status) {
+  var string;
+  string = page.evaluate(function() {
+    return $(&quot;h1&quot;).text();
+  });
+  console.log(&quot;Title: &quot; + string);
+  return phantom.exit();
+});
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-14' href='slides_advanced_testing.html#/14'>▻</a>
-<h4 id="phantom-in-rspec">
-<a class="anchorlink" href="#phantom-in-rspec"></a>6.2 Phantom in rspec</h4><p>with capybara and poltergeist</p></div>
+<p class='slide_break_block'><a class='slide_break' id='slide-14' href='slides_advanced_testing.html#/14'>◻</a></p>
+<h3 id="phantom-in-rspec"><a class="anchorlink" href="#phantom-in-rspec"><span>6.2</span> Phantom in rspec</a></h3><p>with capybara and poltergeist</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-15' href='slides_advanced_testing.html#/15'>▻</a>
-<h3 id="example-app">
-<a class="anchorlink" href="#example-app"></a>7 Example App</h3><p>Clone <a href="https://github.com/web-engineering/rails-example-test-the-todo">this app</a> and try out your new testing strategies!</p><p><img src="images/sample-app-todolist.png" alt="screenshot example app"></p></div>
+<p class='slide_break_block'><a class='slide_break' id='slide-15' href='slides_advanced_testing.html#/15'>◻</a></p>
+<h2 id="example-app"><a class="anchorlink" href="#example-app"><span>7</span> Example App</a></h2><p>Clone <a href="https://github.com/web-engineering/rails-example-test-the-todo">this app</a> and try out your new testing strategies!</p><p><img src="images/sample-app-todolist.png" alt="screenshot example app"></p></div>
         </div>
       </div>
-    </div>
-    <hr class="hide">
-    <div id="footer">
+    </main>
+    <hr class="hide" />
+    <footer id="page_footer">
       <div class="wrapper">
         <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2025 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
-        </p>
-        <p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
-        </p>
+</p>
+<p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
+</p>
+<p>Favicon "backend development" by Arkinasi from <a href="https://thenounproject.com/browse/icons/term/backend-development/" target="_blank" title="backend development Icons">Noun Project</a> (CC BY 3.0)</p>
+
       </div>
-    </div>
-    <script src="javascripts/jquery.min.js"></script>
-    <script src="javascripts/guides.js"></script>
+    </footer>
   </body>
 </html>

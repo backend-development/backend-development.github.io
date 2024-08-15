@@ -5,8 +5,12 @@
     <meta charset="utf-8">
 
     <title>Slides for
-        Deploying Rails — Backend Development
+        Deploying Rails — Ruby on Rails Guides
     </title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" data-turbo-track="reload">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <link rel="stylesheet" type="text/css" href="stylesheets/highlight.css" data-turbo-track="reload">
+
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
@@ -16,6 +20,8 @@
 		<link rel="stylesheet" href="stylesheets/reveal.css">
 		<link rel="stylesheet" href="stylesheets/myslide.css" id="theme">
     <link rel="stylesheet" href="stylesheets/code.css">
+    <script src="javascripts/clipboard.js" data-turbo-track="reload"></script>
+    <script src="javascripts/slides.js" data-turbo-track="reload"></script>
 
 </head>
 
@@ -23,9 +29,19 @@
     <div class="reveal">
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
+        <section>
+            <h1>Deploying Rails</h1><p>Your &quot;Minimal Viable Product&quot; is finished, now you
+want to publish it on the web.</p><p>After working through this guide you should be able to</p>
+<ul>
+<li>deploy a rails app to dokku (or heroku) using git</li>
+<li>deploy a rails app to any unix server using capistrano</li>
+</ul>
+
+          <p><small>Slides - use arrow keys to navigate, esc to return to page view, f for fullscreen</small></p>
+
+        </section>
         <section><a class='slide_break' href='deploying_rails.html#slide-0'>▻</a>
-<h3 id="deploying-with-git">
-<a class="anchorlink" href="#deploying-with-git"></a>1 Deploying with git</h3><p>heroku is one "Platform as a Service" provider that offers
+<h2 id="deploying-with-git"><a class="anchorlink" href="#deploying-with-git"><span>1</span> Deploying with git</a></h2><p>heroku is one "Platform as a Service" provider that offers
 to host your rails app.  Heroku uses git to push the code to
 the production server.</p><p>(See also
 <a href="http://railsbridge.projects.multimediatechnology.at/installfest/create_a_heroku_account">Railsbridge Installfest: Create A Heroku Account</a>
@@ -33,8 +49,7 @@ and
 <a href="https://railsbridge.projects.multimediatechnology.at/installfest/deploy_a_rails_app">Railsbridge Installfest: Deploy A Rails App</a>
 )</p>
 <ul>
-<li>create an account on <a href="https://heroku.com">https://heroku.com</a>
-</li>
+<li>create an account on <a href="https://heroku.com">https://heroku.com</a></li>
 <li>add your public key to your heroku account</li>
 <li>install the heroku toolbelt on your local development machine</li>
 </ul>
@@ -51,8 +66,7 @@ and
 <p>That's it.   You should now have an app with a very strange URL, like
 <a href="http://mighty-shore-1497.herokuapp.com/">http://mighty-shore-1497.herokuapp.com/</a></p></section>
 <section><a class='slide_break' href='deploying_rails.html#slide-1'>▻</a>
-<h3 id="public-key-authentication-in-ssh">
-<a class="anchorlink" href="#public-key-authentication-in-ssh"></a>2 Public Key Authentication in SSH</h3><p>(See also <a href="http://railsbridge.projects.multimediatechnology.at/installfest/create_an_ssh_key">Railsbridge Installfest</a>)</p><p><img src="images/public_key_crypto.svg" alt="public key login"></p>
+<h2 id="public-key-authentication-in-ssh"><a class="anchorlink" href="#public-key-authentication-in-ssh"><span>2</span> Public Key Authentication in SSH</a></h2><p>(See also <a href="http://railsbridge.projects.multimediatechnology.at/installfest/create_an_ssh_key">Railsbridge Installfest</a>)</p><p><img src="images/public_key_crypto.svg" alt="public key login"></p>
 <ul>
 <li><a href="https://dougvitale.wordpress.com/2012/02/20/ssh-the-secure-shell/">learn about ssh</a></li>
 <li>if you have a public + private key pair
@@ -60,50 +74,42 @@ and
 <ul>
 <li><code>id_rsa</code></li>
 <li><code>id_rsa.pub</code></li>
-</ul>
-</li>
+</ul></li>
 <li>and your private key is on your local computer
 
 <ul>
-<li>stored in <code>~/.ssh/id_rsa</code>
-</li>
-</ul>
-</li>
+<li>stored in <code>~/.ssh/id_rsa</code></li>
+</ul></li>
 <li>and your public key is on the server
 
 <ul>
-<li>stored in <code>~/.ssh/authorized_keys2</code>
-</li>
-</ul>
-</li>
+<li>stored in <code>~/.ssh/authorized_keys2</code></li>
+</ul></li>
 <li>then ssh will let you log in without giving a password</li>
 </ul>
 <p><img src="images/ssh_login_with_public_key.svg" alt="public key login"></p></section>
 <section><a class='slide_break' href='deploying_rails.html#slide-2'>▻</a>
-<h4 id="deploying-with-a-deploy-user">
-<a class="anchorlink" href="#deploying-with-a-deploy-user"></a>2.1 deploying with a deploy-user</h4>
+<h3 id="deploying-with-a-deploy-user"><a class="anchorlink" href="#deploying-with-a-deploy-user"><span>2.1</span> deploying with a deploy-user</a></h3>
 <ul>
 <li>alice and bob both want to deploy project x</li>
-<li>
-<code>deploy_x</code> is set up as an account on the server</li>
-<li>alice adds her public key to <code>~deploy_x/.ssh/authorized_keys2</code>
-</li>
-<li>bob adds his public key to <code>~deploy_x/.ssh/authorized_keys2</code>
-</li>
+<li><code>deploy_x</code> is set up as an account on the server</li>
+<li>alice adds her public key to <code>~deploy_x/.ssh/authorized_keys2</code></li>
+<li>bob adds his public key to <code>~deploy_x/.ssh/authorized_keys2</code></li>
 <li>both can deploy (from different machines) using the same capistrano setup</li>
 </ul>
 </section>
 <section><a class='slide_break' href='deploying_rails.html#slide-3'>▻</a>
-<h4 id="authorized-keys2">
-<a class="anchorlink" href="#authorized-keys2"></a>2.2 authorized_keys2</h4><div class="code_container">
+<h3 id="authorized-keys2"><a class="anchorlink" href="#authorized-keys2"><span>2.2</span> authorized_keys2</a></h3><div class="interstitial code">
 <pre><code class="highlight plaintext">ssh-rsa AAAAB3NzaC...2EAAAABI== alice@fh-salzburg.ac.at
 ssh-rsa AAAAB8NzaC...DVj3R4Ww== bob@fh-salzburg.ac.at
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="ssh-rsa AAAAB3NzaC...2EAAAABI== alice@fh-salzburg.ac.at
+ssh-rsa AAAAB8NzaC...DVj3R4Ww== bob@fh-salzburg.ac.at
+">Copy</button>
 </div>
 </section>
 <section><a class='slide_break' href='deploying_rails.html#slide-4'>▻</a>
-<h3 id="how-to-run-rails">
-<a class="anchorlink" href="#how-to-run-rails"></a>3 How to run Rails</h3>
+<h2 id="how-to-run-rails"><a class="anchorlink" href="#how-to-run-rails"><span>3</span> How to run Rails</a></h2>
 <ul>
 <li>WEBrick (built in web server)</li>
 <li>apache/nginx + mod_passenger</li>
@@ -111,44 +117,35 @@ ssh-rsa AAAAB8NzaC...DVj3R4Ww== bob@fh-salzburg.ac.at
 </ul>
 </section>
 <section><a class='slide_break' href='deploying_rails.html#slide-5'>▻</a>
-<h4 id="webrick">
-<a class="anchorlink" href="#webrick"></a>3.1 WEBrick</h4>
+<h3 id="webrick"><a class="anchorlink" href="#webrick"><span>3.1</span> WEBrick</a></h3>
 <ul>
 <li>rails s</li>
 </ul>
 </section>
 <section><a class='slide_break' href='deploying_rails.html#slide-6'>▻</a>
-<h4 id="mod-passenger">
-<a class="anchorlink" href="#mod-passenger"></a>3.2 mod_passenger</h4>
+<h3 id="mod-passenger"><a class="anchorlink" href="#mod-passenger"><span>3.2</span> mod_passenger</a></h3>
 <ul>
-<li>install <a href="https://www.phusionpassenger.com/">mod_passenger</a>
-</li>
+<li>install <a href="https://www.phusionpassenger.com/">mod_passenger</a></li>
 <li>upload your code</li>
 <li>create files not in git (e.g. database.yml)</li>
 <li>apache config:
 
 <ul>
-<li>set <code>DocumentRoot</code> to <code>public/</code>
-</li>
-<li>set <code>RailsEnv production</code>
-</li>
-</ul>
-</li>
+<li>set <code>DocumentRoot</code> to <code>public/</code></li>
+<li>set <code>RailsEnv production</code></li>
+</ul></li>
 <li>restart apache</li>
 <li>if you change the code:
 
 <ul>
 <li>touch <code>tmp/restart.txt</code> to force reload of code</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 </section>
 <section><a class='slide_break' href='deploying_rails.html#slide-7'>▻</a>
-<h3 id="deploying-with-capistrano">
-<a class="anchorlink" href="#deploying-with-capistrano"></a>4 Deploying with Capistrano</h3><p><img src="images/capistrano-deploy.svg" alt="Deploying with Javascript"></p></section>
+<h2 id="deploying-with-capistrano"><a class="anchorlink" href="#deploying-with-capistrano"><span>4</span> Deploying with Capistrano</a></h2><p><img src="images/capistrano-deploy.svg" alt="Deploying with Javascript"></p></section>
 <section><a class='slide_break' href='deploying_rails.html#slide-8'>▻</a>
-<h4 id="warning">
-<a class="anchorlink" href="#warning"></a>4.1 WARNING</h4>
+<h3 id="warning"><a class="anchorlink" href="#warning"><span>4.1</span> WARNING</a></h3>
 <ul>
 <li>capistrano is a command line tool</li>
 <li>you need to read the output!</li>
@@ -157,19 +154,16 @@ ssh-rsa AAAAB8NzaC...DVj3R4Ww== bob@fh-salzburg.ac.at
 </ul>
 </section>
 <section><a class='slide_break' href='deploying_rails.html#slide-9'>▻</a>
-<h4 id="capistrano-assumptions">
-<a class="anchorlink" href="#capistrano-assumptions"></a>4.2 capistrano assumptions</h4>
+<h3 id="capistrano-assumptions"><a class="anchorlink" href="#capistrano-assumptions"><span>4.2</span> capistrano assumptions</a></h3>
 <ul>
 <li>You are using SSH to access your remote machines</li>
 <li>your remote servers have a shell called sh</li>
 <li>authentication through password or public key</li>
-<li>Capistrano reads its instructions from a <code>capfile</code>
-</li>
+<li>Capistrano reads its instructions from a <code>capfile</code></li>
 </ul>
 </section>
 <section><a class='slide_break' href='deploying_rails.html#slide-10'>▻</a>
-<h4 id="how-to-install">
-<a class="anchorlink" href="#how-to-install"></a>4.3 how to install</h4><div class="code_container">
+<h3 id="how-to-install"><a class="anchorlink" href="#how-to-install"><span>4.3</span> how to install</a></h3><div class="interstitial code">
 <pre><code class="highlight sh"><span class="nv">$ </span><span class="nb">sudo gem install </span>capistrano
 Fetching: capistrano-2.13.5.gem <span class="o">(</span>100%<span class="o">)</span>
 Successfully installed capistrano-2.13.5
@@ -183,34 +177,51 @@ create config/deploy/production.rb
 create Capfile
 Capified
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="$ sudo gem install capistrano
+Fetching: capistrano-2.13.5.gem (100%)
+Successfully installed capistrano-2.13.5
+1 gem installed
+$ $ cap install
+mkdir -p config/deploy
+create config/deploy.rb
+create config/deploy/staging.rb
+create config/deploy/production.rb
+mkdir -p lib/capistrano/tasks
+create Capfile
+Capified
+">Copy</button>
 </div>
 </section>
 <section><a class='slide_break' href='deploying_rails.html#slide-11'>▻</a>
-<h4 id="configuration-in-config-deploy-rb">
-<a class="anchorlink" href="#configuration-in-config-deploy-rb"></a>4.4 configuration in <code>config/deploy.rb</code>
-</h4><p>local information, see our wiki</p></section>
+<h3 id="configuration-in-config-deploy-rb"><a class="anchorlink" href="#configuration-in-config-deploy-rb"><span>4.4</span> configuration in <code>config/deploy.rb</code></a></h3><p>local information, see our wiki</p></section>
 <section><a class='slide_break' href='deploying_rails.html#slide-12'>▻</a>
-<h4 id="example-task-in-capfile">
-<a class="anchorlink" href="#example-task-in-capfile"></a>4.5 example task in Capfile</h4><div class="code_container">
+<h3 id="example-task-in-capfile"><a class="anchorlink" href="#example-task-in-capfile"><span>4.5</span> example task in Capfile</a></h3><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">task</span> <span class="ss">:display_free_disk_space</span> <span class="k">do</span>
   <span class="n">run</span> <span class="s2">"df -h"</span>
 <span class="k">end</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="task :display_free_disk_space do
+  run &quot;df -h&quot;
+end
+">Copy</button>
 </div>
 </section>
 <section><a class='slide_break' href='deploying_rails.html#slide-13'>▻</a>
-<h4 id="prepare-capistranoe">
-<a class="anchorlink" href="#prepare-capistranoe"></a>4.6 prepare capistranoe</h4><div class="code_container">
+<h3 id="prepare-capistranoe"><a class="anchorlink" href="#prepare-capistranoe"><span>4.6</span> prepare capistranoe</a></h3><div class="interstitial code">
 <pre><code class="highlight sh"><span class="nv">$ </span>cap production <span class="nb">git</span>:check
 <span class="nv">$ </span>scp config/database.yml deployuser@server:/var/www/.../shared/config
 <span class="nv">$ </span>scp config/secrets.yml deployuser@server:/var/www/.../shared/config
 <span class="nv">$ </span>cap production deploy
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="$ cap production git:check
+$ scp config/database.yml deployuser@server:/var/www/.../shared/config
+$ scp config/secrets.yml deployuser@server:/var/www/.../shared/config
+$ cap production deploy
+">Copy</button>
 </div>
 </section>
 <section><a class='slide_break' href='deploying_rails.html#slide-14'>▻</a>
-<h4 id="run-a-capistrano-task">
-<a class="anchorlink" href="#run-a-capistrano-task"></a>4.7 run a capistrano task</h4><div class="code_container">
+<h3 id="run-a-capistrano-task"><a class="anchorlink" href="#run-a-capistrano-task"><span>4.7</span> run a capistrano task</a></h3><div class="interstitial code">
 <pre><code class="highlight sh"><span class="nv">$ </span>cap production deploy
 <span class="nv">$ </span>cap display_free_disk_space
 <span class="k">*</span> 2012-11-29 05:34:45 executing <span class="s1">'display_free_disk_space'</span>
@@ -222,11 +233,21 @@ Capified
 <span class="k">**</span> <span class="o">[</span>out :: multimediaart.at] 98G   70G   24G  75% /var/www
   <span class="nb">command </span>finished <span class="k">in </span>165ms
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="$ cap production deploy
+$ cap display_free_disk_space
+* 2012-11-29 05:34:45 executing 'display_free_disk_space'
+* executing &quot;df -h&quot;
+  servers: [&quot;multimediaart.at&quot;]
+  Password: ****
+  [multimediaart.at] executing command
+** [out :: multimediaart.at] Size  Used Avail Use% Mounted on
+** [out :: multimediaart.at] 98G   70G   24G  75% /var/www
+  command finished in 165ms
+">Copy</button>
 </div>
 </section>
 <section><a class='slide_break' href='deploying_rails.html#slide-15'>▻</a>
-<h4 id="capistrano-folders">
-<a class="anchorlink" href="#capistrano-folders"></a>4.8 capistrano folders</h4><p>read the logfile, try to find out how capistrano lays out
+<h3 id="capistrano-folders"><a class="anchorlink" href="#capistrano-folders"><span>4.8</span> capistrano folders</a></h3><p>read the logfile, try to find out how capistrano lays out
 the folders</p>
 <ul>
 <li>current --&gt; links to a release</li>
@@ -235,8 +256,7 @@ the folders</p>
 <ul>
 <li>20121201113038</li>
 <li>20121201150544</li>
-</ul>
-</li>
+</ul></li>
 <li>shared
 
 <ul>
@@ -245,18 +265,21 @@ the folders</p>
 <li>log</li>
 <li>pids</li>
 <li>system</li>
-</ul>
-</li>
+</ul></li>
 </ul>
 </section>
 <section><a class='slide_break' href='deploying_rails.html#slide-16'>▻</a>
-<h4 id="my-first-deploy">
-<a class="anchorlink" href="#my-first-deploy"></a>4.9 my first deploy</h4><div class="code_container">
+<h3 id="my-first-deploy"><a class="anchorlink" href="#my-first-deploy"><span>4.9</span> my first deploy</a></h3><div class="interstitial code">
 <pre><code class="highlight sh"><span class="nv">$ </span>cap deploy:setup
 <span class="nv">$ </span>cap deploy:check
 <span class="nv">$ </span>cap deploy:cold
 <span class="nv">$ </span>cap deploy:upload <span class="nv">FILES</span><span class="o">=</span><span class="s1">'config/database.yml'</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="$ cap deploy:setup
+$ cap deploy:check
+$ cap deploy:cold
+$ cap deploy:upload FILES='config/database.yml'
+">Copy</button>
 </div>
 </div></section>
       </div>
@@ -279,8 +302,9 @@ the folders</p>
       // The "normal" size of the presentation, aspect ratio will
       // be preserved when the presentation is scaled to fit different
       // resolutions. Can be specified using percentage units.
-      width: 800,
+      width: 1000,
       height: 600,
+      disableLayout: false,
 
       // Factor of the display size that should remain empty around
       // the content
@@ -293,10 +317,10 @@ the folders</p>
       keyboard: {
         27: () => {
           // do something custom when ESC is pressed
-          var new_url = window.location.pathname.replace('slides_', '');
-          console.log('esc to ', new_url);
+          var new_url = window.location.pathname.replace('slides_', '') + window.location.hash.replace('/','slide-');
           window.location = new_url;
         },
+        191: 'toggleHelp',
         13: 'next', // go to the next slide when the ENTER key is pressed
       },
 

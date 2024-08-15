@@ -5,8 +5,12 @@
     <meta charset="utf-8">
 
     <title>Slides for
-        Building the Frontend with webpacker — Backend Development
+        Building the Frontend with webpacker — Ruby on Rails Guides
     </title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" data-turbo-track="reload">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <link rel="stylesheet" type="text/css" href="stylesheets/highlight.css" data-turbo-track="reload">
+
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
@@ -16,6 +20,8 @@
 		<link rel="stylesheet" href="stylesheets/reveal.css">
 		<link rel="stylesheet" href="stylesheets/myslide.css" id="theme">
     <link rel="stylesheet" href="stylesheets/code.css">
+    <script src="javascripts/clipboard.js" data-turbo-track="reload"></script>
+    <script src="javascripts/slides.js" data-turbo-track="reload"></script>
 
 </head>
 
@@ -23,9 +29,22 @@
     <div class="reveal">
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
+        <section>
+            <h1>Building the Frontend with webpacker</h1><p>While the asset pipeline is rails&#39; traditional way of preparing
+files for the frontend, in recent years a completely
+different toolchain was developed in the frontend community.</p><p>In this guide you will learn how to integrate webpack
+and a current frontend framework with your rails app.
+You will be able to:</p>
+<ul>
+<li>use webpack to prepare your javascript files</li>
+<li>use a framework like svelte, angular, react</li>
+</ul>
+
+          <p><small>Slides - use arrow keys to navigate, esc to return to page view, f for fullscreen</small></p>
+
+        </section>
         <section><a class='slide_break' href='rails_webpack_frontend.html#slide-0'>▻</a>
-<h3 id="frontend-pipelines">
-<a class="anchorlink" href="#frontend-pipelines"></a>1 Frontend Pipelines</h3><p>When the rails asset pipeline was published with Rails 3.1 in 2011, node.js
+<h2 id="frontend-pipelines"><a class="anchorlink" href="#frontend-pipelines"><span>1</span> Frontend Pipelines</a></h2><p>When the rails asset pipeline was published with Rails 3.1 in 2011, node.js
 was only 2 years old and version 1.0 of npm was just released.
 In the years since, the frontend community developed, released (and dropped) a lot of new tools: bower, grunt, gulp, yarn, webpack.</p><p>Since Rails 5.1 the webpacker gem is officialy part of Rails. It integrates webpack
 into rails, and makes developing with svelte, react, vue, angular or other frontend frameworks
@@ -33,17 +52,14 @@ easy.</p><p>Webpacker coexists with the asset pipeline. You can start using webp
 certain aspects of your Rails app, for example just one page with very complex, UI,
 and still continue using the asset pipeline for the rest.</p></section>
 <section><a class='slide_break' href='rails_webpack_frontend.html#slide-1'>▻</a>
-<h3 id="files">
-<a class="anchorlink" href="#files"></a>2 Files</h3><p>Webpacker creates a new folder <code>app/javascript</code> and a folder structure.</p><p>The folder <code>app/javascript/packs</code> is reserved for
+<h2 id="files"><a class="anchorlink" href="#files"><span>2</span> Files</a></h2><p>Webpacker creates a new folder <code>app/javascript</code> and a folder structure.</p><p>The folder <code>app/javascript/packs</code> is reserved for
 webpack entry files, with
 <code>app/javascript/packs/application.js</code> being the default file.</p><p><img src="images/javascript-folder.png" alt=""></p><p>The bundle created by webpacker is included in the rails app
 with</p></section>
 <section><a class='slide_break' href='rails_webpack_frontend.html#slide-2'>▻</a>
-<h3 id="to-be-continued">
-<a class="anchorlink" href="#to-be-continued"></a>3 To be Continued</h3></section>
+<h2 id="to-be-continued"><a class="anchorlink" href="#to-be-continued"><span>3</span> To be Continued</a></h2></section>
 <section><a class='slide_break' href='rails_webpack_frontend.html#slide-3'>▻</a>
-<h3 id="further-reading">
-<a class="anchorlink" href="#further-reading"></a>4 Further Reading</h3></div></section>
+<h2 id="further-reading"><a class="anchorlink" href="#further-reading"><span>4</span> Further Reading</a></h2></div></section>
       </div>
     </div>
     <!-- End slides. -->
@@ -64,8 +80,9 @@ with</p></section>
       // The "normal" size of the presentation, aspect ratio will
       // be preserved when the presentation is scaled to fit different
       // resolutions. Can be specified using percentage units.
-      width: 800,
+      width: 1000,
       height: 600,
+      disableLayout: false,
 
       // Factor of the display size that should remain empty around
       // the content
@@ -78,10 +95,10 @@ with</p></section>
       keyboard: {
         27: () => {
           // do something custom when ESC is pressed
-          var new_url = window.location.pathname.replace('slides_', '');
-          console.log('esc to ', new_url);
+          var new_url = window.location.pathname.replace('slides_', '') + window.location.hash.replace('/','slide-');
           window.location = new_url;
         },
+        191: 'toggleHelp',
         13: 'next', // go to the next slide when the ENTER key is pressed
       },
 

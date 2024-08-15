@@ -1,95 +1,169 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html dir="ltr" lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Next.js — Backend Development</title>
-    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+    <title>Next.js — Ruby on Rails Guides</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" data-turbo-track="reload">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-    <link rel="stylesheet" type="text/css" href="stylesheets/code.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css">
-    <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <style>
-      .slide img[src$=svg] {
-        width: 100%;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="stylesheets/highlight.css" data-turbo-track="reload">
+    <link rel="icon" href="images/backend-development.svg" sizes="any">
+    <script src="javascripts/@hotwired--turbo.js" data-turbo-track="reload"></script>
+    <script src="javascripts/clipboard.js" data-turbo-track="reload"></script>
+    <script src="javascripts/guides.js" data-turbo-track="reload"></script>
+    <meta property="og:title" content="Next.js — Ruby on Rails Guides" />
+    <meta name="description" content="Next.jsNext.js is a framework for react that also includes backend functionality.After working through this guide you should know how to build server rendered pages in next.js know how to build api endpoints in next.js" />
+    <meta property="og:description" content="Next.jsNext.js is a framework for react that also includes backend functionality.After working through this guide you should know how to build server rendered pages in next.js know how to build api endpoints in next.js" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Textbook Backend Developemnt" />
+    <meta property="og:image" content="images/backend-development.svg" />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#2e56e9">
   </head>
   <body class="guide">
-    <div id="header">
+    <header id="page_header">
       <div class="wrapper clearfix">
-        <h1><a href="index.html" title="Return to home page">Backend<span> Development</span></a></h1>
-        <ul class="nav">
-          <li class="guides-index guides-index-large">
-            <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
-            <div id="guides" class="clearfix" style="display: none;">
-              <hr>
-                <dl class="L">
-                    <dt>Ruby on Rails</dt>
-                      <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
-                      <dd><a href="rails_database_and_model.html">Models and ActiveRecord</a></dd>
-                      <dd><a href="rails_db.html">Database and Migrations</a></dd>
-                      <dd><a href="rails_associations_and_validations.html">Associations and Validations</a></dd>
-                      <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
-                      <dd><a href="rails_authentication.html">Simple Authentication</a></dd>
-                      <dd><a href="asset_pipeline.html">The Asset Pipeline</a></dd>
-                      <dd><a href="javascript_and_ajax.html">Rails and old Javascript</a></dd>
-                      <dd><a href="javascript_webpack_frontend.html">Rails and Webpack</a></dd>
-                      <dd><a href="testing.html">Getting started with Testing</a></dd>
-                      <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
-                      <dd><a href="rest-api.html">REST API</a></dd>
-                      <dd><a href="graphql-api.html">GraphQL API</a></dd>
-                      <dd><a href="rails_websockets.html">Websocket in Rails</a></dd>
-                      <dd><a href="jobs_and_tasks.html">Jobs and Tasks in Rails</a></dd>
-                      <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
-                      <dd><a href="rails_security.html">Rails Security</a></dd>
-                    <dt>Overarching Concerns</dt>
-                      <dd><a href="security.html">Security</a></dd>
-                      <dd><a href="adv_authentication.html">Advanced Authentication</a></dd>
-                      <dd><a href="caching.html">Caching</a></dd>
-                      <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
-                      <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
-                      <dd><a href="git_rebasing.html">Git Rebasing</a></dd>
-                    <dt>Nodes.js</dt>
-                      <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
-                      <dd><a href="node_basics.html">Node Basics</a></dd>
-                      <dd><a href="node_websockets.html">Node Websockets</a></dd>
-                      <dd><a href="node_express.html">Node Web App</a></dd>
-                      <dd><a href="node_cluster.html">Scaling Node</a></dd>
-                    <dt>Next.js</dt>
-                      <dd><a href="nextjs.html">Next.js</a></dd>
+        <nav id="feature_nav">
+          <div class="header-logo">
+            <a href="/">Backend Development</a>
+          </div>
+          <ul class="nav">
+            <li><a class="nav-item" id="home_nav" href="/">Home</a></li>
+            <li class="guides-index guides-index-large">
+              <a href="index.html" id="guidesMenu" class="guides-index-item nav-item">Index</a>
+              <div id="guides" class="clearfix" style="display: none;">
+                <hr />
+                <dl class="guides-section-container">
+                    <div class="guides-section">
+                      <dt>Ruby on Rails</dt>
+                        <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
+                        <dd><a href="rails_database_and_model.html">Models and ActiveRecord</a></dd>
+                        <dd><a href="rails_db.html">Database and Migrations</a></dd>
+                        <dd><a href="rails_associations_and_validations.html">Associations and Validations</a></dd>
+                        <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
+                        <dd><a href="rails_authentication.html">Simple Authentication</a></dd>
+                        <dd><a href="asset_pipeline.html">The Asset Pipeline</a></dd>
+                        <dd><a href="javascript_and_ajax.html">Rails and old Javascript</a></dd>
+                        <dd><a href="javascript_webpack_frontend.html">Rails and Webpack</a></dd>
+                        <dd><a href="testing.html">Getting started with Testing</a></dd>
+                        <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
+                        <dd><a href="rest-api.html">REST API</a></dd>
+                        <dd><a href="graphql-api.html">GraphQL API</a></dd>
+                        <dd><a href="rails_websockets.html">Websocket in Rails</a></dd>
+                        <dd><a href="jobs_and_tasks.html">Jobs and Tasks in Rails</a></dd>
+                        <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
+                        <dd><a href="rails_security.html">Rails Security</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Overarching Concerns</dt>
+                        <dd><a href="security.html">Security</a></dd>
+                        <dd><a href="adv_authentication.html">Advanced Authentication</a></dd>
+                        <dd><a href="caching.html">Caching</a></dd>
+                        <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
+                        <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
+                        <dd><a href="git_rebasing.html">Git Rebasing</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Nodes.js</dt>
+                        <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
+                        <dd><a href="node_basics.html">Node Basics</a></dd>
+                        <dd><a href="node_websockets.html">Node Websockets</a></dd>
+                        <dd><a href="node_express.html">Node Web App</a></dd>
+                        <dd><a href="node_cluster.html">Scaling Node</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Next.js</dt>
+                        <dd><a href="nextjs.html">Next.js</a></dd>
+                    </div>
                 </dl>
-                <dl class="R">
-                </dl>
-            </div>
-          </li>
-        </ul>
+              </div>
+            </li>
+            <li class="guides-index guides-index-small">
+              <select class="guides-index-item nav-item">
+                <option value="index.html">Index</option>
+                  <optgroup label="Ruby on Rails">
+                      <option value="ruby_commandline.html">Ruby Commandline</option>
+                      <option value="rails_database_and_model.html">Models and ActiveRecord</option>
+                      <option value="rails_db.html">Database and Migrations</option>
+                      <option value="rails_associations_and_validations.html">Associations and Validations</option>
+                      <option value="rails_view_and_controller.html">Routing, View and Controller</option>
+                      <option value="rails_authentication.html">Simple Authentication</option>
+                      <option value="asset_pipeline.html">The Asset Pipeline</option>
+                      <option value="javascript_and_ajax.html">Rails and old Javascript</option>
+                      <option value="javascript_webpack_frontend.html">Rails and Webpack</option>
+                      <option value="testing.html">Getting started with Testing</option>
+                      <option value="rails_gems.html">Ruby Gems for your Rails Project</option>
+                      <option value="rest-api.html">REST API</option>
+                      <option value="graphql-api.html">GraphQL API</option>
+                      <option value="rails_websockets.html">Websocket in Rails</option>
+                      <option value="jobs_and_tasks.html">Jobs and Tasks in Rails</option>
+                      <option value="refactoring_rails.html">Refactoring Rails</option>
+                      <option value="rails_security.html">Rails Security</option>
+                  </optgroup>
+                  <optgroup label="Overarching Concerns">
+                      <option value="security.html">Security</option>
+                      <option value="adv_authentication.html">Advanced Authentication</option>
+                      <option value="caching.html">Caching</option>
+                      <option value="advanced_testing.html">Advanced Testing</option>
+                      <option value="internationalization.html">Internationalization (I18n)</option>
+                      <option value="git_rebasing.html">Git Rebasing</option>
+                  </optgroup>
+                  <optgroup label="Nodes.js">
+                      <option value="node_vs_rails.html">Node vs. Rails</option>
+                      <option value="node_basics.html">Node Basics</option>
+                      <option value="node_websockets.html">Node Websockets</option>
+                      <option value="node_express.html">Node Web App</option>
+                      <option value="node_cluster.html">Scaling Node</option>
+                  </optgroup>
+                  <optgroup label="Next.js">
+                      <option value="nextjs.html">Next.js</option>
+                  </optgroup>
+              </select>
+            </li>
+          </ul>
+        </nav>
       </div>
-    </div>
-    <hr class="hide">
-    <div id="feature">
+    </header>
+    <hr class="hide" />
+    <section id="feature">
       <div class="wrapper">
-        <h2 id="preheader">Next.js</h2>
-                  <div id="subCol">
-            <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
+        <h1>Next.js</h1><p>Next.js is a framework for react
+that also includes backend functionality.</p><p>After working through this guide you should</p>
+<ul>
+<li>know how to build server rendered pages in next.js</li>
+<li>know how to build api endpoints in next.js</li>
+</ul>
+
+                  <nav id="subCol">
+            <h3 class="chapter">
+              <picture>
+                <!-- Using the `source`  HTML tag to set the dark theme image -->
+                <source
+                  srcset="images/icon_book-close-bookmark-1-wht.svg"
+                  media="(prefers-color-scheme: dark)"
+                />
+                <img src="images/icon_book-close-bookmark-1.svg" alt="Chapter Icon" />
+              </picture>
+              Chapters
+            </h3>
             <ol class="chapters">
 <li><a href="#what-is-next-js-questionmark">What is next.js?</a></li>
 <li><a href="#what-does-it-offer-questionmark">What does it offer?</a></li>
 <li><a href="#the-missing-persistence-layer">The missing persistence layer</a></li>
 <li><a href="#next-js-routing">next.js routing</a></li>
-<li>
-<a href="#next-js-as-a-static-site-generator">next.js as a Static Site Generator</a>
+<li><a href="#next-js-as-a-static-site-generator">next.js as a Static Site Generator</a>
 
 <ul>
 <li><a href="#next-config-js-for-static-site-generation">next.config.js for static site generation</a></li>
 <li><a href="#using-github-or-gitlab-pages">using Github or gitlab pages</a></li>
-</ul>
-</li>
+</ul></li>
 <li><a href="#next-js-for-api-endpoints">next.js for API endpoints</a></li>
 <li><a href="#server-side-rendering-ssr">Server Side Rendering (SSR)</a></li>
-<li>
-<a href="#react-server-components">React Server Components</a>
+<li><a href="#react-server-components">React Server Components</a>
 
 <ul>
 <li><a href="#how-to-use-rsc">How to use RSC</a></li>
@@ -98,42 +172,31 @@
 <li><a href="#you-can-pass-in-server-components-to-a-clientcomponent">You can pass in Server Components to a ClientComponent</a></li>
 <li><a href="#server-comopnents-cannot-pass-functions-to-its-descendents">Server Comopnents cannot pass functions to its descendents</a></li>
 <li><a href="#how-rsc-works">How RSC Works</a></li>
-</ul>
-</li>
+</ul></li>
 <li><a href="#hosting-next-js">Hosting next.js</a></li>
 <li><a href="#telemetry">Telemetry</a></li>
 <li><a href="#see-also">See Also</a></li>
 </ol>
 
-          </div>
+          </nav>
 
-        <div class="rest_header">
-          <h2>Next.js</h2><p>Next.js is a framework for react
-that also includes backend functionality.</p><p>After working through this guide you should</p>
-<ul class="checkmark">
-<li>know how to build server rendered pages in next.js</li>
-<li>know how to build api endpoints in next.js</li>
-</ul>
-
-        </div>
+        <hr>
       </div>
-    </div>
-    <div id="container">
+    </section>
+    <main id="container">
       <div class="wrapper">
         <div id="mainCol">
           <div class='slide'>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-0' href='slides_nextjs.html#/0'>▻</a>
-<h3 id="what-is-next-js-questionmark">
-<a class="anchorlink" href="#what-is-next-js-questionmark"></a>1 What is next.js?</h3><p>Next.js is an open source framework, but it is mainly developed by Vercel.
+<p class='slide_break_block'><a class='slide_break' id='slide-0' href='slides_nextjs.html#/0'>◻</a></p>
+<h2 id="what-is-next-js-questionmark"><a class="anchorlink" href="#what-is-next-js-questionmark"><span>1</span> What is next.js?</a></h2><p>Next.js is an open source framework, but it is mainly developed by Vercel.
 Vercel's business is platform a service. They published next.js in 2016.
 React documentation mentions Next.js among "Recommended Toolchains"
 since at least 2021.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-1' href='slides_nextjs.html#/1'>▻</a>
-<h3 id="what-does-it-offer-questionmark">
-<a class="anchorlink" href="#what-does-it-offer-questionmark"></a>2 What does it offer?</h3><p>Next.js gives you a folder structure for you application,
+<p class='slide_break_block'><a class='slide_break' id='slide-1' href='slides_nextjs.html#/1'>◻</a></p>
+<h2 id="what-does-it-offer-questionmark"><a class="anchorlink" href="#what-does-it-offer-questionmark"><span>2</span> What does it offer?</a></h2><p>Next.js gives you a folder structure for you application,
 and several different ways to render webpages:</p>
 <ul>
 <li>static webpages that are rendered once, at build time.</li>
@@ -143,74 +206,73 @@ and several different ways to render webpages:</p>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-2' href='slides_nextjs.html#/2'>▻</a>
-<h3 id="the-missing-persistence-layer">
-<a class="anchorlink" href="#the-missing-persistence-layer"></a>3 The missing persistence layer</h3><p>Next.js is not a full backend framework. For example it does not offer an
+<p class='slide_break_block'><a class='slide_break' id='slide-2' href='slides_nextjs.html#/2'>◻</a></p>
+<h2 id="the-missing-persistence-layer"><a class="anchorlink" href="#the-missing-persistence-layer"><span>3</span> The missing persistence layer</a></h2><p>Next.js is not a full backend framework. For example it does not offer an
 ORM or another persistence layer.  There is good documentation for
 combining next.js with</p>
 <ul>
-<li>
-<a href="https://supabase.com/docs/guides/getting-started/quickstarts/nextjs">superbase</a>, which offers Postgres as a service</li>
-<li>
-<a href="https://www.apollographql.com/blog/apollo-client/next-js/how-to-use-apollo-client-with-next-js-13/">apollo</a>, which offers GraphQL</li>
-<li>
-<a href="https://www.prisma.io/nextjs">prisma</a>, a ORM for typescript or javascript</li>
+<li><a href="https://supabase.com/docs/guides/getting-started/quickstarts/nextjs">superbase</a>, which offers Postgres as a service</li>
+<li><a href="https://www.apollographql.com/blog/apollo-client/next-js/how-to-use-apollo-client-with-next-js-13/">apollo</a>, which offers GraphQL</li>
+<li><a href="https://www.prisma.io/nextjs">prisma</a>, a ORM for typescript or javascript</li>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-3' href='slides_nextjs.html#/3'>▻</a>
-<h3 id="next-js-routing">
-<a class="anchorlink" href="#next-js-routing"></a>4 next.js routing</h3><p>From next.js 13 onwards the routes are created in the <code>app/</code> directory.
-<code>page.js</code> is the default (like index.html used to be), folders can contain parameters in brackets:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-3' href='slides_nextjs.html#/3'>◻</a></p>
+<h2 id="next-js-routing"><a class="anchorlink" href="#next-js-routing"><span>4</span> next.js routing</a></h2><p>From next.js 13 onwards the routes are created in the <code>app/</code> directory.
+<code>page.js</code> is the default (like index.html used to be), folders can contain parameters in brackets:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">app/page.js          --&gt;   /
 app/otherpage/page.js     --&gt;   /otherpage
 app/users/page.js    --&gt;   /users/
 app/users/[:id]/page.js   --&gt;   /users/42/
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="app/page.js          -->   /
+app/otherpage/page.js     -->   /otherpage
+app/users/page.js    -->   /users/
+app/users/[:id]/page.js   -->   /users/42/
+">Copy</button>
 </div>
 <p>There are special files:</p>
 <ul>
-<li>
-<code>layout.js</code> for <a href="https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts#nesting-layouts">nested layouts</a>
-</li>
-<li>
-<code>error.js</code>  for <a href="https://nextjs.org/docs/app/building-your-application/routing/error-handling">error handling</a> with error boundaries</li>
+<li><code>layout.js</code> for <a href="https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts#nesting-layouts">nested layouts</a></li>
+<li><code>error.js</code>  for <a href="https://nextjs.org/docs/app/building-your-application/routing/error-handling">error handling</a> with error boundaries</li>
 </ul>
 <p><img src="images/nested-layouts-ui.png" alt=""></p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-4' href='slides_nextjs.html#/4'>▻</a>
-<h3 id="next-js-as-a-static-site-generator">
-<a class="anchorlink" href="#next-js-as-a-static-site-generator"></a>5 next.js as a Static Site Generator</h3><p>You can use <code>next.js</code> like <code>jekyll</code>, <code>eleventy</code> or <code>gatsby</code> as a <a href="https://jamstack.org/generators/">static
+<p class='slide_break_block'><a class='slide_break' id='slide-4' href='slides_nextjs.html#/4'>◻</a></p>
+<h2 id="next-js-as-a-static-site-generator"><a class="anchorlink" href="#next-js-as-a-static-site-generator"><span>5</span> next.js as a Static Site Generator</a></h2><p>You can use <code>next.js</code> like <code>jekyll</code>, <code>eleventy</code> or <code>gatsby</code> as a <a href="https://jamstack.org/generators/">static
 site generator</a>: during build time, html files are generated and can
 then be served by a minimal webserver without backend capabilities.</p><p>This is the classic <a href="https://jamstack.org/">Jamstack</a> (where JAM stands for JavaScript, API and Markup).</p><p>See <a href="https://nextjs.org/docs/pages/building-your-application/rendering/static-site-generation">Static Site Generation (SSG)</a></p>
 <ul>
 <li>create a nextjs app</li>
 <li>in next.config.js add one or two values (see below)</li>
 <li><code>npm run build</code></li>
-<li>find the static files in folder <code>out/</code>
-</li>
+<li>find the static files in folder <code>out/</code></li>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-5' href='slides_nextjs.html#/5'>▻</a>
-<h4 id="next-config-js-for-static-site-generation">
-<a class="anchorlink" href="#next-config-js-for-static-site-generation"></a>5.1 next.config.js for static site generation</h4><p>We must set <code>output</code> to <code>export</code> to enable static site generations.</p><p>For static pages we need to set <code>trailingSlash</code> to <code>true</code> on most webservers.</p><p>If the site will be hosted in a subfolder, for example at <a href="http://bjelline.pages.mediacube.at/statixnextjs/">http://bjelline.pages.mediacube.at/statixnextjs/</a>
-we must configure this as the config value <code>basePath</code>:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-5' href='slides_nextjs.html#/5'>◻</a></p>
+<h3 id="next-config-js-for-static-site-generation"><a class="anchorlink" href="#next-config-js-for-static-site-generation"><span>5.1</span> next.config.js for static site generation</a></h3><p>We must set <code>output</code> to <code>export</code> to enable static site generations.</p><p>For static pages we need to set <code>trailingSlash</code> to <code>true</code> on most webservers.</p><p>If the site will be hosted in a subfolder, for example at <a href="http://bjelline.pages.mediacube.at/statixnextjs/">http://bjelline.pages.mediacube.at/statixnextjs/</a>
+we must configure this as the config value <code>basePath</code>:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">const nextConfig = {
   output: 'export',
   trailingSlash: true,
   basePath: '/foldername',
 }
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="const nextConfig = {
+  output: 'export',
+  trailingSlash: true,
+  basePath: '/foldername',
+}
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-6' href='slides_nextjs.html#/6'>▻</a>
-<h4 id="using-github-or-gitlab-pages">
-<a class="anchorlink" href="#using-github-or-gitlab-pages"></a>5.2 using Github or gitlab pages</h4><p>You can host your static files gitlab pages with the following configuration:
+<p class='slide_break_block'><a class='slide_break' id='slide-6' href='slides_nextjs.html#/6'>◻</a></p>
+<h3 id="using-github-or-gitlab-pages"><a class="anchorlink" href="#using-github-or-gitlab-pages"><span>5.2</span> using Github or gitlab pages</a></h3><p>You can host your static files gitlab pages with the following configuration:
 gitlab CI is used to build the pages, and the resulting folder <code>out</code> is declared
 as an artifact.  Gitlab will pick up this artifact and serve it through its
-pages webserver.</p><div class="code_container">
+pages webserver.</p><div class="interstitial code">
 <pre><code class="highlight plaintext">image: node
 
 before_script:
@@ -233,39 +295,65 @@ pages:
   only:
     - main
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="image: node
+
+before_script:
+  - npm install
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+    - .next/cache/
+
+pages:
+  script:
+    - npm run build
+    - mv public old_republic
+    - mv out public
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-7' href='slides_nextjs.html#/7'>▻</a>
-<h3 id="next-js-for-api-endpoints">
-<a class="anchorlink" href="#next-js-for-api-endpoints"></a>6 next.js for API endpoints</h3><p>Use files called <code>route.js</code> as <a href="https://nextjs.org/docs/app/building-your-application/routing/router-handlers">route handlers</a> to implement the endpoints.</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-7' href='slides_nextjs.html#/7'>◻</a></p>
+<h2 id="next-js-for-api-endpoints"><a class="anchorlink" href="#next-js-for-api-endpoints"><span>6</span> next.js for API endpoints</a></h2><p>Use files called <code>route.js</code> as <a href="https://nextjs.org/docs/app/building-your-application/routing/router-handlers">route handlers</a> to implement the endpoints.</p><div class="interstitial code">
 <pre><code class="highlight js"><span class="c1">// file /app/greeting/route.js</span>
 
 <span class="k">import</span> <span class="p">{</span> <span class="nx">NextResponse</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">next/server</span><span class="dl">'</span>
 
-<span class="k">export</span> <span class="k">async</span> <span class="kd">function</span> <span class="nx">GET</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="nx">NextResponse</span><span class="p">.</span><span class="nx">json</span><span class="p">({</span> <span class="dl">"</span><span class="s2">hello</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">world</span><span class="dl">"</span> <span class="p">})</span>
+<span class="k">export</span> <span class="k">async</span> <span class="kd">function</span> <span class="nf">GET</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">NextResponse</span><span class="p">.</span><span class="nf">json</span><span class="p">({</span> <span class="dl">"</span><span class="s2">hello</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">world</span><span class="dl">"</span> <span class="p">})</span>
 <span class="p">}</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="// file /app/greeting/route.js
+
+import { NextResponse } from 'next/server'
+
+export async function GET() {
+  return NextResponse.json({ &quot;hello&quot;: &quot;world&quot; })
+}
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-8' href='slides_nextjs.html#/8'>▻</a>
-<h3 id="server-side-rendering-ssr">
-<a class="anchorlink" href="#server-side-rendering-ssr"></a>7 Server Side Rendering (SSR)</h3><p>With server side rendering, a HTML document is shipped to the browser.
+<p class='slide_break_block'><a class='slide_break' id='slide-8' href='slides_nextjs.html#/8'>◻</a></p>
+<h2 id="server-side-rendering-ssr"><a class="anchorlink" href="#server-side-rendering-ssr"><span>7</span> Server Side Rendering (SSR)</a></h2><p>With server side rendering, a HTML document is shipped to the browser.
 Then the browser loads the necessary JavaScript, and
 <a href="https://react.dev/reference/react-dom/hydrate#hydrating-server-rendered-html">hydrates</a> the HTML
 into a client side React App.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-9' href='slides_nextjs.html#/9'>▻</a>
-<h3 id="react-server-components">
-<a class="anchorlink" href="#react-server-components"></a>8 React Server Components</h3><p>The react render tree is composed from server and client components.  In next.js 13 all components
+<p class='slide_break_block'><a class='slide_break' id='slide-9' href='slides_nextjs.html#/9'>◻</a></p>
+<h2 id="react-server-components"><a class="anchorlink" href="#react-server-components"><span>8</span> React Server Components</a></h2><p>The react render tree is composed from server and client components.  In next.js 13 all components
 are server components by default.  You have to add <code>"use client";</code> on top of a component to turn
 it into a client component.</p><p><img src="images/react-server-components.png" alt=""></p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-10' href='slides_nextjs.html#/10'>▻</a>
-<h4 id="how-to-use-rsc">
-<a class="anchorlink" href="#how-to-use-rsc"></a>8.1 How to use RSC</h4><p>Simple rules for client and server components:</p>
+<p class='slide_break_block'><a class='slide_break' id='slide-10' href='slides_nextjs.html#/10'>◻</a></p>
+<h3 id="how-to-use-rsc"><a class="anchorlink" href="#how-to-use-rsc"><span>8.1</span> How to use RSC</a></h3><p>Simple rules for client and server components:</p>
 <ul>
 <li>Use <code>.server.js</code> and <code>.client.js</code> as filename extensions.</li>
 <li>Server Components can contain client components.</li>
@@ -276,76 +364,108 @@ it into a client component.</p><p><img src="images/react-server-components.png" 
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-11' href='slides_nextjs.html#/11'>▻</a>
-<h4 id="server-components-can-contain-client-components">
-<a class="anchorlink" href="#server-components-can-contain-client-components"></a>8.2 Server Components can contain client components:</h4><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-11' href='slides_nextjs.html#/11'>◻</a></p>
+<h3 id="server-components-can-contain-client-components"><a class="anchorlink" href="#server-components-can-contain-client-components"><span>8.2</span> Server Components can contain client components:</a></h3><div class="interstitial code">
 <pre><code class="highlight js"><span class="c1">// this is server_component.server.js</span>
 <span class="k">import</span> <span class="nx">ClientComponent</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./ClientComponent.client</span><span class="dl">'</span>
-<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">ServerComponent</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nf">ServerComponent</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
     <span class="o">&lt;&gt;</span>
       <span class="o">&lt;</span><span class="nx">ClientComponent</span> <span class="o">/&gt;</span>
     <span class="o">&lt;</span><span class="sr">/</span><span class="err">&gt;
 </span>  <span class="p">)</span>
 <span class="p">}</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="// this is server_component.server.js
+import ClientComponent from './ClientComponent.client'
+export default function ServerComponent() {
+  return (
+    <>
+      <ClientComponent />
+    </>
+  )
+}
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-12' href='slides_nextjs.html#/12'>▻</a>
-<h4 id="client-components-cannot-contain-server-components">
-<a class="anchorlink" href="#client-components-cannot-contain-server-components"></a>8.3 Client Components cannot contain server components:</h4><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-12' href='slides_nextjs.html#/12'>◻</a></p>
+<h3 id="client-components-cannot-contain-server-components"><a class="anchorlink" href="#client-components-cannot-contain-server-components"><span>8.3</span> Client Components cannot contain server components:</a></h3><div class="interstitial code">
 <pre><code class="highlight js"><span class="c1">// this is client_component.client.js</span>
 <span class="c1">// ERROR !!!!</span>
 <span class="k">import</span> <span class="nx">ServerComponent</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./ServerComponent.server</span><span class="dl">'</span>
-<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">ClientComponent</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nf">ClientComponent</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
       <span class="o">&lt;</span><span class="nx">ServerComponent</span> <span class="o">/&gt;</span>
     <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
 </span>  <span class="p">)</span>
 <span class="p">}</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="// this is client_component.client.js
+// ERROR !!!!
+import ServerComponent from './ServerComponent.server'
+export default function ClientComponent() {
+  return (
+    <div>
+      <ServerComponent />
+    </div>
+  )
+}
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-13' href='slides_nextjs.html#/13'>▻</a>
-<h4 id="you-can-pass-in-server-components-to-a-clientcomponent">
-<a class="anchorlink" href="#you-can-pass-in-server-components-to-a-clientcomponent"></a>8.4 You can pass in Server Components to a ClientComponent</h4><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-13' href='slides_nextjs.html#/13'>◻</a></p>
+<h3 id="you-can-pass-in-server-components-to-a-clientcomponent"><a class="anchorlink" href="#you-can-pass-in-server-components-to-a-clientcomponent"><span>8.4</span> You can pass in Server Components to a ClientComponent</a></h3><div class="interstitial code">
 <pre><code class="highlight js"><span class="c1">// this is outer_server_component.server.js</span>
 <span class="k">import</span> <span class="nx">ClientComponent</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./ClientComponent.client</span><span class="dl">'</span>
 <span class="k">import</span> <span class="nx">ServerComponent</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">./ServerComponent.server</span><span class="dl">'</span>
-<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nx">OuterServerComponent</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">(</span>
+<span class="k">export</span> <span class="k">default</span> <span class="kd">function</span> <span class="nf">OuterServerComponent</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
     <span class="o">&lt;</span><span class="nx">ClientComponent</span><span class="o">&gt;</span>
       <span class="o">&lt;</span><span class="nx">ServerComponent</span> <span class="o">/&gt;</span>
     <span class="o">&lt;</span><span class="sr">/ClientComponent</span><span class="err">&gt;
 </span>  <span class="p">)</span>
 <span class="p">}</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="// this is outer_server_component.server.js
+import ClientComponent from './ClientComponent.client'
+import ServerComponent from './ServerComponent.server'
+export default function OuterServerComponent() {
+  return (
+    <ClientComponent>
+      <ServerComponent />
+    </ClientComponent>
+  )
+}
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-14' href='slides_nextjs.html#/14'>▻</a>
-<h4 id="server-comopnents-cannot-pass-functions-to-its-descendents">
-<a class="anchorlink" href="#server-comopnents-cannot-pass-functions-to-its-descendents"></a>8.5 Server Comopnents cannot pass functions to its descendents</h4><p>Because props are serialized into JSON, and functions cannot be serialized into JSON,
-Server Components cannot pass functions as props to its descendents.</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-14' href='slides_nextjs.html#/14'>◻</a></p>
+<h3 id="server-comopnents-cannot-pass-functions-to-its-descendents"><a class="anchorlink" href="#server-comopnents-cannot-pass-functions-to-its-descendents"><span>8.5</span> Server Comopnents cannot pass functions to its descendents</a></h3><p>Because props are serialized into JSON, and functions cannot be serialized into JSON,
+Server Components cannot pass functions as props to its descendents.</p><div class="interstitial code">
 <pre><code class="highlight js"><span class="c1">// ERROR !!!!</span>
-<span class="kd">function</span> <span class="nx">SomeServerComponent</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">OHHAI</span><span class="dl">'</span><span class="p">)}</span><span class="o">&gt;</span><span class="nx">Click</span> <span class="nx">me</span><span class="o">!&lt;</span><span class="sr">/button</span><span class="err">&gt;
+<span class="kd">function</span> <span class="nf">SomeServerComponent</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">&lt;</span><span class="nx">button</span> <span class="nx">onClick</span><span class="o">=</span><span class="p">{()</span> <span class="o">=&gt;</span> <span class="nf">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">OHHAI</span><span class="dl">'</span><span class="p">)}</span><span class="o">&gt;</span><span class="nx">Click</span> <span class="nx">me</span><span class="o">!&lt;</span><span class="sr">/button</span><span class="err">&gt;
 </span><span class="p">}</span>
 <span class="c1">// ERROR !!!!</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="// ERROR !!!!
+function SomeServerComponent() {
+  return <button onClick={() => alert('OHHAI')}>Click me!</button>
+}
+// ERROR !!!!
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-15' href='slides_nextjs.html#/15'>▻</a>
-<h4 id="how-rsc-works">
-<a class="anchorlink" href="#how-rsc-works"></a>8.6 How RSC Works</h4><p>its complicated</p><p><a href="https://github.com/reactwg/server-components/discussions/5">RSC Components from Scratch</a></p><p><a href="https://www.plasmic.app/blog/how-react-server-components-work">How Server Components Work</a></p></div>
+<p class='slide_break_block'><a class='slide_break' id='slide-15' href='slides_nextjs.html#/15'>◻</a></p>
+<h3 id="how-rsc-works"><a class="anchorlink" href="#how-rsc-works"><span>8.6</span> How RSC Works</a></h3><p>its complicated</p><p><a href="https://github.com/reactwg/server-components/discussions/5">RSC Components from Scratch</a></p><p><a href="https://www.plasmic.app/blog/how-react-server-components-work">How Server Components Work</a></p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-16' href='slides_nextjs.html#/16'>▻</a>
-<h3 id="hosting-next-js">
-<a class="anchorlink" href="#hosting-next-js"></a>9 Hosting next.js</h3><p>Vercel, the company behind next.js, offers hosting on their platform. There is a free tier.</p><p>To host next.js you need:</p>
+<p class='slide_break_block'><a class='slide_break' id='slide-16' href='slides_nextjs.html#/16'>◻</a></p>
+<h2 id="hosting-next-js"><a class="anchorlink" href="#hosting-next-js"><span>9</span> Hosting next.js</a></h2><p>Vercel, the company behind next.js, offers hosting on their platform. There is a free tier.</p><p>To host next.js you need:</p>
 <ul>
 <li>to run the build step to create static assets and javascript bundles</li>
 <li>to run node.js on the server</li>
@@ -358,11 +478,10 @@ and do both for you. you might additionally consider:</p>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-17' href='slides_nextjs.html#/17'>▻</a>
-<h3 id="telemetry">
-<a class="anchorlink" href="#telemetry"></a>10 Telemetry</h3><p>A next.js app sends at least 500 lines of information to Vercel.
+<p class='slide_break_block'><a class='slide_break' id='slide-17' href='slides_nextjs.html#/17'>◻</a></p>
+<h2 id="telemetry"><a class="anchorlink" href="#telemetry"><span>10</span> Telemetry</a></h2><p>A next.js app sends at least 500 lines of information to Vercel.
 See <a href="https://nextjs.org/telemetry">Telemetry</a>
-to learn what information is sent and how to switch it off.</p><div class="code_container">
+to learn what information is sent and how to switch it off.</p><div class="interstitial code">
 <pre><code class="highlight plaintext">[telemetry] {
   "eventName": "NEXT_CLI_SESSION_STARTED",
   "payload": {
@@ -848,12 +967,496 @@ to learn what information is sent and how to switch it off.</p><div class="code_
   }
 }
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_CLI_SESSION_STARTED&quot;,
+  &quot;payload&quot;: {
+    &quot;nextVersion&quot;: &quot;13.4.7&quot;,
+    &quot;nodeVersion&quot;: &quot;v18.16.1&quot;,
+    &quot;cliCommand&quot;: &quot;build&quot;,
+    &quot;isSrcDir&quot;: false,
+    &quot;hasNowJson&quot;: false,
+    &quot;isCustomServer&quot;: null,
+    &quot;hasNextConfig&quot;: true,
+    &quot;buildTarget&quot;: &quot;default&quot;,
+    &quot;hasWebpackConfig&quot;: false,
+    &quot;hasBabelConfig&quot;: false,
+    &quot;imageEnabled&quot;: true,
+    &quot;imageFutureEnabled&quot;: true,
+    &quot;basePathEnabled&quot;: false,
+    &quot;i18nEnabled&quot;: false,
+    &quot;locales&quot;: null,
+    &quot;localeDomainsCount&quot;: null,
+    &quot;localeDetectionEnabled&quot;: null,
+    &quot;imageDomainsCount&quot;: 0,
+    &quot;imageRemotePatternsCount&quot;: 0,
+    &quot;imageSizes&quot;: &quot;16,32,48,64,96,128,256,384&quot;,
+    &quot;imageLoader&quot;: &quot;default&quot;,
+    &quot;imageFormats&quot;: &quot;image/webp&quot;,
+    &quot;nextConfigOutput&quot;: null,
+    &quot;trailingSlashEnabled&quot;: false,
+    &quot;reactStrictMode&quot;: false,
+    &quot;webpackVersion&quot;: 5,
+    &quot;turboFlag&quot;: false,
+    &quot;appDir&quot;: true,
+    &quot;pagesDir&quot;: false
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;build-lint&quot;,
+    &quot;invocationCount&quot;: 1
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_PACKAGE_DETECTED&quot;,
+  &quot;payload&quot;: {
+    &quot;packageName&quot;: &quot;@auth/prisma-adapter&quot;,
+    &quot;packageVersion&quot;: &quot;^1.0.0&quot;
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_PACKAGE_DETECTED&quot;,
+  &quot;payload&quot;: {
+    &quot;packageName&quot;: &quot;@prisma/client&quot;,
+    &quot;packageVersion&quot;: &quot;^4.16.1&quot;
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_PACKAGE_DETECTED&quot;,
+  &quot;payload&quot;: {
+    &quot;packageName&quot;: &quot;autoprefixer&quot;,
+    &quot;packageVersion&quot;: &quot;10.4.14&quot;
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_PACKAGE_DETECTED&quot;,
+  &quot;payload&quot;: {
+    &quot;packageName&quot;: &quot;date-fns&quot;,
+    &quot;packageVersion&quot;: &quot;^2.30.0&quot;
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_PACKAGE_DETECTED&quot;,
+  &quot;payload&quot;: {
+    &quot;packageName&quot;: &quot;eslint&quot;,
+    &quot;packageVersion&quot;: &quot;8.43.0&quot;
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_PACKAGE_DETECTED&quot;,
+  &quot;payload&quot;: {
+    &quot;packageName&quot;: &quot;eslint-config-next&quot;,
+    &quot;packageVersion&quot;: &quot;13.4.7&quot;
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_PACKAGE_DETECTED&quot;,
+  &quot;payload&quot;: {
+    &quot;packageName&quot;: &quot;next&quot;,
+    &quot;packageVersion&quot;: &quot;13.4.7&quot;
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_PACKAGE_DETECTED&quot;,
+  &quot;payload&quot;: {
+    &quot;packageName&quot;: &quot;next-auth&quot;,
+    &quot;packageVersion&quot;: &quot;^4.22.1&quot;
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_PACKAGE_DETECTED&quot;,
+  &quot;payload&quot;: {
+    &quot;packageName&quot;: &quot;postcss&quot;,
+    &quot;packageVersion&quot;: &quot;8.4.24&quot;
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_PACKAGE_DETECTED&quot;,
+  &quot;payload&quot;: {
+    &quot;packageName&quot;: &quot;prisma&quot;,
+    &quot;packageVersion&quot;: &quot;^4.16.1&quot;
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_PACKAGE_DETECTED&quot;,
+  &quot;payload&quot;: {
+    &quot;packageName&quot;: &quot;react&quot;,
+    &quot;packageVersion&quot;: &quot;18.2.0&quot;
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_PACKAGE_DETECTED&quot;,
+  &quot;payload&quot;: {
+    &quot;packageName&quot;: &quot;react-dom&quot;,
+    &quot;packageVersion&quot;: &quot;18.2.0&quot;
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_PACKAGE_DETECTED&quot;,
+  &quot;payload&quot;: {
+    &quot;packageName&quot;: &quot;tailwindcss&quot;,
+    &quot;packageVersion&quot;: &quot;3.3.2&quot;
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_COMPLETED&quot;,
+  &quot;payload&quot;: {
+    &quot;durationInSeconds&quot;: 10,
+    &quot;totalAppPagesCount&quot;: 4,
+    &quot;totalPageCount&quot;: 0,
+    &quot;hasDunderPages&quot;: false,
+    &quot;hasTestPages&quot;: false
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_LINT_CHECK_COMPLETED&quot;,
+  &quot;payload&quot;: {
+    &quot;durationInSeconds&quot;: 0,
+    &quot;eslintVersion&quot;: &quot;8.43.0&quot;,
+    &quot;lintedFilesCount&quot;: 14,
+    &quot;lintFix&quot;: false,
+    &quot;nextEslintPluginVersion&quot;: &quot;13.4.7&quot;,
+    &quot;nextEslintPluginErrorsCount&quot;: 0,
+    &quot;nextEslintPluginWarningsCount&quot;: 0,
+    &quot;nextRulesEnabled&quot;: {
+      &quot;@next/next/no-html-link-for-pages&quot;: &quot;error&quot;,
+      &quot;@next/next/no-sync-scripts&quot;: &quot;error&quot;,
+      &quot;@next/next/google-font-display&quot;: &quot;warn&quot;,
+      &quot;@next/next/google-font-preconnect&quot;: &quot;warn&quot;,
+      &quot;@next/next/next-script-for-ga&quot;: &quot;warn&quot;,
+      &quot;@next/next/no-before-interactive-script-outside-document&quot;: &quot;warn&quot;,
+      &quot;@next/next/no-css-tags&quot;: &quot;warn&quot;,
+      &quot;@next/next/no-head-element&quot;: &quot;warn&quot;,
+      &quot;@next/next/no-img-element&quot;: &quot;warn&quot;,
+      &quot;@next/next/no-page-custom-font&quot;: &quot;warn&quot;,
+      &quot;@next/next/no-styled-jsx-in-document&quot;: &quot;warn&quot;,
+      &quot;@next/next/no-title-in-document-head&quot;: &quot;warn&quot;,
+      &quot;@next/next/no-typos&quot;: &quot;warn&quot;,
+      &quot;@next/next/no-unwanted-polyfillio&quot;: &quot;warn&quot;,
+      &quot;@next/next/inline-script-id&quot;: &quot;error&quot;,
+      &quot;@next/next/no-assign-module-variable&quot;: &quot;error&quot;,
+      &quot;@next/next/no-document-import-in-page&quot;: &quot;error&quot;,
+      &quot;@next/next/no-duplicate-head&quot;: &quot;error&quot;,
+      &quot;@next/next/no-head-import-in-document&quot;: &quot;error&quot;,
+      &quot;@next/next/no-script-component-in-head&quot;: &quot;error&quot;
+    },
+    &quot;buildLint&quot;: true
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_TYPE_CHECK_COMPLETED&quot;,
+  &quot;payload&quot;: {
+    &quot;durationInSeconds&quot;: 0,
+    &quot;typescriptVersion&quot;: null
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;experimental/optimizeCss&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;experimental/nextScriptWorkers&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;optimizeFonts&quot;,
+    &quot;invocationCount&quot;: 1
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_OPTIMIZED&quot;,
+  &quot;payload&quot;: {
+    &quot;durationInSeconds&quot;: 13,
+    &quot;staticPageCount&quot;: 0,
+    &quot;staticPropsPageCount&quot;: 0,
+    &quot;serverPropsPageCount&quot;: 0,
+    &quot;ssrPageCount&quot;: 0,
+    &quot;hasStatic404&quot;: true,
+    &quot;hasReportWebVitals&quot;: false,
+    &quot;rewritesCount&quot;: 0,
+    &quot;headersCount&quot;: 0,
+    &quot;redirectsCount&quot;: 0,
+    &quot;headersWithHasCount&quot;: 0,
+    &quot;rewritesWithHasCount&quot;: 0,
+    &quot;redirectsWithHasCount&quot;: 0,
+    &quot;middlewareCount&quot;: 0,
+    &quot;totalAppPagesCount&quot;: 4,
+    &quot;staticAppPagesCount&quot;: 2,
+    &quot;serverAppPagesCount&quot;: 2,
+    &quot;edgeRuntimeAppCount&quot;: 0,
+    &quot;edgeRuntimePagesCount&quot;: 0,
+    &quot;totalPageCount&quot;: 0,
+    &quot;hasDunderPages&quot;: false,
+    &quot;hasTestPages&quot;: false
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;swcLoader&quot;,
+    &quot;invocationCount&quot;: 1
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;swcMinify&quot;,
+    &quot;invocationCount&quot;: 1
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;swcRelay&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;swcStyledComponents&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;swcReactRemoveProperties&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;swcExperimentalDecorators&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;swcRemoveConsole&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;swcImportSource&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;swcEmotion&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;swc/target/x86_64-apple-darwin&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;swc/target/x86_64-unknown-linux-gnu&quot;,
+    &quot;invocationCount&quot;: 1
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;swc/target/x86_64-pc-windows-msvc&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;swc/target/i686-pc-windows-msvc&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;swc/target/aarch64-unknown-linux-gnu&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;swc/target/armv7-unknown-linux-gnueabihf&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;swc/target/aarch64-apple-darwin&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;swc/target/aarch64-linux-android&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;swc/target/arm-linux-androideabi&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;swc/target/x86_64-unknown-freebsd&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;swc/target/x86_64-unknown-linux-musl&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;swc/target/aarch64-unknown-linux-musl&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;swc/target/aarch64-pc-windows-msvc&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;turbotrace&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;transpilePackages&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;skipMiddlewareUrlNormalize&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;skipTrailingSlashRedirect&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;modularizeImports&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;next/image&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;next/future/image&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;next/legacy/image&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;next/script&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;next/dynamic&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;@next/font/google&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;@next/font/local&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;next/font/google&quot;,
+    &quot;invocationCount&quot;: 1
+  }
+}
+[telemetry] {
+  &quot;eventName&quot;: &quot;NEXT_BUILD_FEATURE_USAGE&quot;,
+  &quot;payload&quot;: {
+    &quot;featureName&quot;: &quot;next/font/local&quot;,
+    &quot;invocationCount&quot;: 0
+  }
+}
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-18' href='slides_nextjs.html#/18'>▻</a>
-<h3 id="see-also">
-<a class="anchorlink" href="#see-also"></a>11 See Also</h3>
+<p class='slide_break_block'><a class='slide_break' id='slide-18' href='slides_nextjs.html#/18'>◻</a></p>
+<h2 id="see-also"><a class="anchorlink" href="#see-also"><span>11</span> See Also</a></h2>
 <ul>
 <li><a href="https://nextjs.org/docs">Next.js Documentation</a></li>
 <li><a href="https://nextjsweekly.com/">Next.js Newsletter</a></li>
@@ -861,17 +1464,17 @@ to learn what information is sent and how to switch it off.</p><div class="code_
 </div>
         </div>
       </div>
-    </div>
-    <hr class="hide">
-    <div id="footer">
+    </main>
+    <hr class="hide" />
+    <footer id="page_footer">
       <div class="wrapper">
         <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2025 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
-        </p>
-        <p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
-        </p>
+</p>
+<p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
+</p>
+<p>Favicon "backend development" by Arkinasi from <a href="https://thenounproject.com/browse/icons/term/backend-development/" target="_blank" title="backend development Icons">Noun Project</a> (CC BY 3.0)</p>
+
       </div>
-    </div>
-    <script src="javascripts/jquery.min.js"></script>
-    <script src="javascripts/guides.js"></script>
+    </footer>
   </body>
 </html>

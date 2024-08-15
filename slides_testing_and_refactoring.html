@@ -5,8 +5,12 @@
     <meta charset="utf-8">
 
     <title>Slides for
-        Testing and Refactoring — Backend Development
+        Testing and Refactoring — Ruby on Rails Guides
     </title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" data-turbo-track="reload">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <link rel="stylesheet" type="text/css" href="stylesheets/highlight.css" data-turbo-track="reload">
+
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
@@ -16,6 +20,8 @@
 		<link rel="stylesheet" href="stylesheets/reveal.css">
 		<link rel="stylesheet" href="stylesheets/myslide.css" id="theme">
     <link rel="stylesheet" href="stylesheets/code.css">
+    <script src="javascripts/clipboard.js" data-turbo-track="reload"></script>
+    <script src="javascripts/slides.js" data-turbo-track="reload"></script>
 
 </head>
 
@@ -23,9 +29,23 @@
     <div class="reveal">
       <!-- Any section element inside of this container is displayed as a slide -->
       <div class="slides">
+        <section>
+            <h1>Testing and Refactoring</h1><p>This guide will explain why you should write tests
+for your web application. It covers built-in mechanisms offered by Rails.
+By referring to this guide, you will be able to:</p>
+<ul>
+<li>Understand Rails testing terminology</li>
+<li>Write unit and integration tests for your application</li>
+</ul>
+
+<dd class="work-in-progress"><p>This chapter is still a work in progress. </p>
+<p>You can help by reviewing the documents and posting your comments and corrections.</p></dd>
+
+          <p><small>Slides - use arrow keys to navigate, esc to return to page view, f for fullscreen</small></p>
+
+        </section>
         <section><a class='slide_break' href='testing_and_refactoring.html#slide-0'>▻</a>
-<h3 id="why-test-questionmark">
-<a class="anchorlink" href="#why-test-questionmark"></a>1 Why Test?</h3>
+<h2 id="why-test-questionmark"><a class="anchorlink" href="#why-test-questionmark"><span>1</span> Why Test?</a></h2>
 <ul>
 <li>to know if the program works (as specified)</li>
 <li>to know if it still works after refactoring</li>
@@ -34,40 +54,40 @@
 </ul>
 </section>
 <section><a class='slide_break' href='testing_and_refactoring.html#slide-1'>▻</a>
-<h4 id="for-beginners-two-testing-levels">
-<a class="anchorlink" href="#for-beginners-two-testing-levels"></a>1.1 for beginners: two testing levels</h4>
+<h3 id="for-beginners-two-testing-levels"><a class="anchorlink" href="#for-beginners-two-testing-levels"><span>1.1</span> for beginners: two testing levels</a></h3>
 <ul>
 <li>unit testing - models</li>
 <li>integration testing - like a browser</li>
 </ul>
 </section>
 <section><a class='slide_break' href='testing_and_refactoring.html#slide-2'>▻</a>
-<h4 id="rails-and-testing">
-<a class="anchorlink" href="#rails-and-testing"></a>1.2 rails and testing</h4>
+<h3 id="rails-and-testing"><a class="anchorlink" href="#rails-and-testing"><span>1.2</span> rails and testing</a></h3>
 <ul>
 <li>testing built in</li>
 <li>scaffold creates (empty) tests</li>
 <li>testing environment</li>
-<li>run all tests with <code>rake:test</code>
-</li>
-<li>run all tests with <code>rake test TESTOPTS="-v"</code>
-</li>
+<li>run all tests with <code>rake:test</code></li>
+<li>run all tests with <code>rake test TESTOPTS="-v"</code></li>
 </ul>
 </section>
 <section><a class='slide_break' href='testing_and_refactoring.html#slide-3'>▻</a>
-<h4 id="my-first-test">
-<a class="anchorlink" href="#my-first-test"></a>1.3 my first test</h4><div class="code_container">
+<h3 id="my-first-test"><a class="anchorlink" href="#my-first-test"><span>1.3</span> my first test</a></h3><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="c1"># in file test/unit/user_test.rb</span>
 <span class="nb">test</span> <span class="s2">"no_stars is zero in new user"</span> <span class="k">do</span>
   <span class="n">u</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">create!</span><span class="p">(</span><span class="ss">:first_name</span><span class="o">=&gt;</span><span class="s2">"John"</span><span class="p">,</span> <span class="ss">:last_name</span><span class="o">=&gt;</span><span class="s2">"Doe"</span><span class="p">)</span>
   <span class="n">assert</span> <span class="n">u</span><span class="p">.</span><span class="nf">no_stars</span> <span class="o">==</span> <span class="mi">0</span>
 <span class="k">end</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="# in file test/unit/user_test.rb
+test &quot;no_stars is zero in new user&quot; do
+  u = User.create!(:first_name=>&quot;John&quot;, :last_name=>&quot;Doe&quot;)
+  assert u.no_stars == 0
+end
+">Copy</button>
 </div>
 </section>
 <section><a class='slide_break' href='testing_and_refactoring.html#slide-4'>▻</a>
-<h4 id="my-first-integration-test">
-<a class="anchorlink" href="#my-first-integration-test"></a>1.4 my first integration test</h4><div class="code_container">
+<h3 id="my-first-integration-test"><a class="anchorlink" href="#my-first-integration-test"><span>1.4</span> my first integration test</a></h3><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="nb">test</span> <span class="s2">"users are displayed"</span> <span class="k">do</span>
   <span class="n">u</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">create!</span><span class="p">(</span><span class="ss">:first_name</span><span class="o">=&gt;</span><span class="s2">"Jane"</span><span class="p">,</span> <span class="ss">:last_name</span><span class="o">=&gt;</span><span class="s2">"Doe"</span><span class="p">)</span>
   <span class="n">visit</span> <span class="s2">"/users"</span>
@@ -75,11 +95,17 @@
   <span class="n">assert</span> <span class="n">page</span><span class="p">.</span><span class="nf">has_content?</span><span class="p">(</span><span class="s1">'Jane Doe'</span><span class="p">)</span>
 <span class="k">end</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="test &quot;users are displayed&quot; do
+  u = User.create!(:first_name=>&quot;Jane&quot;, :last_name=>&quot;Doe&quot;)
+  visit &quot;/users&quot;
+  assert page.has_content?('Gib ein Sternchen!')
+  assert page.has_content?('Jane Doe')
+end
+">Copy</button>
 </div>
 </section>
 <section><a class='slide_break' href='testing_and_refactoring.html#slide-5'>▻</a>
-<h4 id="see-documentation">
-<a class="anchorlink" href="#see-documentation"></a>1.5 see documentation</h4>
+<h3 id="see-documentation"><a class="anchorlink" href="#see-documentation"><span>1.5</span> see documentation</a></h3>
 <ul>
 <li><a href="https://guides.rubyonrails.org/testing.html">Guide to Testing Rails Applications</a></li>
 <li><a href="https://topfunky.com/clients/rails/ruby_and_rails_assertions.pdf">Test::Unit Cheatsheet</a></li>
@@ -87,11 +113,9 @@
 </ul>
 </section>
 <section><a class='slide_break' href='testing_and_refactoring.html#slide-6'>▻</a>
-<h3 id="test-driven-development-tdd">
-<a class="anchorlink" href="#test-driven-development-tdd"></a>2 Test Driven Development (TDD)</h3></section>
+<h2 id="test-driven-development-tdd"><a class="anchorlink" href="#test-driven-development-tdd"><span>2</span> Test Driven Development (TDD)</a></h2></section>
 <section><a class='slide_break' href='testing_and_refactoring.html#slide-7'>▻</a>
-<h4 id="what-is-test-first-questionmark">
-<a class="anchorlink" href="#what-is-test-first-questionmark"></a>2.1 what is "test first" ?</h4>
+<h3 id="what-is-test-first-questionmark"><a class="anchorlink" href="#what-is-test-first-questionmark"><span>2.1</span> what is "test first" ?</a></h3>
 <ol>
 <li>write a test (it fails)</li>
 <li>write the implementation (test still fails)</li>
@@ -100,8 +124,7 @@
 </ol>
 </section>
 <section><a class='slide_break' href='testing_and_refactoring.html#slide-8'>▻</a>
-<h4 id="what-is-tdd-questionmark">
-<a class="anchorlink" href="#what-is-tdd-questionmark"></a>2.2 what is "TDD" ?</h4>
+<h3 id="what-is-tdd-questionmark"><a class="anchorlink" href="#what-is-tdd-questionmark"><span>2.2</span> what is "TDD" ?</a></h3>
 <ol>
 <li>Q: what should the program do? </li>
 <li>A: integration test. (write it. it fails)</li>
@@ -113,11 +136,9 @@
 </ol>
 </section>
 <section><a class='slide_break' href='testing_and_refactoring.html#slide-9'>▻</a>
-<h3 id="code-refactoring">
-<a class="anchorlink" href="#code-refactoring"></a>3 Code Refactoring</h3></section>
+<h2 id="code-refactoring"><a class="anchorlink" href="#code-refactoring"><span>3</span> Code Refactoring</a></h2></section>
 <section><a class='slide_break' href='testing_and_refactoring.html#slide-10'>▻</a>
-<h4 id="what-is-code-refactoring-questionmark">
-<a class="anchorlink" href="#what-is-code-refactoring-questionmark"></a>3.1 what is "code refactoring" ?</h4>
+<h3 id="what-is-code-refactoring-questionmark"><a class="anchorlink" href="#what-is-code-refactoring-questionmark"><span>3.1</span> what is "code refactoring" ?</a></h3>
 <ul>
 <li>"restructuring an existing body of code</li>
 <li>altering its internal structure</li>
@@ -129,8 +150,7 @@
 </ul>
 </section>
 <section><a class='slide_break' href='testing_and_refactoring.html#slide-11'>▻</a>
-<h4 id="refactoring-and-testing">
-<a class="anchorlink" href="#refactoring-and-testing"></a>3.2 refactoring and testing</h4>
+<h3 id="refactoring-and-testing"><a class="anchorlink" href="#refactoring-and-testing"><span>3.2</span> refactoring and testing</a></h3>
 <ul>
 <li>run the unit test (it should be green)</li>
 <li>refactor</li>
@@ -158,8 +178,9 @@
       // The "normal" size of the presentation, aspect ratio will
       // be preserved when the presentation is scaled to fit different
       // resolutions. Can be specified using percentage units.
-      width: 800,
+      width: 1000,
       height: 600,
+      disableLayout: false,
 
       // Factor of the display size that should remain empty around
       // the content
@@ -172,10 +193,10 @@
       keyboard: {
         27: () => {
           // do something custom when ESC is pressed
-          var new_url = window.location.pathname.replace('slides_', '');
-          console.log('esc to ', new_url);
+          var new_url = window.location.pathname.replace('slides_', '') + window.location.hash.replace('/','slide-');
           window.location = new_url;
         },
+        191: 'toggleHelp',
         13: 'next', // go to the next slide when the ENTER key is pressed
       },
 

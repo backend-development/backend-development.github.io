@@ -1,78 +1,153 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html dir="ltr" lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Scaling Node — Backend Development</title>
-    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+    <title>Scaling Node — Ruby on Rails Guides</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" data-turbo-track="reload">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-    <link rel="stylesheet" type="text/css" href="stylesheets/code.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css">
-    <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <style>
-      .slide img[src$=svg] {
-        width: 100%;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="stylesheets/highlight.css" data-turbo-track="reload">
+    <link rel="icon" href="images/backend-development.svg" sizes="any">
+    <script src="javascripts/@hotwired--turbo.js" data-turbo-track="reload"></script>
+    <script src="javascripts/clipboard.js" data-turbo-track="reload"></script>
+    <script src="javascripts/guides.js" data-turbo-track="reload"></script>
+    <meta property="og:title" content="Scaling Node — Ruby on Rails Guides" />
+    <meta name="description" content="Scaling NodeAfter working through this guide you should be able to set up cluster.js to run several node instances" />
+    <meta property="og:description" content="Scaling NodeAfter working through this guide you should be able to set up cluster.js to run several node instances" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Textbook Backend Developemnt" />
+    <meta property="og:image" content="images/backend-development.svg" />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#2e56e9">
   </head>
   <body class="guide">
-    <div id="header">
+    <header id="page_header">
       <div class="wrapper clearfix">
-        <h1><a href="index.html" title="Return to home page">Backend<span> Development</span></a></h1>
-        <ul class="nav">
-          <li class="guides-index guides-index-large">
-            <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
-            <div id="guides" class="clearfix" style="display: none;">
-              <hr>
-                <dl class="L">
-                    <dt>Ruby on Rails</dt>
-                      <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
-                      <dd><a href="rails_database_and_model.html">Models and ActiveRecord</a></dd>
-                      <dd><a href="rails_db.html">Database and Migrations</a></dd>
-                      <dd><a href="rails_associations_and_validations.html">Associations and Validations</a></dd>
-                      <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
-                      <dd><a href="rails_authentication.html">Simple Authentication</a></dd>
-                      <dd><a href="asset_pipeline.html">The Asset Pipeline</a></dd>
-                      <dd><a href="javascript_and_ajax.html">Rails and old Javascript</a></dd>
-                      <dd><a href="javascript_webpack_frontend.html">Rails and Webpack</a></dd>
-                      <dd><a href="testing.html">Getting started with Testing</a></dd>
-                      <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
-                      <dd><a href="rest-api.html">REST API</a></dd>
-                      <dd><a href="graphql-api.html">GraphQL API</a></dd>
-                      <dd><a href="rails_websockets.html">Websocket in Rails</a></dd>
-                      <dd><a href="jobs_and_tasks.html">Jobs and Tasks in Rails</a></dd>
-                      <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
-                      <dd><a href="rails_security.html">Rails Security</a></dd>
-                    <dt>Overarching Concerns</dt>
-                      <dd><a href="security.html">Security</a></dd>
-                      <dd><a href="adv_authentication.html">Advanced Authentication</a></dd>
-                      <dd><a href="caching.html">Caching</a></dd>
-                      <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
-                      <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
-                      <dd><a href="git_rebasing.html">Git Rebasing</a></dd>
-                    <dt>Nodes.js</dt>
-                      <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
-                      <dd><a href="node_basics.html">Node Basics</a></dd>
-                      <dd><a href="node_websockets.html">Node Websockets</a></dd>
-                      <dd><a href="node_express.html">Node Web App</a></dd>
-                      <dd><a href="node_cluster.html">Scaling Node</a></dd>
-                    <dt>Next.js</dt>
-                      <dd><a href="nextjs.html">Next.js</a></dd>
+        <nav id="feature_nav">
+          <div class="header-logo">
+            <a href="/">Backend Development</a>
+          </div>
+          <ul class="nav">
+            <li><a class="nav-item" id="home_nav" href="/">Home</a></li>
+            <li class="guides-index guides-index-large">
+              <a href="index.html" id="guidesMenu" class="guides-index-item nav-item">Index</a>
+              <div id="guides" class="clearfix" style="display: none;">
+                <hr />
+                <dl class="guides-section-container">
+                    <div class="guides-section">
+                      <dt>Ruby on Rails</dt>
+                        <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
+                        <dd><a href="rails_database_and_model.html">Models and ActiveRecord</a></dd>
+                        <dd><a href="rails_db.html">Database and Migrations</a></dd>
+                        <dd><a href="rails_associations_and_validations.html">Associations and Validations</a></dd>
+                        <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
+                        <dd><a href="rails_authentication.html">Simple Authentication</a></dd>
+                        <dd><a href="asset_pipeline.html">The Asset Pipeline</a></dd>
+                        <dd><a href="javascript_and_ajax.html">Rails and old Javascript</a></dd>
+                        <dd><a href="javascript_webpack_frontend.html">Rails and Webpack</a></dd>
+                        <dd><a href="testing.html">Getting started with Testing</a></dd>
+                        <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
+                        <dd><a href="rest-api.html">REST API</a></dd>
+                        <dd><a href="graphql-api.html">GraphQL API</a></dd>
+                        <dd><a href="rails_websockets.html">Websocket in Rails</a></dd>
+                        <dd><a href="jobs_and_tasks.html">Jobs and Tasks in Rails</a></dd>
+                        <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
+                        <dd><a href="rails_security.html">Rails Security</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Overarching Concerns</dt>
+                        <dd><a href="security.html">Security</a></dd>
+                        <dd><a href="adv_authentication.html">Advanced Authentication</a></dd>
+                        <dd><a href="caching.html">Caching</a></dd>
+                        <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
+                        <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
+                        <dd><a href="git_rebasing.html">Git Rebasing</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Nodes.js</dt>
+                        <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
+                        <dd><a href="node_basics.html">Node Basics</a></dd>
+                        <dd><a href="node_websockets.html">Node Websockets</a></dd>
+                        <dd><a href="node_express.html">Node Web App</a></dd>
+                        <dd><a href="node_cluster.html">Scaling Node</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Next.js</dt>
+                        <dd><a href="nextjs.html">Next.js</a></dd>
+                    </div>
                 </dl>
-                <dl class="R">
-                </dl>
-            </div>
-          </li>
-        </ul>
+              </div>
+            </li>
+            <li class="guides-index guides-index-small">
+              <select class="guides-index-item nav-item">
+                <option value="index.html">Index</option>
+                  <optgroup label="Ruby on Rails">
+                      <option value="ruby_commandline.html">Ruby Commandline</option>
+                      <option value="rails_database_and_model.html">Models and ActiveRecord</option>
+                      <option value="rails_db.html">Database and Migrations</option>
+                      <option value="rails_associations_and_validations.html">Associations and Validations</option>
+                      <option value="rails_view_and_controller.html">Routing, View and Controller</option>
+                      <option value="rails_authentication.html">Simple Authentication</option>
+                      <option value="asset_pipeline.html">The Asset Pipeline</option>
+                      <option value="javascript_and_ajax.html">Rails and old Javascript</option>
+                      <option value="javascript_webpack_frontend.html">Rails and Webpack</option>
+                      <option value="testing.html">Getting started with Testing</option>
+                      <option value="rails_gems.html">Ruby Gems for your Rails Project</option>
+                      <option value="rest-api.html">REST API</option>
+                      <option value="graphql-api.html">GraphQL API</option>
+                      <option value="rails_websockets.html">Websocket in Rails</option>
+                      <option value="jobs_and_tasks.html">Jobs and Tasks in Rails</option>
+                      <option value="refactoring_rails.html">Refactoring Rails</option>
+                      <option value="rails_security.html">Rails Security</option>
+                  </optgroup>
+                  <optgroup label="Overarching Concerns">
+                      <option value="security.html">Security</option>
+                      <option value="adv_authentication.html">Advanced Authentication</option>
+                      <option value="caching.html">Caching</option>
+                      <option value="advanced_testing.html">Advanced Testing</option>
+                      <option value="internationalization.html">Internationalization (I18n)</option>
+                      <option value="git_rebasing.html">Git Rebasing</option>
+                  </optgroup>
+                  <optgroup label="Nodes.js">
+                      <option value="node_vs_rails.html">Node vs. Rails</option>
+                      <option value="node_basics.html">Node Basics</option>
+                      <option value="node_websockets.html">Node Websockets</option>
+                      <option value="node_express.html">Node Web App</option>
+                      <option value="node_cluster.html">Scaling Node</option>
+                  </optgroup>
+                  <optgroup label="Next.js">
+                      <option value="nextjs.html">Next.js</option>
+                  </optgroup>
+              </select>
+            </li>
+          </ul>
+        </nav>
       </div>
-    </div>
-    <hr class="hide">
-    <div id="feature">
+    </header>
+    <hr class="hide" />
+    <section id="feature">
       <div class="wrapper">
-        <h2 id="preheader">Scaling Node</h2>
-                  <div id="subCol">
-            <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
+        <h1>Scaling Node</h1><p>After working through this guide you should be able to</p>
+<ul>
+<li>set up cluster.js to run several node instances</li>
+</ul>
+
+                  <nav id="subCol">
+            <h3 class="chapter">
+              <picture>
+                <!-- Using the `source`  HTML tag to set the dark theme image -->
+                <source
+                  srcset="images/icon_book-close-bookmark-1-wht.svg"
+                  media="(prefers-color-scheme: dark)"
+                />
+                <img src="images/icon_book-close-bookmark-1.svg" alt="Chapter Icon" />
+              </picture>
+              Chapters
+            </h3>
             <ol class="chapters">
 <li><a href="#node-and-the-command-line">Node and the Command Line</a></li>
 <li><a href="#arguments">Arguments</a></li>
@@ -84,114 +159,135 @@
 <li><a href="#see-also">See Also</a></li>
 </ol>
 
-          </div>
+          </nav>
 
-        <div class="rest_header">
-          <h2>Scaling Node</h2><p>After working through this guide you should be able to</p>
-<ul class="checkmark">
-<li>set up cluster.js to run several node instances</li>
-</ul>
-
-        </div>
+        <hr>
       </div>
-    </div>
-    <div id="container">
+    </section>
+    <main id="container">
       <div class="wrapper">
         <div id="mainCol">
           <div class='slide'>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-0' href='slides_node_cluster.html#/0'>▻</a>
-<h3 id="node-and-the-command-line">
-<a class="anchorlink" href="#node-and-the-command-line"></a>1 Node and the Command Line</h3></div>
+<p class='slide_break_block'><a class='slide_break' id='slide-0' href='slides_node_cluster.html#/0'>◻</a></p>
+<h2 id="node-and-the-command-line"><a class="anchorlink" href="#node-and-the-command-line"><span>1</span> Node and the Command Line</a></h2></div>
 <div class='slide'>
-<a class='slide_break' id='slide-1' href='slides_node_cluster.html#/1'>▻</a>
-<h3 id="arguments">
-<a class="anchorlink" href="#arguments"></a>2 Arguments</h3><p>The array <code>process.argv</code> contains information about how the program
-was started:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-1' href='slides_node_cluster.html#/1'>◻</a></p>
+<h2 id="arguments"><a class="anchorlink" href="#arguments"><span>2</span> Arguments</a></h2><p>The array <code>process.argv</code> contains information about how the program
+was started:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">node fs.js file.txt
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="node fs.js file.txt
+">Copy</button>
 </div>
-<p>The contents of the array might be:</p><div class="code_container">
+<p>The contents of the array might be:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">['/Users/b/.nvm/versions/node/v5.9.0/bin/node',  '/Users/b/code/fs.js', 'file.txt' ]
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="['/Users/b/.nvm/versions/node/v5.9.0/bin/node',  '/Users/b/code/fs.js', 'file.txt' ]
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-2' href='slides_node_cluster.html#/2'>▻</a>
-<h3 id="standard-input-and-standard-output-channels">
-<a class="anchorlink" href="#standard-input-and-standard-output-channels"></a>3 Standard Input and Standard Output channels</h3><p>are streams in node:</p><div class="code_container">
-<pre><code class="highlight javascript"><span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hello World</span><span class="se">\n</span><span class="dl">"</span><span class="p">);</span>
-<span class="nx">process</span><span class="p">.</span><span class="nx">stderr</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">you're doing it wrong</span><span class="dl">"</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">this</span><span class="dl">"</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="nx">that</span><span class="p">);</span>
+<p class='slide_break_block'><a class='slide_break' id='slide-2' href='slides_node_cluster.html#/2'>◻</a></p>
+<h2 id="standard-input-and-standard-output-channels"><a class="anchorlink" href="#standard-input-and-standard-output-channels"><span>3</span> Standard Input and Standard Output channels</a></h2><p>are streams in node:</p><div class="interstitial code">
+<pre><code class="highlight javascript"><span class="nx">process</span><span class="p">.</span><span class="nx">stdout</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">Hello World</span><span class="se">\n</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">process</span><span class="p">.</span><span class="nx">stderr</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="dl">"</span><span class="s2">you're doing it wrong</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">this</span><span class="dl">"</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="nx">that</span><span class="p">);</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="process.stdout.write(&quot;Hello World\n&quot;);
+process.stderr.write(&quot;you're doing it wrong&quot;);
+console.log(&quot;this&quot;, true, 42, that);
+">Copy</button>
 </div>
-<div class="code_container">
+<div class="interstitial code">
 <pre><code class="highlight shell"><span class="nb">node </span>app.js <span class="o">&gt;</span> out.txt 2&gt; err.txt
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="node app.js > out.txt 2> err.txt
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-3' href='slides_node_cluster.html#/3'>▻</a>
-<h3 id="environment-variables">
-<a class="anchorlink" href="#environment-variables"></a>4 environment variables</h3></div>
+<p class='slide_break_block'><a class='slide_break' id='slide-3' href='slides_node_cluster.html#/3'>◻</a></p>
+<h2 id="environment-variables"><a class="anchorlink" href="#environment-variables"><span>4</span> environment variables</a></h2></div>
 <div class='slide'>
-<a class='slide_break' id='slide-4' href='slides_node_cluster.html#/4'>▻</a>
-<h3 id="process-id">
-<a class="anchorlink" href="#process-id"></a>5 process id</h3><div class="code_container">
-<pre><code class="highlight javascript"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`process </span><span class="p">${</span><span class="nx">process</span><span class="p">.</span><span class="nx">pid</span><span class="p">}</span><span class="s2">`</span><span class="p">)</span>
+<p class='slide_break_block'><a class='slide_break' id='slide-4' href='slides_node_cluster.html#/4'>◻</a></p>
+<h2 id="process-id"><a class="anchorlink" href="#process-id"><span>5</span> process id</a></h2><div class="interstitial code">
+<pre><code class="highlight javascript"><span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="s2">`process </span><span class="p">${</span><span class="nx">process</span><span class="p">.</span><span class="nx">pid</span><span class="p">}</span><span class="s2">`</span><span class="p">)</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="console.log(`process ${process.pid}`)
+">Copy</button>
 </div>
-<p>Or find it on the commandline:</p><div class="code_container">
+<p>Or find it on the commandline:</p><div class="interstitial code">
 <pre><code class="highlight shell"><span class="nv">$ </span>ps
   PID TTY           TIME CMD
 71422 ttys000    0:00.05 bash
 20877 ttys002    0:00.11 <span class="nb">node </span>app.js
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="$ ps
+  PID TTY           TIME CMD
+71422 ttys000    0:00.05 bash
+20877 ttys002    0:00.11 node app.js
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-5' href='slides_node_cluster.html#/5'>▻</a>
-<h3 id="sending-and-reacting-to-signals">
-<a class="anchorlink" href="#sending-and-reacting-to-signals"></a>6 Sending and reacting to signals</h3><div class="code_container">
-<pre><code class="highlight javascript"><span class="nx">process</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span> <span class="dl">"</span><span class="s2">SIGINT</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">`stopping`</span><span class="p">);</span>
-  <span class="nx">process</span><span class="p">.</span><span class="nx">exit</span><span class="p">();</span>
+<p class='slide_break_block'><a class='slide_break' id='slide-5' href='slides_node_cluster.html#/5'>◻</a></p>
+<h2 id="sending-and-reacting-to-signals"><a class="anchorlink" href="#sending-and-reacting-to-signals"><span>6</span> Sending and reacting to signals</a></h2><div class="interstitial code">
+<pre><code class="highlight javascript"><span class="nx">process</span><span class="p">.</span><span class="nf">on</span><span class="p">(</span> <span class="dl">"</span><span class="s2">SIGINT</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="s2">`stopping`</span><span class="p">);</span>
+  <span class="nx">process</span><span class="p">.</span><span class="nf">exit</span><span class="p">();</span>
 <span class="p">});</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="process.on( &quot;SIGINT&quot;, function() {
+  console.log(`stopping`);
+  process.exit();
+});
+">Copy</button>
 </div>
 <p>Send SIGINT by pressing CTRL-C
-Send SIGINT with <code>kill 20877</code></p><p>SIGTERM is used by docker, always handle it!</p><div class="code_container">
+Send SIGINT with <code>kill 20877</code></p><p>SIGTERM is used by docker, always handle it!</p><div class="interstitial code">
 <pre><code class="highlight plaintext">process.on( "SIGTERM", function() {
   console.log(`stopping`);
   process.exit();
 });
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="process.on( &quot;SIGTERM&quot;, function() {
+  console.log(`stopping`);
+  process.exit();
+});
+">Copy</button>
 </div>
 <p>SIGHUB can be used for less serious signals, for example
-to get the app to dump some statistics, or reload a configuration file:</p><div class="code_container">
+to get the app to dump some statistics, or reload a configuration file:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">let count = 1;
 process.on( "SIGHUP", function() {
   console.log(`count = ${count}`);
 });
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="let count = 1;
+process.on( &quot;SIGHUP&quot;, function() {
+  console.log(`count = ${count}`);
+});
+">Copy</button>
 </div>
-<div class="code_container">
+<div class="interstitial code">
 <pre><code class="highlight plaintext">kill –HUP 20877
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="kill –HUP 20877
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-6' href='slides_node_cluster.html#/6'>▻</a>
-<h3 id="scaling-node-with-cluster-js">
-<a class="anchorlink" href="#scaling-node-with-cluster-js"></a>7 Scaling Node with cluster.js</h3><p>V8 has a default memory limit of ~1.5GB
+<p class='slide_break_block'><a class='slide_break' id='slide-6' href='slides_node_cluster.html#/6'>◻</a></p>
+<h2 id="scaling-node-with-cluster-js"><a class="anchorlink" href="#scaling-node-with-cluster-js"><span>7</span> Scaling Node with cluster.js</a></h2><p>V8 has a default memory limit of ~1.5GB
 If your server has more memory
 this might be unsatisfactory!
 You can increase this by starting node with the option
 <code>--max-old-space-size</code>.</p><p>The Eventloop uses 1 core
 If your server has 64 cores
 this might be unsatisfactory!
-To get around this limitation use cluster.js</p><div class="code_container">
+To get around this limitation use cluster.js</p><div class="interstitial code">
 <pre><code class="highlight plaintext">const cluster = require('cluster');
 const http = require('http');
 const numCPUs = require('os').cpus().length;
@@ -203,8 +299,19 @@ if (cluster.isMaster) {
   console.log('working!');
 }
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="const cluster = require('cluster');
+const http = require('http');
+const numCPUs = require('os').cpus().length;
+if (cluster.isMaster) {
+  for (var i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+} else {
+  console.log('working!');
+}
+">Copy</button>
 </div>
-<p>sockets are shared between slave processes:</p><div class="code_container">
+<p>sockets are shared between slave processes:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">if (cluster.isMaster) {
   // ...
 } else {
@@ -216,8 +323,19 @@ if (cluster.isMaster) {
   }).listen(8000);
 }
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="if (cluster.isMaster) {
+  // ...
+} else {
+  // Workers can share any
+  // TCP connections
+  http.createServer((req, res) => {
+    res.writeHead(200);
+    res.end('hello world\n');
+  }).listen(8000);
+}
+">Copy</button>
 </div>
-<p>the master process is in charge:</p><div class="code_container">
+<p>the master process is in charge:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">if (cluster.isMaster) {
   for (var i = 0; i &lt; numCPUs; i++) {
     cluster.fork();
@@ -227,11 +345,20 @@ if (cluster.isMaster) {
   });
 }
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="if (cluster.isMaster) {
+  for (var i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(`${worker.process.pid} died`);
+  });
+}
+">Copy</button>
 </div>
 <p>they do not share the same memory space
 = objects are local to each instance of the app.
 You cannot maintain state in the application code!
-You can send messages:</p><div class="code_container">
+You can send messages:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">const cluster = require('cluster');
 const http = require('http');
 const numCPUs = require('os').cpus().length;
@@ -247,6 +374,21 @@ if (cluster.isMaster) {
 }
 
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="const cluster = require('cluster');
+const http = require('http');
+const numCPUs = require('os').cpus().length;
+if (cluster.isMaster) {
+  for (var i = 0; i < numCPUs; i++) {
+    let worker = cluster.fork();
+    worker.send('do something!');
+  }
+} else {
+ process.on('message', (msg) => {
+   process.send('nope.');
+ });
+}
+
+">Copy</button>
 </div>
 <p>Where do we keep the state of the app? The answers
 are the same as for PHP, Rails, etc:</p>
@@ -257,9 +399,8 @@ are the same as for PHP, Rails, etc:</p>
 </ul>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-7' href='slides_node_cluster.html#/7'>▻</a>
-<h3 id="see-also">
-<a class="anchorlink" href="#see-also"></a>8 See Also</h3>
+<p class='slide_break_block'><a class='slide_break' id='slide-7' href='slides_node_cluster.html#/7'>◻</a></p>
+<h2 id="see-also"><a class="anchorlink" href="#see-also"><span>8</span> See Also</a></h2>
 <ul>
 <li><a href="https://nodejs.org/api/cluster.html">cluster.js documentation</a></li>
 <li><a href="https://pm2.io/doc/en/runtime/overview/">pm2 - process manager for Node.js</a></li>
@@ -267,17 +408,17 @@ are the same as for PHP, Rails, etc:</p>
 </div>
         </div>
       </div>
-    </div>
-    <hr class="hide">
-    <div id="footer">
+    </main>
+    <hr class="hide" />
+    <footer id="page_footer">
       <div class="wrapper">
         <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2025 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
-        </p>
-        <p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
-        </p>
+</p>
+<p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
+</p>
+<p>Favicon "backend development" by Arkinasi from <a href="https://thenounproject.com/browse/icons/term/backend-development/" target="_blank" title="backend development Icons">Noun Project</a> (CC BY 3.0)</p>
+
       </div>
-    </div>
-    <script src="javascripts/jquery.min.js"></script>
-    <script src="javascripts/guides.js"></script>
+    </footer>
   </body>
 </html>

@@ -1,88 +1,163 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html dir="ltr" lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Rails: Models and Activerecord — Backend Development</title>
-    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+    <title>Rails: Models and Activerecord — Ruby on Rails Guides</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" data-turbo-track="reload">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-    <link rel="stylesheet" type="text/css" href="stylesheets/code.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/fixes.css">
-    <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <style>
-      .slide img[src$=svg] {
-        width: 100%;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css" href="stylesheets/highlight.css" data-turbo-track="reload">
+    <link rel="icon" href="images/backend-development.svg" sizes="any">
+    <script src="javascripts/@hotwired--turbo.js" data-turbo-track="reload"></script>
+    <script src="javascripts/clipboard.js" data-turbo-track="reload"></script>
+    <script src="javascripts/guides.js" data-turbo-track="reload"></script>
+    <meta property="og:title" content="Rails: Models and Activerecord — Ruby on Rails Guides" />
+    <meta name="description" content="Rails: Models and ActiverecordModels are the basic classes of a Rails Project. The data is actually stored in a relational database.After working through this guide you should Be able to use models in the rails console The examples were inspired by &quot;Rails for Zombies&quot;, which used to be a free Rails online course. Sadly it is no longer available.When working through this chapter you should be doing the ZombieTwitter Assignment in parallell." />
+    <meta property="og:description" content="Rails: Models and ActiverecordModels are the basic classes of a Rails Project. The data is actually stored in a relational database.After working through this guide you should Be able to use models in the rails console The examples were inspired by &quot;Rails for Zombies&quot;, which used to be a free Rails online course. Sadly it is no longer available.When working through this chapter you should be doing the ZombieTwitter Assignment in parallell." />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Textbook Backend Developemnt" />
+    <meta property="og:image" content="images/backend-development.svg" />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#2e56e9">
   </head>
   <body class="guide">
-    <div id="header">
+    <header id="page_header">
       <div class="wrapper clearfix">
-        <h1><a href="index.html" title="Return to home page">Backend<span> Development</span></a></h1>
-        <ul class="nav">
-          <li class="guides-index guides-index-large">
-            <a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu" class="guides-index-item nav-item">Index  &#x25BC;</a>
-            <div id="guides" class="clearfix" style="display: none;">
-              <hr>
-                <dl class="L">
-                    <dt>Ruby on Rails</dt>
-                      <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
-                      <dd><a href="rails_database_and_model.html">Models and ActiveRecord</a></dd>
-                      <dd><a href="rails_db.html">Database and Migrations</a></dd>
-                      <dd><a href="rails_associations_and_validations.html">Associations and Validations</a></dd>
-                      <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
-                      <dd><a href="rails_authentication.html">Simple Authentication</a></dd>
-                      <dd><a href="asset_pipeline.html">The Asset Pipeline</a></dd>
-                      <dd><a href="javascript_and_ajax.html">Rails and old Javascript</a></dd>
-                      <dd><a href="javascript_webpack_frontend.html">Rails and Webpack</a></dd>
-                      <dd><a href="testing.html">Getting started with Testing</a></dd>
-                      <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
-                      <dd><a href="rest-api.html">REST API</a></dd>
-                      <dd><a href="graphql-api.html">GraphQL API</a></dd>
-                      <dd><a href="rails_websockets.html">Websocket in Rails</a></dd>
-                      <dd><a href="jobs_and_tasks.html">Jobs and Tasks in Rails</a></dd>
-                      <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
-                      <dd><a href="rails_security.html">Rails Security</a></dd>
-                    <dt>Overarching Concerns</dt>
-                      <dd><a href="security.html">Security</a></dd>
-                      <dd><a href="adv_authentication.html">Advanced Authentication</a></dd>
-                      <dd><a href="caching.html">Caching</a></dd>
-                      <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
-                      <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
-                      <dd><a href="git_rebasing.html">Git Rebasing</a></dd>
-                    <dt>Nodes.js</dt>
-                      <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
-                      <dd><a href="node_basics.html">Node Basics</a></dd>
-                      <dd><a href="node_websockets.html">Node Websockets</a></dd>
-                      <dd><a href="node_express.html">Node Web App</a></dd>
-                      <dd><a href="node_cluster.html">Scaling Node</a></dd>
-                    <dt>Next.js</dt>
-                      <dd><a href="nextjs.html">Next.js</a></dd>
+        <nav id="feature_nav">
+          <div class="header-logo">
+            <a href="/">Backend Development</a>
+          </div>
+          <ul class="nav">
+            <li><a class="nav-item" id="home_nav" href="/">Home</a></li>
+            <li class="guides-index guides-index-large">
+              <a href="index.html" id="guidesMenu" class="guides-index-item nav-item">Index</a>
+              <div id="guides" class="clearfix" style="display: none;">
+                <hr />
+                <dl class="guides-section-container">
+                    <div class="guides-section">
+                      <dt>Ruby on Rails</dt>
+                        <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
+                        <dd><a href="rails_database_and_model.html">Models and ActiveRecord</a></dd>
+                        <dd><a href="rails_db.html">Database and Migrations</a></dd>
+                        <dd><a href="rails_associations_and_validations.html">Associations and Validations</a></dd>
+                        <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
+                        <dd><a href="rails_authentication.html">Simple Authentication</a></dd>
+                        <dd><a href="asset_pipeline.html">The Asset Pipeline</a></dd>
+                        <dd><a href="javascript_and_ajax.html">Rails and old Javascript</a></dd>
+                        <dd><a href="javascript_webpack_frontend.html">Rails and Webpack</a></dd>
+                        <dd><a href="testing.html">Getting started with Testing</a></dd>
+                        <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
+                        <dd><a href="rest-api.html">REST API</a></dd>
+                        <dd><a href="graphql-api.html">GraphQL API</a></dd>
+                        <dd><a href="rails_websockets.html">Websocket in Rails</a></dd>
+                        <dd><a href="jobs_and_tasks.html">Jobs and Tasks in Rails</a></dd>
+                        <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
+                        <dd><a href="rails_security.html">Rails Security</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Overarching Concerns</dt>
+                        <dd><a href="security.html">Security</a></dd>
+                        <dd><a href="adv_authentication.html">Advanced Authentication</a></dd>
+                        <dd><a href="caching.html">Caching</a></dd>
+                        <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
+                        <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
+                        <dd><a href="git_rebasing.html">Git Rebasing</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Nodes.js</dt>
+                        <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
+                        <dd><a href="node_basics.html">Node Basics</a></dd>
+                        <dd><a href="node_websockets.html">Node Websockets</a></dd>
+                        <dd><a href="node_express.html">Node Web App</a></dd>
+                        <dd><a href="node_cluster.html">Scaling Node</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Next.js</dt>
+                        <dd><a href="nextjs.html">Next.js</a></dd>
+                    </div>
                 </dl>
-                <dl class="R">
-                </dl>
-            </div>
-          </li>
-        </ul>
+              </div>
+            </li>
+            <li class="guides-index guides-index-small">
+              <select class="guides-index-item nav-item">
+                <option value="index.html">Index</option>
+                  <optgroup label="Ruby on Rails">
+                      <option value="ruby_commandline.html">Ruby Commandline</option>
+                      <option value="rails_database_and_model.html">Models and ActiveRecord</option>
+                      <option value="rails_db.html">Database and Migrations</option>
+                      <option value="rails_associations_and_validations.html">Associations and Validations</option>
+                      <option value="rails_view_and_controller.html">Routing, View and Controller</option>
+                      <option value="rails_authentication.html">Simple Authentication</option>
+                      <option value="asset_pipeline.html">The Asset Pipeline</option>
+                      <option value="javascript_and_ajax.html">Rails and old Javascript</option>
+                      <option value="javascript_webpack_frontend.html">Rails and Webpack</option>
+                      <option value="testing.html">Getting started with Testing</option>
+                      <option value="rails_gems.html">Ruby Gems for your Rails Project</option>
+                      <option value="rest-api.html">REST API</option>
+                      <option value="graphql-api.html">GraphQL API</option>
+                      <option value="rails_websockets.html">Websocket in Rails</option>
+                      <option value="jobs_and_tasks.html">Jobs and Tasks in Rails</option>
+                      <option value="refactoring_rails.html">Refactoring Rails</option>
+                      <option value="rails_security.html">Rails Security</option>
+                  </optgroup>
+                  <optgroup label="Overarching Concerns">
+                      <option value="security.html">Security</option>
+                      <option value="adv_authentication.html">Advanced Authentication</option>
+                      <option value="caching.html">Caching</option>
+                      <option value="advanced_testing.html">Advanced Testing</option>
+                      <option value="internationalization.html">Internationalization (I18n)</option>
+                      <option value="git_rebasing.html">Git Rebasing</option>
+                  </optgroup>
+                  <optgroup label="Nodes.js">
+                      <option value="node_vs_rails.html">Node vs. Rails</option>
+                      <option value="node_basics.html">Node Basics</option>
+                      <option value="node_websockets.html">Node Websockets</option>
+                      <option value="node_express.html">Node Web App</option>
+                      <option value="node_cluster.html">Scaling Node</option>
+                  </optgroup>
+                  <optgroup label="Next.js">
+                      <option value="nextjs.html">Next.js</option>
+                  </optgroup>
+              </select>
+            </li>
+          </ul>
+        </nav>
       </div>
-    </div>
-    <hr class="hide">
-    <div id="feature">
+    </header>
+    <hr class="hide" />
+    <section id="feature">
       <div class="wrapper">
-        <h2 id="preheader">Rails: Models and Activerecord</h2>
-                  <div id="subCol">
-            <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
+        <h1>Rails: Models and Activerecord</h1><p>Models are the basic classes of a Rails Project. The
+data is actually stored in a relational database.</p><p>After working through this guide you should</p>
+<ul>
+<li>Be able to use models in the rails console</li>
+</ul>
+<p>The examples were inspired by &quot;Rails for Zombies&quot;, which used to be a free Rails online course.
+Sadly it is no longer available.</p><p>When working through this chapter you should be doing the
+<a href="https://gitlab.mediacube.at/bjelline/backend-assign-public/-/blob/master/a2_zombietwitter/README.md">ZombieTwitter</a> Assignment in parallell.</p>
+                  <nav id="subCol">
+            <h3 class="chapter">
+              <picture>
+                <!-- Using the `source`  HTML tag to set the dark theme image -->
+                <source
+                  srcset="images/icon_book-close-bookmark-1-wht.svg"
+                  media="(prefers-color-scheme: dark)"
+                />
+                <img src="images/icon_book-close-bookmark-1.svg" alt="Chapter Icon" />
+              </picture>
+              Chapters
+            </h3>
             <ol class="chapters">
-<li>
-<a href="#model-basics">Model Basics</a>
+<li><a href="#model-basics">Model Basics</a>
 
 <ul>
 <li><a href="#the-mapping">The Mapping</a></li>
-</ul>
-</li>
-<li>
-<a href="#the-model">The Model</a>
+</ul></li>
+<li><a href="#the-model">The Model</a>
 
 <ul>
 <li><a href="#the-model-in-the-console">The model in the console</a></li>
@@ -95,34 +170,23 @@
 <li><a href="#delete">Delete</a></li>
 <li><a href="#chaining-activerecord-methods">Chaining ActiveRecord methods</a></li>
 <li><a href="#further-reading">Further reading</a></li>
-</ul>
-</li>
+</ul></li>
 </ol>
 
-          </div>
+          </nav>
 
-        <div class="rest_header">
-          <h2>Rails: Models and Activerecord</h2><p>Models are the basic classes of a Rails Project. The
-data is actually stored in a relational database.</p><p>After working through this guide you should</p>
-<ul class="checkmark">
-<li>Be able to use models in the rails console</li>
-</ul>
-<p>The examples were inspired by &quot;Rails for Zombies&quot;, which used to be a free Rails online course.
-Sadly it is no longer available.</p><p>When working through this chapter you should be doing the
-<a href="https://gitlab.mediacube.at/bjelline/backend-assign-public/-/blob/master/a2_zombietwitter/README.md">ZombieTwitter</a> Assignment in parallell.</p>
-        </div>
+        <hr>
       </div>
-    </div>
-    <div id="container">
+    </section>
+    <main id="container">
       <div class="wrapper">
         <div id="mainCol">
           <div class='slide'>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-0' href='slides_rails_database_and_model.html#/0'>▻</a>
-<h3 id="model-basics">
-<a class="anchorlink" href="#model-basics"></a>1 Model Basics</h3><p>Rails Models are classes that represent tables in the database.</p><p>Rails implements the Active Record pattern in a class called <code>ActiveRecord</code>.
-All the models in a Rails project inherit from <code>ActiveRecord</code>.</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-0' href='slides_rails_database_and_model.html#/0'>◻</a></p>
+<h2 id="model-basics"><a class="anchorlink" href="#model-basics"><span>1</span> Model Basics</a></h2><p>Rails Models are classes that represent tables in the database.</p><p>Rails implements the Active Record pattern in a class called <code>ActiveRecord</code>.
+All the models in a Rails project inherit from <code>ActiveRecord</code>.</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="c1"># file app/models/Tweet.rb</span>
 <span class="c1"># this is the Tweet model that you create</span>
 <span class="k">class</span> <span class="nc">Tweet</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
@@ -135,13 +199,24 @@ All the models in a Rails project inherit from <code>ActiveRecord</code>.</p><di
   <span class="n">primary_abstract_class</span>
 <span class="k">end</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="# file app/models/Tweet.rb
+# this is the Tweet model that you create
+class Tweet < ApplicationRecord
+end
+
+
+# file app/models/application_record.rb
+# this file already exists
+class ApplicationRecord < ActiveRecord::Base
+  primary_abstract_class
+end
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-1' href='slides_rails_database_and_model.html#/1'>▻</a>
-<h4 id="the-mapping">
-<a class="anchorlink" href="#the-mapping"></a>1.1 The Mapping</h4><p>A quick overview of how Objects and Database relate when using
-ActiveRecord in Rails:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-1' href='slides_rails_database_and_model.html#/1'>◻</a></p>
+<h3 id="the-mapping"><a class="anchorlink" href="#the-mapping"><span>1.1</span> The Mapping</a></h3><p>A quick overview of how Objects and Database relate when using
+ActiveRecord in Rails:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">Database                           Ruby on Rails
 ---------------------------        --------------------------
 table courses                      class Course
@@ -150,16 +225,22 @@ one row in the table               one object of the class Course
 an attibute in the table           a property of the object
 SELECT * FROM courses WHERE id=7   Course.find(7)
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="Database                           Ruby on Rails
+---------------------------        --------------------------
+table courses                      class Course
+  in the Database                    in file app/models/course.rb
+one row in the table               one object of the class Course
+an attibute in the table           a property of the object
+SELECT * FROM courses WHERE id=7   Course.find(7)
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-2' href='slides_rails_database_and_model.html#/2'>▻</a>
-<h3 id="the-model">
-<a class="anchorlink" href="#the-model"></a>2 The Model</h3><p>Look at the model generated in file <code>app/models/tweet.rb</code>. Later you will add validations, associations to other models and the business logic here.</p></div>
+<p class='slide_break_block'><a class='slide_break' id='slide-2' href='slides_rails_database_and_model.html#/2'>◻</a></p>
+<h2 id="the-model"><a class="anchorlink" href="#the-model"><span>2</span> The Model</a></h2><p>Look at the model generated in file <code>app/models/tweet.rb</code>. Later you will add validations, associations to other models and the business logic here.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-3' href='slides_rails_database_and_model.html#/3'>▻</a>
-<h4 id="the-model-in-the-console">
-<a class="anchorlink" href="#the-model-in-the-console"></a>2.1 The model in the console</h4><p>You can use the Rails console to work with
+<p class='slide_break_block'><a class='slide_break' id='slide-3' href='slides_rails_database_and_model.html#/3'>◻</a></p>
+<h3 id="the-model-in-the-console"><a class="anchorlink" href="#the-model-in-the-console"><span>2.1</span> The model in the console</a></h3><p>You can use the Rails console to work with
 the model interactively. This is similar to the ruby console <code>irb</code>
 but with your Rails app already loaded.
 Any changes you make are really written
@@ -173,9 +254,8 @@ to the development database!</p>
 </ul>
 <p>instead.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-4' href='slides_rails_database_and_model.html#/4'>▻</a>
-<h4 id="finding-a-model">
-<a class="anchorlink" href="#finding-a-model"></a>2.2 Finding a model</h4><p>The database table always has a primary key <code>id</code>. You can use this
+<p class='slide_break_block'><a class='slide_break' id='slide-4' href='slides_rails_database_and_model.html#/4'>◻</a></p>
+<h3 id="finding-a-model"><a class="anchorlink" href="#finding-a-model"><span>2.2</span> Finding a model</a></h3><p>The database table always has a primary key <code>id</code>. You can use this
 key to find a specific record:</p><p><img src="images/rails_console_find.png" alt="using find in the Rails console"></p><p>When you type in <code>Tweet.find(1)</code> into the Rails console, you get two answers:</p><p>First (in color) it shows you the SQL query sent to the database. In this case
 <code>SELECT "tweets".* FROM "tweets" WHERE "tweets"."id" = ? LIMIT ?</code>. You can see
 that prepared statements are used, and that a limit is always placed on the number
@@ -183,9 +263,9 @@ of answers.</p><p>After the Arrow (<code>=&gt;</code>) the Rails console shows t
 you typed in. Here this is an object. The console prints out the details of this
 object using the <code>inspect</code> method.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-5' href='slides_rails_database_and_model.html#/5'>▻</a>
+<p class='slide_break_block'><a class='slide_break' id='slide-5' href='slides_rails_database_and_model.html#/5'>◻</a></p>
 <p>From now on we will use this slightly shortended format to show Rails console
-input and output:</p><div class="code_container">
+input and output:</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="o">=&gt;</span>
 <span class="c1">#&lt;Tweet:0x0000000105308f58</span>
@@ -195,13 +275,21 @@ input and output:</p><div class="code_container">
  <span class="ss">created_at: </span><span class="no">Sun</span><span class="p">,</span> <span class="mi">22</span> <span class="no">Oct</span> <span class="mi">2023</span> <span class="mi">14</span><span class="p">:</span><span class="mi">54</span><span class="p">:</span><span class="mf">27.955788000</span> <span class="no">UTC</span> <span class="o">+</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">,</span>
  <span class="ss">updated_at: </span><span class="no">Sun</span><span class="p">,</span> <span class="mi">22</span> <span class="no">Oct</span> <span class="mi">2023</span> <span class="mi">14</span><span class="p">:</span><span class="mi">54</span><span class="p">:</span><span class="mf">27.955788000</span> <span class="no">UTC</span> <span class="o">+</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="o">&gt;</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="railsconsole> Tweet.find(1)
+=>
+#<Tweet:0x0000000105308f58
+ id: 1,
+ status: &quot;Where can I get a good bite to eat?&quot;,
+ zombie: &quot;Ash&quot;,
+ created_at: Sun, 22 Oct 2023 14:54:27.955788000 UTC +00:00,
+ updated_at: Sun, 22 Oct 2023 14:54:27.955788000 UTC +00:00>
+">Copy</button>
 </div>
 <p>(We will leave out the SQL, and some timestamps.)</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-6' href='slides_rails_database_and_model.html#/6'>▻</a>
-<h4 id="accessing-the-properties">
-<a class="anchorlink" href="#accessing-the-properties"></a>2.3 Accessing the properties</h4><p>You can access the properties of the model object as if it were a hash
-or through method names:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-6' href='slides_rails_database_and_model.html#/6'>◻</a></p>
+<h3 id="accessing-the-properties"><a class="anchorlink" href="#accessing-the-properties"><span>2.3</span> Accessing the properties</a></h3><p>You can access the properties of the model object as if it were a hash
+or through method names:</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="o">=&gt;</span>  <span class="c1">#&lt;Tweet id: 3, status: "I just ate some delicious brains.", zombie: "Jim"&gt;</span>
 <span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">.</span><span class="nf">status</span>
@@ -213,29 +301,42 @@ or through method names:</p><div class="code_container">
 <span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">[</span><span class="ss">:zombie</span><span class="p">]</span>
 <span class="o">=&gt;</span> <span class="s2">"Jim"</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="railsconsole> t = Tweet.find(3)
+=>  #<Tweet id: 3, status: &quot;I just ate some delicious brains.&quot;, zombie: &quot;Jim&quot;>
+railsconsole> t.status
+=> &quot;I just ate some delicious brains.&quot;
+railsconsole> t[:status]
+=> &quot;I just ate some delicious brains.&quot;
+railsconsole> t.zombie
+=> &quot;Jim&quot;
+railsconsole> t[:zombie]
+=> &quot;Jim&quot;
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-7' href='slides_rails_database_and_model.html#/7'>▻</a>
-<h4 id="crud-create-read-update-delete">
-<a class="anchorlink" href="#crud-create-read-update-delete"></a>2.4 CRUD = Create, Read, Update, Delete</h4><p>Let's see how ActiveRecord implements the four important
+<p class='slide_break_block'><a class='slide_break' id='slide-7' href='slides_rails_database_and_model.html#/7'>◻</a></p>
+<h3 id="crud-create-read-update-delete"><a class="anchorlink" href="#crud-create-read-update-delete"><span>2.4</span> CRUD = Create, Read, Update, Delete</a></h3><p>Let's see how ActiveRecord implements the four important
 capabilities of persistance:</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-8' href='slides_rails_database_and_model.html#/8'>▻</a>
-<h4 id="create">
-<a class="anchorlink" href="#create"></a>2.5 Create</h4><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-8' href='slides_rails_database_and_model.html#/8'>◻</a></p>
+<h3 id="create"><a class="anchorlink" href="#create"><span>2.5</span> Create</a></h3><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">new</span>
 <span class="n">t</span><span class="p">.</span><span class="nf">status</span> <span class="o">=</span> <span class="s2">"I &lt;3 brains."</span>
 <span class="n">t</span><span class="p">.</span><span class="nf">save</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="t = Tweet.new
+t.status = &quot;I <3 brains.&quot;
+t.save
+">Copy</button>
 </div>
 <p>With <code>new</code> you create a new object just in memory. It is not stored in the
 database yet and does not have an <code>id</code> yet. You can set its properties.
 The <code>save</code> method tries to save it to the database.</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-9' href='slides_rails_database_and_model.html#/9'>▻</a>
+<p class='slide_break_block'><a class='slide_break' id='slide-9' href='slides_rails_database_and_model.html#/9'>◻</a></p>
 <p>On the Rails console you can see how the properties are <code>nil</code> in the beginning.
-After saving to the database some of the properties are set:</p><div class="code_container">
+After saving to the database some of the properties are set:</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">new</span>
 <span class="o">=&gt;</span> <span class="c1">#&lt;Tweet:0x0000000106688358 id: nil, status: nil, zombie: nil, created_at: nil, updated_at: nil&gt;</span>
 <span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span><span class="p">.</span><span class="nf">status</span> <span class="o">=</span> <span class="s2">"I &lt;3 brains."</span>
@@ -256,22 +357,45 @@ After saving to the database some of the properties are set:</p><div class="code
  <span class="ss">created_at: </span><span class="no">Sun</span><span class="p">,</span> <span class="mi">22</span> <span class="no">Oct</span> <span class="mi">2023</span> <span class="mi">17</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="mf">31.990939000</span> <span class="no">UTC</span> <span class="o">+</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">,</span>
  <span class="ss">updated_at: </span><span class="no">Sun</span><span class="p">,</span> <span class="mi">22</span> <span class="no">Oct</span> <span class="mi">2023</span> <span class="mi">17</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="mf">31.990939000</span> <span class="no">UTC</span> <span class="o">+</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="o">&gt;</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="railsconsole> t = Tweet.new
+=> #<Tweet:0x0000000106688358 id: nil, status: nil, zombie: nil, created_at: nil, updated_at: nil>
+railsconsole> t.status = &quot;I <3 brains.&quot;
+=> &quot;I <3 brains.&quot;
+
+railsconsole> t.save
+  TRANSACTION (3.8ms)  BEGIN
+  Tweet Create (9.2ms)  INSERT INTO &quot;tweets&quot; (&quot;status&quot;, &quot;zombie&quot;, &quot;created_at&quot;, &quot;updated_at&quot;) VALUES ($1, $2, $3, $4) RETURNING &quot;id&quot;  [[&quot;status&quot;, &quot;I <3 brains.&quot;], [&quot;zombie&quot;, nil], [&quot;created_at&quot;, &quot;2023-10-22 17:12:31.990939&quot;], [&quot;updated_at&quot;, &quot;2023-10-22 17:12:31.990939&quot;]]
+  TRANSACTION (2.0ms)  COMMIT
+=> true
+
+railsconsole> t
+=>
+#<Tweet:0x0000000106688358
+ id: 4,
+ status: &quot;I <3 brains.&quot;,
+ zombie: nil,
+ created_at: Sun, 22 Oct 2023 17:12:31.990939000 UTC +00:00,
+ updated_at: Sun, 22 Oct 2023 17:12:31.990939000 UTC +00:00>
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-10' href='slides_rails_database_and_model.html#/10'>▻</a>
-<h4 id="read">
-<a class="anchorlink" href="#read"></a>2.6 Read</h4><p>There are many ways to read data from the database. We already saw <code>find</code> which
-uses the primary key and always returns one object. The method <code>where</code> is used for more general <code>select - where</code> SQL statements.</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-10' href='slides_rails_database_and_model.html#/10'>◻</a></p>
+<h3 id="read"><a class="anchorlink" href="#read"><span>2.6</span> Read</a></h3><p>There are many ways to read data from the database. We already saw <code>find</code> which
+uses the primary key and always returns one object. The method <code>where</code> is used for more general <code>select - where</code> SQL statements.</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">t1</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">t2</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; '2023-10-21'"</span><span class="p">)</span>
 <span class="n">t3</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">zombie: </span><span class="s1">'Ash'</span><span class="p">)</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="t1 = Tweet.find(3)
+t2 = Tweet.where(&quot;created_at > '2023-10-21'&quot;)
+t3 = Tweet.where(zombie: 'Ash')
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-11' href='slides_rails_database_and_model.html#/11'>▻</a>
-<p>In the Rails console you can see the return values: <code>where</code> returns serveral objects in the end.</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-11' href='slides_rails_database_and_model.html#/11'>◻</a></p>
+<p>In the Rails console you can see the return values: <code>where</code> returns serveral objects in the end.</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t2</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; '2023-10-21'"</span><span class="p">)</span>
   <span class="no">Tweet</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">1.0</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span> <span class="s2">"tweets"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"tweets"</span> <span class="no">WHERE</span> <span class="p">(</span><span class="n">created_at</span> <span class="o">&gt;</span> <span class="s1">'2023-10-21'</span><span class="p">)</span>
 <span class="o">=&gt;</span>
@@ -305,22 +429,58 @@ uses the primary key and always returns one object. The method <code>where</code
   <span class="ss">created_at: </span><span class="no">Sun</span><span class="p">,</span> <span class="mi">22</span> <span class="no">Oct</span> <span class="mi">2023</span> <span class="mi">17</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="mf">31.990939000</span> <span class="no">UTC</span> <span class="o">+</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">,</span>
   <span class="ss">updated_at: </span><span class="no">Sun</span><span class="p">,</span> <span class="mi">22</span> <span class="no">Oct</span> <span class="mi">2023</span> <span class="mi">17</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="mf">31.990939000</span> <span class="no">UTC</span> <span class="o">+</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="o">&gt;</span><span class="p">]</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="railsconsole> t2 = Tweet.where(&quot;created_at > '2023-10-21'&quot;)
+  Tweet Load (1.0ms)  SELECT &quot;tweets&quot;.* FROM &quot;tweets&quot; WHERE (created_at > '2023-10-21')
+=>
+[#<Tweet:0x00000001066070a0
+...
+
+railsconsole> t2
+=>
+[#<Tweet:0x00000001066070a0
+  id: 1,
+  status: &quot;Where can I get a good bite to eat?&quot;,
+  zombie: &quot;Ash&quot;,
+  created_at: Sun, 22 Oct 2023 14:54:27.955788000 UTC +00:00,
+  updated_at: Sun, 22 Oct 2023 14:54:27.955788000 UTC +00:00>,
+ #<Tweet:0x0000000106606f60
+  id: 2,
+  status: &quot;I <3 brains.&quot;,
+  zombie: &quot;QueenRotten&quot;,
+  created_at: Sun, 22 Oct 2023 14:54:27.957318000 UTC +00:00,
+  updated_at: Sun, 22 Oct 2023 14:54:27.957318000 UTC +00:00>,
+ #<Tweet:0x0000000106606e20
+  id: 3,
+  status: &quot;I just ate some delicious brains.&quot;,
+  zombie: &quot;Jim&quot;,
+  created_at: Sun, 22 Oct 2023 14:54:27.958430000 UTC +00:00,
+  updated_at: Sun, 22 Oct 2023 14:54:27.958430000 UTC +00:00>,
+ #<Tweet:0x0000000106606ce0
+  id: 4,
+  status: &quot;I <3 brains.&quot;,
+  zombie: nil,
+  created_at: Sun, 22 Oct 2023 17:12:31.990939000 UTC +00:00,
+  updated_at: Sun, 22 Oct 2023 17:12:31.990939000 UTC +00:00>]
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-12' href='slides_rails_database_and_model.html#/12'>▻</a>
-<h4 id="update">
-<a class="anchorlink" href="#update"></a>2.7 Update</h4><p>With update - as with <code>new</code> before - we see the difference between the
+<p class='slide_break_block'><a class='slide_break' id='slide-12' href='slides_rails_database_and_model.html#/12'>◻</a></p>
+<h3 id="update"><a class="anchorlink" href="#update"><span>2.7</span> Update</a></h3><p>With update - as with <code>new</code> before - we see the difference between the
 object in memory (<code>t</code>) which can be changed and the object in the database
-which is only changed when t is saved back to the database.</p><div class="code_container">
+which is only changed when t is saved back to the database.</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">t</span><span class="p">.</span><span class="nf">zombie</span> <span class="o">=</span> <span class="s2">"EyeballChomper"</span>
 <span class="n">t</span><span class="p">.</span><span class="nf">save</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="t = Tweet.find(3)
+t.zombie = &quot;EyeballChomper&quot;
+t.save
+">Copy</button>
 </div>
 <p>In the Rails console you can see that the UPDATE statement in SQL really
 only changes the one changed attribute.
-Plus the property <code>updated_at</code> is automatically set.</p><div class="code_container">
+Plus the property <code>updated_at</code> is automatically set.</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
   <span class="no">Tweet</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">10.0</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span> <span class="s2">"tweets"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"tweets"</span> <span class="no">WHERE</span> <span class="s2">"tweets"</span><span class="o">.</span><span class="s2">"id"</span> <span class="o">=</span> <span class="vg">$1</span> <span class="no">LIMIT</span> <span class="vg">$2</span>  <span class="p">[[</span><span class="s2">"id"</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="s2">"LIMIT"</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
 <span class="o">=&gt;</span>
@@ -336,18 +496,35 @@ Plus the property <code>updated_at</code> is automatically set.</p><div class="c
   <span class="no">TRANSACTION</span> <span class="p">(</span><span class="mf">0.9</span><span class="n">ms</span><span class="p">)</span>  <span class="no">COMMIT</span>
 <span class="o">=&gt;</span> <span class="kp">true</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="railsconsole> t = Tweet.find(3)
+  Tweet Load (10.0ms)  SELECT &quot;tweets&quot;.* FROM &quot;tweets&quot; WHERE &quot;tweets&quot;.&quot;id&quot; = $1 LIMIT $2  [[&quot;id&quot;, 3], [&quot;LIMIT&quot;, 1]]
+=>
+#<Tweet:0x0000000106603ae0
+...
+
+railsconsole> t.zombie = &quot;EyeballChomper&quot;
+=> &quot;EyeballChomper&quot;
+
+railsconsole> t.save
+  TRANSACTION (4.6ms)  BEGIN
+  Tweet Update (18.0ms)  UPDATE &quot;tweets&quot; SET &quot;zombie&quot; = $1, &quot;updated_at&quot; = $2 WHERE &quot;tweets&quot;.&quot;id&quot; = $3  [[&quot;zombie&quot;, &quot;EyeballChomper&quot;], [&quot;updated_at&quot;, &quot;2023-10-22 17:17:34.242526&quot;], [&quot;id&quot;, 3]]
+  TRANSACTION (0.9ms)  COMMIT
+=> true
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-13' href='slides_rails_database_and_model.html#/13'>▻</a>
-<h4 id="delete">
-<a class="anchorlink" href="#delete"></a>2.8 Delete</h4><p>To delete both the object in memory and in the database use <code>destroy</code>.</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-13' href='slides_rails_database_and_model.html#/13'>◻</a></p>
+<h3 id="delete"><a class="anchorlink" href="#delete"><span>2.8</span> Delete</a></h3><p>To delete both the object in memory and in the database use <code>destroy</code>.</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">t</span><span class="p">.</span><span class="nf">destroy</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="t = Tweet.find(3)
+t.destroy
+">Copy</button>
 </div>
 <p>On the console you can see how <code>destroy</code> is translated to <code>DELETE</code> in SQL.
-<code>destroy</code> gives the last version of the model as a return value.</p><div class="code_container">
+<code>destroy</code> gives the last version of the model as a return value.</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
   <span class="no">Tweet</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">12.4</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span> <span class="s2">"tweets"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"tweets"</span> <span class="no">WHERE</span> <span class="s2">"tweets"</span><span class="o">.</span><span class="s2">"id"</span> <span class="o">=</span> <span class="vg">$1</span> <span class="no">LIMIT</span> <span class="vg">$2</span>  <span class="p">[[</span><span class="s2">"id"</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="s2">"LIMIT"</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
 <span class="o">=&gt;</span>
@@ -366,12 +543,29 @@ Plus the property <code>updated_at</code> is automatically set.</p><div class="c
  <span class="ss">created_at: </span><span class="no">Sun</span><span class="p">,</span> <span class="mi">22</span> <span class="no">Oct</span> <span class="mi">2023</span> <span class="mi">14</span><span class="p">:</span><span class="mi">54</span><span class="p">:</span><span class="mf">27.958430000</span> <span class="no">UTC</span> <span class="o">+</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">,</span>
  <span class="ss">updated_at: </span><span class="no">Sun</span><span class="p">,</span> <span class="mi">22</span> <span class="no">Oct</span> <span class="mi">2023</span> <span class="mi">17</span><span class="p">:</span><span class="mi">17</span><span class="p">:</span><span class="mf">34.242526000</span> <span class="no">UTC</span> <span class="o">+</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="o">&gt;</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="railsconsole> t = Tweet.find(3)
+  Tweet Load (12.4ms)  SELECT &quot;tweets&quot;.* FROM &quot;tweets&quot; WHERE &quot;tweets&quot;.&quot;id&quot; = $1 LIMIT $2  [[&quot;id&quot;, 3], [&quot;LIMIT&quot;, 1]]
+=>
+#<Tweet:0x0000000106600b60
+...
+
+railsconsole> t.destroy
+  TRANSACTION (2.3ms)  BEGIN
+  Tweet Destroy (3.5ms)  DELETE FROM &quot;tweets&quot; WHERE &quot;tweets&quot;.&quot;id&quot; = $1  [[&quot;id&quot;, 3]]
+  TRANSACTION (1.1ms)  COMMIT
+=>
+#<Tweet:0x0000000106600b60
+ id: 3,
+ status: &quot;I just ate some delicious brains.&quot;,
+ zombie: &quot;EyeballChomper&quot;,
+ created_at: Sun, 22 Oct 2023 14:54:27.958430000 UTC +00:00,
+ updated_at: Sun, 22 Oct 2023 17:17:34.242526000 UTC +00:00>
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-14' href='slides_rails_database_and_model.html#/14'>▻</a>
-<h4 id="chaining-activerecord-methods">
-<a class="anchorlink" href="#chaining-activerecord-methods"></a>2.9 Chaining ActiveRecord methods</h4><p>Let's look at the example of using <code>where</code> again: the return value was of class <code>ActiveRecord::Relation</code>:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-14' href='slides_rails_database_and_model.html#/14'>◻</a></p>
+<h3 id="chaining-activerecord-methods"><a class="anchorlink" href="#chaining-activerecord-methods"><span>2.9</span> Chaining ActiveRecord methods</a></h3><p>Let's look at the example of using <code>where</code> again: the return value was of class <code>ActiveRecord::Relation</code>:</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t3</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">zombie: </span><span class="s1">'Ash'</span><span class="p">)</span>
   <span class="no">Tweet</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">9.6</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span> <span class="s2">"tweets"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"tweets"</span> <span class="no">WHERE</span> <span class="s2">"tweets"</span><span class="o">.</span><span class="s2">"zombie"</span> <span class="o">=</span> <span class="vg">$1</span>  <span class="p">[[</span><span class="s2">"zombie"</span><span class="p">,</span> <span class="s2">"Ash"</span><span class="p">]]</span>
 <span class="o">=&gt;</span>
@@ -381,18 +575,30 @@ Plus the property <code>updated_at</code> is automatically set.</p><div class="c
 <span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">t3</span><span class="p">.</span><span class="nf">class</span>
 <span class="o">=&gt;</span> <span class="no">Tweet</span><span class="o">::</span><span class="no">ActiveRecord_Relation</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="railsconsole> t3 = Tweet.where(zombie: 'Ash')
+  Tweet Load (9.6ms)  SELECT &quot;tweets&quot;.* FROM &quot;tweets&quot; WHERE &quot;tweets&quot;.&quot;zombie&quot; = $1  [[&quot;zombie&quot;, &quot;Ash&quot;]]
+=>
+[#<Tweet:0x00000001062858c8
+...
+
+railsconsole> t3.class
+=> Tweet::ActiveRecord_Relation
+">Copy</button>
 </div>
 <p>This class also supports all the ActiveRecord methods. This means
 we can chain several <code>where</code>s together.  ActiveRecord can combine them
-into a complete SQL statement:</p><div class="code_container">
+into a complete SQL statement:</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">tweets</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; '2023-10-21'"</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="ss">zombie: </span><span class="s1">'Ash'</span><span class="p">)</span>
   <span class="no">Tweet</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">1.0</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span> <span class="s2">"tweets"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"tweets"</span> <span class="no">WHERE</span> <span class="p">(</span><span class="n">created_at</span> <span class="o">&gt;</span> <span class="s1">'2023-10-21'</span><span class="p">)</span> <span class="no">AND</span> <span class="s2">"tweets"</span><span class="o">.</span><span class="s2">"zombie"</span> <span class="o">=</span> <span class="vg">$1</span>  <span class="p">[[</span><span class="s2">"zombie"</span><span class="p">,</span> <span class="s2">"Ash"</span><span class="p">]]</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="railsconsole> tweets = Tweet.where(&quot;created_at > '2023-10-21'&quot;).where(zombie: 'Ash')
+  Tweet Load (1.0ms)  SELECT &quot;tweets&quot;.* FROM &quot;tweets&quot; WHERE (created_at > '2023-10-21') AND &quot;tweets&quot;.&quot;zombie&quot; = $1  [[&quot;zombie&quot;, &quot;Ash&quot;]]
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-15' href='slides_rails_database_and_model.html#/15'>▻</a>
-<p>In fact there are many more methods we might want to use for chaining:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-15' href='slides_rails_database_and_model.html#/15'>◻</a></p>
+<p>In fact there are many more methods we might want to use for chaining:</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="no">Tweet</span><span class="p">.</span><span class="nf">limit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="no">Tweet</span><span class="p">.</span><span class="nf">order</span><span class="p">(</span><span class="ss">:zombie</span><span class="p">)</span>
 <span class="no">Tweet</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="ss">:created_at</span><span class="p">,</span> <span class="ss">:zombie</span><span class="p">,</span> <span class="ss">:status</span><span class="p">)</span>
@@ -400,12 +606,19 @@ into a complete SQL statement:</p><div class="code_container">
   <span class="nf">where</span><span class="p">(</span><span class="ss">zombie: </span><span class="s1">'Ash'</span><span class="p">).</span>
   <span class="nf">order</span><span class="p">(</span><span class="ss">:zombie</span><span class="p">).</span><span class="nf">limit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="Tweet.limit(3)
+Tweet.order(:zombie)
+Tweet.select(:created_at, :zombie, :status)
+Tweet.where(&quot;created_at > '2023-10-21'&quot;).
+  where(zombie: 'Ash').
+  order(:zombie).limit(3)
+">Copy</button>
 </div>
 <p>For the last three lines: Normally the dot is placed in front of the method when chaining. Here
 it is placed at the end, to enable copy-and-paste to the Rails console)</p></div>
 <div class='slide'>
-<a class='slide_break' id='slide-16' href='slides_rails_database_and_model.html#/16'>▻</a>
-<p>You can use the method <code>to_sql</code> to see the SQL Statement produced by the chained methods:</p><div class="code_container">
+<p class='slide_break_block'><a class='slide_break' id='slide-16' href='slides_rails_database_and_model.html#/16'>◻</a></p>
+<p>You can use the method <code>to_sql</code> to see the SQL Statement produced by the chained methods:</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="ss">:created_at</span><span class="p">,</span> <span class="ss">:zombie</span><span class="p">,</span> <span class="ss">:status</span><span class="p">).</span>
   <span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; '2020-10-01'"</span><span class="p">).</span>
   <span class="nf">where</span><span class="p">(</span><span class="ss">zombie: </span><span class="s1">'Ash'</span><span class="p">).</span>
@@ -418,12 +631,24 @@ it is placed at the end, to enable copy-and-paste to the Rails console)</p></div
        <span class="no">ORDER</span> <span class="no">BY</span> <span class="s2">"zombie"</span> <span class="no">ASC</span>
        <span class="no">LIMIT</span> <span class="mi">3</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="railsconsole> Tweet.select(:created_at, :zombie, :status).
+  where(&quot;created_at > '2020-10-01'&quot;).
+  where(zombie: 'Ash').
+  order(:zombie).
+  limit(3).to_sql
+ => SELECT  &quot;created_at&quot;, &quot;zombie&quot;, &quot;status&quot;
+       FROM &quot;tweets&quot;
+       WHERE (created_at > '2020-10-01')
+       AND &quot;zombie&quot; = 'Ash'
+       ORDER BY &quot;zombie&quot; ASC
+       LIMIT 3
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-17' href='slides_rails_database_and_model.html#/17'>▻</a>
+<p class='slide_break_block'><a class='slide_break' id='slide-17' href='slides_rails_database_and_model.html#/17'>◻</a></p>
 <p>The order of the methods is not relevant. You can also save an intermediate step to
-a variable, and then chain more methods to that variable later on:</p><div class="code_container">
+a variable, and then chain more methods to that variable later on:</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">query</span> <span class="o">=</span> <span class="no">Tweet</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &gt; '2020-10-01'"</span><span class="p">).</span>
   <span class="nf">order</span><span class="p">(</span><span class="ss">:zombie</span><span class="p">).</span><span class="nf">limit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">railsconsole</span><span class="o">&gt;</span> <span class="n">query</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="ss">:created_at</span><span class="p">,</span> <span class="ss">:zombie</span><span class="p">,</span> <span class="ss">:status</span><span class="p">).</span>
@@ -435,44 +660,50 @@ a variable, and then chain more methods to that variable later on:</p><div class
       <span class="no">ORDER</span> <span class="no">BY</span> <span class="s2">"zombie"</span> <span class="no">ASC</span>
       <span class="no">LIMIT</span> <span class="mi">3</span>
 </code></pre>
+<button class="clipboard-button" data-clipboard-text="railsconsole> query = Tweet.where(&quot;created_at > '2020-10-01'&quot;).
+  order(:zombie).limit(3)
+railsconsole> query.select(:created_at, :zombie, :status).
+  where(zombie: 'Ash').to_sql
+ => SELECT  &quot;created_at&quot;, &quot;zombie&quot;, &quot;status&quot;
+      FROM &quot;tweets&quot;
+      WHERE (created_at > '2020-10-01')
+      AND &quot;zombie&quot; = 'Ash'
+      ORDER BY &quot;zombie&quot; ASC
+      LIMIT 3
+">Copy</button>
 </div>
 </div>
 <div class='slide'>
-<a class='slide_break' id='slide-18' href='slides_rails_database_and_model.html#/18'>▻</a>
-<h4 id="further-reading">
-<a class="anchorlink" href="#further-reading"></a>2.10 Further reading</h4>
+<p class='slide_break_block'><a class='slide_break' id='slide-18' href='slides_rails_database_and_model.html#/18'>◻</a></p>
+<h3 id="further-reading"><a class="anchorlink" href="#further-reading"><span>2.10</span> Further reading</a></h3>
 <ul>
 <li>The Rails Guides give a good introduction to a subject area:
 
 <ul>
-<li>Rails Guide: <a href="https://guides.rubyonrails.org/active_record_basics.html">Active Record Basics</a>
-</li>
-<li>Rails Guide: <a href="https://guides.rubyonrails.org/active_record_querying.html">Active Record Query Interface</a>
-</li>
-</ul>
-</li>
+<li>Rails Guide: <a href="https://guides.rubyonrails.org/active_record_basics.html">Active Record Basics</a></li>
+<li>Rails Guide: <a href="https://guides.rubyonrails.org/active_record_querying.html">Active Record Query Interface</a></li>
+</ul></li>
 <li>Use the <a href="https://edgeapi.rubyonrails.org/">Rails API</a> documentation to look up the details:
 
 <ul>
 <li><a href="https://edgeapi.rubyonrails.org/classes/ActiveRecord/FinderMethods.html#method-i-find">find</a></li>
 <li><a href="https://edgeapi.rubyonrails.org/classes/ActiveRecord/QueryMethods.html#method-i-where">where</a></li>
-</ul>
-</li>
+</ul></li>
 </ul>
 </div>
         </div>
       </div>
-    </div>
-    <hr class="hide">
-    <div id="footer">
+    </main>
+    <hr class="hide" />
+    <footer id="page_footer">
       <div class="wrapper">
         <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2025 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
-        </p>
-        <p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
-        </p>
+</p>
+<p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
+</p>
+<p>Favicon "backend development" by Arkinasi from <a href="https://thenounproject.com/browse/icons/term/backend-development/" target="_blank" title="backend development Icons">Noun Project</a> (CC BY 3.0)</p>
+
       </div>
-    </div>
-    <script src="javascripts/jquery.min.js"></script>
-    <script src="javascripts/guides.js"></script>
+    </footer>
   </body>
 </html>
