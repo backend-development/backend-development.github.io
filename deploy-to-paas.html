@@ -1,0 +1,453 @@
+<!doctype html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Deploy to PAAS — Ruby on Rails Guides</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" data-turbo-track="reload">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <link rel="stylesheet" type="text/css" href="stylesheets/highlight.css" data-turbo-track="reload">
+    <link rel="icon" href="images/backend-development.svg" sizes="any">
+    <script src="javascripts/@hotwired--turbo.js" data-turbo-track="reload"></script>
+    <script src="javascripts/clipboard.js" data-turbo-track="reload"></script>
+    <script src="javascripts/guides.js" data-turbo-track="reload"></script>
+    <meta property="og:title" content="Deploy to PAAS — Ruby on Rails Guides" />
+    <meta name="description" content="Deploy to PAASPlatform as a Service - PAAS - is one way to deploy web apps.After reading it you should know different cloud service models know some of the 12 factors of the 12factor App be able to deploy to dokku be able to deploy to heroku (warning: you need a credit card and have to pay)" />
+    <meta property="og:description" content="Deploy to PAASPlatform as a Service - PAAS - is one way to deploy web apps.After reading it you should know different cloud service models know some of the 12 factors of the 12factor App be able to deploy to dokku be able to deploy to heroku (warning: you need a credit card and have to pay)" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Textbook Backend Developemnt" />
+    <meta property="og:image" content="images/backend-development.svg" />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100..900&family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#2e56e9">
+  </head>
+  <body class="guide">
+    <header id="page_header">
+      <div class="wrapper clearfix">
+        <nav id="feature_nav">
+          <div class="header-logo">
+            <a href="/">Backend Development</a>
+          </div>
+          <ul class="nav">
+            <li><a class="nav-item" id="home_nav" href="/">Home</a></li>
+            <li class="guides-index guides-index-large">
+              <a href="index.html" id="guidesMenu" class="guides-index-item nav-item">Index</a>
+              <div id="guides" class="clearfix" style="display: none;">
+                <hr />
+                <dl class="guides-section-container">
+                    <div class="guides-section">
+                      <dt>Ruby on Rails</dt>
+                        <dd><a href="ruby_commandline.html">Ruby Commandline</a></dd>
+                        <dd><a href="rails_database_and_model.html">Models and ActiveRecord</a></dd>
+                        <dd><a href="rails_db.html">Database and Migrations</a></dd>
+                        <dd><a href="rails_associations_and_validations.html">Associations and Validations</a></dd>
+                        <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
+                        <dd><a href="rails_authentication.html">Simple Authentication</a></dd>
+                        <dd><a href="asset_pipeline.html">The Asset Pipeline</a></dd>
+                        <dd><a href="javascript_and_ajax.html">Rails and old Javascript</a></dd>
+                        <dd><a href="javascript_webpack_frontend.html">Rails and Webpack</a></dd>
+                        <dd><a href="testing.html">Getting started with Testing</a></dd>
+                        <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
+                        <dd><a href="rest-api.html">REST API</a></dd>
+                        <dd><a href="graphql-api.html">GraphQL API</a></dd>
+                        <dd><a href="rails_websockets.html">Websocket in Rails</a></dd>
+                        <dd><a href="jobs_and_tasks.html">Jobs and Tasks in Rails</a></dd>
+                        <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
+                        <dd><a href="rails_security.html">Rails Security</a></dd>
+                        <dd><a href="deploying_rails.html">Deploying Rails</a></dd>
+                        <dd><a href="deploy-to-paas.html">Deploy to PAAS</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Overarching Concerns</dt>
+                        <dd><a href="security.html">Security</a></dd>
+                        <dd><a href="adv_authentication.html">Advanced Authentication</a></dd>
+                        <dd><a href="caching.html">Caching</a></dd>
+                        <dd><a href="advanced_testing.html">Advanced Testing</a></dd>
+                        <dd><a href="internationalization.html">Internationalization (I18n)</a></dd>
+                        <dd><a href="git_rebasing.html">Git Rebasing</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Nodes.js</dt>
+                        <dd><a href="node_vs_rails.html">Node vs. Rails</a></dd>
+                        <dd><a href="node_basics.html">Node Basics</a></dd>
+                        <dd><a href="node_websockets.html">Node Websockets</a></dd>
+                        <dd><a href="node_express.html">Node Web App</a></dd>
+                        <dd><a href="node_cluster.html">Scaling Node</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Next.js</dt>
+                        <dd><a href="nextjs.html">Next.js</a></dd>
+                    </div>
+                </dl>
+              </div>
+            </li>
+            <li class="guides-index guides-index-small">
+              <select class="guides-index-item nav-item">
+                <option value="index.html">Index</option>
+                  <optgroup label="Ruby on Rails">
+                      <option value="ruby_commandline.html">Ruby Commandline</option>
+                      <option value="rails_database_and_model.html">Models and ActiveRecord</option>
+                      <option value="rails_db.html">Database and Migrations</option>
+                      <option value="rails_associations_and_validations.html">Associations and Validations</option>
+                      <option value="rails_view_and_controller.html">Routing, View and Controller</option>
+                      <option value="rails_authentication.html">Simple Authentication</option>
+                      <option value="asset_pipeline.html">The Asset Pipeline</option>
+                      <option value="javascript_and_ajax.html">Rails and old Javascript</option>
+                      <option value="javascript_webpack_frontend.html">Rails and Webpack</option>
+                      <option value="testing.html">Getting started with Testing</option>
+                      <option value="rails_gems.html">Ruby Gems for your Rails Project</option>
+                      <option value="rest-api.html">REST API</option>
+                      <option value="graphql-api.html">GraphQL API</option>
+                      <option value="rails_websockets.html">Websocket in Rails</option>
+                      <option value="jobs_and_tasks.html">Jobs and Tasks in Rails</option>
+                      <option value="refactoring_rails.html">Refactoring Rails</option>
+                      <option value="rails_security.html">Rails Security</option>
+                      <option value="deploying_rails.html">Deploying Rails</option>
+                      <option value="deploy-to-paas.html">Deploy to PAAS</option>
+                  </optgroup>
+                  <optgroup label="Overarching Concerns">
+                      <option value="security.html">Security</option>
+                      <option value="adv_authentication.html">Advanced Authentication</option>
+                      <option value="caching.html">Caching</option>
+                      <option value="advanced_testing.html">Advanced Testing</option>
+                      <option value="internationalization.html">Internationalization (I18n)</option>
+                      <option value="git_rebasing.html">Git Rebasing</option>
+                  </optgroup>
+                  <optgroup label="Nodes.js">
+                      <option value="node_vs_rails.html">Node vs. Rails</option>
+                      <option value="node_basics.html">Node Basics</option>
+                      <option value="node_websockets.html">Node Websockets</option>
+                      <option value="node_express.html">Node Web App</option>
+                      <option value="node_cluster.html">Scaling Node</option>
+                  </optgroup>
+                  <optgroup label="Next.js">
+                      <option value="nextjs.html">Next.js</option>
+                  </optgroup>
+              </select>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <hr class="hide" />
+    <section id="feature">
+      <div class="wrapper">
+        <h1>Deploy to PAAS</h1><p>Platform as a Service - PAAS - is one
+way to deploy web apps.</p><p>After reading it you should</p>
+<ul>
+<li>know different cloud service models</li>
+<li>know some of the 12 factors of the 12factor App</li>
+<li>be able to deploy to dokku</li>
+<li>be able to deploy to heroku (warning: you need a credit card and have to pay)</li>
+</ul>
+
+                  <nav id="subCol">
+            <h3 class="chapter">
+              <picture>
+                <!-- Using the `source`  HTML tag to set the dark theme image -->
+                <source
+                  srcset="images/icon_book-close-bookmark-1-wht.svg"
+                  media="(prefers-color-scheme: dark)"
+                />
+                <img src="images/icon_book-close-bookmark-1.svg" alt="Chapter Icon" />
+              </picture>
+              Chapters
+            </h3>
+            <ol class="chapters">
+<li><a href="#what-is-cloud-computing-questionmark">What is Cloud Computing?</a></li>
+<li><a href="#why-use-cloud-computing-questionmark">Why use Cloud Computing?</a></li>
+<li><a href="#public-vs-private-cloud">Public vs. Private Cloud</a></li>
+<li><a href="#using-heroku">Using Heroku</a></li>
+<li><a href="#using-dokku">Using Dokku</a></li>
+<li><a href="#the-12factor-app">The 12factor App</a>
+
+<ul>
+<li><a href="#i-codebase">I. Codebase</a></li>
+<li><a href="#ii-dependencies">II. Dependencies</a></li>
+<li><a href="#iii-config">III. Config</a></li>
+<li><a href="#iv-backing-services">IV. Backing services</a></li>
+<li><a href="#v-build-release-run">V. Build, release, run</a></li>
+<li><a href="#vi-processes">VI. Processes</a></li>
+<li><a href="#vii-port-binding">VII. Port binding</a></li>
+<li><a href="#viii-concurrency">VIII. Concurrency</a></li>
+<li><a href="#ix-disposability">IX. Disposability</a></li>
+<li><a href="#x-dev-prod-parity">X. Dev/prod parity</a></li>
+<li><a href="#xi-logs">XI. Logs</a></li>
+<li><a href="#xii-admin-processes">XII. Admin processes</a></li>
+</ul></li>
+<li><a href="#first-steps">First steps</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ol>
+
+          </nav>
+
+        <hr>
+      </div>
+    </section>
+    <main id="container">
+      <div class="wrapper">
+        <div id="mainCol">
+          <div class='slide'>
+</div>
+<div class='slide'>
+<p class='slide_break_block'><a class='slide_break' id='slide-0' href='slides_deploy-to-paas.html#/0'>◻</a></p>
+<h2 id="what-is-cloud-computing-questionmark"><a class="anchorlink" href="#what-is-cloud-computing-questionmark"><span>1</span> What is Cloud Computing?</a></h2><p>When you want to publish your web application you can use your own
+computer, connect it to the internet permanently, and do all the work
+of maintaining the computer and the internet connection yourself.</p><p>Or you can use a service provider that takes care of part of the job.
+Depending on how much you do yourself these services have different names.</p><p>This diagram <a href="https://www.redhat.com/en/topics/cloud-computing/what-is-paas">from redhat</a> shows four different scenarios:</p><p><em>On-site</em>, also called <em>on premise</em>, means running your own hardware in your own room
+with your own internet connection.</p><p>The following three scenarios all fall under the termin "Cloud Computing":</p><p>With <em>Infrastructure as a Service</em> the server is housed in a server room at the service
+provider. Hardware, internet connecion, power are all taken care of. You rent a virtual
+machine, sometimes with operating system preinstalled, and take care of everything form
+the operating system upwards.</p><p><em>Platform as a Service</em> also takes care of the operating system (e.g. Linux),
+running databases and other services and providing the interpreter or runtime for
+the programming language. You rent space for your app plus the database(es) you need.</p><p>With <em>Software as a Service</em> there is no app to deploy, the whole stack is in
+the hands of the service provider.</p><p><img src="images/iaas-paas-saas.png" alt="comparison of on premise, iaas, paas, saas"></p><p>For a company, moving from on premise to *aas means employing
+fewer sysadmins and buying less hardware. It also means
+paying a lot of money to the service provider.</p><p>Which alternative is feasibly and which one is cheaper for a
+specific project depends on many factors.</p></div>
+<div class='slide'>
+<p class='slide_break_block'><a class='slide_break' id='slide-1' href='slides_deploy-to-paas.html#/1'>◻</a></p>
+<h2 id="why-use-cloud-computing-questionmark"><a class="anchorlink" href="#why-use-cloud-computing-questionmark"><span>2</span> Why use Cloud Computing?</a></h2><p>The <a href="https://csrc.nist.gov/publications/detail/sp/800-145/final">NIST Definition of Cloud Computing</a>
+lists five essential characteristics of cloud computing. The short version is:</p>
+<ul>
+<li><em>On-demand self-service</em>. A consumer can configure computing capabilities (storage, cpus,...) as needed, without human interaction with each service provider.</li>
+<li><em>Broad network access</em>. Capabilities are available over the network and accessed through standard mechanisms.</li>
+<li><em>Resource pooling</em>. The provider’s computing resources serve multiple consumers. Different physical and virtual resources are dynamically assigned and reassigned according to demand.</li>
+<li><em>Rapid elasticity</em>. Capabilities can be elastically provisioned and released. To the consumer, the capabilities available for provisioning appear to be unlimited.</li>
+<li><em>Measured service</em>. Resource usage can be monitored, controlled, and reported, providing transparency for both the provider and consumer of the utilized service.</li>
+</ul>
+</div>
+<div class='slide'>
+<p class='slide_break_block'><a class='slide_break' id='slide-2' href='slides_deploy-to-paas.html#/2'>◻</a></p>
+<h2 id="public-vs-private-cloud"><a class="anchorlink" href="#public-vs-private-cloud"><span>3</span> Public vs. Private Cloud</a></h2><p>Any cloud infrastructure that is open for use by the general public is called a public cloud.
+Public does not mean free, just that any paying customer can use it.
+It exists on the premises of the cloud provider.</p><p>A private cloud would be a iaas, paas, or saas that is run for the
+exclusive use of one organisation. To be called "cloud" it should
+still exhibit the five characteristics above.</p><p>In this guide we will look at one example of a public paas (heroku)
+und one example of a private paas (dokku).</p></div>
+<div class='slide'>
+<p class='slide_break_block'><a class='slide_break' id='slide-3' href='slides_deploy-to-paas.html#/3'>◻</a></p>
+<h2 id="using-heroku"><a class="anchorlink" href="#using-heroku"><span>4</span> Using Heroku</a></h2><p>you need to</p>
+<ul>
+<li>create an account on <a href="http://heroku.com">heroku</a></li>
+<li>give them your credit card number, this will cost!</li>
+<li>and install the <a href="https://devcenter.heroku.com/articles/heroku-cli">heroku command line interface (cli)</a></li>
+<li>add your public key to heroku by running <code>heroku keys:add</code></li>
+</ul>
+</div>
+<div class='slide'>
+<p class='slide_break_block'><a class='slide_break' id='slide-4' href='slides_deploy-to-paas.html#/4'>◻</a></p>
+<h2 id="using-dokku"><a class="anchorlink" href="#using-dokku"><span>5</span> Using Dokku</a></h2><p>if you are reading this as part of your course at Fachhochschule Salzburg
+you already have an account on our local dokku install.</p><p>you need to</p>
+<ul>
+<li>install the <a href="http://dokku.viewdocs.io/dokku/deployment/remote-commands/#official-client">offical dokku client</a></li>
+<li>add the remote dokku to your repository (see internal wiki)</li>
+</ul>
+</div>
+<div class='slide'>
+<p class='slide_break_block'><a class='slide_break' id='slide-5' href='slides_deploy-to-paas.html#/5'>◻</a></p>
+<h2 id="the-12factor-app"><a class="anchorlink" href="#the-12factor-app"><span>6</span> The 12factor App</a></h2><p>In 2011 the document "the 12factor app" was published by developers from
+the company heroku. It describes how to prepare a web app
+for running on a paas.</p><p>Many of these 12 factors have become commonplace for web development -
+you probably have been doing some of it all along. But let's look
+at each one in turn. A link to the original document is
+always provided in the first sentence, please read the original first!</p></div>
+<div class='slide'>
+<p class='slide_break_block'><a class='slide_break' id='slide-6' href='slides_deploy-to-paas.html#/6'>◻</a></p>
+<h3 id="i-codebase"><a class="anchorlink" href="#i-codebase"><span>6.1</span> I. Codebase</a></h3><p><a href="https://12factor.net/codebase">One codebase tracked in revision control, many deploys</a></p><p>Discussion:</p><p>in 2020, git is used for all new projects. In long running projects
+you can still find some use of subversion.</p><p>"Multiple apps sharing the same code"
+is explicitly discouraged for a 12 factor app. Here there is no industry consensus.
+Some companys use one app per repo, some others use Monorepos that contain many
+different apps and libraries, most famously Google. (If you have as much code
+as google git will not suffice for a monorepo)</p></div>
+<div class='slide'>
+<p class='slide_break_block'><a class='slide_break' id='slide-7' href='slides_deploy-to-paas.html#/7'>◻</a></p>
+<h3 id="ii-dependencies"><a class="anchorlink" href="#ii-dependencies"><span>6.2</span> II. Dependencies</a></h3><p><a href="https://12factor.net/dependencies">Explicitly declare and isolate dependencies</a></p><p>Dependency declaration through a file like <code>Gemfile</code>, <code>package.json</code>, <code>composer.json</code>
+is available in all modern languages for the web.</p></div>
+<div class='slide'>
+<p class='slide_break_block'><a class='slide_break' id='slide-8' href='slides_deploy-to-paas.html#/8'>◻</a></p>
+<h3 id="iii-config"><a class="anchorlink" href="#iii-config"><span>6.3</span> III. Config</a></h3><p><a href="https://12factor.net/config">Store config in the environment</a></p><p>You can see the environment variables in both dokku and heroku by
+running the <code>config</code> command:</p><div class="interstitial code">
+<pre><code class="highlight plaintext">$ dokku config
+=====&gt; joe19 env vars
+DATABASE_URL:             postgres://postgres:53dfe08f@dokku-postgres-joe19-db:5432/joe19_db
+DOKKU_APP_RESTORE:        1
+DOKKU_APP_TYPE:           herokuish
+DOKKU_LETSENCRYPT_EMAIL:  brigitte.jellinek@fh-salzburg.ac.at
+DOKKU_PROXY_PORT:         80
+DOKKU_PROXY_PORT_MAP:     http:80:5000
+GIT_REV:                  458ee39607212093fd02f0e10dfa9623d0c52951
+REDIS_URL:                redis://dokku-redis-joe19-redis:6379
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="$ dokku config
+=====> joe19 env vars
+DATABASE_URL:             postgres://postgres:53dfe08f@dokku-postgres-joe19-db:5432/joe19_db
+DOKKU_APP_RESTORE:        1
+DOKKU_APP_TYPE:           herokuish
+DOKKU_LETSENCRYPT_EMAIL:  brigitte.jellinek@fh-salzburg.ac.at
+DOKKU_PROXY_PORT:         80
+DOKKU_PROXY_PORT_MAP:     http:80:5000
+GIT_REV:                  458ee39607212093fd02f0e10dfa9623d0c52951
+REDIS_URL:                redis://dokku-redis-joe19-redis:6379
+">Copy</button>
+</div>
+<p>or for another app:</p><div class="interstitial code">
+<pre><code class="highlight plaintext">$ heroku config
+=== obscure-springs-61542 Config Vars
+DATABASE_URL:             postgres://erout:1baa7f8@ec2-34-200-106-49.compute-1.amazonaws.com:5432/d3jjlc4
+LANG:                     en_US.UTF-8
+RACK_ENV:                 production
+RAILS_ENV:                production
+RAILS_LOG_TO_STDOUT:      enabled
+RAILS_SERVE_STATIC_FILES: enabled
+SECRET_KEY_BASE:          39a9fdb1549bfc2042b1d227682d3a2a5eebd26377461a479c727f6f0ef
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="$ heroku config
+=== obscure-springs-61542 Config Vars
+DATABASE_URL:             postgres://erout:1baa7f8@ec2-34-200-106-49.compute-1.amazonaws.com:5432/d3jjlc4
+LANG:                     en_US.UTF-8
+RACK_ENV:                 production
+RAILS_ENV:                production
+RAILS_LOG_TO_STDOUT:      enabled
+RAILS_SERVE_STATIC_FILES: enabled
+SECRET_KEY_BASE:          39a9fdb1549bfc2042b1d227682d3a2a5eebd26377461a479c727f6f0ef
+">Copy</button>
+</div>
+</div>
+<div class='slide'>
+<p class='slide_break_block'><a class='slide_break' id='slide-9' href='slides_deploy-to-paas.html#/9'>◻</a></p>
+<h3 id="iv-backing-services"><a class="anchorlink" href="#iv-backing-services"><span>6.4</span> IV. Backing services</a></h3><p><a href="https://12factor.net/backing-services">Treat backing services as attached resources</a></p><p>If you look back at the environment variables above
+you can see the variable <code>DATABASE_URL</code>. This contains
+all the information needed to connect to the database -
+type of database, username, password, host, port, name of the database.</p><div class="interstitial code">
+<pre><code class="highlight plaintext">DATABASE_URL:             postgres://erout:1baa7f8@ec2-34-200-106-49.compute-1.amazonaws.com:5432/d3jjlc4
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="DATABASE_URL:             postgres://erout:1baa7f8@ec2-34-200-106-49.compute-1.amazonaws.com:5432/d3jjlc4
+">Copy</button>
+</div>
+<p>Here you can also see that Heroku uses Amazon AWS to run the database server.
+To Heroku buys iaas from aws and sells paas to us.</p></div>
+<div class='slide'>
+<p class='slide_break_block'><a class='slide_break' id='slide-10' href='slides_deploy-to-paas.html#/10'>◻</a></p>
+<h3 id="v-build-release-run"><a class="anchorlink" href="#v-build-release-run"><span>6.5</span> V. Build, release, run</a></h3><p><a href="https://12factor.net/build-release-run">Strictly separate build and run stages</a></p><p>Here we first meet a limitation of the 12 factor app when
+we compare it to deploying PHP via SFTP:
+It is impossible to make changes to the code at runtime.</p><p>If you change the code, you need to commit, push to the paas
+and wait for a minute for it to deploy.</p></div>
+<div class='slide'>
+<p class='slide_break_block'><a class='slide_break' id='slide-11' href='slides_deploy-to-paas.html#/11'>◻</a></p>
+<h3 id="vi-processes"><a class="anchorlink" href="#vi-processes"><span>6.6</span> VI. Processes</a></h3><p><a href="https://12factor.net/processes">Execute the app as one or more stateless processes</a></p></div>
+<div class='slide'>
+<p class='slide_break_block'><a class='slide_break' id='slide-12' href='slides_deploy-to-paas.html#/12'>◻</a></p>
+<h3 id="vii-port-binding"><a class="anchorlink" href="#vii-port-binding"><span>6.7</span> VII. Port binding</a></h3><p><a href="https://12factor.net/port-binding">Export services via port binding</a></p></div>
+<div class='slide'>
+<p class='slide_break_block'><a class='slide_break' id='slide-13' href='slides_deploy-to-paas.html#/13'>◻</a></p>
+<h3 id="viii-concurrency"><a class="anchorlink" href="#viii-concurrency"><span>6.8</span> VIII. Concurrency</a></h3><p><a href="https://12factor.net/concurrency">Scale out via the process model</a></p></div>
+<div class='slide'>
+<p class='slide_break_block'><a class='slide_break' id='slide-14' href='slides_deploy-to-paas.html#/14'>◻</a></p>
+<h3 id="ix-disposability"><a class="anchorlink" href="#ix-disposability"><span>6.9</span> IX. Disposability</a></h3><p><a href="https://12factor.net/disposability">Maximize robustness with fast startup and graceful shutdown</a></p></div>
+<div class='slide'>
+<p class='slide_break_block'><a class='slide_break' id='slide-15' href='slides_deploy-to-paas.html#/15'>◻</a></p>
+<h3 id="x-dev-prod-parity"><a class="anchorlink" href="#x-dev-prod-parity"><span>6.10</span> X. Dev/prod parity</a></h3><p><a href="https://12factor.net/dev-prod-parity">Keep development, staging, and production as similar as possible</a></p><p>Yes.</p></div>
+<div class='slide'>
+<p class='slide_break_block'><a class='slide_break' id='slide-16' href='slides_deploy-to-paas.html#/16'>◻</a></p>
+<h3 id="xi-logs"><a class="anchorlink" href="#xi-logs"><span>6.11</span> XI. Logs</a></h3><p><a href="https://12factor.net/logs">Treat logs as event streams</a></p><p>You can see the log in both dokku and heroku by
+running the <code>logs</code> command:</p><div class="interstitial code">
+<pre><code class="highlight plaintext">$ dokku logs
+2020-11-17T23:12:05.303598065Z app[web.1]: I, [2020-11-17T23:12:05.303319 #13]  INFO -- : [ef9d04ac-57f3-43ff-ade8-4baae687ae62] Started GET "/users/65" for 193.170.119.70 at 2020-11-17 23:12:05 +0000
+2020-11-17T23:12:05.305040861Z app[web.1]: I, [2020-11-17T23:12:05.304832 #13]  INFO -- : [ef9d04ac-57f3-43ff-ade8-4baae687ae62] Processing by UsersController#show as HTML
+2020-11-17T23:12:05.305053742Z app[web.1]: I, [2020-11-17T23:12:05.304928 #13]  INFO -- : [ef9d04ac-57f3-43ff-ade8-4baae687ae62]   Parameters: {"id"=&gt;"65"}
+2020-11-17T23:12:05.307999933Z app[web.1]: D, [2020-11-17T23:12:05.307814 #13] DEBUG -- : [ef9d04ac-57f3-43ff-ade8-4baae687ae62]   User Load (0.6ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2  [["id", 1], ["LIMIT", 1]]
+2020-11-17T23:12:05.309472306Z app[web.1]: D, [2020-11-17T23:12:05.309273 #13] DEBUG -- : [ef9d04ac-57f3-43ff-ade8-4baae687ae62]   CACHE User Load (0.0ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2  [["id", 1], ["LIMIT", 1]]
+2020-11-17T23:12:05.310509308Z app[web.1]: D, [2020-11-17T23:12:05.310318 #13] DEBUG -- : [ef9d04ac-57f3-43ff-ade8-4baae687ae62]   User Load (0.5ms)  SELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2  [["id", 65], ["LIMIT", 1]]
+2020-11-17T23:12:05.311539723Z app[web.1]: I, [2020-11-17T23:12:05.311348 #13]  INFO -- : [ef9d04ac-57f3-43ff-ade8-4baae687ae62]   Rendering users/show.html.erb within layouts/application
+2020-11-17T23:12:05.312788508Z app[web.1]: D, [2020-11-17T23:12:05.312634 #13] DEBUG -- : [ef9d04ac-57f3-43ff-ade8-4baae687ae62]    (0.5ms)  SELECT COUNT(*) FROM "stamps" WHERE "stamps"."user_id" = $1 AND "stamps"."stamped" = $2  [["user_id", 65], ["stamped", true]]
+2020-11-17T23:12:05.313694774Z app[web.1]: D, [2020-11-17T23:12:05.313537 #13] DEBUG -- : [ef9d04ac-57f3-43ff-ade8-4baae687ae62]    (0.4ms)  SELECT COUNT(*) FROM "stamps" WHERE "stamps"."user_id" = $1 AND "stamps"."stamped" = $2  [["user_id", 65], ["stamped", false]]
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="$ dokku logs
+2020-11-17T23:12:05.303598065Z app[web.1]: I, [2020-11-17T23:12:05.303319 #13]  INFO -- : [ef9d04ac-57f3-43ff-ade8-4baae687ae62] Started GET &quot;/users/65&quot; for 193.170.119.70 at 2020-11-17 23:12:05 +0000
+2020-11-17T23:12:05.305040861Z app[web.1]: I, [2020-11-17T23:12:05.304832 #13]  INFO -- : [ef9d04ac-57f3-43ff-ade8-4baae687ae62] Processing by UsersController#show as HTML
+2020-11-17T23:12:05.305053742Z app[web.1]: I, [2020-11-17T23:12:05.304928 #13]  INFO -- : [ef9d04ac-57f3-43ff-ade8-4baae687ae62]   Parameters: {&quot;id&quot;=>&quot;65&quot;}
+2020-11-17T23:12:05.307999933Z app[web.1]: D, [2020-11-17T23:12:05.307814 #13] DEBUG -- : [ef9d04ac-57f3-43ff-ade8-4baae687ae62]   User Load (0.6ms)  SELECT &quot;users&quot;.* FROM &quot;users&quot; WHERE &quot;users&quot;.&quot;id&quot; = $1 ORDER BY &quot;users&quot;.&quot;id&quot; ASC LIMIT $2  [[&quot;id&quot;, 1], [&quot;LIMIT&quot;, 1]]
+2020-11-17T23:12:05.309472306Z app[web.1]: D, [2020-11-17T23:12:05.309273 #13] DEBUG -- : [ef9d04ac-57f3-43ff-ade8-4baae687ae62]   CACHE User Load (0.0ms)  SELECT &quot;users&quot;.* FROM &quot;users&quot; WHERE &quot;users&quot;.&quot;id&quot; = $1 ORDER BY &quot;users&quot;.&quot;id&quot; ASC LIMIT $2  [[&quot;id&quot;, 1], [&quot;LIMIT&quot;, 1]]
+2020-11-17T23:12:05.310509308Z app[web.1]: D, [2020-11-17T23:12:05.310318 #13] DEBUG -- : [ef9d04ac-57f3-43ff-ade8-4baae687ae62]   User Load (0.5ms)  SELECT &quot;users&quot;.* FROM &quot;users&quot; WHERE &quot;users&quot;.&quot;id&quot; = $1 LIMIT $2  [[&quot;id&quot;, 65], [&quot;LIMIT&quot;, 1]]
+2020-11-17T23:12:05.311539723Z app[web.1]: I, [2020-11-17T23:12:05.311348 #13]  INFO -- : [ef9d04ac-57f3-43ff-ade8-4baae687ae62]   Rendering users/show.html.erb within layouts/application
+2020-11-17T23:12:05.312788508Z app[web.1]: D, [2020-11-17T23:12:05.312634 #13] DEBUG -- : [ef9d04ac-57f3-43ff-ade8-4baae687ae62]    (0.5ms)  SELECT COUNT(*) FROM &quot;stamps&quot; WHERE &quot;stamps&quot;.&quot;user_id&quot; = $1 AND &quot;stamps&quot;.&quot;stamped&quot; = $2  [[&quot;user_id&quot;, 65], [&quot;stamped&quot;, true]]
+2020-11-17T23:12:05.313694774Z app[web.1]: D, [2020-11-17T23:12:05.313537 #13] DEBUG -- : [ef9d04ac-57f3-43ff-ade8-4baae687ae62]    (0.4ms)  SELECT COUNT(*) FROM &quot;stamps&quot; WHERE &quot;stamps&quot;.&quot;user_id&quot; = $1 AND &quot;stamps&quot;.&quot;stamped&quot; = $2  [[&quot;user_id&quot;, 65], [&quot;stamped&quot;, false]]
+">Copy</button>
+</div>
+<p>or for another app:</p><div class="interstitial code">
+<pre><code class="highlight plaintext">$ heroku logs
+2020-11-17T23:07:37.373849+00:00 heroku[router]: at=info method=GET path="/stylesheets/application.css" host=obscure-springs-61542.herokuapp.com request_id=d3e9ae87-bf4f-4c7e-b640-9663a184b8b5 fwd="193.171.53.146" dyno=web.1 connect=0ms service=3ms status=404 bytes=1902 protocol=https
+2020-11-17T23:07:39.869495+00:00 app[web.1]: I, [2020-11-17T23:07:39.869410 #4]  INFO -- : [11aade3c-23be-4927-a1fb-73432521b203] Started GET "/drinks" for 193.171.53.146 at 2020-11-17 23:07:39 +0000
+2020-11-17T23:07:39.870216+00:00 app[web.1]: I, [2020-11-17T23:07:39.870132 #4]  INFO -- : [11aade3c-23be-4927-a1fb-73432521b203] Processing by DrinksController#index as HTML
+2020-11-17T23:07:39.871120+00:00 app[web.1]: I, [2020-11-17T23:07:39.871051 #4]  INFO -- : [11aade3c-23be-4927-a1fb-73432521b203]   Rendering drinks/index.html.erb within layouts/application
+2020-11-17T23:07:39.873153+00:00 app[web.1]: D, [2020-11-17T23:07:39.873081 #4] DEBUG -- : [11aade3c-23be-4927-a1fb-73432521b203]   Drink Load (0.8ms)  SELECT "drinks".* FROM "drinks"
+2020-11-17T23:07:39.873890+00:00 app[web.1]: I, [2020-11-17T23:07:39.873815 #4]  INFO -- : [11aade3c-23be-4927-a1fb-73432521b203]   Rendered drinks/index.html.erb within layouts/application (Duration: 2.6ms | Allocations: 288)
+2020-11-17T23:07:39.874513+00:00 app[web.1]: I, [2020-11-17T23:07:39.874442 #4]  INFO -- : [11aade3c-23be-4927-a1fb-73432521b203] Completed 200 OK in 4ms (Views: 2.8ms | ActiveRecord: 0.8ms | Allocations: 885)
+2020-11-17T23:07:39.875779+00:00 heroku[router]: at=info method=GET path="/drinks" host=obscure-springs-61542.herokuapp.com request_id=11aade3c-23be-4927-a1fb-73432521b203 fwd="193.171.53.146" dyno=web.1 connect=0ms service=7ms status=200 bytes=1937 protocol=https
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="$ heroku logs
+2020-11-17T23:07:37.373849+00:00 heroku[router]: at=info method=GET path=&quot;/stylesheets/application.css&quot; host=obscure-springs-61542.herokuapp.com request_id=d3e9ae87-bf4f-4c7e-b640-9663a184b8b5 fwd=&quot;193.171.53.146&quot; dyno=web.1 connect=0ms service=3ms status=404 bytes=1902 protocol=https
+2020-11-17T23:07:39.869495+00:00 app[web.1]: I, [2020-11-17T23:07:39.869410 #4]  INFO -- : [11aade3c-23be-4927-a1fb-73432521b203] Started GET &quot;/drinks&quot; for 193.171.53.146 at 2020-11-17 23:07:39 +0000
+2020-11-17T23:07:39.870216+00:00 app[web.1]: I, [2020-11-17T23:07:39.870132 #4]  INFO -- : [11aade3c-23be-4927-a1fb-73432521b203] Processing by DrinksController#index as HTML
+2020-11-17T23:07:39.871120+00:00 app[web.1]: I, [2020-11-17T23:07:39.871051 #4]  INFO -- : [11aade3c-23be-4927-a1fb-73432521b203]   Rendering drinks/index.html.erb within layouts/application
+2020-11-17T23:07:39.873153+00:00 app[web.1]: D, [2020-11-17T23:07:39.873081 #4] DEBUG -- : [11aade3c-23be-4927-a1fb-73432521b203]   Drink Load (0.8ms)  SELECT &quot;drinks&quot;.* FROM &quot;drinks&quot;
+2020-11-17T23:07:39.873890+00:00 app[web.1]: I, [2020-11-17T23:07:39.873815 #4]  INFO -- : [11aade3c-23be-4927-a1fb-73432521b203]   Rendered drinks/index.html.erb within layouts/application (Duration: 2.6ms | Allocations: 288)
+2020-11-17T23:07:39.874513+00:00 app[web.1]: I, [2020-11-17T23:07:39.874442 #4]  INFO -- : [11aade3c-23be-4927-a1fb-73432521b203] Completed 200 OK in 4ms (Views: 2.8ms | ActiveRecord: 0.8ms | Allocations: 885)
+2020-11-17T23:07:39.875779+00:00 heroku[router]: at=info method=GET path=&quot;/drinks&quot; host=obscure-springs-61542.herokuapp.com request_id=11aade3c-23be-4927-a1fb-73432521b203 fwd=&quot;193.171.53.146&quot; dyno=web.1 connect=0ms service=7ms status=200 bytes=1937 protocol=https
+">Copy</button>
+</div>
+</div>
+<div class='slide'>
+<p class='slide_break_block'><a class='slide_break' id='slide-17' href='slides_deploy-to-paas.html#/17'>◻</a></p>
+<h3 id="xii-admin-processes"><a class="anchorlink" href="#xii-admin-processes"><span>6.12</span> XII. Admin processes</a></h3><p><a href="https://12factor.net/admin-processes">Run admin/management tasks as one-off processes</a></p><p>You can run other processes in both dokku and heroku by
+running the <code>run</code> command:</p><div class="interstitial code">
+<pre><code class="highlight plaintext">heroku run rails db:migrate
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="heroku run rails db:migrate
+">Copy</button>
+</div>
+<div class="interstitial code">
+<pre><code class="highlight plaintext">dokku run rails db:migrate
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="dokku run rails db:migrate
+">Copy</button>
+</div>
+</div>
+<div class='slide'>
+<p class='slide_break_block'><a class='slide_break' id='slide-18' href='slides_deploy-to-paas.html#/18'>◻</a></p>
+<h2 id="first-steps"><a class="anchorlink" href="#first-steps"><span>7</span> First steps</a></h2>
+<ol>
+<li>create an app</li>
+<li>set a new remote in your repository for heroko / dokku</li>
+<li>push the main branch to the paas</li>
+<li>run <code>rails db:migrate</code> on the paas</li>
+</ol>
+</div>
+<div class='slide'>
+<p class='slide_break_block'><a class='slide_break' id='slide-19' href='slides_deploy-to-paas.html#/19'>◻</a></p>
+<h2 id="see-also"><a class="anchorlink" href="#see-also"><span>8</span> See Also</a></h2>
+<ul>
+<li><a href="https://csrc.nist.gov/publications/detail/sp/800-145/final">NIST Definition of Cloud Computing</a></li>
+<li><a href="https://xenitab.github.io/blog/2022/02/23/12factor/">Anders Qvist: Twelve-factor app anno 2022</a></li>
+</ul>
+</div>
+        </div>
+      </div>
+    </main>
+    <hr class="hide" />
+    <footer id="page_footer">
+      <div class="wrapper">
+        <p class="copyright">published under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/at/deed.de">creative commons by-nc-sa</a> in 2012-2025 by <a href="https://brigitte-jellinek.at">Brigitte Jellinek</a>.
+</p>
+<p>If you want to contribute: <a href="https://github.com/backend-development/backend-development-textbook/fork">fork the source on github</a>
+</p>
+<p>Favicon "backend development" by Arkinasi from <a href="https://thenounproject.com/browse/icons/term/backend-development/" target="_blank" title="backend development Icons">Noun Project</a> (CC BY 3.0)</p>
+
+      </div>
+    </footer>
+  </body>
+</html>
