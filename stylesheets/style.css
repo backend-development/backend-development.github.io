@@ -1794,6 +1794,12 @@ html[dir=rtl]:lang(iw) body.guide header#page_header nav#feature_nav .header-log
     border-color: #666666;
     background-color: #3A3939;
   }
+  body.guide .interstitial.repo {
+    border-color: #f34f29;
+    background-color: #fedfd8;
+    color: black;
+    background-image: url("../images/icon_repo.svg");
+  }
 }
 /* linking from and to slides : */
 body.guide .slide {
