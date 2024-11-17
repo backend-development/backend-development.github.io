@@ -46,19 +46,21 @@
                         <dd><a href="rails_associations_and_validations.html">Associations and Validations</a></dd>
                         <dd><a href="rails_view_and_controller.html">Routing, View and Controller</a></dd>
                         <dd><a href="rails_authentication.html">Simple Authentication</a></dd>
-                        <dd><a href="asset_pipeline.html">The Asset Pipeline</a></dd>
-                        <dd><a href="javascript_and_ajax.html">Rails and old Javascript</a></dd>
-                        <dd><a href="javascript_webpack_frontend.html">Rails and Webpack</a></dd>
+                        <dd><a href="assets_and_import_map.html">The Asset Pipeline and Importmaps</a></dd>
                         <dd><a href="testing.html">Getting started with Testing</a></dd>
+                        <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
+                        <dd><a href="deploy-to-paas.html">Deploy to PAAS</a></dd>
                         <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
+                        <dd><a href="deploying_rails.html">Deploying Rails</a></dd>
+                    </div>
+                    <div class="guides-section">
+                      <dt>Ruby on Rails - Advanced Topics</dt>
+                        <dd><a href="deploy-to-paas.html">Deploy to PAAS</a></dd>
                         <dd><a href="rest-api.html">REST API</a></dd>
                         <dd><a href="graphql-api.html">GraphQL API</a></dd>
                         <dd><a href="rails_websockets.html">Websocket in Rails</a></dd>
                         <dd><a href="jobs_and_tasks.html">Jobs and Tasks in Rails</a></dd>
-                        <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
                         <dd><a href="rails_security.html">Rails Security</a></dd>
-                        <dd><a href="deploying_rails.html">Deploying Rails</a></dd>
-                        <dd><a href="deploy-to-paas.html">Deploy to PAAS</a></dd>
                     </div>
                     <div class="guides-section">
                       <dt>Overarching Concerns</dt>
@@ -94,19 +96,20 @@
                       <option value="rails_associations_and_validations.html">Associations and Validations</option>
                       <option value="rails_view_and_controller.html">Routing, View and Controller</option>
                       <option value="rails_authentication.html">Simple Authentication</option>
-                      <option value="asset_pipeline.html">The Asset Pipeline</option>
-                      <option value="javascript_and_ajax.html">Rails and old Javascript</option>
-                      <option value="javascript_webpack_frontend.html">Rails and Webpack</option>
+                      <option value="assets_and_import_map.html">The Asset Pipeline and Importmaps</option>
                       <option value="testing.html">Getting started with Testing</option>
+                      <option value="refactoring_rails.html">Refactoring Rails</option>
+                      <option value="deploy-to-paas.html">Deploy to PAAS</option>
                       <option value="rails_gems.html">Ruby Gems for your Rails Project</option>
+                      <option value="deploying_rails.html">Deploying Rails</option>
+                  </optgroup>
+                  <optgroup label="Ruby on Rails - Advanced Topics">
+                      <option value="deploy-to-paas.html">Deploy to PAAS</option>
                       <option value="rest-api.html">REST API</option>
                       <option value="graphql-api.html">GraphQL API</option>
                       <option value="rails_websockets.html">Websocket in Rails</option>
                       <option value="jobs_and_tasks.html">Jobs and Tasks in Rails</option>
-                      <option value="refactoring_rails.html">Refactoring Rails</option>
                       <option value="rails_security.html">Rails Security</option>
-                      <option value="deploying_rails.html">Deploying Rails</option>
-                      <option value="deploy-to-paas.html">Deploy to PAAS</option>
                   </optgroup>
                   <optgroup label="Overarching Concerns">
                       <option value="security.html">Security</option>
@@ -188,16 +191,26 @@
         <p>How Rails gets from a HTTP Request to a finishd HTML document</p>
 </dd>      <dt><a href="rails_authentication.html">Simple Authentication</a></dt><dd>
         <p>How do we implement &quot;logging in&quot; over statless HTTP? Sessions in rails. Logging in with Passwords or with another service like github, twitter, facebook (using devise and omniauth)</p>
-</dd>      <dt><a href="asset_pipeline.html">The Asset Pipeline</a></dt><dd>
-        <p>How CSS, Fonts and Images are prepared for publishing</p>
-</dd>      <dt><a href="javascript_and_ajax.html">Rails and old Javascript</a></dt><dd>
-        <p>Rails style remote forms and links</p>
-</dd>      <dt><a href="javascript_webpack_frontend.html">Rails and Webpack</a></dt><dd>
-        <p>Rails style remote forms and links</p>
+</dd>      <dt><a href="assets_and_import_map.html">The Asset Pipeline and Importmaps</a></dt><dd>
+        <p>How CSS, Fonts, Images and JavaScript are prepared for publishing</p>
 </dd>      <dt><a href="testing.html">Getting started with Testing</a></dt><dd>
         <p>Write your first unit tests and integration tests for Rails</p>
+</dd>      <dt><a href="refactoring_rails.html">Refactoring Rails</a></dt><dd>
+        <p>How to improve your code in a systematic way.</p>
+</dd>      <dt><a href="deploy-to-paas.html">Deploy to PAAS</a></dt><dd>
+        <p>How to deploy a web app to the cloud with &quot;Platform As A Service&quot;</p>
 </dd>      <dt><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dt><dd>
         <p>How bundler helps with dependencies, and some gems you might need for your first Rails project</p>
+</dd>      <dt><a href="deploying_rails.html">Deploying Rails</a></dt><dd>
+        <p>Several options for deploying a Rails App</p>
+</dd>  </dl>
+  </div>
+<div class='slide'>
+<p class='slide_break_block'><a class='slide_break' id='slide-2' href='slides_#/2'>◻</a></p>
+<h2>Ruby on Rails - Advanced Topics</h2>
+  <dl class="guide-index-list">
+      <dt><a href="deploy-to-paas.html">Deploy to PAAS</a></dt><dd>
+        <p>How to deploy a web app to the cloud with &quot;Platform As A Service&quot;</p>
 </dd>      <dt><a href="rest-api.html">REST API</a></dt><dd>
         <p>Offer an REST stype API as part of your Rails app</p>
 </dd>      <dt><a href="graphql-api.html">GraphQL API</a></dt><dd>
@@ -206,18 +219,12 @@
         <p>Websockets offer a permanent connection between client and server. With Actioncable you can use websockets for publish-subscribe communication</p>
 </dd>      <dt><a href="jobs_and_tasks.html">Jobs and Tasks in Rails</a></dt><dd>
         <p>Your web application will need code that is  run outside the HTTP Request-Response cycle. Learn about Jobs that run automatically and Tasks that you can start from the commandline</p>
-</dd>      <dt><a href="refactoring_rails.html">Refactoring Rails</a></dt><dd>
-        <p>How to improve your code in a systematic way.</p>
 </dd>      <dt><a href="rails_security.html">Rails Security</a></dt><dd>
         <p>How Rails framework helps with web security</p>
-</dd>      <dt><a href="deploying_rails.html">Deploying Rails</a></dt><dd>
-        <p>Several options of deploying a Rails App</p>
-</dd>      <dt><a href="deploy-to-paas.html">Deploy to PAAS</a></dt><dd>
-        <p>How to deploy a web app to the cloud with &quot;Platform As A Service&quot;</p>
 </dd>  </dl>
   </div>
 <div class='slide'>
-<p class='slide_break_block'><a class='slide_break' id='slide-2' href='slides_#/2'>◻</a></p>
+<p class='slide_break_block'><a class='slide_break' id='slide-3' href='slides_#/3'>◻</a></p>
 <h2>Overarching Concerns</h2>
   <dl class="guide-index-list">
       <dt><a href="security.html">Security</a></dt><dd>
@@ -235,7 +242,7 @@
 </dd>  </dl>
   </div>
 <div class='slide'>
-<p class='slide_break_block'><a class='slide_break' id='slide-3' href='slides_#/3'>◻</a></p>
+<p class='slide_break_block'><a class='slide_break' id='slide-4' href='slides_#/4'>◻</a></p>
 <h2>Nodes.js</h2>
   <dl class="guide-index-list">
       <dt><a href="node_vs_rails.html">Node vs. Rails</a></dt><dd>
@@ -251,7 +258,7 @@
 </dd>  </dl>
   </div>
 <div class='slide'>
-<p class='slide_break_block'><a class='slide_break' id='slide-4' href='slides_#/4'>◻</a></p>
+<p class='slide_break_block'><a class='slide_break' id='slide-5' href='slides_#/5'>◻</a></p>
 <h2>Next.js</h2>
   <dl class="guide-index-list">
       <dt><a href="nextjs.html">Next.js</a></dt><dd>

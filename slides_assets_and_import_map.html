@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Slides for
+        The Asset Pipeline and Import Maps — Ruby on Rails Guides
+    </title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css" data-turbo-track="reload">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <link rel="stylesheet" type="text/css" href="stylesheets/highlight.css" data-turbo-track="reload">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link rel="stylesheet" href="stylesheets/reset.css">
+		<link rel="stylesheet" href="stylesheets/reveal.css">
+		<link rel="stylesheet" href="stylesheets/myslide.css" id="theme">
+    <link rel="stylesheet" href="stylesheets/code.css">
+    <script src="javascripts/clipboard.js" data-turbo-track="reload"></script>
+    <script src="javascripts/slides.js" data-turbo-track="reload"></script>
+
+</head>
+
+<body>
+    <div class="reveal">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+            <h1>The Asset Pipeline and Import Maps</h1><p>A web site consist of many more files than just the
+HTML documents we have been generating up to now:
+css files, image files, font files, javascript files, ...</p><p>The asset pipeline is rails&#39; way of preparing
+theses files for publication using the current state
+of knowledge regarding web performance.</p><p>By referring to this guide, you will be able to:</p>
+<ul>
+<li>keep your assets in the right place</li>
+<li>have all your assets compiled and minified for production</li>
+</ul>
+
+          <p><small>Slides - use arrow keys to navigate, esc to return to page view, f for fullscreen</small></p>
+
+        </section>
+        <section><a class='slide_break' href='assets_and_import_map.html#slide-0'>▻</a>
+<h2 id="using-external-css-and-javascript"><a class="anchorlink" href="#using-external-css-and-javascript"><span>1</span> Using external CSS and JavaScript</a></h2><p>You can always include CSS and JavaScript code
+form other sites.</p><div class="interstitial code">
+<pre><code class="highlight html">/* File app/views/layouts/application.html.erb */
+    <span class="nt">&lt;title&gt;</span>Demo<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width,initial-scale=1"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://cdn.simplecss.org/simple.min.css"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://cdn.jsdelivr.net/npm/chart.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="/* File app/views/layouts/application.html.erb */
+    <title>Demo</title>
+    <meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;>
+    <link rel=&quot;stylesheet&quot; href=&quot;https://cdn.simplecss.org/simple.min.css&quot;>
+    <script src=&quot;https://cdn.jsdelivr.net/npm/chart.js&quot;></script>
+">Copy</button>
+</div>
+<p>There are several big CDN sites that offer many different JavaScript libraries:</p>
+<ul>
+<li><a href="https://www.jsdelivr.com/">https://www.jsdelivr.com/</a></li>
+<li><a href="https://cdnjs.com/">https://cdnjs.com/</a></li>
+<li><a href="https://unpkg.com/">https://unpkg.com/</a></li>
+</ul>
+<p>And there are some specialized sites:</p>
+<ul>
+<li><a href="https://www.bootstrapcdn.com/">https://www.bootstrapcdn.com/</a></li>
+<li><a href="https://releases.jquery.com/">https://releases.jquery.com/</a></li>
+</ul>
+</section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-1'>▻</a>
+<h2 id="web-performance"><a class="anchorlink" href="#web-performance"><span>2</span> Web Performance</a></h2><p>What do we mean by 'web performance'? From the viewpoint of one user,
+the crucial value is the time it takes from requesting a page (by clicking a link
+or button, or typing in an URL) to having the page displayed and interactive in your browser.
+We will call this the 'response time'.</p><p>From the publishers point of view it might also encompass the question of
+how many users you can serve (with acceptable response time) on a given
+server. If you look at the question of how to serve more users in case
+of more demand you enter the realm of 'scalability'. This is a more advanced
+question that goes beyond the scope of this guide.</p></section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-2'>▻</a>
+<h3 id="myths-about-performance"><a class="anchorlink" href="#myths-about-performance"><span>2.1</span> Myths About Performance</a></h3><p>If you have never studied this subject you might still have
+an intuition about where performance problems come from.
+Many beginners are fascinated by details of their programming
+language like: <code>will using more variables make my program slower?</code>
+or <code>is string concatenation faster than string interpolation?</code>.</p><p>These 'micro optimizations' are hardly ever necssary with modern
+programming languages and computers. Using Rails, Postgres and a modern
+hosting service you will have no trouble serving hundreds
+of users a day and achieving adequate performance for all of them.</p><p>Trying to 'optimize' you code if there is no problem, or
+if you don't know where the problem is,
+will make your code worse, not better.</p></section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-3'>▻</a>
+<p>Donald Knuth stated this quite forcefully:</p><p>"The real problem is that programmers have spent far too much time worrying about efficiency in the wrong places and at the wrong times; <strong>premature optimization is the root of all evil</strong>" -- <a href="https://en.wikiquote.org/wiki/Donald_Knuth#Computer_Programming_as_an_Art_.281974.29">Donald Knuth</a></p><p>Only after you have measured the performance factors that are
+relevant to your project, and only after you have found out
+which part of the system is causing theses factors to go over
+the threshold of acceptable values, only then can you truly
+start to 'optimize'.</p></section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-4'>▻</a>
+<h3 id="measuring-web-performance"><a class="anchorlink" href="#measuring-web-performance"><span>2.2</span> Measuring Web Performance</a></h3><p>The "exceptional performance group" at Yahoo published the browser addon
+<code>yslow</code> in 2007. It measures performance and displays the timing
+of the different HTTP connections as a "waterfall graph":</p><p><img src="images/network-souders-2008.png" alt="displaying http downloads with yslow"></p><p>(Image from Steve Souders <a href="https://conferences.oreilly.com/web2expo/webexsf2008/public/schedule/detail/3321">talk at Web 2.0 Expo</a> in April 2008)</p><p>Each bar is one resource being retrieved via HTTP, the x-axis
+is a common timeline for all. The most striking result you can read from
+this graph: the backend is only responsible for 5% of the time in this
+example! 95% of time is spent loading and parsing javascript and css files
+and loading and displaying images!</p></section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-5'>▻</a>
+<p>This graph was later integrated into the built in developer tools
+of several browsers, and into the online tool <a href="https://webpagetest.org/">webpagetest</a>.</p><p><strong>Firefox</strong></p><p><img src="images/network-view-firefox.png" alt="network view in firefox"></p><p><strong>Chrome</strong></p><p><img src="images/network-view-chrome.png" alt="network view in chrome"></p></section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-6'>▻</a>
+<h3 id="rules"><a class="anchorlink" href="#rules"><span>2.3</span> Rules...</a></h3><p>Yahoo first published 14 rules for web performance in 2007, based
+on the measurements back then:</p>
+<ul>
+<li>Make Less HTTP Requests</li>
+<li>Use a Content Delivery Network</li>
+<li>Avoid empty src or href</li>
+<li>Add an Expires or a Cache-Control Header</li>
+<li>Gzip Components</li>
+<li>Put StyleSheets at the Top</li>
+<li>Put Scripts at the Bottom</li>
+<li>Avoid CSS Expressions...</li>
+<li>Make JavaScript and CSS External</li>
+<li>Reduce DNS Lookups</li>
+<li>Minify JavaScript and CSS</li>
+<li>Avoid Redirects</li>
+<li>Remove Duplicate Scripts</li>
+</ul>
+<p>Even with changing browsers and protocols some of these are still very valid today,
+while others have become less important or are not valid at all.</p><p>As a web developer you should always keep an eye on the changing
+landscape of web performance!</p></section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-7'>▻</a>
+<h3 id="less-http-requests-questionmark"><a class="anchorlink" href="#less-http-requests-questionmark"><span>2.4</span> Less HTTP Requests?</a></h3><p>Making less HTTP Requests was a main goal in performance optimization for many years.
+Many JavaScript files were "bundled" - combined into one, the same for CSS.  Icon Fonts were used
+to combine many small image files into one file.</p><p>On the other hand the HTTP protocol itself was improved again and again,
+to make repeated requests to the same server "cheaper":</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/HTTP/2">HTTP/2</a> server HTTP requests can be multiplexed over a single TCP connection</li>
+<li><a href="https://en.wikipedia.org/wiki/HTTP/3">HTTP/3</a> uses UDP instead of TCP</li>
+</ul>
+<p>In 2024 HTTP/3 is <a href="https://caniuse.com/http3">supported by</a> all common browsers except safari and use by <a href="https://w3techs.com/technologies/details/ce-http3">about a third</a> of the top 10 million websites.</p><p>So today this "first rule" for avoiding HTTP requests can be relaxed.</p></section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-8'>▻</a>
+<h2 id="how-rails-helps-with-performance"><a class="anchorlink" href="#how-rails-helps-with-performance"><span>3</span> How Rails helps with Performance</a></h2><p>The Rails asset pipeline was introduced in Rails 3.1 in the year 2011.
+The original asset pipeline is called "sprockets" and can do the following:</p>
+<ul>
+<li>Optimize images</li>
+<li>Create several versions of pixel images</li>
+<li>transpile to CSS (e.g. SASS, LESS)</li>
+<li>Minify and combine several CSS files into one</li>
+<li>Create CSS Sprites</li>
+<li>transpile to JavaScript (e.g. typescript, babel, coffeescript)</li>
+<li>Minify and combine several JavaScript files into one</li>
+</ul>
+<p>JavaScript can also be handled in other ways, we will focus on using
+the asset pipeline for images and css.</p><p><img src="images/asset-pipeline2.svg" alt="Asset Pipeline"></p><p>There are two main folders:</p>
+<ul>
+<li>you put source files in <code>app/assets/*</code></li>
+<li>you configure which files in which sub-folder are built in <code>app/assets/config/manifest.js</code></li>
+<li>if you use bundling, you define which files to include in the css bundle in <code>app/assets/stylesheets/application.css</code></li>
+<li>if you use the asset pipeline for javascript, you define which files to include in the js bundle in  <code>app/assets/javascript/application.js</code></li>
+<li>files for publishing are created in <code>public/assets/*</code></li>
+</ul>
+</section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-9'>▻</a>
+<p>The <code>public</code> folder contains static files only. It will be served by the web server directly, without going through the Rails stack.</p><p><img src="images/rails-mvc.svg" alt="diagram showing how static files are served by the webserver directly, without rails"></p><p>The expires header for the files in <code>public/assets/</code> should be set to a far future date.</p></section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-10'>▻</a>
+<h3 id="rails-environments"><a class="anchorlink" href="#rails-environments"><span>3.1</span> Rails Environments</a></h3><p>The Asset Pipeline works differently in different Rails Environments.
+There are three environments that exist by default:</p>
+<ul>
+<li><code>development</code>
+
+<ul>
+<li>this is the environment you have been working in until now,</li>
+<li>it is optimized for debugging, shows error messages and the error console.</li>
+</ul></li>
+<li><code>testing</code>
+
+<ul>
+<li>this is used for running the <a href="testing.html">automatic tests</a>.</li>
+</ul></li>
+<li><code>production</code>
+
+<ul>
+<li>this is how the finished app will run after it is published,</li>
+<li>it is optimized for speed and stability.</li>
+</ul></li>
+</ul>
+<p>How each environment behaves is configured in files in <code>config/environments/*.rb</code>.</p><p>The development environment is used by default on your machine. If you deploy
+your app to a webserver, production will be used there.</p></section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-11'>▻</a>
+<h3 id="development-environment-and-the-asset-pipeline"><a class="anchorlink" href="#development-environment-and-the-asset-pipeline"><span>3.2</span> development Environment and the Asset Pipeline</a></h3><p>In <code>development</code> the asset pipeline will not write files to <code>public/assets</code>. Instead
+these files will be created on the fly, and not be conactenated. The two lines
+in your Layout:</p><div class="interstitial code">
+<pre><code class="highlight plaintext"># app/views/layouts/application.html.erb
+&lt;%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" =&gt; true %&gt;
+&lt;%= javascript_include_tag "application", "data-turbolinks-track" =&gt; true %&gt;
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="# app/views/layouts/application.html.erb
+<%= stylesheet_link_tag &quot;application&quot;, media: &quot;all&quot;, &quot;data-turbolinks-track&quot; => true %>
+<%= javascript_include_tag &quot;application&quot;, &quot;data-turbolinks-track&quot; => true %>
+">Copy</button>
+</div>
+<p>Will each result in a number of links. Here an example from a real project:</p><div class="interstitial code">
+<pre><code class="highlight plaintext">&lt;link rel="stylesheet" href="/asset-files/search-a01b0css?body=1" /&gt;
+&lt;link rel="stylesheet" href="/asset-files/slider-974d5css?body=1" /&gt;
+&lt;link rel="stylesheet" href="/asset-files/static-7fe63css?body=1" /&gt;
+&lt;link rel="stylesheet" href="/asset-files/token-input-f5febcss?body=1" /&gt;
+&lt;link rel="stylesheet" href="/asset-files/wizzard-9a065css?body=1" /&gt;
+&lt;script src="/asset-files/jquery-4075ejs?body=1"&gt;&lt;/script&gt;
+&lt;script src="/asset-files/jquery_ujs-f9f4ajs?body=1"&gt;&lt;/script&gt;
+&lt;script src="/asset-files/portfolio/portfolio-78775js?body=1"&gt;&lt;/script&gt;
+&lt;script src="/asset-files/swfobject-40913js?body=1"&gt;&lt;/script&gt;
+&lt;script src="/asset-files/jquery-uploadify-702eajs?body=1"&gt;&lt;/script&gt;
+&lt;script src="/asset-files/application-d7727js?body=1"&gt;&lt;/script&gt;
+&lt;script src="/asset-files/can-custom-c11b4js?body=1"&gt;&lt;/script&gt;
+&lt;script src="/asset-files/easySlider-6386djs?body=1"&gt;&lt;/script&gt;
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="<link rel=&quot;stylesheet&quot; href=&quot;/asset-files/search-a01b0css?body=1&quot; />
+<link rel=&quot;stylesheet&quot; href=&quot;/asset-files/slider-974d5css?body=1&quot; />
+<link rel=&quot;stylesheet&quot; href=&quot;/asset-files/static-7fe63css?body=1&quot; />
+<link rel=&quot;stylesheet&quot; href=&quot;/asset-files/token-input-f5febcss?body=1&quot; />
+<link rel=&quot;stylesheet&quot; href=&quot;/asset-files/wizzard-9a065css?body=1&quot; />
+<script src=&quot;/asset-files/jquery-4075ejs?body=1&quot;></script>
+<script src=&quot;/asset-files/jquery_ujs-f9f4ajs?body=1&quot;></script>
+<script src=&quot;/asset-files/portfolio/portfolio-78775js?body=1&quot;></script>
+<script src=&quot;/asset-files/swfobject-40913js?body=1&quot;></script>
+<script src=&quot;/asset-files/jquery-uploadify-702eajs?body=1&quot;></script>
+<script src=&quot;/asset-files/application-d7727js?body=1&quot;></script>
+<script src=&quot;/asset-files/can-custom-c11b4js?body=1&quot;></script>
+<script src=&quot;/asset-files/easySlider-6386djs?body=1&quot;></script>
+">Copy</button>
+</div>
+</section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-12'>▻</a>
+<h3 id="production-environment-and-the-asset-pipeline"><a class="anchorlink" href="#production-environment-and-the-asset-pipeline"><span>3.3</span> production Environment and the Asset Pipeline</a></h3><p>When you deploy to production, you deployment process will run <code>rake assets:precompile</code>,
+which generates the files in <code>public/assets</code>, including <code>public/assets/manifest-md5hash.json</code>.</p><p>If you look at the generated HTML code on the production server,
+you will only find two links (plus some code to handle IE 8): in production
+the many css files have been concatenated into one <code>application*.css</code>, and
+all JavaScript files have been concatenated into one <code>application*.js</code>:</p><div class="interstitial code">
+<pre><code class="highlight plaintext">&lt;link href="/assets/application-dee0187.css" media="screen" rel="stylesheet" /&gt;
+&lt;!--[if lte IE 8]&gt;
+  &lt;link href="/assets/application-ie-d369224.css" rel="stylesheet" /&gt;
+&lt;![endif]--&gt;
+&lt;script src="/assets/application-c51a73.js" type="text/javascript"&gt;&lt;/script&gt;
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="<link href=&quot;/assets/application-dee0187.css&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; />
+<!--[if lte IE 8]>
+  <link href=&quot;/assets/application-ie-d369224.css&quot; rel=&quot;stylesheet&quot; />
+<![endif]-->
+<script src=&quot;/assets/application-c51a73.js&quot; type=&quot;text/javascript&quot;></script>
+">Copy</button>
+</div>
+</section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-13'>▻</a>
+<h3 id="fingerprinting-for-better-expiry"><a class="anchorlink" href="#fingerprinting-for-better-expiry"><span>3.4</span> Fingerprinting for better Expiry</a></h3><p>The filenames mentioned in the last chapter all contain a part that seems random:</p>
+<ul>
+<li>you named the file <code>slider.css</code></li>
+<li>but it shows up as <code>slider-974d585dcb6f5aec673164664a4e49d5.css</code></li>
+</ul>
+<p>Where do the extra characters come from and what do they mean?</p><p>These extra characters are the "fingerprint". It is computed as a hash from the full
+content of the file. If only one byte changes in the file, the fingerprint will
+be different.</p></section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-14'>▻</a>
+<p>Let's look at the effect that fingerprinting  has on caching:</p>
+<ul>
+<li>I create a file <code>slider.css</code></li>
+<li>the asset pipeline publishes it as <code>slider-abc.css</code>  (simplified) and an expiry date in the year 2099</li>
+<li>rails displays the webpage with a <code>link rel=stylesheet</code> tag that points at <code>slider-abc.css</code></li>
+<li>a browser loads the page for the first time, loads  <code>slider-abc.css</code> and keeps this version of the file forever</li>
+</ul>
+<p>If the same user comes back to my webpage a year later, the browser will load
+the new html page. this will still contain a <code>link rel=stylesheet</code> tag that points at <code>slider-abc.css</code>.
+<code>slider-abc.css</code> is still in the browser cache, this will be used. No need to load it.</p></section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-15'>▻</a>
+<p>Another year later I change something in slider.css and deploy the web application again.
+Now what happens:</p>
+<ul>
+<li>I edit the file <code>slider.css</code></li>
+<li>the asset pipeline publishes it as <code>slider-xyz.css</code>  (simplified) and an expiry date in the year 2101</li>
+<li>rails displays the webpage with a link rel=stylesheet tag that points at <code>slider-xyz.css</code></li>
+</ul>
+<p>Now if a user comes back to my website, their browser will see a new URL for the style sheet.
+The cached style <code>slider-abc.css</code> is ignored, the new file <code>slider-xyz.css</code> will be loaded
+and added to the cache.</p><p>This way we automatically handle one the the <a href="https://twitter.com/codinghorror/status/506010907021828096">two hard problems in computer science</a>: cache invalidation.</p><p><img src="images/atwood-tweet.png" alt=""></p></section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-16'>▻</a>
+<h3 id="using-assets-in-your-views"><a class="anchorlink" href="#using-assets-in-your-views"><span>3.5</span> Using assets in your views</a></h3><p>To include the concatenated and fingerprinted css file, use this in your layout:</p><div class="interstitial code">
+<pre><code class="highlight erb">    <span class="cp">&lt;%=</span> <span class="n">stylesheet_link_tag</span> <span class="s2">"application"</span> <span class="cp">%&gt;</span>
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="    <%= stylesheet_link_tag &quot;application&quot; %>
+">Copy</button>
+</div>
+<p>To use an image <code>example.svg</code> stored in <code>app/assets/images/example.svg</code> use</p><div class="interstitial code">
+<pre><code class="highlight erb">     <span class="cp">&lt;%=</span> <span class="n">image_tag</span> <span class="s1">'example.svg '</span> <span class="cp">%&gt;</span>
+
+
+
+## Example setups
+
+### Using bootstrap
+
+If you want to use bootstrap for your project it makes
+sense to also use sass. This way you can set SASS-Variables
+that will be used by bootstrap.
+
+So to prepare your project for using bootstrap install these two gems:
+
+* sassc-rails
+* bootstrap
+
+This will install the bootstrap sass files in your asset pipeline.
+You should remove `app/assets/stylesheets/application.css`  and create
+`application.sass` instead.
+
+Now you can use sass to import bootstrap, and to set variables
+that influence bootstrap:
+
+```sass
+/* file app/assets/stylesheets/application.sass */
+
+/* Sass variable overrides - before importing bootstrap */
+
+$enable-shadows: true;
+$enable-rounded: true;
+
+@import "bootstrap";
+
+/* CSS custom properties override - after importing bootstrap */
+
+:root {
+  --bs-body-bg: #fff58b;
+}
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="     <%= image_tag 'example.svg ' %>
+
+
+
+## Example setups
+
+### Using bootstrap
+
+If you want to use bootstrap for your project it makes
+sense to also use sass. This way you can set SASS-Variables
+that will be used by bootstrap.
+
+So to prepare your project for using bootstrap install these two gems:
+
+* sassc-rails
+* bootstrap
+
+This will install the bootstrap sass files in your asset pipeline.
+You should remove `app/assets/stylesheets/application.css`  and create
+`application.sass` instead.
+
+Now you can use sass to import bootstrap, and to set variables
+that influence bootstrap:
+
+```sass
+/* file app/assets/stylesheets/application.sass */
+
+/* Sass variable overrides - before importing bootstrap */
+
+$enable-shadows: true;
+$enable-rounded: true;
+
+@import &quot;bootstrap&quot;;
+
+/* CSS custom properties override - after importing bootstrap */
+
+:root {
+  --bs-body-bg: #fff58b;
+}
+">Copy</button>
+</div>
+</section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-17'>▻</a>
+<h3 id="using-fonts"><a class="anchorlink" href="#using-fonts"><span>3.6</span> Using fonts</a></h3><p>To use fonts in the asset pipeline first create a <code>fonts</code> directory
+in <code>app/assets</code>.  This is where you can store your <code>*.woff2</code> files.</p><p>In <code>app/config/manifest.js</code> you need to add</p><div class="interstitial code">
+<pre><code class="highlight plaintext">//= link_tree ../fonts
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="//= link_tree ../fonts
+">Copy</button>
+</div>
+<p>Now you can use these font files in your stylesheets.
+But beware: the font files will get new filenames because of the fingerprints.</p><p>So instead of writing</p><div class="interstitial code">
+<pre><code class="highlight plaintext">/* file fonts.css */
+@font-face {
+  font-family: "stardos_stencil";
+  src:
+    "../fonts/stardosstencil-bold-webfont.woff2"
+    format("woff2"),
+    "../fonts/stardosstencil-bold-webfont.woff"
+    format("woff");
+  font-weight: 700;
+  font-style: bold;
+  font-display: swap;
+}
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="/* file fonts.css */
+@font-face {
+  font-family: &quot;stardos_stencil&quot;;
+  src:
+    &quot;../fonts/stardosstencil-bold-webfont.woff2&quot;
+    format(&quot;woff2&quot;),
+    &quot;../fonts/stardosstencil-bold-webfont.woff&quot;
+    format(&quot;woff&quot;);
+  font-weight: 700;
+  font-style: bold;
+  font-display: swap;
+}
+">Copy</button>
+</div>
+<p>You need to use the method <code>font_path</code>.  This also implies naming
+the stylesheet <code>.css.erb</code> so that ruby can be used:</p><div class="interstitial code">
+<pre><code class="highlight plaintext">/* file fonts.css.erb */
+@font-face {
+  font-family: "stardos_stencil";
+  src:
+    url("&lt;%= font_path('stardosstencil-bold-webfont.woff2') %&gt;"
+    format("woff2"),
+    url("&lt;%= font_path('stardosstencil-bold-webfont.woff') %&gt;"
+    format("woff");
+  font-weight: 700;
+  font-style: bold;
+  font-display: swap;
+}
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="/* file fonts.css.erb */
+@font-face {
+  font-family: &quot;stardos_stencil&quot;;
+  src:
+    url(&quot;<%= font_path('stardosstencil-bold-webfont.woff2') %>&quot;
+    format(&quot;woff2&quot;),
+    url(&quot;<%= font_path('stardosstencil-bold-webfont.woff') %>&quot;
+    format(&quot;woff&quot;);
+  font-weight: 700;
+  font-style: bold;
+  font-display: swap;
+}
+">Copy</button>
+</div>
+</section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-18'>▻</a>
+<h2 id="user-generated-content"><a class="anchorlink" href="#user-generated-content"><span>4</span> User Generated Content</a></h2><p>The asset pipeline handles assets that are
+added by developers during development.
+Images uploaded by users in production
+are handled by <a href="https://guides.rubyonrails.org/active_storage_overview.html">activestorage</a>.</p></section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-19'>▻</a>
+<h2 id="javascript"><a class="anchorlink" href="#javascript"><span>5</span> JavaScript</a></h2><p>JavaScript can be added to an application in several different ways.</p></section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-20'>▻</a>
+<h3 id="using-javascript-with-import-maps"><a class="anchorlink" href="#using-javascript-with-import-maps"><span>5.1</span> Using JavaScript with import maps</a></h3><p>Make sure you have the gem <code>importmap-rails</code> in your Gemfile or add it with <code>bundle add importmap-rails</code>.</p><p>If you already have a file <code>bin/importmap</code> you are all set up.  If not, you need to run this once:</p><div class="interstitial code">
+<pre><code class="highlight console"><span class="go">rails importmap:install
+</span></code></pre>
+<button class="clipboard-button" data-clipboard-text="rails importmap:install
+">Copy</button>
+</div>
+</section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-21'>▻</a>
+<p>From now on you can add npm packages for the frontend with <code>importmap pin</code>. For example:</p><div class="interstitial code">
+<pre><code class="highlight console"><span class="gp">$</span><span class="w"> </span>bin/importmap pin unicode-emoji-picker
+<span class="go">Pinning "unicode-emoji-picker" to vendor/javascript/unicode-emoji-picker.js via download from https://ga.jspm.io/npm:unicode-emoji-picker@1.4.0/index.js
+Pinning "scrollable-component" to vendor/javascript/scrollable-component.js via download from https://ga.jspm.io/npm:scrollable-component@1.2.1/index.js
+Pinning "unicode-emoji" to vendor/javascript/unicode-emoji.js via download from https://ga.jspm.io/npm:unicode-emoji@2.5.0/index.js
+</span></code></pre>
+<button class="clipboard-button" data-clipboard-text="$ bin/importmap pin unicode-emoji-picker
+Pinning &quot;unicode-emoji-picker&quot; to vendor/javascript/unicode-emoji-picker.js via download from https://ga.jspm.io/npm:unicode-emoji-picker@1.4.0/index.js
+Pinning &quot;scrollable-component&quot; to vendor/javascript/scrollable-component.js via download from https://ga.jspm.io/npm:scrollable-component@1.2.1/index.js
+Pinning &quot;unicode-emoji&quot; to vendor/javascript/unicode-emoji.js via download from https://ga.jspm.io/npm:unicode-emoji@2.5.0/index.js
+">Copy</button>
+</div>
+<p>Here I requested one module, but it came with two dependencies. All three modules
+were downloaded do my machine and added to the folder <code>vendor/javascript</code>.</p><p>See the file <code>config/importmap.rb</code> for the complete list of pinned imports.</p><p>The files from <code>/vendor/javascript</code> are handled like other assets: they
+will get a new filename with a fingerprint and in production
+they will be copied to <code>public/assets/</code>.</p></section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-22'>▻</a>
+<p>In <code>app/views/layouts/application.html.erb</code> you use</p><div class="interstitial code">
+<pre><code class="highlight erb"><span class="cp">&lt;%=</span> <span class="n">javascript_importmap_tags</span> <span class="cp">%&gt;</span>
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="<%= javascript_importmap_tags %>
+">Copy</button>
+</div>
+<p>If you look at the generated html code of your app you will find several
+new JavaScript features at work:</p><div class="interstitial code">
+<pre><code class="highlight html"><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"importmap"</span> <span class="na">data-turbo-track=</span><span class="s">"reload"</span><span class="nt">&gt;</span><span class="p">{</span>
+  <span class="dl">"</span><span class="s2">imports</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">application</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">/assets/application-d8a8613a.js</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">unicode-emoji-picker</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">/assets/unicode-emoji-picker-c8299061.js</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">scrollable-component</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">/assets/scrollable-component-a8230eb7.js</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">unicode-emoji</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">/assets/unicode-emoji-d50af150.js</span><span class="dl">"</span>
+  <span class="p">}</span>
+<span class="p">}</span><span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"modulepreload"</span> <span class="na">href=</span><span class="s">"/assets/application-d8a8613a.js"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"modulepreload"</span> <span class="na">href=</span><span class="s">"/assets/unicode-emoji-picker-c8299061.js"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"modulepreload"</span> <span class="na">href=</span><span class="s">"/assets/scrollable-component-a8230eb7.js"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"modulepreload"</span> <span class="na">href=</span><span class="s">"/assets/unicode-emoji-d50af150.js"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"module"</span><span class="nt">&gt;</span><span class="k">import</span> <span class="dl">"</span><span class="s2">application</span><span class="dl">"</span><span class="nt">&lt;/script&gt;</span>
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="<script type=&quot;importmap&quot; data-turbo-track=&quot;reload&quot;>{
+  &quot;imports&quot;: {
+    &quot;application&quot;: &quot;/assets/application-d8a8613a.js&quot;,
+    &quot;unicode-emoji-picker&quot;: &quot;/assets/unicode-emoji-picker-c8299061.js&quot;,
+    &quot;scrollable-component&quot;: &quot;/assets/scrollable-component-a8230eb7.js&quot;,
+    &quot;unicode-emoji&quot;: &quot;/assets/unicode-emoji-d50af150.js&quot;
+  }
+}</script>
+<link rel=&quot;modulepreload&quot; href=&quot;/assets/application-d8a8613a.js&quot;>
+<link rel=&quot;modulepreload&quot; href=&quot;/assets/unicode-emoji-picker-c8299061.js&quot;>
+<link rel=&quot;modulepreload&quot; href=&quot;/assets/scrollable-component-a8230eb7.js&quot;>
+<link rel=&quot;modulepreload&quot; href=&quot;/assets/unicode-emoji-d50af150.js&quot;>
+<script type=&quot;module&quot;>import &quot;application&quot;</script>
+">Copy</button>
+</div>
+</section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-23'>▻</a>
+<p>A script tag with type importmap can define "bare" names for importing JavaScript modules.
+So instead of writing</p><div class="interstitial code">
+<pre><code class="highlight plaintext">import "https://myapp.at/assets/unicode-emoji-picker-c8299061.js";
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="import &quot;https://myapp.at/assets/unicode-emoji-picker-c8299061.js&quot;;
+">Copy</button>
+</div>
+<p>we can now use the bare module name:</p><div class="interstitial code">
+<pre><code class="highlight plaintext">import "unicode-emoji-picker";
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="import &quot;unicode-emoji-picker&quot;;
+">Copy</button>
+</div>
+<p>The link tags with rel <code>modulpreload</code> tell the browser to load these files
+as soon as possible, so they will be available when an import-statment is encountered.</p></section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-24'>▻</a>
+<h3 id="writing-your-own-javascript-modules"><a class="anchorlink" href="#writing-your-own-javascript-modules"><span>5.2</span> Writing your own JavaScript modules</a></h3><p>The entrypoint for you own JavaScript is <code>app/javascript/application.js</code>.</p><p>From there you import and call you own modules:</p><div class="interstitial code">
+<pre><code class="highlight js"><span class="k">import</span> <span class="nx">Emoji</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">src/emoji</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="c1">// all the code that needs to run after DOMContentLoaded:</span>
+<span class="nb">document</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">DOMContentLoaded</span><span class="dl">'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nc">Emoji</span><span class="p">(</span><span class="nb">document</span><span class="p">);</span>
+<span class="p">})</span>
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="import Emoji from &quot;src/emoji&quot;;
+
+// all the code that needs to run after DOMContentLoaded:
+document.addEventListener('DOMContentLoaded', () => {
+  Emoji(document);
+})
+">Copy</button>
+</div>
+<p>Here a module src/emoji.js is importet.  This file also needs
+to be "pinned". You can do this for all the files in <code>app/javascript/src</code> at once with</p><div class="interstitial code">
+<pre><code class="highlight rb"><span class="n">pin_all_from</span> <span class="s1">'app/javascript/src'</span><span class="p">,</span> <span class="ss">under: </span><span class="s1">'src'</span>
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="pin_all_from 'app/javascript/src', under: 'src'
+">Copy</button>
+</div>
+</section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-25'>▻</a>
+<h3 id="importmaps-and-caching"><a class="anchorlink" href="#importmaps-and-caching"><span>5.3</span> Importmaps and Caching</a></h3></section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-26'>▻</a>
+<h2 id="further-reading"><a class="anchorlink" href="#further-reading"><span>6</span> Further Reading</a></h2>
+<ul>
+<li>Souders(2007): High Performance Web Sites. O'Reilly. ISBN-13: 978-0596529307.</li>
+<li>Souders(2009): Even Faster Web Sites. O'Reilly. ISBN-13: 978-0596522308.</li>
+<li><a href="https://calendar.perfplanet.com/2018/">The Web Performance (Advent) Calendar</a> new every year</li>
+</ul>
+</div></section>
+      </div>
+    </div>
+    <!-- End slides. -->
+    <!-- Required JS files. -->
+		<script src="javascripts/reveal.js"></script>
+		<script src="javascripts/search.js"></script>
+		<script src="javascripts/markdown.js"></script>
+
+    <script>
+    // Also available as an ES module, see:
+    // https://revealjs.com/initialization/
+    Reveal.initialize({
+      controls: false,
+      progress: true,
+      center: false,
+      hash: true,
+
+      // The "normal" size of the presentation, aspect ratio will
+      // be preserved when the presentation is scaled to fit different
+      // resolutions. Can be specified using percentage units.
+      width: 1000,
+      height: 600,
+      disableLayout: false,
+
+      // Factor of the display size that should remain empty around
+      // the content
+      margin: 0.05,
+
+      // Bounds for smallest/largest possible scale to apply to content
+      minScale: 0.2,
+      maxScale: 10.0,
+
+      keyboard: {
+        27: () => {
+          // do something custom when ESC is pressed
+          var new_url = window.location.pathname.replace('slides_', '') + window.location.hash.replace('/','slide-');
+          window.location = new_url;
+        },
+        191: 'toggleHelp',
+        13: 'next', // go to the next slide when the ENTER key is pressed
+      },
+
+      // Learn about plugins: https://revealjs.com/plugins/
+      plugins: [ RevealSearch, RevealMarkdown ]
+    });
+    </script>
+</body>
+
+</html>
