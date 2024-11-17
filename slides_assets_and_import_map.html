@@ -64,6 +64,7 @@ form other sites.</p><div class="interstitial code">
 <li><a href="https://www.jsdelivr.com/">https://www.jsdelivr.com/</a></li>
 <li><a href="https://cdnjs.com/">https://cdnjs.com/</a></li>
 <li><a href="https://unpkg.com/">https://unpkg.com/</a></li>
+<li><a href="https://jspm.org/">https://jspm.org/</a></li>
 </ul>
 <p>And there are some specialized sites:</p>
 <ul>
@@ -427,12 +428,12 @@ are handled by <a href="https://guides.rubyonrails.org/active_storage_overview.h
 <section><a class='slide_break' href='assets_and_import_map.html#slide-23'>▻</a>
 <p>From now on you can add npm packages for the frontend with <code>importmap pin</code>. For example:</p><div class="interstitial code">
 <pre><code class="highlight console"><span class="gp">$</span><span class="w"> </span>bin/importmap pin unicode-emoji-picker
-<span class="go">Pinning "unicode-emoji-picker" to vendor/javascript/unicode-emoji-picker.js via download from https://ga.jspm.io/npm:unicode-emoji-picker@1.4.0/index.js
+<span class="go">Pinning "unicode-emoji-picker" to vendor/javascript/unicode-emoji-picker.js via download from https://ga.jspm.io/npm:unicode-emoji-picker@1.3.9/index.js
 Pinning "scrollable-component" to vendor/javascript/scrollable-component.js via download from https://ga.jspm.io/npm:scrollable-component@1.2.1/index.js
 Pinning "unicode-emoji" to vendor/javascript/unicode-emoji.js via download from https://ga.jspm.io/npm:unicode-emoji@2.5.0/index.js
 </span></code></pre>
 <button class="clipboard-button" data-clipboard-text="$ bin/importmap pin unicode-emoji-picker
-Pinning &quot;unicode-emoji-picker&quot; to vendor/javascript/unicode-emoji-picker.js via download from https://ga.jspm.io/npm:unicode-emoji-picker@1.4.0/index.js
+Pinning &quot;unicode-emoji-picker&quot; to vendor/javascript/unicode-emoji-picker.js via download from https://ga.jspm.io/npm:unicode-emoji-picker@1.3.9/index.js
 Pinning &quot;scrollable-component&quot; to vendor/javascript/scrollable-component.js via download from https://ga.jspm.io/npm:scrollable-component@1.2.1/index.js
 Pinning &quot;unicode-emoji&quot; to vendor/javascript/unicode-emoji.js via download from https://ga.jspm.io/npm:unicode-emoji@2.5.0/index.js
 ">Copy</button>
@@ -513,22 +514,87 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 ">Copy</button>
 </div>
-<p>Here a module src/emoji.js is importet.  This file also needs
+<p>Here a module src/emoji.js is imported.  This file also needs
 to be "pinned". You can do this for all the files in <code>app/javascript/src</code> at once with</p><div class="interstitial code">
 <pre><code class="highlight rb"><span class="n">pin_all_from</span> <span class="s1">'app/javascript/src'</span><span class="p">,</span> <span class="ss">under: </span><span class="s1">'src'</span>
 </code></pre>
 <button class="clipboard-button" data-clipboard-text="pin_all_from 'app/javascript/src', under: 'src'
 ">Copy</button>
 </div>
+<p>In emoji.js you can import the module "unicode-emoji-picker" by referencing it by it's bare name:</p><div class="interstitial code">
+<pre><code class="highlight js"><span class="k">import</span> <span class="dl">"</span><span class="s2">unicode-emoji-picker</span><span class="dl">"</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nf">Emoji</span><span class="p">(</span><span class="nx">scope</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">picker</span> <span class="o">=</span> <span class="nx">scope</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">unicode-emoji-picker</span><span class="dl">'</span><span class="p">);</span>
+  <span class="nx">picker</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">emoji-pick</span><span class="dl">'</span><span class="p">,</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">emoji</span> <span class="o">=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">detail</span><span class="p">.</span><span class="nx">emoji</span><span class="p">;</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">emoji</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">export</span> <span class="k">default</span> <span class="nx">Emoji</span><span class="p">;</span>
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="import &quot;unicode-emoji-picker&quot;;
+
+function Emoji(scope) {
+  const picker = scope.querySelector('unicode-emoji-picker');
+  picker.addEventListener('emoji-pick', (event) => {
+      let emoji = event.detail.emoji;
+      console.log(emoji);
+    });
+  }
+}
+
+export default Emoji;
+">Copy</button>
+</div>
 </section>
 <section><a class='slide_break' href='assets_and_import_map.html#slide-27'>▻</a>
-<h3 id="importmaps-and-caching"><a class="anchorlink" href="#importmaps-and-caching"><span>6.3</span> Importmaps and Caching</a></h3></section>
+<h3 id="importmaps-and-caching"><a class="anchorlink" href="#importmaps-and-caching"><span>6.3</span> Importmaps and Caching</a></h3><p>When the app is deployed, the javascript file will be published with fingerprints:</p><div class="interstitial code">
+<pre><code class="highlight plaintext">/assets/application-d8a8613a.js
+/assets/unicode-emoji-picker-c8299061.js
+/assets/scrollable-component-a8230eb7.js
+/assets/unicode-emoji-d50af150.js
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="/assets/application-d8a8613a.js
+/assets/unicode-emoji-picker-c8299061.js
+/assets/scrollable-component-a8230eb7.js
+/assets/unicode-emoji-d50af150.js
+">Copy</button>
+</div>
+<p>But when you look inside the files, they reference other modules by their
+bare names.</p><p>Dependencies need to be updated regularly to stay ahead of security problems.
+You can do this with <code>importmap</code>:</p><div class="interstitial code">
+<pre><code class="highlight console"><span class="gp">$</span><span class="w"> </span>bin/importmap outdated
+<span class="go">| Package              | Current | Latest |
+|----------------------|---------|--------|
+| unicode-emoji-picker | 1.3.9   | 1.4.0  |
+  1 outdated package found
+
+</span><span class="gp">$</span><span class="w"> </span>bin/importmap update
+<span class="go">Pinning "unicode-emoji-picker" to vendor/javascript/unicode-emoji-picker.js via download from https://ga.jspm.io/npm:unicode-emoji-picker@1.4.0/index.js
+</span></code></pre>
+<button class="clipboard-button" data-clipboard-text="$ bin/importmap outdated
+| Package              | Current | Latest |
+|----------------------|---------|--------|
+| unicode-emoji-picker | 1.3.9   | 1.4.0  |
+  1 outdated package found
+
+$ bin/importmap update
+Pinning &quot;unicode-emoji-picker&quot; to vendor/javascript/unicode-emoji-picker.js via download from https://ga.jspm.io/npm:unicode-emoji-picker@1.4.0/index.js
+">Copy</button>
+</div>
+<p>With this update the file <code>vendor/javascript/unicode-emoji-picker.js</code> has changed. This
+will result in a new fingerprint.  Browsers that already have the other javascript
+file in cache will only need to load on new file.</p><p>(Contrast this to classic "JavaScript bundling" where all files are concatenated into one
+giant bundle, and every change leads to reloading the whole bundle.)</p></section>
 <section><a class='slide_break' href='assets_and_import_map.html#slide-28'>▻</a>
 <h2 id="further-reading"><a class="anchorlink" href="#further-reading"><span>7</span> Further Reading</a></h2>
 <ul>
 <li>Souders(2007): High Performance Web Sites. O'Reilly. ISBN-13: 978-0596529307.</li>
 <li>Souders(2009): Even Faster Web Sites. O'Reilly. ISBN-13: 978-0596522308.</li>
-<li><a href="https://calendar.perfplanet.com/2018/">The Web Performance (Advent) Calendar</a> new every year</li>
+<li><a href="https://calendar.perfplanet.com/2024/">The Web Performance (Advent) Calendar</a> new every year</li>
 </ul>
 </div></section>
       </div>
