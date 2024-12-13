@@ -188,10 +188,13 @@ points to the commit before.</p><p>A branch is just a pointer to a certain commi
 a few commits W, X, Y, and Z to it, it might look like this:</p><p><img src="images/git_branch.svg" alt=""></p><p>If you merge back into main now everything will be fine.</p><p>But what if the main branch moves on?</p></div>
 <div class='slide'>
 <p class='slide_break_block'><a class='slide_break' id='slide-2' href='slides_git_rebasing.html#/2'>◻</a></p>
-<h3 id="merging-two-branches"><a class="anchorlink" href="#merging-two-branches"><span>1.2</span> Merging two branches</a></h3><p>Let's say three other commits are added to the main: B, C and D:</p><p><img src="images/git_branches.svg" alt=""></p><p>If you merge this, the merge might get complicated.
-A new Commit is created that contains all the necessary changes:</p><p><img src="images/git_merge.svg" alt=""></p></div>
+<h3 id="merging-two-branches"><a class="anchorlink" href="#merging-two-branches"><span>1.2</span> Merging two branches</a></h3><p>Let's say three other commits are added to the main: B, C and D:</p><p><img src="images/git_branches.svg" alt=""></p></div>
 <div class='slide'>
 <p class='slide_break_block'><a class='slide_break' id='slide-3' href='slides_git_rebasing.html#/3'>◻</a></p>
+<p>If you merge this, the merge might get complicated.
+A new Commit is created that contains all the necessary changes:</p><p><img src="images/git_merge.svg" alt=""></p></div>
+<div class='slide'>
+<p class='slide_break_block'><a class='slide_break' id='slide-4' href='slides_git_rebasing.html#/4'>◻</a></p>
 <h3 id="rebasing-a-branch"><a class="anchorlink" href="#rebasing-a-branch"><span>1.3</span> Rebasing a branch</a></h3><p>But there's a better approach: First you rebase your branch onto the main:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">git checkout a3
 git rebase main
@@ -203,7 +206,7 @@ git rebase main
 <p>This will try to apply the new commits in a4 on top
 of the current state of main, leading to this situation:</p><p><img src="images/git_rebase.svg" alt=""></p><p>After the rebase a merge into main will be simple.</p></div>
 <div class='slide'>
-<p class='slide_break_block'><a class='slide_break' id='slide-4' href='slides_git_rebasing.html#/4'>◻</a></p>
+<p class='slide_break_block'><a class='slide_break' id='slide-5' href='slides_git_rebasing.html#/5'>◻</a></p>
 <h3 id="rebase-your-feature-branch"><a class="anchorlink" href="#rebase-your-feature-branch"><span>1.4</span> Rebase your feature branch</a></h3><p>When working with feature branches you try to merge as fast as possible.
 But if the main branch moves on while you are working on your feature,
 you can use <code>git rebase</code> to catch up:</p><div class="interstitial code">
@@ -226,7 +229,7 @@ git push -f origin a3  # overwrite branch with rebased branch
 </div>
 </div>
 <div class='slide'>
-<p class='slide_break_block'><a class='slide_break' id='slide-5' href='slides_git_rebasing.html#/5'>◻</a></p>
+<p class='slide_break_block'><a class='slide_break' id='slide-6' href='slides_git_rebasing.html#/6'>◻</a></p>
 <h3 id="resources"><a class="anchorlink" href="#resources"><span>1.5</span> Resources</a></h3>
 <ul>
 <li><a href="https://git-scm.com/book/en/v2/Git-Branching-Rebasing">Git Book: Chapter 3.6</a></li>
