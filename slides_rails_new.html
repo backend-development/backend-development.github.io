@@ -321,7 +321,7 @@ but you could be storing your active storage in S3
 or another object storage.</p></section>
 <section><a class='slide_break' href='rails_new.html#slide-15'>▻</a>
 <h2 id="javascript"><a class="anchorlink" href="#javascript"><span>16</span> javascript</a></h2><p>Now, let’s add a bit of custom JavaScript.
-Rails by default ships with Hotwire!</p><p><code>/config/importmap.rb</code></p><p>Hotwire gives you Turbo,
+Rails by default ships with Hotwire!</p><p>Hotwire gives you Turbo,
 which is a way of accelerating page changes
 and updates is that your application
 will feel as fast and as smooth as a single page application
@@ -338,13 +338,12 @@ pulling something in from NPM!</p><p>So, we can do that using the import map pin
 <button class="clipboard-button" data-clipboard-text="">Copy</button>
 </div>
 <p>And as you see, now that I hop back into
-our config import map,
-we’ve added the local text pin at the bottom, version 302.</p><p>It pulled that straight off NPN,
+our config import map,</p><p><code>/config/importmap.rb</code></p><p>we’ve added the local text pin at the bottom, version 302.</p><p>It pulled that straight off NPN,
 it downloaded that as a vendor dependency
 that we can check into our version control system.</p><p>And now, we don’t have any runtime dependency whatsoever
 on NPN, or anything else like that.</p><p>You don’t need anything
 beyond what Rails ship you with already
-because Rails 8 is all no build by default!</p><p>That means there’s not a transpiler,
+because Rails 8 is all <strong>no build</strong> by default!</p><p>That means there’s not a transpiler,
 that means there’s not a bundler,
 these files are shipped directly to the browser over HTTP2,
 so it’s nice and fast.</p><p>And the import map is what allows us to refer to these files
@@ -356,11 +355,11 @@ let’s have a look at our application JS file.</p><p><code>/app/javascript/appl
 that the scaffold is going to use.
 And as you can see, we’re using turbo-rails,
 we’re including all the stimulus controllers,
-if we have any.</p><p>We’re including trix and action text to give the WYSIWYG,
-and now we’re gonna add that local text package as well.
+if we have any.</p><p>We’re including trix and action text to get the WYSIWYG,
+and now we’re gonna add that local time package as well.
 And we’re gonna start local time here.</p><p>And in the local time, we’re gonna use it,
 and we’re gonna use it for adding
-the updated at timestamp here.</p><p><code>/app/views/posts/_post.html.erb</code></p><p>And as you can see here, we’re just adding a time tag
+the <code>updated_at</code> timestamp here.</p><p><code>/app/views/posts/_post.html.erb</code></p><p>And as you can see here, we’re just adding a <code>&lt;time&gt;</code> tag
 that’s just a vanilla HTML tag that has a data local time,
 that’s what activates the local time JavaScript set up.</p><div class="interstitial code">
 <pre><code class="highlight ruby">  <span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>
@@ -382,13 +381,13 @@ in my local time zone, but actually underneath, the time tag
 is gonna be in UTC.</p><p>That means we can cache this, and anyone around the world
 will still get the time displayed in their local time.
 Just a nice feature.</p><p>But really, what’s unique here for Rails
-is the fact that we’re using no build by default!</p><p>So if I go over here in the inspector
+is the fact that we’re using <strong>no build</strong> by default!</p><p>So if I go over here in the inspector
 and look at the JavaScript files that are included,
 you can see we have the application js file
 with a little digest stamp on there.</p><p><img src="images/network-inspector.png" alt=""></p><p>If we change anything that application js file,
 the digest is going to change,
 and the browser will redownload just that part!</p><p>But everything else, turbo and stimulus,
-if they’re not changing, we’re not downloading that.</p><p>That is why no build
+if they’re not changing, we’re not re-downloading that.</p><p>That is why <strong>no build</strong>
 is such an efficient way of dealing with caching.</p><p>But we can also have a look at a specific file,
 you’ll see it matches exactly what we have back there.
 That’s not a development setup!
