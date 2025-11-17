@@ -108,7 +108,7 @@ example! 95% of time is spent loading and parsing javascript and css files
 and loading and displaying images!</p></section>
 <section><a class='slide_break' href='assets_and_import_map.html#slide-5'>▻</a>
 <p>This graph was later integrated into the built in developer tools
-of several browsers, and into the online tool <a href="https://webpagetest.org/">webpagetest</a>.</p><p><strong>Firefox</strong></p><p><img src="images/network-view-firefox.png" alt="network view in firefox"></p><p><strong>Chrome</strong></p><p><img src="images/network-view-chrome.png" alt="network view in chrome"></p></section>
+of several browsers, and into the online tool <a href="https://catchpoint.com/webpagetest">webpagetest</a></p><p><strong>Firefox</strong></p><p><img src="images/network-view-firefox.png" alt="network view in firefox"></p><p><strong>Chrome</strong></p><p><img src="images/network-view-chrome.png" alt="network view in chrome"></p></section>
 <section><a class='slide_break' href='assets_and_import_map.html#slide-6'>▻</a>
 <h3 id="rules"><a class="anchorlink" href="#rules"><span>2.3</span> Rules...</a></h3><p>Yahoo first published 14 rules for web performance in 2007, based
 on the measurements back then:</p>
@@ -139,10 +139,11 @@ to make repeated requests to the same server "cheaper":</p>
 <li><a href="https://en.wikipedia.org/wiki/HTTP/2">HTTP/2</a> server HTTP requests can be multiplexed over a single TCP connection</li>
 <li><a href="https://en.wikipedia.org/wiki/HTTP/3">HTTP/3</a> uses UDP instead of TCP</li>
 </ul>
-<p>In 2024 HTTP/3 is <a href="https://caniuse.com/http3">supported by</a> all common browsers except safari and use by <a href="https://w3techs.com/technologies/details/ce-http3">about a third</a> of the top 10 million websites.</p><p>So today this "first rule" for avoiding HTTP requests can be relaxed.</p></section>
+<p>In 2025 HTTP/3 is <a href="https://caniuse.com/http3">supported by</a> all common browsers except safari and use by <a href="https://w3techs.com/technologies/details/ce-http3">more than a third</a> of the top 10 million websites.</p><p>So today this "first rule" for avoiding HTTP requests can be relaxed.</p></section>
 <section><a class='slide_break' href='assets_and_import_map.html#slide-8'>▻</a>
 <h2 id="how-rails-helps-with-performance"><a class="anchorlink" href="#how-rails-helps-with-performance"><span>3</span> How Rails helps with Performance</a></h2><p>The Rails asset pipeline was introduced in Rails 3.1 in the year 2011.
-The original asset pipeline is called "sprockets" and can do the following:</p>
+The original asset pipeline is called "sprockets", since Rails 8 new projects
+start with "propshaft". Both and can do the following:</p>
 <ul>
 <li>Optimize images</li>
 <li>Create several versions of pixel images</li>
@@ -298,53 +299,7 @@ and added to the cache.</p><p>This way we automatically handle one the the <a hr
 </div>
 </section>
 <section><a class='slide_break' href='assets_and_import_map.html#slide-17'>▻</a>
-<h2 id="example-setups"><a class="anchorlink" href="#example-setups"><span>4</span> Example setups</a></h2></section>
-<section><a class='slide_break' href='assets_and_import_map.html#slide-18'>▻</a>
-<h3 id="using-bootstrap"><a class="anchorlink" href="#using-bootstrap"><span>4.1</span> Using bootstrap</a></h3><p>If you want to use bootstrap for your project it makes
-sense to also use sass. This way you can set SASS-Variables
-that will be used by bootstrap.</p><p>So to prepare your project for using bootstrap install these two gems:</p>
-<ul>
-<li>sassc-rails</li>
-<li>bootstrap</li>
-</ul>
-<p>This will install the bootstrap sass files in your asset pipeline.
-You should remove <code>app/assets/stylesheets/application.css</code>  and create
-<code>application.sass</code> instead.</p><p>Now you can use sass to import bootstrap, and to set variables
-that influence bootstrap:</p><div class="interstitial code">
-<pre><code class="highlight sass"><span class="cm">/* file app/assets/stylesheets/application.sass */
-</span>
-<span class="cm">/* Sass variable overrides - before importing bootstrap */
-</span>
-<span class="nv">$enable-shadows</span><span class="p">:</span> <span class="bp">true</span><span class="err">;</span>
-<span class="nv">$enable-rounded</span><span class="p">:</span> <span class="bp">true</span><span class="err">;</span>
-
-<span class="k">@import</span> <span class="s">"bootstrap";</span>
-
-<span class="cm">/* CSS custom properties override - after importing bootstrap */
-</span>
-<span class="na">:root</span> <span class="err">{</span>
-  <span class="na">--bs-body-bg</span><span class="p">:</span> <span class="mh">#fff58b</span><span class="err">;</span>
-<span class="err">}</span>
-</code></pre>
-<button class="clipboard-button" data-clipboard-text="/* file app/assets/stylesheets/application.sass */
-
-/* Sass variable overrides - before importing bootstrap */
-
-$enable-shadows: true;
-$enable-rounded: true;
-
-@import &quot;bootstrap&quot;;
-
-/* CSS custom properties override - after importing bootstrap */
-
-:root {
-  --bs-body-bg: #fff58b;
-}
-">Copy</button>
-</div>
-</section>
-<section><a class='slide_break' href='assets_and_import_map.html#slide-19'>▻</a>
-<h3 id="using-fonts"><a class="anchorlink" href="#using-fonts"><span>4.2</span> Using fonts</a></h3><p>To use fonts in the asset pipeline first create a <code>fonts</code> directory
+<h3 id="using-fonts"><a class="anchorlink" href="#using-fonts"><span>3.6</span> Using fonts</a></h3><p>To use fonts in the asset pipeline first create a <code>fonts</code> directory
 in <code>app/assets</code>.  This is where you can store your <code>*.woff2</code> files.</p><p>In <code>app/config/manifest.js</code> you need to add</p><div class="interstitial code">
 <pre><code class="highlight plaintext">//= link_tree ../fonts
 </code></pre>
@@ -410,22 +365,22 @@ the stylesheet <code>.css.erb</code> so that ruby can be used:</p><div class="in
 ">Copy</button>
 </div>
 </section>
-<section><a class='slide_break' href='assets_and_import_map.html#slide-20'>▻</a>
-<h2 id="user-generated-content"><a class="anchorlink" href="#user-generated-content"><span>5</span> User Generated Content</a></h2><p>The asset pipeline handles assets that are
+<section><a class='slide_break' href='assets_and_import_map.html#slide-18'>▻</a>
+<h2 id="user-generated-content"><a class="anchorlink" href="#user-generated-content"><span>4</span> User Generated Content</a></h2><p>The asset pipeline handles assets that are
 added by developers during development.
 Images uploaded by users in production
 are handled by <a href="https://guides.rubyonrails.org/active_storage_overview.html">activestorage</a>.</p></section>
-<section><a class='slide_break' href='assets_and_import_map.html#slide-21'>▻</a>
-<h2 id="javascript"><a class="anchorlink" href="#javascript"><span>6</span> JavaScript</a></h2><p>JavaScript can be added to an application in several different ways.</p></section>
-<section><a class='slide_break' href='assets_and_import_map.html#slide-22'>▻</a>
-<h3 id="using-javascript-with-import-maps"><a class="anchorlink" href="#using-javascript-with-import-maps"><span>6.1</span> Using JavaScript with import maps</a></h3><p>Make sure you have the gem <code>importmap-rails</code> in your Gemfile or add it with <code>bundle add importmap-rails</code>.</p><p>If you already have a file <code>bin/importmap</code> you are all set up.  If not, you need to run this once:</p><div class="interstitial code">
+<section><a class='slide_break' href='assets_and_import_map.html#slide-19'>▻</a>
+<h2 id="javascript"><a class="anchorlink" href="#javascript"><span>5</span> JavaScript</a></h2><p>JavaScript can be added to an application in several different ways.</p></section>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-20'>▻</a>
+<h3 id="using-javascript-with-import-maps"><a class="anchorlink" href="#using-javascript-with-import-maps"><span>5.1</span> Using JavaScript with import maps</a></h3><p>Make sure you have the gem <code>importmap-rails</code> in your Gemfile or add it with <code>bundle add importmap-rails</code>.</p><p>If you already have a file <code>bin/importmap</code> you are all set up.  If not, you need to run this once:</p><div class="interstitial code">
 <pre><code class="highlight console"><span class="go">rails importmap:install
 </span></code></pre>
 <button class="clipboard-button" data-clipboard-text="rails importmap:install
 ">Copy</button>
 </div>
 </section>
-<section><a class='slide_break' href='assets_and_import_map.html#slide-23'>▻</a>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-21'>▻</a>
 <p>From now on you can add npm packages for the frontend with <code>importmap pin</code>. For example:</p><div class="interstitial code">
 <pre><code class="highlight console"><span class="gp">$</span><span class="w"> </span>bin/importmap pin unicode-emoji-picker
 <span class="go">Pinning "unicode-emoji-picker" to vendor/javascript/unicode-emoji-picker.js via download from https://ga.jspm.io/npm:unicode-emoji-picker@1.3.9/index.js
@@ -442,7 +397,7 @@ Pinning &quot;unicode-emoji&quot; to vendor/javascript/unicode-emoji.js via down
 were downloaded do my machine and added to the folder <code>vendor/javascript</code>.</p><p>See the file <code>config/importmap.rb</code> for the complete list of pinned imports.</p><p>The files from <code>/vendor/javascript</code> are handled like other assets: they
 will get a new filename with a fingerprint and in production
 they will be copied to <code>public/assets/</code>.</p></section>
-<section><a class='slide_break' href='assets_and_import_map.html#slide-24'>▻</a>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-22'>▻</a>
 <p>In <code>app/views/layouts/application.html.erb</code> you use</p><div class="interstitial code">
 <pre><code class="highlight erb"><span class="cp">&lt;%=</span> <span class="n">javascript_importmap_tags</span> <span class="cp">%&gt;</span>
 </code></pre>
@@ -481,7 +436,7 @@ new JavaScript features at work:</p><div class="interstitial code">
 ">Copy</button>
 </div>
 </section>
-<section><a class='slide_break' href='assets_and_import_map.html#slide-25'>▻</a>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-23'>▻</a>
 <p>A script tag with type importmap can define "bare" names for importing JavaScript modules.
 So instead of writing</p><div class="interstitial code">
 <pre><code class="highlight plaintext">import "https://myapp.at/assets/unicode-emoji-picker-c8299061.js";
@@ -497,8 +452,8 @@ So instead of writing</p><div class="interstitial code">
 </div>
 <p>The link tags with rel <code>modulpreload</code> tell the browser to load these files
 as soon as possible, so they will be available when an import-statment is encountered.</p></section>
-<section><a class='slide_break' href='assets_and_import_map.html#slide-26'>▻</a>
-<h3 id="writing-your-own-javascript-modules"><a class="anchorlink" href="#writing-your-own-javascript-modules"><span>6.2</span> Writing your own JavaScript modules</a></h3><p>The entrypoint for you own JavaScript is <code>app/javascript/application.js</code>.</p><p>From there you import and call you own modules:</p><div class="interstitial code">
+<section><a class='slide_break' href='assets_and_import_map.html#slide-24'>▻</a>
+<h3 id="writing-your-own-javascript-modules"><a class="anchorlink" href="#writing-your-own-javascript-modules"><span>5.2</span> Writing your own JavaScript modules</a></h3><p>The entrypoint for you own JavaScript is <code>app/javascript/application.js</code>.</p><p>From there you import and call you own modules:</p><div class="interstitial code">
 <pre><code class="highlight js"><span class="k">import</span> <span class="nx">Emoji</span> <span class="k">from</span> <span class="dl">"</span><span class="s2">src/emoji</span><span class="dl">"</span><span class="p">;</span>
 
 <span class="c1">// all the code that needs to run after DOMContentLoaded:</span>
@@ -550,8 +505,8 @@ export default Emoji;
 ">Copy</button>
 </div>
 </section>
-<section><a class='slide_break' href='assets_and_import_map.html#slide-27'>▻</a>
-<h3 id="importmaps-and-caching"><a class="anchorlink" href="#importmaps-and-caching"><span>6.3</span> Importmaps and Caching</a></h3><p>When the app is deployed, the javascript file will be published with fingerprints:</p><div class="interstitial code">
+<section><a class='slide_break' href='assets_and_import_map.html#slide-25'>▻</a>
+<h3 id="importmaps-and-caching"><a class="anchorlink" href="#importmaps-and-caching"><span>5.3</span> Importmaps and Caching</a></h3><p>When the app is deployed, the javascript file will be published with fingerprints:</p><div class="interstitial code">
 <pre><code class="highlight plaintext">/assets/application-d8a8613a.js
 /assets/unicode-emoji-picker-c8299061.js
 /assets/scrollable-component-a8230eb7.js
@@ -589,9 +544,10 @@ Pinning &quot;unicode-emoji-picker&quot; to vendor/javascript/unicode-emoji-pick
 will result in a new fingerprint.  Browsers that already have the other javascript
 file in cache will only need to load on new file.</p><p>(Contrast this to classic "JavaScript bundling" where all files are concatenated into one
 giant bundle, and every change leads to reloading the whole bundle.)</p></section>
-<section><a class='slide_break' href='assets_and_import_map.html#slide-28'>▻</a>
-<h2 id="further-reading"><a class="anchorlink" href="#further-reading"><span>7</span> Further Reading</a></h2>
+<section><a class='slide_break' href='assets_and_import_map.html#slide-26'>▻</a>
+<h2 id="further-reading"><a class="anchorlink" href="#further-reading"><span>6</span> Further Reading</a></h2>
 <ul>
+<li>Rails Guides: <a href="https://guides.rubyonrails.org/asset_pipeline.html">The Asset Pipeline (with propshaft)</a></li>
 <li>Souders(2007): High Performance Web Sites. O'Reilly. ISBN-13: 978-0596529307.</li>
 <li>Souders(2009): Even Faster Web Sites. O'Reilly. ISBN-13: 978-0596522308.</li>
 <li><a href="https://calendar.perfplanet.com/2024/">The Web Performance (Advent) Calendar</a> new every year</li>

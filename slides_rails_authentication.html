@@ -115,7 +115,7 @@ in the session hash are serialized, encrypted with a secret key and
 sent as the value of the session cookie.</p><p>The cookie is not saved on the server.</p><p>This way of handling state works well with load balancers and
 multiple web servers.</p></section>
 <section><a class='slide_break' href='rails_authentication.html#slide-7'>▻</a>
-<p>Even without a login, you can use the session to track a user
+<p>Even without authentication, you can use the session to track a user
 as they browse through the web app. For example you could count
 how many requests they have already made:</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="c1"># in app/controllers/application_controller.rb</span>
@@ -153,7 +153,14 @@ how many requests they have already made:</p><div class="interstitial code">
 for more details.</p></section>
 <section><a class='slide_break' href='rails_authentication.html#slide-8'>▻</a>
 <h2 id="authentication"><a class="anchorlink" href="#authentication"><span>2</span> Authentication</a></h2><p>The session lets you recognize the same user from one HTTP
-request to the next. But it does not - in itself - help to authenticate users.</p><p>The most common way to achieve authentication is through passwords.</p></section>
+request to the next. But it does not - in itself - help to authenticate users.</p><p>The most common way to achieve authentication is through passwords.
+For simple authentication with passwords there is a generator in Rails 8:</p><div class="interstitial code">
+<pre><code class="highlight ruby"><span class="n">rails</span> <span class="n">generate</span> <span class="n">authentication</span>
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="rails generate authentication
+">Copy</button>
+</div>
+</section>
 <section><a class='slide_break' href='rails_authentication.html#slide-9'>▻</a>
 <h3 id="password-storage"><a class="anchorlink" href="#password-storage"><span>2.1</span> Password Storage</a></h3><p>When storing passwords in a web app there are a lot of things you
 can do wrong: store the password as plain text, for example.</p><p>Rails comes with built in functions for handling passwords,

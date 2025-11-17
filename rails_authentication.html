@@ -51,15 +51,16 @@
                         <dd><a href="refactoring_rails.html">Refactoring Rails</a></dd>
                         <dd><a href="deploy-to-paas.html">Deploy to PAAS</a></dd>
                         <dd><a href="rails_gems.html">Ruby Gems for your Rails Project</a></dd>
+                        <dd><a href="deploying_rails.html">Deploying Rails</a></dd>
                     </div>
                     <div class="guides-section">
                       <dt>Ruby on Rails - Advanced Topics</dt>
+                        <dd><a href="deploy-to-paas.html">Deploy to PAAS</a></dd>
                         <dd><a href="rest-api.html">REST API</a></dd>
                         <dd><a href="graphql-api.html">GraphQL API</a></dd>
                         <dd><a href="rails_websockets.html">Websocket in Rails</a></dd>
                         <dd><a href="jobs_and_tasks.html">Jobs and Tasks in Rails</a></dd>
                         <dd><a href="rails_security.html">Rails Security</a></dd>
-                        <dd><a href="deploying_rails.html">Deploying Rails</a></dd>
                     </div>
                     <div class="guides-section">
                       <dt>Overarching Concerns</dt>
@@ -100,14 +101,15 @@
                       <option value="refactoring_rails.html">Refactoring Rails</option>
                       <option value="deploy-to-paas.html">Deploy to PAAS</option>
                       <option value="rails_gems.html">Ruby Gems for your Rails Project</option>
+                      <option value="deploying_rails.html">Deploying Rails</option>
                   </optgroup>
                   <optgroup label="Ruby on Rails - Advanced Topics">
+                      <option value="deploy-to-paas.html">Deploy to PAAS</option>
                       <option value="rest-api.html">REST API</option>
                       <option value="graphql-api.html">GraphQL API</option>
                       <option value="rails_websockets.html">Websocket in Rails</option>
                       <option value="jobs_and_tasks.html">Jobs and Tasks in Rails</option>
                       <option value="rails_security.html">Rails Security</option>
-                      <option value="deploying_rails.html">Deploying Rails</option>
                   </optgroup>
                   <optgroup label="Overarching Concerns">
                       <option value="security.html">Security</option>
@@ -285,7 +287,7 @@ sent as the value of the session cookie.</p><p>The cookie is not saved on the se
 multiple web servers.</p></div>
 <div class='slide'>
 <p class='slide_break_block'><a class='slide_break' id='slide-7' href='slides_rails_authentication.html#/7'>◻</a></p>
-<p>Even without a login, you can use the session to track a user
+<p>Even without authentication, you can use the session to track a user
 as they browse through the web app. For example you could count
 how many requests they have already made:</p><div class="interstitial code">
 <pre><code class="highlight ruby"><span class="c1"># in app/controllers/application_controller.rb</span>
@@ -324,7 +326,14 @@ for more details.</p></div>
 <div class='slide'>
 <p class='slide_break_block'><a class='slide_break' id='slide-8' href='slides_rails_authentication.html#/8'>◻</a></p>
 <h2 id="authentication"><a class="anchorlink" href="#authentication"><span>2</span> Authentication</a></h2><p>The session lets you recognize the same user from one HTTP
-request to the next. But it does not - in itself - help to authenticate users.</p><p>The most common way to achieve authentication is through passwords.</p></div>
+request to the next. But it does not - in itself - help to authenticate users.</p><p>The most common way to achieve authentication is through passwords.
+For simple authentication with passwords there is a generator in Rails 8:</p><div class="interstitial code">
+<pre><code class="highlight ruby"><span class="n">rails</span> <span class="n">generate</span> <span class="n">authentication</span>
+</code></pre>
+<button class="clipboard-button" data-clipboard-text="rails generate authentication
+">Copy</button>
+</div>
+</div>
 <div class='slide'>
 <p class='slide_break_block'><a class='slide_break' id='slide-9' href='slides_rails_authentication.html#/9'>◻</a></p>
 <h3 id="password-storage"><a class="anchorlink" href="#password-storage"><span>2.1</span> Password Storage</a></h3><p>When storing passwords in a web app there are a lot of things you
